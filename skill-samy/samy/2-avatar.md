@@ -81,6 +81,23 @@ Dejar de depender de referidos y tener **adquisición predecible** de clientes c
 
 > **Frase-ancla del avatar A:** el dolor central no es el nicho — es la **falta de un sistema para convertir tráfico frío** (lo que ya logran con referidos no escala).
 
+### Verbatim adicional (9 calls finales)
+- "I've been the pulpo. I'm tired of being the pulpo." · "If your business depends on you to sell, it's not a business." (Gabriel Barros)
+- "Tiene todo referido… pero llega un punto en que necesitamos escalar y que vengan clientes que no sean referidos." (Diana García / Revive Consulting)
+- "De los 30, 40 clientes que entraron [con la agencia anterior], no se cerró ni uno. Ninguno se calificó." · "Los leads son más helados, no puede ser más congelada posible." (Diana — origen verbatim de "leads congelados")
+- "The math has to math. Tiene que hacer sentido." (Diana)
+- "Necesito que si me traes 3 leads, esos 3 leads yo le pueda vender. No necesito 5,000 leads." · "Lo que estoy buscando es un aliado… si tú eres mi aliado de marketing, yo voy a estar 20 años contigo." (Jorge Flores — lead sofisticado, ya tiene funding y agencia propia)
+- "Quiero salir de mi trabajo [W-2]." + leads no calificados, sin sistema. (Michael Sena Díaz)
+- Mamá sola + trabajo full-time + la agencia anterior la dejó sin resultados. (Lizeth)
+- Abrumada haciendo todo sola; "tiene 9 clientes a los que ni les ha cobrado". (Wendy)
+- Dependiente de referidos de dealers, ads suspendidas; un competidor le ofrece "garantía de 100 clientes en 100 días". (René Verizon)
+- Orgánico insostenible + desconfianza por **robo previo de $30K**; avatar de su mercado con baja alfabetización digital. (Sergio Durán — cerró)
+
+> **Driver emocional universal (los 5 últimos casos lo confirman):** salir del W-2 / del orgánico / de ser el pulpo → **independencia**. Y el miedo recurrente no es al precio: **es a volver a perder** (agencia que no cerró, ads quemadas, plata robada).
+
+### Nota: Avatar B aparece también en las calls
+**Richard Guerrero** (educador financiero / academia digital, vende un curso de ~$29.99/mes, 3 bancarrotas propias) es un caso real de **Avatar B** dentro de las calls: "no me puedo volver especialista en marketing también" · "lo que no quiero perder es tiempo" · quería **comunicar desde su experiencia de fracaso**, no como "buró de crédito experto". Útil para objeciones y voz del Avatar B.
+
 ## Creencias limitantes
 - "Necesito aprender yo a hacer el marketing / los ads."
 - "Más contenido / más videos = más ventas."

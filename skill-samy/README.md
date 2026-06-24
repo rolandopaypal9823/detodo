@@ -56,6 +56,6 @@ En su lugar se construye: la **voz, frameworks e historia**; el **avatar + dolor
 ## Estado del corpus (al 2026-06-24)
 
 - **YouTube:** 27 transcripciones ✅ (voz, frameworks, historia, avatar B).
-- **Calls de venta (Fathom):** 17 sustanciosas con texto ✅ de 27 (faltan 9: Michael Sena Díaz, Sergio Durán, Lizeth + 6 por identificar).
-- **Docs Avatar B:** cliente ideal ✅, seguidor ideal ✅, mensaje de marketing Blissful ✅, brand voicing (identidad visual) ✅.
-- **Pendiente:** PDF de testimonios (para casos de éxito) + las 9 calls faltantes.
+- **Calls de venta (Fathom):** **26 de 27 con texto ✅** (corpus completo; solo Alexa Botello #2 es un fragmento de 2 min sin contenido). Mayoría Avatar A; Richard Guerrero es un caso real de Avatar B.
+- **Docs Avatar B:** cliente ideal ✅, seguidor ideal ✅, mensaje de marketing Blissful ✅, brand voicing ✅, **contexto técnico/funcional del dashboard ✅ (precio v1 = USD 300, white-label)**.
+- **Pendiente:** **PDF/PNGs de testimonios** (para casos de éxito — el último zip subido era el de calls, no los testimonios).

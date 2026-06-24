@@ -60,6 +60,16 @@
 **Qué hay detrás:** quiere atar el pago al resultado para reducir su riesgo.
 **Respuesta honesta:** explicar por qué el modelo de fee fijo es necesario (el equipo pone todo el trabajo *up front*: guiones, edición, landing, ads, CRM) y cómo el modelo mensual ya alinea incentivos sin volver el servicio insostenible. Ser claro y no esconder el precio real.
 
+## 9. "Un competidor me ofrece una garantía (ej. 100 clientes en 100 días)"
+**En palabras del lead:** un competidor le promete "garantía de 100 clientes en 100 días" (René Verizon).
+**Qué hay detrás:** la garantía numérica suena más segura; está comparando.
+**Respuesta honesta:** ser transparente en que **garantizar un número exacto de clientes no es honesto** (depende del nicho, el cierre del cliente, el mercado). En vez de competir con una promesa inflada, mostrar el **mecanismo** (mensaje → embudo con filtros → leads calificados), explicar de qué sí se responsabiliza el equipo (ejecución, optimización, seguir hasta tener movimiento) y dejar que el lead compare la sustancia, no el número. *(Esto es el contrapeso honesto a la sección 10: no igualar earnings/lead claims fabricados.)*
+
+## 10. "Ya me estafaron / me robaron antes"
+**En palabras del lead:** desconfianza fuerte por **robo previo de $30K** (Sergio) · "fui víctima de reparadores de crédito, perdí $12,500" (Richard) · "hay muchos scams en este mercado".
+**Qué hay detrás:** herida real; necesita seguridad, no más promesas.
+**Respuesta honesta:** reconocer el scam del mercado abiertamente, mostrar transparencia (Samy toma sus propias llamadas, equipo chico, llamadas semanales, proceso a la vista), y dar expectativas realistas. La confianza se gana con claridad y prueba del mecanismo, no con presión.
+
 ---
 
 ## ⚠️ Lo que NO se sistematiza (detectado en las calls — sección 10)
@@ -74,9 +84,16 @@ Estas tácticas aparecen en las grabaciones. Se documentan para conciencia inter
 ---
 
 # OBJECIONES — Avatar B (creadores / Blissful)
-> *(A construir cuando lleguen calls/objeciones reales del avatar B. Por ahora, las "creencias erróneas" del doc de cliente ideal funcionan como objeciones anticipadas — ver `2-avatar.md`.)*
 
+## Anticipadas (del doc de cliente ideal)
 - "Me falta más contenido" → el problema es claridad de mensaje, no volumen.
 - "Todavía no doy con el funnel correcto" → cambiar de vehículo sin diagnosticar reinicia el problema.
 - "Si ya sé la teoría, debería resolverlo sola" → le falta el sistema que convierte criterio en decisiones, no más teoría.
-- "Es otra herramienta más para guardar ideas" → no: convierte data orgánica en dirección creativa y comercial.
+- "Es otra herramienta más para guardar ideas / ver métricas" → no: **interpreta** la data y te dice qué hacer, en tu voz.
+- "¿Vale USD 300?" → ahorra horas de planillas sin saber qué hacer; arma el embudo sobre tu contenido real; genera copies/hooks en tu voz; reporte mensual en PDF.
+
+## Reales (de la call de Richard Guerrero — Avatar B)
+- **"Quiero un contrato con cada entregable y deadlines."** → Honesto: **darle claridad de alcance** (lista de entregables + tiempos), no esquivarlo. (Richard *pidió* contrato — es lo opuesto a la táctica de "no hay contrato"; la respuesta honesta es dar la claridad que pide.)
+- **"No me puedo volver especialista en marketing también."** → Exacto: por eso el sistema/servicio le quita esa carga; él se queda con su expertise.
+- **"No quiero 'fantochar' ni que me magnifiquen como un gurú que no soy."** → Honesto: posicionar desde su **experiencia real** (incluido el fracaso) en vez de inflar una autoridad falsa. Encaja con la voz anti-perfección de Samy.
+- **"Lo que no quiero perder es tiempo."** → el dolor #1 del Avatar B: claridad para no desperdiciar esfuerzo.

@@ -79,32 +79,39 @@ El dueño de reparación de crédito deja de depender de referidos y de ser el "
 # OFERTA B — Blissful (dashboard de analítica de contenido)
 
 ## Qué resuelve
-El creador deja de **adivinar** qué postear. Blissful **centraliza el contenido, lee las métricas, identifica patrones y los convierte en decisiones**. Pasa de "ver métricas" a **entenderlas**, y de la observación a la acción **en un mismo lugar**.
+El creador deja de **adivinar** qué postear. Blissful **no muestra números: los interpreta y dice qué hacer.** Convierte el export crudo de Meta/Instagram en **decisiones accionables** (con y sin IA). Centraliza el contenido, lee las métricas, identifica patrones y los convierte en decisiones. Pasa de "ver métricas" a **entenderlas**.
 
 > Dolor que ataca (verbatim): *"No me faltaba equipo. No me faltaban herramientas. Me faltaba claridad."* · *"Las métricas estaban en un lugar, las ideas en otro, los guiones en otro… saltar entre cinco plataformas."*
 
-## Mecanismo / propuesta de valor
-- Centraliza contenido (Reels, historias, carruseles, emails) y **lee señales**: qué emoción movió, qué mensaje generó curiosidad, qué formato retuvo, qué CTA abrió conversaciones.
-- No solo "cuál Reel tuvo más views" → **por qué** captó atención.
-- Convierte la **data orgánica en dirección creativa y comercial**: repetir lo que tiene evidencia, cortar lo que solo ocupa espacio, generar variaciones/hooks/guiones.
-- Cambio central: **"No es más contenido. Es más criterio. No es más información. Es más claridad."**
+## Qué es / formato
+- **Dashboard de analítica de redes, white-label** (sirve para cualquier marca/cliente).
+- El usuario **sube el archivo de Meta** (CSV/Excel de posteos y de stories); el dashboard **parsea y segmenta** solo (formato Reel/Carrusel, colaboraciones, categorías por hashtag/UTM, duración, horario) y persiste en la nube (no hay que volver a subir).
 
-## Mensaje de marketing — por fases de consciencia (del doc Blissful)
-> Estructura lista para landing/email. Orden: **no me conoce → contexto → conexión personal → consciente de problema → consciente de solución → beneficio de solución.** Ver `samy/6-ctas-y-lead-magnets.md` y el doc fuente para los copies largos.
+## Mecanismo / qué hace (v1)
+**Sin IA (lógica del dashboard, gratis de correr):**
+- **Rankings por formato** (mejores/peores) con el "por qué".
+- **Tabla por tipo de contenido** (views, comentarios, follows, engagement rate).
+- **Mejor franja horaria** + **análisis por duración** del reel.
+- **Embudo (el corazón):** clasifica el contenido en **TOF** (alcance/views) → **MOF** (engagement) → **BOF** (tráfico caliente = **respuestas a stories + follows**). + **análisis de CTA** (qué palabra/frase de call-to-action funcionó, para replicarla).
+- **Stories** como apartado propio (BOF cuando generan respuestas).
+- **Tendencias** (series semanales, deltas), **reporte mensual exportable a PDF**, **calendario** (stories vs reels en colores).
 
-1. **No me conoce (autoridad + historia):** "No llegué a redes sociales porque quería hacerme viral. Llegué porque necesitaba una forma más inteligente de hacer crecer un negocio que dependía demasiado de mí." (Agencia de tutorías >$20K/mes → marca de marketing >$100K.) Tesis: **"La viralidad no es el objetivo."**
-2. **Contexto:** contrataba editor/CM/asistentes esperando que supieran qué hacer, pero "no podía convertir ese criterio en un sistema / en un SOP". El problema no era equipo ni herramientas: era **claridad**. Data fragmentada en 5 plataformas.
-3. **Conexión personal:** llevar la conversación del mundo de la data al **mundo emocional**. "La gente no se despierta pensando 'necesito una mejor plataforma'. Se despierta pensando '¿por qué este Reel que amé no conectó?'". Insight: *"yo no estaba buscando viralidad, estaba buscando evidencia."*
-4. **Consciente de problema:** "estamos tan ocupados produciendo que dejamos de analizar". Las respuestas ya existen (comentarios, guardados, respuestas a historias, tiempo de visualización) pero están dispersas. *"No nos falta contenido. No nos faltan ideas. No nos falta disciplina. Lo que nos falta es claridad."*
-5. **Consciente de solución:** dejar de tratar cada pieza como intento aislado y verla como **información**. Un sistema que centraliza, lee patrones y los vuelve decisiones.
-6. **Beneficio de solución:** publicar desde estrategia (no desde "tengo que mantenerme activa"); reach que crece por **repetir patrones con evidencia**; marca que "deja huella porque entiende exactamente qué la hace conectar".
+**Con IA (Claude, on-demand — solo consume cuando el usuario lo pide):**
+- **Insight IA:** lee la data filtrada y devuelve observaciones + accionables (hooks, patrones de apertura, palabras ganadoras, qué seguir/qué no).
+- **Chat IA:** "analista senior" con toda la data cargada; cita números reales, no inventa.
+- **Cerebro IA / Contexto de marca:** ingiere los `.md` de la marca (**avatar, voz, oferta, objeciones, casos**) y escribe **en la voz de la marca**. → **Este skill es exactamente ese cerebro.**
+- **Generación de copy** (marca + data real): 3 hooks de reel, captions, ideas de stories.
 
 ## Posicionamiento / diferencial
-- NO es "otra plataforma para guardar ideas" → es "un sistema para convertir tu data orgánica en dirección creativa y comercial".
+- NO es "otra plataforma para guardar ideas / ver métricas" → es "un sistema que **interpreta** tu data orgánica y te dice qué hacer", en tu voz.
 - Anti-viralidad, pro-evidencia. Habla de **comportamiento humano**, no de dashboards.
+- White-label; cada cliente usa su **propia** API key de Anthropic (cada uno paga lo suyo).
 
 ## Precio y términos
-- ⬜ *Pendiente de definir / confirmar con Rolando (MVP vs. Pro/2.0).*
+- **USD 300** — primera versión (v1). White-label.
+- Estado: **funcional y deployado** (Netlify). Probado con data real (97 posteos + 385 stories, ene–jun 2026). **Primer cliente de prueba: Samy.**
+- Pendiente operativo antes de vender en escala: cada sitio con su propia key + activar `DATA_TOKEN`.
 
-## Visión futura (roadmap — NO sistematizar aún)
-"Laboratorio" central: centraliza ads, orgánico, setting, conversiones y llamadas de venta; da output accionable por fase del embudo; integraciones (ManyChat, Fathom, n8n); métricas por embudo; eventualmente reemplaza Airtable/Notion. Semillero de upsell del Avatar B.
+## Roadmap (NO sistematizar aún)
+Corto plazo: comparativa Posteos vs Stories, baseline sin outliers / save rate, alerta de stickers, modo dedicado de copy, guardar borradores. Con IA: resumen ejecutivo en el PDF, clustering de temas, "fórmula del hook ganador". Parkeado: subir PDFs al Cerebro IA.
+**Visión grande:** "laboratorio" central que centraliza ads, orgánico, setting, conversiones y llamadas de venta; integraciones (ManyChat, Fathom, n8n); métricas por embudo. Semillero de upsell del Avatar B.
