@@ -115,3 +115,15 @@ El creador deja de **adivinar** qué postear. Blissful **no muestra números: lo
 ## Roadmap (NO sistematizar aún)
 Corto plazo: comparativa Posteos vs Stories, baseline sin outliers / save rate, alerta de stickers, modo dedicado de copy, guardar borradores. Con IA: resumen ejecutivo en el PDF, clustering de temas, "fórmula del hook ganador". Parkeado: subir PDFs al Cerebro IA.
 **Visión grande:** "laboratorio" central que centraliza ads, orgánico, setting, conversiones y llamadas de venta; integraciones (ManyChat, Fathom, n8n); métricas por embudo. Semillero de upsell del Avatar B.
+
+---
+
+# OFERTA C — Flow Surge (mentoría de Samy) · contexto
+
+> La oferta del **deck/VSL** y de donde salen los casos verificables (Rocío, Pau, Camila, Dayana). Es la mentoría/programa propio de Samy para creadores que venden producto digital. Convive con Blissful (dashboard) en el mundo Avatar B.
+
+- **Promesa:** "agregar $10,000 a tu facturación mensual en 90 días" con **oferta muda + eje de contenido**.
+- **Mecanismo:** los frameworks de arriba (oferta muda, eje/árbol de contenido, Flow Funnel, mecanismo único camuflado), con inserción del equipo de Samy en el negocio del cliente.
+- **CTA:** "mándame la palabra **MENTORÍA** por Instagram".
+- **Posicionamiento (verbatim del deck):** "millones de vistas = 0 clientes" · "(+) viral ≠ (+) ventas" · "cuando tu mensaje está alineado, no tienes que forzar ventas: tus leads llegan filtrados, nutridos y queriendo tu ayuda".
+- Relación con Blissful: Flow Surge = acompañamiento/mentoría; Blissful = herramienta de analítica ($300). Pueden encadenarse (Blissful como lead magnet / producto de entrada hacia la mentoría).

@@ -4,17 +4,19 @@
 
 ## CTAs validados (verbatim)
 - **"Mándame la palabra MENTORÍA"** (DM trigger / ManyChat).
-- **"Agenda una llamada"** (para el servicio DFY / Flow Search).
+- **"Agenda una llamada"** (para el servicio DFY / Flow Surge).
 - **"Escríbeme por WhatsApp o por Instagram"** (cierre de video).
 - CTA suave de YouTube: dejar un **"muro"** reflexivo antes del CTA (no dejarlo en el aire).
 - Para email: un solo CTA por correo, alineado a la secuencia nutrir → conectar → convertir.
 
 > Regla de marca: el CTA nunca persigue ni presiona; "no hay necesidad de convencer a nadie si tenemos buen marketing". (Sección 10: nada de escasez fabricada tipo "solo quedan 2 cupos" si no es real.)
 
-## Estructura de calificación (para landing / video / anuncio)
-Bloque **"esto NO es para ti / esto SÍ es para ti"**:
-- **NO es para ti si:** buscas hacerte viral; quieres que alguien "te descubra el negocio"; no tienes oferta validada; quieres resultados sin implementar; comparas solo por precio.
-- **SÍ es para ti si:** ya vendes y quieres un sistema; tienes urgencia real; valoras estructura sobre "más estrategias sueltas"; quieres dejar de ser el cuello de botella.
+## Estructura de calificación (VERBATIM del deck/VSL)
+Bloque **"NO es para ti si / SÍ es para ti si"** (mundo Avatar B / Flow Surge):
+- **NO es para ti si:** aún no estás vendiendo un **producto digital**; te da miedo invertir en tu **crecimiento**; cambias de enfoque muy frecuente y no te enfocas en el **crecimiento longevo**.
+- **SÍ es para ti si:** quieres dejar de tener ingresos inestables y **escalar a $10k/mes** con tu producto digital; quieres que tu **contenido** traiga personas listas para comprar; te importa entregar un **servicio de calidad**.
+
+> Variante Avatar A (DFY crédito): NO si no tienes capital/entrega de servicio real ni quieres delegar; SÍ si ya vendes por referidos y quieres un sistema de adquisición predecible y dejar de ser el pulpo.
 
 ## Lead magnets
 - **Avatar A (DFY):** documentos/diagnósticos del embudo; el VSL de la landing como activo de filtrado.
@@ -35,5 +37,14 @@ Bloque **"esto NO es para ti / esto SÍ es para ti"**:
 - **Output / segmentación:** perfil de "dónde está tu fuga" + recomendación → entrada natural a Blissful. Frase-ancla: *"No te falta contenido ni disciplina. Te falta claridad."*
 - ⬜ Afinar las opciones de respuesta y el scoring con Rolando.
 
+## Estructura del VSL / webinar de Samy (del deck — 36 slides)
+Flujo probado, reutilizable para landing/VSL del Avatar B:
+1. **Promesa:** "estás a un cambio en tu contenido para tener ventas constantes" + bandeja llena de leads calificados.
+2. **¿Cómo funciona?** → **Oferta muda** (3 pilares ethos/logos/pathos + metáfora de la célula: tú = núcleo) → **Clave 2: eje de contenido** → **Punto de atracción** (el puente cliente→tú, mecanismo único camuflado en el contenido).
+3. **Bajarlo a tierra con la historia de Samy:** antes (frustrada: contenido sin estrategia, forzaba ventas, cero claridad, agotada, insegura, estancada) → después (claridad de mensaje, clientes calificados automáticamente, diferenciador sólido, flujo constante, alta retención, "simple, divertido y lleno de libertad"). "Y todo esto fue solo en 3 meses."
+4. **Prueba:** resultados ($) + paz + libertad + casos (Rocío, Pau, Camila, Dayana).
+5. **Posicionamiento (frases verbatim):** "millones de vistas = 0 clientes" · "(+) viral ≠ (+) ventas" · "Cuando tu mensaje está alineado, no tienes que forzar ventas: tus leads llegan filtrados, nutridos y queriendo tu ayuda" · "Negocios inestables, con ventas impredecibles, terminan siendo emprendedores que viven apagando incendios."
+6. **CTA:** *"¿Te gustaría agregar $10,000 a tu facturación mensual en 90 días con una oferta muda y un eje de contenido? Mándame la palabra **MENTORÍA** por Instagram."*
+
 ## Mapa de mensaje para landing/email de Blissful
-Usar las **6 fases de consciencia** del archivo `3-oferta-y-negocio.md` (no me conoce → contexto → conexión personal → consciente de problema → consciente de solución → beneficio). Insertar `[caso de éxito de NOMBRE]` donde corresponda una vez llegue el PDF de testimonios.
+Usar las **6 fases de consciencia** del archivo `3-oferta-y-negocio.md` (no me conoce → contexto → conexión personal → consciente de problema → consciente de solución → beneficio). Insertar `[caso de éxito de NOMBRE]` (Rocío $3.5k/48h · Pau $3k/3d · Camila $4k/5d · Dayana $5k/mes) donde corresponda.

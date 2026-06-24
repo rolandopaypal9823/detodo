@@ -9,7 +9,7 @@
 - **"micromarca personal"** — "una marca personal pequeña que no necesita tener miles de seguidores para llegar a los $10,000 mensuales."
 - **"eje de contenido"** / **"árbol de contenido"** — "el corazón de mi estrategia… organizar tu contenido en base a los dolores de tu cliente ideal."
 - **"Flow Funnel"** — 3 victorias: "seguidor calificado → agendar → llamada."
-- **"Flow Search" / "Flow"** — su programa.
+- **"Flow Surge" / "Flow"** — su programa.
 - **"tareas apalancadas"** — "escoge una tarea apalancada todos los días y te enfocas en esa, nada más."
 - **"hilo conductor"** · **"camuflado en el contenido"** · **"punto A / punto B"** · **"fugas"** · **"leads/tráfico calificado"** · **"filtra, nutre y convierte"**.
 - **"muro"** (cierre reflexivo del guion) · **"open loop"** (laguna en el cerebro) · **"oferta irresistible"** · **"microtransformaciones"** · **"efecto compuesto" / "bolita de nieve"** · **"marketing sintomático"** · **"shiny object syndrome"**.

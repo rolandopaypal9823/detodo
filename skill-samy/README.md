@@ -58,4 +58,5 @@ En su lugar se construye: la **voz, frameworks e historia**; el **avatar + dolor
 - **YouTube:** 27 transcripciones ✅ (voz, frameworks, historia, avatar B).
 - **Calls de venta (Fathom):** **26 de 27 con texto ✅** (corpus completo; solo Alexa Botello #2 es un fragmento de 2 min sin contenido). Mayoría Avatar A; Richard Guerrero es un caso real de Avatar B.
 - **Docs Avatar B:** cliente ideal ✅, seguidor ideal ✅, mensaje de marketing Blissful ✅, brand voicing ✅, **contexto técnico/funcional del dashboard ✅ (precio v1 = USD 300, white-label)**.
-- **Pendiente:** **PDF/PNGs de testimonios** (para casos de éxito — el último zip subido era el de calls, no los testimonios).
+- **Testimonios / deck:** ✅ 36 slides del VSL de Samy. Casos verificables con respaldo gráfico: **Rocío Di Loreto** ($3.5k/48h), **Pau Benítez** ($3k/3d), **Camila Arredondo** ($4k/5d), **Dayana Cruz** ($5k/mes) — clientas de **Flow Surge** (mentoría de Samy, mundo Avatar B).
+- **Tres ofertas:** A = DFY crédito ($2.5k/mes) · B = Blissful dashboard ($300) · **Flow Surge = mentoría de Samy** (la oferta del deck, "$10k/mes en 90 días", CTA "MENTORÍA").
