@@ -3,6 +3,20 @@
 > Guion para el Loom. Tiempo: ~3 minutos. No requiere nada técnico.
 > Recomendado: usar el modelo Claude más reciente (Opus 4.x / el que esté disponible).
 
+## Opción 0 — Instalar como SKILL nativo (lo más prolijo) ⭐
+
+Usás el archivo **`marca-samy-skill.zip`** (la carpeta `marca-samy/` con su `SKILL.md`).
+
+**En claude.ai (plan Pro/Max/Team/Enterprise):**
+1. **Settings → Capabilities → Skills**.
+2. **Upload skill** → subí `marca-samy-skill.zip`.
+3. Activá el skill. A partir de ahí Claude lo usa **solo** cuando el pedido encaja (anuncios, copy, contenido de Samy) — no tenés que andar adjuntando archivos cada vez.
+
+**En Claude Code:**
+- Copiá la carpeta `marca-samy/` a `~/.claude/skills/` (personal) o `.claude/skills/` (del proyecto). Queda disponible al reiniciar la sesión.
+
+> Diferencia con la Opción A: el **Skill** se activa automáticamente por contexto y es portable; el **Proyecto** (Opción A) tiene los archivos siempre cargados en ese proyecto. Para el equipo, el Skill es lo más cómodo.
+
 ## Opción A — Claude.ai con Proyectos (la recomendada para el equipo)
 
 1. **Entrá a [claude.ai](https://claude.ai)** con tu cuenta.
