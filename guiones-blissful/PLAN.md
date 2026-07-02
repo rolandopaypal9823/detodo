@@ -172,6 +172,7 @@ Así testeas la **misma persona/dolor con las dos estructuras** y aprendes cuál
 | **D2 · El bucle de la reacción** | G3 | G4 |
 | **D3 · La trampa del volumen** | G5 | G6 |
 | **D4 · La fuga invisible** | G7 | G8 |
+| **D5 · El espejismo del equipo** *("no puedes delegar criterio")* | G9 — guión bandera *(teasea el dashboard)* → ver `desarrollo-delegar-criterio.md` | G10 |
 
 **Add-on opcional (barato de testear):** **Banco de 20 hooks** (5 por dolor, tonos distintos:
 emocional/intelectual/aspiracional/humorístico/filosófico). Regla de Samy: testear el gancho por
