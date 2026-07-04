@@ -47,7 +47,7 @@ ahí delegas la ejecución con un SOP claro.
 
 **[Test participativo]** Así que durante los próximos 30 días, haz algo distinto. No mires únicamente las vistas. Agarra todos los videos de tu último mes y mira cuáles te trajeron más conversaciones. Cuáles te dieron más seguidores nuevos. Y pregúntate qué tenían en común: el gancho, la emoción, la historia, el formato. Escribe esas conclusiones… y de ahí saca muchas combinaciones de guiones nuevos.
 
-**[Muro + CTA participativo/teaser]** Porque cuando entiendes tu propio criterio, dejas de depender de que alguien venga a salvarte. // Y ahora, la pregunta honesta: ¿no sería muchísimo mejor si existiera una plataforma que hiciera todo esto por nosotros? ¿Qué opinan? Léanme abajo. 👀
+**[Muro + CTA participativo/teaser]** Porque cuando entiendes tu propio criterio, dejas de depender de que alguien venga a salvarte. // Y ahora, la pregunta honesta: ¿no sería muchísimo mejor si existiera una plataforma que hiciera todo esto por nosotros? ¿Qué opinan? Léanme abajo. // Y si quieres, comenta "CRITERIO" y te grabé un video simple donde te muestro, paso a paso, cómo construí mi propio criterio —antes de contratar a nadie— y cómo lo volví un instructivo para mi equipo. 👀
 
 ### 🎥 Notas de cámara / edición
 - **Formato:** talking head, cruda, sin sobre-editar (tu estilo — "ni me peiné, pero soy yo"). Buena luz + mic. Target 45–60s.
@@ -65,7 +65,7 @@ ahí delegas la ejecución con un SOP claro.
 > Hasta que entendí que nadie puede darte una claridad que tú todavía no tienes.
 > Puedes delegar la edición, el posteo, el diseño… pero el criterio se construye, no se contrata.
 > Te dejé el ejercicio de 30 días en el video. Hazlo y cuéntame qué encontraste. 👇
-> *(¿Y no sería mejor si algo hiciera esto por nosotros? Coméntame **CRITERIO** 👀)*
+> *(¿Y no sería mejor si algo hiciera esto por nosotros? Comenta **CRITERIO** y te mando un video de 3 pasos donde te muestro cómo construí mi criterio antes de contratar a nadie. 👀)*
 > #contenidoconestrategia #marcapersonal #creadorasdecontenido
 
 ---
@@ -80,7 +80,7 @@ ahí delegas la ejecución con un SOP claro.
 
 **[4 · Menú de posibilidades]** Y ya lo intentaste: contrataste, delegaste, hiciste reuniones para explicar "lo que querías". Pero no puedes explicar lo que tú misma no tienes claro. Terminaste corrigiéndoles todo, frustrada, haciendo más trabajo del que delegaste.
 
-**[5 · Puente obvio]** El criterio no se contrata — se construye leyendo tu propia data hasta que el patrón se vuelve obvio. Y RECIÉN ahí puedes delegar la ejecución, porque por fin sabes qué pedir. Si quieres ver cómo se construye ese criterio antes de contratar a nadie, coméntame "CRITERIO". 👀
+**[5 · Puente obvio]** El criterio no se contrata — se construye leyendo tu propia data hasta que el patrón se vuelve obvio. Y RECIÉN ahí puedes delegar la ejecución, porque por fin sabes qué pedir. Comenta "CRITERIO" y te muestro en un video simple cómo construí mi propio criterio —antes de contratar a nadie— y cómo lo volví un instructivo para mi equipo. 👀
 
 ---
 
