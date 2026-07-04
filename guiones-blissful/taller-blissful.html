@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taller de contenido · Blissful</title>
+<style>
+  :root{
+    --paper:#F7F5F1; --surface:#FFFFFF; --surface-2:#FBF9F5;
+    --ink:#201D1A; --muted:#6E675C; --line:#E5DFD4; --line-strong:#D6CEBF;
+    --flow:#17706B; --flow-soft:#E2EFEC; --flow-ink:#0E4D49;
+    --heat:#DB5A2C; --heat-soft:#FBE9DF; --heat-ink:#A63F17;
+    --shadow:0 1px 2px rgba(32,29,26,.05),0 6px 20px rgba(32,29,26,.06);
+    --radius:12px;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#16130E; --surface:#211D16; --surface-2:#1B180F;
+      --ink:#F1EBDE; --muted:#A79E8D; --line:#332E24; --line-strong:#413A2D;
+      --flow:#54B7AF; --flow-soft:#123230; --flow-ink:#8FD6CF;
+      --heat:#E8794E; --heat-soft:#3A2015; --heat-ink:#F0A481;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.32);
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#F7F5F1; --surface:#FFFFFF; --surface-2:#FBF9F5;
+    --ink:#201D1A; --muted:#6E675C; --line:#E5DFD4; --line-strong:#D6CEBF;
+    --flow:#17706B; --flow-soft:#E2EFEC; --flow-ink:#0E4D49;
+    --heat:#DB5A2C; --heat-soft:#FBE9DF; --heat-ink:#A63F17;
+    --shadow:0 1px 2px rgba(32,29,26,.05),0 6px 20px rgba(32,29,26,.06);
+  }
+  :root[data-theme="dark"]{
+    --paper:#16130E; --surface:#211D16; --surface-2:#1B180F;
+    --ink:#F1EBDE; --muted:#A79E8D; --line:#332E24; --line-strong:#413A2D;
+    --flow:#54B7AF; --flow-soft:#123230; --flow-ink:#8FD6CF;
+    --heat:#E8794E; --heat-soft:#3A2015; --heat-ink:#F0A481;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.32);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+    font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;text-wrap:balance;margin:0}
+
+  /* top bar */
+  .topbar{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--paper) 88%,transparent);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .topbar-in{max-width:1000px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px}
+  .brand{display:flex;flex-direction:column;line-height:1.15;margin-right:auto}
+  .brand .t{font-family:var(--serif);font-size:19px;font-weight:600}
+  .brand .s{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .btn{font-family:var(--sans);font-size:13px;font-weight:550;color:var(--ink);background:var(--surface);
+    border:1px solid var(--line-strong);border-radius:8px;padding:7px 12px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:6px;transition:border-color .15s,background .15s,transform .05s}
+  .btn:hover{border-color:var(--flow)}
+  .btn:active{transform:translateY(1px)}
+  .btn:focus-visible{outline:2px solid var(--flow);outline-offset:2px}
+
+  /* tab strip */
+  .tabs{position:sticky;top:57px;z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+  .tabs-in{max-width:1000px;margin:0 auto;padding:0 14px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:thin}
+  .tab{flex:0 0 auto;font-family:var(--sans);font-size:14px;font-weight:550;color:var(--muted);
+    background:transparent;border:0;border-bottom:2.5px solid transparent;padding:12px 14px;cursor:pointer;white-space:nowrap;
+    display:inline-flex;align-items:center;gap:7px}
+  .tab:hover{color:var(--ink)}
+  .tab[aria-selected="true"]{color:var(--flow-ink);border-bottom-color:var(--flow)}
+  .tab:focus-visible{outline:2px solid var(--flow);outline-offset:-4px;border-radius:4px}
+  .tab .del{font-family:var(--sans);color:var(--muted);border:0;background:transparent;cursor:pointer;
+    font-size:15px;line-height:1;padding:0 2px;border-radius:4px}
+  .tab .del:hover{color:var(--heat)}
+  .tab-add{color:var(--flow);font-weight:600}
+
+  main{max-width:1000px;margin:0 auto;padding:26px 20px 90px}
+  .panel{display:none;animation:fade .25s ease}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto}}
+
+  .lead{max-width:66ch;color:var(--muted);font-size:15px;margin:0 0 22px}
+  .lead b{color:var(--ink)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--heat-ink);margin-bottom:8px}
+  section.dolor{margin:34px 0 8px}
+  section.dolor > h2{font-size:22px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .dcount{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.05em}
+  .dquote{color:var(--muted);font-style:italic;font-size:14.5px;margin:4px 0 14px;max-width:64ch}
+
+  /* guión card */
+  details.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);margin:12px 0;overflow:hidden}
+  details.card[open]{border-color:var(--line-strong)}
+  summary{list-style:none;cursor:pointer;padding:15px 18px;display:flex;align-items:center;gap:11px;
+    user-select:none}
+  summary::-webkit-details-marker{display:none}
+  summary:focus-visible{outline:2px solid var(--flow);outline-offset:-3px;border-radius:var(--radius)}
+  .chev{color:var(--muted);transition:transform .2s;flex:0 0 auto;font-size:12px}
+  details[open] .chev{transform:rotate(90deg)}
+  .gid{font-family:var(--mono);font-weight:600;font-size:13px;color:var(--flow-ink);
+    background:var(--flow-soft);border-radius:6px;padding:3px 8px;flex:0 0 auto}
+  .gtitle{font-family:var(--serif);font-size:17px;font-weight:600;flex:1 1 auto;min-width:0}
+  .badge{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+    padding:3px 8px;border-radius:20px;flex:0 0 auto}
+  .badge.e1{color:var(--flow-ink);border:1px solid var(--flow)}
+  .badge.e2{color:var(--surface);background:var(--flow);border:1px solid var(--flow)}
+
+  .body{padding:2px 18px 18px;border-top:1px solid var(--line)}
+  .beat{margin:13px 0}
+  .beat .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--muted);display:block;margin-bottom:3px}
+  .txt{outline:none;border-radius:6px;padding:2px 4px;margin:-2px -4px;transition:background .15s,box-shadow .15s}
+  .txt[contenteditable]:hover{background:var(--surface-2)}
+  .txt[contenteditable]:focus{background:var(--surface-2);box-shadow:0 0 0 2px var(--flow)}
+  .muro .txt{font-family:var(--serif);font-size:16.5px;font-style:italic}
+
+  /* cta chooser */
+  .ctabox{margin-top:15px;border:1px dashed var(--line-strong);border-radius:10px;padding:13px 14px;background:var(--surface-2)}
+  .ctarow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .switch{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted)}
+  .switch input{position:absolute;opacity:0;width:0;height:0}
+  .track{width:44px;height:24px;border-radius:20px;background:var(--line-strong);position:relative;transition:background .2s;flex:0 0 auto}
+  .track::after{content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;
+    background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.2);transition:transform .2s}
+  .switch input:checked + .track{background:var(--heat)}
+  .switch input:checked + .track::after{transform:translateX(20px)}
+  .switch input:focus-visible + .track{outline:2px solid var(--flow);outline-offset:2px}
+  .swlabel .on{color:var(--heat-ink)}
+  .cta-line{margin-top:11px;font-size:14.5px;color:var(--heat-ink);border-left:3px solid var(--heat);
+    padding-left:11px;transition:opacity .2s}
+  .cta-line[data-on="false"]{opacity:.4;filter:grayscale(.5)}
+  .cta-line .k{font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+  .cta-alt{font-size:12.5px;color:var(--muted);margin-top:3px}
+  .rowbtns{display:flex;gap:8px;margin-top:13px;flex-wrap:wrap}
+  .mini{font-family:var(--sans);font-size:12.5px;font-weight:550;padding:5px 10px;border-radius:7px;
+    border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);cursor:pointer}
+  .mini:hover{border-color:var(--flow)}
+  .mini:active{transform:translateY(1px)}
+  .mini.ok{border-color:var(--flow);color:var(--flow-ink)}
+
+  /* hooks */
+  .hooks{list-style:none;padding:0;margin:8px 0 0;counter-reset:h}
+  .hooks li{counter-increment:h;position:relative;padding:11px 12px 11px 40px;border:1px solid var(--line);
+    border-radius:9px;margin:7px 0;background:var(--surface)}
+  .hooks li::before{content:counter(h);position:absolute;left:12px;top:11px;font-family:var(--mono);
+    font-size:12px;color:var(--flow);font-weight:700}
+  .hooks .tag{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.02em}
+
+  /* tables */
+  .tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);margin:14px 0;box-shadow:var(--shadow)}
+  table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px;background:var(--surface)}
+  th,td{text-align:left;vertical-align:top;padding:11px 13px;border-bottom:1px solid var(--line)}
+  th{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);
+    background:var(--surface-2);position:sticky;top:0}
+  tr:last-child td{border-bottom:0}
+  .kw{font-family:var(--mono);font-weight:700;color:var(--heat-ink);background:var(--heat-soft);
+    padding:2px 7px;border-radius:5px;font-size:12.5px;white-space:nowrap}
+  .naming{color:var(--flow-ink);font-weight:600}
+
+  .newtab-hint{color:var(--muted);font-size:14px;margin:0 0 12px}
+  .scratch{min-height:300px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;box-shadow:var(--shadow);outline:none;font-size:15px;line-height:1.6}
+  .scratch:focus{box-shadow:0 0 0 2px var(--flow)}
+  .scratch:empty::before{content:attr(data-ph);color:var(--muted)}
+
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:var(--paper);font-size:13.5px;font-weight:550;padding:10px 18px;border-radius:24px;
+    box-shadow:0 8px 30px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .savedot{font-family:var(--mono);font-size:11px;color:var(--muted)}
+  footer{max-width:1000px;margin:0 auto;padding:8px 20px 40px;color:var(--muted);font-size:12.5px}
+  footer b{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <span class="t">Taller de contenido</span>
+      <span class="s">Blissful · voz de Samy</span>
+    </div>
+    <span class="savedot" id="savedot">Autoguardado activo</span>
+    <button class="btn" id="exportBtn" title="Copiar todo como texto">Exportar</button>
+    <button class="btn" id="themeBtn" title="Cambiar tema" aria-label="Cambiar tema">◐ Tema</button>
+    <button class="btn" id="resetBtn" title="Borrar mis ediciones guardadas">Restablecer</button>
+  </div>
+</div>
+
+<div class="tabs" role="tablist" aria-label="Secciones">
+  <div class="tabs-in" id="tabstrip">
+    <button class="tab" role="tab" data-tab="dolores" aria-selected="true">Dolores</button>
+    <button class="tab" role="tab" data-tab="guiones" aria-selected="false">Guiones</button>
+    <button class="tab" role="tab" data-tab="hooks" aria-selected="false">Hooks</button>
+    <button class="tab" role="tab" data-tab="looms" aria-selected="false">Looms</button>
+    <button class="tab" role="tab" data-tab="ctas" aria-selected="false">CTAs</button>
+    <button class="tab tab-add" id="addTab" title="Crear una pestaña nueva editable">+ Pestaña</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- DOLORES -->
+  <section class="panel active" id="p-dolores" role="tabpanel">
+    <div class="eyebrow">El mapa</div>
+    <h1 style="font-size:27px;margin-bottom:8px">Los 5 dolores</h1>
+    <p class="lead">Todo el contenido nace de un dolor en las <b>palabras textuales</b> de la creadora. De cada uno sacamos su <b>Secreto en la Ducha</b> (el pensamiento crudo) y su <b>1% faltante</b> (la causa oculta con nombre). El producto: el <b>dashboard de contenido</b> — no muestra números, los interpreta y te dice qué hacer.</p>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>Dolor</th><th>Secreto en la Ducha</th><th>1% faltante</th><th>Lo resuelve el dashboard <span style="text-transform:none">(v1)</span></th></tr></thead>
+        <tbody>
+          <tr><td><b>D1 · La señal enterrada</b><br><i>"¿Por qué este Reel que amé no conectó?… lo peor es que no sabes por qué."</i></td><td>"Le metí 3 horas, me encantaba, y nada. Lo que me carcome es que no sé <i>por qué</i>."</td><td class="naming">La respuesta ya existe (comentarios, guardados, respuestas a stories) pero vive dispersa en 5 plataformas.</td><td>Insight IA + rankings por formato con el "por qué" + palabras ganadoras del CTA.</td></tr>
+          <tr><td><b>D2 · El bucle de la reacción</b><br><i>"¿Por qué sigo sintiendo que estoy adivinando?"</i></td><td>"Publico, no pasa nada, y ya estoy cambiando el gancho. Es apostar y rezar."</td><td class="naming">Creás desde el susto del último post, no desde lo que entendiste.</td><td>Chat IA "analista senior" que cita tus números reales → decidís con evidencia.</td></tr>
+          <tr><td><b>D3 · La trampa del volumen</b><br><i>"Tantos emprendedores terminan agotados…"</i></td><td>"Estoy reventada. ¿Construyo un negocio o me armé otro empleo del que no puedo salir?"</td><td class="naming">Más contenido no corrige un mensaje desenfocado, solo multiplica el ruido.</td><td>Rankings mejores/peores → qué eliminar y qué repetir.</td></tr>
+          <tr><td><b>D4 · La fuga invisible</b><br><i>"No me importa cuántos likes… me importa cuántas conversaciones generó."</i></td><td>"Tengo Reels con mil vistas y cero mensajes. No sé dónde se cae la gente."</td><td class="naming">Mirás la punta del embudo mientras la fuga está más abajo (TOF→MOF→BOF).</td><td>El Embudo TOF/MOF/BOF + stories como BOF + análisis de CTA.</td></tr>
+          <tr><td><b>D5 · El espejismo del equipo</b><br><i>"…no puedes delegar criterio."</i></td><td>"Pago por manos cuando lo que me falta es cabeza. ¿Y si no sé ni qué pedirles?"</td><td class="naming">Un equipo no crea tu claridad, la amplifica: entrás con confusión, contratás confusión a escala.</td><td>Cerebro IA en tu voz + generación de copy → construís el criterio y lo volvés SOP.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="lead" style="margin-top:20px"><b>2 estructuras.</b> <b>E1 "Confesión → Giro → Test"</b> (voz orgánica · conexión). <b>E2 Funnel 400%</b> (vacío negativo → espejo → aha → menú → puente · venta). Cada guión termina en su muro (<b>SIN CTA</b>) y podés activarle la línea <b>CON CTA</b> en la pestaña Guiones.</p>
+  </section>
+
+  <!-- GUIONES -->
+  <section class="panel" id="p-guiones" role="tabpanel">
+    <div class="eyebrow">Listo para grabar · editable</div>
+    <h1 style="font-size:27px;margin-bottom:8px">Los 10 guiones</h1>
+    <p class="lead">Tocá cualquier texto para <b>editarlo</b> (se guarda solo). Cada tarjeta se pliega y despliega. El toggle decide si el guión va <b>SIN CTA</b> (post de conexión pura) o <b>CON CTA</b> (llamado a la acción). <b>Samy elige.</b></p>
+    <div id="guiones"></div>
+  </section>
+
+  <!-- HOOKS -->
+  <section class="panel" id="p-hooks" role="tabpanel">
+    <div class="eyebrow">Banco de ganchos · editable</div>
+    <h1 style="font-size:27px;margin-bottom:8px">Hooks por dolor</h1>
+    <p class="lead">6 por dolor, con su etiqueta (<b>tono · eje · emoción</b>). Cada banco sirve a los 2 videos del dolor: intercambiás la línea de apertura. Regla del método: testeá el gancho por separado, en lotes.</p>
+    <div id="hooks"></div>
+  </section>
+
+  <!-- LOOMS -->
+  <section class="panel" id="p-looms" role="tabpanel">
+    <div class="eyebrow">Videos-protocolo / lead magnets</div>
+    <h1 style="font-size:27px;margin-bottom:8px">Pautas de LOOM</h1>
+    <p class="lead">Cada LOOM es el video que la persona recibe al comentar la palabra: muestra, en screen-recording, cómo Samy resuelve ese dolor <b>usando el dashboard</b>. Es el paso a paso manual → el dashboard lo automatiza, así el video vende el dashboard sin pitchearlo. <b>Features (v1) — ajustar con el MD del dashboard.</b></p>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>Loom</th><th>Qué decís (voz)</th><th>Qué grabás (pantalla, v1)</th><th>Texto en pantalla</th><th>Cierre</th></tr></thead>
+        <tbody id="looms"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CTAS -->
+  <section class="panel" id="p-ctas" role="tabpanel">
+    <div class="eyebrow">La jugada honesta</div>
+    <h1 style="font-size:27px;margin-bottom:8px">CTAs + lead magnets</h1>
+    <p class="lead">El CTA promete un <b>entregable concreto</b>: <i>"Comenta [PALABRA] y te grabé un video donde te muestro, paso a paso, cómo resuelvo yo ese problema en mi negocio."</i> Sin promesas de ingresos, sin escasez fabricada.</p>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>Dolor</th><th>Palabra</th><th>Video-lead-magnet a grabar (= el LOOM)</th></tr></thead>
+        <tbody>
+          <tr><td>D1 · señal enterrada</td><td><span class="kw">SEÑAL</span></td><td>"Cómo leo mis Reels para saber por qué funcionaron"</td></tr>
+          <tr><td>D2 · bucle de la reacción</td><td><span class="kw">CLARIDAD</span></td><td>"Mis 3 pasos para decidir el próximo contenido sin adivinar"</td></tr>
+          <tr><td>D3 · trampa del volumen</td><td><span class="kw">MENOS</span></td><td>"Cómo hago menos contenido y tengo más conversaciones"</td></tr>
+          <tr><td>D4 · fuga invisible</td><td><span class="kw">FUGA</span></td><td>"Cómo reviso mi embudo y encuentro mi fuga en 3 pasos"</td></tr>
+          <tr><td>D5 · espejismo del equipo</td><td><span class="kw">CRITERIO</span></td><td>"Cómo construí mi criterio y lo volví un SOP para mi equipo"</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="lead" style="margin-top:18px"><b>Ruta del DM (honesta):</b> palabra → saludo humano → se entrega el video prometido → 1–2 preguntas de comportamiento ("¿cómo llevas hoy el análisis de tu contenido?") → quiz "¿dónde está tu fuga?" → según el resultado, se ofrece el dashboard. Sin pitch a presión.</p>
+  </section>
+
+</main>
+
+<footer>Taller de contenido para <b>Blissful</b> · voz de Samy Bruttman. Tus ediciones se guardan en este navegador (localStorage). Esta página se puede compartir/postear tal cual.</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+  var LS = "blissful-taller:";
+  var save = function(k,v){ try{ localStorage.setItem(LS+k, v); }catch(e){} };
+  var load = function(k){ try{ return localStorage.getItem(LS+k); }catch(e){ return null; } };
+  var toast = function(msg){ var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+    clearTimeout(t._t); t._t=setTimeout(function(){t.classList.remove('show');},1600); };
+
+  /* ---------- DATA ---------- */
+  var K = { senal:"SEÑAL", claridad:"CLARIDAD", menos:"MENOS", fuga:"FUGA", criterio:"CRITERIO" };
+  var CTA = {
+    senal:'Comenta <span class="k">SEÑAL</span> y te mando un video cortito donde te muestro, paso a paso, cómo agarro mis propios Reels y saco por qué unos conectaron y otros no. 👀',
+    claridad:'Comenta <span class="k">CLARIDAD</span> y te grabé un video donde te enseño, en 3 simples pasos, el protocolo que uso para decidir mi próximo contenido sin adivinar. 👀',
+    menos:'Comenta <span class="k">MENOS</span> y te muestro en un video simple mi protocolo para hacer menos contenido —el que uso yo— y aun así tener más conversaciones. 👀',
+    fuga:'Comenta <span class="k">FUGA</span> y te grabé un video donde te muestro, paso a paso, cómo reviso mi propio embudo y encuentro exactamente dónde se me cae la gente. 👀',
+    criterio:'Comenta <span class="k">CRITERIO</span> y te muestro en un video simple cómo construí mi propio criterio —antes de contratar a nadie— y cómo lo volví un instructivo para mi equipo. 👀'
+  };
+  var dolores = {
+    d1:{name:"D1 · La señal enterrada", key:"senal"},
+    d2:{name:"D2 · El bucle de la reacción", key:"claridad"},
+    d3:{name:"D3 · La trampa del volumen", key:"menos"},
+    d4:{name:"D4 · La fuga invisible", key:"fuga"},
+    d5:{name:"D5 · El espejismo del equipo", key:"criterio"}
+  };
+  // guiones: id, dolor, estructura, titulo, beats[[label,text]], ctaAltHTML(optional)
+  var G = [
+    {id:"G1",dolor:"d1",e:"e1",t:"Confesión → Giro → Test",beats:[
+      ["Gancho","¿Qué pasaría si tu último Reel que «fracasó»… en realidad te dejó la respuesta que llevas meses buscando?"],
+      ["Confesión","Por años me pasó algo que no le contaba a nadie. Publicaba un Reel que amaba, le metía tres horas… y a las 24 horas, nada. Y lo peor no era el silencio. Lo peor era que no tenía ni idea de por qué."],
+      ["Giro","Un día lo entendí: no me faltaba creatividad. No me faltaba equipo. No me faltaban herramientas. Me faltaba claridad."],
+      ["Escena","Tenía las métricas en un lugar, las ideas en otro, los guiones en otro. Saltando entre cinco pestañas tratando de adivinar qué pasó. Así uno termina creando desde la reacción, no desde la comprensión."],
+      ["Insight","Y ahí me cayó la ficha: la respuesta de por qué funciona tu contenido no está perdida. Está enterrada. En tus comentarios, en tus guardados, en las respuestas a tus historias. La señal siempre estuvo ahí. Solo que nadie la juntó en un solo lugar."],
+      ["Test participativo","Hagamos algo juntas ahora mismo. Abre tus últimos 10 Reels. No mires las vistas. Mira cuáles te trajeron conversaciones de verdad, seguidores nuevos. Y pregúntate qué tenían en común: el gancho, la emoción, la historia, el formato. Anótalo. Esa listica es tu fórmula. Y la escribiste tú sin darte cuenta."],
+      ["Muro","Porque una marca no se construye adivinando, ¿okay? Se construye entendiendo. El día que dejas de preguntarte «por qué no funcionó» y empiezas a leer lo que tu propia data ya te está diciendo… dejas de crear a ciegas.",1]
+    ]},
+    {id:"G2",dolor:"d1",e:"e2",t:"Funnel 400%",beats:[
+      ["1 · Vacío de curiosidad — negativo","Hay un tipo de creadora que puede postear todos los días… y seguir sin tener la más mínima idea de por qué a veces pega y a veces no. ¿Y si fueras tú sin darte cuenta?"],
+      ["2 · Espejo","Mira lo que haces cuando un Reel no funciona: le cambias el gancho, pruebas otro formato, copias a alguien que «sí le está yendo bien», y vuelves a publicar rezando. Al parecer no eres una creadora sin talento. Eres una creadora reactiva. Creas desde el susto del último post, no desde lo que entendiste."],
+      ["3 · Momento aha / 1% faltante","Y eso tiene nombre: el bucle de la reacción. No adivinas porque te falte experiencia. Adivinas porque tu data nunca te habló. Las respuestas ya existen —comentarios, guardados, respuestas a historias— pero viven dispersas en cinco plataformas. Entonces tu cabeza llena el hueco… inventando."],
+      ["4 · Menú de posibilidades","Y seguro ya intentaste de todo: más constancia, cursitos de edición, planificar el mes, contratar un editor o un community esperando que ellos supieran qué hacer. Pero un editor ejecuta tu criterio — no te lo da. Nadie puede leer por ti una data que ni siquiera está junta."],
+      ["5 · Puente","Entonces imagínate esto: toda esa señal enterrada, en un solo lugar, leída por ti, diciéndote en tu propia voz qué repetir y qué soltar. Ahí, por fin, dejas de crear a ciegas.",1]
+    ]},
+    {id:"G3",dolor:"d2",e:"e1",t:"Confesión → Giro → Test",beats:[
+      ["Gancho","¿Qué pasaría si te dijera que no estás creando contenido… estás reaccionando a él?"],
+      ["Confesión","Te confieso algo. Hubo una época en que cada vez que un Reel no funcionaba, yo ya estaba grabando el siguiente en modo pánico. Cambiaba el gancho, el formato, me ponía a ver qué hacía la de al lado. Nunca paraba a preguntarme qué había pasado."],
+      ["Giro","Un día me di cuenta de que no me faltaba constancia. Constancia me sobraba. Lo que me faltaba era entender. Estaba creando desde el susto, no desde la comprensión."],
+      ["Escena","¿Sabes ese momentito en que publicas, refrescas a los diez minutos, no hay nada, y ya sientes que tienes que arreglarlo YA con otro video? Ese impulso. Ahí vivía yo. Apostando todos los días y rezando."],
+      ["Insight","Eso tiene un nombre: el bucle de la reacción. Y es agotador, porque cada post se siente como una apuesta nueva desde cero. Nunca acumulas criterio, solo ansiedad."],
+      ["Test participativo","Hagamos un ejercicio. La próxima vez que un Reel no funcione, NO grabes otro. Para. Abre ese Reel y el último que SÍ te trajo mensajes, y ponlos lado a lado. Pregúntate: ¿qué prometía el gancho? ¿qué emoción daba? ¿a quién le hablaba? Escribe la diferencia en una frase. Eso no es suerte — es tu criterio saliendo a la luz."],
+      ["Muro","Porque el día que dejas de reaccionar y empiezas a leer, algo cambia: dejas de perseguir al algoritmo y empiezas a entender a tu gente.",1]
+    ]},
+    {id:"G4",dolor:"d2",e:"e2",t:"Funnel 400%",beats:[
+      ["1 · Vacío de curiosidad — negativo","Hay un error que cometen las creadoras más trabajadoras —no las vagas, las que MÁS postean— y las mantiene adivinando por años. ¿Y si lo estuvieras cometiendo tú justo ahora?"],
+      ["2 · Espejo","Publicas, no pega, y en vez de entender por qué, ya estás grabando otra cosa. Cambias de gancho, de formato, de tendencia, cada semana algo nuevo. Al parecer no eres inconstante… eres una creadora reactiva. Vives apagando incendios en vez de leer el mapa."],
+      ["3 · Momento aha / 1% faltante","Y eso tiene nombre: el bucle de la reacción. No adivinas por falta de talento. Adivinas porque nunca cierras el ciclo: creas, mides con el ojo, te asustas y vuelves a crear — sin la lectura del medio. Tu cerebro odia el vacío, y lo llena con la primera explicación que encuentra… casi siempre equivocada."],
+      ["4 · Menú de posibilidades","Y ya probaste de todo: calendarios, cursos de tendencias, guardar referencias, hasta preguntarle a tu audiencia qué quiere ver. Pero nada de eso te dice qué de lo TUYO ya funcionó y por qué. Te da más ideas para adivinar, no menos razones para hacerlo."],
+      ["5 · Puente","El bucle se rompe con una sola cosa: lectura antes de la próxima decisión. Que algo agarre tu propia data y te diga, con números tuyos, qué repetir. Ahí dejas de reaccionar y empiezas a decidir.",1]
+    ]},
+    {id:"G5",dolor:"d3",e:"e1",t:"Confesión → Giro → Test",beats:[
+      ["Gancho","¿Qué pasaría si el problema no fuera que haces poco… sino que haces demasiado?"],
+      ["Confesión","Voy a ser honesta contigo. Hubo un mes en que rompí mi récord de cansancio, no de facturación. Historias todos los días, un Reel diario, respondiendo DMs a medianoche. Y por dentro pensaba: si paro un día, se cae todo."],
+      ["Giro","Hasta que caí en cuenta de algo incómodo: estaba trabajando más que nunca y el resultado no se movía igual. No me faltaba esfuerzo. Me sobraba ruido."],
+      ["Escena","Es ese momentito en que terminas el día reventada, ves todo lo que subiste, y no puedes decir si ALGO de eso sirvió. Solo sabes que estás cansada. Y que mañana toca de nuevo."],
+      ["Insight","Eso es la trampa del volumen. Más contenido no arregla un mensaje desenfocado — solo lo multiplica. Estás corriendo en una cinta: mucho movimiento, mismo lugar. Y ojo: el objetivo nunca fue crear otro empleo para ti."],
+      ["Test participativo","Prueba esto esta semana. En vez de sumar, resta. Mira tus últimos 20 posts y quédate con los 3 que de verdad trajeron conversaciones. Solo 3. Pregúntate qué tenían en común. Y la próxima semana haz MENOS, pero parecido a esos 3. Menos cantidad, más criterio. Y fíjate qué pasa con tu energía… y con tus mensajes."],
+      ["Muro","Porque tu negocio no escala cuando haces más. Escala cuando entiendes qué de lo que haces vale la pena repetir.",1]
+    ]},
+    {id:"G6",dolor:"d3",e:"e2",t:"Funnel 400%",beats:[
+      ["1 · Vacío de curiosidad — negativo","Hay un punto en el que hacer MÁS contenido te vuelve más invisible, no más grande. ¿Y si ya lo cruzaste sin darte cuenta?"],
+      ["2 · Espejo","Mira tu semana: historias diarias, Reels seguidos, y esa sensación de que si paras un día pierdes lo que construiste. Al parecer no eres poco constante… eres una creadora atrapada en la cinta. Produces sin parar para no sentir que te quedas atrás."],
+      ["3 · Momento aha / 1% faltante","Y eso tiene nombre: la trampa del volumen. El problema no es la cantidad — es que estás tan ocupada produciendo que dejaste de analizar. Y sin análisis, cada pieza nueva no suma señal, suma ruido. Le hablas más fuerte a un mensaje que todavía no está afinado."],
+      ["4 · Menú de posibilidades","Y ya intentaste apretar el acelerador: postear más, madrugar más, contratar a alguien para producir más rápido. Todo empuja hacia arriba el volumen. Nada te dice cuál es la pieza que sí valía la pena repetir. Es echarle gasolina a un carro que no sabe hacia dónde va."],
+      ["5 · Puente","Lo que rompe la trampa no es más — es criterio. Saber qué eliminar y qué repetir, con evidencia, no con corazonada. Ahí trabajas menos y conectas más.",1]
+    ]},
+    {id:"G7",dolor:"d4",e:"e1",t:"Confesión → Giro → Test",beats:[
+      ["Gancho","¿Qué pasaría si te dijera que tus vistas te están mintiendo en la cara?"],
+      ["Confesión","Te cuento algo que me costó admitir. Yo era adicta a las vistas. Abría un Reel, veía el numerito grande, y sentía que iba bien. Pero tenía videos con miles de vistas… y cero mensajes. Cero conversaciones. Cero clientes."],
+      ["Giro","Y ahí entendí que no me faltaban vistas. Me faltaba ver DÓNDE se me caía la gente. Estaba mirando la puerta de entrada mientras el hueco estaba adentro."],
+      ["Escena","Es ese momentito en que celebras un Reel que «explotó» y a la semana te preguntas por qué no se tradujo en nada. Llegaron mil… ¿y después? No tienes idea. Se te escurrieron y ni los viste irse."],
+      ["Insight","Eso es una fuga invisible. Tu contenido tiene un embudo aunque no lo veas: unos llegan (vistas), otros se quedan (engagement), y poquitos dan el paso caliente — te responden una historia, te siguen, te escriben. Si solo miras la punta, nunca arreglas por dónde se te va el agua."],
+      ["Test participativo","Haz esto. Elige tu Reel más visto del mes y tu Reel que más DMs o respuestas a historias te trajo. ¿Son el mismo? Casi nunca lo son. Ahora pregúntate: ¿qué tenía el segundo que el primero no? Ahí, en esa diferencia, está tu verdadera métrica. No la vista: la conversación."],
+      ["Muro","Porque las vistas alimentan el ego, pero las conversaciones alimentan el negocio.",1]
+    ]},
+    {id:"G8",dolor:"d4",e:"e2",t:"Funnel 400%",beats:[
+      ["1 · Vacío de curiosidad — negativo","Hay una métrica que miras todos los días y que te está ocultando el verdadero problema de tu contenido. ¿Y si la que más celebras fuera la que más te confunde?"],
+      ["2 · Espejo","Mira lo que haces: publicas, corres a ver las vistas, y si el número es alto, respiras tranquila. Pero no sabrías decir cuántas de esas vistas se convirtieron en una conversación. Al parecer no eres mala con los números… eres una creadora que se guía por la métrica de vanidad."],
+      ["3 · Momento aha / 1% faltante","Y eso tiene nombre: la fuga invisible. Tu contenido es un embudo: alcance arriba, engagement en medio, y abajo lo caliente — respuestas a historias, follows, DMs. La gente no se cae por falta de vistas. Se cae en un escalón que no estás mirando… porque tus métricas viven en cinco lugares distintos."],
+      ["4 · Menú de posibilidades","Y ya lo intentaste a tu manera: el «insights» de Instagram, una libreta, capturas de pantalla, comparar a ojo. Pero eso te muestra números sueltos, no el recorrido. Ves fotos, no la película de por dónde entra y por dónde se va tu gente."],
+      ["5 · Puente","Tapar la fuga empieza por verla: tu contenido ordenado en embudo, señalando el escalón exacto donde se te cae la gente y qué CTA sí movió una conversación. Ahí dejas de optimizar vistas y empiezas a optimizar clientes.",1]
+    ]},
+    {id:"G9",dolor:"d5",e:"e1",t:"Confesión → Giro → Test · guión bandera",beats:[
+      ["Gancho","¿Qué pasaría si durante los próximos 30 días, cada publicación que subes cumpliera una función en tu embudo?"],
+      ["Confesión","Durante mucho tiempo pensé que el día que contratara un editor, un community manager, un equipo creativo… ellos iban a encontrar la respuesta por mí."],
+      ["Giro","Pero con el tiempo entendí algo: ellos no podían darme una claridad que yo todavía no tenía. Porque una cosa es delegar tareas… y otra muy distinta es delegar criterio."],
+      ["Insight","Si yo no entendía por qué un contenido generaba conversaciones y otro no, ¿cómo esperaba que alguien más lo entendiera por mí? Ahí me cayó la ficha: no puedes delegar criterio. Y eso es muchísimo más poderoso que reemplazar un sistema por un rol operativo."],
+      ["Test participativo","Así que durante los próximos 30 días, haz algo distinto. No mires únicamente las vistas. Agarra todos los videos de tu último mes y mira cuáles te trajeron más conversaciones. Cuáles te dieron más seguidores nuevos. Y pregúntate qué tenían en común: el gancho, la emoción, la historia, el formato. Escribe esas conclusiones… y de ahí saca muchas combinaciones de guiones nuevos."],
+      ["Muro","Porque cuando entiendes tu propio criterio, dejas de depender de que alguien venga a salvarte.",1]
+    ], ctaAlt:'CTA suave (participativo): «¿No sería muchísimo mejor si existiera una plataforma que hiciera todo esto por nosotros? ¿Qué opinan? Léanme abajo. 👀»'},
+    {id:"G10",dolor:"d5",e:"e2",t:"Funnel 400%",beats:[
+      ["1 · Vacío de curiosidad — negativo","Hay una decisión que toman las creadoras cuando se sienten abrumadas… y que en vez de quitarles peso, las deja más perdidas. ¿Y si la estuvieras por tomar tú?"],
+      ["2 · Espejo","Cuando ya no das más, piensas «necesito un editor», «necesito un community», «necesito un equipo». Delegas las tareas… pero sigues siendo tú la que decide qué funciona. Al parecer no te falta equipo. Te falta algo que creíste que ellos traían: criterio."],
+      ["3 · Momento aha / 1% faltante","Y eso tiene nombre: el espejismo del equipo. Un equipo no crea tu claridad — la amplifica. Si entras con confusión, contratas confusión a escala. Por eso la agencia, el editor, el asistente… nunca «encontraron la respuesta»: la respuesta no era de ellos, era de tu data."],
+      ["4 · Menú de posibilidades","Y ya lo intentaste: contrataste, delegaste, hiciste reuniones para explicar «lo que querías». Pero no puedes explicar lo que tú misma no tienes claro. Terminaste corrigiéndoles todo, frustrada, haciendo más trabajo del que delegaste."],
+      ["5 · Puente","El criterio no se contrata — se construye leyendo tu propia data hasta que el patrón se vuelve obvio. Y recién ahí puedes delegar la ejecución, porque por fin sabes qué pedir.",1]
+    ]}
+  ];
+  var HOOKS = {
+    d1:[["Tu Reel que «fracasó» no fracasó. Te dejó una pista y la tiraste a la basura.","narrativo · error · culpa/intriga"],
+        ["¿Cuántas veces publicaste algo que amabas y a las 24 horas… nada? ¿Y lo peor? No sabés por qué.","emocional · nivel · frustración"],
+        ["Hay una razón por la que tu contenido a veces pega y a veces no. Y no es el algoritmo.","intelectual · error · curiosidad"],
+        ["La respuesta de por qué funciona tu contenido ya la tenés. Está enterrada donde nunca mirás.","revelador · error · intriga"],
+        ["Hay 3 tipos de creadoras: la que adivina, la que copia, y la que lee su propia data. ¿Cuál sos?","clasificatorio · tipo · autoevaluación"],
+        ["Le metés 3 horas a un Reel, no pega, y no tenés idea de por qué. Esa es la verdadera pesadilla.","crudo · nivel · identificación"]],
+    d2:[["Si cada vez que un Reel no pega ya estás grabando otro… estás en un bucle que no te deja crecer.","directo · error · alarma"],
+        ["No estás creando contenido. Estás reaccionando a él. Y hay una diferencia enorme.","intelectual · error · curiosidad"],
+        ["¿Por qué las creadoras que MÁS postean son las que más adivinan?","contraintuitivo · nivel · intriga"],
+        ["Publicás, no pasa nada, y tu cerebro llena el vacío… inventando. Bienvenida al bucle.","psicológico · error · reconocimiento"],
+        ["Cambiás de gancho, de formato, de tendencia cada semana. No es estrategia. Es pánico.","confrontativo · tipo · incomodidad"],
+        ["Dejá de crear desde el susto del último post.","filosófico/corto · error · alivio"]],
+    d3:[["¿Y si el problema no es que hacés poco… sino que hacés demasiado?","contraintuitivo · error · alivio"],
+        ["Rompí mi récord de cansancio, no de facturación. Y ahí entendí algo.","confesional · nivel · identificación"],
+        ["Postear más no arregla un mensaje flojo. Solo lo grita más fuerte.","intelectual · error · claridad"],
+        ["Estás corriendo en una cinta: mucho movimiento, mismo lugar.","metafórico · nivel · reconocimiento"],
+        ["El objetivo nunca fue crear otro empleo del que no podés salir.","filosófico · error · introspección"],
+        ["Menos contenido, más conversaciones. Suena imposible hasta que entendés esto.","aspiracional · nivel · curiosidad"]],
+    d4:[["Tus vistas te están mintiendo en la cara.","provocador · error · shock"],
+        ["Reels con miles de vistas y cero mensajes. ¿Te suena?","identificación · nivel · frustración"],
+        ["No te faltan vistas. Te falta ver dónde se te cae la gente.","revelador · error · claridad"],
+        ["Tu contenido tiene un embudo aunque no lo veas. Y tiene una fuga.","intelectual · error · intriga"],
+        ["Celebrás un Reel que «explotó»… y a la semana no se tradujo en nada. ¿Por qué?","narrativo · nivel · curiosidad"],
+        ["Las vistas alimentan el ego. Las conversaciones alimentan el negocio.","filosófico · nivel · respeto"]],
+    d5:[["Contraté un equipo entero esperando que me quitaran el peso. Terminé más perdida.","emocional · error · frustración"],
+        ["Podés delegar tareas. Pero hay algo imposible de delegar… y es lo que te tiene estancada.","intelectual · error · curiosidad"],
+        ["El día que dejé de buscar quién me salvara y leí mi propia data, todo cambió.","aspiracional · nivel · esperanza"],
+        ["Contratar un editor sin tener criterio es como poner chofer sin saber a dónde vas.","humorístico · error · risa"],
+        ["Nadie puede darte una claridad que vos todavía no tenés.","filosófico · nivel · introspección"],
+        ["Un equipo no crea tu claridad. La amplifica. Si entrás con caos, contratás caos a escala.","intelectual · error · reconocimiento"]]
+  };
+  var LOOMS = [
+    ["SEÑAL (D1)","«Te muestro cómo agarro mis propios Reels y saco por qué unos conectaron y otros no. Sin adivinar.»","Ranking por formato con el «por qué» + Insight IA (patrones de apertura, palabras ganadoras del CTA).","Paso 1: junto todo → Paso 2: miro conversaciones, no vistas → Paso 3: leo el patrón","«Esto que hago a mano, el dashboard lo hace por ti. Comenta SEÑAL.»"],
+    ["CLARIDAD (D2)","«Mis 3 pasos para decidir el próximo contenido con datos, no con susto.»","Chat IA analista con la data cargada: preguntarle «¿qué repito esta semana?» y mostrar que cita números reales.","Paso 1: qué ganó → Paso 2: por qué ganó → Paso 3: qué repito","«Comenta CLARIDAD.»"],
+    ["MENOS (D3)","«Cómo hago menos contenido y aun así tengo más conversaciones.»","Rankings mejores/peores: identificar los 3 que valen y los que solo hacen ruido → decidir qué eliminar.","Menos piezas → Más criterio → Repetir lo que convierte","«Comenta MENOS.»"],
+    ["FUGA (D4)","«Cómo reviso mi embudo y encuentro exactamente dónde se me cae la gente.»","El Embudo TOF→MOF→BOF: un Reel que cae de alcance alto a respuestas casi cero → señalar el escalón + análisis de CTA.","Llegan (TOF) → Se quedan (MOF) → Te escriben (BOF) → Tu fuga está acá 👇","«Comenta FUGA.»"],
+    ["CRITERIO (D5)","«Cómo construí mi propio criterio —antes de contratar a nadie— y cómo lo volví un instructivo para mi equipo.»","Cerebro IA / contexto de marca + generación de copy en tu voz: sacar el patrón y convertirlo en un SOP.","Primero criterio → Después delego → El SOP sale de la data","«Comenta CRITERIO.»"]
+  ];
+
+  /* ---------- helpers ---------- */
+  function el(tag, cls, html){ var e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e; }
+  function restore(node){ // restore editable content by data-key
+    var k=node.getAttribute("data-key"); var v=load(k); if(v!=null) node.innerHTML=v;
+  }
+  function bindEdit(node){
+    node.setAttribute("contenteditable","true");
+    node.setAttribute("spellcheck","false");
+    restore(node);
+    var t;
+    node.addEventListener("input", function(){
+      clearTimeout(t); t=setTimeout(function(){ save(node.getAttribute("data-key"), node.innerHTML); }, 350);
+    });
+  }
+
+  /* ---------- render guiones ---------- */
+  var wrap = document.getElementById("guiones");
+  var byDolor = {};
+  G.forEach(function(g){ (byDolor[g.dolor]=byDolor[g.dolor]||[]).push(g); });
+  Object.keys(dolores).forEach(function(dk){
+    var sec = el("section","dolor");
+    var d = dolores[dk];
+    sec.appendChild(el("h2",null, d.name + ' <span class="dcount">'+byDolor[dk].length+' guiones · palabra '+K[d.key]+'</span>'));
+    byDolor[dk].forEach(function(g){
+      var card = el("details","card"); if(g.id==="G1") card.open=true;
+      var sum = el("summary",null,
+        '<span class="chev">▶</span>'+
+        '<span class="gid">'+g.id+'</span>'+
+        '<span class="gtitle">'+g.t+'</span>'+
+        '<span class="badge '+g.e+'">'+(g.e==="e1"?"E1 · conexión":"E2 · venta")+'</span>');
+      card.appendChild(sum);
+      var body = el("div","body");
+      g.beats.forEach(function(b,i){
+        var isMuro = b[2]===1;
+        var beat = el("div","beat"+(isMuro?" muro":""));
+        beat.appendChild(el("span","lbl", b[0]));
+        var txt = el("div","txt", b[1]);
+        txt.setAttribute("data-key", g.id+":beat"+i);
+        bindEdit(txt);
+        beat.appendChild(txt);
+        body.appendChild(beat);
+      });
+      // CTA chooser
+      var box = el("div","ctabox");
+      var onKey = g.id+":ctaon";
+      var isOn = load(onKey)==="1";
+      var row = el("div","ctarow");
+      var lab = el("label","switch");
+      lab.innerHTML = '<input type="checkbox" '+(isOn?"checked":"")+'><span class="track"></span>'+
+        '<span class="swlabel">Cierre: <span class="'+(isOn?"on":"")+'">'+(isOn?"CON CTA":"SIN CTA")+'</span></span>';
+      row.appendChild(lab);
+      box.appendChild(row);
+      var cta = el("div","cta-line", CTA[d.key]);
+      cta.setAttribute("data-on", isOn?"true":"false");
+      box.appendChild(cta);
+      if(g.ctaAlt){ box.appendChild(el("div","cta-alt","Alternativa · "+g.ctaAlt)); }
+      // buttons
+      var btns = el("div","rowbtns");
+      var copyBtn = el("button","mini","⧉ Copiar guión");
+      btns.appendChild(copyBtn);
+      box.appendChild(btns);
+      body.appendChild(box);
+      card.appendChild(body);
+      wrap.appendChild(card);
+
+      // wire toggle
+      var input = lab.querySelector("input");
+      input.addEventListener("change", function(){
+        var on = input.checked;
+        save(onKey, on?"1":"0");
+        cta.setAttribute("data-on", on?"true":"false");
+        lab.querySelector(".swlabel").innerHTML = 'Cierre: <span class="'+(on?"on":"")+'">'+(on?"CON CTA":"SIN CTA")+'</span>';
+      });
+      // wire copy
+      copyBtn.addEventListener("click", function(){
+        var parts=[];
+        body.querySelectorAll(".beat .txt").forEach(function(n){ parts.push(n.innerText.trim()); });
+        if(input.checked){ parts.push(cta.innerText.trim()); }
+        var text = g.id+" · "+d.name+"\n\n"+parts.join("\n\n");
+        copyText(text, copyBtn);
+      });
+    });
+    wrap.appendChild(sec);
+  });
+
+  function copyText(text, btn){
+    var done=function(){ if(btn){var o=btn.textContent; btn.textContent="✓ Copiado"; btn.classList.add("ok");
+      setTimeout(function(){btn.textContent=o; btn.classList.remove("ok");},1400);} toast("Copiado al portapapeles"); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done, function(){ fallback(text); done(); }); }
+    else { fallback(text); done(); }
+  }
+  function fallback(text){ var ta=el("textarea"); ta.value=text; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(e){} document.body.removeChild(ta); }
+
+  /* ---------- render hooks ---------- */
+  var hwrap = document.getElementById("hooks");
+  Object.keys(dolores).forEach(function(dk){
+    var det = el("details","card"); if(dk==="d1") det.open=true;
+    det.appendChild(el("summary",null,'<span class="chev">▶</span><span class="gid">'+K[dolores[dk].key]+'</span><span class="gtitle">'+dolores[dk].name+'</span><span class="badge e1">6 hooks</span>'));
+    var body=el("div","body");
+    var ol=el("ol","hooks");
+    HOOKS[dk].forEach(function(h,i){
+      var li=el("li");
+      var t=el("div","txt", h[0]); t.setAttribute("data-key","hook:"+dk+":"+i); bindEdit(t);
+      li.appendChild(t);
+      li.appendChild(el("span","tag", h[1]));
+      ol.appendChild(li);
+    });
+    body.appendChild(ol);
+    det.appendChild(body);
+    hwrap.appendChild(det);
+  });
+
+  /* ---------- render looms ---------- */
+  var lb=document.getElementById("looms");
+  LOOMS.forEach(function(r,ri){
+    var tr=el("tr");
+    r.forEach(function(c,ci){
+      var td=el("td", ci===0?"":null);
+      if(ci===0){ td.innerHTML='<span class="kw">'+c+'</span>'; }
+      else { var d=el("div","txt",c); d.setAttribute("data-key","loom:"+ri+":"+ci); bindEdit(d); td.appendChild(d); }
+      tr.appendChild(td);
+    });
+    lb.appendChild(tr);
+  });
+
+  /* ---------- tabs ---------- */
+  var strip=document.getElementById("tabstrip");
+  function selectTab(name){
+    document.querySelectorAll(".tab[role=tab]").forEach(function(t){ t.setAttribute("aria-selected", t.getAttribute("data-tab")===name?"true":"false"); });
+    document.querySelectorAll(".panel").forEach(function(p){ p.classList.toggle("active", p.id==="p-"+name); });
+    save("activetab", name);
+  }
+  strip.addEventListener("click", function(e){
+    var tab=e.target.closest(".tab[role=tab]");
+    if(tab && !e.target.closest(".del")){ selectTab(tab.getAttribute("data-tab")); }
+  });
+  // keyboard nav
+  strip.addEventListener("keydown", function(e){
+    if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft") return;
+    var tabs=[].slice.call(document.querySelectorAll(".tab[role=tab]"));
+    var i=tabs.findIndex(function(t){return t.getAttribute("aria-selected")==="true";});
+    i=(i+(e.key==="ArrowRight"?1:-1)+tabs.length)%tabs.length;
+    tabs[i].focus(); selectTab(tabs[i].getAttribute("data-tab"));
+  });
+
+  /* ---------- custom tabs ---------- */
+  var addBtn=document.getElementById("addTab");
+  var mainEl=document.querySelector("main");
+  function makeCustomTab(id, label){
+    var btn=el("button","tab"); btn.setAttribute("role","tab"); btn.setAttribute("data-tab",id); btn.setAttribute("aria-selected","false");
+    btn.innerHTML = '<span class="tname"></span> <span class="del" title="Eliminar (doble click)" role="button">×</span>';
+    btn.querySelector(".tname").textContent = label;
+    strip.insertBefore(btn, addBtn);
+    var panel=el("section","panel"); panel.id="p-"+id; panel.setAttribute("role","tabpanel");
+    panel.appendChild(el("div","eyebrow","Pestaña personalizada · editable"));
+    var h=el("h1",null,label); h.style.fontSize="26px"; h.style.marginBottom="8px";
+    h.setAttribute("data-key","customtitle:"+id); bindEdit(h);
+    panel.appendChild(h);
+    panel.appendChild(el("p","newtab-hint","Espacio libre para escribir y guardar copies. Se guarda solo en este navegador. El título de arriba también es editable."));
+    var sc=el("div","scratch"); sc.setAttribute("data-ph","Escribí acá tus copies, ideas, variantes…"); sc.setAttribute("data-key","customtab:"+id); bindEdit(sc);
+    panel.appendChild(sc);
+    mainEl.appendChild(panel);
+    var del=btn.querySelector(".del");
+    del.addEventListener("click", function(ev){
+      ev.stopPropagation();
+      if(del.getAttribute("data-armed")!=="1"){ del.setAttribute("data-armed","1"); del.textContent="✓?";
+        toast("Click de nuevo en × para eliminar");
+        setTimeout(function(){ del.setAttribute("data-armed","0"); del.textContent="×"; },2500); return; }
+      try{ localStorage.removeItem(LS+"customtab:"+id); localStorage.removeItem(LS+"customtitle:"+id); }catch(e){}
+      var list=getCustom().filter(function(c){return c.id!==id;}); save("customtabs", JSON.stringify(list));
+      btn.remove(); panel.remove(); selectTab("guiones");
+    });
+  }
+  function getCustom(){ try{ return JSON.parse(load("customtabs")||"[]"); }catch(e){ return []; } }
+  addBtn.addEventListener("click", function(){
+    var list=getCustom(); var label="Copies "+(list.length+1); var id="c"+Date.now();
+    list.push({id:id,label:label}); save("customtabs", JSON.stringify(list));
+    makeCustomTab(id,label); selectTab(id);
+  });
+  getCustom().forEach(function(c){ makeCustomTab(c.id,c.label); });
+
+  /* ---------- theme ---------- */
+  var themeBtn=document.getElementById("themeBtn");
+  function applyTheme(mode){ // mode: 'light'|'dark'|null(system)
+    if(mode){ document.documentElement.setAttribute("data-theme",mode); }
+    else { document.documentElement.removeAttribute("data-theme"); }
+  }
+  var savedTheme=load("theme"); if(savedTheme) applyTheme(savedTheme);
+  themeBtn.addEventListener("click", function(){
+    var cur=document.documentElement.getAttribute("data-theme");
+    var sysDark=window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var next = cur ? (cur==="dark"?"light":"dark") : (sysDark?"light":"dark");
+    applyTheme(next); save("theme", next);
+  });
+
+  /* ---------- export all ---------- */
+  document.getElementById("exportBtn").addEventListener("click", function(){
+    var out=["# Taller de contenido · Blissful",""];
+    G.forEach(function(g){
+      var d=dolores[g.dolor];
+      out.push("## "+g.id+" · "+d.name+" ("+(g.e==="e1"?"E1":"E2")+")");
+      var card=[].slice.call(document.querySelectorAll("#guiones .card")).find(function(c){return c.querySelector(".gid").textContent===g.id;});
+      card.querySelectorAll(".beat .txt").forEach(function(n){ out.push(n.innerText.trim()); });
+      var input=card.querySelector('input[type=checkbox]');
+      if(input && input.checked){ out.push("CTA → "+card.querySelector(".cta-line").innerText.trim()); }
+      out.push("");
+    });
+    copyText(out.join("\n"), null);
+    toast("Guiones copiados como texto");
+  });
+
+  /* ---------- reset ---------- */
+  var resetBtn=document.getElementById("resetBtn"), resetArmed=false;
+  resetBtn.addEventListener("click", function(){
+    if(!resetArmed){ resetArmed=true; resetBtn.textContent="¿Borrar todo?"; toast("Click de nuevo para borrar todo");
+      setTimeout(function(){ resetArmed=false; resetBtn.textContent="Restablecer"; },3000); return; }
+    try{ Object.keys(localStorage).forEach(function(k){ if(k.indexOf(LS)===0) localStorage.removeItem(k); }); }catch(e){}
+    location.reload();
+  });
+
+  /* ---------- restore active tab ---------- */
+  var at=load("activetab"); if(at && document.getElementById("p-"+at)) selectTab(at);
+})();
+</script>
+</body>
+</html>
