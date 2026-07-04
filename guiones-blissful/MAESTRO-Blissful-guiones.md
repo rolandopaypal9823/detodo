@@ -222,6 +222,8 @@ personal → El giro ("no era X, era Y") → Escena concreta → Insight con nom
 > así el video **vende el dashboard sin pitchearlo**. Duración ~1–3 min, crudo y simple.
 > *Features marcadas (v1) — ajustar con el MD actualizado del dashboard.*
 
+**🔗 Dashboard (para grabar los Looms):** https://samy-content-dashboard.netlify.app/
+
 | LOOM | Qué decís (voz) | Qué grabás (pantalla del dashboard, v1) | Texto en pantalla | Cierre / CTA |
 |---|---|---|---|---|
 | **SEÑAL** (D1) | "Te muestro cómo agarro mis propios Reels y saco por qué unos conectaron y otros no. Sin adivinar." | Ranking por formato con el "por qué" + Insight IA (patrones de apertura, palabras ganadoras del CTA). | Paso 1: junto todo → Paso 2: miro conversaciones, no vistas → Paso 3: leo el patrón | "Esto que hago a mano, el dashboard lo hace por ti. Comenta SEÑAL." |

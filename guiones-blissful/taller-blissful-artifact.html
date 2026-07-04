@@ -53,6 +53,14 @@
   .btn:hover{border-color:var(--flow)}
   .btn:active{transform:translateY(1px)}
   .btn:focus-visible{outline:2px solid var(--flow);outline-offset:2px}
+  .linkdash{display:inline-flex;align-items:center;gap:8px;background:var(--flow);color:var(--surface);
+    border:1px solid var(--flow);border-radius:9px;padding:9px 15px;font-weight:600;font-size:14px;
+    text-decoration:none;box-shadow:var(--shadow);transition:transform .06s,filter .15s}
+  .linkdash:hover{filter:brightness(1.07)}
+  .linkdash:active{transform:translateY(1px)}
+  .linkdash:focus-visible{outline:2px solid var(--flow);outline-offset:2px}
+  .dashrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px}
+  .dashrow .url{font-family:var(--mono);font-size:12px;color:var(--muted)}
 
   /* tab strip */
   .tabs{position:sticky;top:57px;z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
@@ -233,6 +241,10 @@
     <div class="eyebrow">Videos-protocolo / lead magnets</div>
     <h1 style="font-size:27px;margin-bottom:8px">Pautas de LOOM</h1>
     <p class="lead">Cada LOOM es el video que la persona recibe al comentar la palabra: muestra, en screen-recording, cómo Samy resuelve ese dolor <b>usando el dashboard</b>. Es el paso a paso manual → el dashboard lo automatiza, así el video vende el dashboard sin pitchearlo. <b>Features (v1) — ajustar con el MD del dashboard.</b></p>
+    <div class="dashrow">
+      <a class="linkdash" href="https://samy-content-dashboard.netlify.app/" target="_blank" rel="noopener">Abrir el dashboard ↗</a>
+      <span class="url">samy-content-dashboard.netlify.app</span>
+    </div>
     <div class="tblwrap">
       <table>
         <thead><tr><th>Loom</th><th>Qué decís (voz)</th><th>Qué grabás (pantalla, v1)</th><th>Texto en pantalla</th><th>Cierre</th></tr></thead>
