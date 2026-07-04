@@ -48,7 +48,7 @@
 
 **[4 · Menú de posibilidades]** Y seguro ya intentaste de todo: más constancia, cursitos de edición, planificar el mes entero, contratar un editor o un community esperando que ellos supieran qué hacer. Pero un editor ejecuta tu criterio — no te lo da. Nadie puede leer por ti una data que ni siquiera está junta en un solo lugar.
 
-**[5 · Puente obvio]** Entonces imagínate esto: toda esa señal enterrada, en un solo lugar, leída por ti, diciéndote en tu propia voz qué repetir y qué soltar. Ahí, por fin, dejas de crear a ciegas. // Estoy mostrando cómo, de a poquito. Si quieres ver cómo se lee tu propia data, coméntame "CLARIDAD" y te muestro. 👀
+**[5 · Puente obvio]** Entonces imagínate esto: toda esa señal enterrada, en un solo lugar, leída por ti, diciéndote en tu propia voz qué repetir y qué soltar. Ahí, por fin, dejas de crear a ciegas. // Estoy mostrando cómo, de a poquito. Si quieres ver cómo se lee tu propia data, comenta "SEÑAL" y te muestro. 👀
 
 ---
 
@@ -118,7 +118,7 @@
 
 **[4 · Menú de posibilidades]** Y ya intentaste apretar el acelerador: postear más, madrugar más, contratar a alguien para producir más rápido. Todo empuja hacia arriba el volumen. Nada te dice cuál es la pieza que sí valía la pena repetir. Es echarle más gasolina a un carro que no sabe hacia dónde va.
 
-**[5 · Puente obvio]** Lo que rompe la trampa no es más — es criterio. Saber qué eliminar y qué repetir, con evidencia, no con corazonada. Ahí trabajas menos y conectas más. Si quieres ver cómo se ve tu contenido cuando lo lees por criterio y no por cantidad, coméntame "CRITERIO". 👀
+**[5 · Puente obvio]** Lo que rompe la trampa no es más — es criterio. Saber qué eliminar y qué repetir, con evidencia, no con corazonada. Ahí trabajas menos y conectas más. Si quieres ver cómo se ve tu contenido cuando lo lees por criterio y no por cantidad, comenta "MENOS". 👀
 
 ---
 
@@ -153,4 +153,24 @@
 
 **[4 · Menú de posibilidades]** Y ya lo intentaste resolver a tu manera: mirar el "insights" de Instagram, anotar en una libreta, hacer capturas de pantalla, comparar a ojo. Pero eso te muestra números sueltos, no el recorrido. Ves fotos, no la película de por dónde entra y por dónde se va tu gente.
 
-**[5 · Puente obvio]** Tapar la fuga empieza por verla: tu contenido ordenado en embudo, señalando el escalón exacto donde se te cae la gente y qué CTA sí movió una conversación. Ahí dejas de optimizar vistas y empiezas a optimizar clientes. Si quieres ver dónde está tu fuga invisible, coméntame "EMBUDO". 👀
+**[5 · Puente obvio]** Tapar la fuga empieza por verla: tu contenido ordenado en embudo, señalando el escalón exacto donde se te cae la gente y qué CTA sí movió una conversación. Ahí dejas de optimizar vistas y empiezas a optimizar clientes. Si quieres ver dónde está tu fuga invisible, comenta "FUGA". 👀
+
+---
+
+## 📣 CTAs por guión (canónicos)
+
+> Estilo real de Samy: **"comenta / escríbeme la palabra [X]"** → DM (ManyChat) → diagnóstico
+> **"¿dónde está tu fuga?"** (el quiz / lead magnet de Blissful). Nunca perseguir ni presionar; sin
+> escasez fabricada; sin promesas de ingresos. El muro reflexivo ya vive en el guión → esto es el micro-paso.
+>
+> **Una palabra por dolor** (para trackear en DM). Estas reemplazan las palabras sueltas de los puentes E2.
+
+| Dolor | Palabra | CTA · E1 (conexión) | CTA · E2 (puente) |
+|---|---|---|---|
+| D1 · señal enterrada | **SEÑAL** | "Hazlo y cuéntame qué encontraste. Y si quieres que leamos juntas tu propia data, escríbeme **SEÑAL** por DM. 👀" | "Si estás cansada de adivinar por qué a veces pega, comenta **SEÑAL** y te muestro cómo desenterrar la tuya. 👀" |
+| D2 · bucle de la reacción | **CLARIDAD** | "La próxima vez, en vez de grabar otro, para y léelo. ¿Quieres la guía para hacerlo bien? Comenta **CLARIDAD**. 👀" | "Si quieres romper el bucle y decidir con datos y no con susto, comenta **CLARIDAD** y te muestro cómo. 👀" |
+| D3 · trampa del volumen | **MENOS** | "Prueba la semana de restar. Si quieres que te ayude a elegir qué soltar, escríbeme **MENOS**. 👀" | "Si trabajas más que nunca y el resultado no se mueve, comenta **MENOS** y te muestro qué eliminar y qué repetir. 👀" |
+| D4 · fuga invisible | **FUGA** | "Haz el ejercicio y dime: ¿eran el mismo Reel? Si quieres el diagnóstico de dónde está tu fuga, comenta **FUGA**. 👀" | "Si sientes que llega gente y no se convierte, comenta **FUGA** y te muestro dónde se te está cayendo. 👀" |
+| D5 · espejismo del equipo | **CRITERIO** | "¿Qué opinan? Léanme abajo. Y si quieres construir tu criterio antes de contratar a nadie, comenta **CRITERIO**. 👀" | "Si quieres ver cómo se construye ese criterio con tu propia data, comenta **CRITERIO**. 👀" |
+
+**Ruta del DM (honesta):** palabra → saludo humano → 1–2 preguntas de comportamiento (Mom Test: *"¿cómo llevas hoy el análisis de tu contenido?"*) → link al quiz **"¿dónde está tu fuga?"** → según el resultado, se ofrece el dashboard. Sin pitch a presión.
