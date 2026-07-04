@@ -47,7 +47,12 @@ ahí delegas la ejecución con un SOP claro.
 
 **[Test participativo]** Así que durante los próximos 30 días, haz algo distinto. No mires únicamente las vistas. Agarra todos los videos de tu último mes y mira cuáles te trajeron más conversaciones. Cuáles te dieron más seguidores nuevos. Y pregúntate qué tenían en común: el gancho, la emoción, la historia, el formato. Escribe esas conclusiones… y de ahí saca muchas combinaciones de guiones nuevos.
 
-**[Muro + CTA participativo/teaser]** Porque cuando entiendes tu propio criterio, dejas de depender de que alguien venga a salvarte. // Y ahora, la pregunta honesta: ¿no sería muchísimo mejor si existiera una plataforma que hiciera todo esto por nosotros? ¿Qué opinan? Léanme abajo. // Y si quieres, comenta "CRITERIO" y te grabé un video simple donde te muestro, paso a paso, cómo construí mi propio criterio —antes de contratar a nadie— y cómo lo volví un instructivo para mi equipo. 👀
+**[Muro]** Porque cuando entiendes tu propio criterio, dejas de depender de que alguien venga a salvarte.
+
+> **⬇ Samy elige el cierre:**
+> - **SIN CTA** (conexión pura) → termina en el muro de arriba.
+> - **CON CTA suave (participativo)** → suma: *"¿No sería muchísimo mejor si existiera una plataforma que hiciera todo esto por nosotros? ¿Qué opinan? Léanme abajo. 👀"* *(este teasea el dashboard sin pedir DM — ideal para engagement)*
+> - **CON CTA fuerte (video/DM)** → suma: *"Comenta **CRITERIO** y te grabé un video simple donde te muestro, paso a paso, cómo construí mi propio criterio —antes de contratar a nadie— y cómo lo volví un instructivo para mi equipo. 👀"*
 
 ### 🎥 Notas de cámara / edición
 - **Formato:** talking head, cruda, sin sobre-editar (tu estilo — "ni me peiné, pero soy yo"). Buena luz + mic. Target 45–60s.
@@ -80,7 +85,11 @@ ahí delegas la ejecución con un SOP claro.
 
 **[4 · Menú de posibilidades]** Y ya lo intentaste: contrataste, delegaste, hiciste reuniones para explicar "lo que querías". Pero no puedes explicar lo que tú misma no tienes claro. Terminaste corrigiéndoles todo, frustrada, haciendo más trabajo del que delegaste.
 
-**[5 · Puente obvio]** El criterio no se contrata — se construye leyendo tu propia data hasta que el patrón se vuelve obvio. Y RECIÉN ahí puedes delegar la ejecución, porque por fin sabes qué pedir. Comenta "CRITERIO" y te muestro en un video simple cómo construí mi propio criterio —antes de contratar a nadie— y cómo lo volví un instructivo para mi equipo. 👀
+**[5 · Puente obvio]** El criterio no se contrata — se construye leyendo tu propia data hasta que el patrón se vuelve obvio. Y RECIÉN ahí puedes delegar la ejecución, porque por fin sabes qué pedir.
+
+> **⬇ Samy elige el cierre:**
+> - **SIN CTA** → termina en el puente de arriba.
+> - **CON CTA** → suma: *"Comenta **CRITERIO** y te muestro en un video simple cómo construí mi propio criterio —antes de contratar a nadie— y cómo lo volví un instructivo para mi equipo. 👀"*
 
 ---
 

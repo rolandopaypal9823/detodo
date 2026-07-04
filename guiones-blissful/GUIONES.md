@@ -1,12 +1,15 @@
 # Guiones de reels — Dashboard de contenido (Blissful) · voz de Samy
 
-> 8 guiones = **4 dolores × 2 estructuras**. Formato limpio para grabar (bloques etiquetados).
-> Estrategia, dolores y namings completos en `PLAN.md`.
+> 8 guiones = **4 dolores × 2 estructuras**. (G9 y G10 del Dolor 5 viven en `desarrollo-delegar-criterio.md`.)
+> Formato limpio para grabar. Estrategia, dolores y namings en `PLAN.md`.
 >
-> **E1 = "Confesión → Giro → Test"** (voz orgánica de Samy · conexión/TOF · cierre con teaser suave).
-> **E2 = Funnel 400%** (vacío negativo → espejo → aha → menú → puente · venta/BOF · cierre con palabra-CTA).
+> **E1 = "Confesión → Giro → Test"** (voz orgánica de Samy · conexión/TOF).
+> **E2 = Funnel 400%** (vacío negativo → espejo → aha → menú → puente · venta/BOF).
 >
-> Voz: neutro-latino + spanglish + diminutivos + "¿okay?". CTAs = micro-paso (comentar palabra → DM).
+> **⬇ Cada guión termina en su MURO (versión SIN CTA = post de conexión pura) y abajo trae la línea
+> CON CTA (el llamado a la acción). SAMY ELIGE a cuáles les pone CTA y a cuáles no.**
+>
+> Voz: neutro-latino + spanglish + diminutivos + "¿okay?". CTA = comentar palabra → DM → video del protocolo.
 > Sin promesas de ingresos, sin escasez fabricada. El dashboard promete **claridad**, no plata.
 
 **Índice**
@@ -14,6 +17,7 @@
 - D2 · El bucle de la reacción → [G3 (E1)](#g3) · [G4 (E2)](#g4)
 - D3 · La trampa del volumen → [G5 (E1)](#g5) · [G6 (E2)](#g6)
 - D4 · La fuga invisible → [G7 (E1)](#g7) · [G8 (E2)](#g8)
+- D5 · El espejismo del equipo → G9 · G10 → en `desarrollo-delegar-criterio.md`
 
 ---
 
@@ -35,7 +39,11 @@
 
 **[Test participativo]** Hagamos algo juntas ahora mismo. Abre tus últimos 10 Reels. No mires las vistas. Mira cuáles te trajeron conversaciones de verdad, seguidores nuevos. Y pregúntate qué tenían en común: el gancho, la emoción, la historia, el formato. Anótalo. Esa listica es tu fórmula. Y la escribiste tú sin darte cuenta.
 
-**[Muro + teaser]** Porque una marca no se construye adivinando, ¿okay? Se construye entendiendo. El día que dejas de preguntarte "por qué no funcionó" y empiezas a leer lo que tu propia data ya te está diciendo… dejas de crear a ciegas. // ¿No sería mucho más fácil si existiera algo que juntara toda esa señal por nosotros y nos dijera qué repetir? Justo en eso ando trabajando. 👀
+**[Muro]** Porque una marca no se construye adivinando, ¿okay? Se construye entendiendo. El día que dejas de preguntarte "por qué no funcionó" y empiezas a leer lo que tu propia data ya te está diciendo… dejas de crear a ciegas.
+
+> **⬇ Samy elige el cierre:**
+> - **SIN CTA** (conexión pura) → termina en el muro de arriba.
+> - **CON CTA** → suma: *"Comenta **SEÑAL** y te mando un video cortito donde te muestro, paso a paso, cómo agarro mis propios Reels y saco por qué unos conectaron y otros no. 👀"*
 
 <a id="g2"></a>
 ### G2 · Estructura 2 (Funnel 400%)
@@ -48,7 +56,11 @@
 
 **[4 · Menú de posibilidades]** Y seguro ya intentaste de todo: más constancia, cursitos de edición, planificar el mes entero, contratar un editor o un community esperando que ellos supieran qué hacer. Pero un editor ejecuta tu criterio — no te lo da. Nadie puede leer por ti una data que ni siquiera está junta en un solo lugar.
 
-**[5 · Puente obvio]** Entonces imagínate esto: toda esa señal enterrada, en un solo lugar, leída por ti, diciéndote en tu propia voz qué repetir y qué soltar. Ahí, por fin, dejas de crear a ciegas. // Comenta "SEÑAL" y te mando un video cortito donde te muestro, paso a paso, cómo agarro mis propios Reels y saco por qué unos conectaron y otros no. 👀
+**[5 · Puente]** Entonces imagínate esto: toda esa señal enterrada, en un solo lugar, leída por ti, diciéndote en tu propia voz qué repetir y qué soltar. Ahí, por fin, dejas de crear a ciegas.
+
+> **⬇ Samy elige el cierre:**
+> - **SIN CTA** → termina en el puente de arriba.
+> - **CON CTA** → suma: *"Comenta **SEÑAL** y te mando un video cortito donde te muestro, paso a paso, cómo agarro mis propios Reels y saco por qué unos conectaron y otros no. 👀"*
 
 ---
 
@@ -70,7 +82,11 @@
 
 **[Test participativo]** Hagamos un ejercicio. La próxima vez que un Reel no funcione, NO grabes otro. Para. Abre ese Reel y el último que SÍ te trajo mensajes, y ponlos lado a lado. Pregúntate: ¿qué prometía el gancho? ¿qué emoción daba? ¿a quién le hablaba? Escribe la diferencia en una frase. Eso que acabas de encontrar no es suerte — es tu criterio saliendo a la luz.
 
-**[Muro + teaser]** Porque el día que dejas de reaccionar y empiezas a leer, algo cambia: dejas de perseguir al algoritmo y empiezas a entender a tu gente. // Y honestamente… ¿no sería un alivio tener todo eso leído por ti en un solo lugar, sin saltar entre mil pantallas? En eso ando. 👀
+**[Muro]** Porque el día que dejas de reaccionar y empiezas a leer, algo cambia: dejas de perseguir al algoritmo y empiezas a entender a tu gente.
+
+> **⬇ Samy elige el cierre:**
+> - **SIN CTA** (conexión pura) → termina en el muro de arriba.
+> - **CON CTA** → suma: *"Comenta **CLARIDAD** y te grabé un video donde te enseño, en 3 simples pasos, el protocolo que uso para decidir mi próximo contenido sin adivinar. 👀"*
 
 <a id="g4"></a>
 ### G4 · Estructura 2 (Funnel 400%)
@@ -83,7 +99,11 @@
 
 **[4 · Menú de posibilidades]** Y ya probaste de todo para salir de ahí: calendarios de contenido, cursos de tendencias, guardar referencias, hasta preguntarle a tu audiencia qué quiere ver. Pero nada de eso te dice qué de lo TUYO ya funcionó y por qué. Te da más ideas para adivinar, no menos razones para hacerlo.
 
-**[5 · Puente obvio]** El bucle se rompe con una sola cosa: lectura antes de la próxima decisión. Que alguien —o algo— agarre tu propia data y te diga, con números tuyos, qué repetir. Ahí dejas de reaccionar y empiezas a decidir. Comenta "CLARIDAD" y te grabé un video donde te enseño, en 3 simples pasos, el protocolo que uso para decidir mi próximo contenido con datos y no adivinando. 👀
+**[5 · Puente]** El bucle se rompe con una sola cosa: lectura antes de la próxima decisión. Que algo agarre tu propia data y te diga, con números tuyos, qué repetir. Ahí dejas de reaccionar y empiezas a decidir.
+
+> **⬇ Samy elige el cierre:**
+> - **SIN CTA** → termina en el puente de arriba.
+> - **CON CTA** → suma: *"Comenta **CLARIDAD** y te grabé un video donde te enseño, en 3 simples pasos, el protocolo que uso para decidir mi próximo contenido con datos y no adivinando. 👀"*
 
 ---
 
@@ -105,7 +125,11 @@
 
 **[Test participativo]** Prueba esto esta semana. En vez de sumar, resta. Mira tus últimos 20 posts y quédate con los 3 que de verdad trajeron conversaciones. Solo 3. Pregúntate qué tenían en común. Y la próxima semana haz MENOS, pero parecido a esos 3. Menos cantidad, más criterio. Y fíjate qué pasa con tu energía… y con tus mensajes.
 
-**[Muro + teaser]** Porque tu negocio no escala cuando haces más. Escala cuando entiendes qué de lo que haces vale la pena repetir. // Imagínate saber eso sin tener que adivinar ni reventarte. Justo eso es lo que estoy construyendo. 👀
+**[Muro]** Porque tu negocio no escala cuando haces más. Escala cuando entiendes qué de lo que haces vale la pena repetir.
+
+> **⬇ Samy elige el cierre:**
+> - **SIN CTA** (conexión pura) → termina en el muro de arriba.
+> - **CON CTA** → suma: *"Comenta **MENOS** y te muestro en un video simple mi protocolo para hacer menos contenido —el que uso yo— y aun así tener más conversaciones. 👀"*
 
 <a id="g6"></a>
 ### G6 · Estructura 2 (Funnel 400%)
@@ -118,7 +142,11 @@
 
 **[4 · Menú de posibilidades]** Y ya intentaste apretar el acelerador: postear más, madrugar más, contratar a alguien para producir más rápido. Todo empuja hacia arriba el volumen. Nada te dice cuál es la pieza que sí valía la pena repetir. Es echarle más gasolina a un carro que no sabe hacia dónde va.
 
-**[5 · Puente obvio]** Lo que rompe la trampa no es más — es criterio. Saber qué eliminar y qué repetir, con evidencia, no con corazonada. Ahí trabajas menos y conectas más. Comenta "MENOS" y te muestro en un video simple mi protocolo para hacer menos contenido —el que uso yo— y aun así tener más conversaciones. 👀
+**[5 · Puente]** Lo que rompe la trampa no es más — es criterio. Saber qué eliminar y qué repetir, con evidencia, no con corazonada. Ahí trabajas menos y conectas más.
+
+> **⬇ Samy elige el cierre:**
+> - **SIN CTA** → termina en el puente de arriba.
+> - **CON CTA** → suma: *"Comenta **MENOS** y te muestro en un video simple mi protocolo para hacer menos contenido y aun así tener más conversaciones. 👀"*
 
 ---
 
@@ -140,7 +168,11 @@
 
 **[Test participativo]** Haz esto. Elige tu Reel más visto del mes y tu Reel que más DMs o respuestas a historias te trajo. ¿Son el mismo? Casi nunca lo son. Ahora pregúntate: ¿qué tenía el segundo que el primero no? Ahí, en esa diferencia, está tu verdadera métrica. No la vista: la conversación.
 
-**[Muro + teaser]** Porque las vistas alimentan el ego, pero las conversaciones alimentan el negocio. // ¿Y si pudieras ver tu embudo entero de un vistazo y saber exactamente dónde se te cae la gente? En eso ando trabajando, de a poquito. 👀
+**[Muro]** Porque las vistas alimentan el ego, pero las conversaciones alimentan el negocio.
+
+> **⬇ Samy elige el cierre:**
+> - **SIN CTA** (conexión pura) → termina en el muro de arriba.
+> - **CON CTA** → suma: *"Comenta **FUGA** y te grabé un video donde te muestro, paso a paso, cómo reviso mi propio embudo y encuentro dónde se me cae la gente. 👀"*
 
 <a id="g8"></a>
 ### G8 · Estructura 2 (Funnel 400%)
@@ -153,41 +185,30 @@
 
 **[4 · Menú de posibilidades]** Y ya lo intentaste resolver a tu manera: mirar el "insights" de Instagram, anotar en una libreta, hacer capturas de pantalla, comparar a ojo. Pero eso te muestra números sueltos, no el recorrido. Ves fotos, no la película de por dónde entra y por dónde se va tu gente.
 
-**[5 · Puente obvio]** Tapar la fuga empieza por verla: tu contenido ordenado en embudo, señalando el escalón exacto donde se te cae la gente y qué CTA sí movió una conversación. Ahí dejas de optimizar vistas y empiezas a optimizar clientes. Comenta "FUGA" y te grabé un video donde te muestro, paso a paso, cómo reviso mi propio embudo y encuentro exactamente dónde se me cae la gente. 👀
+**[5 · Puente]** Tapar la fuga empieza por verla: tu contenido ordenado en embudo, señalando el escalón exacto donde se te cae la gente y qué CTA sí movió una conversación. Ahí dejas de optimizar vistas y empiezas a optimizar clientes.
+
+> **⬇ Samy elige el cierre:**
+> - **SIN CTA** → termina en el puente de arriba.
+> - **CON CTA** → suma: *"Comenta **FUGA** y te grabé un video donde te muestro, paso a paso, cómo reviso mi propio embudo y encuentro exactamente dónde se me cae la gente. 👀"*
 
 ---
 
-## 📣 CTAs por guión (canónicos) — con entregable específico
+## 📣 Menú de CTAs (referencia) + lead magnets
 
-> **Regla:** el CTA dice **exactamente qué vas a recibir** — un **video corto y simple donde Samy muestra,
-> paso a paso, cómo resuelve ELLA ese problema en su propio negocio** (cómo lee sus métricas, cómo se da
-> cuenta, cómo tiene claridad). No es "te muestro" a secas: es *"te grabé un video donde te enseño mi protocolo"*.
->
-> **Fórmula del CTA:**
-> *"Comenta **[PALABRA]** y te grabé un video [cortito / simple] donde te muestro, paso a paso (o en 3 simples
-> pasos), cómo [yo resuelvo ESE dolor] en mi propio negocio."*
->
-> El video **es un lead magnet real: hay que grabarlo**. Cada uno cierra teaseando el dashboard ("y ahora
-> imagínate que algo hiciera esto por ti"). Estilo Samy, sin presión, sin escasez, sin claims de ingresos.
-> Una palabra por dolor para trackear en DM.
+> El CTA promete un **entregable concreto**: un video corto donde Samy muestra, paso a paso, cómo resuelve
+> ELLA ese problema en su negocio. Fórmula: *"Comenta **[PALABRA]** y te grabé un video donde te muestro,
+> paso a paso (o en 3 simples pasos), cómo [resuelvo ese dolor] en mi propio negocio."*
 
-| Dolor | Palabra | CTA específico (qué recibe la persona) |
+| Dolor | Palabra | Video-lead-magnet a grabar |
 |---|---|---|
-| D1 · señal enterrada | **SEÑAL** | "Comenta **SEÑAL** y te mando un video cortito donde te muestro, paso a paso, cómo agarro mis propios Reels y saco por qué unos conectaron y otros no. 👀" |
-| D2 · bucle de la reacción | **CLARIDAD** | "Comenta **CLARIDAD** y te grabé un video donde te enseño, en 3 simples pasos, el protocolo que uso para decidir mi próximo contenido con datos y no adivinando. 👀" |
-| D3 · trampa del volumen | **MENOS** | "Comenta **MENOS** y te muestro en un video simple mi protocolo para hacer menos contenido —el que uso yo— y aun así tener más conversaciones. 👀" |
-| D4 · fuga invisible | **FUGA** | "Comenta **FUGA** y te grabé un video donde te muestro, paso a paso, cómo reviso mi propio embudo y encuentro exactamente dónde se me cae la gente. 👀" |
-| D5 · espejismo del equipo | **CRITERIO** | "Comenta **CRITERIO** y te muestro en un video simple cómo construí mi propio criterio —antes de contratar a nadie— y cómo lo volví un instructivo para mi equipo. 👀" |
+| D1 · señal enterrada | **SEÑAL** | "Cómo leo mis Reels para saber por qué funcionaron" (paso a paso) |
+| D2 · bucle de la reacción | **CLARIDAD** | "Mis 3 pasos para decidir el próximo contenido sin adivinar" |
+| D3 · trampa del volumen | **MENOS** | "Cómo hago menos contenido y tengo más conversaciones" |
+| D4 · fuga invisible | **FUGA** | "Cómo reviso mi embudo y encuentro mi fuga en 3 pasos" |
+| D5 · espejismo del equipo | **CRITERIO** | "Cómo construí mi criterio y lo volví un SOP para mi equipo" |
 
-**Videos-lead-magnet a grabar (uno por dolor):**
-1. **SEÑAL** — "Cómo leo mis Reels para saber por qué funcionaron" (paso a paso).
-2. **CLARIDAD** — "Mis 3 pasos para decidir el próximo contenido sin adivinar".
-3. **MENOS** — "Cómo hago menos contenido y tengo más conversaciones".
-4. **FUGA** — "Cómo reviso mi embudo y encuentro mi fuga en 3 pasos".
-5. **CRITERIO** — "Cómo construí mi criterio y lo volví un SOP para mi equipo".
-
-> Cada video ~1–3 min, crudo y simple (estilo Samy), termina con el puente al dashboard. Es el paso a paso
-> **manual** de Samy → el dashboard lo automatiza: por eso el video vende el dashboard sin pitchearlo.
+> Cada video ~1–3 min, crudo y simple (estilo Samy), cierra con el puente al dashboard: es el paso a paso
+> **manual** de Samy → el dashboard lo automatiza, así el video **vende el dashboard sin pitchearlo**.
 
 **Ruta del DM (honesta):** palabra → saludo humano → **se entrega el video prometido** → 1–2 preguntas de
 comportamiento (Mom Test: *"¿cómo llevas hoy el análisis de tu contenido?"*) → quiz **"¿dónde está tu fuga?"**
