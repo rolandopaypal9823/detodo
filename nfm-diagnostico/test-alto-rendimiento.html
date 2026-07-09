@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test de Alto Rendimiento — Nicolás Fernández Miranda</title>
+<meta name="description" content="Tu diagnóstico de alto rendimiento post-clases: perfil, recomendaciones para tu rutina y tu próximo paso.">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Paleta NFM — mezcla estética diagnóstico + landing "escalá tu vida" */
+  --bg-1:#0e3a59; --bg-2:#08243c; --bg-3:#04111d;
+  --navy:#0c3452; --navy-2:#0a2d47; --navy-line:#13456b;
+  --orange:#ff6602; --orange-2:#ff8124; --orange-glow:rgba(255,102,2,0.18);
+  --ink:#f3f7fb; --muted:#9fb6c8; --muted-2:#6f8aa1;
+  --ok:#22c55e;
+  --font-head:'Montserrat',sans-serif;
+  --font-body:'Open Sans',-apple-system,system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --radius:14px; --radius-lg:20px;
+  --transition:0.22s cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{
+  background:linear-gradient(160deg,var(--bg-1),var(--bg-2) 55%,var(--bg-3));
+  background-attachment:fixed;
+  color:var(--ink);font-family:var(--font-body);min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;position:relative;overflow-x:hidden;
+}
+body::before{content:'';position:fixed;top:-40px;right:-60px;width:340px;height:340px;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='20' y='20' width='140' height='140' rx='2' stroke='%23ff6602' stroke-width='8' fill='none'/%3E%3Crect x='50' y='50' width='100' height='100' rx='2' stroke='%23ff6602' stroke-width='6' fill='none'/%3E%3C/svg%3E");background-size:contain;background-repeat:no-repeat;opacity:0.05;pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;bottom:-60px;left:-40px;width:280px;height:280px;background:radial-gradient(circle,var(--orange-glow),transparent 68%);opacity:0.5;pointer-events:none;z-index:0}
+
+.mono{font-family:var(--font-mono);letter-spacing:0.02em}
+
+/* HEADER */
+.nfm-header{width:100%;padding:16px 24px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(255,255,255,0.07);position:relative;z-index:10;background:rgba(6,25,43,0.55);backdrop-filter:blur(8px)}
+.nfm-logo img{height:36px;width:auto;display:block;mix-blend-mode:screen}
+.nfm-container{width:100%;max-width:680px;padding:40px 24px 90px;position:relative;z-index:1}
+
+/* BADGE */
+.nfm-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,102,2,0.12);border:1px solid rgba(255,102,2,0.35);color:var(--orange);font-family:var(--font-mono);font-size:0.66rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:7px 15px;border-radius:100px;margin-bottom:26px}
+.nfm-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:nfmPulse 2s ease infinite}
+
+/* INTRO */
+.nfm-intro{text-align:center;animation:nfmFadeUp 0.6s ease both}
+.nfm-intro h1{font-family:var(--font-head);font-size:clamp(24px,5.4vw,38px);font-weight:900;line-height:1.1;margin-bottom:16px;letter-spacing:-0.02em}
+.nfm-intro h1 span{color:var(--orange)}
+.nfm-intro-sub{color:var(--muted);font-size:15px;line-height:1.7;max-width:530px;margin:0 auto 26px}
+.nfm-intro-sub strong{color:var(--ink);font-weight:600}
+
+.nfm-belief-strip{background:rgba(255,102,2,0.07);border:1px solid rgba(255,102,2,0.22);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:26px;text-align:left;position:relative;overflow:hidden}
+.nfm-belief-strip::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--orange)}
+.nfm-belief-eyebrow{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--orange);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:9px}
+.nfm-belief-text{font-size:14.5px;line-height:1.65;color:var(--ink)}
+.nfm-belief-text em{color:var(--orange-2);font-style:normal;font-weight:700}
+.nfm-belief-text strong{font-weight:700}
+
+.nfm-what-you-get{background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-lg);padding:20px 24px;margin-bottom:28px;text-align:left}
+.nfm-what-title{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--muted-2);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:13px}
+.nfm-what-item{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--muted);margin-bottom:9px;line-height:1.5}
+.nfm-what-item:last-child{margin-bottom:0}
+.nfm-what-item::before{content:'›';color:var(--orange);font-weight:900;font-size:16px;flex-shrink:0;line-height:1.3}
+.nfm-what-item strong{color:var(--ink);font-weight:600}
+
+.nfm-btn-start{background:var(--orange);color:#fff;font-family:var(--font-head);font-size:1rem;font-weight:800;padding:17px 44px;border-radius:100px;border:none;cursor:pointer;transition:var(--transition);box-shadow:0 6px 26px var(--orange-glow)}
+.nfm-btn-start:hover{background:#e55a00;transform:translateY(-2px);box-shadow:0 10px 34px rgba(255,102,2,0.4)}
+.nfm-time-note{margin-top:14px;color:var(--muted-2);font-size:12px;letter-spacing:0.03em}
+
+/* PROFESIÓN */
+.nfm-screen{animation:nfmFadeUp 0.5s ease both}
+.nfm-prof-eyebrow{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--orange);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:12px;text-align:center}
+.nfm-prof-title{font-family:var(--font-head);font-size:clamp(19px,4vw,25px);font-weight:900;line-height:1.25;margin-bottom:8px;text-align:center}
+.nfm-prof-sub{font-size:14px;color:var(--muted);margin-bottom:26px;line-height:1.6;text-align:center}
+.nfm-prof-grid{display:flex;flex-direction:column;gap:10px;text-align:left}
+.nfm-prof-card{background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:var(--radius);padding:16px 18px;cursor:pointer;transition:var(--transition);display:flex;align-items:flex-start;gap:14px}
+.nfm-prof-card:hover{border-color:rgba(255,102,2,0.4);background:rgba(255,102,2,0.05)}
+.nfm-prof-card.selected{border-color:var(--orange);background:rgba(255,102,2,0.08)}
+.nfm-prof-icon{font-size:24px;flex-shrink:0;margin-top:1px}
+.nfm-prof-info strong{display:block;font-family:var(--font-head);font-size:14px;font-weight:700;margin-bottom:3px}
+.nfm-prof-info span{font-size:12px;color:var(--muted-2);line-height:1.4}
+
+/* PROGRESS */
+.nfm-progress-wrap{margin-bottom:26px}
+.nfm-progress-meta{display:flex;justify-content:space-between;margin-bottom:8px}
+.nfm-progress-label{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--muted-2);letter-spacing:0.1em;text-transform:uppercase}
+.nfm-progress-count{font-family:var(--font-mono);font-size:11px;font-weight:500;color:var(--orange)}
+.nfm-progress-track{height:3px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden}
+.nfm-progress-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--orange-2));border-radius:3px;transition:width 0.4s ease}
+
+/* SECTION CHIP */
+.nfm-section-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,102,2,0.1);border:1px solid rgba(255,102,2,0.2);color:var(--orange);font-family:var(--font-mono);font-size:9px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:5px 12px;border-radius:100px;margin-bottom:16px}
+
+/* QUESTION CARD */
+.nfm-question-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-lg);padding:30px;position:relative;overflow:hidden}
+.nfm-question-card::before{content:'';position:absolute;top:0;right:0;width:40px;height:40px;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M36 4 L4 4 L4 36' stroke='%23ff6602' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-size:contain;opacity:0.4}
+.nfm-q-num{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--orange);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px}
+.nfm-q-frame{background:rgba(255,102,2,0.06);border-left:3px solid var(--orange);padding:13px 15px;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.68;color:var(--muted);margin-bottom:18px}
+.nfm-q-frame strong{color:var(--ink);font-weight:700}
+.nfm-q-frame em{color:var(--orange-2);font-style:normal;font-weight:600}
+.nfm-q-text{font-family:var(--font-head);font-size:clamp(16px,2.8vw,20px);font-weight:700;line-height:1.4;margin-bottom:14px}
+.nfm-q-text em{color:var(--orange);font-style:normal}
+.nfm-q-subtext{font-size:13.5px;line-height:1.65;color:var(--muted-2);margin-bottom:20px}
+.nfm-options{display:flex;flex-direction:column;gap:10px}
+.nfm-option{background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:var(--radius);padding:14px 18px;cursor:pointer;transition:var(--transition);display:flex;align-items:center;gap:14px}
+.nfm-option:hover{border-color:rgba(255,102,2,0.4);background:rgba(255,102,2,0.05);transform:translateX(4px)}
+.nfm-option.selected{border-color:var(--orange);background:rgba(255,102,2,0.08)}
+.nfm-option-letter{width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;font-weight:500;color:var(--muted-2);flex-shrink:0;transition:var(--transition)}
+.nfm-option.selected .nfm-option-letter{background:var(--orange);border-color:var(--orange);color:#fff}
+.nfm-option-text{font-size:14px;line-height:1.5;color:var(--ink)}
+.nfm-option-text strong{font-weight:700}
+.nfm-option-check{width:22px;height:22px;border-radius:6px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);position:relative}
+.nfm-option.selected .nfm-option-check{background:var(--orange);border-color:var(--orange)}
+.nfm-option-check::after{content:'';width:0;height:0;border-style:solid;border-width:0 2px 2px 0;border-color:#fff;transform:rotate(45deg);transition:all 0.2s ease;opacity:0}
+.nfm-option.selected .nfm-option-check::after{width:5px;height:9px;opacity:1;margin-bottom:2px}
+.nfm-multi-counter{display:inline-flex;align-items:center;gap:8px;background:rgba(255,102,2,0.1);border:1px solid rgba(255,102,2,0.25);color:var(--orange);font-family:var(--font-mono);font-size:11px;font-weight:500;padding:7px 14px;border-radius:100px;margin-bottom:18px;transition:all 0.3s ease}
+.nfm-multi-counter strong{color:var(--ink)}
+.nfm-multi-counter.has-selection{background:rgba(255,102,2,0.18);border-color:rgba(255,102,2,0.5)}
+
+.nfm-nav{display:flex;justify-content:space-between;margin-top:24px;align-items:center}
+.nfm-btn-back{background:transparent;color:var(--muted-2);font-family:var(--font-head);font-size:13px;font-weight:700;padding:13px 18px;border-radius:100px;border:1px solid rgba(255,255,255,0.12);cursor:pointer;transition:var(--transition)}
+.nfm-btn-back:hover{color:var(--ink);border-color:rgba(255,255,255,0.3)}
+.nfm-btn-next{background:var(--orange);color:#fff;font-family:var(--font-head);font-size:13px;font-weight:800;padding:13px 28px;border-radius:100px;border:none;cursor:pointer;transition:var(--transition);opacity:0;pointer-events:none}
+.nfm-btn-next.visible{opacity:1;pointer-events:all;animation:nfmPopIn 0.3s ease both}
+.nfm-btn-next:hover{background:#e55a00;transform:translateY(-2px);box-shadow:0 6px 20px var(--orange-glow)}
+
+/* BELIEF (hammer interstitial) */
+.nfm-hammer{background:linear-gradient(135deg,rgba(255,102,2,0.13),rgba(10,45,71,0.5));border:1.5px solid rgba(255,102,2,0.4);border-radius:var(--radius-lg);padding:36px 32px;animation:nfmFadeUp 0.5s ease both;text-align:left;position:relative;overflow:hidden}
+.nfm-hammer::after{content:'';position:absolute;bottom:-40px;right:-30px;width:180px;height:180px;background:radial-gradient(circle,var(--orange-glow),transparent 70%);pointer-events:none}
+.nfm-hammer-eyebrow{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--orange);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;position:relative}
+.nfm-hammer-text{font-family:var(--font-head);font-size:clamp(18px,3.6vw,23px);font-weight:800;line-height:1.35;color:var(--ink);position:relative}
+.nfm-hammer-text em{color:var(--orange);font-style:normal}
+.nfm-hammer-sub{font-size:14px;line-height:1.7;color:var(--muted);margin-top:16px;position:relative}
+.nfm-hammer-sub strong{color:var(--ink)}
+.nfm-hammer-chain{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px;position:relative}
+.nfm-hammer-chip{background:rgba(255,255,255,0.05);border:1px solid rgba(255,102,2,0.3);color:var(--orange);font-family:var(--font-mono);font-size:11px;padding:6px 11px;border-radius:100px}
+
+/* PUENTE / INSTITUTO */
+.nfm-puente{background:linear-gradient(135deg,rgba(255,102,2,0.10),rgba(14,64,96,0.4));border:1.5px solid rgba(255,102,2,0.35);border-radius:var(--radius-lg);padding:32px;animation:nfmFadeUp 0.5s ease both;text-align:left}
+.nfm-puente-eyebrow{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--orange);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px}
+.nfm-puente-title{font-family:var(--font-head);font-size:clamp(17px,3.5vw,22px);font-weight:900;margin-bottom:18px;line-height:1.3}
+.nfm-puente-text{font-size:14.5px;line-height:1.75;color:var(--muted);margin-bottom:14px}
+.nfm-puente-text strong{color:var(--ink);font-weight:700}
+.nfm-puente-text.highlight{background:rgba(255,102,2,0.08);border-left:3px solid var(--orange);padding:14px 16px;border-radius:0 8px 8px 0;color:var(--ink);font-weight:600;margin-top:18px}
+.nfm-staff-grid{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+.nfm-staff-chip{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--muted-2);font-family:var(--font-mono);font-size:11px;font-weight:400;padding:7px 12px;border-radius:100px;transition:all 0.5s cubic-bezier(0.4,0,0.2,1);opacity:0;transform:translateY(8px) scale(0.95)}
+.nfm-staff-chip.shown{opacity:1;transform:translateY(0) scale(1)}
+.nfm-staff-chip.core{background:rgba(255,102,2,0.14);border-color:rgba(255,102,2,0.4);color:var(--orange)}
+.nfm-staff-chip.highlight{background:rgba(255,102,2,0.18);border-color:rgba(255,102,2,0.6);color:var(--orange);animation:nfmChipPulse 1.8s ease-out 0.2s 1}
+@keyframes nfmChipPulse{0%{box-shadow:0 0 0 0 rgba(255,102,2,0.55);transform:scale(1)}50%{transform:scale(1.06)}100%{box-shadow:0 0 0 12px rgba(255,102,2,0);transform:scale(1)}}
+.nfm-puente-hint{font-family:var(--font-mono);font-size:10px;font-weight:400;color:var(--orange);letter-spacing:0.06em;text-transform:uppercase;margin:6px 0 8px;display:flex;align-items:center;gap:6px}
+.nfm-puente-hint::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--orange);animation:nfmPulse 1.8s ease infinite}
+
+/* LOADING */
+.nfm-loading{text-align:center;padding:60px 20px;animation:nfmFadeUp 0.4s ease both}
+.nfm-loading-ring{width:64px;height:64px;border-radius:50%;border:3px solid rgba(255,102,2,0.15);border-top-color:var(--orange);animation:nfmSpin 0.9s linear infinite;margin:0 auto 24px}
+.nfm-loading h3{font-family:var(--font-head);font-size:20px;font-weight:800;margin-bottom:8px}
+.nfm-loading p{color:var(--muted-2);font-size:13px}
+.nfm-loading-steps{margin-top:20px;display:flex;flex-direction:column;gap:6px}
+.nfm-loading-step{font-family:var(--font-mono);font-size:12px;color:var(--muted-2);opacity:0.4;transition:opacity 0.5s ease,color 0.5s ease}
+.nfm-loading-step.active{color:var(--orange);opacity:1}
+
+/* RESULT */
+.nfm-results{animation:nfmFadeUp 0.6s ease both}
+.nfm-result-header{text-align:center;margin-bottom:24px;padding:32px;border-radius:var(--radius-lg);position:relative;overflow:hidden;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)}
+.nfm-result-header::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(255,102,2,0.10),transparent 60%);pointer-events:none}
+.nfm-pct-ring{position:relative;display:inline-block;margin-bottom:14px}
+.nfm-pct-svg{transform:rotate(-90deg)}
+.nfm-pct-track{fill:none;stroke:rgba(255,255,255,0.08);stroke-width:6}
+.nfm-pct-fill{fill:none;stroke:var(--orange);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset 1.5s cubic-bezier(0.4,0,0.2,1)}
+.nfm-pct-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center}
+.nfm-pct-num{font-family:var(--font-head);font-size:24px;font-weight:900;line-height:1}
+.nfm-pct-sub{font-family:var(--font-mono);font-size:8px;font-weight:400;color:var(--muted-2);text-transform:uppercase;letter-spacing:0.1em;margin-top:4px}
+.nfm-result-profile-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,102,2,0.12);border:1px solid rgba(255,102,2,0.35);color:var(--orange);font-family:var(--font-mono);font-size:0.66rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:14px}
+.nfm-result-title{font-family:var(--font-head);font-size:clamp(20px,4vw,28px);font-weight:900;margin-bottom:14px;line-height:1.25}
+.nfm-result-title span{color:var(--orange)}
+.nfm-result-desc{font-size:14px;line-height:1.75;color:var(--muted);max-width:520px;margin:0 auto;text-align:left}
+.nfm-result-desc strong{color:var(--ink)}
+.nfm-section-title{font-family:var(--font-mono);font-size:11px;font-weight:500;color:var(--muted-2);text-transform:uppercase;letter-spacing:0.1em;margin:26px 0 14px}
+
+/* RESUMEN 2 CLASES */
+.nfm-resumen{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-lg);padding:22px 24px}
+.nfm-resumen-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.nfm-resumen-item:last-child{border-bottom:none}
+.nfm-resumen-ico{font-size:18px;flex-shrink:0;margin-top:1px}
+.nfm-resumen-item strong{display:block;font-family:var(--font-head);font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.nfm-resumen-item span{font-size:12.5px;line-height:1.6;color:var(--muted-2)}
+
+/* RECOMENDACIONES */
+.nfm-reco-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius);padding:18px 20px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start;position:relative;overflow:hidden}
+.nfm-reco-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--orange);opacity:0.5}
+.nfm-reco-num{font-family:var(--font-mono);font-size:11px;font-weight:500;color:var(--orange);background:rgba(255,102,2,0.1);border:1px solid rgba(255,102,2,0.25);border-radius:8px;padding:6px 10px;flex-shrink:0;margin-top:1px}
+.nfm-reco-content strong{display:block;font-family:var(--font-head);font-size:14px;font-weight:800;color:var(--ink);margin-bottom:5px;line-height:1.3}
+.nfm-reco-content p{font-size:13px;line-height:1.7;color:var(--muted)}
+
+/* PROYECCIÓN + ENCUADRE */
+.nfm-proyeccion{background:rgba(255,102,2,0.06);border:1px solid rgba(255,102,2,0.25);border-radius:var(--radius-lg);padding:24px;margin:24px 0;text-align:left}
+.nfm-proyeccion-eyebrow{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--orange);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px}
+.nfm-proyeccion-text{font-family:var(--font-head);font-size:clamp(15px,3vw,18px);font-weight:700;line-height:1.45;color:var(--ink)}
+.nfm-proyeccion-text em{color:var(--orange);font-style:normal;font-weight:800}
+.nfm-encuadre{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-lg);padding:26px;margin:24px 0;text-align:center;position:relative;overflow:hidden}
+.nfm-encuadre::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,102,2,0.08),transparent 65%);pointer-events:none}
+.nfm-encuadre-eyebrow{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--orange);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;position:relative}
+.nfm-encuadre-text{font-family:var(--font-head);font-size:clamp(16px,3.2vw,20px);font-weight:800;line-height:1.38;margin-bottom:8px;position:relative;color:var(--ink)}
+.nfm-encuadre-text em{color:var(--orange);font-style:normal}
+.nfm-encuadre-sub{font-size:13px;line-height:1.7;color:var(--muted);position:relative}
+.nfm-divider{height:1px;background:rgba(255,255,255,0.06);margin:24px 0}
+
+/* OFFER / CTA */
+.nfm-offer-card{border-radius:var(--radius-lg);padding:28px;margin-bottom:12px;position:relative;overflow:hidden}
+.nfm-offer-card.llamada{background:linear-gradient(135deg,rgba(255,102,2,0.12),rgba(14,64,96,0.4));border:1.5px solid rgba(255,102,2,0.4)}
+.nfm-offer-card.libro-honesto{background:linear-gradient(135deg,rgba(255,102,2,0.08),rgba(14,64,96,0.3));border:1.5px solid rgba(255,102,2,0.3)}
+.nfm-offer-card.libro-suave{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12)}
+.nfm-offer-tag{font-family:var(--font-mono);font-size:10px;font-weight:500;color:var(--orange);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px}
+.nfm-offer-name{font-family:var(--font-head);font-size:clamp(17px,3.5vw,22px);font-weight:900;margin-bottom:14px;line-height:1.3;color:var(--ink)}
+.nfm-offer-desc{font-size:14px;line-height:1.75;color:var(--muted);margin-bottom:14px}
+.nfm-offer-desc strong{color:var(--ink)}
+.nfm-video-section{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-lg);overflow:hidden;margin:20px 0}
+.nfm-video-iframe-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
+.nfm-video-iframe-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.nfm-btn-cta-primary{width:100%;background:var(--orange);color:#fff;font-family:var(--font-head);font-size:15px;font-weight:800;padding:17px 24px;border-radius:100px;border:none;cursor:pointer;transition:var(--transition);box-shadow:0 4px 20px var(--orange-glow);margin-bottom:10px}
+.nfm-btn-cta-primary:hover{background:#e55a00;transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,102,2,0.45)}
+.nfm-cta-foot{text-align:center;margin-top:8px;font-size:11px;color:var(--muted-2);letter-spacing:0.02em}
+.nfm-firma{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.07);font-size:13px;line-height:1.7;color:var(--muted-2)}
+.nfm-firma strong{color:var(--ink);font-weight:700}
+.nfm-libro-chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 22px}
+.nfm-libro-chip{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:100px;padding:7px 13px;font-family:var(--font-mono);font-size:11px;font-weight:400;color:var(--muted)}
+.nfm-libro-chip.orange{background:rgba(255,102,2,0.1);border-color:rgba(255,102,2,0.25);color:var(--orange)}
+.nfm-trust-row{display:flex;justify-content:space-around;flex-wrap:wrap;gap:14px;margin-top:32px;padding:18px;background:rgba(255,255,255,0.02);border-radius:var(--radius);border:1px solid rgba(255,255,255,0.05)}
+.nfm-trust-item{font-family:var(--font-mono);font-size:11px;font-weight:400;color:var(--muted-2)}
+
+/* ANIMATIONS */
+@keyframes nfmFadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes nfmPopIn{from{opacity:0;transform:scale(0.94)}to{opacity:1;transform:scale(1)}}
+@keyframes nfmPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.85)}}
+@keyframes nfmSpin{to{transform:rotate(360deg)}}
+@media (max-width:520px){
+  .nfm-container{padding:30px 18px 70px}
+  .nfm-question-card,.nfm-puente,.nfm-offer-card,.nfm-result-header,.nfm-hammer{padding:22px}
+  .nfm-btn-start{padding:15px 32px;font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<header class="nfm-header">
+  <div class="nfm-logo">
+    <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/10/nuevo_logo_nfm__1_.png" alt="Nicolás Fernández Miranda" onerror="this.outerHTML='<span style=\'font-family:Montserrat,sans-serif;font-size:.78rem;font-weight:900;color:#fff;letter-spacing:.08em\'>NICO FERNÁNDEZ MIRANDA</span>'">
+  </div>
+</header>
+
+<div class="nfm-container">
+  <div id="app"></div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════════
+   TEST DE ALTO RENDIMIENTO — NFM
+   Diagnóstico post 2 clases, construido con Agreement Engineering.
+   One Belief al centro, escalera de 9 acuerdos, rutea a llamada o libro.
+
+   ONE BELIEF (columna vertebral, martillada ~21x reformulada):
+   "No rendís de menos porque te falte disciplina, tiempo o información.
+    Rendís de menos porque tu cerebro está en modo reserva — y un cerebro en
+    reserva no se arregla sabiendo más, se reprograma con un sistema y con
+    alguien que te sostenga mientras lo instalás."
+   ══════════════════════════════════════════════════════════════════════════ */
+
+const professions = [
+  { id:'leader',  icon:'🏢', label:'Empresario o líder de equipo',
+    desc:'Tomás decisiones, dirigís personas y respondés por resultados.' },
+  { id:'pro',     icon:'💼', label:'Profesional (independiente o en relación de dependencia)',
+    desc:'Contador/a, médico/a, abogado/a, ingeniero/a, arquitecto/a u otra profesión establecida.' },
+  { id:'entre',   icon:'🚀', label:'Emprendedor o freelance',
+    desc:'Tenés tu propio proyecto o trabajás por cuenta propia.' },
+  { id:'student', icon:'📚', label:'Estudiante',
+    desc:'Te estás formando o recién empezás tu camino profesional.' }
+];
+
+/* ─── FLUJO: cada paso mapea a un peldaño de la escalera de 9 acuerdos ───
+   kind:'agree'  → afirmación de acuerdo (single). score:[acuerdo, aplicacion, saturacion]
+   kind:'multi'  → selección múltiple
+   kind:'belief' → interstitial que martilla la One Belief (sin opciones)
+*/
+const flow = [
+  /* ── ACUERDO 1: el problema es serio y compuesto ── */
+  { kind:'agree', rung:'Acuerdo 1 · El problema es serio',
+    section:'Tu estado real',
+    frame:'Arranquemos por algo incómodo. Lo que sentís no es "estar cansado": es operar con el cerebro en <em>modo reserva</em> — hacés todo con la mitad del tanque. Y esto no es neutro: <strong>cada día que seguís así, el circuito que te sabotea se refuerza</strong>. No te estás quedando igual, te estás hundiendo un poco más. <em>No es tu voluntad. Es tu cerebro en reserva.</em>',
+    text:'¿Lo sentís así — que no es un mal día suelto, sino un patrón que se va acumulando?',
+    subtext:'No hay respuesta correcta. Hay respuesta honesta.',
+    options:[
+      { text:'Sí, y cada semana pesa un poco más.', score:[3,0,3] },
+      { text:'Sí, me pasa.', score:[3,0,2] },
+      { text:'A veces, según la época.', score:[2,1,1] },
+      { text:'No, esto ya lo tengo bastante manejado.', score:[1,3,0] }
+    ] },
+
+  /* ── ACUERDO 1/2: reconocimiento — 1 problema, 7 caras ── */
+  { kind:'multi', rung:'Acuerdo 1 · 1 problema, 7 caras',
+    section:'Reconocimiento',
+    frame:'Hay 7 frases que se repiten en gente atrapada en esto. Ojo con esto porque es clave: <strong>no son 7 problemas distintos — son un mismo problema con 7 caras.</strong> El mismo cerebro en reserva, disfrazado de 7 síntomas.',
+    text:'Marcá todas las que son tuyas hoy.',
+    subtext:'Mientras más marques, más preciso es el diagnóstico que te devolvemos.',
+    options:[
+      { text:'Tengo la cabeza llena de ruido, no sé por dónde empezar.', tag:'ruido' },
+      { text:'Lo importante es justo lo que más postergo.', tag:'importante' },
+      { text:'Contesto mal o pierdo paciencia con la gente que más quiero.', tag:'vinculos' },
+      { text:'Arranco proyectos con todo y los dejo a la mitad.', tag:'inconcluso' },
+      { text:'Descansar me hace sentir culpable — pero trabajar también.', tag:'culpa' },
+      { text:'Estoy cansado/a de estar cansado/a.', tag:'fatiga' },
+      { text:'Necesito un cambio de rumbo pero no sé por dónde arrancar.', tag:'rumbo' }
+    ] },
+
+  /* ── HAMMER 1 ── */
+  { kind:'belief',
+    eyebrow:'La idea que ordena todo',
+    text:'No te falta fuerza de voluntad ni información.<br>Te falta un <em>sistema</em> que reprograme tu cerebro — y alguien que te lo sostenga mientras lo instalás.',
+    sub:'Todo lo que sigue es para mostrarte, punto por punto, por qué esto es así en tu caso.' },
+
+  /* ── ACUERDO 2: lo que venís haciendo no puede funcionar ── */
+  { kind:'agree', rung:'Acuerdo 2 · El método viejo no escala',
+    section:'Por qué se te cae',
+    frame:'Probaste la app de moda, la lista perfecta, levantarte a las 5, "ponerle más ganas". Funcionó… tres días. Y no es que lo hiciste mal: es que <strong>ese camino tiene un techo estructural</strong>. La fuerza de voluntad es un músculo que se agota, y le estás pidiendo que sostenga solo lo que necesita un sistema. <em>Más disciplina encima de un cerebro saturado no escala.</em>',
+    text:'¿De acuerdo con que el problema no es que te falte empeño, sino que te falta método?',
+    subtext:'',
+    options:[
+      { text:'Totalmente. Empeño le puse; método me faltó.', score:[3,0,1] },
+      { text:'Sí, nunca lo había pensado tan claro.', score:[3,0,1] },
+      { text:'En parte — algo de constancia también me falta.', score:[2,0,1] },
+      { text:'No, para mí es pura disciplina.', score:[1,0,0] }
+    ] },
+
+  /* ── ACUERDO 3: la causa que no sabías + lo saca del gancho ── */
+  { kind:'agree', rung:'Acuerdo 3 · La causa que no sabías',
+    section:'El mecanismo oculto',
+    frame:'Acá está el dato que cambia todo: cuando tu cerebro está en saturación crónica, tu <em>corteza prefrontal</em> —la parte que planifica, decide y arranca tareas— trabaja hasta al 50%. Se apaga, literalmente, el circuito que necesitás para "ponerte las pilas". <strong>Por eso "esforzarte más" no mueve la aguja: le estás pidiendo fuerza a un músculo desconectado.</strong> No sos vago. Tenés el hardware en ahorro de energía.',
+    text:'¿Sabías que tu dificultad para arrancar puede ser química —del estado del cerebro— y no de carácter?',
+    subtext:'',
+    options:[
+      { text:'No, y me saca un peso enorme de encima.', score:[3,0,2] },
+      { text:'Lo intuía, ahora lo entiendo.', score:[3,0,1] },
+      { text:'Algo de esto vimos en las clases.', score:[2,1,1] },
+      { text:'Sí, ya lo venía trabajando.', score:[1,3,0] }
+    ] },
+
+  /* ── HAMMER 2 ── */
+  { kind:'belief',
+    eyebrow:'Por qué el conocimiento no te alcanzó',
+    text:'El conocimiento no te cambió la vida.<br>No porque no sirva — sino porque <em>el conocimiento no cambia nada por sí solo</em>.',
+    sub:'Lo que cambia tu vida es lo que <strong>instalás y sostenés</strong>. Y sostenerlo es justo lo que un cerebro en reserva no puede hacer en soledad.' },
+
+  /* ── ACUERDO 5: la solución es fundamentalmente distinta ── */
+  { kind:'agree', rung:'Acuerdo 5 · Otra categoría de solución',
+    section:'La salida real',
+    frame:'Entonces la salida no es más motivación (se evapora) ni más info (ya tenés de sobra). Es otra categoría: <strong>diseñar en frío para ejecutar en caliente.</strong> Tu "cerebro frío" (domingo, tranquilo, planificás como campeón) y tu "cerebro caliente" (martes 3pm, todo en llamas) son dos personas distintas. El truco no es tener más voluntad el martes — es que el domingo dejes todo tan armado que el martes <em>solo ejecutes</em>. Eso no es un tip: es reprogramar cómo opera tu cabeza. Es lo que Nico llama <em>hackear tu cerebro</em>.',
+    text:'¿Tiene sentido para vos que la solución sea un sistema que diseñás en frío, y no fuerza de voluntad en caliente?',
+    subtext:'',
+    options:[
+      { text:'Sí, es exactamente lo que me viene faltando.', score:[3,0,1] },
+      { text:'Sí, suena distinto a todo lo que probé.', score:[3,0,1] },
+      { text:'Lo empiezo a ver.', score:[2,0,1] },
+      { text:'No me termina de cerrar todavía.', score:[1,0,0] }
+    ] },
+
+  /* ── PUENTE INSTITUTO → Acuerdo 6 (prueba) + Acuerdo 4 (te entiende) ── */
+  { kind:'puente' },
+
+  /* ── ACUERDO 7: puedo verme a MÍ triunfando (personalizado) ── */
+  { kind:'agree', rung:'Acuerdo 7 · Alguien como vos ya pudo', personal:true,
+    section:'¿Y si funcionara para vos?',
+    frame_leader:'No es para gurús ni para gente con superpoderes. Es para <strong>líderes y dueños igual que vos</strong> —que llegaban fundidos a casa y lideraban en automático— y que hoy operan distinto sin trabajar más horas. Si ellos pudieron desde donde estaban, el problema nunca fue tu capacidad: fue que te faltaba el sistema.',
+    frame_pro:'No es para gurús ni para gente con superpoderes. Es para <strong>profesionales igual que vos</strong> —contadores, médicos, abogados, ingenieros con la agenda al tope— que estaban igual de saturados y hoy rinden distinto. Si ellos pudieron desde donde estaban, el problema nunca fue tu capacidad: fue que te faltaba el sistema.',
+    frame_entre:'No es para gurús ni para gente con superpoderes. Es para <strong>emprendedores igual que vos</strong> —bancándose todo solos, con el proyecto al 30%— que estaban igual de fundidos y hoy avanzan distinto. Si ellos pudieron desde donde estaban, el problema nunca fue tu capacidad: fue que te faltaba el sistema.',
+    frame_student:'No es para gurús ni para gente con superpoderes. Es para <strong>estudiantes igual que vos</strong> —llegando destruidos a los exámenes, siempre atrasados— que estaban igual de trabados y hoy estudian distinto. Si ellos pudieron desde donde estaban, el problema nunca fue tu capacidad: fue que te faltaba el sistema.',
+    text:'Si tuvieras el sistema correcto y alguien que te lo sostenga, ¿podés imaginarte sosteniendo el cambio?',
+    subtext:'',
+    options:[
+      { text:'Sí. Si tengo con qué y quién, lo sostengo.', score:[3,1,0] },
+      { text:'Quiero creerlo — y una parte mía ya lo ve.', score:[3,0,1] },
+      { text:'Me cuesta imaginarlo todavía.', score:[2,0,2] },
+      { text:'Honestamente, hoy no me veo.', score:[1,0,2] }
+    ] },
+
+  /* ── HAMMER 3: recap de la escalera ── */
+  { kind:'belief',
+    eyebrow:'Fijate lo que ya venís acordando',
+    text:'Si todo esto es cierto, <em>seguir esperando</em> es la única opción que no tiene sentido.',
+    chain:['no es tu voluntad','el método viejo no escala','la causa es química','la salida es un sistema','gente como vos ya pudo'] },
+
+  /* ── ACUERDO 8: el costo de NO hacerlo (personalizado, multi) ── */
+  { kind:'multi', rung:'Acuerdo 8 · El costo de no hacer nada', personal:true, isCost:true,
+    section:'El costo real',
+    frame:'Ahora el ejercicio incómodo: <em>proyectá 12 meses adelante sin cambiar nada.</em> Mismo cerebro en reserva, mismas postergaciones. <strong>El costo más caro no es el del cambio — es el de no hacer nada.</strong> Y nunca es una sola cosa la que se te pierde.',
+    text_leader:'Si seguís igual los próximos 12 meses, ¿qué se te pierde y no vuelve?',
+    text_pro:'Si seguís igual los próximos 12 meses, ¿qué se te pierde y no vuelve?',
+    text_entre:'Si seguís igual los próximos 12 meses, ¿qué se te pierde y no vuelve?',
+    text_student:'Si seguís igual los próximos 12 meses, ¿qué se te pierde y no vuelve?',
+    subtext:'Marcá todo lo que aplica. No es para sentirte mal — es para ver el cuadro completo.',
+    options_leader:[
+      { text:'Oportunidades de negocio que no agarré por estar apagando incendios.', tag:'oportunidades', proyeccion:'oportunidades de negocio agarradas por otros' },
+      { text:'Vínculo real con mi equipo y mi familia — llego destruido, lidero en automático.', tag:'vinculos', proyeccion:'el vínculo con tu equipo y tu familia, llegando destruido cada día' },
+      { text:'Salud, energía, claridad — el envase se rompe antes que el sistema.', tag:'salud', proyeccion:'tu salud y energía, con el envase rompiéndose antes que el sistema' },
+      { text:'Una versión de mí que sé que existe y no termina de salir.', tag:'identidad', proyeccion:'la versión de vos que sabés que existe y no termina de salir' }
+    ],
+    options_pro:[
+      { text:'Proyectos que se quedan en la cabeza y nunca arrancan.', tag:'proyectos', proyeccion:'proyectos que se quedan en tu cabeza y nunca arrancan' },
+      { text:'Tiempo con pareja, hijos, vínculos — postergo planes que no se recuperan.', tag:'vinculos', proyeccion:'tiempo con tus vínculos, planes que no se recuperan' },
+      { text:'Energía, sueño, cuerpo — funcionar a costa del envase tiene fecha de vencimiento.', tag:'salud', proyeccion:'tu energía, sueño y cuerpo, funcionando a costa del envase' },
+      { text:'Una versión de mí que sé que existe y no termina de salir.', tag:'identidad', proyeccion:'la versión de vos que sabés que existe y no termina de salir' }
+    ],
+    options_entre:[
+      { text:'Mi proyecto al 30% de lo que podría — se queda chico por mí, no por el mercado.', tag:'proyecto', proyeccion:'tu proyecto al 30%, quedándose chico por vos y no por el mercado' },
+      { text:'Vínculos cercanos — todo atado a "cuando esté más tranquilo".', tag:'vinculos', proyeccion:'tus vínculos atados al "cuando esté más tranquilo" que nunca llega' },
+      { text:'Salud, descanso, energía — me banco todo solo y el cuerpo me pasa factura.', tag:'salud', proyeccion:'tu salud y descanso, bancándote todo hasta que el cuerpo pase factura' },
+      { text:'La versión de mí que tengo en la cabeza y nunca se materializa.', tag:'identidad', proyeccion:'la versión de vos que tenés en la cabeza y nunca se materializa' }
+    ],
+    options_student:[
+      { text:'Promedio, becas, oportunidades que no agarré por llegar destruido/a a los exámenes.', tag:'academico', proyeccion:'oportunidades académicas que no agarraste por llegar destruido/a' },
+      { text:'Vínculos — pareja, amigos, familia — relegados por sentirme siempre atrasado.', tag:'vinculos', proyeccion:'tus vínculos relegados por sentirte siempre atrasado/a' },
+      { text:'Salud, sueño, cuerpo — estudiar a deshora con el cerebro agotado tiene costo.', tag:'salud', proyeccion:'tu salud y sueño, estudiando con el cerebro agotado' },
+      { text:'La versión de mí que podría estar si esto no me trabara la cabeza.', tag:'identidad', proyeccion:'la versión de vos que podría estar si esto no te trabara la cabeza' }
+    ] },
+
+  /* ── ACUERDO 9: actuar ahora, no después ── */
+  { kind:'agree', rung:'Acuerdo 9 · Ahora, no después',
+    section:'El mejor momento',
+    frame:'Último acuerdo, el más difícil. "Estar listo" no es una sensación que llega — es una decisión que tomás. Si esperás sentirte listo, no arrancás nunca, porque un cerebro en reserva SIEMPRE va a encontrar una razón para "la semana que viene". Y acá está el costo escondido: la inacción es <em>compuesta</em>. No perdés solo un mes — ese mes refuerza el patrón y hace más difícil el próximo. <strong>Esperar no te deja igual: te deja peor.</strong>',
+    text:'¿De acuerdo en que el mejor momento para cambiar esto no es cuando te sientas listo, sino ahora?',
+    subtext:'',
+    options:[
+      { text:'Sí. Si no es ahora, no es nunca.', score:[3,1,0] },
+      { text:'Sí, lo vengo posponiendo hace demasiado.', score:[3,0,2] },
+      { text:'Me cuesta, pero lo sé.', score:[2,0,1] },
+      { text:'Prefiero esperar un poco más.', score:[1,0,1] }
+    ] }
+];
+
+/* ─── PERFILES DE SALIDA ─── */
+const profiles = {
+  avatar:{
+    badge:'El que está listo para el salto',
+    pct:[72,92],
+    title:'Estás de acuerdo con todo lo que hace falta. Falta lo único que no se hace <span>solo</span>.',
+    desc:'Sos minoría. Acordaste, punto por punto, con todo lo que define a alguien que <strong>sí puede transformar esto</strong>: entendés que no es tu voluntad, que el método viejo no escala, que la causa es el estado de tu cerebro y que la salida es un sistema. Ese nivel de claridad es exactamente el perfil para el que diseñamos el acompañamiento del Instituto. Lo único que te falta no es más info — es <strong>que alguien te sostenga la implementación las primeras semanas</strong>, que es justo lo que un cerebro saturado no puede hacer en soledad.',
+    encuadre:'Ya acordaste con todo. Ahora se ejecuta acompañado.',
+    encuadre_sub:'La diferencia entre 5 años solo/a y unos meses con un equipo atrás.',
+    recos:[
+      { t:'Diseñá tu semana en cerebro frío', d:'Elegí un momento tranquilo (domingo a la noche) y dejá los 3 bloques importantes de la semana ya agendados y preparados. El martes en llamas, tu cerebro caliente solo ejecuta — no decide.' },
+      { t:'Blindá el sistema contra los días malos', d:'Tu sistema ya funciona los días buenos. El próximo nivel es que aguante los días malos: por eso hace falta un protocolo y alguien que te lo sostenga cuando la semana se complica.' },
+      { t:'Comprimí el tiempo con acompañamiento', d:'Sabés a dónde vas; lo que falta es velocidad. Solo/a lleva años. Con un equipo que te corrige en vivo, meses. Es la conversación que tiene sentido tener ahora.' }
+    ]
+  },
+  cerro_circulo:{
+    badge:'El que ya viene aplicando',
+    pct:[60,85],
+    title:'Ya aplicaste. Ahora toca el <span>siguiente nivel</span>.',
+    desc:'Internalizaste los conceptos y ya estás viendo cambios reales — eso no es suerte, es que tomaste el contenido en serio. Pero acordaste también con algo incómodo: <strong>sin un sistema completo, esto se erosiona cuando sube la presión.</strong> Lo que viene ahora no es más información: es la arquitectura para que no se te caiga en el primer mes difícil.',
+    encuadre:'Hiciste solo/a lo que la mayoría hace acompañada.',
+    encuadre_sub:'Imaginate con el sistema integral atrás. La diferencia entre resistir y escalar.',
+    recos:[
+      { t:'Pasá de hábitos sueltos a sistema', d:'Tenés piezas que funcionan. El salto es integrarlas en un sistema que no dependa de tu estado de ánimo del día.' },
+      { t:'Protegé lo ganado bajo presión', d:'Lo que sostenés en una semana tranquila no es la prueba. Diseñá el plan para el día que todo se complica — ahí es donde se cae o se consolida.' },
+      { t:'Buscá velocidad, no más teoría', d:'La claridad la tenés. Lo que comprime años en meses es un acompañamiento que te corrija en tiempo real.' }
+    ]
+  },
+  espera_momento:{
+    badge:'El que espera el momento',
+    pct:[30,55],
+    title:'El sistema está esperando. <span>Vos esperás algo más</span>.',
+    desc:'Acordaste con casi todo el diagnóstico — y ahí está la clave: <strong>no es que no lo veas, es que tu cerebro está en "necesito un poco más de claridad antes de arrancar".</strong> Y siempre va a faltar un poco más, porque un cerebro en reserva usa la duda para postergar (postergar calma, arrancar activa ansiedad). Esto no se cierra leyendo otro libro. Se cierra con una primera acción concreta, sostenida desde afuera.',
+    encuadre:'El momento perfecto no existe. El próximo paso, sí.',
+    encuadre_sub:'Y siempre es más chico de lo que tu cabeza te dice — pero necesitás que alguien te lo marque.',
+    recos:[
+      { t:'Cambiá "plan perfecto" por "acción ridícula"', d:'El plan perfecto no existe. La primera acción ridículamente chica sí — y es lo único que rompe la inercia. Definila para hoy, no para cuando estés listo/a.' },
+      { t:'Sacale trabajo a la mesita de luz mental', d:'Descargá lo que tenés en la cabeza a un solo lugar afuera. Cuando el horno cognitivo se despeja, arrancar deja de doler tanto.' },
+      { t:'Que alguien te interrumpa el patrón', d:'El patrón de postergar se corta más fácil desde afuera. Un acompañamiento que te marque el paso es lo que convierte la intención en acción.' }
+    ]
+  },
+  saturado:{
+    badge:'El que viene en modo supervivencia',
+    pct:[12,32],
+    title:'No es que no puedas. Estás en <span>modo supervivencia</span>.',
+    desc:'Esto importa: <strong>no aplicaste no porque seas indisciplinado/a</strong>, sino porque tu cerebro está gastando casi todo en sostener el día. En saturación crónica, la fuerza de voluntad está literalmente apagada — no es debilidad, es circuiteo en ahorro. Y nada de lo que leas va a moverlo si no salís primero del estado de reserva. <strong>Primero se recupera el envase, después se diseña el sistema.</strong>',
+    encuadre:'Primero bajás las revoluciones. Después construís.',
+    encuadre_sub:'En ese orden. Al revés, el sistema se cae en 2 semanas — es lo que te viene pasando.',
+    recos:[
+      { t:'Recuperá el envase antes que el sistema', d:'Sueño, una pausa real y bajar estímulos. Con la corteza prefrontal al 50%, cualquier técnica de productividad rebota. Primero baja de revoluciones.' },
+      { t:'Cortá el secuestro de dopamina urgente', d:'En modo desbordado el celular te captura más rápido. Un solo límite concreto (una franja sin pantalla) le devuelve algo de combustible a tu cerebro.' },
+      { t:'No busques otro recurso — buscá un protocolo', d:'Lo que necesitás no es más contenido, es alguien que te ayude a bajar primero las revoluciones y recién después implementar, en el orden correcto.' }
+    ]
+  }
+};
+
+/* ─── RESUMEN DE LAS 2 CLASES (repetición + valor prometido por WhatsApp) ─── */
+const resumen2clases = [
+  { ico:'🧠', t:'No SOS procrastinador, ESTÁS procrastinando', d:'Es un estado, no una identidad. Lo que te repetís, lo construís — y la identidad se confirma sola.' },
+  { ico:'🔥', t:'Cerebro frío vs. cerebro caliente', d:'Planificás como campeón el domingo y no ejecutás el martes. La solución es diseñar en frío para que el caliente solo ejecute.' },
+  { ico:'🗂️', t:'Tu memoria de trabajo es una mesita de luz chiquita', d:'Con demasiadas hojas apiladas, lo importante queda tapado por lo urgente. No sos vago: tu horno cognitivo está al límite.' },
+  { ico:'⚡', t:'En saturación, la voluntad se apaga', d:'La corteza prefrontal trabaja al 50%. Por eso "esforzarte más" no funciona — el circuito está en ahorro de energía.' },
+  { ico:'🎯', t:'"Estar listo" es una decisión, no una sensación', d:'La mejor forma de predecir el futuro es crearlo. La acción construye el "estar listo", no al revés.' },
+  { ico:'🔑', t:'La idea que ordena todo', d:'El conocimiento no cambia tu vida. La implementación sostenida sí. Y sostenerla es lo que un cerebro en reserva no puede hacer solo.' }
+];
+
+/* ═══════════════════ ESTADO ═══════════════════ */
+let stepIdx = 0;            // índice en el "runtime" de pantallas
+let profession = null;
+let selected = null;         // single: índice; multi: array
+let answers = {};            // flowIndex → respuesta
+let scores = { acuerdo:0, aplicacion:0, saturacion:0 };
+let proyeccionTexto = '';
+let frasesSintomaTags = [];
+let costoTags = [];
+let inversorTag = null;
+let capacidadTag = null;
+let cal2Idx = null;
+
+/* runtime = intro, prof, [flow...], cal1, cal2, loading, result */
+const PRE = ['intro','prof'];
+const POST = ['cal1','cal2','loading','result'];
+function totalRuntime(){ return PRE.length + flow.length + POST.length; }
+function nodeAt(i){
+  if(i < PRE.length) return { type:PRE[i] };
+  if(i < PRE.length + flow.length) return { type:'flow', flowIdx:i - PRE.length };
+  return { type:POST[i - PRE.length - flow.length] };
+}
+/* progreso: contamos solo pasos "interactivos" (flow que no es belief + cal1 + cal2) */
+function progressInfo(){
+  const interactive = [];
+  flow.forEach((f,idx)=>{ if(f.kind!=='belief') interactive.push(PRE.length+idx); });
+  interactive.push(PRE.length+flow.length);     // cal1
+  interactive.push(PRE.length+flow.length+1);   // cal2
+  const done = interactive.filter(gi => gi < stepIdx).length;
+  const cur = interactive.indexOf(stepIdx);
+  const shownNum = cur >= 0 ? cur+1 : done;
+  return { total:interactive.length, num:Math.max(1,shownNum), pct:Math.round((done + (cur>=0?1:0))/interactive.length*100) };
+}
+
+/* ═══════════════════ HELPERS ═══════════════════ */
+function isStudent(){ return profession === 'student'; }
+function fEl(f, base){ return f.personal ? f[base+'_'+profession] : f[base]; }
+
+function getProfileKey(){
+  const { acuerdo, aplicacion, saturacion } = scores;
+  if(saturacion >= 11 && saturacion >= acuerdo) return 'saturado';
+  if(aplicacion >= 8) return 'cerro_circulo';
+  if(acuerdo >= 16) return 'avatar';
+  return 'espera_momento';
+}
+function getPct(){
+  const key = getProfileKey();
+  const range = profiles[key].pct;
+  const max = 28;                              // acuerdo máximo aprox (9 pasos ~3)
+  const norm = Math.min(1, scores.acuerdo / max);
+  return Math.round(range[0] + norm * (range[1]-range[0]));
+}
+/* Ruteo: el que acuerda + puede + quiere → llamada (avatar). Resto → libro. */
+function getCamino(){
+  if(isStudent()) return 'B';
+  if(inversorTag === 'inversor_no') return 'C';
+  if(inversorTag === 'inversor_dudoso') return 'B';
+  if(capacidadTag === 'capacidad_si' || capacidadTag === 'capacidad_ajustada') return 'A';
+  return 'B';
+}
+
+/* ═══════════════════ RENDER ═══════════════════ */
+function render(){
+  const app = document.getElementById('app');
+  const node = nodeAt(stepIdx);
+  if(node.type==='intro')        app.innerHTML = renderIntro();
+  else if(node.type==='prof')    app.innerHTML = renderProf();
+  else if(node.type==='flow'){
+    const f = flow[node.flowIdx];
+    if(f.kind==='belief')        app.innerHTML = renderBelief(f);
+    else if(f.kind==='puente'){  app.innerHTML = renderPuente(); animatePuenteChips(); }
+    else                         app.innerHTML = renderQuestion(f, node.flowIdx);
+  }
+  else if(node.type==='cal1')    app.innerHTML = renderCal1();
+  else if(node.type==='cal2')    app.innerHTML = renderCal2();
+  else if(node.type==='loading'){app.innerHTML = renderLoading(); runLoading(); }
+  else if(node.type==='result'){ app.innerHTML = renderResult(); animateResult(); }
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function renderIntro(){
+  return `
+  <div class="nfm-intro">
+    <div class="nfm-badge"><span class="nfm-badge-dot"></span>Test de Alto Rendimiento · Solo para quienes hicieron el recorrido</div>
+    <h1>Habilitamos tu test.<br>Y ya te separa <span>del 90%</span>.</h1>
+    <p class="nfm-intro-sub">Después de 2 clases en vivo y todos los recursos, la pregunta no es cuánto viste. Es <strong>cuánto de eso ya está operando en tu vida</strong> — y cuál es el próximo paso real para que ese conocimiento se convierta en rendimiento sostenido.</p>
+
+    <div class="nfm-belief-strip">
+      <div class="nfm-belief-eyebrow">Antes de empezar, la idea que ordena todo</div>
+      <div class="nfm-belief-text">No rendís de menos porque te falte disciplina o información. Rendís de menos porque tu cerebro está en <em>modo reserva</em> — y un cerebro en reserva no se arregla sabiendo más: <strong>se reprograma con un sistema y con alguien que te sostenga</strong>.</div>
+    </div>
+
+    <div class="nfm-what-you-get">
+      <div class="nfm-what-title">Al terminar vas a tener</div>
+      <div class="nfm-what-item"><span>Tu <strong>perfil de alto rendimiento</strong> real post-recorrido</span></div>
+      <div class="nfm-what-item"><span>Tu <strong>resumen de las 2 clases</strong> en una sola pantalla</span></div>
+      <div class="nfm-what-item"><span><strong>3 recomendaciones</strong> concretas para integrar a tu rutina esta semana</span></div>
+      <div class="nfm-what-item"><span>El <strong>próximo paso</strong> calibrado a tu situación real — sin promesas vacías</span></div>
+    </div>
+
+    <button class="nfm-btn-start" onclick="next()">Empezar mi test →</button>
+    <p class="nfm-time-note">⏱ 4 minutos · 100% privado</p>
+  </div>`;
+}
+
+function renderProf(){
+  return `
+  <div class="nfm-screen">
+    <div class="nfm-prof-eyebrow">Paso 1 · Personalización</div>
+    <div class="nfm-prof-title">¿Cuál es tu situación profesional hoy?</div>
+    <div class="nfm-prof-sub">Esto calibra el test y las recomendaciones a tu realidad.</div>
+    <div class="nfm-prof-grid">
+      ${professions.map(p => `
+        <div class="nfm-prof-card ${profession===p.id?'selected':''}" onclick="selectProf('${p.id}')">
+          <div class="nfm-prof-icon">${p.icon}</div>
+          <div class="nfm-prof-info"><strong>${p.label}</strong><span>${p.desc}</span></div>
+        </div>`).join('')}
+    </div>
+    <div class="nfm-nav" style="margin-top:24px">
+      <button class="nfm-btn-back" onclick="back()">← Volver</button>
+      <button class="nfm-btn-next ${profession?'visible':''}" onclick="next()">Empezar →</button>
+    </div>
+  </div>`;
+}
+
+function renderQuestion(f, flowIdx){
+  const p = progressInfo();
+  const letters = ['A','B','C','D','E','F','G'];
+  const isMulti = f.kind==='multi';
+  const opts = f.isCost ? f['options_'+profession] : f.options;
+  const text = f.personal ? fEl(f,'text') : (f.isCost ? f['text_'+profession] : f.text);
+  const frame = f.personal ? fEl(f,'frame') : f.frame;
+  const selArr = isMulti ? (Array.isArray(selected)?selected:[]) : null;
+  const hasSel = isMulti ? selArr.length>0 : selected!==null;
+
+  let counter='';
+  if(isMulti){
+    counter = `<div class="nfm-multi-counter ${selArr.length>0?'has-selection':''}">Marcaste <strong>${selArr.length}</strong> de ${opts.length}</div>`;
+  }
+
+  return `
+  <div class="nfm-screen">
+    <div class="nfm-progress-wrap">
+      <div class="nfm-progress-meta">
+        <span class="nfm-progress-label">Test de alto rendimiento</span>
+        <span class="nfm-progress-count">${p.num} / ${p.total}</span>
+      </div>
+      <div class="nfm-progress-track"><div class="nfm-progress-fill" style="width:${p.pct}%"></div></div>
+    </div>
+    <div class="nfm-section-chip">📍 ${f.rung}</div>
+    <div class="nfm-question-card">
+      <div class="nfm-q-num">${f.section}${isMulti?' · Selección múltiple':''}</div>
+      <div class="nfm-q-frame">${frame}</div>
+      <div class="nfm-q-text">${text}</div>
+      ${f.subtext?`<div class="nfm-q-subtext">${f.subtext}</div>`:''}
+      ${counter}
+      <div class="nfm-options">
+        ${opts.map((o,i)=>{
+          const sel = isMulti ? selArr.includes(i) : selected===i;
+          return `<div class="nfm-option ${sel?'selected':''}" onclick="${isMulti?`toggleOpt(${i})`:`pickOpt(${i})`}">
+            ${isMulti?`<div class="nfm-option-check"></div>`:`<div class="nfm-option-letter">${letters[i]}</div>`}
+            <div class="nfm-option-text">${o.text}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+    <div class="nfm-nav">
+      <button class="nfm-btn-back" onclick="back()">← Anterior</button>
+      <button class="nfm-btn-next ${hasSel?'visible':''}" onclick="next()">Siguiente →</button>
+    </div>
+  </div>`;
+}
+
+function renderBelief(f){
+  const chain = f.chain ? `<div class="nfm-hammer-chain">${f.chain.map(c=>`<span class="nfm-hammer-chip">✓ ${c}</span>`).join('')}</div>` : '';
+  const sub = f.sub ? `<div class="nfm-hammer-sub">${f.sub}</div>` : '';
+  return `
+  <div class="nfm-screen">
+    <div class="nfm-hammer">
+      <div class="nfm-hammer-eyebrow">— ${f.eyebrow} —</div>
+      <div class="nfm-hammer-text">${f.text}</div>
+      ${chain}
+      ${sub}
+    </div>
+    <div class="nfm-nav" style="justify-content:flex-end">
+      <button class="nfm-btn-next visible" onclick="next()">Sigo →</button>
+    </div>
+  </div>`;
+}
+
+/* ─── PUENTE INSTITUTO ─── */
+function getInstitutoChips(){
+  const core = [
+    { icon:'🧠', label:'Psicología · TDA/TDAH y depresión' },
+    { icon:'⚡', label:'Coaches en neurociencia' },
+    { icon:'🎯', label:'Coaches de productividad' },
+    { icon:'🥗', label:'Nutricionistas' }
+  ];
+  const contextual = [];
+  const hitEmocional = ['vinculos','culpa','fatiga'].some(t=>frasesSintomaTags.includes(t)) || costoTags.includes('vinculos') || scores.saturacion>=8;
+  contextual.push({ icon:'😌', label:'Gestión emocional', highlight:hitEmocional });
+  const hitSueno = frasesSintomaTags.includes('fatiga') || frasesSintomaTags.includes('culpa') || costoTags.includes('salud');
+  contextual.push({ icon:'🌙', label:'Sueño y descanso', highlight:hitSueno });
+  const hitHabitos = frasesSintomaTags.includes('inconcluso') || frasesSintomaTags.includes('importante');
+  contextual.push({ icon:'🔁', label:'Hábitos y disciplina', highlight:hitHabitos });
+  contextual.push({ icon:'👥', label:'Especialistas en liderazgo', highlight: profession==='leader' });
+  contextual.push({ icon:'🤖', label:'IA aplicada a productividad', highlight: profession==='pro'||profession==='entre' });
+  contextual.push({ icon:'🤝', label:'Delegación efectiva', highlight: profession==='leader'||profession==='entre' });
+  contextual.push({ icon:'🗣', label:'Oratoria e influencia', highlight: profession==='leader'||profession==='entre' });
+  contextual.push({ icon:'📖', label:'Lectura veloz', highlight: profession==='student'||profession==='pro' });
+  return { core, contextual };
+}
+function renderPuente(){
+  const p = progressInfo();
+  const chips = getInstitutoChips();
+  const highlightCount = chips.contextual.filter(c=>c.highlight).length;
+  const coreHTML = chips.core.map((c,i)=>`<div class="nfm-staff-chip core" data-delay="${i*70}">${c.icon} ${c.label}</div>`).join('');
+  const ctxHTML = chips.contextual.map((c,i)=>`<div class="nfm-staff-chip ${c.highlight?'highlight':''}" data-delay="${(chips.core.length+i)*70}">${c.icon} ${c.label}</div>`).join('');
+  return `
+  <div class="nfm-screen">
+    <div class="nfm-progress-wrap">
+      <div class="nfm-progress-meta">
+        <span class="nfm-progress-label">Test de alto rendimiento</span>
+        <span class="nfm-progress-count">${p.num} / ${p.total}</span>
+      </div>
+      <div class="nfm-progress-track"><div class="nfm-progress-fill" style="width:${p.pct}%"></div></div>
+    </div>
+    <div class="nfm-puente">
+      <div class="nfm-puente-eyebrow">Acuerdo 6 · Quiénes están del otro lado</div>
+      <div class="nfm-puente-title">Esto no lo sostiene fuerza de voluntad. Lo sostiene un equipo.</div>
+      <div class="nfm-puente-text">Detrás de cada caso que trabajamos en el <strong>Instituto de Productividad</strong> hay un equipo completo de profesionales — no es Nico solo grabando contenido. <strong>Más de 400 personas en LATAM ya pasaron por esto:</strong></div>
+      <div class="nfm-staff-grid" id="staff-grid">${coreHTML}${ctxHTML}</div>
+      ${highlightCount>0?`<div class="nfm-puente-hint">Los iluminados en naranja son los que más le pesan a tu caso</div>`:''}
+      <div class="nfm-puente-text highlight">Esa es la diferencia entre un curso y un proceso: un sistema que te reprograma el cerebro <strong>y alguien que te lo sostiene</strong> mientras lo instalás. Justo lo que en soledad no se puede.</div>
+    </div>
+    <div class="nfm-nav" style="justify-content:flex-end">
+      <button class="nfm-btn-next visible" onclick="next()">Entendido, sigamos →</button>
+    </div>
+  </div>`;
+}
+function animatePuenteChips(){
+  document.querySelectorAll('#staff-grid .nfm-staff-chip').forEach(chip=>{
+    const d = parseInt(chip.getAttribute('data-delay')||'0',10);
+    setTimeout(()=>chip.classList.add('shown'), d);
+  });
+}
+
+/* ─── CAL 1: mentalidad de inversión ─── */
+function renderCal1(){
+  const p = progressInfo();
+  const opts = [
+    { tag:'inversor_alto',       text:'Si veo que el contenido y la persona son sólidos, <strong>invierto sin mucha vuelta</strong>. Sé que el costo más caro es no hacer nada.' },
+    { tag:'inversor_consciente', text:'Invierto cuando puedo y veo claro el valor — pero <strong>lo evalúo bien</strong>, no por impulso.' },
+    { tag:'inversor_dudoso',     text:'Me cuesta. Siento que <strong>debería poder solo/a</strong> y posterga invertir hasta que el dolor es muy grande.' },
+    { tag:'inversor_no',         text:'Prefiero <strong>el contenido gratuito</strong>. No me siento bien gastando en mi desarrollo todavía.' }
+  ];
+  const letters=['A','B','C','D'];
+  return `
+  <div class="nfm-screen">
+    <div class="nfm-progress-wrap">
+      <div class="nfm-progress-meta">
+        <span class="nfm-progress-label">Calificación · Paso 1 de 2</span>
+        <span class="nfm-progress-count">${p.num} / ${p.total}</span>
+      </div>
+      <div class="nfm-progress-track"><div class="nfm-progress-fill" style="width:${p.pct}%"></div></div>
+    </div>
+    <div class="nfm-section-chip">💼 Mentalidad de crecimiento</div>
+    <div class="nfm-question-card">
+      <div class="nfm-q-num">Una pregunta honesta</div>
+      <div class="nfm-q-frame">Llegar hasta acá ya es un acto de quien <em>invierte en su propio desarrollo</em>. Ahora, honestidad: <strong>no hay respuesta correcta — hay respuesta tuya.</strong></div>
+      <div class="nfm-q-text">Cuando aparece algo que te puede llevar a una mejor versión tuya, ¿cómo es tu relación con eso?</div>
+      <div class="nfm-options">
+        ${opts.map((o,i)=>`<div class="nfm-option ${inversorTag===o.tag?'selected':''}" onclick="setInversor('${o.tag}')">
+          <div class="nfm-option-letter">${letters[i]}</div><div class="nfm-option-text">${o.text}</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="nfm-nav">
+      <button class="nfm-btn-back" onclick="back()">← Anterior</button>
+      <button class="nfm-btn-next ${inversorTag?'visible':''}" onclick="next()">Última pregunta →</button>
+    </div>
+  </div>`;
+}
+
+/* ─── CAL 2: capacidad económica ─── */
+function renderCal2(){
+  const p = progressInfo();
+  const opts = [
+    { tag:'capacidad_si',       text:'Es una inversión seria, pero <strong>puedo hacerla sin afectar mi estabilidad</strong>. Si el valor está, lo evalúo en serio.' },
+    { tag:'capacidad_ajustada', text:'Puedo, pero <strong>con esfuerzo</strong>. Tendría que reorganizar prioridades — no es imposible, requiere decisión.' },
+    { tag:'capacidad_no',       text:'<strong>Hoy no.</strong> Con la economía justa — necesito una opción más accesible para empezar.' },
+    { tag:'capacidad_no',       text:'<strong>Ni cerca.</strong> Hoy estoy en otra etapa económica — arranco con lo más accesible que tengan.' }
+  ];
+  const letters=['A','B','C','D'];
+  return `
+  <div class="nfm-screen">
+    <div class="nfm-progress-wrap">
+      <div class="nfm-progress-meta">
+        <span class="nfm-progress-label">Calificación · Paso 2 de 2</span>
+        <span class="nfm-progress-count">${p.total} / ${p.total}</span>
+      </div>
+      <div class="nfm-progress-track"><div class="nfm-progress-fill" style="width:100%"></div></div>
+    </div>
+    <div class="nfm-section-chip">💰 Realidad económica actual</div>
+    <div class="nfm-question-card">
+      <div class="nfm-q-num">Última · para devolverte el camino correcto</div>
+      <div class="nfm-q-frame">Las soluciones reales acá no son genéricas — son personalizadas. Algunos necesitan empezar por algo accesible y autogestionado; otros están listos para un proceso 1-a-1. <em>Ninguna es "mejor" en abstracto: depende de tu momento real, no de lo que valés.</em></div>
+      <div class="nfm-q-text">¿Cómo describirías tu <em>situación económica real hoy</em>?</div>
+      <div class="nfm-q-subtext">Sé honesto/a. Lo que respondas define qué camino tiene sentido devolverte.</div>
+      <div class="nfm-options">
+        ${opts.map((o,i)=>`<div class="nfm-option ${cal2Idx===i?'selected':''}" onclick="setCapacidad('${o.tag}',${i})">
+          <div class="nfm-option-letter">${letters[i]}</div><div class="nfm-option-text">${o.text}</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="nfm-nav">
+      <button class="nfm-btn-back" onclick="back()">← Anterior</button>
+      <button class="nfm-btn-next ${capacidadTag?'visible':''}" onclick="next()">Ver mi resultado →</button>
+    </div>
+  </div>`;
+}
+
+/* ─── LOADING ─── */
+function renderLoading(){
+  return `
+  <div class="nfm-loading">
+    <div class="nfm-loading-ring"></div>
+    <h3>Calibrando tu test de alto rendimiento...</h3>
+    <p>Cruzando tus acuerdos con el modelo del Instituto</p>
+    <div class="nfm-loading-steps">
+      <div class="nfm-loading-step active" id="ls1">→ Midiendo tu nivel de alineación con el modelo</div>
+      <div class="nfm-loading-step" id="ls2">→ Cruzando lo que aprendiste con lo que aplicaste</div>
+      <div class="nfm-loading-step" id="ls3">→ Proyectando tu costo real de no actuar a 12 meses</div>
+      <div class="nfm-loading-step" id="ls4">→ Calibrando el próximo paso que tiene sentido para vos</div>
+    </div>
+  </div>`;
+}
+function runLoading(){
+  const steps=['ls1','ls2','ls3','ls4']; let i=0;
+  const iv=setInterval(()=>{
+    i++;
+    if(i<steps.length){
+      document.querySelectorAll('.nfm-loading-step').forEach(el=>el.classList.remove('active'));
+      const el=document.getElementById(steps[i]); if(el) el.classList.add('active');
+    }
+    if(i>=steps.length-1){ clearInterval(iv); setTimeout(()=>{ stepIdx++; render(); },900); }
+  },700);
+}
+
+/* ─── RESULT ─── */
+function renderResult(){
+  const key = getProfileKey();
+  const prof = profiles[key];
+  const pct = getPct();
+  const circ = 2*Math.PI*38;
+  const camino = getCamino();
+
+  const resumenHTML = resumen2clases.map(r=>`
+    <div class="nfm-resumen-item">
+      <div class="nfm-resumen-ico">${r.ico}</div>
+      <div><strong>${r.t}</strong><span>${r.d}</span></div>
+    </div>`).join('');
+
+  return `
+  <div class="nfm-results">
+    <div class="nfm-result-header">
+      <div class="nfm-pct-ring">
+        <svg class="nfm-pct-svg" width="100" height="100" viewBox="0 0 100 100">
+          <circle class="nfm-pct-track" cx="50" cy="50" r="38"/>
+          <circle class="nfm-pct-fill" id="pct-circle" cx="50" cy="50" r="38" stroke-dasharray="${circ}" stroke-dashoffset="${circ}"/>
+        </svg>
+        <div class="nfm-pct-label"><span class="nfm-pct-num" id="pct-num">0%</span><span class="nfm-pct-sub">alto rendimiento</span></div>
+      </div>
+      <div class="nfm-result-profile-badge">✦ ${prof.badge}</div>
+      <div class="nfm-result-title">${prof.title}</div>
+      <div class="nfm-result-desc">${prof.desc}</div>
+    </div>
+
+    <div class="nfm-section-title">Tu resumen de las 2 clases</div>
+    <div class="nfm-resumen">${resumenHTML}</div>
+
+    <div class="nfm-section-title">3 recomendaciones para tu rutina esta semana</div>
+    ${prof.recos.map((h,i)=>`
+      <div class="nfm-reco-card">
+        <div class="nfm-reco-num">0${i+1}</div>
+        <div class="nfm-reco-content"><strong>${h.t}</strong><p>${h.d}</p></div>
+      </div>`).join('')}
+
+    ${proyeccionTexto?`
+    <div class="nfm-proyeccion">
+      <div class="nfm-proyeccion-eyebrow">Si seguís igual en 12 meses</div>
+      <div class="nfm-proyeccion-text">Lo que se te pierde es <em>${proyeccionTexto}</em>. Y eso no vuelve.</div>
+    </div>`:''}
+
+    <div class="nfm-encuadre">
+      <div class="nfm-encuadre-eyebrow">Nuevo encuadre</div>
+      <div class="nfm-encuadre-text">${prof.encuadre}</div>
+      <div class="nfm-encuadre-sub">${prof.encuadre_sub}</div>
+    </div>
+
+    <div class="nfm-divider"></div>
+    ${renderCTA(camino)}
+
+    <div class="nfm-trust-row">
+      <div class="nfm-trust-item">🧠 Basado en neurociencia</div>
+      <div class="nfm-trust-item">🔒 Tus respuestas son privadas</div>
+      <div class="nfm-trust-item">🇦🇷 +400 alumnos en LATAM</div>
+    </div>
+  </div>`;
+}
+
+function renderCTA(camino){
+  if(camino==='A') return renderCaminoA();
+  if(camino==='B') return renderCaminoB();
+  return renderCaminoC();
+}
+function renderCaminoA(){
+  return `
+  <div class="nfm-offer-card llamada">
+    <div class="nfm-offer-tag">Invitación del Instituto de Productividad</div>
+    <div class="nfm-offer-name">Acordaste con todo. El próximo paso es la única parte que no se hace solo/a.</div>
+    <div class="nfm-offer-desc">Tu perfil encaja con quienes mejor responden al acompañamiento del Instituto: <strong>mentalidad de crecimiento</strong>, claridad sobre el mecanismo, y un momento para invertir cuando el valor está. Sos exactamente para quien lo diseñamos.</div>
+    <div class="nfm-offer-desc">Te invitamos a una <strong>entrevista de admisión / sesión de claridad con un coach</strong> — sin costo, sin compromiso. En 45 minutos vemos tu caso, identificamos las brechas exactas y te explicamos cómo trabajaríamos. Si calza, te contamos el programa; si no, te decimos qué hacer en su lugar. Así de honesto.</div>
+
+    <div class="nfm-video-section">
+      <div class="nfm-video-iframe-wrap">
+        <iframe src="https://www.loom.com/embed/d5cd43a257d04220b60ed264f021e42b" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="fullscreen; autoplay" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <button class="nfm-btn-cta-primary" onclick="window.open('https://nicolasfernandezmiranda.com/sesion-postclase?utm_source=test-alto-rendimiento&utm_medium=resultado&utm_campaign=camino-a','_blank')">Agendar mi sesión de claridad →</button>
+    <div class="nfm-cta-foot">Cupos limitados esta semana · Solo para perfiles calificados</div>
+    <div class="nfm-firma">Nos vemos en la llamada.<br><strong>Nico</strong></div>
+  </div>`;
+}
+function renderCaminoB(){
+  const isStud = isStudent();
+  const title = isStud
+    ? 'Sos estudiante. Empezar por el libro es la decisión más inteligente que podés tomar hoy.'
+    : 'Tu mentalidad de inversión está. El momento económico, no — y eso está bien.';
+  const desc1 = isStud
+    ? 'El programa del Instituto está diseñado para profesionales con responsabilidades pesadas — no es la herramienta ni el precio que tienen sentido en tu etapa. <strong>Te respetamos demasiado para venderte algo que no necesitás.</strong>'
+    : 'Gracias por la honestidad. Sabés que invertir en vos vale — y también que hoy una inversión de 4 cifras te complicaría más de lo que te ayudaría. <strong>Eso no es excusa, es claridad financiera.</strong> La respetamos.';
+  const desc2 = isStud
+    ? '<strong>Hackea tu Cerebro</strong> es exactamente lo que necesitás: la metodología completa, los protocolos, los ejercicios — el mismo sistema que enseñamos, para instalar los hábitos correctos desde temprano y a tu ritmo.'
+    : 'Para vos, el próximo paso es <strong>Hackea tu Cerebro</strong>: el mismo sistema que aplicamos en el Instituto, en formato de auto-implementación. Lo trabajás, y dentro de 3-6 meses, si querés acelerar con acompañamiento, hablamos.';
+  return `
+  <div class="nfm-offer-card libro-honesto">
+    <div class="nfm-offer-tag">El próximo paso correcto para tu situación actual</div>
+    <div class="nfm-offer-name">${title}</div>
+    <div class="nfm-offer-desc">${desc1}</div>
+    <div class="nfm-offer-desc">${desc2}</div>
+    <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted-2);text-transform:uppercase;letter-spacing:0.1em;margin:18px 0 10px">Lo que vas a encontrar adentro</div>
+    <div class="nfm-libro-chips">
+      <div class="nfm-libro-chip">🧠 Mentalidad de crecimiento</div>
+      <div class="nfm-libro-chip orange">😴 Sueño y recuperación</div>
+      <div class="nfm-libro-chip">🔁 Hábitos: señal → rutina → recompensa</div>
+      <div class="nfm-libro-chip orange">🎯 Foco y concentración</div>
+      <div class="nfm-libro-chip">📋 Gestión del tiempo</div>
+      <div class="nfm-libro-chip orange">💡 Gestión del estrés</div>
+      <div class="nfm-libro-chip">🗂️ Second Brain</div>
+      <div class="nfm-libro-chip orange">📖 Lectura veloz</div>
+      <div class="nfm-libro-chip">🚀 Oratoria e influencia</div>
+      <div class="nfm-libro-chip orange">🤝 Delegación efectiva</div>
+    </div>
+    <button class="nfm-btn-cta-primary" onclick="window.open('https://comunidadproductiva.circle.so/hackea-tu-cerebro/?utm_source=test-alto-rendimiento&utm_medium=resultado&utm_campaign=camino-b','_blank')">Acceder a Hackea Tu Cerebro →</button>
+    <div class="nfm-cta-foot">Acceso inmediato · Comunidad incluida</div>
+    <div class="nfm-firma">El conocimiento sin implementación es entretenimiento. Cada capítulo termina con accionables concretos.<br><br>Nos vemos adentro.<br><strong>Nico</strong></div>
+  </div>`;
+}
+function renderCaminoC(){
+  return `
+  <div class="nfm-offer-card libro-suave">
+    <div class="nfm-offer-tag">Una recomendación honesta</div>
+    <div class="nfm-offer-name">Llegaste hasta acá — eso ya cuenta. Te dejo el próximo paso, sin presión.</div>
+    <div class="nfm-offer-desc">Marcaste que preferís el contenido gratuito y los recursos accesibles. <strong>Lo entendemos y lo respetamos.</strong> No vamos a tratar de convencerte de invertir si sentís que no es el momento.</div>
+    <div class="nfm-offer-desc">Lo único que te dejamos: si algún día querés profundizar, <strong>el libro Hackea tu Cerebro</strong> es la entrada más accesible. No hace falta que lo compres ahora — queda acá para cuando estés listo/a.</div>
+    <button class="nfm-btn-cta-primary" onclick="window.open('https://comunidadproductiva.circle.so/hackea-tu-cerebro/?utm_source=test-alto-rendimiento&utm_medium=resultado&utm_campaign=camino-c','_blank')">Conocer el libro →</button>
+    <div class="nfm-cta-foot">Sin compromiso · A tu ritmo</div>
+    <div class="nfm-firma">Mientras tanto, seguí con los recursos y aplicá. Si algo te resulta útil, ese ya es el primer paso.<br><br><strong>Nico</strong></div>
+  </div>`;
+}
+
+/* ═══════════════════ ACCIONES / NAV ═══════════════════ */
+function selectProf(id){ profession=id; render(); }
+function pickOpt(i){ selected=i; render(); }
+function toggleOpt(i){
+  if(!Array.isArray(selected)) selected=[];
+  const idx=selected.indexOf(i);
+  if(idx>=0) selected.splice(idx,1); else selected.push(i);
+  render();
+}
+function setInversor(tag){ inversorTag=tag; render(); }
+function setCapacidad(tag,idx){ capacidadTag=tag; cal2Idx=idx; render(); }
+
+function next(){
+  const node = nodeAt(stepIdx);
+  /* validaciones */
+  if(node.type==='prof' && !profession) return;
+  if(node.type==='cal1' && !inversorTag) return;
+  if(node.type==='cal2' && !capacidadTag) return;
+
+  if(node.type==='flow'){
+    const f = flow[node.flowIdx];
+    if(f.kind==='agree'){
+      if(selected===null) return;
+      answers[node.flowIdx]=selected;
+    } else if(f.kind==='multi'){
+      if(!Array.isArray(selected)||selected.length===0) return;
+      answers[node.flowIdx]=[...selected];
+    }
+    recompute();
+  }
+
+  stepIdx++;
+  loadSelectionFor(stepIdx);
+  render();
+}
+
+function back(){
+  if(stepIdx===0) return;
+  /* si estamos por entrar a loading/result, no hay back manual desde ahí (no se renderiza) */
+  stepIdx--;
+  /* saltear pantallas belief/puente hacia atrás también es válido (no guardan estado) */
+  loadSelectionFor(stepIdx);
+  render();
+}
+
+/* prepara `selected` según la respuesta previa guardada del paso actual */
+function loadSelectionFor(i){
+  const node = nodeAt(i);
+  if(node.type==='flow'){
+    const f = flow[node.flowIdx];
+    if(f.kind==='agree'){ selected = (answers[node.flowIdx]!==undefined)?answers[node.flowIdx]:null; }
+    else if(f.kind==='multi'){ selected = (answers[node.flowIdx]!==undefined)?[...answers[node.flowIdx]]:[]; }
+    else { selected=null; }
+  } else { selected=null; }
+}
+
+/* recalcula scores, tags y proyección desde `answers` */
+function recompute(){
+  scores = { acuerdo:0, aplicacion:0, saturacion:0 };
+  frasesSintomaTags=[]; costoTags=[]; proyeccionTexto='';
+  flow.forEach((f,idx)=>{
+    const a = answers[idx];
+    if(a===undefined) return;
+    if(f.kind==='agree'){
+      const s = f.options[a].score;
+      scores.acuerdo+=s[0]; scores.aplicacion+=s[1]; scores.saturacion+=s[2];
+    } else if(f.kind==='multi' && !f.isCost){
+      /* 7 caras: cuantas más marca, más saturación + reconocimiento (acuerdo) */
+      const m = a.length;
+      if(m>=5){ scores.saturacion+=4; scores.acuerdo+=3; }
+      else if(m>=3){ scores.saturacion+=2; scores.acuerdo+=2; }
+      else if(m>=1){ scores.saturacion+=1; scores.acuerdo+=1; }
+      const q = f;
+      a.forEach(i=>{ if(q.options[i] && q.options[i].tag) frasesSintomaTags.push(q.options[i].tag); });
+    } else if(f.kind==='multi' && f.isCost){
+      const opts = f['options_'+profession];
+      /* reconocer el costo también suma acuerdo (acuerdo 8) */
+      scores.acuerdo += Math.min(3, a.length);
+      const proys=[];
+      a.forEach(i=>{
+        if(opts[i]){ if(opts[i].tag) costoTags.push(opts[i].tag); if(opts[i].proyeccion) proys.push(opts[i].proyeccion); }
+      });
+      if(proys.length===1) proyeccionTexto=proys[0];
+      else if(proys.length===2) proyeccionTexto=proys[0]+', y '+proys[1];
+      else if(proys.length>2) proyeccionTexto=proys.slice(0,-1).join(', ')+', y '+proys[proys.length-1];
+    }
+  });
+}
+
+function animateResult(){
+  const pct=getPct(); const circ=2*Math.PI*38;
+  const circle=document.getElementById('pct-circle'); const numEl=document.getElementById('pct-num');
+  let cur=0;
+  const iv=setInterval(()=>{
+    cur=Math.min(cur+2,pct);
+    if(numEl) numEl.textContent=cur+'%';
+    if(circle) circle.style.strokeDashoffset=circ-(cur/100)*circ;
+    if(cur>=pct) clearInterval(iv);
+  },20);
+}
+
+render();
+</script>
+</body>
+</html>
