@@ -447,13 +447,13 @@ function getPct(){
   const norm = Math.min(1, scores.acuerdo / max);
   return Math.round(range[0] + norm * (range[1]-range[0]));
 }
-/* Ruteo: el que acuerda + puede + quiere → llamada (avatar). Resto → libro. */
+/* Ruteo: por DEFECTO → invitación (agendar call). Solo los descalificados → libro.
+   Descalifican: estudiante (etapa/precio no calza), prefiere lo gratuito, o no puede invertir hoy. */
 function getCamino(){
-  if(isStudent()) return 'B';
-  if(inversorTag === 'inversor_no') return 'C';
-  if(inversorTag === 'inversor_dudoso') return 'B';
-  if(capacidadTag === 'capacidad_si' || capacidadTag === 'capacidad_ajustada') return 'A';
-  return 'B';
+  if(isStudent()) return 'B';                       // estudiante → Hackea tu Cerebro
+  if(inversorTag === 'inversor_no') return 'C';     // prefiere lo gratuito → libro (oferta suave)
+  if(capacidadTag === 'capacidad_no') return 'B';   // hoy no puede invertir → libro
+  return 'A';                                        // TODOS los demás → invitación / agendar call
 }
 
 /* ═══════════════════ RENDER ═══════════════════ */

@@ -80,10 +80,13 @@ ni tedioso. La One Belief no se martilla con carteles: se instala una vez, bien,
 el feedback. El **ruteo del CTA** lo deciden las 2 preguntas de calificación (mentalidad de inversión +
 capacidad económica, honesto con la plata):
 
-- **Camino A — Entrevista de admisión** (video + link a `sesion-postclase`) → capacidad OK + mentalidad
-  de inversión.
-- **Camino B — Hackea tu Cerebro** → estudiante, mentalidad dudosa o momento económico ajustado.
-- **Camino C — Libro, oferta suave** → prefiere lo gratuito, sin presión.
+Regla: **por defecto → invitación (call). Solo los descalificados → libro.**
+
+- **Camino A — Entrevista de admisión** (video + link a `sesion-postclase`) → **el default**: todos los
+  que no descalifican (incluye al "dudoso" que dice *"me cuesta invertir"* — esa objeción se trabaja en
+  la call, no mandándolo al libro).
+- **Camino B — Hackea tu Cerebro** → **estudiante** (etapa/precio no calza) o **"hoy no puedo invertir"**.
+- **Camino C — Libro, oferta suave** → **"prefiero el contenido gratuito"**, sin presión.
 
 ---
 
