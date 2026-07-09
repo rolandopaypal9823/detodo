@@ -16,13 +16,14 @@ Todo el test orbita **una sola creencia**. Está construida con las 5 capas del 
 test binario (*"¿puede alguien creerla y aun así NO agendar/comprar, con coherencia lógica?"* → No).
 No menciona el producto: describe una **ley del mundo**, y la oferta cae como corolario.
 
-> **"Sé lo que tengo que hacer, pero no puedo hacerlo." No es falta de disciplina ni de información:
-> tu cerebro está como el celu con 20 apps abiertas en segundo plano — sin batería aunque no hagas
-> nada. Y una batería agotada no se recarga sabiendo más: se recarga con un sistema y con alguien que
-> te sostenga mientras lo instalás.**
+> **"Sabés perfectamente lo que tenés que hacer. Pero no lo hacés. Y no es falta de conocimiento ni
+> de fuerza de voluntad: nadie te enseñó a operar a favor de cómo funciona tu cerebro. El problema
+> nunca fue lo que sabés — es que te falta el sistema."**
 
-*(La frase de apertura — "Sé lo que tengo que hacer, pero no puedo hacerlo" — es la frase textual n.º1
-del avatar según el super skill. La analogía del celu con apps en segundo plano es del propio Nico.)*
+> ⚠️ **La estrategia (Agreement Engineering) se aplica en SILENCIO.** Nunca se le dice al usuario "estás
+> de acuerdo", ni se muestran etiquetas tipo "Acuerdo 1/2/3", ni "acordaste con todo". Tomamos la lógica
+> de la escalera y la usamos para ordenar las preguntas — pero eso queda entre nosotros. El usuario solo
+> vive una conversación honesta que lo lleva, solo, a la conclusión.
 
 Por qué funciona:
 - **Le saca la culpa a la persona** (no sos vago → el cortisol te dejó la corteza prefrontal al 50%). Es
@@ -46,80 +47,67 @@ voluntad"* / *"No es falta de tiempo, es falta de claridad"*.
 
 ---
 
-## 2. La escalera de 9 acuerdos (mapeo pantalla → peldaño)
+## 2. La lógica de acuerdos (interna, NUNCA visible)
 
-En vez de "muchas preguntas para autolocalizarse", ahora son **pocas preguntas + afirmaciones donde la
-persona ACUERDA punto por punto**. Cada paso está diseñado para producir un peldaño de la escalera. El
-que sube los 9 = el avatar = lead calificado que agenda.
+El test usa la escalera de Agreement Engineering **en silencio**: cada pregunta está ordenada para que
+la persona reconozca, por su cuenta, un eslabón de la cadena — pero jamás se le nombra. Son **4
+preguntas** (bajó de ~9) + 2 de calificación:
 
-| Pantalla | Tipo | Acuerdo que ingeniería |
-|---|---|---|
-| Estado real | afirmación | **#1** El problema es serio y **compuesto** (empeora si no actuás) |
-| 1 problema, 7 caras | multi-select | **#1/#2** Reconocimiento: no son 7 problemas, es 1 (refuerza la One Belief) |
-| *Hammer 1* | interstitial | Martilla la One Belief |
-| El método viejo no escala | afirmación | **#2** Lo que venís haciendo tiene techo estructural |
-| La causa que no sabías | afirmación | **#3** Es química (corteza al 50%), te saca del gancho |
-| *Hammer 2* | interstitial | "El conocimiento no cambia nada solo" |
-| Otra categoría de solución | afirmación | **#5** Solución fundamentalmente distinta (diseñar en frío = *hackear el cerebro*) |
-| Puente Instituto | prueba | **#6** Está probado (+400, equipo real) + **#4** "te entiende" |
-| Alguien como vos ya pudo | afirmación (personalizada) | **#7** Identificación personal ("me veo yo") |
-| *Hammer 3* | interstitial | Recap de la escalera → "esperar no tiene sentido" |
-| El costo de no hacer nada | multi (personalizada) | **#8** El costo de la inacción > costo de actuar |
-| Ahora, no después | afirmación | **#9** Urgencia real (inacción compuesta) |
+| Pantalla (lo que ve el usuario) | Lo que instala (interno, no se dice) |
+|---|---|
+| **Cómo venís** | El problema es serio y se va acumulando |
+| **Lo que te suena** (7 caras) | No son 7 problemas, es 1 solo |
+| **Por qué se te cae** | La causa oculta + quita la culpa + One Belief ("no es conocimiento, es sistema") |
+| **Lo que está en juego** | El costo de no hacer nada (personalizado por profesión) |
 
-*(Los peldaños #4 y #6 se pegan juntos en el "Puente Instituto", igual que Dan pega varios acuerdos con
-una sola pieza.)*
+Se eliminaron las **pantallas-pausa** (los 3 "hammer" y el "Puente Instituto") para que no se haga largo
+ni tedioso. La One Belief no se martilla con carteles: se instala una vez, bien, en "Por qué se te cae".
 
 ---
 
-## 3. Cómo califica al lead
+## 3. El resultado (corto, en 3 bloques)
 
-Tres dimensiones de score se recalculan en cada respuesta:
+1. **Feedback breve** (1-2 líneas) según el perfil.
+2. **3 puntos de identidad** — el cambio de paradigma: *no se trabaja con herramientas, se trabaja desde
+   la identidad.* No hay que sumar más cosas, hay que cambiar el **cómo** y el **dónde**:
+   - "Me falta saber más" → **"Ya sé; me falta el sistema"**
+   - "Soy un desastre" → **"Todavía no diseñé mi entorno"**
+   - "Cuando esté listo" → **"Soy alguien que arranca"**
+3. **Invitación**: el **video (2 min) bien arriba** + breve descripción de *Hackea tu Cerebro* (donde
+   está el sistema completo) + CTA.
 
-- **`acuerdo`** — cuánto se alinea con la One Belief / el avatar (driver principal).
-- **`aplicacion`** — cuánto ya viene aplicando.
-- **`saturacion`** — cuán en "modo supervivencia" está.
+**Perfil + ruteo.** El score interno (`acuerdo` / `aplicacion` / `saturacion`) define el badge, el % y
+el feedback. El **ruteo del CTA** lo deciden las 2 preguntas de calificación (mentalidad de inversión +
+capacidad económica, honesto con la plata):
 
-**Perfil de salida** (define copy + % de "alto rendimiento"):
-
-| Perfil | Cuándo | % |
-|---|---|---|
-| **El que está listo para el salto** (avatar) | acuerdo alto | 72–92% |
-| **El que ya viene aplicando** | aplicación alta | 60–85% |
-| **El que espera el momento** | acuerdo medio | 30–55% |
-| **El que viene en modo supervivencia** | saturación domina | 12–32% |
-
-**Ruteo del CTA** (calificación por mentalidad de inversión + capacidad económica, honesto con la plata):
-
-- **Camino A — Agendar entrevista de admisión / sesión de claridad** → capacidad OK + mentalidad de
-  inversión (el avatar). *Loom + link a `sesion-postclase`.*
-- **Camino B — Libro "Hackea tu Cerebro"** → estudiante, o mentalidad dudosa, o momento económico
-  ajustado. *Link a Circle.*
-- **Camino C — Libro (oferta suave)** → prefiere lo gratuito, sin presión.
+- **Camino A — Entrevista de admisión** (video + link a `sesion-postclase`) → capacidad OK + mentalidad
+  de inversión.
+- **Camino B — Hackea tu Cerebro** → estudiante, mentalidad dudosa o momento económico ajustado.
+- **Camino C — Libro, oferta suave** → prefiere lo gratuito, sin presión.
 
 ---
 
-## 4. Qué cambió respecto del diagnóstico anterior
+## 4. Qué cambió en esta versión (v3)
 
-- ✅ **Menos preguntas de autolocalización, más afirmaciones de acuerdo** (lo que pediste).
-- ✅ **One Belief martillada ~21x** entre bloques (los 3 `hammer` + cada `frame` + el resultado).
-- ✅ **Reencuadre "Test de Alto Rendimiento"** (no "diagnóstico de implementación") — matchea el mensaje
-  de WhatsApp.
-- ✅ **Nueva sección "Tu resumen de las 2 clases"** en el resultado (valor prometido por WhatsApp + es
-  repetición de la creencia).
-- ✅ **"Brechas" → "3 recomendaciones para tu rutina esta semana"** (accionable, matchea WhatsApp).
-- ✅ **Estética del landing "Escalá tu vida"**: gradiente navy profundo, naranja `#ff6602`, labels en
-  JetBrains Mono, oferta como *"entrevista de admisión"*.
+- ✅ **Estrategia en silencio**: fuera todo *"estás de acuerdo / acordaste / Acuerdo N"*. La lógica se
+  aplica, no se nombra — es solo entre nosotros.
+- ✅ **Más corto y sin pausas**: de ~13 pantallas a 4 preguntas + 2 de calificación; se quitaron los 3
+  hammers y el puente.
+- ✅ **One Belief afinado** (tu versión): *"sabés qué hacer pero no lo hacés; no es el conocimiento, es
+  el sistema; y no es tu culpa, nadie te lo enseñó."*
+- ✅ **Resultado corto**: feedback → 3 cambios de identidad → invitación con video. (Se quitaron el
+  resumen largo, las recomendaciones y la proyección.)
+- ✅ **Se trabaja desde la identidad**, no desde herramientas.
+- ✅ **Estética del landing "Escalá tu vida"** + **logo oficial embebido** en base64.
 
 ---
 
 ## 5. Knobs para editar (todo está arriba del archivo, en JS)
 
-- **One Belief / dolor**: el `belief-strip` del intro + los 3 objetos `kind:'belief'` (hammers) + los
-  `frame` de cada paso.
-- **Preguntas / acuerdos**: array `flow` (cada objeto es una pantalla).
-- **Perfiles y recomendaciones**: objeto `profiles`.
-- **Resumen de las 2 clases**: array `resumen2clases`.
+- **One Belief / dolor**: el `belief-strip` del intro + el `frame` de "Por qué se te cae".
+- **Preguntas**: array `flow` (4 objetos = 4 preguntas). Sin `belief`/`puente` (se eliminaron).
+- **Perfiles y feedback**: objeto `profiles` (badge + `feedback` corto + rango de %).
+- **3 puntos de identidad**: array `identidad3` (el cambio de paradigma del resultado).
 - **Ruteo y umbrales**: funciones `getProfileKey()`, `getPct()`, `getCamino()`.
 - **Links reales** (heredados del diagnóstico vigente, cambialos si hace falta):
   - Sesión/entrevista: `nicolasfernandezmiranda.com/sesion-postclase`
@@ -131,7 +119,7 @@ Tres dimensiones de score se recalculan en cada respuesta:
 
 ## 6. Verificación
 
-Probado end-to-end en Chromium (Playwright), 4 escenarios: **sin errores de JS**, las 18 pantallas
-renderizan, el scoring diferencia los 4 perfiles (avatar 89% · ya-aplica 74% · espera 37% ·
-saturado bajo) y el ruteo A/B/C funciona. *(En el sandbox no cargan Google Fonts ni el logo remoto —
-tienen fallback; en producción cargan normal.)*
+Probado end-to-end en Chromium (Playwright), 4 escenarios: **sin errores de JS**, todas las pantallas
+renderizan, el scoring diferencia los perfiles (avatar 92% · ya-aplica 68%) y el ruteo A/B/C funciona.
+*(En el sandbox no carga Google Fonts; el logo va embebido en base64. En producción las fuentes cargan
+normal.)*
