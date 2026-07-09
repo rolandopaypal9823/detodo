@@ -480,7 +480,7 @@ function render(){
   else if(node.type==='cal1')    app.innerHTML = renderCal1();
   else if(node.type==='cal2')    app.innerHTML = renderCal2();
   else if(node.type==='loading'){app.innerHTML = renderLoading(); runLoading(); }
-  else if(node.type==='result'){ app.innerHTML = renderResult(); animateResult(); }
+  else if(node.type==='result'){ app.innerHTML = renderResult(); animateResult(); if(!_trackedResult){ _trackedResult=true; track('result',{ profile:getProfileKey(), pct:getPct(), camino:getCamino() }); } }
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
@@ -504,7 +504,7 @@ function renderIntro(){
     </div>
 
     <button class="nfm-btn-start" onclick="next()">Empezar mi test →</button>
-    <p class="nfm-time-note">⏱ 4 minutos · 100% privado</p>
+    <p class="nfm-time-note">⏱ 4 minutos · confidencial</p>
   </div>`;
 }
 
@@ -716,7 +716,7 @@ function renderResult(){
 
     <div class="nfm-trust-row">
       <div class="nfm-trust-item">🧠 Basado en neurociencia</div>
-      <div class="nfm-trust-item">🔒 Tus respuestas son privadas</div>
+      <div class="nfm-trust-item">🔒 Tus datos se tratan de forma confidencial</div>
       <div class="nfm-trust-item">🇦🇷 +400 alumnos en LATAM</div>
     </div>
   </div>`;
@@ -763,7 +763,7 @@ function renderCaminoB(){
       <div class="nfm-libro-chip">🗂️ Second Brain</div>
       <div class="nfm-libro-chip orange">🤝 Delegación</div>
     </div>
-    <button class="nfm-btn-cta-primary" onclick="window.open('https://comunidadproductiva.circle.so/hackea-tu-cerebro/?utm_source=test-alto-rendimiento&utm_medium=resultado&utm_campaign=camino-b','_blank')">Acceder a Hackea Tu Cerebro →</button>
+    <button class="nfm-btn-cta-primary" onclick="abrirLibro('B','https://comunidadproductiva.circle.so/hackea-tu-cerebro/?utm_source=test-alto-rendimiento&utm_medium=resultado&utm_campaign=camino-b')">Acceder a Hackea Tu Cerebro →</button>
     <div class="nfm-cta-foot">Acceso inmediato · Comunidad incluida</div>
     <div class="nfm-firma">Nos vemos adentro.<br><strong>Nico</strong></div>
   </div>`;
@@ -774,7 +774,7 @@ function renderCaminoC(){
     <div class="nfm-offer-tag">Sin presión</div>
     <div class="nfm-offer-name">Te dejo el próximo paso, para cuando estés listo/a.</div>
     <div class="nfm-offer-desc">Si algún día querés profundizar, <strong>Hackea tu Cerebro</strong> es la entrada más accesible: el sistema completo para empezar a tu ritmo. No hace falta que sea hoy.</div>
-    <button class="nfm-btn-cta-primary" onclick="window.open('https://comunidadproductiva.circle.so/hackea-tu-cerebro/?utm_source=test-alto-rendimiento&utm_medium=resultado&utm_campaign=camino-c','_blank')">Conocer el libro →</button>
+    <button class="nfm-btn-cta-primary" onclick="abrirLibro('C','https://comunidadproductiva.circle.so/hackea-tu-cerebro/?utm_source=test-alto-rendimiento&utm_medium=resultado&utm_campaign=camino-c')">Conocer el libro →</button>
     <div class="nfm-cta-foot">Sin compromiso · A tu ritmo</div>
     <div class="nfm-firma"><strong>Nico</strong></div>
   </div>`;
@@ -812,6 +812,7 @@ function next(){
     recompute();
   }
 
+  trackStep(node);
   stepIdx++;
   loadSelectionFor(stepIdx);
   render();
@@ -889,6 +890,7 @@ function animateResult(){
 const CALENDLY_URL = 'https://calendly.com/nicolasfernandezmiranda/entrevista-de-admision-ls-clon?utm_source=test-alto-rendimiento&utm_medium=clase-3006&utm_campaign=camino-a&utm_content=api';
 function openCalendly(){
   if(document.querySelector('.nfm-cal-overlay')) return;   // ya está abierto
+  track('cta_click',{ cta:'agendar', camino:'A' });
   const ov = document.createElement('div');
   ov.className = 'nfm-cal-overlay';
   ov.innerHTML = `
@@ -914,6 +916,50 @@ function closeCalendly(){
   document.body.style.overflow = '';
 }
 
+/* ═══════════════════ TRACKING ═══════════════════
+   Registra cada respuesta, hasta dónde llega la persona y los clics en los CTA
+   (agendar / libro). Identifica de forma anónima con un ID persistente + IP (best-effort).
+   → Pegá la URL de tu Web App de Apps Script (o tu API) en TRACK_ENDPOINT.
+     Vacío = igual guarda todo en localStorage (útil para testear). */
+const TRACK_ENDPOINT = '';   /* <<< PEGÁ ACÁ TU URL (Apps Script /exec o tu API). Vacío = solo localStorage. */
+const _sid = Math.random().toString(36).slice(2) + '-' + Date.now().toString(36);
+let _vid, _ip = '', _trackedResult = false;
+try { _vid = localStorage.getItem('nfm_vid') || ('v_'+Math.random().toString(36).slice(2)+Date.now().toString(36)); localStorage.setItem('nfm_vid', _vid); }
+catch(e){ _vid = 's_'+_sid; }
+function _utms(){ const q=new URLSearchParams(location.search), o={}; ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(k=>{ if(q.get(k)) o[k]=q.get(k); }); return o; }
+const _ctx = Object.assign({ ua:navigator.userAgent, lang:navigator.language, tz:(Intl.DateTimeFormat().resolvedOptions().timeZone||''), screen:(screen.width+'x'+screen.height), referrer:document.referrer, url:location.href }, _utms());
+try { fetch('https://api.ipify.org?format=json').then(r=>r.json()).then(d=>{ _ip=d.ip||''; }).catch(function(){}); } catch(e){}
+function track(event, data, useBeacon){
+  const row = Object.assign({ ts:new Date().toISOString(), event:event, visitorId:_vid, sessionId:_sid, ip:_ip, step:stepIdx, profession:(profession||'') }, _ctx, data||{});
+  try { const k='nfm_events', a=JSON.parse(localStorage.getItem(k)||'[]'); a.push(row); localStorage.setItem(k, JSON.stringify(a.slice(-500))); } catch(e){}
+  if(!TRACK_ENDPOINT) return;
+  const body = JSON.stringify(row);
+  try {
+    if(useBeacon && navigator.sendBeacon){ navigator.sendBeacon(TRACK_ENDPOINT, body); return; }
+    fetch(TRACK_ENDPOINT, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:body, keepalive:true }).catch(function(){});
+  } catch(e){}
+}
+function trackStep(node){
+  if(node.type==='intro'){ track('start_test'); return; }
+  if(node.type==='prof'){ track('answer',{ q:'00-profesion', value:profession }); return; }
+  if(node.type==='cal1'){ track('answer',{ q:'C1-inversion', value:inversorTag }); return; }
+  if(node.type==='cal2'){ track('answer',{ q:'C2-capacidad', value:capacidadTag }); return; }
+  if(node.type==='flow'){
+    const f=flow[node.flowIdx], n=node.flowIdx+1;
+    if(f.kind==='multi'){
+      const opts = f.isCost ? f['options_'+profession] : f.options;
+      const tags = (answers[node.flowIdx]||[]).map(i=>(opts[i]&&opts[i].tag)||i);
+      track('answer',{ q:'Q'+n+'-'+f.section, value:tags.join('|'), count:tags.length });
+    } else {
+      const oi = answers[node.flowIdx];
+      track('answer',{ q:'Q'+n+'-'+f.section, value:oi, answerText:((f.options[oi]||{}).text||'') });
+    }
+  }
+}
+function abrirLibro(camino, url){ track('cta_click',{ cta:'libro', camino:camino }); window.open(url,'_blank'); }
+window.addEventListener('pagehide', function(){ track('exit', {}, true); });
+
+track('load');
 render();
 </script>
 </body>

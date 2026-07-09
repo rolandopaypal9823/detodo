@@ -126,3 +126,31 @@ Probado end-to-end en Chromium (Playwright), 4 escenarios: **sin errores de JS**
 renderizan, el scoring diferencia los perfiles (avatar 92% · ya-aplica 68%) y el ruteo A/B/C funciona.
 *(En el sandbox no carga Google Fonts; el logo va embebido en base64. En producción las fuentes cargan
 normal.)*
+
+---
+
+## 7. Tracking de respuestas (Google Sheet)
+
+El test registra **cada evento** de la persona, sin pedir mail: `load` → `start_test` → una fila por
+**cada respuesta** (con el texto exacto que eligió) → `result` (perfil/%/camino) → `cta_click`
+(agendar o libro) → `exit` (al cerrar, por `sendBeacon`).
+
+**Responde tus 3 preguntas:**
+- **¿Hasta dónde llega?** → la última fila `answer` de cada `sessionId` es el punto de abandono.
+- **¿Quién clickeó agendar?** → filas `event = cta_click` con `cta = agendar`.
+- **¿Cómo identifico a la persona sin mail?** → `visitorId` (ID anónimo persistente en el navegador) +
+  `ip` (vía ipify, best-effort) + `tz`, `screen`, `ua`, y los `utm_*` con que llegó.
+
+**Cómo conectarlo (5 min, gratis):**
+1. Abrí `tracking-apps-script.gs` y seguí las instrucciones de arriba del archivo (pegás el código en un
+   Google Sheet → Apps Script, lo implementás como Web App, copiás la URL `/exec`).
+2. En `test-alto-rendimiento.html` buscá `const TRACK_ENDPOINT = '';` y pegá esa URL entre las comillas.
+3. Subí el HTML. Cada respuesta empieza a caer como fila en la hoja **"eventos"**.
+
+*(Con `TRACK_ENDPOINT` vacío igual guarda todo en `localStorage` — sirve para testear sin backend.)*
+
+**Notas:**
+- **IP:** se toma client-side con [ipify](https://www.ipify.org). Si querés IP 100% garantizada
+  server-side, apuntá `TRACK_ENDPOINT` a un Cloudflare Worker / tu API y leela de los headers.
+- **Privacidad:** como ahora sí guardamos IP + respuestas, se suavizó el copy (*"confidencial"* en vez
+  de *"100% privado"*). Si vas a operar en la UE conviene sumar un aviso de privacidad.
