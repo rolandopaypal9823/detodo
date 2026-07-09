@@ -27,7 +27,7 @@
  */
 
 var SHEET_NAME = 'eventos';
-var SHEET_ID = '';   // dejalo vacío si creaste el script DESDE el Sheet (Extensiones→Apps Script)
+var SHEET_ID = '13BGmSSDn3YjGs14qypkw4BqmDLxRYvIdMRqcdvsZKZE';   // planilla de NFM (abre por id → funciona aunque el script sea "suelto")
 
 function doPost(e) {
   try {
