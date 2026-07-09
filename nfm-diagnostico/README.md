@@ -16,26 +16,33 @@ Todo el test orbita **una sola creencia**. Está construida con las 5 capas del 
 test binario (*"¿puede alguien creerla y aun así NO agendar/comprar, con coherencia lógica?"* → No).
 No menciona el producto: describe una **ley del mundo**, y la oferta cae como corolario.
 
-> **"No rendís de menos porque te falte disciplina, tiempo o información. Rendís de menos porque tu
-> cerebro está en modo reserva — y un cerebro en reserva no se arregla sabiendo más: se reprograma
-> con un sistema y con alguien que te sostenga mientras lo instalás."**
+> **"Sé lo que tengo que hacer, pero no puedo hacerlo." No es falta de disciplina ni de información:
+> tu cerebro está como el celu con 20 apps abiertas en segundo plano — sin batería aunque no hagas
+> nada. Y una batería agotada no se recarga sabiendo más: se recarga con un sistema y con alguien que
+> te sostenga mientras lo instalás.**
+
+*(La frase de apertura — "Sé lo que tengo que hacer, pero no puedo hacerlo" — es la frase textual n.º1
+del avatar según el super skill. La analogía del celu con apps en segundo plano es del propio Nico.)*
 
 Por qué funciona:
-- **Le saca la culpa a la persona** (no sos vago → tu corteza prefrontal está en ahorro de energía). Es
+- **Le saca la culpa a la persona** (no sos vago → el cortisol te dejó la corteza prefrontal al 50%). Es
   el mismo movimiento que "muscle confusion" de P90X: quita culpa + crea curiosidad.
 - **Cierra la salida lógica**: si creés que (a) el problema es el *estado* de tu cerebro y no tu
   voluntad, y (b) eso no se arregla con más info ni en soledad → necesitás el sistema + el
   acompañamiento. No agendar sería contradecir lo que ya afirmaste.
-- **Es 100% de Nico**: sale de sus propios conceptos (cerebro frío/caliente, horno cognitivo, "el
-  conocimiento sin implementación es entretenimiento", "hackear tu cerebro").
+- **Es 100% de Nico**: el super skill lo confirma literal — *"no les falta formación, les falta
+  sistema"* y *"sistemas > fuerza de voluntad"*. Se apoya en sus conceptos: batería/apps, GPS
+  (Claridad·Energía·Sistema), "no es motivación, es ciencia", "hackear tu cerebro".
 
-**Billboard (la frase repetida ~21x, reformulada):** *"No es tu voluntad. Es tu cerebro en reserva"* /
-*"El conocimiento no te cambia la vida; la implementación sostenida, sí"* / *"Te falta un sistema — y
-quién te lo sostenga"*.
+**Billboard (la frase repetida ~21x, reformulada):** *"No es tu voluntad. Es tu cerebro sin batería"* /
+*"El conocimiento sin aplicación es ruido; la implementación sostenida, sí"* / *"Sistemas > fuerza de
+voluntad"* / *"No es falta de tiempo, es falta de claridad"*.
 
-> ⚠️ **Decisión abierta:** la One Belief está derivada de los materiales de Nico (diagnóstico + landing
-> + libro). Si querés afinar el dolor #1 / avatar con **el "super skill de Nico"**, se ajusta la frase
-> del `belief-strip`, los 3 `hammer` y el copy de perfiles — el resto de la arquitectura no cambia.
+> ✅ **Integrado con el super skill de Nico** (avatar v4.0 + programa Alto Rendimiento PLATINUM + manual
+> de marca + voz + 22 casos). Aportes concretos: la frase madre del avatar, la analogía de la batería,
+> el GPS Claridad·Energía·Sistema, la historia real de Nico (rung #4), **testimonios reales con nombre**
+> por profesión (Cristian, Sol Romero, Javier, Tatiana) con link a video, el **logo oficial embebido**
+> en base64, y el nombre del programa en el CTA.
 
 ---
 
