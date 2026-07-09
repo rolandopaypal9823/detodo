@@ -921,7 +921,7 @@ function closeCalendly(){
    (agendar / libro). Identifica de forma anónima con un ID persistente + IP (best-effort).
    → Pegá la URL de tu Web App de Apps Script (o tu API) en TRACK_ENDPOINT.
      Vacío = igual guarda todo en localStorage (útil para testear). */
-const TRACK_ENDPOINT = '';   /* <<< PEGÁ ACÁ TU URL (Apps Script /exec o tu API). Vacío = solo localStorage. */
+const TRACK_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzGdzvfzF_TVyeqemiM6nQPEGudimWfivMLQLfghQ2UXIRqVWEHbrIq6O3obdmwH23i/exec';   /* Web App de Apps Script → Google Sheet "eventos" */
 const _sid = Math.random().toString(36).slice(2) + '-' + Date.now().toString(36);
 let _vid, _ip = '', _trackedResult = false;
 try { _vid = localStorage.getItem('nfm_vid') || ('v_'+Math.random().toString(36).slice(2)+Date.now().toString(36)); localStorage.setItem('nfm_vid', _vid); }
