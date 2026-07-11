@@ -529,9 +529,10 @@ def index_body(root):
 
 
 def build():
-    # días
+    # días — rutas absolutas desde la raíz del dominio (robusto en Netlify,
+    # no depende de la barra final)
     for d in DAYS:
-        root = ".."
+        root = ""
         html = PAGE.substitute(
             page_title=f"Día {d['n']} — {d['title']} · Reto 7 Días Detox Digital",
             description=d["subtitle"].replace('"', "'"),
@@ -552,8 +553,8 @@ def build():
         page_title="Reto de 7 Días — Detox Digital · NFM",
         description="Siete días, siete herramientas para desintoxicarte de las pantallas. No es motivación, es ciencia.",
         css=CSS,
-        root=".",
-        body=index_body("."),
+        root="",
+        body=index_body(""),
         dia=0,
         js=JS_COMMON,
     )
