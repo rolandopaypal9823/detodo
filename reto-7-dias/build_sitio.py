@@ -191,8 +191,7 @@ a{color:var(--orange)}
 .topbar{background:var(--navy);padding:14px 0}
 .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .topbar img{height:34px;display:block}
-.topbar a.home{font-family:'Montserrat';font-weight:700;font-size:.72rem;letter-spacing:.14em;color:#bcd2e2;text-decoration:none;text-transform:uppercase}
-.topbar a.home:hover{color:#fff}
+.topbar .home{font-family:'Montserrat';font-weight:700;font-size:.72rem;letter-spacing:.14em;color:#bcd2e2;text-transform:uppercase}
 .hero{background:linear-gradient(150deg,var(--navy) 0%,var(--navy2) 60%,#0e4a75 100%);color:#fff;padding:52px 0 84px;position:relative;overflow:hidden}
 .hero::after{content:"";position:absolute;right:-90px;top:-90px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,102,2,.28),transparent 70%)}
 .kicker{color:var(--orange);font-weight:700;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px;animation:fadeUp .7s ease both}
@@ -204,17 +203,19 @@ a{color:var(--orange)}
 /* ---------- progress ---------- */
 .progress{margin-top:-34px;position:relative;z-index:2}
 .progress .row{background:var(--card);border-radius:16px;box-shadow:0 10px 30px rgba(12,52,82,.14);padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:6px}
-.pstep{display:flex;flex-direction:column;align-items:center;gap:5px;text-decoration:none;flex:1}
-.pstep .dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat';font-weight:700;font-size:.85rem;background:#e4ecf3;color:var(--muted);transition:transform .25s}
-.pstep:hover .dot{transform:scale(1.12)}
+.pstep{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;cursor:default;user-select:none}
+.pstep .dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat';font-weight:700;font-size:.85rem;background:#e4ecf3;color:var(--muted)}
 .pstep.done .dot{background:var(--navy);color:#fff}
 .pstep.now .dot{background:var(--orange);color:#fff;box-shadow:0 0 0 0 rgba(255,102,2,.5);animation:pulse 1.8s infinite}
+.pstep.future{opacity:.6}
+.pstep.future .dot{font-size:.72rem}
 .pstep span{font-size:.62rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;font-weight:600}
 .pstep.now span{color:var(--orange)}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,102,2,.45)}70%{box-shadow:0 0 0 12px rgba(255,102,2,0)}100%{box-shadow:0 0 0 0 rgba(255,102,2,0)}}
 /* ---------- cards ---------- */
 main{padding:36px 0 10px}
-.card{background:var(--card);border-radius:16px;box-shadow:0 4px 18px rgba(12,52,82,.07);padding:28px;margin-bottom:22px;opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.card{background:var(--card);border-radius:16px;box-shadow:0 4px 18px rgba(12,52,82,.07);padding:28px;margin-bottom:22px;transition:opacity .6s ease,transform .6s ease}
+.js .card{opacity:0;transform:translateY(24px)}
 .card.in{opacity:1;transform:none}
 .label{display:flex;align-items:center;gap:8px;font-family:'Montserrat';font-weight:800;font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
 .label::before{content:"▸";font-size:1rem}
@@ -240,7 +241,8 @@ main{padding:36px 0 10px}
 .mini h3{font-family:'Montserrat';font-weight:800;font-size:.95rem;color:var(--navy);margin-bottom:8px}
 .mini p{font-size:.95rem;color:var(--ink)}
 /* community */
-.community{background:#e8f0f7;border-left:4px solid var(--navy);border-radius:12px;padding:18px 22px;font-size:.95rem;margin-bottom:22px;opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+.community{background:#e8f0f7;border-left:4px solid var(--navy);border-radius:12px;padding:18px 22px;font-size:.95rem;margin-bottom:22px;transition:opacity .6s,transform .6s}
+.js .community{opacity:0;transform:translateY(24px)}
 .community.in{opacity:1;transform:none}
 /* cta */
 .cta{background:linear-gradient(140deg,var(--navy),var(--navy2));color:#fff;text-align:center;padding:36px 28px}
@@ -290,9 +292,16 @@ footer .q{font-family:'Montserrat';font-weight:700;color:#fff;font-size:1rem;mar
 """
 
 JS_COMMON = """
-// reveal on scroll
-var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
-document.querySelectorAll('.card,.community,.daycard').forEach(function(el){io.observe(el)});
+// reveal on scroll (con fallback: si no hay IntersectionObserver, mostrar todo)
+var revealables=document.querySelectorAll('.card,.community,.daycard');
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  revealables.forEach(function(el){io.observe(el)});
+  // red de seguridad: a los 2.5s revelar lo que siga oculto (nunca un CTA invisible)
+  setTimeout(function(){revealables.forEach(function(el){el.classList.add('in')})},2500);
+}else{
+  revealables.forEach(function(el){el.classList.add('in')});
+}
 // checklist + localStorage
 var KEY='reto7_dia'+(window.DIA||0);
 var items=document.querySelectorAll('.check li');
@@ -383,6 +392,7 @@ PAGE = Template("""<!DOCTYPE html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>$page_title</title>
 <meta name="description" content="$description">
+<script>document.documentElement.className='js'</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -393,7 +403,7 @@ PAGE = Template("""<!DOCTYPE html>
 <div class="topbar">
   <div class="wrap">
     <img src="$root/assets/logo-blanco.png" alt="NFM — Instituto de Productividad">
-    <a class="home" href="$root/">Reto 7 Días · Detox Digital</a>
+    <span class="home">Reto 7 Días · Detox Digital</span>
   </div>
 </div>
 $body
@@ -410,13 +420,19 @@ $body
 """)
 
 
-def progress_html(current, root):
-    out = ['<div class="progress"><div class="wrap"><div class="row">']
+def progress_html(current):
+    # Solo visual, NO navegable: cada día se desbloquea cuando llega su mensaje.
+    out = ['<div class="progress"><div class="wrap"><div class="row" role="list" aria-label="Progreso del reto">']
     for d in range(1, 8):
-        cls = "now" if d == current else ("done" if d < current else "")
+        if d < current:
+            cls, mark = "done", "✓"
+        elif d == current:
+            cls, mark = "now", str(d)
+        else:
+            cls, mark = "future", "🔒"
         out.append(
-            '<a class="pstep %s" href="%s/dia%d/"><div class="dot">%s</div><span>Día %d</span></a>'
-            % (cls, root, d, "✓" if d < current else str(d), d)
+            '<div class="pstep %s" role="listitem"><div class="dot">%s</div><span>Día %d</span></div>'
+            % (cls, mark, d)
         )
     out.append("</div></div></div>")
     return "".join(out)
@@ -443,7 +459,7 @@ def day_body(d, root):
   <p class="sub">{d["subtitle"]}</p>
 </div></div>'''
     )
-    parts.append(progress_html(n, root))
+    parts.append(progress_html(n))
     parts.append('<main><div class="wrap">')
 
     if d.get("special") == "final":
@@ -519,22 +535,31 @@ def day_body(d, root):
 
 
 def index_body(root):
-    cards = []
-    for d in DAYS:
-        spoiler = d["subtitle"]
-        cards.append(
-            f'''<a class="daycard" href="{root}/dia{d["n"]}/">
-<div class="dn">Día {d["n"]} {d["emoji"]}</div><h3>{d["title"]}</h3><p>{spoiler}</p></a>'''
-        )
+    # Inicio SIN links a los días: cada día se recibe por mail/Instagram y se vive
+    # de a uno. Así no hay spoilers ni forma de adelantarse.
+    cta = (
+        LINK_PRODUCTO_BASE
+        + "?utm_source=ebook&utm_medium=reto-7-dias&utm_content=inicio"
+    )
     return f'''<div class="hero"><div class="wrap">
   <div class="kicker">Bonus del e-book · Un mensaje por día</div>
   <div class="daynum" style="font-size:3rem">Reto de 7 Días 🧠</div>
   <h1>Desintoxicación digital, acompañado</h1>
   <p class="sub">Siete días, siete herramientas. Cada día: un dato de cómo funciona tu cerebro + un accionable de 10 a 20 minutos. No es motivación, es ciencia.</p>
 </div></div>
-<main style="margin-top:-34px;position:relative;z-index:2"><div class="wrap">
-<div class="grid">{"".join(cards)}</div>
+{progress_html(0)}
+<main style="margin-top:36px"><div class="wrap">
+<div class="card"><div class="label">Cómo funciona</div>
+<h2>Un día por vez</h2>
+<p>Este reto se vive de a un día a la vez. Cada mañana te llega el reto del día a tu <strong>mail</strong> o por <strong>Instagram</strong>, con todo lo que tenés que hacer ese día.</p>
+<p>No podés adelantarte, y esa es justamente la idea: enfocás toda tu energía en el reto de hoy y llegás a cada día con expectativa, sin spoilearte lo que viene. Cada 🔒 se abre a su tiempo.</p>
+<p style="margin-bottom:0"><strong>¿Buscás el reto de hoy?</strong> Revisá tu correo o tu chat de Instagram: ahí está tu link del día.</p>
+</div>
 <div class="community">🧠 {COMMUNITY}</div>
+<div class="card cta"><div class="label" style="justify-content:center">El siguiente nivel</div>
+<p>¿Querés conocer correctamente cómo funciona tu cerebro para rendir mejor en cada área de tu vida? Ese es el mundo completo detrás de este reto.</p>
+<a class="btn" href="{cta}">Quiero conocer mi cerebro →</a>
+</div>
 </div></main>'''
 
 
