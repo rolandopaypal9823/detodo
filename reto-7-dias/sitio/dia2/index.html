@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Día 2 — Reglas que sí se cumplen · Reto 7 Días Detox Digital</title>
+<meta name="description" content="Las «dietas de pantalla» duran 3 días porque las reglas las escribe otro. Hoy las escribís vos.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0c3452;--navy2:#123f63;--orange:#ff6602;--bg:#f4f7fa;--ink:#22384a;--muted:#5a7086;--card:#ffffff}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans',Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+h1,h2,h3,.kicker,.daynum{font-family:'Montserrat',Arial,sans-serif}
+a{color:var(--orange)}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+/* ---------- header/hero ---------- */
+.topbar{background:var(--navy);padding:14px 0}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.topbar img{height:34px;display:block}
+.topbar a.home{font-family:'Montserrat';font-weight:700;font-size:.72rem;letter-spacing:.14em;color:#bcd2e2;text-decoration:none;text-transform:uppercase}
+.topbar a.home:hover{color:#fff}
+.hero{background:linear-gradient(150deg,var(--navy) 0%,var(--navy2) 60%,#0e4a75 100%);color:#fff;padding:52px 0 84px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-90px;top:-90px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,102,2,.28),transparent 70%)}
+.kicker{color:var(--orange);font-weight:700;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;margin-bottom:14px;animation:fadeUp .7s ease both}
+.daynum{font-size:4.4rem;font-weight:800;line-height:1;letter-spacing:-.02em;animation:fadeUp .7s .08s ease both}
+.daynum .emoji{font-size:3rem;vertical-align:middle;margin-left:10px}
+.hero h1{font-size:1.85rem;font-weight:800;margin:14px 0 10px;max-width:600px;animation:fadeUp .7s .16s ease both}
+.hero p.sub{color:#c8d9e6;font-size:1.06rem;max-width:580px;animation:fadeUp .7s .24s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+/* ---------- progress ---------- */
+.progress{margin-top:-34px;position:relative;z-index:2}
+.progress .row{background:var(--card);border-radius:16px;box-shadow:0 10px 30px rgba(12,52,82,.14);padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:6px}
+.pstep{display:flex;flex-direction:column;align-items:center;gap:5px;text-decoration:none;flex:1}
+.pstep .dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Montserrat';font-weight:700;font-size:.85rem;background:#e4ecf3;color:var(--muted);transition:transform .25s}
+.pstep:hover .dot{transform:scale(1.12)}
+.pstep.done .dot{background:var(--navy);color:#fff}
+.pstep.now .dot{background:var(--orange);color:#fff;box-shadow:0 0 0 0 rgba(255,102,2,.5);animation:pulse 1.8s infinite}
+.pstep span{font-size:.62rem;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;font-weight:600}
+.pstep.now span{color:var(--orange)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,102,2,.45)}70%{box-shadow:0 0 0 12px rgba(255,102,2,0)}100%{box-shadow:0 0 0 0 rgba(255,102,2,0)}}
+/* ---------- cards ---------- */
+main{padding:36px 0 10px}
+.card{background:var(--card);border-radius:16px;box-shadow:0 4px 18px rgba(12,52,82,.07);padding:28px;margin-bottom:22px;opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.card.in{opacity:1;transform:none}
+.label{display:flex;align-items:center;gap:8px;font-family:'Montserrat';font-weight:800;font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+.label::before{content:"▸";font-size:1rem}
+.card h2{font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:12px}
+.card p{margin-bottom:12px;color:var(--ink)}
+.card p:last-child{margin-bottom:0}
+/* checklist */
+.check{list-style:none}
+.check li{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #edf2f6;cursor:pointer}
+.check li:last-child{border-bottom:none}
+.check input{display:none}
+.check .box{flex:0 0 26px;height:26px;border-radius:8px;border:2px solid #c3d2de;margin-top:2px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;transition:all .25s}
+.check li.on .box{background:var(--orange);border-color:var(--orange);transform:scale(1.05)}
+.check .t strong{display:block;font-family:'Montserrat';font-weight:700;color:var(--navy);font-size:1rem}
+.check li.on .t strong{text-decoration:line-through;color:var(--muted)}
+.check .t small{color:var(--muted);font-size:.9rem;line-height:1.5;display:block;margin-top:2px}
+.done-banner{display:none;margin-top:16px;background:#fff3ea;border:1.5px solid var(--orange);color:#a34104;border-radius:12px;padding:14px 18px;font-weight:600;animation:fadeUp .5s ease both}
+.done-banner.show{display:block}
+/* duo cards */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px}
+@media(max-width:640px){.duo{grid-template-columns:1fr}}
+.duo .card{margin-bottom:0}
+.mini h3{font-family:'Montserrat';font-weight:800;font-size:.95rem;color:var(--navy);margin-bottom:8px}
+.mini p{font-size:.95rem;color:var(--ink)}
+/* community */
+.community{background:#e8f0f7;border-left:4px solid var(--navy);border-radius:12px;padding:18px 22px;font-size:.95rem;margin-bottom:22px;opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+.community.in{opacity:1;transform:none}
+/* cta */
+.cta{background:linear-gradient(140deg,var(--navy),var(--navy2));color:#fff;text-align:center;padding:36px 28px}
+.cta p{color:#d3e2ee;max-width:540px;margin:0 auto 20px}
+.btn{display:inline-block;background:var(--orange);color:#fff;text-decoration:none;font-family:'Montserrat';font-weight:800;font-size:1rem;letter-spacing:.03em;padding:16px 34px;border-radius:50px;box-shadow:0 8px 22px rgba(255,102,2,.4);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(255,102,2,.5)}
+.cta small{display:block;margin-top:14px;color:#9db8cc;font-size:.8rem}
+/* teaser */
+.teaser{display:flex;align-items:center;gap:14px;background:var(--card);border:1.5px dashed #c3d2de}
+.teaser .arrow{font-size:1.6rem;color:var(--orange);font-weight:800}
+.teaser p{color:var(--muted);font-size:.98rem}
+.teaser p strong{color:var(--navy)}
+/* breathing widget */
+.breath{text-align:center;padding:34px 28px}
+.breath .circle{width:150px;height:150px;margin:22px auto;border-radius:50%;background:radial-gradient(circle at 34% 30%,#1a5b8f,var(--navy));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Montserrat';font-weight:700;transition:transform 4s ease-in-out;box-shadow:0 0 0 14px rgba(12,52,82,.08),0 0 0 28px rgba(12,52,82,.04)}
+.breath .phase{font-size:1.05rem;color:var(--navy);font-weight:700;font-family:'Montserrat';min-height:1.6em}
+.breath .cycles{color:var(--muted);font-size:.9rem;margin-top:6px}
+.btn2{background:var(--navy);color:#fff;border:none;font-family:'Montserrat';font-weight:700;font-size:.95rem;padding:13px 30px;border-radius:50px;cursor:pointer;margin-top:16px;transition:background .2s}
+.btn2:hover{background:var(--navy2)}
+/* final (día 7) */
+.congrats{background:linear-gradient(140deg,var(--orange),#ff8a3d);color:#fff;text-align:center;padding:38px 28px;position:relative;overflow:hidden}
+.congrats h2{color:#fff;font-size:1.5rem;margin:8px 0 6px}
+.congrats .medal{font-size:3rem}
+.congrats p{color:#fff3ea}
+.reflect textarea{width:100%;min-height:150px;border:2px solid #c3d2de;border-radius:12px;padding:16px;font-family:'Open Sans';font-size:1rem;color:var(--ink);resize:vertical;margin:6px 0 12px}
+.reflect textarea:focus{outline:none;border-color:var(--orange)}
+.share{background:#fff8f3;border:1.5px solid #ffd9bd;border-radius:12px;padding:16px 20px;font-size:.95rem;margin-top:8px}
+.saved{display:none;color:#0a7a3d;font-weight:600;font-size:.9rem;margin-left:12px}
+.saved.show{display:inline}
+/* confetti */
+.confetti{position:fixed;top:-14px;border-radius:3px;z-index:99;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:.2}}
+/* footer */
+footer{background:var(--navy);color:#9db8cc;margin-top:44px;padding:34px 0;text-align:center;font-size:.85rem}
+footer img{height:30px;margin-bottom:14px;opacity:.95}
+footer .q{font-family:'Montserrat';font-weight:700;color:#fff;font-size:1rem;margin-bottom:6px}
+/* index grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:26px 0}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+.daycard{background:var(--card);border-radius:16px;box-shadow:0 4px 18px rgba(12,52,82,.07);padding:22px;text-decoration:none;color:var(--ink);display:block;transition:transform .2s,box-shadow .2s;opacity:0;transform:translateY(24px)}
+.daycard.in{opacity:1;transform:none;transition:opacity .6s,transform .6s}
+.daycard:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(12,52,82,.14)}
+.daycard .dn{font-family:'Montserrat';font-weight:800;color:var(--orange);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase}
+.daycard h3{font-family:'Montserrat';font-weight:800;color:var(--navy);font-size:1.05rem;margin:6px 0}
+.daycard p{font-size:.9rem;color:var(--muted)}
+@media(max-width:640px){.daynum{font-size:3.2rem}.hero h1{font-size:1.45rem}.pstep span{display:none}.card{padding:22px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="wrap">
+    <img src="../assets/logo-blanco.png" alt="NFM — Instituto de Productividad">
+    <a class="home" href="../">Reto 7 Días · Detox Digital</a>
+  </div>
+</div>
+<div class="hero"><div class="wrap">
+  <div class="kicker">Reto de 7 días · Detox digital</div>
+  <div class="daynum">Día 2<span class="emoji">📝</span></div>
+  <h1>Reglas que sí se cumplen</h1>
+  <p class="sub">Las «dietas de pantalla» duran 3 días porque las reglas las escribe otro. Hoy las escribís vos.</p>
+</div></div><div class="progress"><div class="wrap"><div class="row"><a class="pstep done" href="../dia1/"><div class="dot">✓</div><span>Día 1</span></a><a class="pstep now" href="../dia2/"><div class="dot">2</div><span>Día 2</span></a><a class="pstep " href="../dia3/"><div class="dot">3</div><span>Día 3</span></a><a class="pstep " href="../dia4/"><div class="dot">4</div><span>Día 4</span></a><a class="pstep " href="../dia5/"><div class="dot">5</div><span>Día 5</span></a><a class="pstep " href="../dia6/"><div class="dot">6</div><span>Día 6</span></a><a class="pstep " href="../dia7/"><div class="dot">7</div><span>Día 7</span></a></div></div></div><main><div class="wrap"><div class="card"><div class="label">El dato del cerebro</div>
+<h2>Autonomía e identidad</h2><p>Cuando la regla la elegís vos, tu cerebro la procesa como <strong>autonomía</strong> y el compromiso sube. Cuando te la imponen, la procesa como amenaza y busca la trampa. Eso dice la teoría de la autodeterminación.</p><p>Y el nivel dos, donde está lo copado: los hábitos que duran no salen de «voy a tratar de usar menos el celular». Salen de un cambio de <strong>identidad</strong>: «soy una persona que cuida su foco». Primero la identidad, después las acciones.</p></div><div class="card"><div class="label">Tu reto de hoy</div>
+<h2>Tocá cada paso cuando lo completes</h2>
+<ul class="check"><li><div class="box"></div><div class="t"><strong>Escribí 3 reglas propias, en positivo</strong><small>Ejemplos: comidas sin pantallas · el celular carga fuera de la habitación desde las 21:00 · primero mi prioridad del día, después las redes.</small></div></li><li><div class="box"></div><div class="t"><strong>Pegalas donde las veas</strong><small>En papel y a la vista: heladera, escritorio, espejo.</small></div></li><li><div class="box"></div><div class="t"><strong>Declaralo experimento</strong><small>Son 7 días, no una condena. Lo que no funcione se ajusta el día 7.</small></div></li></ul>
+<div class="done-banner" id="doneBanner">🔥 Reto del día completado. Así se construye el 1% diario.</div>
+</div><div class="duo">
+<div class="card mini"><h3>🅱️ Plan B (día complicado)</h3><p>Una sola regla: comidas sin pantallas. Es la que más cambia el ambiente.</p></div>
+<div class="card mini"><h3>👨‍👩‍👧 Si lo hacés en familia</h3><p>Cada uno propone reglas —los chicos también, sobre todo los chicos—. Consensúen 5, fírmenlo como contrato y péguenlo en la heladera. Cuando ellos proponen, cumplen.</p></div>
+</div><div class="community">🧠 No estás haciendo esto solo: el reto está abierto todo el año y <strong>cada semana arranca gente nueva</strong>. Subí tu avance a historias y etiquetá a <strong>@nicofernandezmiranda</strong> — me gusta ver quién está del otro lado.</div><div class="card cta"><div class="label" style="justify-content:center">El siguiente nivel</div>
+<p>Autonomía, identidad, hábitos: todo esto tiene una lógica hermosa dentro de tu cabeza. Si querés el mapa completo de cómo funciona tu cerebro:</p>
+<a class="btn" href="#LINK-PRODUCTO">Quiero conocer mi cerebro →</a>
+<small>Sin apuro: el reto ya es tuyo y las herramientas también.</small>
+</div><div class="card teaser"><div class="arrow">↗</div>
+<p><strong>Mañana, Día 3:</strong> Mañana: 15 minutos de configuración que valen toda la semana.</p></div></div></main>
+<footer>
+  <div class="wrap">
+    <img src="../assets/logo-blanco.png" alt="NFM">
+    <div class="q">"No es motivación, es ciencia."</div>
+    <div>Reto de 7 Días de Desintoxicación Digital · Nico Fernández Miranda · Instituto de Productividad</div>
+  </div>
+</footer>
+<script>window.DIA=2;
+// reveal on scroll
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.card,.community,.daycard').forEach(function(el){io.observe(el)});
+// checklist + localStorage
+var KEY='reto7_dia'+(window.DIA||0);
+var items=document.querySelectorAll('.check li');
+if(items.length){
+  var saved=[];try{saved=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
+  items.forEach(function(li,i){
+    if(saved.indexOf(i)>-1){li.classList.add('on');li.querySelector('.box').textContent='✓'}
+    li.addEventListener('click',function(){
+      li.classList.toggle('on');
+      li.querySelector('.box').textContent=li.classList.contains('on')?'✓':'';
+      var on=[];items.forEach(function(x,j){if(x.classList.contains('on'))on.push(j)});
+      try{localStorage.setItem(KEY,JSON.stringify(on))}catch(e){}
+      check();
+    });
+  });
+  function check(){
+    var all=true;items.forEach(function(x){if(!x.classList.contains('on'))all=false});
+    var b=document.getElementById('doneBanner');
+    if(b){b.classList.toggle('show',all)}
+  }
+  check();
+}
+</script>
+</body>
+</html>

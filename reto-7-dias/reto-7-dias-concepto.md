@@ -1,5 +1,7 @@
 # Reto de 7 Días — Detox Digital Acompañado
 
+> ⚠️ **VERSIÓN 1 (borrador inicial).** El copy final, reescrito en la voz de Nico (NFM) y firmado por él, está en `emails.md` (mails listos para copiar), `manychat.md` (mensajes de ManyChat) y `sitio/` (páginas web del reto). Este archivo queda como referencia de la estrategia inicial.
+
 > **Bonus del paquete del e-book de Desintoxicación Digital.**
 > Un mensaje por día durante una semana que lleva a la persona de la mano.
 > Se entrega por **email** (secuencia automatizada) o por **Instagram** (palabra clave → automatización de ManyChat, un mensaje diario con link HTML al día del reto).
