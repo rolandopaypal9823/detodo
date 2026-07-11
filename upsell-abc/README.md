@@ -1,13 +1,19 @@
 # El ABC del Alto Rendimiento — página del curso (upsell)
 
-Página de entrega estilo **Skool**, con la marca de Nico (NFM), para el upsell **El ABC del Alto Rendimiento**.
+Página de entrega tipo **plataforma de curso** (classroom), con la marca de Nico (NFM), para el upsell **El ABC del Alto Rendimiento**.
+
+## Diseño (skill awesome-design)
+
+- **Esqueleto:** layout de **Mintlify** (documentación/aprendizaje) → **sidebar de navegación fijo** con los módulos y lecciones + **panel principal** donde se carga la lección elegida. Es el patrón de las plataformas de curso profesionales (y del classroom de Skool).
+- **Piel:** identidad **NFM** — Azul `#0c3452`, Naranja Acción `#ff6602` como único acento (lección activa, progreso, CTA), Montserrat + Open Sans, sombras teñidas de azul, botones pill.
 
 ## Qué es
 
-- **5 módulos** desplegables (accordion): Mindset · Hábitos · Ejercicio y Alimentación · Concentración · Memoria.
-- **34 lecciones en video** (33 Looms + 1 bonus de YouTube), embebidas: cada lección abre su reproductor **dentro de la misma página**.
-- **Carga lazy:** el iframe de cada video se inyecta recién al abrir la lección, así la página carga liviana aunque haya 34 videos.
-- **Progreso** por módulo y global, con marca de "visto" por lección, guardado en el dispositivo (localStorage).
+- **5 módulos** (Mindset · Hábitos · Ejercicio y Alimentación · Concentración · Memoria) con secciones, en el sidebar colapsable.
+- **34 lecciones en video** (33 Looms + 1 bonus de YouTube). Clic en una lección → su video se carga en el **reproductor principal** (no todo a la vez).
+- **Carga lazy:** el iframe se inyecta al seleccionar la lección, así la página vuela.
+- **Progreso** por módulo y global (barra en el sidebar y en el topbar), con "marcar visto" por lección, guardado en el dispositivo (localStorage). **Recuerda la última lección vista.**
+- **Prev / Siguiente**, breadcrumb (módulo › sección), y **drawer** en mobile.
 - **Recursos y entregables** por módulo (links a YouTube, Instagram, tests, libro, extensiones).
 
 ## Archivos
