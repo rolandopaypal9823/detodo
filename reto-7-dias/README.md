@@ -60,9 +60,15 @@ En la landing se promete un reto *acompañado*. Para que sea coherente sin inven
 2. La frase que usamos en todos los mensajes: *"el reto está abierto todo el año y cada semana arranca gente nueva"* — describe cómo funciona el sistema, sin cifras inventadas.
 3. La invitación a **subir historias etiquetando a Nico** (día 0, la franja de comunidad del sitio y el día 7) hace visible a la gente que realmente está haciendo el reto — la prueba social se genera sola y es verificable.
 
+## Estado — EN VIVO
+
+- ✅ **Sitio publicado:** https://reto7dias-nfm.netlify.app (`/dia1` … `/dia7`).
+- ✅ Mails HTML (`emails-html/`) y mensajes de ManyChat (`manychat.md`) ya apuntan al dominio real.
+- ✅ CTA de cada día → Hackea tu Cerebro con UTMs.
+
 ## Pendientes antes de lanzar
 
-- [ ] **Dominio del sitio**: poné el dominio real de Netlify en `SITE` (`build_emails.py`) y en `manychat.md`, y regenerá los mails (`python3 build_emails.py`). ✅ El link del producto (Hackea tu Cerebro) ya está con UTMs.
 - [ ] Confirmar handle de Instagram (`@nicofernandezmiranda`) en `manychat.md` y `build_sitio.py`.
 - [ ] Palabra clave de ManyChat (sugerida: **RETO**).
 - [ ] Hora de envío de los mails (sugerida: 7:30 am hora local).
+- [ ] Cargar los 8 mails en el ESP y la secuencia de 7 días en ManyChat.

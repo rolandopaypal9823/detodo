@@ -18,7 +18,7 @@ from build_sitio import DAYS  # misma fuente de títulos/spoilers/emojis que el 
 BASE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "emails-html")
 
 # TODO: reemplazar por el dominio real del sitio (sin barra final)
-SITE = "https://retode7dias.netlify.app"
+SITE = "https://reto7dias-nfm.netlify.app"
 IG = "@nicofernandezmiranda"
 
 NAVY = "#0c3452"
