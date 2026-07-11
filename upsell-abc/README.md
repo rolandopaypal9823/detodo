@@ -5,12 +5,12 @@ Página de entrega tipo **plataforma de curso** (classroom), con la marca de Nic
 ## Diseño (skill awesome-design)
 
 - **Esqueleto:** layout de **Mintlify** (documentación/aprendizaje) → **sidebar de navegación fijo** con los módulos y lecciones + **panel principal** donde se carga la lección elegida. Es el patrón de las plataformas de curso profesionales (y del classroom de Skool).
-- **Piel:** identidad **NFM** — Azul `#0c3452`, Naranja Acción `#ff6602` como único acento (lección activa, progreso, CTA), Montserrat + Open Sans, sombras teñidas de azul, botones pill.
+- **Piel:** identidad **NFM en su versión OSCURA** (estética de la Masterclass de Neurociencia) — fondo abismo `#06192b` con **red neuronal animada** (canvas), Naranja Acción `#ff6602` como único acento, Montserrat + Open Sans + **JetBrains Mono** para etiquetas, marco de video con **glow y esquinas** naranjas.
 
 ## Qué es
 
-- **5 módulos** (Mindset · Hábitos · Ejercicio y Alimentación · Concentración · Memoria) con secciones, en el sidebar colapsable.
-- **34 lecciones en video** (33 Looms + 1 bonus de YouTube). Clic en una lección → su video se carga en el **reproductor principal** (no todo a la vez).
+- **6 módulos** (Mindset · Hábitos · Sueño y Descanso · Ejercicio y Alimentación · Concentración · Memoria) con secciones, en el sidebar colapsable.
+- **41 lecciones en video** (Looms + 1 bonus de YouTube). Clic en una lección → su video se carga en el **reproductor principal** (no todo a la vez).
 - **Carga lazy:** el iframe se inyecta al seleccionar la lección, así la página vuela.
 - **Progreso** por módulo y global (barra en el sidebar y en el topbar), con "marcar visto" por lección, guardado en el dispositivo (localStorage). **Recuerda la última lección vista.**
 - **Prev / Siguiente**, breadcrumb (módulo › sección), y **drawer** en mobile.
@@ -42,8 +42,8 @@ Es una sola página autocontenida. Igual que el reto: subís la carpeta `upsell-
 
 - **Videos embebidos:** los Looms se embeben con `loom.com/embed/{id}` y el bonus con `youtube.com/embed/{id}`.
   Para que se vean, los Looms deben estar con visibilidad pública o "cualquiera con el link".
-- **Entregables PDF de Skool:** los "Entregable N°..." viven dentro de Skool y no tienen link público,
-  así que en la página aparecen marcados como *PDF · en Skool* (sin descarga directa). Si querés que se
-  puedan descargar desde acá, hay que subir esos PDF a algún lado (Netlify, Drive público) y pasarme el link.
-- **Módulos:** el pedido decía "4 módulos" pero el contenido entregado tiene 5. Están los 5. Si querés
-  dejarlo en 4, decime cuáles fusiono/saco y lo ajusto en `build_abc.py`.
+- **⚠️ Entregables PDF (links firmados de Skool):** los 6 PDF (`Entregable N°...` + Planillas Hábitos) usan
+  links firmados de `files.skool.com` que **caducan ~21/04/2026** (parámetro `Expires`). Después de esa fecha
+  dejan de funcionar y hay que **regenerarlos desde Skool** y volver a pegarlos en `build_abc.py` (campo `recursos`),
+  o —mejor a largo plazo— subir los PDF a un hosting propio (Netlify/Drive) y usar ese link permanente.
+- **Fondo neuronal:** el canvas se desactiva solo si el usuario tiene `prefers-reduced-motion` (accesibilidad).
