@@ -128,6 +128,19 @@ a.res:hover{border-color:var(--hair-2);background:var(--surface-2);box-shadow:va
 .res .rarrow{color:var(--orange);font-weight:800;font-size:1.1rem}
 .res-locked{color:var(--niebla-2)}
 .res-locked .rtag{font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:var(--niebla-2);border:1px solid var(--hair);border-radius:999px;padding:4px 9px;font-weight:500}
+/* CTA Instituto (al final de los recursos de cada módulo) */
+.joincta{margin-top:22px;border:1px solid var(--active-line);border-radius:16px;padding:28px 26px;text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(180deg,rgba(255,102,2,.13),rgba(255,102,2,.02))}
+.joincta::before{content:"";position:absolute;inset:-1px;border-radius:16px;background:radial-gradient(60% 80% at 50% 0%,var(--glow),transparent 70%);z-index:0;filter:blur(20px);opacity:.7;pointer-events:none}
+.joincta>*{position:relative;z-index:1}
+.joincta__eye{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);font-weight:500;margin-bottom:12px}
+.joincta__q{font-family:'Montserrat';font-weight:800;color:var(--hueso);font-size:1.16rem;line-height:1.24;letter-spacing:-.01em;max-width:30ch;margin:0 auto 10px}
+.joincta__d{color:var(--niebla);font-size:.97rem;line-height:1.6;max-width:48ch;margin:0 auto 22px}
+.joincta__d b{color:var(--hueso);font-weight:700}
+.joincta__btn{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:#fff;font-family:'Montserrat';font-weight:700;font-size:.98rem;padding:15px 30px;border-radius:999px;box-shadow:0 16px 34px -12px var(--glow);transition:transform .18s var(--ease),background .18s,box-shadow .3s}
+.joincta__btn:hover{transform:translateY(-2px);background:var(--orange-hi);box-shadow:0 24px 46px -12px var(--glow)}
+.joincta__btn span{transition:transform .2s var(--ease)}
+.joincta__btn:hover span{transform:translateX(4px)}
 /* backdrop mobile */
 .backdrop{display:none;position:fixed;inset:var(--topbar-h) 0 0;background:rgba(4,15,26,.6);backdrop-filter:blur(2px);z-index:40}
 /* footer */
@@ -287,21 +300,31 @@ footer .q{font-family:'Montserrat';font-weight:700;color:var(--hueso);margin-bot
   var frame=document.getElementById('frame');
   var pw=document.getElementById('playerWrap');
 
+  var INSTITUTE_CTA='<div class="joincta">'
+    +'<div class="joincta__eye">El siguiente paso</div>'
+    +'<div class="joincta__q">¿Ya sabés lo que tenés que hacer y no lo hacés?</div>'
+    +'<div class="joincta__d">No necesitás más información. Necesitás un <b>sistema</b> y un <b>equipo de profesionales</b> que te acompañe.</div>'
+    +'<a class="joincta__btn" href="https://nicolasfernandezmiranda.com/programa-instituto?utm_source=ebook&amp;utm_medium=bonos&amp;utm_content=abc" target="_blank" rel="noopener">Conocé cómo unirte al Instituto <span>&rarr;</span></a>'
+    +'</div>';
+
   function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}
 
   function renderResources(mi){
     var box=document.getElementById('resources');
     var items=RES[mi]||[];
-    if(!items.length){box.innerHTML='';return}
-    var html='<div class="reslabel">📎 Recursos y entregables</div><div class="reslist">';
-    items.forEach(function(r){
-      if(r.locked){
-        html+='<div class="res res-locked"><span class="ricon">'+r.icon+'</span><span class="rtx">'+esc(r.t)+'</span><span class="rtag">PDF · en Skool</span></div>';
-      }else{
-        html+='<a class="res" href="'+r.url.replace(/&/g,'&amp;')+'" target="_blank" rel="noopener"><span class="ricon">'+r.icon+'</span><span class="rtx">'+esc(r.t)+'</span><span class="rarrow">→</span></a>';
-      }
-    });
-    box.innerHTML=html+'</div>';
+    var html='';
+    if(items.length){
+      html+='<div class="reslabel">📎 Recursos y entregables</div><div class="reslist">';
+      items.forEach(function(r){
+        if(r.locked){
+          html+='<div class="res res-locked"><span class="ricon">'+r.icon+'</span><span class="rtx">'+esc(r.t)+'</span><span class="rtag">PDF · en Skool</span></div>';
+        }else{
+          html+='<a class="res" href="'+r.url.replace(/&/g,'&amp;')+'" target="_blank" rel="noopener"><span class="ricon">'+r.icon+'</span><span class="rtx">'+esc(r.t)+'</span><span class="rarrow">→</span></a>';
+        }
+      });
+      html+='</div>';
+    }
+    box.innerHTML=html+INSTITUTE_CTA;
   }
 
   function select(id, scroll){
