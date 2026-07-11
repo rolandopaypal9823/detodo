@@ -11,7 +11,17 @@ from string import Template
 BASE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sitio")
 
 IG = "@nicofernandezmiranda"
-LINK_PRODUCTO = "#LINK-PRODUCTO"  # TODO: reemplazar por el link real del producto
+
+# Producto: "Hackea tu Cerebro" (comunidad en Circle). El CTA final de cada día
+# apunta acá con UTMs: source=ebook, medium=reto-7-dias, content=diaN.
+LINK_PRODUCTO_BASE = "https://comunidadproductiva.circle.so/hackea-tu-cerebro"
+
+
+def producto_link(n):
+    return (
+        LINK_PRODUCTO_BASE
+        + "?utm_source=ebook&utm_medium=reto-7-dias&utm_content=dia" + str(n)
+    )
 
 COMMUNITY = (
     "No estás haciendo esto solo: el reto está abierto todo el año y <strong>cada semana arranca "
@@ -493,7 +503,7 @@ def day_body(d, root):
     parts.append(
         f'''<div class="card cta"><div class="label" style="justify-content:center">El siguiente nivel</div>
 <p>{d["cta_line"]}</p>
-<a class="btn" href="{LINK_PRODUCTO}">Quiero conocer mi cerebro →</a>
+<a class="btn" href="{producto_link(n)}">Quiero conocer mi cerebro →</a>
 <small>Sin apuro: el reto ya es tuyo y las herramientas también.</small>
 </div>'''
     )
