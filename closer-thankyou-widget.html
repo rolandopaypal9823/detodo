@@ -1,0 +1,1145 @@
+<!-- ═══════════════════════════════════════════════════════
+     WIDGET — ASIGNACIÓN DE CLOSER (Thank You Page)
+     Lee ?assigned_to=Nombre+Apellido y ?invitee_first_name=Nombre
+     Elementor → HTML Widget
+
+     + POP-UP DE VERIFICACIÓN (no se cierra salvo con la X)
+     + Al cerrar, viaja a la esquina inferior derecha y queda
+       un CHAT flotante de Valentín para confirmar por WhatsApp
+     ═══════════════════════════════════════════════════════ -->
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  .nfm-closer {
+    --navy:   #0C3452;
+    --orange: #FF6602;
+    --cream:  #FBF7F1;
+    --white:  #ffffff;
+    --text:   #2D3748;
+    --muted:  #6B7280;
+    --border: rgba(12, 52, 82, 0.10);
+    --whatsapp: #25D366;
+
+    position: relative;
+    background: var(--);
+    padding: 80px 0 96px;
+    font-family: 'Open Sans', sans-serif;
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  .nfm-closer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,102,2,.025) 30px, rgba(255,102,2,.025) 31px),
+      repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(12,52,82,.015) 30px, rgba(12,52,82,.015) 31px);
+    pointer-events: none;
+  }
+
+  .nfm-closer__container {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .nfm-closer__header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .nfm-closer__check {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    background: var(--whatsapp);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 28px rgba(37, 211, 102, 0.35);
+    animation: nfm-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .nfm-closer__check svg {
+    width: 32px;
+    height: 32px;
+    fill: #fff;
+  }
+
+  .nfm-closer__eyebrow {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 12px;
+  }
+
+  .nfm-closer__greeting {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .nfm-closer__greeting span {
+    color: var(--orange);
+  }
+
+  .nfm-closer__greeting:empty {
+    display: none;
+  }
+
+  .nfm-closer__title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin: 0 0 14px;
+  }
+
+  .nfm-closer__title span { color: var(--orange); }
+
+  .nfm-closer__subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .nfm-closer__card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px 36px 36px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(12, 52, 82, 0.08);
+    position: relative;
+    overflow: hidden;
+    animation: nfm-fadeUp 0.5s ease 0.15s both;
+  }
+
+  .nfm-closer__card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--orange), #ff8b3d, var(--orange));
+  }
+
+  .nfm-closer__photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    margin: 0 auto 22px;
+    overflow: hidden;
+    border: 4px solid var(--white);
+    box-shadow: 0 8px 24px rgba(12, 52, 82, 0.18), 0 0 0 4px rgba(255, 102, 2, 0.15);
+    background: linear-gradient(135deg, var(--orange) 0%, #c84500 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nfm-closer__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .nfm-closer__initial {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .nfm-closer__photo--generic {
+    background: linear-gradient(135deg, var(--navy) 0%, #051a2b 100%);
+  }
+
+  .nfm-closer__photo--generic svg {
+    width: 56px;
+    height: 56px;
+    fill: var(--orange);
+  }
+
+  .nfm-closer__role {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+
+  .nfm-closer__name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 1.9rem);
+    font-weight: 900;
+    color: var(--navy);
+    margin: 0 0 18px;
+    letter-spacing: -0.02em;
+  }
+
+  .nfm-closer__message {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--text);
+    line-height: 1.65;
+    max-width: 460px;
+    margin: 0 auto 28px;
+  }
+
+  .nfm-closer__instruction {
+    background: rgba(37, 211, 102, 0.08);
+    border: 1px solid rgba(37, 211, 102, 0.28);
+    border-radius: 14px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+    margin-top: 8px;
+  }
+
+  .nfm-closer__wa-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    background: var(--whatsapp);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nfm-closer__wa-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: #fff;
+  }
+
+  .nfm-closer__wa-text {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .nfm-closer__wa-text strong {
+    color: var(--navy);
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .nfm-closer__extra {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .nfm-closer__extra-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .nfm-closer__extra-item strong {
+    color: var(--navy);
+    font-weight: 700;
+  }
+
+  @keyframes nfm-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes nfm-pop {
+    0%   { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  @media (max-width: 540px) {
+    .nfm-closer { padding: 56px 0 72px; }
+    .nfm-closer__card { padding: 32px 22px 28px; }
+    .nfm-closer__photo { width: 120px; height: 120px; }
+    .nfm-closer__instruction { padding: 14px 16px; gap: 12px; }
+    .nfm-closer__wa-icon { width: 38px; height: 38px; }
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     POP-UP DE VERIFICACIÓN  +  CHAT FLOTANTE
+     ═══════════════════════════════════════════════════════ */
+  .nfm-vf {
+    --navy:   #0C3452;
+    --orange: #FF6602;
+    --white:  #ffffff;
+    --text:   #2D3748;
+    --muted:  #6B7280;
+    --border: rgba(12, 52, 82, 0.10);
+    --whatsapp: #25D366;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  /* ---------- Overlay ---------- */
+  .nfm-vf__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(12, 52, 82, 0.72);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+  }
+
+  .nfm-vf__overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.35s ease;
+  }
+
+  .nfm-vf__overlay.is-fading {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  /* ---------- Modal ---------- */
+  .nfm-vf__modal {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    background: var(--white);
+    border-radius: 24px;
+    padding: 40px 34px 32px;
+    text-align: center;
+    box-shadow: 0 24px 70px rgba(12, 52, 82, 0.45);
+    overflow: hidden;
+    transform: scale(0.9);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.5, 0, 0.2, 1), opacity 0.5s ease;
+  }
+
+  .nfm-vf__overlay.is-open .nfm-vf__modal {
+    transform: scale(1);
+    opacity: 1;
+    transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+  }
+
+  .nfm-vf__modal.is-shaking {
+    animation: nfm-vf-shake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+
+  .nfm-vf__modal::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--orange), #ff8b3d, var(--orange));
+  }
+
+  .nfm-vf__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(12, 52, 82, 0.06);
+    color: var(--navy);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+    z-index: 2;
+  }
+
+  .nfm-vf__close:hover {
+    background: rgba(12, 52, 82, 0.12);
+    transform: rotate(90deg);
+  }
+
+  .nfm-vf__close svg { width: 16px; height: 16px; fill: currentColor; }
+
+  .nfm-vf__badge {
+    width: 60px;
+    height: 60px;
+    margin: 6px auto 18px;
+    border-radius: 50%;
+    background: var(--whatsapp);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+    animation: nfm-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
+  }
+
+  .nfm-vf__badge svg { width: 32px; height: 32px; fill: #fff; }
+
+  .nfm-vf__eyebrow {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+  }
+
+  .nfm-vf__title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.35rem, 4.5vw, 1.7rem);
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin: 0 0 14px;
+  }
+
+  .nfm-vf__title span { color: var(--orange); }
+
+  .nfm-vf__text {
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.6;
+    margin: 0 0 16px;
+  }
+
+  .nfm-vf__disclaimer {
+    background: rgba(12, 52, 82, 0.04);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--orange);
+    border-radius: 12px;
+    padding: 13px 16px;
+    text-align: left;
+    font-size: 0.83rem;
+    color: var(--muted);
+    line-height: 1.55;
+    margin: 0 0 22px;
+  }
+
+  .nfm-vf__disclaimer strong { color: var(--navy); font-weight: 700; }
+
+  .nfm-vf__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 16px 22px;
+    background: var(--whatsapp);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    text-decoration: none;
+    border-radius: 14px;
+    box-shadow: 0 10px 26px rgba(37, 211, 102, 0.38);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .nfm-vf__cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(37, 211, 102, 0.48);
+  }
+
+  .nfm-vf__cta svg { width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
+
+  .nfm-vf__reward {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .nfm-vf__reward strong { color: var(--navy); font-weight: 700; }
+
+  /* ---------- Chat flotante (post-cierre) ---------- */
+  .nfm-vf__chat {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 999997;
+    width: 320px;
+    max-width: calc(100vw - 32px);
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: 0 18px 50px rgba(12, 52, 82, 0.30);
+    overflow: hidden;
+    transform: scale(0.4) translateY(30px);
+    transform-origin: bottom right;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease, visibility 0s linear 0.5s;
+  }
+
+  .nfm-vf__chat.is-open {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
+  }
+
+  .nfm-vf__chat.is-collapsed { transform: scale(0.4) translateY(30px); opacity: 0; visibility: hidden; pointer-events: none; }
+
+  .nfm-vf__chat-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: linear-gradient(135deg, #075E54 0%, #128C7E 100%);
+    color: #fff;
+  }
+
+  .nfm-vf__chat-avatar {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--orange) 0%, #c84500 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nfm-vf__chat-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .nfm-vf__chat-avatar span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .nfm-vf__chat-info { flex: 1; min-width: 0; line-height: 1.25; }
+
+  .nfm-vf__chat-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nfm-vf__chat-status {
+    font-size: 0.72rem;
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .nfm-vf__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+    animation: nfm-vf-pulse 1.8s infinite;
+  }
+
+  .nfm-vf__chat-min {
+    width: 26px;
+    height: 26px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+  }
+
+  .nfm-vf__chat-min:hover { background: rgba(255, 255, 255, 0.3); }
+  .nfm-vf__chat-min svg { width: 14px; height: 14px; fill: #fff; }
+
+  .nfm-vf__chat-body {
+    padding: 18px 16px 16px;
+    background:
+      #ECE5DD
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M0 20h40M20 0v40' stroke='rgba(12,52,82,0.03)' stroke-width='1'/%3E%3C/svg%3E");
+  }
+
+  .nfm-vf__bubble {
+    position: relative;
+    background: #fff;
+    border-radius: 4px 14px 14px 14px;
+    padding: 11px 14px;
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.5;
+    box-shadow: 0 1px 2px rgba(12, 52, 82, 0.12);
+    max-width: 92%;
+    margin-bottom: 6px;
+    animation: nfm-vf-msg 0.4s ease 0.3s both;
+  }
+
+  .nfm-vf__bubble strong { color: var(--navy); font-weight: 700; }
+
+  .nfm-vf__bubble-time {
+    display: block;
+    text-align: right;
+    font-size: 0.66rem;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .nfm-vf__chat-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    margin-top: 12px;
+    padding: 13px 18px;
+    background: var(--whatsapp);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 800;
+    text-decoration: none;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .nfm-vf__chat-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(37, 211, 102, 0.45); }
+  .nfm-vf__chat-cta svg { width: 20px; height: 20px; fill: #fff; }
+
+  /* Burbuja colapsada (botón flotante) */
+  .nfm-vf__launcher {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 999996;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--whatsapp);
+    box-shadow: 0 10px 30px rgba(12, 52, 82, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.3);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, visibility 0s linear 0.4s;
+  }
+
+  .nfm-vf__launcher.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+  }
+
+  .nfm-vf__launcher img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .nfm-vf__launcher-badge {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--orange);
+    border: 2px solid #fff;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: nfm-vf-pulse-badge 1.8s infinite;
+  }
+
+  @keyframes nfm-vf-shake {
+    10%, 90% { transform: translateX(-1px); }
+    20%, 80% { transform: translateX(2px); }
+    30%, 50%, 70% { transform: translateX(-5px); }
+    40%, 60% { transform: translateX(5px); }
+  }
+
+  @keyframes nfm-vf-pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+    70%  { box-shadow: 0 0 0 7px rgba(74, 222, 128, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+  }
+
+  @keyframes nfm-vf-pulse-badge {
+    0%   { box-shadow: 0 0 0 0 rgba(255, 102, 2, 0.6); }
+    70%  { box-shadow: 0 0 0 8px rgba(255, 102, 2, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 102, 2, 0); }
+  }
+
+  @keyframes nfm-vf-msg {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 540px) {
+    .nfm-vf__modal { padding: 34px 22px 26px; }
+    .nfm-vf__chat { right: 12px; bottom: 12px; }
+    .nfm-vf__launcher { right: 14px; bottom: 14px; }
+  }
+</style>
+
+<section class="nfm-closer" id="nfm-asignacion">
+  <div class="nfm-closer__container">
+
+    <div class="nfm-closer__header">
+      <div class="nfm-closer__check">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      </div>
+      <div class="nfm-closer__eyebrow" id="nfm-closer-eyebrow">Tu sesión está agendada</div>
+      <div class="nfm-closer__greeting" id="nfm-closer-greeting"></div>
+      <h2 class="nfm-closer__title" id="nfm-closer-title">
+        Te va a contactar <span>tu asesor/a</span> por WhatsApp
+      </h2>
+      <p class="nfm-closer__subtitle" id="nfm-closer-subtitle">
+        Ya enviamos un mensaje a tu número para coordinar todo. Conocé a la persona que va a acompañarte en este proceso:
+      </p>
+    </div>
+
+    <div class="nfm-closer__card">
+      <div class="nfm-closer__photo" id="nfm-closer-photo"></div>
+      <div class="nfm-closer__role" id="nfm-closer-role">Asesor/a · Instituto de Productividad</div>
+      <h3 class="nfm-closer__name" id="nfm-closer-name">—</h3>
+      <p class="nfm-closer__message" id="nfm-closer-message">—</p>
+
+      <div class="nfm-closer__instruction">
+        <div class="nfm-closer__wa-icon">
+          <svg viewBox="0 0 24 24"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.88 11.89L4 20l4.22-1.11a7.93 7.93 0 0 0 3.79.97h.01a7.94 7.94 0 0 0 7.94-7.94c0-2.12-.82-4.11-2.36-5.6zM12.05 18.5a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.66.67-2.44-.16-.25a6.59 6.59 0 1 1 12.21-3.46 6.6 6.6 0 0 1-6.62 6.55zm3.62-4.93c-.2-.1-1.17-.58-1.35-.65-.18-.07-.32-.1-.45.1-.13.2-.51.65-.63.78-.12.13-.23.15-.43.05a5.4 5.4 0 0 1-1.6-.99 5.97 5.97 0 0 1-1.1-1.37c-.12-.2 0-.31.09-.41.09-.09.2-.23.3-.35.1-.12.13-.2.2-.33.07-.13.03-.25-.02-.35-.05-.1-.45-1.08-.62-1.48-.16-.39-.33-.34-.45-.34l-.38-.01a.74.74 0 0 0-.53.25 2.23 2.23 0 0 0-.69 1.65c0 .98.7 1.92.8 2.05.1.13 1.39 2.13 3.37 2.99a11.4 11.4 0 0 0 1.13.42c.47.15.9.13 1.24.08.38-.06 1.17-.48 1.34-.94.16-.46.16-.86.11-.94-.05-.08-.18-.13-.38-.23z"/></svg>
+        </div>
+        <div class="nfm-closer__wa-text">
+          <strong>Revisá tu WhatsApp.</strong><br>
+          Tu asesor te contactará. Respondele cuando puedas para confirmar el horario.
+        </div>
+      </div>
+
+      <div class="nfm-closer__extra">
+        <div class="nfm-closer__extra-item">⏱️ <strong>Duración:</strong> 45-60 min</div>
+        <div class="nfm-closer__extra-item">💻 <strong>Modalidad:</strong> Videollamada</div>
+        <div class="nfm-closer__extra-item">🎯 <strong>Tipo:</strong> 1 a 1</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ POP-UP + CHAT ═══════════ -->
+<div class="nfm-vf" id="nfm-vf">
+
+  <!-- Overlay + Modal -->
+  <div class="nfm-vf__overlay" id="nfm-vf-overlay" role="dialog" aria-modal="true" aria-labelledby="nfm-vf-title">
+    <div class="nfm-vf__modal" id="nfm-vf-modal">
+      <button class="nfm-vf__close" id="nfm-vf-close" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+
+      <div class="nfm-vf__badge">
+        <svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+      </div>
+
+      <div class="nfm-vf__eyebrow" id="nfm-vf-eyebrow">Último paso · Verificación</div>
+      <h2 class="nfm-vf__title" id="nfm-vf-title">Confirmá que sos <span>una persona real</span></h2>
+
+      <p class="nfm-vf__text" id="nfm-vf-text">
+        ¡Felicitaciones por agendar tu sesión! 🎉 Antes de avanzar, necesitamos confirmar
+        que hay una persona real del otro lado de la pantalla.
+      </p>
+
+      <div class="nfm-vf__disclaimer">
+        Recibimos <strong>muchísimas solicitudes</strong> y, para ser honestos, muchas
+        terminan siendo bots o personas que después no responden. Por eso mantenemos una
+        <strong>lista de perfiles no confirmados</strong>. Por respeto a quienes de verdad
+        quieren entrar al Instituto, si no confirmás tu asistencia tendremos que liberar tu cupo.
+      </div>
+
+      <a class="nfm-vf__cta" id="nfm-vf-cta" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.88 11.89L4 20l4.22-1.11a7.93 7.93 0 0 0 3.79.97h.01a7.94 7.94 0 0 0 7.94-7.94c0-2.12-.82-4.11-2.36-5.6zM12.05 18.5a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.66.67-2.44-.16-.25a6.59 6.59 0 1 1 12.21-3.46 6.6 6.6 0 0 1-6.62 6.55zm3.62-4.93c-.2-.1-1.17-.58-1.35-.65-.18-.07-.32-.1-.45.1-.13.2-.51.65-.63.78-.12.13-.23.15-.43.05a5.4 5.4 0 0 1-1.6-.99 5.97 5.97 0 0 1-1.1-1.37c-.12-.2 0-.31.09-.41.09-.09.2-.23.3-.35.1-.12.13-.2.2-.33.07-.13.03-.25-.02-.35-.05-.1-.45-1.08-.62-1.48-.16-.39-.33-.34-.45-.34l-.38-.01a.74.74 0 0 0-.53.25 2.23 2.23 0 0 0-.69 1.65c0 .98.7 1.92.8 2.05.1.13 1.39 2.13 3.37 2.99a11.4 11.4 0 0 0 1.13.42c.47.15.9.13 1.24.08.38-.06 1.17-.48 1.34-.94.16-.46.16-.86.11-.94-.05-.08-.18-.13-.38-.23z"/></svg>
+        Sí, soy real · Confirmar
+      </a>
+
+      <div class="nfm-vf__reward">
+        🎁 <span>Al confirmar, <strong>Valentín</strong> te comparte los próximos pasos y un recurso con mucho valor.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat flotante -->
+  <div class="nfm-vf__chat" id="nfm-vf-chat" role="dialog" aria-label="Chat con Valentín">
+    <div class="nfm-vf__chat-head">
+      <div class="nfm-vf__chat-avatar" id="nfm-vf-chat-avatar"></div>
+      <div class="nfm-vf__chat-info">
+        <div class="nfm-vf__chat-name">Valentín Borja</div>
+        <div class="nfm-vf__chat-status"><span class="nfm-vf__dot"></span> en línea</div>
+      </div>
+      <button class="nfm-vf__chat-min" id="nfm-vf-chat-min" aria-label="Minimizar chat">
+        <svg viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
+      </button>
+    </div>
+    <div class="nfm-vf__chat-body">
+      <div class="nfm-vf__bubble" id="nfm-vf-bubble">
+        <strong>Confirmá tu asistencia</strong> enviándome un mensaje. Soy Valentín, tu asesor
+        del Instituto 👋 Te comparto los próximos pasos y un recurso con mucho valor.
+        <span class="nfm-vf__bubble-time">ahora</span>
+      </div>
+      <a class="nfm-vf__chat-cta" id="nfm-vf-chat-cta" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.88 11.89L4 20l4.22-1.11a7.93 7.93 0 0 0 3.79.97h.01a7.94 7.94 0 0 0 7.94-7.94c0-2.12-.82-4.11-2.36-5.6zM12.05 18.5a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.66.67-2.44-.16-.25a6.59 6.59 0 1 1 12.21-3.46 6.6 6.6 0 0 1-6.62 6.55zm3.62-4.93c-.2-.1-1.17-.58-1.35-.65-.18-.07-.32-.1-.45.1-.13.2-.51.65-.63.78-.12.13-.23.15-.43.05a5.4 5.4 0 0 1-1.6-.99 5.97 5.97 0 0 1-1.1-1.37c-.12-.2 0-.31.09-.41.09-.09.2-.23.3-.35.1-.12.13-.2.2-.33.07-.13.03-.25-.02-.35-.05-.1-.45-1.08-.62-1.48-.16-.39-.33-.34-.45-.34l-.38-.01a.74.74 0 0 0-.53.25 2.23 2.23 0 0 0-.69 1.65c0 .98.7 1.92.8 2.05.1.13 1.39 2.13 3.37 2.99a11.4 11.4 0 0 0 1.13.42c.47.15.9.13 1.24.08.38-.06 1.17-.48 1.34-.94.16-.46.16-.86.11-.94-.05-.08-.18-.13-.38-.23z"/></svg>
+        Confirmar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- Burbuja flotante (chat minimizado) -->
+  <button class="nfm-vf__launcher" id="nfm-vf-launcher" aria-label="Abrir chat con Valentín">
+    <span class="nfm-vf__launcher-badge">1</span>
+  </button>
+
+</div>
+
+<script>
+(function() {
+  // ─── CLOSERS ─────────────────────────────────────────────
+  const closers = {
+    valentin: {
+      nombre: 'Valentín',
+      role: 'Asesor · Instituto de Productividad',
+      foto: 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-19-at-1.08.42-PM-1.jpg',
+      mensaje: 'Voy a estar en la sesión con vos para escucharte y ayudarte a definir el mejor camino. Nos vemos en breve 🙌'
+    },
+    luciana: {
+      nombre: 'Luciana',
+      role: 'Asesora · Instituto de Productividad',
+      foto: 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-19-at-11.20.09-AM.jpeg',
+      mensaje: 'Estoy esperando nuestra charla para conocer tu caso en detalle y ver cómo podemos avanzar. ¡Hablamos pronto! ✨'
+    },
+    cristina: {
+      nombre: 'Cristina',
+      role: 'Asesora · Instituto de Productividad',
+      foto: 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-19-at-12.51.15-PM.jpeg',
+      fotoPosition: 'center 10%',
+      mensaje: 'Voy a acompañarte en esta primera conversación para entender qué necesitás y cómo podemos ayudarte. Te escribo pronto 💫'
+    },
+    pierina: {
+      nombre: 'Pierina',
+      role: 'Asesora · Instituto de Productividad',
+      foto: 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/Captura-de-pantalla-2026-05-23-102252.png',
+      mensaje: 'Voy a ser quien te escuche en esta primera charla para conocer tu caso y guiarte en lo que necesitás resolver. ¡Hablamos pronto! 🌟'
+    },
+       paula: {
+      nombre: 'Paula',
+      role: 'Asesora · Instituto de Productividad',
+      foto: 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/06/image-1.png',
+      fotoPosition: 'center top',
+      mensaje: 'Voy a acompañarte en esta primera conversación para entender bien tu situación y ver si el programa es para vos. ¡Hablamos en un rato! 👋'
+    },
+    matias: {
+      nombre: 'Matías',
+      role: 'Asesor · Instituto de Productividad',
+      foto: 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/06/image.png',
+      mensaje: 'Voy a estar en la sesión con vos para escucharte y ayudarte a encontrar el mejor camino. Nos vemos en breve 🙌'
+    }
+  };
+
+  const generico = {
+    eyebrow: '¡Listo, ya estás dentro!',
+    role: 'Equipo de Asesores · Instituto de Productividad',
+    nombre: 'Un asesor del Instituto',
+    mensaje: 'Uno de nuestros coaches de admisión del equipo se está preparando para tu llamada y te va a escribir muy pronto. Mientras tanto, podés revisar el material del programa o ver casos de éxito de otros alumnos.'
+  };
+
+  // ─── CONFIG VERIFICACIÓN (POP-UP + CHAT) ─────────────────
+  const VALENTIN = {
+    nombre: 'Valentín',
+    nombreCompleto: 'Valentín Borja',
+    foto: closers.valentin.foto,
+    whatsapp: '5492223678638'   // +54 9 2223 67-8638
+  };
+
+  // ─── HELPERS ─────────────────────────────────────────────
+  // Decodifica una o dos veces (Calendly viene con doble encoding)
+  function safeDecode(str) {
+    if (!str) return '';
+    try {
+      let s = decodeURIComponent(str);
+      if (/%[0-9A-Fa-f]{2}/.test(s)) {
+        try { s = decodeURIComponent(s); } catch (e) {}
+      }
+      return s;
+    } catch (e) {
+      return str;
+    }
+  }
+
+  // "AURA MARÍA" → "Aura"  |  "marcela" → "Marcela"
+  function capitalizeFirst(fullName) {
+    if (!fullName) return '';
+    const first = fullName.trim().split(/\s+/)[0] || '';
+    return first.charAt(0).toUpperCase() + first.slice(1).toLowerCase();
+  }
+
+  // "Romina Soterio" → "romina"  (para matchear el closer)
+  function normalizeKey(fullName) {
+    if (!fullName) return '';
+    const first = fullName.trim().split(/\s+/)[0] || '';
+    return first.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  function getAssignedKey() {
+    const params = new URLSearchParams(window.location.search);
+    const raw = safeDecode(params.get('assigned_to') || '');
+    const key = normalizeKey(raw);
+    return closers[key] ? key : null;
+  }
+
+  function getInviteeName() {
+    const params = new URLSearchParams(window.location.search);
+    const raw = safeDecode(params.get('invitee_first_name') || '');
+    return capitalizeFirst(raw);
+  }
+
+  // ─── RENDER (widget principal) ───────────────────────────
+  function render() {
+    const key = getAssignedKey();
+    const inviteeName = getInviteeName();
+    const photoEl = document.getElementById('nfm-closer-photo');
+    const greetingEl = document.getElementById('nfm-closer-greeting');
+
+    // Saludo personalizado (si hay invitee_first_name)
+    if (inviteeName) {
+      greetingEl.innerHTML = `¡Felicitaciones, <span>${inviteeName}</span>!`;
+    } else {
+      greetingEl.innerHTML = '';
+    }
+
+    if (key) {
+      // VERSIÓN ESPECÍFICA
+      const c = closers[key];
+      document.getElementById('nfm-closer-eyebrow').textContent = 'Tu sesión está agendada';
+      document.getElementById('nfm-closer-title').innerHTML = `Te va a contactar <span>${c.nombre}</span> por WhatsApp`;
+      document.getElementById('nfm-closer-subtitle').textContent = 'Ya enviamos un mensaje a tu número para coordinar todo. Conocé a la persona que va a acompañarte en este proceso:';
+      document.getElementById('nfm-closer-role').textContent = c.role;
+      document.getElementById('nfm-closer-name').textContent = c.nombre;
+           const saludo = inviteeName
+        ? `Hola ${inviteeName}, soy ${c.nombre}.`
+        : `Hola, soy ${c.nombre}.`;
+      document.getElementById('nfm-closer-message').textContent = `${saludo} ${c.mensaje}`;
+
+      photoEl.classList.remove('nfm-closer__photo--generic');
+            if (c.foto) {
+        const posStyle = c.fotoPosition ? ` style="object-position: ${c.fotoPosition};"` : '';
+        photoEl.innerHTML = `<img src="${c.foto}" alt="${c.nombre}"${posStyle}>`;
+      } else {
+        photoEl.innerHTML = `<span class="nfm-closer__initial">${c.nombre.charAt(0)}</span>`;
+      }
+
+    } else {
+      // VERSIÓN GENÉRICA
+      document.getElementById('nfm-closer-eyebrow').textContent = generico.eyebrow;
+      // Si hay nombre, el título integra; si no, título plano
+      const titleText = inviteeName
+        ? `Ya tenés tu <span>sesión agendada</span>`
+        : `¡Felicitaciones! <span>Ya tenés tu sesión agendada</span>`;
+      // Cuando hay nombre, el saludo arriba ya lo dice — el título queda más limpio
+      document.getElementById('nfm-closer-title').innerHTML = titleText;
+      document.getElementById('nfm-closer-subtitle').textContent = 'En las próximas horas, un asesor del Instituto se va a comunicar con vos por WhatsApp para coordinar todo y conocer tu caso en detalle.';
+      document.getElementById('nfm-closer-role').textContent = generico.role;
+      document.getElementById('nfm-closer-name').textContent = generico.nombre;
+      document.getElementById('nfm-closer-message').textContent = generico.mensaje;
+
+      photoEl.classList.add('nfm-closer__photo--generic');
+      photoEl.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>`;
+    }
+  }
+
+  // ─── POP-UP DE VERIFICACIÓN + CHAT ───────────────────────
+  function initVerificacion(inviteeName) {
+    const overlay  = document.getElementById('nfm-vf-overlay');
+    const modal    = document.getElementById('nfm-vf-modal');
+    const closeBtn = document.getElementById('nfm-vf-close');
+    const modalCta = document.getElementById('nfm-vf-cta');
+    const chat     = document.getElementById('nfm-vf-chat');
+    const chatMin  = document.getElementById('nfm-vf-chat-min');
+    const chatCta  = document.getElementById('nfm-vf-chat-cta');
+    const launcher = document.getElementById('nfm-vf-launcher');
+    const avatarEl = document.getElementById('nfm-vf-chat-avatar');
+
+    if (!overlay) return;
+
+    // Link de WhatsApp (walink) con mensaje pre-cargado
+    const waText = inviteeName
+      ? `Hola ${VALENTIN.nombre} 👋 Soy ${inviteeName}. Confirmo que soy una persona real y que voy a asistir a mi sesión agendada ✅`
+      : `Hola ${VALENTIN.nombre} 👋 Confirmo que soy una persona real y que voy a asistir a mi sesión agendada ✅`;
+    const waHref = `https://wa.me/${VALENTIN.whatsapp}?text=${encodeURIComponent(waText)}`;
+    modalCta.href = waHref;
+    chatCta.href  = waHref;
+
+    // Saludo personalizado en el modal
+    if (inviteeName) {
+      const textEl = document.getElementById('nfm-vf-text');
+      textEl.innerHTML = `¡Felicitaciones, <strong style="color:#0C3452">${inviteeName}</strong>, por agendar tu sesión! 🎉 ` +
+        `Antes de avanzar, necesitamos confirmar que hay una persona real del otro lado de la pantalla.`;
+    }
+
+    // Foto de Valentín en el chat / launcher
+    if (VALENTIN.foto) {
+      avatarEl.innerHTML = `<img src="${VALENTIN.foto}" alt="${VALENTIN.nombreCompleto}" onerror="this.parentNode.innerHTML='<span>V</span>'">`;
+      launcher.insertAdjacentHTML('afterbegin', `<img src="${VALENTIN.foto}" alt="${VALENTIN.nombreCompleto}">`);
+    } else {
+      avatarEl.innerHTML = `<span>V</span>`;
+    }
+
+    // Bloqueo de scroll mientras el pop-up está abierto
+    let prevOverflow = '';
+    function lockScroll() {
+      prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+    }
+    function unlockScroll() {
+      document.body.style.overflow = prevOverflow || '';
+    }
+
+    // Estado guardado (para no molestar en cada recarga de la misma sesión)
+    function alreadyMinimized() {
+      try { return sessionStorage.getItem('nfm_vf_min') === '1'; } catch (e) { return false; }
+    }
+    function markMinimized() {
+      try { sessionStorage.setItem('nfm_vf_min', '1'); } catch (e) {}
+    }
+
+    // ---- Abrir modal ----
+    function openModal() {
+      overlay.classList.add('is-open');
+      lockScroll();
+    }
+
+    // ---- Cerrar (X): vuela a la esquina inferior derecha → aparece el chat ----
+    let minimizing = false;
+    function minimizeToChat() {
+      if (minimizing) return;
+      minimizing = true;
+
+      // Calcula el destino (esquina inferior derecha, donde vive el chat)
+      const mRect = modal.getBoundingClientRect();
+      const mcx = mRect.left + mRect.width / 2;
+      const mcy = mRect.top + mRect.height / 2;
+      const targetX = window.innerWidth - 46;
+      const targetY = window.innerHeight - 46;
+      const dx = targetX - mcx;
+      const dy = targetY - mcy;
+
+      modal.style.transform = `translate(${dx}px, ${dy}px) scale(0.06)`;
+      modal.style.opacity = '0';
+      overlay.classList.add('is-fading');
+      unlockScroll();
+
+      window.setTimeout(function() {
+        overlay.classList.remove('is-open', 'is-fading');
+        overlay.style.display = 'none';
+        chat.classList.add('is-open');
+        markMinimized();
+        minimizing = false;
+      }, 560);
+    }
+
+    // ---- Colapsar chat → burbuja flotante ----
+    function collapseChat() {
+      chat.classList.remove('is-open');
+      launcher.classList.add('is-open');
+    }
+    function expandChat() {
+      launcher.classList.remove('is-open');
+      chat.classList.add('is-open');
+    }
+
+    // Si en esta sesión ya minimizó, arranca directo en modo chat
+    if (alreadyMinimized()) {
+      overlay.style.display = 'none';
+      chat.classList.add('is-open');
+    } else {
+      // Pequeño delay para que se sienta la entrada
+      window.setTimeout(openModal, 600);
+    }
+
+    // ---- Eventos ----
+    closeBtn.addEventListener('click', minimizeToChat);
+
+    // Al confirmar por WhatsApp: abre WA y deja el chat como recordatorio
+    modalCta.addEventListener('click', function() {
+      window.setTimeout(minimizeToChat, 150);
+    });
+
+    chatMin.addEventListener('click', collapseChat);
+    launcher.addEventListener('click', expandChat);
+
+    // Click en el fondo → NO cierra (solo la X). Da feedback con un "shake".
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay && !minimizing) {
+        modal.classList.remove('is-shaking');
+        // reflow para reiniciar la animación
+        void modal.offsetWidth;
+        modal.classList.add('is-shaking');
+      }
+    });
+
+    // ESC no cierra el modal (solo se sale con la X)
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+  }
+
+  // ─── INIT ────────────────────────────────────────────────
+  render();
+  initVerificacion(getInviteeName());
+})();
+</script>
