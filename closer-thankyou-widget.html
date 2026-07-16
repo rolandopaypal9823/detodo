@@ -47,6 +47,20 @@
     padding: 0 24px;
   }
 
+  /* ── Logo NFM (arriba de todo) ── */
+  .nfm-closer__brand {
+    text-align: center;
+    margin-bottom: 34px;
+    animation: nfm-fadeUp 0.5s ease both;
+  }
+
+  .nfm-closer__brand img {
+    height: 48px;
+    width: auto;
+    max-width: 240px;
+    display: inline-block;
+  }
+
   .nfm-closer__header {
     text-align: center;
     margin-bottom: 36px;
@@ -285,6 +299,8 @@
 
   @media (max-width: 540px) {
     .nfm-closer { padding: 56px 0 72px; }
+    .nfm-closer__brand { margin-bottom: 26px; }
+    .nfm-closer__brand img { height: 40px; }
     .nfm-closer__card { padding: 32px 22px 28px; }
     .nfm-closer__photo { width: 120px; height: 120px; }
     .nfm-closer__instruction { padding: 14px 16px; gap: 12px; }
@@ -747,6 +763,10 @@
 
 <section class="nfm-closer" id="nfm-asignacion">
   <div class="nfm-closer__container">
+
+    <div class="nfm-closer__brand">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm.png" alt="Nicolás Fernández Miranda · Instituto de Productividad" loading="lazy">
+    </div>
 
     <div class="nfm-closer__header">
       <div class="nfm-closer__check">
