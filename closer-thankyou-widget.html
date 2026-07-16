@@ -823,7 +823,7 @@
       </a>
 
       <div class="nfm-vf__reward">
-        🎁 <span>Al confirmar, <strong>Valentín</strong> te comparte los próximos pasos y un recurso con mucho valor.</span>
+        🎁 <span>Al confirmar, <strong>Valentín</strong> te comparte los próximos pasos y un <strong>autodiagnóstico</strong> para que llegues con claridad a tu sesión.</span>
       </div>
     </div>
   </div>
@@ -842,8 +842,8 @@
     </div>
     <div class="nfm-vf__chat-body">
       <div class="nfm-vf__bubble" id="nfm-vf-bubble">
-        <strong>Confirmá tu asistencia</strong> enviándome un mensaje. Soy Valentín, tu asesor
-        del Instituto 👋 Te comparto los próximos pasos y un recurso con mucho valor.
+        <strong>Confirmá tu asistencia</strong> enviándome un mensaje. Soy Valentín, asesor
+        del Instituto 👋 Te comparto los próximos pasos y un autodiagnóstico para que llegues con claridad a tu sesión.
         <span class="nfm-vf__bubble-time">ahora</span>
       </div>
       <a class="nfm-vf__chat-cta" id="nfm-vf-chat-cta" href="#" target="_blank" rel="noopener">
@@ -1120,8 +1120,8 @@
       overlay.style.display = 'none';
       chat.classList.add('is-open');
     } else {
-      // Pequeño delay para que se sienta la entrada
-      window.setTimeout(openModal, 600);
+      // El pop-up aparece luego de ~10 segundos
+      window.setTimeout(openModal, 10000);
     }
 
     // ---- Eventos ----
