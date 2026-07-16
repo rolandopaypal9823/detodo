@@ -1052,15 +1052,10 @@
       avatarEl.innerHTML = `<span>V</span>`;
     }
 
-    // Bloqueo de scroll mientras el pop-up está abierto
-    let prevOverflow = '';
-    function lockScroll() {
-      prevOverflow = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
-    }
-    function unlockScroll() {
-      document.body.style.overflow = prevOverflow || '';
-    }
+    // NOTA: no bloqueamos el scroll del <body>. El overlay es position:fixed y
+    // ya cubre toda la pantalla, así que no hace falta tocar el scroll de la
+    // página. Bloquearlo interfería con otros widgets de Elementor (video,
+    // casos de éxito, etc.) que usan animaciones de entrada al hacer scroll.
 
     // Estado guardado (para no molestar en cada recarga de la misma sesión)
     function alreadyMinimized() {
@@ -1073,7 +1068,6 @@
     // ---- Abrir modal ----
     function openModal() {
       overlay.classList.add('is-open');
-      lockScroll();
     }
 
     // ---- Cerrar (X): vuela a la esquina inferior derecha → aparece el chat ----
@@ -1094,7 +1088,6 @@
       modal.style.transform = `translate(${dx}px, ${dy}px) scale(0.06)`;
       modal.style.opacity = '0';
       overlay.classList.add('is-fading');
-      unlockScroll();
 
       window.setTimeout(function() {
         overlay.classList.remove('is-open', 'is-fading');
