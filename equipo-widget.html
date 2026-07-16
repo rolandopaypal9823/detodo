@@ -1,0 +1,342 @@
+<!-- ═══════════════════════════════════════════════════════
+     WIDGET — EQUIPO QUE TE ACOMPAÑA (6 miembros)
+     Elementor → HTML Widget
+     ═══════════════════════════════════════════════════════ -->
+
+<style>
+  .nfm-team {
+    --nfm-navy:   #0C3452;
+    --nfm-orange: #FF6602;
+    --nfm-cream:  #ffffff;
+    --nfm-text:   #2D3748;
+    --nfm-muted:  #6B7280;
+
+    background: var(transparent
+);
+    padding: 80px 0 96px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .nfm-team__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── Header ── */
+  .nfm-team__header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .nfm-team__eyebrow {
+    display: inline-block;
+    background: rgba(255, 102, 2, 0.1);
+    border: 1px solid rgba(255, 102, 2, 0.3);
+    color: var(--nfm-orange);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 18px;
+  }
+
+  .nfm-team__title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    color: var(--nfm-navy);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 14px;
+  }
+
+  .nfm-team__subtitle {
+    font-size: 1.05rem;
+    color: var(--nfm-muted);
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ── Grid: 3 columnas x 2 filas ── */
+  .nfm-team__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  /* ── Card ── */
+  .nfm-team__card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px 26px 28px;
+    box-shadow: 0 2px 12px rgba(12, 52, 82, 0.06);
+    border: 1px solid rgba(12, 52, 82, 0.05);
+    transition: transform 0.25s, box-shadow 0.25s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nfm-team__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(12, 52, 82, 0.1);
+  }
+
+  /* ── Photo (circular) ── */
+  .nfm-team__photo {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    position: relative;
+    border: 3px solid #ffffff;
+    box-shadow: 0 4px 16px rgba(12, 52, 82, 0.12);
+  }
+
+  .nfm-team__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .nfm-team__card:hover .nfm-team__photo {
+    box-shadow: 0 4px 16px rgba(12, 52, 82, 0.12),
+                0 0 0 4px rgba(255, 102, 2, 0.15);
+  }
+
+  /* ── Info ── */
+  .nfm-team__name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--nfm-navy);
+    text-align: center;
+    margin: 0 0 6px;
+    line-height: 1.25;
+  }
+
+  .nfm-team__role {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--nfm-orange);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 14px;
+    line-height: 1.35;
+    min-height: 2.2em;
+  }
+
+  .nfm-team__divider {
+    width: 36px;
+    height: 2px;
+    background: var(--nfm-orange);
+    border-radius: 2px;
+    margin: 0 auto 18px;
+    opacity: 0.6;
+  }
+
+  .nfm-team__bio {
+    font-size: 0.9rem;
+    color: var(--nfm-text);
+    line-height: 1.55;
+    margin: 0 0 12px;
+    text-align: left;
+  }
+
+  .nfm-team__bio:last-child {
+    margin-bottom: 0;
+  }
+
+  .nfm-team__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nfm-team__list li {
+    position: relative;
+    padding-left: 16px;
+    font-size: 0.85rem;
+    color: var(--nfm-text);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+
+  .nfm-team__list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--nfm-orange);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .nfm-team__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .nfm-team__photo {
+      width: 110px;
+      height: 110px;
+    }
+
+    .nfm-team__card {
+      padding: 26px 20px 24px;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .nfm-team {
+      padding: 56px 0 64px;
+    }
+
+    .nfm-team__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .nfm-team__photo {
+      width: 120px;
+      height: 120px;
+    }
+  }
+</style>
+
+<section class="nfm-widget nfm-team" id="nfm-equipo">
+  <div class="nfm-team__container">
+
+    <!-- Header -->
+    <div class="nfm-team__header">
+      <div class="nfm-team__eyebrow">El equipo</div>
+      <h2 class="nfm-team__title">
+        Conocé al equipo que va a acompañarte en este proceso
+      </h2>
+      <p class="nfm-team__subtitle">
+        No estás solo. Detrás de cada paso hay un profesional especializado para que avances con foco, claridad y resultados reales.
+      </p>
+    </div>
+
+    <!-- Grid -->
+    <div class="nfm-team__grid">
+
+      <!-- 1. NICOLÁS FERNÁNDEZ MIRANDA -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/nico-bio-card.jpg" alt="Nicolás Fernández Miranda" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Nicolás Fernández Miranda</h3>
+        <p class="nfm-team__role">Fundador del Instituto de Productividad</p>
+        <div class="nfm-team__divider"></div>
+        <ul class="nfm-team__list">
+          <li>Diplomaturas en Neurociencia aplicada</li>
+          <li>Máster en Neurociencia aplicada al rendimiento</li>
+          <li>Autor bestseller de <em>Hackea tu Cerebro</em></li>
+          <li>Conferencista TEDx</li>
+          <li>Consultor de más de 80 empresas</li>
+        </ul>
+      </div>
+
+      <!-- 2. AGUSTINA MONTE -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/03/MONTE.jpg" alt="Agustina Monte" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Agustina Monte</h3>
+        <p class="nfm-team__role">Coach Nutricional</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Especializada en salud intestinal y alimentación basada en plantas. Porque no se puede tener claridad mental si el sistema digestivo está inflamado.
+        </p>
+        <ul class="nfm-team__list">
+          <li>Microbiota (Posgrado España)</li>
+          <li>Patologías Digestivas (Inst. Conceptual)</li>
+          <li>Nutrición y rendimiento cognitivo</li>
+        </ul>
+      </div>
+
+      <!-- 3. MARTÍN MONTE -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/MONTE.jpg" alt="Martín Monte" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Martín Monte</h3>
+        <p class="nfm-team__role">Coach Neurociencia de Alto Rendimiento, liderazgo y gestión de equipos</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Coach ontológico, ejecutivo y organizacional. Especializado en deporte de alto rendimiento. Máster en PNL y Neurocoach.
+        </p>
+        <p class="nfm-team__bio">
+          Te ayuda a diseñar una rutina física que te dé energía en lugar de quitártela — sin necesidad de correr un Ironman.
+        </p>
+      </div>
+
+      <!-- 4. AGOSTINA MAGRA -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/03/AGOS-AMGRA.jpg" alt="Agostina Magra" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Agostina Magra</h3>
+        <p class="nfm-team__role">Accountability Coach</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Coach ontológica con enfoque sistémico, constructivista y biocéntrico. Especializada en Neurociencias Aplicadas, Competencias Directivas y Leyes Biológicas.
+        </p>
+        <p class="nfm-team__bio">
+          Te ayuda a cumplir lo que te propusiste, mantenerte enfocado y romper con los ciclos de autosabotaje.
+        </p>
+      </div>
+
+      <!-- 5. PIERINA MONTE RISO -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/pierinaa.jpg" alt="Pierina Monte Riso" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Pierina Monte Riso</h3>
+        <p class="nfm-team__role">Client Success Manager</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Habla 7 idiomas, estudia un doctorado en Roma y acompaña a cada alumno durante todo el proceso para que la experiencia sea transformadora de verdad.
+        </p>
+        <ul class="nfm-team__list">
+          <li>Doctoranda en Teología (Univ. Gregoriana, Roma)</li>
+          <li>Coaching ontológico (Axon)</li>
+          <li>Profesora de Gestión del Tiempo</li>
+        </ul>
+      </div>
+
+      <!-- 6. SOLEDAD FUNES -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+         <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/Captura-de-pantalla-2026-05-18-075350.png" alt="Soledad Funes" loading="lazy" style="object-position: center top;">
+        </div>
+        <h3 class="nfm-team__name">Soledad Funes</h3>
+        <p class="nfm-team__role">Lic. en Psicología · TDAH y Ansiedad</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Acompañamiento 1 a 1 en gestión emocional para profesionales que viven con la cabeza acelerada y no logran bajar las revoluciones.
+        </p>
+        <ul class="nfm-team__list">
+          <li>Gestión de TDA/H en adultos profesionales</li>
+          <li>Manejo de la ansiedad de alto rendimiento</li>
+          <li>Estrategias clínicas para gestión del estrés</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>

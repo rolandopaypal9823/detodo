@@ -1,0 +1,263 @@
+<!-- ═══════════════════════════════════════════════════════
+     WIDGET — VIDEO PRE-CALL (Nico explica el proceso)
+     Elementor → HTML Widget
+     Va segundo, después del closer asignado.
+     Lee ?assigned_to= para personalizar el título.
+     ═══════════════════════════════════════════════════════ -->
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Wistia scripts -->
+<script src="https://fast.wistia.com/player.js" async></script>
+<script src="https://fast.wistia.com/embed/tdrkk8cd9a.js" async type="module"></script>
+
+<style>
+  /* Placeholder Wistia mientras carga */
+  wistia-player[media-id='tdrkk8cd9a']:not(:defined) {
+    background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/tdrkk8cd9a/swatch');
+    display: block;
+    filter: blur(5px);
+    padding-top: 56.25%;
+  }
+
+  .nfm-video {
+    --navy:   #0C3452;
+    --orange: #FF6602;
+    --cream:  #FBF7F1;
+    --white:  #ffffff;
+    --text:   #2D3748;
+    --muted:  #6B7280;
+    --border: rgba(12, 52, 82, 0.10);
+
+    position: relative;
+    background: var(--c);
+    padding: 80px 0 96px;
+    font-family: 'Open Sans', sans-serif;
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  .nfm-video::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,102,2,.025) 30px, rgba(255,102,2,.025) 31px),
+      repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(12,52,82,.015) 30px, rgba(12,52,82,.015) 31px);
+    pointer-events: none;
+  }
+
+  .nfm-video__container {
+    position: relative;
+    z-index: 1;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── HEADER ── */
+  .nfm-video__header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .nfm-video__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: rgba(255, 102, 2, 0.1);
+    border: 1px solid rgba(255, 102, 2, 0.32);
+    color: var(--orange);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-radius: 100px;
+    margin-bottom: 18px;
+  }
+
+  .nfm-video__eyebrow-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--orange);
+    animation: nfm-video-pulse 1.6s ease infinite;
+  }
+
+  .nfm-video__title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.7rem, 3.8vw, 2.5rem);
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin: 0 0 14px;
+  }
+
+  .nfm-video__title span { color: var(--orange); }
+
+  .nfm-video__subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .nfm-video__subtitle strong {
+    color: var(--navy);
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /* ── VIDEO WRAPPER ── */
+  .nfm-video__wrapper {
+    position: relative;
+    background: var(--white);
+    border-radius: 24px;
+    padding: 16px;
+    box-shadow: 0 14px 44px rgba(12, 52, 82, 0.14);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 24px;
+    animation: nfm-fadeUp 0.5s ease both;
+  }
+
+  .nfm-video__wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--orange), #ff8b3d, var(--orange));
+    z-index: 2;
+  }
+
+  .nfm-video__player {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--navy);
+    aspect-ratio: 16 / 9;
+  }
+
+  .nfm-video__player wistia-player {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ── TIP debajo del video ── */
+  .nfm-video__tip {
+    background: rgba(255, 102, 2, 0.06);
+    border: 1px solid rgba(255, 102, 2, 0.22);
+    border-radius: 14px;
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .nfm-video__tip-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    background: var(--orange);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 12px rgba(255, 102, 2, 0.3);
+  }
+
+  .nfm-video__tip-text {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .nfm-video__tip-text strong {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--navy);
+    font-weight: 700;
+  }
+
+  @keyframes nfm-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes nfm-video-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 540px) {
+    .nfm-video { padding: 56px 0 72px; }
+    .nfm-video__wrapper { padding: 10px; border-radius: 18px; }
+    .nfm-video__player { border-radius: 10px; }
+    .nfm-video__tip { padding: 14px 16px; gap: 12px; }
+    .nfm-video__tip-icon { width: 38px; height: 38px; font-size: 1.05rem; }
+  }
+</style>
+
+<section class="nfm-video" id="nfm-video-precall">
+  <div class="nfm-video__container">
+
+    <!-- HEADER -->
+    <div class="nfm-video__header">
+      <div class="nfm-video__eyebrow">
+        <span class="nfm-video__eyebrow-dot"></span>
+        Paso obligatorio · Antes de tu sesión
+      </div>
+      <h2 class="nfm-video__title">
+        Antes de tu sesión con <span id="nfm-video-name">tu asesor</span>, mirá este video
+      </h2>
+      <p class="nfm-video__subtitle">
+        Nico te explica cómo va a ser el proceso, qué necesita saber de vos en la llamada y cómo prepararte. <strong>Lo que dice al cierre cambia la forma en que vas a la sesión.</strong>
+      </p>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="nfm-video__wrapper">
+      <div class="nfm-video__player">
+        <wistia-player media-id="tdrkk8cd9a" aspect="1.7777777777777777"></wistia-player>
+      </div>
+    </div>
+
+    <!-- TIP -->
+    <div class="nfm-video__tip">
+      <div class="nfm-video__tip-icon">🎯</div>
+      <div class="nfm-video__tip-text">
+        <strong>Mirá el video completo.</strong> Es el paso obligatorio para que la sesión con tu asesor sea efectiva — sin esto, le restás tiempo a lo que realmente importa hablar.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function() {
+  // Personaliza el título con el closer asignado (si existe ?assigned_to=)
+  const displayNames = {
+    romina: 'Romina',
+    valentin: 'Valentín',
+    luciana: 'Luciana',
+    cristina: 'Cristina'
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const assigned = (params.get('assigned_to') || '').toLowerCase().trim();
+  const normalized = assigned.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+  if (displayNames[normalized]) {
+    document.getElementById('nfm-video-name').textContent = displayNames[normalized];
+  }
+})();
+</script>
