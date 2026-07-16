@@ -1147,8 +1147,24 @@
     });
   }
 
+  // ¿Estamos DENTRO del editor de Elementor? Ahí NO mostramos el pop-up, para
+  // poder construir/scrollear la página sin que el modal tape el canvas.
+  // En la página real (y en la Vista previa) el pop-up sí se muestra.
+  function enEditorElementor() {
+    try {
+      return document.body.classList.contains('elementor-editor-active') ||
+             (window.elementorFrontend &&
+              typeof window.elementorFrontend.isEditMode === 'function' &&
+              window.elementorFrontend.isEditMode());
+    } catch (e) {
+      return false;
+    }
+  }
+
   // ─── INIT ────────────────────────────────────────────────
   render();
-  initVerificacion(getInviteeName());
+  if (!enEditorElementor()) {
+    initVerificacion(getInviteeName());
+  }
 })();
 </script>
