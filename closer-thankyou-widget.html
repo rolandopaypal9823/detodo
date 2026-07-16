@@ -305,6 +305,13 @@
     font-family: 'Open Sans', sans-serif;
   }
 
+  /* Reset defensivo: evita que el padding desborde los botones/tarjetas
+     en temas que no aplican border-box a los widgets HTML (Elementor, etc.) */
+  .nfm-vf,
+  .nfm-vf *,
+  .nfm-vf *::before,
+  .nfm-vf *::after { box-sizing: border-box; }
+
   /* ---------- Overlay ---------- */
   .nfm-vf__overlay {
     position: fixed;
@@ -338,6 +345,7 @@
     position: relative;
     width: 100%;
     max-width: 460px;
+    min-width: 0;
     background: var(--white);
     border-radius: 24px;
     padding: 40px 34px 32px;
@@ -458,13 +466,17 @@
     justify-content: center;
     gap: 10px;
     width: 100%;
+    max-width: 100%;
     padding: 16px 22px;
     background: var(--whatsapp);
     color: #fff;
     font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
     font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
     text-decoration: none;
+    white-space: normal;
     border-radius: 14px;
     box-shadow: 0 10px 26px rgba(37, 211, 102, 0.38);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -475,7 +487,7 @@
     box-shadow: 0 14px 32px rgba(37, 211, 102, 0.48);
   }
 
-  .nfm-vf__cta svg { width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
+  .nfm-vf__cta svg { width: 22px !important; height: 22px !important; min-width: 22px; fill: #fff; flex: 0 0 auto; }
 
   .nfm-vf__reward {
     display: flex;
@@ -634,6 +646,7 @@
     justify-content: center;
     gap: 9px;
     width: 100%;
+    max-width: 100%;
     margin-top: 12px;
     padding: 13px 18px;
     background: var(--whatsapp);
@@ -641,14 +654,17 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 0.92rem;
     font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
     text-decoration: none;
+    white-space: normal;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .nfm-vf__chat-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(37, 211, 102, 0.45); }
-  .nfm-vf__chat-cta svg { width: 20px; height: 20px; fill: #fff; }
+  .nfm-vf__chat-cta svg { width: 20px !important; height: 20px !important; min-width: 20px; fill: #fff; flex: 0 0 auto; }
 
   /* Burbuja colapsada (botón flotante) */
   .nfm-vf__launcher {
@@ -795,10 +811,10 @@
       </p>
 
       <div class="nfm-vf__disclaimer">
-        Recibimos <strong>muchísimas solicitudes</strong> y, para ser honestos, muchas
-        terminan siendo bots o personas que después no responden. Por eso mantenemos una
-        <strong>lista de perfiles no confirmados</strong>. Por respeto a quienes de verdad
-        quieren entrar al Instituto, si no confirmás tu asistencia tendremos que liberar tu cupo.
+        Recibimos <strong>muchísimas solicitudes</strong> y queremos cerciorarnos de que
+        <strong>no sos un bot</strong>: que hay una persona real del otro lado de la pantalla.
+        Es la forma de reservar tu lugar y poder brindarte la
+        <strong>mejor atención personalizada</strong>.
       </div>
 
       <a class="nfm-vf__cta" id="nfm-vf-cta" href="#" target="_blank" rel="noopener">
@@ -1015,8 +1031,8 @@
 
     // Link de WhatsApp (walink) con mensaje pre-cargado
     const waText = inviteeName
-      ? `Hola ${VALENTIN.nombre} 👋 Soy ${inviteeName}. Confirmo que soy una persona real y que voy a asistir a mi sesión agendada ✅`
-      : `Hola ${VALENTIN.nombre} 👋 Confirmo que soy una persona real y que voy a asistir a mi sesión agendada ✅`;
+      ? `Hola ${VALENTIN.nombre}, soy ${inviteeName}. Confirmo que soy una persona real y que voy a asistir a la llamada que acabo de agendar ✅`
+      : `Hola ${VALENTIN.nombre}, confirmo que soy una persona real y que voy a asistir a la llamada que acabo de agendar ✅`;
     const waHref = `https://wa.me/${VALENTIN.whatsapp}?text=${encodeURIComponent(waText)}`;
     modalCta.href = waHref;
     chatCta.href  = waHref;
