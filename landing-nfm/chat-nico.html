@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desintoxicación Digital · Chat con Nico (demo del componente)</title>
+<meta name="description" content="Demo del componente 'Chat con Nico' para la landing de Desintoxicación Digital. Notificación + chat scripteado + vibración.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   NFM · Componente "Chat con Nico"
+   Mecánica tomada de la landing de referencia (FlowScale):
+   push iPhone → vibración de página → seguimientos → se ancla
+   como chat abajo-derecha → guion empatía→dolor→mecanismo→oferta.
+   Repintado con identidad NFM (Azul #0c3452 · Naranja #ff6602).
+   ============================================================ */
+:root{
+  --ink:#0c3452;--navy:#0c3452;--navy2:#123f63;
+  --accent:#ff6602;--accent-deep:#e65a00;--accent-soft:#fff1e8;
+  --body:#3a4a57;--mute:#6b7a86;--hairline:#e3e8ec;
+  --canvas:#f4f7fa;--card:#ffffff;
+  --shadow-elevated:0 24px 60px -18px rgba(12,52,82,.35);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --serif:'Montserrat',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Open Sans',system-ui,sans-serif;color:var(--body);background:var(--canvas);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.font-h{font-family:'Montserrat',sans-serif}
+img{max-width:100%;display:block}
+a{color:var(--accent)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+/* ---- harness mínimo (sólo para mostrar el componente; en producción va tu landing real) ---- */
+.demo-note{background:var(--navy);color:#cfe0ec;font-family:'Montserrat';font-size:.72rem;letter-spacing:.03em;text-align:center;padding:9px 16px}
+.demo-note b{color:#fff}
+.hero{text-align:center;padding:60px 0 40px}
+.hero .kick{display:inline-block;font-family:'Montserrat';font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:8px 16px;margin-bottom:22px}
+.hero h1{font-family:'Montserrat';font-weight:900;font-size:clamp(30px,5.4vw,54px);line-height:1.05;letter-spacing:-.025em;color:var(--ink);max-width:16ch;margin:0 auto}
+.hero h1 .hl{color:var(--accent)}
+.hero p{max-width:52ch;margin:20px auto 0;font-size:1.08rem;color:var(--body)}
+.imgrow{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:900px;margin:44px auto 0}
+@media(max-width:720px){.imgrow{grid-template-columns:1fr}}
+.imgslot{aspect-ratio:3/2;border:2px dashed #c3d2de;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--mute);background:#fff;text-align:center;padding:20px}
+.imgslot b{font-family:'Montserrat';color:var(--ink);font-size:1rem}
+.imgslot span{font-size:.82rem}
+.imgslot .ph{font-size:2rem}
+.demo-cta{display:inline-flex;align-items:center;gap:10px;margin-top:40px;background:var(--accent);color:#fff;font-family:'Montserrat';font-weight:700;font-size:1rem;padding:15px 32px;border-radius:999px;border:none;cursor:pointer;box-shadow:0 16px 34px -12px rgba(255,102,2,.45)}
+.demo-hint{margin-top:16px;font-size:.86rem;color:var(--mute)}
+
+/* ===================== NOTIFICACIÓN iPhone + CHAT NICO ===================== */
+.push{position:fixed;top:14px;left:50%;transform:translate(-50%,-160%);z-index:95;width:min(400px,calc(100vw - 24px));background:rgba(255,255,255,.94);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(12,52,82,.08);border-radius:22px;box-shadow:0 18px 50px rgba(12,52,82,.22);padding:13px 16px;display:flex;gap:12px;align-items:center;cursor:pointer;transition:transform .55s var(--ease)}
+.push.show{transform:translate(-50%,0)}
+.push-av{width:42px;height:42px;border-radius:12px;background:var(--navy);color:#fff;font-weight:700;font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex:none;font-family:var(--serif);overflow:hidden}
+.push-av img,.chat-head .av img{width:100%;height:100%;object-fit:cover}
+.push-tx{flex:1;min-width:0}
+.push-tx .h{display:flex;justify-content:space-between;gap:8px;font-size:.72rem;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.push-tx b{display:block;font-size:.92rem;color:var(--ink);margin-top:1px}
+.push-tx small{font-size:.85rem;color:var(--body);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat{position:fixed;right:18px;bottom:18px;z-index:96;width:min(380px,calc(100vw - 24px));max-height:min(600px,78vh);background:var(--card);border:1px solid var(--hairline);border-radius:24px;box-shadow:var(--shadow-elevated);display:none;flex-direction:column;overflow:hidden}
+.chat.open{display:flex;animation:pop .4s var(--ease)}
+@keyframes pop{from{transform:scale(.92);opacity:0}to{transform:none;opacity:1}}
+@media(max-width:560px){.chat{right:0;left:0;bottom:0;width:100%;border-radius:24px 24px 0 0;max-height:78vh}}
+.chat-head{display:flex;align-items:center;gap:11px;padding:14px 16px;background:var(--navy);color:#fff}
+.chat-head .av{width:38px;height:38px;border-radius:50%;background:#fff;color:var(--navy);font-family:var(--serif);font-weight:800;display:flex;align-items:center;justify-content:center;flex:none;overflow:hidden}
+.chat-head b{font-size:.98rem}
+.chat-head small{display:block;font-size:.72rem;opacity:.9}
+.chat-head .on-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#8FF0A6;box-shadow:0 0 0 2px rgba(143,240,166,.35);margin-right:6px;vertical-align:middle}
+.chat-head button{margin-left:auto;background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:4px 8px;line-height:1}
+.chat-body{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:10px;background:#f7fafc}
+.msg{max-width:86%;padding:11px 15px;border-radius:18px;font-size:.92rem;line-height:1.5;animation:msgin .35s var(--ease)}
+@keyframes msgin{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+.msg.nico{background:var(--card);border:1px solid var(--hairline);color:var(--body);border-bottom-left-radius:6px;align-self:flex-start}
+.msg.nico b{color:var(--ink)}
+.msg.me{background:var(--accent);color:#fff;border-bottom-right-radius:6px;align-self:flex-end}
+.typing{align-self:flex-start;background:var(--card);border:1px solid var(--hairline);border-radius:18px;border-bottom-left-radius:6px;padding:13px 16px;display:flex;gap:5px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--mute);animation:tp 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
+@keyframes tp{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+.chat-opts{padding:12px 14px;border-top:1px solid var(--hairline);display:flex;flex-wrap:wrap;gap:8px;background:var(--card)}
+.chat-opts button{background:var(--accent-soft);border:1px solid rgba(255,102,2,.35);color:var(--accent-deep);border-radius:999px;padding:10px 18px;font:inherit;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s}
+.chat-opts button:hover{background:var(--accent);color:#fff}
+/* Vibración de página cuando Nico escribe */
+@keyframes pageShake{0%,100%{transform:translate3d(0,0,0)}15%{transform:translate3d(-7px,2px,0)}30%{transform:translate3d(7px,-2px,0)}45%{transform:translate3d(-5px,1px,0)}60%{transform:translate3d(5px,-1px,0)}75%{transform:translate3d(-3px,1px,0)}90%{transform:translate3d(3px,0,0)}}
+body.shake{animation:pageShake .5s cubic-bezier(.36,.07,.19,.97)}
+@media(prefers-reduced-motion:reduce){body.shake{animation:none}.push{transition:none}}
+</style>
+</head>
+<body>
+
+<!-- ░░░ HARNESS DE DEMO — en producción esto se reemplaza por tu landing real ░░░ -->
+<div class="demo-note">DEMO del componente · el chat aparece solo a los pocos segundos (o tocá el botón). En la landing real se injerta sobre tu página. <b>?test</b> en la URL lo acelera.</div>
+<section class="hero"><div class="wrap">
+  <span class="kick">Bestseller internacional · +6 bonos de regalo</span>
+  <h1>Si sabés lo que tenés que hacer y <span class="hl">no lo hacés</span>…</h1>
+  <p>No te falta información. Te falta entender cómo funciona tu cerebro y ponerle un sistema. Eso es <b>Desintoxicación Digital</b>.</p>
+  <div class="imgrow">
+    <div class="imgslot"><span class="ph">🖼️</span><b>[ Imagen del PRODUCTO ]</b><span>Acá va el mockup del ebook (la que me vas a pasar)</span></div>
+    <div class="imgslot"><span class="ph">🎁</span><b>[ Imagen de los BONOS ]</b><span>Acá va la imagen de los +6 bonos (la que me vas a pasar)</span></div>
+  </div>
+  <button class="demo-cta" id="demoOpen">💬 Abrir el chat con Nico</button>
+  <div class="demo-hint">(en la landing real no hace falta este botón: el chat aparece solo)</div>
+</div></section>
+
+<!-- ░░░ COMPONENTE: NOTIFICACIÓN + CHAT NICO (esto es lo que se injerta) ░░░ -->
+<div class="push" id="push" role="button" aria-label="Abrir mensaje de Nico">
+  <div class="push-av" id="push-av">N</div>
+  <div class="push-tx">
+    <div class="h"><span>Nico · Instituto de Productividad</span><span>ahora</span></div>
+    <b>Nico</b>
+    <small id="push-msg">¿Te puedo ser 100% honesto un segundo?</small>
+  </div>
+</div>
+
+<div class="chat" id="chat" aria-live="polite">
+  <div class="chat-head">
+    <div class="av" id="chat-av">N</div>
+    <div>
+      <b>Nico Fernández Miranda</b>
+      <small><span class="on-dot"></span>en línea ahora</small>
+    </div>
+    <button onclick="chatClose()" aria-label="Cerrar chat">✕</button>
+  </div>
+  <div class="chat-body" id="chat-body"></div>
+  <div class="chat-opts" id="chat-opts"></div>
+</div>
+
+<script>
+(function(){
+  /* ═══════════ CONFIG (editá esto) ═══════════ */
+  var CHECKOUT_URL = "#REEMPLAZAR-CON-TU-LINK-DE-PAGO";   // link de pago del ebook
+  var NICO_AVATAR  = "";     // URL/dataURI de la foto de Nico (si vacío, usa la inicial "N")
+  var TEST_MODE    = /[?#&]test/.test(location.href);     // ?test acelera los tiempos
+  var CHAT_DELAY_MS = 30000; // cuánto espera antes del primer mensaje (producción)
+  /* ════════════════════════════════════════════ */
+
+  // avatar
+  if(NICO_AVATAR){
+    document.getElementById('push-av').innerHTML='<img src="'+NICO_AVATAR+'" alt="Nico">';
+    document.getElementById('chat-av').innerHTML='<img src="'+NICO_AVATAR+'" alt="Nico">';
+  }
+
+  var push=document.getElementById('push'), chat=document.getElementById('chat');
+  var body=document.getElementById('chat-body'), opts=document.getElementById('chat-opts');
+  var pushShown=false, chatOpened=false, shakeEnabled=true;
+
+  // Notificación: texto corto que se ve en la burbuja de arriba
+  var PUSH_MSGS=[
+    '¿Te puedo ser 100% honesto un segundo? 💬',
+    '¿Estás por ahí? 👀',
+    'Te dejo esto por acá antes de que te vayas 👇'
+  ];
+  // Si no abrís, estos 3 mensajes quedan sembrados en el chat anclado
+  var FOLLOWUPS=[
+    'Hola, hola 👋 Soy Nico. ¿Te puedo hacer una pregunta media incómoda? 💬',
+    '¿Estás por ahí? 👀',
+    'Te dejo esto por acá 👇 Si sabés lo que tenés que hacer y no lo hacés, esto es para vos. ¿Le damos?'
+  ];
+  /* Ritmo: msg1 → gap → seguimiento → gap → seguimiento → (se ancla).
+     Vibra solo en los dos primeros. */
+  var STEP_GAPS = TEST_MODE ? [3000,5000,5000] : [10000,20000,8000];
+  var pushStep=0;
+  function showPushStep(){
+    if(chatOpened) return;
+    if(pushStep>=2) shakeEnabled=false;
+    var m=document.getElementById('push-msg'); if(m) m.innerHTML=PUSH_MSGS[pushStep];
+    push.classList.add('show'); pageShake();
+    var gap=STEP_GAPS[pushStep]||8000; pushStep++;
+    if(pushStep<PUSH_MSGS.length){ setTimeout(showPushStep,gap); }
+    else { setTimeout(function(){ if(!chatOpened) seedAndDock(); },gap); }
+  }
+  function tryPush(){
+    if(pushShown) return;
+    pushShown=true; showPushStep();
+  }
+  setTimeout(tryPush, TEST_MODE ? 3000 : CHAT_DELAY_MS);
+  window.addEventListener('scroll',function(){ if(!pushShown && window.scrollY>document.body.scrollHeight*.45) tryPush(); },{passive:true});
+
+  push.addEventListener('click',function(){ push.classList.remove('show'); chatOpen(); });
+  document.getElementById('demoOpen').addEventListener('click',function(){ push.classList.remove('show'); chatOpen(); });
+  window.chatClose=function(){ chat.classList.remove('open'); };
+  function chatOpen(){ shakeEnabled=false; if(chatOpened){ chat.classList.add('open'); return; } chatOpened=true; chat.classList.add('open'); step('intro'); }
+
+  function seedAndDock(){
+    if(chatOpened) return;
+    chatOpened=true; push.classList.remove('show');
+    FOLLOWUPS.forEach(function(txt){ var m=document.createElement('div'); m.className='msg nico'; m.innerHTML=txt; body.appendChild(m); });
+    body.scrollTop=1e9; chat.classList.add('open');
+    buttons([{t:'Sí, dale 💛',next:'s1'},{t:'Ahora no',next:'no'}]);
+  }
+
+  var _shakeT=null;
+  function pageShake(){
+    if(!shakeEnabled) return;
+    document.body.classList.remove('shake'); void document.body.offsetWidth;
+    document.body.classList.add('shake');
+    if(navigator.vibrate){ try{ navigator.vibrate(35); }catch(e){} }
+    clearTimeout(_shakeT); _shakeT=setTimeout(function(){ document.body.classList.remove('shake'); },560);
+  }
+  function nico(html,cb,delay){
+    var t=document.createElement('div'); t.className='typing'; t.innerHTML='<i></i><i></i><i></i>';
+    body.appendChild(t); body.scrollTop=1e9;
+    setTimeout(function(){ t.remove();
+      var m=document.createElement('div'); m.className='msg nico'; m.innerHTML=html;
+      body.appendChild(m); body.scrollTop=1e9; pageShake(); if(cb)cb();
+    }, delay||1100);
+  }
+  function me(text){ var m=document.createElement('div'); m.className='msg me'; m.textContent=text; body.appendChild(m); body.scrollTop=1e9; }
+  function buttons(list){ opts.innerHTML='';
+    list.forEach(function(b){ var el=document.createElement('button'); el.textContent=b.t;
+      el.onclick=function(){ me(b.t); opts.innerHTML=''; step(b.next); }; opts.appendChild(el); }); }
+
+  /* ═══════════ GUION (voz de Nico) ═══════════
+     empatía → confirmación del dolor → "no es fuerza de voluntad, es ciencia"
+     → el costo → el ebook (mecanismo) → los bonos → oferta → CTA */
+  function step(id){
+    if(id==='intro'){ nico('Hola, hola 👋 Soy Nico. ¿Te puedo hacer una pregunta media incómoda?', function(){ buttons([{t:'Dale',next:'s1'},{t:'Ahora no',next:'no'}]); }); }
+    else if(id==='no'){ nico('Todo bien 💛 Te dejo una sola cosa: si sabés lo que tenés que hacer y no lo hacés, no te falta información… te falta un <b>sistema</b>. Cuando quieras verlo, acá estoy. Un abrazo.', function(){ buttons([{t:'Listo, contame',next:'s1'}]); }); }
+    else if(id==='s1'){ nico('Va, y contestate con la mano en el corazón: ¿cuántas veces sabés <b>exactamente</b> lo que tenés que hacer… y aun así terminás scrolleando o dejándolo para después?', function(){ buttons([{t:'Uf… todo el tiempo',next:'s2'},{t:'Me pasa igual',next:'s2'}]); }); }
+    else if(id==='s2'){ nico('Spoiler alert: eso no es que seas vago ni indisciplinado. Es <b>química</b>. Tu cerebro elige la recompensa fácil e inmediata (el celular) por encima de la importante. No te falta motivación — te falta entender cómo funciona tu cabeza. <b>No es motivación, es ciencia.</b>', function(){ buttons([{t:'Tal cual me pasa',next:'s3'}]); },1300); }
+    else if(id==='s3'){ nico('Y mientras tanto se te va el día en distracciones, dormís peor, rendís a la mitad… y arranca la culpa. Lo peor: no es tu culpa. Las apps las diseñan <b>equipos enteros de ingenieros</b> para ganarle a tu fuerza de voluntad. El partido está armado en tu contra.', function(){ buttons([{t:'Me hace todo el sentido',next:'s4'}]); },1400); }
+    else if(id==='s4'){ nico('Por eso escribí <b>Desintoxicación Digital</b>. No es «usá menos el celular». Es un <b>método paso a paso</b> para que entiendas tu dopamina y le pongas un sistema: recuperás foco, sueño y horas de tu día. Sin fuerza de voluntad heroica.', function(){ buttons([{t:'Eso es lo que necesito',next:'s5'}]); },1500); }
+    else if(id==='s5'){ nico('Y no vas solo: viene con <b>6 bonos</b> que lo hacen imparable 👇<br>• Reseteo de Dopamina<br>• Bloque de Foco<br>• Masterclass: la neurociencia de la procrastinación<br>• Sueño Blindado<br>• Reto de 7 Días acompañado<br>• Canal exclusivo de WhatsApp', function(){ buttons([{t:'Lo quiero completo',next:'s6'}]); },1600); }
+    else if(id==='s6'){ nico('Mirá, hoy te lo llevás <b>con los 6 bonos de regalo</b>. Es el sistema completo, no más información suelta para sumar a la pila. ¿Le damos?', function(){ buttons([{t:'Sí, lo quiero →',next:'go'},{t:'¿Y si no me sirve?',next:'g'}]); },1400); }
+    else if(id==='g'){ nico('Tenés <b>garantía total</b>: lo probás, lo aplicás, y si no sentís el cambio te devuelvo el 100%. El riesgo lo corro yo, no vos.', function(){ buttons([{t:'Listo, lo quiero →',next:'go'}]); }); }
+    else if(id==='go'){ nico('¡Genial! 🎉 Te llevo…', function(){ setTimeout(function(){
+      if(CHECKOUT_URL && CHECKOUT_URL.charAt(0)!=='#'){ window.location.href=CHECKOUT_URL; }
+      else { chatClose(); alert('Acá iría el checkout. Reemplazá CHECKOUT_URL con tu link de pago.'); }
+    },900); },700); }
+  }
+})();
+</script>
+</body>
+</html>
