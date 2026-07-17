@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vencé la adicción al celular y recuperá 2 horas de foco en 7 días | NFM</title>
+<meta name="description" content="El protocolo de 7 días para recuperar tu cerebro del celular. Vencé la adicción al celular y recuperá tu foco, tu sueño y tu tiempo.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKENS NFM — fuente de verdad: _nfm/DESIGN.md
+============================================================ */
+:root{
+  --ink:#0c3452; --ink-700:#1b4565; --ink-300:#5b7488;
+  --orange:#ff6602; --orange-hover:#e65a00; --orange-soft:#fff1e8;
+  --body:#3a4a57; --muted:#6b7a86; --hairline:#e3e8ec;
+  --surface-soft:#f5f7f9; --canvas:#ffffff; --on-dark:#ffffff;
+  --shadow-card:0 1px 3px rgba(12,52,82,.08), 0 8px 24px rgba(12,52,82,.06);
+  --shadow-cta:0 10px 28px rgba(255,102,2,.30);
+  --shadow-elevated:0 18px 50px rgba(12,52,82,.16);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --maxw:1120px; --r-md:12px; --r-lg:16px; --r-xl:24px; --r-pill:999px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Open Sans',-apple-system,system-ui,sans-serif;color:var(--body);background:var(--canvas);line-height:1.6;font-size:17px;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif;color:var(--ink);letter-spacing:-.02em;line-height:1.08}
+h1{font-size:clamp(2rem,5.4vw,3.2rem);font-weight:800}
+h2{font-size:clamp(1.7rem,4.5vw,2.6rem);font-weight:800;letter-spacing:-.018em}
+h3{font-size:clamp(1.2rem,3vw,1.5rem);font-weight:700;letter-spacing:-.01em}
+strong,b{color:var(--ink);font-weight:700}
+.dark, .dark p, .final, .final p{color:rgba(255,255,255,.86)}
+.dark h1,.dark h2,.dark h3,.dark strong,.final h1,.final h2,.final h3,.final strong{color:#fff}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+section{padding:clamp(56px,8vw,96px) 0}
+.eyebrow{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);display:inline-block;margin-bottom:18px}
+.eyebrow.on-dark-eye{color:#ff8a3d}
+.lead{font-size:clamp(1.05rem,2.2vw,1.22rem);color:var(--ink-300);max-width:640px}
+.center{text-align:center}
+.center .lead{margin-left:auto;margin-right:auto}
+
+/* ---------- BOTONES ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.02rem;border-radius:var(--r-pill);cursor:pointer;border:none;transition:transform .2s var(--ease),box-shadow .25s var(--ease),background .2s var(--ease);text-align:center;line-height:1.15}
+.btn-primary{background:var(--orange);color:#fff;padding:18px 34px;box-shadow:var(--shadow-cta);animation:breathe 3.4s var(--ease) infinite}
+.btn-primary:hover{background:var(--orange-hover);transform:translateY(-2px) scale(1.02);box-shadow:0 14px 36px rgba(255,102,2,.42)}
+.btn-lg{font-size:1.12rem;padding:20px 40px}
+.btn-block{display:flex;width:100%}
+@keyframes breathe{0%,100%{box-shadow:0 10px 28px rgba(255,102,2,.30)}50%{box-shadow:0 12px 40px rgba(255,102,2,.46)}}
+@keyframes armpop{0%{transform:scale(1)}28%{transform:scale(1.09)}55%{transform:scale(.97)}80%{transform:scale(1.03)}100%{transform:scale(1)}}
+.nav .btn.armed,.sticky-bar .btn.armed{box-shadow:var(--shadow-cta);animation:armpop .6s var(--ease) 1,breathe 3.4s var(--ease) .6s infinite}
+.micro{font-size:.92rem;color:var(--muted);margin-top:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}
+.micro svg{flex:none}
+
+/* ---------- ANNOUNCEMENT BAR (urgencia) ---------- */
+.annbar{background:var(--ink);color:#fff;text-align:center;font-size:.86rem;padding:10px 16px;font-weight:600;letter-spacing:.01em}
+.annbar a{display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
+.annbar a{color:#fff}
+.annbar b{color:#fff}
+.annbar .bolt{color:#ff8a3d}
+.annbar .ann-cd{color:#ff8a3d;font-weight:800;font-variant-numeric:tabular-nums}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.85);backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid var(--hairline)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{font-family:'Montserrat',sans-serif;font-weight:800;color:var(--ink);font-size:1.05rem;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.brand .dot{width:11px;height:11px;border-radius:3px;background:var(--orange);transform:rotate(45deg);flex:none}
+.brand small{font-weight:600;color:var(--muted);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+.brand-logo{height:clamp(30px,7vw,42px);width:auto;object-fit:contain}
+.footer-logo{height:62px;width:auto;max-width:100%;object-fit:contain;margin:0 auto 14px}
+.nav .btn{padding:11px 22px;font-size:.92rem;animation:none;box-shadow:none}
+.nav .btn:hover{box-shadow:var(--shadow-cta)}
+@media(max-width:560px){.nav .brand small{display:none}.nav-inner{gap:12px}.nav .btn{padding:11px 16px;font-size:.86rem}}
+
+/* ---------- HERO (mockup protagonista, centrado) ---------- */
+.hero{position:relative;overflow:hidden;padding-top:clamp(40px,6vw,72px)}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(60% 45% at 50% 0%,rgba(255,102,2,.09),transparent 70%),radial-gradient(80% 50% at 50% 4%,rgba(12,52,82,.08),transparent 70%)}
+.hero .wrap{position:relative;z-index:1}
+.hero-center{max-width:780px;margin:0 auto;text-align:center}
+.hero h1{margin-top:4px}
+.hero h1 .accent{color:var(--orange)}
+.hero .lead{margin:22px auto 0}
+.hero-stage{margin:42px auto 8px;display:flex;justify-content:center}
+.hero-img{width:clamp(300px,84vw,580px);border-radius:16px;box-shadow:var(--shadow-elevated);display:block}
+.hero-cta{margin-top:26px}
+.trust-row{display:flex;gap:22px;flex-wrap:wrap;margin-top:28px;align-items:center;justify-content:center}
+.trust-row .t{display:flex;align-items:center;gap:9px;font-size:.9rem;color:var(--ink-300);font-weight:600}
+.trust-row .t svg{flex:none}
+
+/* ---------- MOCKUP EBOOK ROBUSTO (CSS) ---------- */
+.ebook{position:relative;width:clamp(244px,64vw,320px);margin:0 auto;filter:drop-shadow(20px 26px 36px rgba(8,30,48,.40))}
+.ebook-pages{position:absolute;top:9px;bottom:9px;right:-10px;width:10px;border-radius:0 3px 3px 0;background:repeating-linear-gradient(180deg,#eef2f5 0 1px,#d2dbe1 1px 3px);box-shadow:4px 3px 9px rgba(8,30,48,.34)}
+.ebook-cover{position:relative;aspect-ratio:5/6.5;border-radius:5px 12px 12px 5px;overflow:hidden;background:linear-gradient(120deg,#114269 0%,#0c3452 52%,#0a2b45 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);color:#fff}
+.ebook-cover::before{content:"";position:absolute;left:0;top:0;bottom:0;width:34px;background:linear-gradient(90deg,#06203a 0%,#0a2c47 84%,rgba(255,255,255,.07) 100%);box-shadow:inset -8px 0 10px rgba(0,0,0,.3)}
+.ebook-cover::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(118deg,transparent 52%,rgba(255,255,255,.06) 60%,transparent 66%)}
+.ek-spine{position:absolute;left:0;top:0;bottom:0;width:34px;z-index:2;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.5rem;letter-spacing:.14em;color:rgba(255,255,255,.62);text-transform:uppercase;white-space:nowrap}
+.ek-content{position:absolute;inset:0;padding:34px 26px 24px 52px;display:flex;flex-direction:column}
+.ek-title{font-family:'Montserrat',sans-serif;font-weight:800;line-height:.96;letter-spacing:-.01em;font-size:clamp(1.35rem,4.6vw,1.95rem);color:#fff}
+.ek-title span{display:block;color:var(--orange)}
+.ek-author{font-size:clamp(.74rem,2vw,.86rem);color:rgba(255,255,255,.9);margin-top:13px;font-weight:600}
+.ek-bars{margin-top:auto;align-self:flex-end;display:flex;align-items:flex-end;gap:5px;height:38%;width:60%}
+.ek-bars i{flex:1;background:var(--orange);border-radius:2px}
+.ek-logo{position:absolute;left:52px;bottom:22px;display:flex;align-items:center;gap:8px}
+.ek-ip{width:26px;height:28px;border-radius:6px;background:var(--orange);display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.68rem;color:#fff;flex:none}
+.ek-ipt{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.42rem;letter-spacing:.08em;line-height:1.25;text-transform:uppercase;color:rgba(255,255,255,.62)}
+
+/* ---------- DOLORES ---------- */
+.mirror-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:42px}
+.pain{background:#fff;border:1px solid var(--hairline);border-radius:var(--r-lg);box-shadow:var(--shadow-card);position:relative;overflow:hidden;display:flex;flex-direction:column}
+.pain-img{aspect-ratio:4/5;background:#0a2c46}
+.pain-img img{width:100%;height:100%;object-fit:cover;display:block}
+.pain-body{padding:30px 26px 26px;position:relative}
+.pain .pn{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.55rem;color:var(--orange);line-height:1;position:absolute;top:-27px;right:18px;background:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-card)}
+.pain p{color:var(--body);font-size:1.02rem}
+.mirror-close{margin:36px auto 0;text-align:center;max-width:780px;font-size:1.16rem;color:var(--ink);font-weight:700;font-family:'Montserrat',sans-serif;letter-spacing:-.01em;line-height:1.42}
+.mirror-close .hl{color:var(--orange)}
+@media(max-width:820px){.mirror-grid{grid-template-columns:1fr}}
+
+/* ---------- AHA (banda oscura) ---------- */
+.dark{background:var(--ink);position:relative;overflow:hidden}
+.dark::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 50% at 82% 14%,rgba(255,102,2,.14),transparent 65%)}
+.dark .wrap{position:relative;z-index:1}
+.aha-grid{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}
+.aha-grid p{margin-top:18px;font-size:1.08rem}
+.loop-wrap{position:relative;width:100%;max-width:440px;margin:0 auto}
+.loop-svg{width:100%;height:auto;overflow:visible}
+.loop-ring{fill:none;stroke:rgba(255,255,255,.18);stroke-width:2;stroke-dasharray:7 9;animation:spin 26s linear infinite;transform-origin:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loop-node circle{fill:#12426a;stroke:rgba(255,255,255,.12);stroke-width:1.5}
+.loop-node.hot circle{fill:var(--orange);stroke:none}
+.loop-chip{font-family:'Open Sans',sans-serif;background:#12426a;border:1px solid rgba(255,255,255,.12);color:#fff;border-radius:10px;padding:8px 10px;font-size:11.5px;font-weight:700;text-align:center;line-height:1.25}
+.loop-chip.hot{background:var(--orange);border:none}
+.loop-center{font-family:'Montserrat',sans-serif;fill:#fff;font-weight:800}
+.loop-center-sub{font-family:'Open Sans',sans-serif;fill:rgba(255,255,255,.6);font-weight:600}
+@media(max-width:820px){.aha-grid{grid-template-columns:1fr;gap:40px}.loop-wrap{max-width:360px}}
+
+/* ---------- BENEFICIOS ---------- */
+.ben-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px}
+.ben{background:var(--surface-soft);border:1px solid var(--hairline);border-radius:var(--r-lg);padding:30px 26px}
+.ben .ico{width:50px;height:50px;border-radius:13px;background:#fff;border:1px solid var(--hairline);display:flex;align-items:center;justify-content:center;margin-bottom:18px;box-shadow:var(--shadow-card)}
+.ben h3{margin-bottom:9px}
+.ben p{font-size:.96rem}
+.ben-foot{margin-top:36px;text-align:center;color:var(--ink-300);font-size:1.05rem;max-width:680px;margin-left:auto;margin-right:auto}
+@media(max-width:920px){.ben-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.ben-grid{grid-template-columns:1fr}}
+
+/* ---------- PRODUCTO ---------- */
+.prod-grid{display:grid;grid-template-columns:1fr .85fr;gap:54px;align-items:center}
+.prod-note{margin-top:24px;background:var(--orange-soft);border-radius:12px;padding:16px 20px;font-weight:700;color:var(--ink);font-size:.96rem;display:flex;gap:12px;align-items:center}
+@media(max-width:880px){.prod-grid{grid-template-columns:1fr;gap:38px}.prod-media{order:-1}}
+
+/* ---------- VALUE STACK / OFERTA ---------- */
+.offer{background:var(--surface-soft)}
+.offer-visual{max-width:780px;margin:0 auto 36px;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-elevated);border:1px solid var(--hairline)}
+.offer-visual img{width:100%;display:block}
+.stack-card{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--hairline);border-radius:var(--r-xl);box-shadow:var(--shadow-elevated);overflow:hidden}
+.stack-list{padding:24px 36px 4px;display:flex;flex-direction:column}
+.stk{display:flex;align-items:flex-start;gap:14px;padding:15px 0;border-bottom:1px solid var(--hairline)}
+.stk:last-child{border-bottom:none}
+.stk .ck{flex:none;width:24px;height:24px;border-radius:50%;background:var(--orange-soft);display:flex;align-items:center;justify-content:center;margin-top:2px}
+.stk .body{flex:1}
+.stk .body b{font-family:'Montserrat',sans-serif;color:var(--ink);font-size:1.02rem}
+.stk .body span{display:block;font-size:.9rem;color:var(--muted);margin-top:2px}
+.stk .val{flex:none;font-family:'Montserrat',sans-serif;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.stk .val s{opacity:.85}
+.stack-total{padding:8px 36px 0}
+.tot-row{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-top:2px dashed var(--hairline)}
+.tot-row .lbl{font-family:'Montserrat',sans-serif;font-weight:700;color:var(--ink);font-size:1.05rem}
+.tot-row .amt{font-family:'Montserrat',sans-serif;font-weight:800;color:var(--muted);font-size:1.5rem;font-variant-numeric:tabular-nums}
+.price-final{text-align:center;padding:14px 36px 8px}
+.price-final .lbl{color:var(--muted);font-weight:700;font-family:'Montserrat',sans-serif;font-size:.95rem}
+.price-final .big{font-family:'Montserrat',sans-serif;font-weight:800;color:var(--ink);font-size:clamp(3rem,9vw,4.4rem);line-height:1;letter-spacing:-.03em;margin-top:4px}
+.price-final .big .cur{color:var(--orange);font-size:.46em;vertical-align:super;margin-right:2px}
+.price-final .big .usd{font-size:.26em;color:var(--muted);vertical-align:super;letter-spacing:.04em}
+.price-final .save{display:inline-block;margin-top:12px;background:var(--orange-soft);color:var(--orange);font-family:'Montserrat',sans-serif;font-weight:700;padding:7px 16px;border-radius:var(--r-pill);font-size:.9rem}
+.stack-foot{padding:10px 36px 16px;text-align:center;color:var(--ink-300);font-size:1rem;max-width:560px;margin:0 auto}
+.stack-cta{padding:8px 36px 38px}
+.countdown{display:flex;align-items:center;justify-content:center;gap:14px;margin:6px auto 22px;flex-wrap:wrap}
+.countdown .cd-label{font-weight:700;color:var(--ink);font-size:.92rem}
+.cd-clock{display:flex;gap:8px}
+.cd-unit{background:var(--ink);color:#fff;border-radius:10px;min-width:54px;padding:9px 6px;text-align:center}
+.cd-unit b{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.5rem;display:block;line-height:1;font-variant-numeric:tabular-nums;color:#fff}
+.cd-unit small{font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+@media(max-width:560px){.stack-list,.stack-total,.price-final,.stack-foot,.stack-cta{padding-left:22px;padding-right:22px}.stk .val{font-size:.82rem}}
+
+/* ---------- GARANTÍA ---------- */
+.guarantee{display:grid;grid-template-columns:auto 1fr;gap:38px;align-items:center;max-width:880px;margin:0 auto;background:#fff;border:1px solid var(--hairline);border-radius:var(--r-xl);padding:44px;box-shadow:var(--shadow-card)}
+.seal-img{width:clamp(150px,38vw,180px);height:auto;flex:none;filter:drop-shadow(0 14px 30px rgba(12,52,82,.20))}
+@media(max-width:680px){.guarantee{grid-template-columns:1fr;text-align:center;padding:34px 26px;justify-items:center}}
+
+/* ---------- PRUEBA SOCIAL / WALL DE CAPTURAS REALES ---------- */
+.tst-note{margin:18px auto 0;max-width:700px;font-size:1.02rem;color:var(--ink-300)}
+.tst-wall{columns:3;column-gap:20px;margin-top:42px}
+.tcard{break-inside:avoid;margin:0 0 20px;background:#fff;border:1px solid var(--hairline);border-radius:var(--r-lg);box-shadow:var(--shadow-card);overflow:hidden}
+.tcard img{width:100%;display:block}
+.tcard .who{display:flex;align-items:center;gap:11px;padding:13px 16px}
+.tcard .av{width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.9rem;display:flex;align-items:center;justify-content:center;flex:none}
+.tcard .who b{font-family:'Montserrat',sans-serif;color:var(--ink);font-size:.92rem;display:block;line-height:1.15}
+.tcard .who span{font-size:.76rem;color:var(--muted);display:block;margin-top:1px}
+@media(max-width:920px){.tst-wall{columns:2}}
+@media(max-width:600px){.tst-wall{columns:1;column-gap:0}}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:780px;margin:42px auto 0}
+.qa{border-bottom:1px solid var(--hairline)}
+.qa summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:24px 4px;font-family:'Montserrat',sans-serif;font-weight:700;color:var(--ink);font-size:1.06rem;letter-spacing:-.01em}
+.qa summary::-webkit-details-marker{display:none}
+.qa .ic{flex:none;width:28px;height:28px;border-radius:50%;background:var(--orange-soft);color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:1.3rem;transition:transform .3s var(--ease)}
+.qa[open] .ic{transform:rotate(45deg)}
+.qa .ans p{padding:0 4px 24px;color:var(--body);font-size:1.02rem}
+@media(max-width:560px){.qa summary{font-size:.98rem}}
+
+/* ---------- CTA FINAL ---------- */
+.final{background:var(--ink);text-align:center;position:relative;overflow:hidden}
+.final::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 60% at 50% 0%,rgba(255,102,2,.16),transparent 70%)}
+.final .wrap{position:relative;z-index:1}
+.final h2{max-width:760px;margin:0 auto}
+.final .lead{color:rgba(255,255,255,.82);margin:22px auto 0}
+.final .micro{color:rgba(255,255,255,.62);justify-content:center}
+.final-note{margin-top:30px;color:rgba(255,255,255,.72);font-size:.98rem;max-width:580px;margin-left:auto;margin-right:auto;font-style:italic}
+.signoff{margin-top:30px;font-family:'Montserrat',sans-serif;font-weight:700;color:#ff8a3d;font-size:1.1rem}
+
+/* ---------- FOOTER ---------- */
+footer{background:#08283d;color:rgba(255,255,255,.55);padding:40px 0;font-size:.86rem;text-align:center}
+footer .brand{color:#fff;justify-content:center;margin-bottom:12px}
+footer .brand small{color:rgba(255,255,255,.5)}
+
+/* ---------- STICKY BAR ---------- */
+.sticky-bar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-top:1px solid var(--hairline);box-shadow:0 -8px 30px rgba(12,52,82,.10);transform:translateY(120%);transition:transform .4s var(--ease);padding:12px 18px}
+.sticky-bar.show{transform:translateY(0)}
+.sb-inner{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.sb-info{display:flex;flex-direction:column;line-height:1.15}
+.sb-info b{font-family:'Montserrat',sans-serif;color:var(--ink);font-size:1rem}
+.sb-info span{font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.sb-info span .hl{color:var(--orange);font-weight:700}
+.sticky-bar .btn{padding:14px 26px;font-size:.98rem;animation:none;white-space:nowrap}
+@media(max-width:560px){.sb-info b{font-size:.9rem}.sticky-bar .btn{padding:13px 18px;font-size:.9rem}body{padding-bottom:74px}}
+
+/* ---------- REVEAL ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}.btn-primary,.loop-ring,.nav .btn.armed,.sticky-bar .btn.armed,.countdown-express.live .cd-unit,.xpop-badge{animation:none}}
+
+/* ---------- EXIT-INTENT POPUP ---------- */
+.exit-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:22px;background:rgba(8,30,48,.74);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .35s var(--ease)}
+.exit-modal.show{opacity:1;pointer-events:auto}
+.exit-card{position:relative;background:var(--ink);color:#fff;border-radius:var(--r-xl);max-width:480px;width:100%;padding:42px 34px 28px;text-align:center;box-shadow:var(--shadow-elevated);transform:translateY(20px) scale(.95);transition:transform .4s var(--ease);overflow:hidden}
+.exit-modal.show .exit-card{transform:none}
+.exit-card::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(62% 52% at 50% 0%,rgba(255,102,2,.20),transparent 70%)}
+.exit-card>*{position:relative;z-index:1}
+.exit-eye{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:#ff8a3d;display:inline-block;margin-bottom:14px}
+.exit-card h3{color:#fff;font-size:clamp(1.22rem,4.6vw,1.6rem);line-height:1.22}
+.exit-card p{color:rgba(255,255,255,.84);margin:16px 0 26px;font-size:1rem}
+.exit-card .btn{animation:none}
+.exit-x{position:absolute;top:12px;right:15px;background:none;border:none;color:rgba(255,255,255,.5);font-size:1.9rem;line-height:1;cursor:pointer;z-index:2;transition:color .2s var(--ease)}
+.exit-x:hover{color:#fff}
+.exit-dismiss{display:block;margin:14px auto 0;background:none;border:none;color:rgba(255,255,255,.5);font-size:.86rem;cursor:pointer;text-decoration:underline;font-family:'Open Sans',sans-serif}
+.exit-dismiss:hover{color:rgba(255,255,255,.82)}
+
+/* ---------- TOAST DE PRUEBA SOCIAL ---------- */
+.sp-toast{position:fixed;bottom:22px;left:22px;z-index:80;max-width:340px;width:calc(100% - 44px);background:#fff;border:1px solid var(--hairline);border-left:4px solid var(--orange);border-radius:14px;box-shadow:var(--shadow-elevated);padding:13px 30px 13px 14px;display:flex;gap:12px;align-items:center;opacity:0;transform:translateY(20px) scale(.96);pointer-events:none;transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.sp-toast.show{opacity:1;transform:none;pointer-events:auto}
+.sp-toast .sp-av{flex:none;width:42px;height:42px;border-radius:50%;background:var(--ink);color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.05rem;display:flex;align-items:center;justify-content:center}
+.sp-toast .sp-body{flex:1;min-width:0;line-height:1.32}
+.sp-toast .sp-body b{font-family:'Montserrat',sans-serif;color:var(--ink);font-size:.9rem}
+.sp-toast .sp-body p{font-size:.82rem;color:var(--body);margin:1px 0 0}
+.sp-toast .sp-body p b{font-family:'Open Sans',sans-serif;color:var(--orange);font-weight:700}
+.sp-toast .sp-meta{font-size:.72rem;color:var(--muted);margin-top:3px;display:flex;align-items:center;gap:5px}
+.sp-toast .sp-check{flex:none}
+.sp-toast .sp-x{position:absolute;top:7px;right:10px;color:var(--muted);font-size:1.15rem;line-height:1;cursor:pointer;background:none;border:none}
+@media(max-width:560px){.sp-toast{left:14px;right:14px;bottom:84px;width:calc(100% - 28px);max-width:none}}
+
+/* ---------- POPUP OFERTA EXPRÉS 50% ---------- */
+.xpop{position:fixed;inset:0;z-index:1100;display:flex;align-items:center;justify-content:center;padding:22px;background:rgba(8,30,48,.80);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .3s var(--ease)}
+.xpop.show{opacity:1;pointer-events:auto}
+.xpop-card{position:relative;background:#fff;border:2px solid var(--orange);border-radius:var(--r-xl);max-width:460px;width:100%;padding:38px 32px 24px;text-align:center;box-shadow:var(--shadow-elevated);transform:translateY(16px) scale(.94);transition:transform .4s var(--ease)}
+.xpop.show .xpop-card{transform:none}
+.xpop-flash{display:inline-block;background:var(--ink);color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;border-radius:var(--r-pill);margin-bottom:18px}
+.xpop-card h3{color:var(--ink);font-size:clamp(1.3rem,4.6vw,1.7rem);line-height:1.16}
+.xpop-card h3 span{color:var(--orange)}
+.xpop-badge{width:116px;height:116px;margin:18px auto;border-radius:50%;background:linear-gradient(135deg,var(--orange),#ff8a3d);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(255,102,2,.42);animation:xbadge 1.1s var(--ease) infinite}
+.xpop-badge b{font-family:'Montserrat',sans-serif;font-weight:800;font-size:2.5rem;line-height:.85}
+.xpop-badge small{font-family:'Montserrat',sans-serif;font-weight:800;font-size:.95rem;letter-spacing:.2em;margin-top:2px}
+@keyframes xbadge{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.xpop-card p{color:var(--body);margin:4px 0 22px;font-size:1.02rem}
+.xpop-card p .xpop-now{color:var(--orange);font-weight:800}
+.xpop-card .btn{animation:none}
+.xpop-x{position:absolute;top:11px;right:15px;background:none;border:none;color:var(--muted);font-size:1.8rem;line-height:1;cursor:pointer}
+.xpop-x:hover{color:var(--ink)}
+.xpop-no{display:block;margin:13px auto 0;background:none;border:none;color:var(--muted);font-size:.84rem;cursor:pointer;text-decoration:underline;font-family:'Open Sans',sans-serif}
+.xpop-no:hover{color:var(--ink-300)}
+
+/* ---------- CONTADOR EXPRÉS (rojo + palpitación) ---------- */
+.countdown-express[hidden]{display:none}
+.countdown-express.live .cd-label{color:#dc2626;font-family:'Montserrat',sans-serif;font-weight:800}
+.countdown-express.live .cd-unit{background:#dc2626;animation:cdpulse 1s var(--ease) infinite}
+.countdown-express.live .cd-unit b,.countdown-express.live .cd-unit small{color:#fff}
+@keyframes cdpulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(220,38,38,.55)}50%{transform:scale(1.13);box-shadow:0 0 26px 6px rgba(220,38,38,.5)}}
+.countdown-express .xc-grace{display:none;flex-basis:100%;margin:0 auto;max-width:540px;color:#b91c1c;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.28);border-radius:12px;padding:12px 16px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.96rem;line-height:1.42;text-align:center}
+.countdown-express .xc-grace b{color:#dc2626}
+.countdown-express.expired .cd-label,.countdown-express.expired .cd-clock{display:none}
+.countdown-express.expired .xc-grace{display:block}
+
+/* ===================== NOTIFICACIÓN iPhone + CHAT NICO (injertado) ===================== */
+.nc-push{position:fixed;top:14px;left:50%;transform:translate(-50%,-160%);z-index:96;width:min(400px,calc(100vw - 24px));background:rgba(255,255,255,.94);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(12,52,82,.08);border-radius:22px;box-shadow:0 18px 50px rgba(12,52,82,.22);padding:13px 16px;display:flex;gap:12px;align-items:center;cursor:pointer;transition:transform .55s var(--ease)}
+.nc-push.show{transform:translate(-50%,0)}
+.nc-av{width:42px;height:42px;border-radius:12px;background:var(--ink);color:#fff;font-weight:700;font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex:none;font-family:'Montserrat',sans-serif;overflow:hidden}
+.nc-av img{width:100%;height:100%;object-fit:cover}
+.nc-tx{flex:1;min-width:0}
+.nc-tx .h{display:flex;justify-content:space-between;gap:8px;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.nc-tx b{display:block;font-size:.92rem;color:var(--ink);margin-top:1px}
+.nc-tx small{font-size:.85rem;color:var(--body);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nc-chat{position:fixed;right:18px;bottom:88px;z-index:96;width:min(380px,calc(100vw - 24px));max-height:min(560px,72vh);background:var(--canvas);border:1px solid var(--hairline);border-radius:24px;box-shadow:var(--shadow-elevated);display:none;flex-direction:column;overflow:hidden}
+.nc-chat.open{display:flex;animation:ncpop .4s var(--ease)}
+@keyframes ncpop{from{transform:scale(.92);opacity:0}to{transform:none;opacity:1}}
+@media(max-width:560px){.nc-chat{right:0;left:0;bottom:0;width:100%;border-radius:24px 24px 0 0;max-height:80vh}}
+.nc-head{display:flex;align-items:center;gap:11px;padding:14px 16px;background:var(--ink);color:#fff}
+.nc-head .av{width:38px;height:38px;border-radius:50%;background:#fff;color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none;overflow:hidden}
+.nc-head .av img{width:100%;height:100%;object-fit:cover}
+.nc-head b{font-size:.98rem;color:#fff}
+.nc-head small{display:block;font-size:.72rem;opacity:.9;color:#fff}
+.nc-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#8FF0A6;box-shadow:0 0 0 2px rgba(143,240,166,.35);margin-right:6px;vertical-align:middle}
+.nc-head button{margin-left:auto;background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:4px 8px;line-height:1}
+.nc-body{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:10px;background:var(--surface-soft)}
+.nc-msg{max-width:86%;padding:11px 15px;border-radius:18px;font-size:.92rem;line-height:1.5;animation:ncmsgin .35s var(--ease)}
+@keyframes ncmsgin{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+.nc-msg.nico{background:var(--canvas);border:1px solid var(--hairline);color:var(--body);border-bottom-left-radius:6px;align-self:flex-start}
+.nc-msg.nico b{color:var(--ink)}
+.nc-msg.me{background:var(--orange);color:#fff;border-bottom-right-radius:6px;align-self:flex-end}
+.nc-msg.me b{color:#fff}
+.nc-typing{align-self:flex-start;background:var(--canvas);border:1px solid var(--hairline);border-radius:18px;border-bottom-left-radius:6px;padding:13px 16px;display:flex;gap:5px}
+.nc-typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:nctp 1.2s infinite}
+.nc-typing i:nth-child(2){animation-delay:.18s}.nc-typing i:nth-child(3){animation-delay:.36s}
+@keyframes nctp{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+.nc-opts{padding:12px 14px;border-top:1px solid var(--hairline);display:flex;flex-wrap:wrap;gap:8px;background:var(--canvas)}
+.nc-opts button{background:var(--orange-soft);border:1px solid rgba(255,102,2,.35);color:var(--orange-hover);border-radius:999px;padding:10px 18px;font-family:'Open Sans',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s}
+.nc-opts button:hover{background:var(--orange);color:#fff}
+@keyframes ncPageShake{0%,100%{transform:translate3d(0,0,0)}15%{transform:translate3d(-7px,2px,0)}30%{transform:translate3d(7px,-2px,0)}45%{transform:translate3d(-5px,1px,0)}60%{transform:translate3d(5px,-1px,0)}75%{transform:translate3d(-3px,1px,0)}90%{transform:translate3d(3px,0,0)}}
+body.nc-shake{animation:ncPageShake .5s cubic-bezier(.36,.07,.19,.97)}
+@media(prefers-reduced-motion:reduce){body.nc-shake{animation:none}.nc-push{transition:none}}
+
+</style>
+</head>
+<body>
+
+<!-- ===================== ANNOUNCEMENT BAR ===================== -->
+<div class="annbar">
+  <a href="#oferta" data-scroll><span class="bolt">⚡</span> <b>Oferta de lanzamiento</b> — termina en <span class="ann-cd"><span data-cd="m">15</span>:<span data-cd="s">00</span></span></a>
+</div>
+
+<!-- ===================== NAV ===================== -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand"><img class="brand-logo" src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/logo-nico-azul.png" alt="Nico Fernández Miranda — Instituto de Productividad" width="489" height="209"></div>
+    <a href="#oferta" class="btn btn-primary" data-scroll data-arm data-armed-label="Recuperar el control">Quiero recuperar el control</a>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero">
+  <div class="wrap hero-center">
+    <span class="eyebrow reveal">Protocolo de 7 días · Un paso por día</span>
+    <h1 class="reveal d1">Vencé la <span class="accent">adicción al celular</span> y recuperá <span class="accent">2 horas de foco</span> diarias en 7 días</h1>
+    <p class="lead reveal d2">Dejá de reaccionar al celular cien veces por día y volvé a ser vos el que decide. No vas a despertarte “curado” el día 7: vas a despertarte con el control en la mano.</p>
+
+    <div class="hero-stage reveal d2">
+      <img class="hero-img" src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/LOGO_MOKUP_PRINCIPAL.png?v=1782843615" alt="Ebook Desintoxicación Digital por Nicolás Fernández Miranda — bestseller internacional + 6 bonos de regalo" width="1500" height="1124" fetchpriority="high">
+    </div>
+
+    <div class="hero-cta reveal d3">
+      <a href="#oferta" class="btn btn-primary btn-lg" data-scroll>Quiero recuperar mis 2 horas</a>
+      <div class="micro">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff6602" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Lo recibís todo al instante por correo · Pago seguro y garantizado
+      </div>
+    </div>
+    <div class="trust-row reveal d3">
+      <div class="t"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6L12 2z" fill="#ff6602"/></svg> 7 días · 100% garantizado</div>
+      <div class="t"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="4" stroke="#0c3452" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="#ff6602" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Basado en ciencia, no en motivación</div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== DOLORES ===================== -->
+<section>
+  <div class="wrap">
+    <div class="center"><h2 class="reveal">¿No te pasó que…?</h2></div>
+    <div class="mirror-grid">
+      <div class="pain reveal">
+        <div class="pain-img"><img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/dolor-1.jpg" alt="Persona scrolleando el celular mientras el trabajo espera" loading="lazy" width="950" height="1187"></div>
+        <div class="pain-body"><span class="pn">01</span><p>Agarrás el celular para mandar <strong>un</strong> mensaje y a los 40 minutos seguís ahí, <strong>sin saber para qué lo agarraste</strong>.</p></div>
+      </div>
+      <div class="pain reveal d1">
+        <div class="pain-img"><img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/dolor-2.jpg" alt="Persona en la cama de noche mirando el celular a las 2 de la mañana" loading="lazy" width="950" height="1187"></div>
+        <div class="pain-body"><span class="pn">02</span><p>Llegás a la cama muerto de cansancio y, en vez de dormir, te quedás scrolleando una hora más, <strong>robándote el sueño que necesitás</strong>.</p></div>
+      </div>
+      <div class="pain reveal d2">
+        <div class="pain-img"><img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/dolor-3.jpg" alt="Persona en la cena familiar mirando el celular mientras su familia comparte" loading="lazy" width="950" height="1187"></div>
+        <div class="pain-body"><span class="pn">03</span><p>Estás con tus hijos, con tu pareja, y una parte de tu cabeza ya está calculando <strong>cuándo vas a poder mirar el teléfono otra vez</strong>.</p></div>
+      </div>
+    </div>
+    <p class="mirror-close reveal">Si te pasó aunque sea una, es que estás peleando por tu concentración en un mundo hiperconectado. <span class="hl">El celular está diseñado para robar tu atención</span>, y nadie te dio las herramientas para defenderte. Hasta hoy.</p>
+  </div>
+</section>
+
+<!-- ===================== AHA / BUCLE FANTASMA (corto) ===================== -->
+<section class="dark">
+  <div class="wrap">
+    <div class="aha-grid">
+      <div>
+        <span class="eyebrow on-dark-eye reveal">Lo que nadie te contó</span>
+        <h2 class="reveal d1">Lo que te pasa tiene nombre: <span style="color:#ff8a3d">el bucle fantasma</span>.</h2>
+        <p class="reveal d2">Es un patrón que repetís decenas de veces por día, sin darte cuenta: agarrás el celu, recibís un premio impredecible (como una tragamonedas), sentís un alivio… y al rato, otra vez. Corre en segundo plano y te roba la atención todo el día.</p>
+      </div>
+      <div class="reveal d1">
+        <div class="loop-wrap">
+          <svg class="loop-svg" viewBox="0 0 460 460" role="img" aria-label="Diagrama del bucle fantasma">
+            <circle class="loop-ring" cx="230" cy="230" r="170"/>
+            <text class="loop-center" x="230" y="224" text-anchor="middle" font-size="19">EL BUCLE</text>
+            <text class="loop-center" x="230" y="248" text-anchor="middle" font-size="19">FANTASMA</text>
+            <text class="loop-center-sub" x="230" y="272" text-anchor="middle" font-size="11">corre en segundo plano</text>
+            <g class="loop-node"><circle cx="230" cy="60" r="7"/></g>
+            <g class="loop-node hot"><circle cx="392" cy="178" r="7"/></g>
+            <g class="loop-node"><circle cx="330" cy="368" r="7"/></g>
+            <g class="loop-node"><circle cx="130" cy="368" r="7"/></g>
+            <g class="loop-node"><circle cx="68" cy="178" r="7"/></g>
+            <foreignObject x="158" y="14" width="144" height="48"><div xmlns="http://www.w3.org/1999/xhtml" class="loop-chip">Impulso</div></foreignObject>
+            <foreignObject x="330" y="150" width="124" height="56"><div xmlns="http://www.w3.org/1999/xhtml" class="loop-chip">Agarrás el celu</div></foreignObject>
+            <foreignObject x="296" y="378" width="150" height="62"><div xmlns="http://www.w3.org/1999/xhtml" class="loop-chip hot">Premio impredecible</div></foreignObject>
+            <foreignObject x="64" y="378" width="140" height="56"><div xmlns="http://www.w3.org/1999/xhtml" class="loop-chip">Alivio momentáneo</div></foreignObject>
+            <foreignObject x="6" y="150" width="120" height="56"><div xmlns="http://www.w3.org/1999/xhtml" class="loop-chip">Vacío → otra vez</div></foreignObject>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BENEFICIOS ===================== -->
+<section>
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow reveal">Lo que vas a lograr</span>
+      <h2 class="reveal d1">En 7 días vas a recuperar:</h2>
+    </div>
+    <div class="ben-grid">
+      <div class="ben reveal">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="#0c3452" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Tu sueño</h3>
+        <p>Hoy el celular te lo roba sin que lo notes: su luz <strong>frena la melatonina</strong> y su contenido te mantiene scrolleando hasta tarde. Volvés a descansar de verdad.</p>
+      </div>
+      <div class="ben reveal d1">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="#0c3452" stroke-width="2"/><circle cx="12" cy="12" r="9" stroke="#0c3452" stroke-width="2"/></svg></div>
+        <h3>Tu concentración</h3>
+        <p>Volvés a sentir lo que es <strong>estar metido de lleno en una sola cosa</strong>, sin partirte cada dos minutos. Es la habilidad mejor pagada del siglo, y la creías perdida.</p>
+      </div>
+      <div class="ben reveal d2">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 7v5l3 2" stroke="#0c3452" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#0c3452" stroke-width="2"/></svg></div>
+        <h3>Hasta 2 horas por día</h3>
+        <p>Hasta <strong>2 horas que hoy se te van en scroll</strong> sin que las veas. Para tu familia, tus proyectos y tu tiempo libre.</p>
+      </div>
+      <div class="ben reveal">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13H11l-1 9 8.5-11H12l1-9z" stroke="#0c3452" stroke-width="2" stroke-linejoin="round"/></svg></div>
+        <h3>Tu energía</h3>
+        <p>Dejás de <strong>terminar el día agotado y con la cabeza saturada</strong> sin haber hecho nada importante. Menos ruido, más claridad.</p>
+      </div>
+      <div class="ben reveal d1">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.6-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.4-7 10-7 10z" stroke="#0c3452" stroke-width="2" stroke-linejoin="round"/></svg></div>
+        <h3>Tu calma</h3>
+        <p>Cortás el <strong>chequeo compulsivo</strong> y baja esa ansiedad de fondo que ni sabías que el teléfono te estaba generando.</p>
+      </div>
+      <div class="ben reveal d2">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#0c3452" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>El control</h3>
+        <p>Dejás de reaccionar al teléfono cien veces por día y <strong>volvés a ser vos el que decide</strong> cuándo lo usás. No el que reacciona: el que manda.</p>
+      </div>
+    </div>
+    <p class="ben-foot reveal">Y todo más simple de lo que pensás. Un cambio a la vez.</p>
+  </div>
+</section>
+
+<!-- ===================== PRODUCTO ===================== -->
+<section style="background:#fff">
+  <div class="wrap">
+    <div style="max-width:720px;margin:0 auto;text-align:center">
+      <span class="eyebrow reveal">Tu ebook</span>
+      <h2 class="reveal d1">Desintoxicación Digital</h2>
+      <p class="lead reveal d2" style="margin:16px auto 0">Es el ebook con el sistema simple para vencer la adicción al celular y recuperar tu foco, tu sueño y tu tiempo. Paso a paso, sin complicarte y sin tirar el teléfono al río.</p>
+      <div class="prod-note reveal d2" style="display:inline-flex;margin-top:24px;text-align:left">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 6l-10 7L2 6" stroke="#ff6602" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="5" width="20" height="14" rx="2" stroke="#ff6602" stroke-width="2"/></svg>
+        Lo recibís todo al instante por correo electrónico · Pago seguro y garantizado
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== VALUE STACK / OFERTA ===================== -->
+<section class="offer" id="oferta">
+  <div class="wrap">
+    <div class="center" style="margin-bottom:40px">
+      <span class="eyebrow reveal">Todo lo que te llevás hoy</span>
+      <h2 class="reveal d1">Esto te llevás junto con tu Ebook de Desintoxicación Digital:</h2>
+    </div>
+
+    <div class="offer-visual reveal"><img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/IGM_BONUS.png?v=1782843763" alt="Todo lo que incluye: ebook Desintoxicación Digital + 6 bonos. Valor total $166.500, hoy $23.500 ARS" loading="lazy" width="1300" height="975"></div>
+
+    <div class="stack-card reveal">
+      <div class="stack-list">
+        <div class="stk"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff6602" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="body"><b>Ebook Desintoxicación Digital (7 días)</b><span>El plan completo, un paso por día, para recuperar tu cerebro del celular.</span></div><div class="val"><s>$47.000</s></div></div>
+        <div class="stk"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff6602" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="body"><b>Reseteo de Dopamina</b><span>La guía para hacer un reset de dopamina sin sufrir.</span></div><div class="val"><s>$15.000</s></div></div>
+        <div class="stk"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff6602" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="body"><b>Sueño Blindado</b><span>El checklist para volver a dormir de verdad.</span></div><div class="val"><s>$17.500</s></div></div>
+        <div class="stk"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff6602" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="body"><b>Bloque de Foco</b><span>El método de 30 minutos para recuperar la concentración que creías perdida.</span></div><div class="val"><s>$14.500</s></div></div>
+        <div class="stk"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff6602" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="body"><b>Masterclass: la neurociencia de la procrastinación</b><span>Nico te explica en video por qué postergás y cómo cortarlo.</span></div><div class="val"><s>$25.000</s></div></div>
+        <div class="stk"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff6602" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="body"><b>Reto de 7 Días acompañado</b><span>Un mensaje por día que te lleva de la mano toda la semana.</span></div><div class="val"><s>$31.500</s></div></div>
+        <div class="stk"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff6602" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="body"><b>Canal Exclusivo de WhatsApp</b><span>Herramientas basadas en neurociencia, nuevas todas las semanas.</span></div><div class="val"><s>$16.000</s></div></div>
+      </div>
+
+      <div class="stack-total">
+        <div class="tot-row">
+          <span class="lbl">Valor total real</span>
+          <span class="amt"><s>$<span data-count-to="166500">166.500</span></s></span>
+        </div>
+      </div>
+
+      <div class="price-final">
+        <div class="lbl">Hoy te lo llevás por</div>
+        <div class="big"><span class="cur">$</span><span data-price>47.000</span> <span class="usd">ARS</span></div>
+        <div><span class="save" data-save>Te ahorrás $119.500 · 72% menos</span></div>
+      </div>
+
+      <p class="stack-foot reveal">No es un descuento. Es que prefiero que lo hagas, y no que lo guardes.</p>
+
+      <div class="stack-cta">
+        <div class="countdown countdown-express" data-xcountdown hidden>
+          <span class="cd-label">⏰ Tu 50% OFF se mantiene por:</span>
+          <div class="cd-clock">
+            <div class="cd-unit"><b data-xcd="m">05</b><small>min</small></div>
+            <div class="cd-unit"><b data-xcd="s">00</b><small>seg</small></div>
+          </div>
+          <p class="xc-grace">⏰ <b>Tus 5 minutos se agotaron.</b> Pero te damos un período de gracia para que todavía te lleves el <b>50% OFF</b>. No lo procrastines.</p>
+        </div>
+        <a href="#" class="btn btn-primary btn-lg btn-block" data-cta>Quiero recuperar el control</a>
+        <div class="micro" style="justify-content:center">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="2" stroke="#6b7a86" stroke-width="2"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#6b7a86" stroke-width="2"/></svg>
+          Pago seguro vía Mercado Pago · Acceso inmediato por correo
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GARANTÍA ===================== -->
+<section>
+  <div class="wrap">
+    <div class="guarantee reveal">
+      <img class="seal-img" src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/sello-garantia.png" alt="Sello de garantía de 100% de satisfacción" width="266" height="353" loading="lazy">
+      <div>
+        <span class="eyebrow">El riesgo lo corro yo, no vos</span>
+        <h3 style="margin:6px 0 14px">Probalo 7 días sin riesgo.</h3>
+        <p>Si al terminar la semana no sentís que recuperaste aunque sea un cacho de control, te devuelvo <strong>el 100% de tu dinero</strong>. <strong>Sin formularios, sin preguntas, sin malas caras.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIOS ===================== -->
+<section class="offer" style="background:var(--surface-soft)">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow reveal">La comunidad, en sus palabras</span>
+      <h2 class="reveal d1">Hay una comunidad real detrás de esto</h2>
+      <p class="tst-note reveal d2">Mensajes reales de la comunidad de Nico en el Instituto de Productividad, donde se enseña este mismo método basado en neurociencia. Gente de carne y hueso aplicando lo que vas a aprender.</p>
+    </div>
+    <div class="tst-wall">
+      <figure class="tcard reveal">
+        <img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/t2-alexia.jpg" alt="Mensaje de la comunidad: bajó el tiempo de pantallas y ordenó sus rutinas" loading="lazy" width="485" height="600">
+        <figcaption class="who"><span class="av">A</span><div><b>Alexia</b><span>Comunidad NFM</span></div></figcaption>
+      </figure>
+      <figure class="tcard reveal">
+        <img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/t1-ornella.jpg" alt="Mensaje de la comunidad: volvió a concentrarse y dejó de postergar el estudio" loading="lazy" width="560" height="359">
+        <figcaption class="who"><span class="av">O</span><div><b>Ornella</b><span>Comunidad NFM</span></div></figcaption>
+      </figure>
+      <figure class="tcard reveal">
+        <img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/t3-thomas.jpg" alt="Mensaje de la comunidad: aprobó 11 de 12 exámenes" loading="lazy" width="560" height="97">
+        <figcaption class="who"><span class="av">T</span><div><b>Thomas</b><span>Comunidad NFM</span></div></figcaption>
+      </figure>
+      <figure class="tcard reveal">
+        <img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/t4-maxi.jpg" alt="Mensaje de la comunidad: agradece las clases de Nico" loading="lazy" width="560" height="231">
+        <figcaption class="who"><span class="av">M</span><div><b>Maxi</b><span>Comunidad NFM</span></div></figcaption>
+      </figure>
+      <figure class="tcard reveal">
+        <img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/t5-unpoco.jpg" alt="Mensaje de la comunidad: lo motiva a levantarse temprano y ser más productivo" loading="lazy" width="560" height="111">
+        <figcaption class="who"><span class="av" style="background:var(--orange)">♥</span><div><b>Miembro de la comunidad</b><span>Instituto de Productividad</span></div></figcaption>
+      </figure>
+      <figure class="tcard reveal">
+        <img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/t6-flavia.jpg" alt="Mensaje de la comunidad: mejoró sus rutinas, su estudio y su descanso" loading="lazy" width="560" height="306">
+        <figcaption class="who"><span class="av">F</span><div><b>Flavia</b><span>Comunidad NFM</span></div></figcaption>
+      </figure>
+      <figure class="tcard reveal">
+        <img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/t8-fabian.jpg" alt="Mensaje de la comunidad: se enfoca cada vez más y piensa mejor a la mañana" loading="lazy" width="560" height="578">
+        <figcaption class="who"><span class="av">F</span><div><b>Fabian</b><span>Comunidad NFM</span></div></figcaption>
+      </figure>
+      <figure class="tcard reveal">
+        <img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/t11-laly.jpg" alt="Mensaje de la comunidad: aprovecha los findes para ver las clases de Nico" loading="lazy" width="560" height="78">
+        <figcaption class="who"><span class="av">L</span><div><b>Laly</b><span>Comunidad NFM</span></div></figcaption>
+      </figure>
+      <figure class="tcard reveal">
+        <img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/t7-mili.jpg" alt="Mensaje de la comunidad: el pomodoro en grupo le hizo más fácil el hábito" loading="lazy" width="560" height="467">
+        <figcaption class="who"><span class="av">M</span><div><b>Mili</b><span>Comunidad NFM</span></div></figcaption>
+      </figure>
+      <figure class="tcard reveal">
+        <img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/t10-leo.jpg" alt="Mensaje de la comunidad: cowork productivo a la mañana, quedó sin pendientes" loading="lazy" width="540" height="200">
+        <figcaption class="who"><span class="av">L</span><div><b>Leo</b><span>Comunidad NFM</span></div></figcaption>
+      </figure>
+      <figure class="tcard reveal">
+        <img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/t9-renny.jpg" alt="Mensaje de la comunidad: logró ponerse al día en su trabajo" loading="lazy" width="560" height="438">
+        <figcaption class="who"><span class="av">R</span><div><b>Renny</b><span>Comunidad NFM</span></div></figcaption>
+      </figure>
+      <figure class="tcard reveal">
+        <img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/t12-gabriela.jpg" alt="Mensaje de la comunidad: mejorar un 1% por día y sentirse acompañada" loading="lazy" width="560" height="142">
+        <figcaption class="who"><span class="av">G</span><div><b>Gabriela</b><span>Comunidad NFM</span></div></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section>
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow reveal">FAQ</span>
+      <h2 class="reveal d1">Respuestas a las preguntas frecuentes</h2>
+    </div>
+    <div class="faq">
+      <details class="qa reveal"><summary>¿Esto es otro detox de esos que duran un fin de semana?<span class="ic">+</span></summary><div class="ans"><p>No. No te pido tirar el teléfono ni odiarlo. Te doy un sistema para desarmar, pieza por pieza, lo que te tiene enganchado. Lo difícil y lo fácil se dan vuelta.</p></div></details>
+      <details class="qa reveal"><summary>¿Necesito instalar apps o hacer algo complicado?<span class="ic">+</span></summary><div class="ans"><p>No. Son pasos simples y cortitos que hacés en tu día normal. La idea es justamente que sea fácil.</p></div></details>
+      <details class="qa reveal"><summary>¿Cuánto tiempo me lleva por día?<span class="ic">+</span></summary><div class="ans"><p>Pocos minutos. No te pido más tiempo: te ayudo a recuperar el que ya tenés.</p></div></details>
+      <details class="qa reveal"><summary>¿Cómo lo recibo?<span class="ic">+</span></summary><div class="ans"><p>Al instante, por correo electrónico, apenas pagás.</p></div></details>
+      <details class="qa reveal"><summary>¿Y si no me sirve?<span class="ic">+</span></summary><div class="ans"><p>Te devuelvo el 100% de tu dinero, sin preguntas, dentro de los 7 días.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA FINAL ===================== -->
+<section class="final">
+  <div class="wrap">
+    <span class="eyebrow on-dark-eye reveal">Una última cosa</span>
+    <h2 class="reveal d1">Quiero recuperar el control</h2>
+    <p class="lead reveal d2">Notá que dije <em>recuperar</em>. No <em>conseguir</em>. El control alguna vez fue tuyo. Vamos a ir a buscarlo.</p>
+    <div class="reveal d2" style="margin-top:34px">
+      <a href="#" class="btn btn-primary btn-lg" data-cta>Quiero recuperar el control</a>
+      <div class="micro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#ff8a3d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Lo recibís todo al instante · 7 días 100% garantizado</div>
+    </div>
+    <p class="final-note reveal">El teléfono es solo el primer eslabón: cuando recuperás tu atención, tu sueño y tu tiempo, lo que vuelve a tus manos es el volante de tu vida entera.</p>
+    <p class="signoff reveal">— Nico</p>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <img class="footer-logo" src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/logo-nico-blanco.png" alt="Nico Fernández Miranda — Instituto de Productividad" width="489" height="209">
+    <p>Desintoxicación Digital</p>
+    <p style="margin-top:8px;font-size:.78rem">© <span id="year"></span> Instituto de Productividad. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- ===================== STICKY BAR ===================== -->
+<div class="sticky-bar" data-sticky>
+  <div class="sb-inner">
+    <div class="sb-info">
+      <b>Desintoxicación Digital · 7 días</b>
+      <span>La oferta se cierra en <span class="hl"><span data-cd="m">15</span>:<span data-cd="s">00</span></span></span>
+    </div>
+    <a href="#oferta" class="btn btn-primary" data-scroll data-arm data-armed-label="Recuperar el control">Quiero empezar</a>
+  </div>
+</div>
+
+<!-- ===================== POPUP OFERTA EXPRÉS 50% ===================== -->
+<div class="xpop" data-xpop aria-hidden="true">
+  <div class="xpop-card" role="dialog" aria-modal="true" aria-labelledby="xpop-title">
+    <button class="xpop-x" data-xpop-close aria-label="Cerrar">&times;</button>
+    <span class="xpop-flash">⚡ Solo para quienes están online ahora</span>
+    <h3 id="xpop-title">Acabamos de habilitar una <span>oferta exprés</span></h3>
+    <div class="xpop-badge"><b>50%</b><small>OFF</small></div>
+    <p>Por los próximos <b>5 minutos</b> te llevás todo el pack a mitad de precio: de <s>$47.000</s> a <b class="xpop-now">$23.500</b>.</p>
+    <button class="btn btn-primary btn-lg btn-block" data-xpop-apply>Aplicar 50% OFF ahora</button>
+    <button class="xpop-no" data-xpop-close>No, prefiero pagar $47.000</button>
+  </div>
+</div>
+
+<!-- ===================== EXIT-INTENT POPUP ===================== -->
+<div class="exit-modal" data-exit-modal aria-hidden="true">
+  <div class="exit-card" role="dialog" aria-modal="true" aria-labelledby="exit-title">
+    <button class="exit-x" data-exit-close aria-label="Cerrar">&times;</button>
+    <span class="exit-eye">Pará un segundo…</span>
+    <h3 id="exit-title">¿Vas a dejar otra vez que el scroll infinito te gane y te siga quitando tu tiempo, tu energía, tu sueño y tu claridad mental?</h3>
+    <p>Hoy podés cortar el bucle. Te llevás el sistema completo + los 6 bonos de regalo, con 7 días de garantía total.</p>
+    <a href="#oferta" class="btn btn-primary btn-lg btn-block" data-exit-cta>Quiero recuperar el control</a>
+    <button class="exit-dismiss" data-exit-close>No, prefiero seguir scrolleando</button>
+  </div>
+</div>
+
+<!-- ===================== TOAST DE PRUEBA SOCIAL ===================== -->
+<div class="sp-toast" data-sp-toast role="status" aria-live="polite">
+  <span class="sp-av" data-sp-av></span>
+  <div class="sp-body">
+    <b data-sp-name></b>
+    <p data-sp-text></p>
+    <span class="sp-meta">
+      <svg class="sp-check" width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span data-sp-meta></span>
+    </span>
+  </div>
+  <button class="sp-x" data-sp-close aria-label="Cerrar">&times;</button>
+</div>
+
+<!-- ============================================================
+     SCRIPT — bloque aislado. Configurá CHECKOUT_URL y listo.
+============================================================ -->
+<script>
+(function(){
+  "use strict";
+
+  /* 1) CHECKOUT SHOPIFY — pegá tu link; los botones de COMPRA quedan apuntados */
+  var CHECKOUT_URL = "https://ss7cqv-rz.myshopify.com/cart/55742214930505:1";  // checkout Shopify (Mercado Pago)
+  document.querySelectorAll('[data-cta]').forEach(function(a){ a.setAttribute('href', CHECKOUT_URL); a.setAttribute('rel','noopener'); });
+  var offer = document.querySelector('#oferta');
+  var offerSeen = false;
+  document.querySelectorAll('[data-scroll]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      if(a.hasAttribute('data-arm') && offerSeen){ return; }  /* ya vio la oferta -> navega directo a CHECKOUT_URL */
+      e.preventDefault();
+      offer.scrollIntoView({behavior:'smooth'});
+    });
+  });
+
+  /* ARMADO DE CTAs FIJADOS (nav + sticky): una vez que el visitante VIO los bonos y el valor,
+     dejan de bajar a la oferta y pasan a llevar directo al checkout, con cambio de texto + animación. */
+  function armCtas(){
+    if(offerSeen) return; offerSeen = true;
+    document.querySelectorAll('[data-arm]').forEach(function(b){
+      b.setAttribute('href', CHECKOUT_URL);
+      b.setAttribute('rel','noopener');
+      var l = b.getAttribute('data-armed-label');
+      if(l) b.textContent = l;
+      b.classList.add('armed');
+    });
+  }
+  var armTarget = document.querySelector('.offer-visual') || offer;
+  var armObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ armCtas(); armObserver.disconnect(); } });
+  }, {threshold:.4});
+  armObserver.observe(armTarget);
+
+  /* 2) CUENTA REGRESIVA (alimenta annbar, oferta y sticky) */
+  var COUNTDOWN_MINUTES = 15, RESET_ON_EXPIRE = true, KEY = 'nfm_dd_deadline';
+  function getDeadline(){
+    var now = Date.now(), saved = parseInt(localStorage.getItem(KEY)||'0',10);
+    if(!saved || (saved < now && RESET_ON_EXPIRE)){ saved = now + COUNTDOWN_MINUTES*60*1000; localStorage.setItem(KEY, saved); }
+    return saved;
+  }
+  var deadline = getDeadline();
+  var mEls = document.querySelectorAll('[data-cd="m"]'), sEls = document.querySelectorAll('[data-cd="s"]');
+  function pad(n){return (n<10?'0':'')+n;}
+  function tick(){
+    var diff = Math.max(0, deadline - Date.now());
+    var m = Math.floor(diff/60000), s = Math.floor((diff%60000)/1000);
+    mEls.forEach(function(e){e.textContent = pad(m);});
+    sEls.forEach(function(e){e.textContent = pad(s);});
+    if(diff<=0 && RESET_ON_EXPIRE){ deadline = getDeadline(); }
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* 3) REVEAL ON SCROLL */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+  }, {threshold:.14, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  /* 4) COUNT-UP (con separador de miles es-AR) */
+  function fmtAR(n){ try{ return n.toLocaleString('es-AR'); }catch(e){ return (''+n).replace(/\B(?=(\d{3})+(?!\d))/g,'.'); } }
+  document.querySelectorAll('[data-count-to]').forEach(function(el){
+    var target = parseInt(el.getAttribute('data-count-to'),10), done=false;
+    var ob = new IntersectionObserver(function(ents){
+      ents.forEach(function(en){
+        if(en.isIntersecting && !done){ done=true; var t0=null,dur=1100;
+          function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/dur,1);
+            el.textContent = fmtAR(Math.floor(target*(1-Math.pow(1-p,3)))); if(p<1) requestAnimationFrame(step); else el.textContent=fmtAR(target); }
+          requestAnimationFrame(step);
+        }
+      });
+    }, {threshold:.6});
+    ob.observe(el);
+  });
+
+  /* 5) FAQ — un detalle abierto por vez */
+  var faqs = document.querySelectorAll('.faq .qa');
+  faqs.forEach(function(d){ d.addEventListener('toggle', function(){ if(d.open) faqs.forEach(function(o){ if(o!==d) o.open=false; }); }); });
+
+  /* 6) STICKY BAR */
+  var bar = document.querySelector('[data-sticky]'), hero = document.querySelector('.hero'), footer = document.querySelector('footer');
+  function onScroll(){
+    var pastHero = window.scrollY > (hero.offsetHeight - 120);
+    var oTop = offer.getBoundingClientRect().top, oBot = offer.getBoundingClientRect().bottom;
+    var inOffer = oTop < window.innerHeight && oBot > 0;
+    var nearFooter = footer.getBoundingClientRect().top < window.innerHeight;
+    if(pastHero && !inOffer && !nearFooter){ bar.classList.add('show'); } else { bar.classList.remove('show'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* 7) EXIT-INTENT POPUP (desktop: mouse hacia arriba · mobile: botón atrás) */
+  var exitModal = document.querySelector('[data-exit-modal]');
+  if(exitModal){
+    var EXIT_KEY = 'nfm_dd_exit_shown';
+    var exitDone = sessionStorage.getItem(EXIT_KEY) === '1';
+    function openExit(){
+      if(exitDone) return;
+      var xp = document.querySelector('[data-xpop]');
+      if(xp && xp.classList.contains('show')) return;   /* no encimar con el popup del 50% */
+      exitDone = true; sessionStorage.setItem(EXIT_KEY, '1');
+      exitModal.classList.add('show'); exitModal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeExit(){
+      exitModal.classList.remove('show'); exitModal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+    /* Desktop: el cursor sale por el borde superior (intención de cerrar pestaña) */
+    document.addEventListener('mouseout', function(e){
+      if(!e.relatedTarget && e.clientY <= 0) openExit();
+    });
+    /* Mobile / atrás del navegador */
+    if(!exitDone){
+      history.pushState(null, '', location.href);
+      window.addEventListener('popstate', function(){
+        if(!exitDone){ openExit(); history.pushState(null, '', location.href); }
+      });
+    }
+    /* Mobile: cambio de app / pestaña (iOS deslizar de abajo hacia arriba, volver a Facebook/IG, etc.).
+       Cuando el usuario se va a otra app, dejamos el cartel armado para que lo encuentre al volver.
+       Se arma a los 3s para no dispararse en una carga en segundo plano. */
+    var visArmed = false;
+    setTimeout(function(){ visArmed = true; }, 3000);
+    document.addEventListener('visibilitychange', function(){
+      if(visArmed && document.visibilityState === 'hidden') openExit();
+    });
+    exitModal.querySelectorAll('[data-exit-close]').forEach(function(b){ b.addEventListener('click', closeExit); });
+    var exitCta = exitModal.querySelector('[data-exit-cta]');
+    if(exitCta) exitCta.addEventListener('click', function(e){
+      e.preventDefault(); closeExit();
+      var o = document.querySelector('#oferta'); if(o) o.scrollIntoView({behavior:'smooth'});
+    });
+    /* NO se cierra con clic afuera ni con Escape: solo con la X o el botón de abajo */
+  }
+
+  /* 8) TOAST DE PRUEBA SOCIAL — rotativo, UNO POR VEZ (nunca se encima)
+     -------------------------------------------------------------
+     Rotan 3 tipos: (a) personas viendo la página ahora,
+     (b) compras del pack Desintoxicación Digital,
+     (c) compras de bonos a su precio individual.
+     Datos de EJEMPLO editables (SP_NAMES / SP_CITIES / SP_BONOS).
+     Para que sea legítimo y no caiga en publicidad engañosa
+     (Ley 24.240 / políticas Shopify y Meta), idealmente alimentá
+     esto con pedidos reales de tu tienda. */
+  var spToast = document.querySelector('[data-sp-toast]');
+  if(spToast){
+    var SP_NAMES  = ['Marta','Lucía','Sofía','Martín','Camila','Joaquín','Valentina','Agustín','Florencia','Tomás','Julieta','Mateo','Carla','Brenda','Rodrigo','Micaela','Federico','Ailén'];
+    var SP_CITIES = ['Corrientes','Córdoba','Rosario','La Plata','Mendoza','Mar del Plata','Salta','San Juan','Tucumán','Neuquén','Bahía Blanca','CABA','Quilmes','Resistencia','Posadas','Santa Fe','San Luis','Paraná'];
+    var SP_BONOS  = [
+      {n:'la Masterclass de procrastinación', p:'$25.000'},
+      {n:'el Reto de 7 Días acompañado',      p:'$31.500'},
+      {n:'el Canal Exclusivo de WhatsApp',    p:'$16.000'},
+      {n:'la guía Sueño Blindado',            p:'$17.500'},
+      {n:'el Reseteo de Dopamina',            p:'$15.000'},
+      {n:'el Bloque de Foco',                 p:'$14.500'}
+    ];
+    var spStop = false,
+        spAv    = spToast.querySelector('[data-sp-av]'),
+        spName  = spToast.querySelector('[data-sp-name]'),
+        spText  = spToast.querySelector('[data-sp-text]'),
+        spMeta  = spToast.querySelector('[data-sp-meta]'),
+        spCheck = spToast.querySelector('.sp-check');
+    function spPick(a){ return a[Math.floor(Math.random()*a.length)]; }
+    function spMin(){ return 2 + Math.floor(Math.random()*38); }
+    function spRender(){
+      var r = Math.random();
+      if(r < 0.34){
+        /* (a) viendo ahora */
+        var viewers = 22 + Math.floor(Math.random()*23); /* 22-44 */
+        spAv.textContent = '👀';
+        spName.textContent = viewers + ' personas viendo esta página';
+        spText.innerHTML = 'La oferta está activa <b>ahora mismo</b>';
+        spMeta.textContent = 'En vivo';
+        if(spCheck) spCheck.style.display = 'none';
+      } else if(r < 0.67){
+        /* (b) compró el pack completo */
+        var nb = spPick(SP_NAMES), cb = spPick(SP_CITIES);
+        spAv.textContent = nb.charAt(0);
+        spName.textContent = nb + ' de ' + cb;
+        spText.innerHTML = 'se llevó <b>Desintoxicación Digital</b>';
+        spMeta.textContent = 'Hace ' + spMin() + ' min · Argentina';
+        if(spCheck) spCheck.style.display = '';
+      } else {
+        /* (c) compró un bono a su precio individual */
+        var nc = spPick(SP_NAMES), cc = spPick(SP_CITIES), it = spPick(SP_BONOS);
+        spAv.textContent = nc.charAt(0);
+        spName.textContent = nc + ' de ' + cc;
+        spText.innerHTML = 'compró ' + it.n + ' por <b>' + it.p + '</b>';
+        spMeta.textContent = 'Hace ' + spMin() + ' min · Argentina';
+        if(spCheck) spCheck.style.display = '';
+      }
+    }
+    function spCycle(){
+      if(spStop) return;
+      spRender();
+      spToast.classList.add('show');
+      setTimeout(function(){
+        spToast.classList.remove('show');
+        /* la pausa arranca DESPUÉS de ocultarse → nunca hay dos a la vez */
+        if(!spStop) setTimeout(spCycle, 8000 + Math.random()*7000); /* 8-15s entre toasts */
+      }, 6000); /* visible 6s */
+    }
+    var spClose = spToast.querySelector('[data-sp-close]');
+    if(spClose) spClose.addEventListener('click', function(){ spStop = true; spToast.classList.remove('show'); });
+    setTimeout(spCycle, 5000); /* primer toast a los 5s */
+  }
+
+  /* 9) OFERTA EXPRÉS 50% OFF — popup al llegar a la oferta + descuento + contador 5 min rojo pulsante.
+     IMPORTANTE: el precio que se cobra es el del producto en Shopify. Configurá el producto a
+     $23.500 (precio real). El $47.000 es solo ancla visual; al "aplicar 50%" se revela el precio real. */
+  var xpop = document.querySelector('[data-xpop]');
+  if(xpop){
+    var XPOP_KEY = 'nfm_dd_xpop', XDISC_KEY = 'nfm_dd_xdeadline';
+    var priceEl    = document.querySelector('[data-price]');
+    var saveEl     = document.querySelector('[data-save]');
+    var xCountdown = document.querySelector('[data-xcountdown]');
+    var xpopShown = false, discountApplied = false, xTimer = null;
+    function ssGet(k){ try{ return sessionStorage.getItem(k); }catch(e){ return null; } }
+    function ssSet(k,v){ try{ sessionStorage.setItem(k,v); }catch(e){} }
+
+    function openXpop(){
+      if(xpopShown || discountApplied || ssGet(XPOP_KEY)==='1') return;
+      xpopShown = true; ssSet(XPOP_KEY,'1');      /* una sola vez por sesión: no reaparece al recargar/volver */
+      xpop.classList.add('show'); xpop.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeXpop(){
+      xpop.classList.remove('show'); xpop.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+    function expireXcountdown(){
+      if(!xCountdown) return;
+      if(xTimer) clearInterval(xTimer);
+      xCountdown.hidden = false;
+      xCountdown.classList.remove('live');
+      xCountdown.classList.add('expired');        /* muestra el mensaje de período de gracia */
+    }
+    function startXcountdown(deadline){
+      if(!xCountdown) return;
+      xCountdown.hidden = false;
+      xCountdown.classList.remove('expired');
+      xCountdown.classList.add('live');
+      var xm = xCountdown.querySelector('[data-xcd="m"]'), xs = xCountdown.querySelector('[data-xcd="s"]');
+      if(xTimer) clearInterval(xTimer);
+      function xtick(){
+        var diff = Math.max(0, deadline - Date.now());
+        var m = Math.floor(diff/60000), s = Math.floor((diff%60000)/1000);
+        if(xm) xm.textContent = pad(m);
+        if(xs) xs.textContent = pad(s);
+        if(diff <= 0){ expireXcountdown(); }
+      }
+      xtick(); xTimer = setInterval(xtick, 1000);
+    }
+    function applyDiscount(deadline, silent){
+      if(discountApplied) return;
+      discountApplied = true;
+      if(priceEl) priceEl.textContent = '23.500';
+      if(saveEl)  saveEl.textContent  = 'Te ahorrás $143.000 · 85% menos';
+      ssSet(XPOP_KEY,'1');
+      closeXpop();
+      if(!deadline){ deadline = Date.now() + 5*60*1000; ssSet(XDISC_KEY, ''+deadline); }
+      if(deadline > Date.now()) startXcountdown(deadline); else expireXcountdown();
+      if(!silent && offer) offer.scrollIntoView({behavior:'smooth'});
+    }
+
+    /* ¿ya aplicó el descuento en esta sesión? -> lo restauramos sin volver a mostrar el popup */
+    var savedDeadline = ssGet(XDISC_KEY);
+    if(savedDeadline){ applyDiscount(parseInt(savedDeadline,10), true); }
+
+    /* el popup aparece al llegar a ver TODO lo que incluye (UNA sola vez por sesión) */
+    if(!discountApplied && ssGet(XPOP_KEY)!=='1'){
+      var xTarget = document.querySelector('.offer-visual') || offer;
+      var xObs = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ if(en.isIntersecting){ openXpop(); xObs.disconnect(); } });
+      }, {threshold:.3});
+      if(xTarget) xObs.observe(xTarget);
+    }
+    xpop.querySelectorAll('[data-xpop-close]').forEach(function(b){ b.addEventListener('click', closeXpop); });
+    var applyBtn = xpop.querySelector('[data-xpop-apply]');
+    if(applyBtn) applyBtn.addEventListener('click', function(e){ e.preventDefault(); applyDiscount(); });
+    /* NO se cierra con clic afuera ni con Escape: solo aplicando el 50% o con la X (evita cierres accidentales que dejarían el precio al doble) */
+  }
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+
+<!-- ===================== CHAT CON NICO (injertado) ===================== -->
+<div class="nc-push" id="nc-push" role="button" aria-label="Abrir mensaje de Nico">
+  <div class="nc-av" id="nc-push-av">N</div>
+  <div class="nc-tx">
+    <div class="h"><span>Nico · Instituto de Productividad</span><span>ahora</span></div>
+    <b>Nico</b>
+    <small id="nc-push-msg">¿Te puedo ser 100% honesto un segundo?</small>
+  </div>
+</div>
+<div class="nc-chat" id="nc-chat" aria-live="polite">
+  <div class="nc-head">
+    <div class="av" id="nc-chat-av">N</div>
+    <div>
+      <b>Nico Fernández Miranda</b>
+      <small><span class="nc-dot"></span>en línea ahora</small>
+    </div>
+    <button id="nc-close" aria-label="Cerrar chat">&times;</button>
+  </div>
+  <div class="nc-body" id="nc-body"></div>
+  <div class="nc-opts" id="nc-opts"></div>
+</div>
+
+<script>
+(function(){
+  /* ═══════════ CONFIG (editá esto) ═══════════ */
+  var CHECKOUT_URL = "#oferta";   // dónde manda el CTA final del chat. '#oferta' = baja a la oferta.
+                                  //   Cuando tengas el link de Mercado Pago, ponelo acá (ej: "https://mpago.la/...").
+  var NICO_AVATAR  = "";          // foto de Nico (URL o dataURI). Vacío = usa la inicial "N".
+  var TEST_MODE    = /[?#&]test/.test(location.href);   // ?test acelera los tiempos para probar
+  var CHAT_DELAY_MS = 50000;      // espera antes del primer mensaje (producción)
+  /* ════════════════════════════════════════════ */
+
+  if(NICO_AVATAR){
+    var a1=document.getElementById('nc-push-av'), a2=document.getElementById('nc-chat-av');
+    if(a1) a1.innerHTML='<img src="'+NICO_AVATAR+'" alt="Nico">';
+    if(a2) a2.innerHTML='<img src="'+NICO_AVATAR+'" alt="Nico">';
+  }
+
+  var push=document.getElementById('nc-push'), chat=document.getElementById('nc-chat');
+  var body=document.getElementById('nc-body'), opts=document.getElementById('nc-opts');
+  if(!push||!chat) return;
+  var pushShown=false, chatOpened=false, shakeEnabled=true;
+
+  var PUSH_MSGS=[
+    '¿Te puedo ser 100% honesto un segundo? 💬',
+    '¿Estás por ahí? 👀',
+    'Te dejo esto por acá antes de que te vayas 👇'
+  ];
+  var FOLLOWUPS=[
+    'Hola, hola 👋 Soy Nico. ¿Te puedo hacer una pregunta media incómoda? 💬',
+    '¿Estás por ahí? 👀',
+    'Te dejo esto por acá 👇 Si sabés lo que tenés que hacer y no lo hacés, esto es para vos. ¿Le damos?'
+  ];
+  var STEP_GAPS = TEST_MODE ? [3000,5000,5000] : [10000,20000,8000];
+  var pushStep=0;
+  function modalOpen(){ return !!document.querySelector('.xpop.show, .exit-modal.show'); }
+  function showPushStep(){
+    if(chatOpened) return;
+    if(modalOpen()){ setTimeout(showPushStep, 4000); return; }   /* no pisar los popups de la landing */
+    if(pushStep>=2) shakeEnabled=false;
+    var m=document.getElementById('nc-push-msg'); if(m) m.innerHTML=PUSH_MSGS[pushStep];
+    push.classList.add('show'); pageShake();
+    var gap=STEP_GAPS[pushStep]||8000; pushStep++;
+    if(pushStep<PUSH_MSGS.length){ setTimeout(showPushStep,gap); }
+    else { setTimeout(function(){ if(!chatOpened) seedAndDock(); },gap); }
+  }
+  function tryPush(){ if(pushShown) return; if(modalOpen()){ return setTimeout(tryPush,10000); } pushShown=true; showPushStep(); }
+  setTimeout(tryPush, TEST_MODE ? 3000 : CHAT_DELAY_MS);
+  window.addEventListener('scroll',function(){ if(!pushShown && window.scrollY>document.body.scrollHeight*.6) tryPush(); },{passive:true});
+
+  push.addEventListener('click',function(){ push.classList.remove('show'); chatOpen(); });
+  var closeBtn=document.getElementById('nc-close'); if(closeBtn) closeBtn.addEventListener('click',chatClose);
+  function chatClose(){ chat.classList.remove('open'); }
+  function chatOpen(){ shakeEnabled=false; if(chatOpened){ chat.classList.add('open'); return; } chatOpened=true; chat.classList.add('open'); step('intro'); }
+
+  function seedAndDock(){
+    if(chatOpened) return;
+    chatOpened=true; push.classList.remove('show');
+    FOLLOWUPS.forEach(function(txt){ var m=document.createElement('div'); m.className='nc-msg nico'; m.innerHTML=txt; body.appendChild(m); });
+    body.scrollTop=1e9; chat.classList.add('open');
+    buttons([{t:'Sí, dale 💛',next:'s1'},{t:'Ahora no',next:'no'}]);
+  }
+
+  var _shakeT=null;
+  function pageShake(){
+    if(!shakeEnabled) return;
+    document.body.classList.remove('nc-shake'); void document.body.offsetWidth;
+    document.body.classList.add('nc-shake');
+    if(navigator.vibrate){ try{ navigator.vibrate(35); }catch(e){} }
+    clearTimeout(_shakeT); _shakeT=setTimeout(function(){ document.body.classList.remove('nc-shake'); },560);
+  }
+  function nico(html,cb,delay){
+    var t=document.createElement('div'); t.className='nc-typing'; t.innerHTML='<i></i><i></i><i></i>';
+    body.appendChild(t); body.scrollTop=1e9;
+    setTimeout(function(){ t.remove();
+      var m=document.createElement('div'); m.className='nc-msg nico'; m.innerHTML=html;
+      body.appendChild(m); body.scrollTop=1e9; pageShake(); if(cb)cb();
+    }, delay||1100);
+  }
+  function me(text){ var m=document.createElement('div'); m.className='nc-msg me'; m.textContent=text; body.appendChild(m); body.scrollTop=1e9; }
+  function buttons(list){ opts.innerHTML='';
+    list.forEach(function(b){ var el=document.createElement('button'); el.textContent=b.t;
+      el.onclick=function(){ me(b.t); opts.innerHTML=''; step(b.next); }; opts.appendChild(el); }); }
+
+  /* Guion (voz de Nico): empatía → dolor → "no es fuerza de voluntad, es ciencia"
+     → costo → el ebook → los 6 bonos → oferta → CTA */
+  function step(id){
+    if(id==='intro'){ nico('Hola, hola 👋 Soy Nico. ¿Te puedo hacer una pregunta media incómoda?', function(){ buttons([{t:'Dale',next:'s1'},{t:'Ahora no',next:'no'}]); }); }
+    else if(id==='no'){ nico('Todo bien 💛 Te dejo una sola cosa: si sabés lo que tenés que hacer y no lo hacés, no te falta información… te falta un <b>sistema</b>. Cuando quieras verlo, acá estoy. Un abrazo.', function(){ buttons([{t:'Listo, contame',next:'s1'}]); }); }
+    else if(id==='s1'){ nico('Va, y contestate con la mano en el corazón: ¿cuántas veces sabés <b>exactamente</b> lo que tenés que hacer… y aun así terminás scrolleando o dejándolo para después?', function(){ buttons([{t:'Uf… todo el tiempo',next:'s2'},{t:'Me pasa igual',next:'s2'}]); }); }
+    else if(id==='s2'){ nico('Spoiler alert: eso no es que seas vago ni indisciplinado. Es <b>química</b>. Tu cerebro elige la recompensa fácil e inmediata (el celular) por encima de la importante. No te falta motivación — te falta entender cómo funciona tu cabeza. <b>No es motivación, es ciencia.</b>', function(){ buttons([{t:'Tal cual me pasa',next:'s3'}]); },1300); }
+    else if(id==='s3'){ nico('Y mientras tanto se te va el día en distracciones, dormís peor, rendís a la mitad… y arranca la culpa. Lo peor: no es tu culpa. Las apps las diseñan <b>equipos enteros de ingenieros</b> para ganarle a tu fuerza de voluntad. El partido está armado en tu contra.', function(){ buttons([{t:'Me hace todo el sentido',next:'s4'}]); },1400); }
+    else if(id==='s4'){ nico('Por eso escribí <b>Desintoxicación Digital</b>. No es «usá menos el celular». Es un <b>método paso a paso</b> para que entiendas tu dopamina y le pongas un sistema: recuperás foco, sueño y horas de tu día. Sin fuerza de voluntad heroica.', function(){ buttons([{t:'Eso es lo que necesito',next:'s5'}]); },1500); }
+    else if(id==='s5'){ nico('Y no vas solo: viene con <b>6 bonos</b> que lo hacen imparable 👇<br>• Reseteo de Dopamina<br>• Bloque de Foco<br>• Masterclass: la neurociencia de la procrastinación<br>• Sueño Blindado<br>• Reto de 7 Días acompañado<br>• Canal exclusivo de WhatsApp', function(){ buttons([{t:'Lo quiero completo',next:'s6'}]); },1600); }
+    else if(id==='s6'){ nico('Mirá, hoy te lo llevás <b>con los 6 bonos de regalo</b> y con <b>7 días de garantía total</b>. Es el sistema completo, no más info suelta para sumar a la pila. ¿Le damos?', function(){ buttons([{t:'Sí, lo quiero →',next:'go'},{t:'¿Y si no me sirve?',next:'g'}]); },1400); }
+    else if(id==='g'){ nico('Tenés <b>7 días de garantía total</b>: lo probás, lo aplicás, y si no sentís el cambio te devuelvo el 100%. El riesgo lo corro yo, no vos.', function(){ buttons([{t:'Listo, lo quiero →',next:'go'}]); }); }
+    else if(id==='go'){ nico('¡Genial! 🎉 Te llevo…', function(){ setTimeout(function(){
+      chatClose();
+      if(CHECKOUT_URL && CHECKOUT_URL.charAt(0)!=='#'){ window.location.href=CHECKOUT_URL; }
+      else { var el=document.querySelector(CHECKOUT_URL||'#oferta'); if(el){ el.scrollIntoView({behavior:'smooth'}); } }
+    },900); },700); }
+  }
+})();
+</script>
+</body>
+</html>
