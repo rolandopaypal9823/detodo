@@ -172,7 +172,7 @@ CHAT_JS = r"""
     chatOpened=true; push.classList.remove('show');
     FOLLOWUPS.forEach(function(txt){ var m=document.createElement('div'); m.className='nc-msg nico'; m.innerHTML=txt; body.appendChild(m); });
     body.scrollTop=1e9; chat.classList.add('open');
-    buttons([{t:'Sí, dale 💛',next:'s1'},{t:'Ahora no',next:'no'}]);
+    buttons([{t:'Sí, dale 💛',next:'p1'},{t:'Ahora no',next:'no'}]);
   }
 
   var _shakeT=null;
@@ -199,14 +199,23 @@ CHAT_JS = r"""
   /* Guion (voz de Nico): empatía → dolor → "no es fuerza de voluntad, es ciencia"
      → costo → el ebook → los 6 bonos → oferta → CTA */
   function step(id){
-    if(id==='intro'){ nico('Hola, hola 👋 Soy Nico. ¿Te puedo hacer una pregunta media incómoda?', function(){ buttons([{t:'Dale',next:'s1'},{t:'Ahora no',next:'no'}]); }); }
-    else if(id==='no'){ nico('Todo bien 💛 Te dejo una sola cosa: si sabés lo que tenés que hacer y no lo hacés, no te falta información… te falta un <b>sistema</b>. Cuando quieras verlo, acá estoy. Un abrazo.', function(){ buttons([{t:'Listo, contame',next:'s1'}]); }); }
-    else if(id==='s1'){ nico('Va, y contestate con la mano en el corazón: ¿cuántas veces sabés <b>exactamente</b> lo que tenés que hacer… y aun así terminás scrolleando o dejándolo para después?', function(){ buttons([{t:'Uf… todo el tiempo',next:'s2'},{t:'Me pasa igual',next:'s2'}]); }); }
-    else if(id==='s2'){ nico('Spoiler alert: eso no es que seas vago ni indisciplinado. Es <b>química</b>. Tu cerebro elige la recompensa fácil e inmediata (el celular) por encima de la importante. No te falta motivación — te falta entender cómo funciona tu cabeza. <b>No es motivación, es ciencia.</b>', function(){ buttons([{t:'Tal cual me pasa',next:'s3'}]); },1300); }
-    else if(id==='s3'){ nico('Y mientras tanto se te va el día en distracciones, dormís peor, rendís a la mitad… y arranca la culpa. Lo peor: no es tu culpa. Las apps las diseñan <b>equipos enteros de ingenieros</b> para ganarle a tu fuerza de voluntad. El partido está armado en tu contra.', function(){ buttons([{t:'Me hace todo el sentido',next:'s4'}]); },1400); }
-    else if(id==='s4'){ nico('Por eso escribí <b>Desintoxicación Digital</b>. No es «usá menos el celular». Es un <b>método paso a paso</b> para que entiendas tu dopamina y le pongas un sistema: recuperás foco, sueño y horas de tu día. Sin fuerza de voluntad heroica.', function(){ buttons([{t:'Eso es lo que necesito',next:'s5'}]); },1500); }
-    else if(id==='s5'){ nico('Y no vas solo: viene con <b>6 bonos</b> que lo hacen imparable 👇<br>• Reseteo de Dopamina<br>• Bloque de Foco<br>• Masterclass: la neurociencia de la procrastinación<br>• Sueño Blindado<br>• Reto de 7 Días acompañado<br>• Canal exclusivo de WhatsApp', function(){ buttons([{t:'Lo quiero completo',next:'s6'}]); },1600); }
-    else if(id==='s6'){ nico('Mirá, hoy te lo llevás <b>con los 6 bonos de regalo</b> y con <b>7 días de garantía total</b>. Es el sistema completo, no más info suelta para sumar a la pila. ¿Le damos?', function(){ buttons([{t:'Sí, lo quiero →',next:'go'},{t:'¿Y si no me sirve?',next:'g'}]); },1400); }
+    if(id==='intro'){ nico('Hola, hola 👋 Soy Nico. ¿Te puedo hacer una pregunta media incómoda?', function(){ buttons([{t:'Dale',next:'p1'},{t:'Ahora no',next:'no'}]); }); }
+    else if(id==='no'){ nico('Todo bien 💛 Te dejo una sola cosa: «sé lo que tengo que hacer, pero no lo hago» es la frase que más escuché en mi vida. No te falta información — te falta un <b>sistema</b>. Cuando quieras, acá estoy. Un abrazo.', function(){ buttons([{t:'Listo, contame',next:'p1'}]); }); }
+    /* PUNTO A · acuerdo con el dolor */
+    else if(id==='p1'){ nico('Va, y contestate con la mano en el corazón: ¿cuántas veces sabés <b>exactamente</b> lo que tenés que hacer… y aun así terminás con el celular en la mano, scrolleando, dejándolo para mañana?', function(){ buttons([{t:'Uf… todo el tiempo',next:'p2'},{t:'Me pasa igual',next:'p2'}]); }); }
+    /* COSTO · no gestionarlo te aleja de tus objetivos */
+    else if(id==='p2'){ nico('Te lo pregunto porque lo viví. Y spoiler alert: eso no es que seas vago ni indisciplinado — es <b>química</b>. Tu cerebro elige la recompensa fácil e inmediata (el celular) por encima de la importante.', function(){ buttons([{t:'¿Y entonces?',next:'p3'}]); },1300); }
+    else if(id==='p3'){ nico('El costo real no es el rato perdido. Es que, día tras día, ese «después lo hago» te va tapando lo que de verdad querés. Eso que venís pateando hace <b>años</b>. Decime, ¿qué te pega más?', function(){ buttons([{t:'Un proyecto que no arranco',next:'p4'},{t:'Estudiar / recibirme',next:'p4'},{t:'Tiempo para mí y los míos',next:'p4'}]); },1400); }
+    /* OBJETIVOS tangibles · prueba social honesta (Instituto) */
+    else if(id==='p4'){ nico('Te entiendo perfecto. Tuve la suerte de acompañar a un montón de gente que aprendió a gestionar justo esto, y terminaron haciendo cosas que arrastraban hace años: <b>arrancaron el emprendimiento que postergaban</b>, <b>se recibieron</b>, retomaron lo que habían dejado. Pero mirá…', function(){ buttons([{t:'¿Qué es lo que más te dicen?',next:'p5'}]); },1500); }
+    /* SECRETO DE LA DUCHA · el deseo emocional profundo */
+    else if(id==='p5'){ nico('…lo que más me dicen no es eso. Me dicen que <b>volvieron a dormir bien</b>. Que dejaron de estar <b>irritables con su familia</b>. Que por primera vez en años sienten que están <b>disfrutando su vida</b> y no solo apagando incendios — con tiempo y cabeza para lo que de verdad importa.', function(){ buttons([{t:'Eso es lo que quiero 💛',next:'p6'}]); },1600); }
+    /* MECANISMO · el ebook como primer paso */
+    else if(id==='p6'){ nico('Y el primer paso no es más fuerza de voluntad. Es entender <b>cómo funciona tu cerebro</b> y ponerle un sistema. Eso es <b>Desintoxicación Digital</b>: un método paso a paso, 7 días, para recuperar tu foco, tu sueño y tu tiempo. <b>No es motivación, es ciencia.</b>', function(){ buttons([{t:'¿Qué incluye?',next:'p7'}]); },1500); }
+    /* BONOS */
+    else if(id==='p7'){ nico('Va con <b>6 bonos</b> que lo hacen imparable 👇<br>• Reseteo de Dopamina<br>• Bloque de Foco<br>• Masterclass: la neurociencia de la procrastinación<br>• Sueño Blindado<br>• Reto de 7 Días acompañado<br>• Canal exclusivo de WhatsApp', function(){ buttons([{t:'Lo quiero completo',next:'p8'}]); },1600); }
+    /* OFERTA */
+    else if(id==='p8'){ nico('Hoy te lo llevás <b>con los 6 bonos de regalo</b> y <b>7 días de garantía total</b>. Es el sistema completo — el primer paso concreto para dejar de postergar tu vida. ¿Le damos?', function(){ buttons([{t:'Sí, lo quiero →',next:'go'},{t:'¿Y si no me sirve?',next:'g'}]); },1400); }
     else if(id==='g'){ nico('Tenés <b>7 días de garantía total</b>: lo probás, lo aplicás, y si no sentís el cambio te devuelvo el 100%. El riesgo lo corro yo, no vos.', function(){ buttons([{t:'Listo, lo quiero →',next:'go'}]); }); }
     else if(id==='go'){ nico('¡Genial! 🎉 Te llevo…', function(){ setTimeout(function(){
       chatClose();
