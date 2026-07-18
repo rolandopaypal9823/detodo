@@ -347,7 +347,27 @@ footer .brand small{color:rgba(255,255,255,.5)}
 .pain-dots i{width:8px;height:8px;border-radius:50%;background:var(--hairline);transition:all .3s var(--ease)}
 .pain-dots i.on{background:var(--orange);width:22px;border-radius:5px}
 .pain2 .mirror-close{max-width:680px;margin:clamp(36px,6vw,60px) auto 0}
-@media(prefers-reduced-motion:reduce){.pain-js .pain-scrolly{height:auto}.pain-js .pain-sticky{position:static;height:auto;padding:32px 0}.pain-js .pain-viewport{overflow-y:auto}.pain-js .pfeed{opacity:1}}
+/* fondo oscuro + glow + notificaciones flotantes (matan el blanco de los lados) */
+.pain2{background:linear-gradient(180deg,#0a2138 0%,#06192b 58%,#050f1a 100%)}
+.pain2 h2{color:#fff}
+.pain2 .pain2-hint{color:#9fb6c8}
+.pain2 .mirror-close{color:rgba(255,255,255,.82)}
+.pain2 .mirror-close .hl{color:var(--orange)}
+.pain-glow{position:absolute;top:50%;left:50%;width:min(720px,88vw);height:min(720px,88vw);transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,102,2,.20),rgba(255,102,2,0) 62%);pointer-events:none;z-index:0}
+.phone2{z-index:1}
+.pain-dots{position:relative;z-index:2}
+.pain-fx{display:none}
+@media(min-width:900px){.pain-js .pain-fx{display:block;position:absolute;inset:0;pointer-events:none;z-index:1}}
+.pchip{position:absolute;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;padding:10px 14px;box-shadow:0 16px 36px rgba(0,0,0,.4);opacity:0;transform:translateY(16px) scale(.96);transition:opacity .55s var(--ease),transform .55s var(--ease);max-width:214px}
+.pchip.on{opacity:1;transform:none;animation:pchipFloat 5.5s ease-in-out infinite}
+@keyframes pchipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.pchip-ic{width:36px;height:36px;border-radius:10px;background:rgba(255,102,2,.16);border:1px solid rgba(255,102,2,.3);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex:none}
+.pchip b{display:block;font-family:'Montserrat',sans-serif;font-size:.82rem;color:#fff;line-height:1.15}
+.pchip small{font-size:.72rem;color:#9fb6c8}
+.p-l1{left:5%;top:20%}.p-l2{left:8%;top:55%}.p-l3{left:4%;top:80%}
+.p-r1{right:5%;top:15%}.p-r2{right:7%;top:45%}.p-r3{right:4%;top:73%}
+@media(min-width:900px) and (max-width:1120px){.p-l1,.p-l2,.p-l3{left:2%}.p-r1,.p-r2,.p-r3{right:2%}.pchip{max-width:180px}}
+@media(prefers-reduced-motion:reduce){.pain-js .pain-scrolly{height:auto}.pain-js .pain-sticky{position:static;height:auto;padding:32px 0}.pain-js .pain-viewport{overflow-y:auto}.pain-js .pfeed{opacity:1}.pchip.on{animation:none}}
 
 /* ===================== NOTIFICACIÓN iPhone + CHAT NICO (injertado) ===================== */
 .nc-push{position:fixed;top:14px;left:50%;transform:translate(-50%,-160%);z-index:96;width:min(400px,calc(100vw - 24px));background:rgba(255,255,255,.94);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(12,52,82,.08);border-radius:22px;box-shadow:0 18px 50px rgba(12,52,82,.22);padding:13px 16px;display:flex;gap:12px;align-items:center;cursor:pointer;transition:transform .55s var(--ease)}
@@ -446,6 +466,15 @@ body.nc-shake{animation:ncPageShake .5s cubic-bezier(.36,.07,.19,.97)}
   </div>
   <div class="pain-scrolly" id="painScrolly">
     <div class="pain-sticky">
+      <div class="pain-glow" aria-hidden="true"></div>
+      <div class="pain-fx" aria-hidden="true">
+        <div class="pchip p-l1" data-at="0"><span class="pchip-ic">💬</span><div><b>Mensajes</b><small>7 nuevos</small></div></div>
+        <div class="pchip p-r1" data-at="0"><span class="pchip-ic">❤️</span><div><b>128 likes</b><small>en tu última foto</small></div></div>
+        <div class="pchip p-r2" data-at="1"><span class="pchip-ic">📷</span><div><b>Instagram</b><small>3 historias nuevas</small></div></div>
+        <div class="pchip p-l2" data-at="1"><span class="pchip-ic">🔔</span><div><b>12 notificaciones</b><small>mientras dormías</small></div></div>
+        <div class="pchip p-r3" data-at="2"><span class="pchip-ic">▶️</span><div><b>Seguí mirando</b><small>1 video más</small></div></div>
+        <div class="pchip p-l3" data-at="2"><span class="pchip-ic">🛒</span><div><b>Oferta relámpago</b><small>termina pronto</small></div></div>
+      </div>
       <div class="phone2">
         <span class="phone2-cam"></span>
         <div class="phone2-screen">
@@ -1093,6 +1122,7 @@ body.nc-shake{animation:ncPageShake .5s cubic-bezier(.36,.07,.19,.97)}
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // scroll nativo
   var posts=[].slice.call(feed.children),
       dots=[].slice.call(document.querySelectorAll('#painDots i')),
+      chips=[].slice.call(document.querySelectorAll('.pchip')),
       N=posts.length;
   document.documentElement.classList.add('pain-js');
   function setVH(){ feed.style.setProperty('--pvh', viewport.clientHeight+'px'); }
@@ -1100,11 +1130,14 @@ body.nc-shake{animation:ncPageShake .5s cubic-bezier(.36,.07,.19,.97)}
     var total=scrolly.offsetHeight - window.innerHeight;
     var top=scrolly.getBoundingClientRect().top;
     var p= total>0 ? Math.min(Math.max(-top,0),total)/total : 0;
+    // dwell: 10% de reposo al inicio y al final para que cada situación quede centrada
+    var q= Math.min(Math.max((p-0.10)/0.80, 0), 1);
     var h=viewport.clientHeight;
-    feed.style.transform='translateY('+(-(p*(N-1))*h)+'px)';
-    var active=Math.round(p*(N-1));
+    feed.style.transform='translateY('+(-(q*(N-1))*h)+'px)';
+    var active=Math.round(q*(N-1));
     dots.forEach(function(d,i){ d.classList.toggle('on', i===active); });
     posts.forEach(function(el,i){ el.classList.toggle('active', i===active); });
+    chips.forEach(function(c){ c.classList.toggle('on', (+c.dataset.at) <= active); });
   }
   setVH(); onScroll();
   window.addEventListener('scroll',function(){ requestAnimationFrame(onScroll); },{passive:true});
