@@ -308,6 +308,46 @@ footer .brand small{color:rgba(255,255,255,.5)}
 .countdown-express .xc-grace b{color:#dc2626}
 .countdown-express.expired .cd-label,.countdown-express.expired .cd-clock{display:none}
 .countdown-express.expired .xc-grace{display:block}
+
+/* ===================== DOLORES · celular scrolleable ===================== */
+.pain2{padding-top:clamp(48px,7vw,84px);padding-bottom:0}
+.pain2-hint{margin-top:10px;color:var(--muted);font-size:.95rem}
+.pain-scrolly{position:relative}
+.pain-sticky{display:flex;flex-direction:column;align-items:center;gap:18px;padding:32px 0}
+.pain-js .pain-scrolly{height:280vh}
+.pain-js .pain-sticky{position:sticky;top:0;height:100vh;justify-content:center;padding:0}
+.phone2{position:relative;width:min(300px,80vw);background:#0b1420;border-radius:46px;padding:13px;box-shadow:0 34px 80px -22px rgba(12,52,82,.55),inset 0 0 0 2px rgba(255,255,255,.05)}
+@media(max-height:720px){.phone2{width:min(250px,64vw)}}
+.phone2-cam{position:absolute;top:22px;left:50%;transform:translateX(-50%);width:52px;height:15px;background:#05090f;border-radius:11px;z-index:4}
+.phone2-screen{position:relative;background:#f4f6f8;border-radius:34px;overflow:hidden;aspect-ratio:9/19.3}
+.phone2-bar{position:absolute;top:0;left:0;right:0;height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-family:'Montserrat',sans-serif;font-size:.7rem;font-weight:700;color:var(--ink);z-index:3}
+.phone2-bar .p2-ic{display:flex;gap:5px;align-items:center}
+.phone2-bar .p2-ic i{display:block;background:var(--ink)}
+.phone2-bar .sig{width:16px;height:9px;clip-path:polygon(0 100%,18% 100%,18% 62%,38% 62%,38% 100%,54% 100%,54% 34%,72% 34%,72% 100%,84% 100%,84% 6%,100% 6%,100% 100%)}
+.phone2-bar .wifi{width:13px;height:9px;border-radius:2px}
+.phone2-bar .bat{width:17px;height:9px;border-radius:2px}
+.pain-viewport{position:absolute;top:32px;left:0;right:0;bottom:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.pain-js .pain-viewport{overflow:hidden}
+.pain-feed{transition:none}
+.pfeed{height:var(--pvh,440px);display:flex;flex-direction:column;background:#f4f6f8;opacity:1;transition:opacity .45s var(--ease)}
+.pain-js .pfeed{opacity:.4}
+.pain-js .pfeed.active{opacity:1}
+.pfeed-top{display:flex;align-items:center;gap:9px;padding:11px 13px}
+.pfeed-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--orange),#ff9a4d);flex:none}
+.pfeed-top b{font-family:'Montserrat',sans-serif;font-size:.82rem;color:var(--ink);display:block;line-height:1.1}
+.pfeed-top small{font-size:.66rem;color:var(--muted)}
+.pfeed-num{margin-left:auto;font-family:'Montserrat',sans-serif;font-weight:800;font-size:.86rem;color:#fff;background:var(--orange);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
+.pfeed-media{flex:1;min-height:0;position:relative;background:#0c1622}
+.pfeed-media img{width:100%;height:100%;object-fit:cover;display:block}
+.pfeed-cap{padding:12px 14px 26px;background:#fff}
+.pfeed-cap p{font-size:.86rem;line-height:1.5;color:var(--body)}
+.pfeed-cap strong{color:var(--ink)}
+.phone2-home{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:38%;height:5px;border-radius:5px;background:rgba(12,22,34,.28);z-index:3}
+.pain-dots{display:flex;gap:8px}
+.pain-dots i{width:8px;height:8px;border-radius:50%;background:var(--hairline);transition:all .3s var(--ease)}
+.pain-dots i.on{background:var(--orange);width:22px;border-radius:5px}
+.pain2 .mirror-close{max-width:680px;margin:clamp(36px,6vw,60px) auto 0}
+@media(prefers-reduced-motion:reduce){.pain-js .pain-scrolly{height:auto}.pain-js .pain-sticky{position:static;height:auto;padding:32px 0}.pain-js .pain-viewport{overflow-y:auto}.pain-js .pfeed{opacity:1}}
 </style>
 </head>
 <body>
@@ -350,24 +390,44 @@ footer .brand small{color:rgba(255,255,255,.5)}
   </div>
 </header>
 
-<!-- ===================== DOLORES ===================== -->
-<section>
-  <div class="wrap">
-    <div class="center"><h2 class="reveal">¿No te pasó que…?</h2></div>
-    <div class="mirror-grid">
-      <div class="pain reveal">
-        <div class="pain-img"><img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/dolor-1.jpg" alt="Persona scrolleando el celular mientras el trabajo espera" loading="lazy" width="950" height="1187"></div>
-        <div class="pain-body"><span class="pn">01</span><p>Agarrás el celular para mandar <strong>un</strong> mensaje y a los 40 minutos seguís ahí, <strong>sin saber para qué lo agarraste</strong>.</p></div>
+<!-- ===================== DOLORES (celular scrolleable) ===================== -->
+<section class="pain2">
+  <div class="wrap center">
+    <h2 class="reveal">¿No te pasó que…?</h2>
+    <p class="pain2-hint reveal d1">Bajá despacio y mirate en la pantalla <span>👇</span></p>
+  </div>
+  <div class="pain-scrolly" id="painScrolly">
+    <div class="pain-sticky">
+      <div class="phone2">
+        <span class="phone2-cam"></span>
+        <div class="phone2-screen">
+          <div class="phone2-bar"><span class="p2-time">9:41</span><span class="p2-ic"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span></div>
+          <div class="pain-viewport" id="painViewport">
+            <div class="pain-feed" id="painFeed">
+              <article class="pfeed active" data-i="0">
+                <div class="pfeed-top"><span class="pfeed-av"></span><div><b>vos</b><small>ahora mismo</small></div><span class="pfeed-num">01</span></div>
+                <div class="pfeed-media"><img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/dolor-1.jpg" alt="Persona scrolleando el celular mientras el trabajo espera" loading="lazy" width="950" height="1187"></div>
+                <div class="pfeed-cap"><p>Agarrás el celular para mandar <strong>un</strong> mensaje y a los 40 minutos seguís ahí, <strong>sin saber para qué lo agarraste</strong>.</p></div>
+              </article>
+              <article class="pfeed" data-i="1">
+                <div class="pfeed-top"><span class="pfeed-av"></span><div><b>vos</b><small>2:17 a.m.</small></div><span class="pfeed-num">02</span></div>
+                <div class="pfeed-media"><img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/dolor-2.jpg" alt="Persona en la cama de noche mirando el celular a las 2 de la mañana" loading="lazy" width="950" height="1187"></div>
+                <div class="pfeed-cap"><p>Llegás a la cama muerto de cansancio y, en vez de dormir, te quedás scrolleando una hora más, <strong>robándote el sueño que necesitás</strong>.</p></div>
+              </article>
+              <article class="pfeed" data-i="2">
+                <div class="pfeed-top"><span class="pfeed-av"></span><div><b>vos</b><small>en la cena</small></div><span class="pfeed-num">03</span></div>
+                <div class="pfeed-media"><img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/dolor-3.jpg" alt="Persona en la cena familiar mirando el celular mientras su familia comparte" loading="lazy" width="950" height="1187"></div>
+                <div class="pfeed-cap"><p>Estás con tus hijos, con tu pareja, y una parte de tu cabeza ya está calculando <strong>cuándo vas a poder mirar el teléfono otra vez</strong>.</p></div>
+              </article>
+            </div>
+          </div>
+          <span class="phone2-home"></span>
+        </div>
       </div>
-      <div class="pain reveal d1">
-        <div class="pain-img"><img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/dolor-2.jpg" alt="Persona en la cama de noche mirando el celular a las 2 de la mañana" loading="lazy" width="950" height="1187"></div>
-        <div class="pain-body"><span class="pn">02</span><p>Llegás a la cama muerto de cansancio y, en vez de dormir, te quedás scrolleando una hora más, <strong>robándote el sueño que necesitás</strong>.</p></div>
-      </div>
-      <div class="pain reveal d2">
-        <div class="pain-img"><img src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/dolor-3.jpg" alt="Persona en la cena familiar mirando el celular mientras su familia comparte" loading="lazy" width="950" height="1187"></div>
-        <div class="pain-body"><span class="pn">03</span><p>Estás con tus hijos, con tu pareja, y una parte de tu cabeza ya está calculando <strong>cuándo vas a poder mirar el teléfono otra vez</strong>.</p></div>
-      </div>
+      <div class="pain-dots" id="painDots"><i class="on"></i><i></i><i></i></div>
     </div>
+  </div>
+  <div class="wrap center">
     <p class="mirror-close reveal">Si te pasó aunque sea una, es que estás peleando por tu concentración en un mundo hiperconectado. <span class="hl">El celular está diseñado para robar tu atención</span>, y nadie te dio las herramientas para defenderte. Hasta hoy.</p>
   </div>
 </section>
@@ -972,6 +1032,36 @@ footer .brand small{color:rgba(255,255,255,.5)}
   }
 
   document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+
+<script>
+/* Teléfono scrolleable de la sección DOLORES (scrollytelling) */
+(function(){
+  var scrolly=document.getElementById('painScrolly'),
+      viewport=document.getElementById('painViewport'),
+      feed=document.getElementById('painFeed');
+  if(!scrolly||!viewport||!feed) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // scroll nativo
+  var posts=[].slice.call(feed.children),
+      dots=[].slice.call(document.querySelectorAll('#painDots i')),
+      N=posts.length;
+  document.documentElement.classList.add('pain-js');
+  function setVH(){ feed.style.setProperty('--pvh', viewport.clientHeight+'px'); }
+  function onScroll(){
+    var total=scrolly.offsetHeight - window.innerHeight;
+    var top=scrolly.getBoundingClientRect().top;
+    var p= total>0 ? Math.min(Math.max(-top,0),total)/total : 0;
+    var h=viewport.clientHeight;
+    feed.style.transform='translateY('+(-(p*(N-1))*h)+'px)';
+    var active=Math.round(p*(N-1));
+    dots.forEach(function(d,i){ d.classList.toggle('on', i===active); });
+    posts.forEach(function(el,i){ el.classList.toggle('active', i===active); });
+  }
+  setVH(); onScroll();
+  window.addEventListener('scroll',function(){ requestAnimationFrame(onScroll); },{passive:true});
+  window.addEventListener('resize',function(){ setVH(); onScroll(); });
+  window.addEventListener('load', function(){ setVH(); onScroll(); });
 })();
 </script>
 </body>
