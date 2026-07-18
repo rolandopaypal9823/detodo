@@ -54,7 +54,16 @@ CHAT_CSS = r"""
 .nc-opts button:hover{background:var(--orange);color:#fff}
 @keyframes ncPageShake{0%,100%{transform:translate3d(0,0,0)}15%{transform:translate3d(-7px,2px,0)}30%{transform:translate3d(7px,-2px,0)}45%{transform:translate3d(-5px,1px,0)}60%{transform:translate3d(5px,-1px,0)}75%{transform:translate3d(-3px,1px,0)}90%{transform:translate3d(3px,0,0)}}
 body.nc-shake{animation:ncPageShake .5s cubic-bezier(.36,.07,.19,.97)}
-@media(prefers-reduced-motion:reduce){body.nc-shake{animation:none}.nc-push{transition:none}}
+/* Redondito flotante para reabrir el chat (launcher) */
+.nc-launch{position:fixed;right:18px;bottom:18px;z-index:96;width:62px;height:62px;border-radius:50%;border:none;cursor:pointer;padding:0;background:var(--ink);box-shadow:0 12px 30px rgba(12,52,82,.4);display:none;align-items:center;justify-content:center;transition:transform .2s var(--ease)}
+.nc-launch.show{display:flex;animation:ncpop .4s var(--ease)}
+.nc-launch:hover{transform:scale(1.07)}
+.nc-launch::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 0 rgba(255,102,2,.45);animation:ncPulse 2.8s infinite}
+@keyframes ncPulse{0%{box-shadow:0 0 0 0 rgba(255,102,2,.4)}70%{box-shadow:0 0 0 14px rgba(255,102,2,0)}100%{box-shadow:0 0 0 0 rgba(255,102,2,0)}}
+.nc-launch-face{width:100%;height:100%;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.3rem;background:var(--ink)}
+.nc-launch-face img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.nc-launch-badge{position:absolute;top:-3px;right:-3px;width:22px;height:22px;border-radius:50%;background:var(--orange);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:.64rem;z-index:1}
+@media(prefers-reduced-motion:reduce){body.nc-shake{animation:none}.nc-push{transition:none}.nc-launch::after{animation:none}}
 """
 
 # ------------------------------------------------------------------ HTML
@@ -80,6 +89,10 @@ CHAT_HTML = r"""
   <div class="nc-body" id="nc-body"></div>
   <div class="nc-opts" id="nc-opts"></div>
 </div>
+<button class="nc-launch" id="nc-launch" aria-label="Abrir el chat con Nico">
+  <span class="nc-launch-face" id="nc-launch-face">N</span>
+  <span class="nc-launch-badge">💬</span>
+</button>
 """
 
 # ------------------------------------------------------------------ JS
@@ -88,21 +101,33 @@ CHAT_JS = r"""
   /* ═══════════ CONFIG (editá esto) ═══════════ */
   var CHECKOUT_URL = "#oferta";   // dónde manda el CTA final del chat. '#oferta' = baja a la oferta.
                                   //   Cuando tengas el link de Mercado Pago, ponelo acá (ej: "https://mpago.la/...").
-  var NICO_AVATAR  = "";          // foto de Nico (URL o dataURI). Vacío = usa la inicial "N".
+  var NICO_AVATAR  = "https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/03ab5f2c-3658-4a65-bae8-194c23358cdc.png";  // foto de Nico (avatar). Vacío = inicial "N".
   var TEST_MODE    = /[?#&]test/.test(location.href);   // ?test acelera los tiempos para probar
   var CHAT_DELAY_MS = 50000;      // espera antes del primer mensaje (producción)
   /* ════════════════════════════════════════════ */
 
   if(NICO_AVATAR){
-    var a1=document.getElementById('nc-push-av'), a2=document.getElementById('nc-chat-av');
+    var a1=document.getElementById('nc-push-av'), a2=document.getElementById('nc-chat-av'), a3=document.getElementById('nc-launch-face');
     if(a1) a1.innerHTML='<img src="'+NICO_AVATAR+'" alt="Nico">';
     if(a2) a2.innerHTML='<img src="'+NICO_AVATAR+'" alt="Nico">';
+    if(a3) a3.innerHTML='<img src="'+NICO_AVATAR+'" alt="Nico">';
   }
 
   var push=document.getElementById('nc-push'), chat=document.getElementById('nc-chat');
   var body=document.getElementById('nc-body'), opts=document.getElementById('nc-opts');
+  var launch=document.getElementById('nc-launch');
   if(!push||!chat) return;
   var pushShown=false, chatOpened=false, shakeEnabled=true;
+
+  /* "Mostrar una sola vez": si el visitante ya vio el chat en una visita anterior,
+     no vuelve a aparecer solo. Queda el redondito para reabrirlo cuando quiera. */
+  var SHOWN_KEY='nc_shown_v1';
+  var alreadyShown=false;
+  try{ alreadyShown = !TEST_MODE && localStorage.getItem(SHOWN_KEY)==='1'; }catch(e){}
+  function markShown(){ try{ localStorage.setItem(SHOWN_KEY,'1'); }catch(e){} }
+  function showLauncher(){ if(launch) launch.classList.add('show'); }
+  function hideLauncher(){ if(launch) launch.classList.remove('show'); }
+  if(launch) launch.addEventListener('click', chatOpen);
 
   var PUSH_MSGS=[
     '¿Te puedo ser 100% honesto un segundo? 💬',
@@ -127,14 +152,20 @@ CHAT_JS = r"""
     if(pushStep<PUSH_MSGS.length){ setTimeout(showPushStep,gap); }
     else { setTimeout(function(){ if(!chatOpened) seedAndDock(); },gap); }
   }
-  function tryPush(){ if(pushShown) return; if(modalOpen()){ return setTimeout(tryPush,10000); } pushShown=true; showPushStep(); }
-  setTimeout(tryPush, TEST_MODE ? 3000 : CHAT_DELAY_MS);
-  window.addEventListener('scroll',function(){ if(!pushShown && window.scrollY>document.body.scrollHeight*.6) tryPush(); },{passive:true});
+  function tryPush(){ if(pushShown) return; if(modalOpen()){ return setTimeout(tryPush,10000); } pushShown=true; markShown(); showPushStep(); }
+
+  if(alreadyShown){
+    // Ya lo vio antes: nada de aparecer solo. Solo el redondito para reabrir.
+    showLauncher();
+  } else {
+    setTimeout(tryPush, TEST_MODE ? 3000 : CHAT_DELAY_MS);
+    window.addEventListener('scroll',function(){ if(!pushShown && window.scrollY>document.body.scrollHeight*.6) tryPush(); },{passive:true});
+  }
 
   push.addEventListener('click',function(){ push.classList.remove('show'); chatOpen(); });
   var closeBtn=document.getElementById('nc-close'); if(closeBtn) closeBtn.addEventListener('click',chatClose);
-  function chatClose(){ chat.classList.remove('open'); }
-  function chatOpen(){ shakeEnabled=false; if(chatOpened){ chat.classList.add('open'); return; } chatOpened=true; chat.classList.add('open'); step('intro'); }
+  function chatClose(){ chat.classList.remove('open'); showLauncher(); }        // al cerrar con la X → queda el redondito
+  function chatOpen(){ markShown(); hideLauncher(); push.classList.remove('show'); shakeEnabled=false; if(chatOpened){ chat.classList.add('open'); return; } chatOpened=true; chat.classList.add('open'); step('intro'); }
 
   function seedAndDock(){
     if(chatOpened) return;
