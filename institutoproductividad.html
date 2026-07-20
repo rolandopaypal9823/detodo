@@ -332,6 +332,15 @@ a{color:inherit}
 .mini-case .mc-who a{color:var(--nfm-orange-text);font-weight:700;text-decoration:none}
 .mini-cta{max-width:440px;margin:0 auto}
 .mini-cta .btn{width:100%}
+.mini-prog{border:2px solid var(--nfm-orange);background:var(--nfm-orange-wash);border-radius:16px;padding:22px 22px 24px;max-width:520px;margin:0 auto 22px;text-align:left;box-shadow:0 16px 40px -14px rgba(255,102,2,.28)}
+.mini-prog__head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.mini-prog__name{font-family:'Montserrat',sans-serif;font-weight:900;font-size:22px;color:var(--nfm-blue)}
+.mini-prog__tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nfm-orange-text);background:#fff;border:1px solid rgba(255,102,2,.25);padding:4px 10px;border-radius:100px}
+.mini-prog__list{list-style:none;padding:0;margin:0 0 18px;display:grid;gap:9px}
+.mini-prog__list li{position:relative;padding-left:26px;font-size:14px;color:var(--nfm-blue);line-height:1.4}
+.mini-prog__list li::before{content:"✓";position:absolute;left:0;top:0;width:18px;height:18px;border-radius:50%;background:var(--nfm-orange);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1}
+.mini-prog .btn{width:100%}
+.mini-mirror-cap{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mono-grey);margin:4px 0 14px}
 
 /* ---------- CTA FINAL / AGENDAR ---------- */
 .apply{text-align:center}
@@ -986,23 +995,29 @@ a{color:inherit}
 <section class="section tint" id="minitest">
   <div class="wrap center">
     <div class="center"><span class="eyebrow">Diagnóstico de alto rendimiento</span></div>
-    <h2 class="h2">30 segundos: ¿en qué punto estás?</h2>
-    <p class="lead-2">Respondé tres preguntas y te muestro exactamente el caso de alguien que estaba igual que vos — y cómo lo resolvió acá adentro.</p>
+    <h2 class="h2">30 segundos y sabés por dónde <span class="hl">empezar</span></h2>
+    <p class="lead-2">Respondé 4 preguntas rápidas y te digo qué programa encaja con tu momento —Gold o Platinum— y te muestro el caso de alguien que estaba igual que vos.</p>
     <div class="mini-shell mini">
       <div class="mini-progress"><div class="bar" id="mbar"></div></div>
 
       <div class="mini-intro" id="miniIntro">
-        <h3>¿Cuál de estas tres te representa más hoy?</h3>
-        <p>Sin vueltas. Elegí la que más te duele y te muestro un caso real igual al tuyo.</p>
+        <h3>Empecemos por lo más importante</h3>
+        <p>4 preguntas rápidas. Al final te digo por dónde empezar —Gold o Platinum— y te muestro un caso real igual al tuyo.</p>
         <button class="btn btn-primary btn-lg" onclick="mStart()">Empezar <span class="arrow">→</span></button>
       </div>
 
       <div class="mini-inner"><div id="miniSteps"></div></div>
 
       <div class="mini-result" id="miniResult">
-        <span class="mono">★ Tu caso espejo</span>
+        <span class="mono">★ Tu diagnóstico</span>
         <h3 id="mResTitle">—</h3>
         <p class="rlead" id="mResLead">—</p>
+        <div class="mini-prog">
+          <div class="mini-prog__head"><span class="mini-prog__name" id="mProgName">—</span><span class="mini-prog__tag" id="mProgTag">—</span></div>
+          <ul class="mini-prog__list" id="mProgList"></ul>
+          <a href="#agendar" class="btn btn-primary" id="mProgCta">—</a>
+        </div>
+        <div class="mini-mirror-cap">Y alguien que estaba igual que vos ya lo resolvió:</div>
         <div class="mini-case">
           <div class="mc-thumb" id="mCaseThumb"><div class="play"></div></div>
           <div class="mc-body">
@@ -1011,7 +1026,7 @@ a{color:inherit}
           </div>
         </div>
         <div class="mini-cta">
-          <a href="#agendar" class="btn btn-primary btn-lg" onclick="goAgendar(event,'minitest')">Quiero resolver esto: agendar mi entrevista <span class="arrow">→</span></a>
+          <a href="#programas" class="btn btn-ghost-blue" onclick="event.preventDefault();document.getElementById('programas').scrollIntoView({behavior:'smooth'})">Comparar Gold y Platinum</a>
         </div>
       </div>
     </div>
@@ -1101,13 +1116,29 @@ const MINI = {
   }
 };
 
-/* ---------- Minitest (3 caminos, elección directa por perfil) ---------- */
+/* ---------- Programas recomendados por el diagnóstico ----------
+   Ruteo por nivel de acompañamiento (tier: 'g'=Gold, 'p'=Platinum).
+   Para cambiar la lógica, ajustá los 'tier' en MINI_Q y estos textos. */
+const PROGRAMS = {
+  g:{ name:"Gold", tag:"Estándar",
+    head:'Empezá por <b>Gold</b>',
+    why:"Sos de los que avanzan con estructura y no necesitan que les respiren en la nuca. Con el método completo y la comunidad te alcanza para instalar tu sistema y sostenerlo.",
+    bullets:["El método completo (22 módulos)","Comunidad de pares + llamadas grupales","Sistemas listos + certificado con aval universitario"],
+    cta:"Aplicar para Gold", origen:"minitest_gold" },
+  p:{ name:"Platinum", tag:"Premium",
+    head:'Te conviene <b>Platinum</b>',
+    why:"Por tu momento, lo que más te va a servir es tener a alguien encima de tu caso que no te deje aflojar. El acompañamiento 1 a 1 y el equipo detrás son justo lo que sostiene el cambio cuando ya intentaste solo.",
+    bullets:["Todo lo de Gold + Accountability Coach 1 a 1","Equipo multidisciplinario siguiéndote de cerca","Consultoría directa con Nico + mastermind presencial"],
+    cta:"Aplicar para Platinum", origen:"minitest_platinum" }
+};
+
+/* ---------- Minitest (perfil para el caso espejo + ruteo a programa) ---------- */
 const MINI_Q = [
   { q:"¿Cuál de estas tres te representa más hoy?",
     opts:[
       {t:"Sé qué tengo que hacer, y no arranco. Me distraigo, pospongo, agarro el celular.", k:"b"},
       {t:"No paro nunca y aun así no avanzo en lo mío. Lo urgente me tapa lo importante.", k:"a"},
-      {t:"Ya intenté de todo y me caigo siempre en el mismo punto. Vivo cansado.", k:"c"},
+      {t:"Ya intenté de todo y me caigo siempre en el mismo punto. Vivo cansado.", k:"c", tier:"p"},
     ]},
   { q:"Cuando pensás en tu energía y tu descanso…",
     opts:[
@@ -1117,13 +1148,19 @@ const MINI_Q = [
     ]},
   { q:"Y si sos honesto, hace cuánto venís con esto…",
     opts:[
-      {t:"Años. Ya me cansé y quiero resolverlo en serio.", k:"c"},
+      {t:"Años. Ya me cansé y quiero resolverlo en serio.", k:"c", tier:"p"},
       {t:"Meses, y lo veo crecer.", k:"a"},
-      {t:"Lo tengo claro hace rato, me falta dar el paso.", k:"b"},
+      {t:"Lo tengo claro hace rato, me falta dar el paso.", k:"b", tier:"g"},
+    ]},
+  { q:"Para sostenerlo de verdad, ¿cómo te ves avanzando mejor?",
+    opts:[
+      {t:"Solo/a, con un método claro y una comunidad, a mi ritmo.", k:"b", tier:"g"},
+      {t:"Con alguien que me siga 1 a 1 y no me deje aflojar cuando baje la motivación.", k:"a", tier:"p"},
+      {t:"Quiero el máximo acompañamiento: un equipo encima de mi caso.", k:"c", tier:"p"},
     ]},
 ];
 
-let mIdx=0; const mAns=[];
+let mIdx=0; const mAns=[]; const mTier=[];
 const mHost=document.getElementById('miniSteps');
 MINI_Q.forEach((item,i)=>{
   const d=document.createElement('div'); d.className='mini-step';
@@ -1136,6 +1173,7 @@ function mBar(){ const total=MINI_Q.length; document.getElementById('mbar').styl
 function mStart(){ document.getElementById('miniIntro').style.display='none'; mIdx=0; mSteps[0].classList.add('active'); mBar(); }
 function mAnswer(qi,oi){
   mAns[qi]=MINI_Q[qi].opts[oi].k;
+  mTier[qi]=MINI_Q[qi].opts[oi].tier||'';
   mSteps[qi].classList.remove('active');
   if(qi+1<mSteps.length){
     mIdx=qi+1; mSteps[qi+1].classList.add('active'); mBar();
@@ -1146,13 +1184,26 @@ function mAnswer(qi,oi){
   }
 }
 function mShowResult(){
-  const cnt={a:0,b:0,c:0}; mAns.forEach(k=> cnt[k]++);
-  let perfil=mAns[0]||'a',max=-1;
+  // Perfil (dolor) para el caso espejo — con las 3 primeras respuestas
+  const first3=mAns.slice(0,3);
+  const cnt={a:0,b:0,c:0}; first3.forEach(k=> cnt[k]++);
+  let perfil=first3[0]||'a',max=-1;
   for(const k of ['b','a','c']){ if(cnt[k]>max){max=cnt[k];perfil=k;} }
-  if(mAns[0] && cnt[mAns[0]]===max) perfil=mAns[0];
+  if(first3[0] && cnt[first3[0]]===max) perfil=first3[0];
+  // Programa recomendado — según pesos de acompañamiento (empate -> Platinum)
+  let g=0,p=0; mTier.forEach(function(t){ if(t==='g')g++; else if(t==='p')p++; });
+  const tierKey=(p>=g)?'p':'g';
+  const P=PROGRAMS[tierKey];
+  document.getElementById('mResTitle').innerHTML=P.head;
+  document.getElementById('mResLead').innerHTML=P.why;
+  document.getElementById('mProgName').textContent=P.name;
+  document.getElementById('mProgTag').textContent=P.tag;
+  document.getElementById('mProgList').innerHTML=P.bullets.map(function(b){return '<li>'+b+'</li>';}).join('');
+  var cta=document.getElementById('mProgCta');
+  cta.innerHTML=P.cta+(tierKey==='p'?' <span class="arrow">→</span>':'');
+  cta.onclick=function(e){ goAgendar(e, P.origen); };
+  // Caso espejo (prueba social)
   const m=MINI[perfil];
-  document.getElementById('mResTitle').textContent=m.title;
-  document.getElementById('mResLead').innerHTML=m.lead;
   document.getElementById('mCaseQuote').textContent=m.quote;
   document.getElementById('mCaseWho').innerHTML=m.who+` · <a href="${m.link}" target="_blank" rel="noopener">▶ ver en YouTube</a>`;
   (function(){
@@ -1162,7 +1213,7 @@ function mShowResult(){
   })();
   document.getElementById('miniResult').classList.add('active');
   document.getElementById('mbar').style.width='100%';
-  enviarASheets({tipo:'minitest_instituto', perfil_key:perfil, respuestas:mAns.join(' | '), fuente:getUTM(), url:location.href});
+  enviarASheets({tipo:'minitest_instituto', perfil_key:perfil, programa:P.name, respuestas:mAns.join(' | '), fuente:getUTM(), url:location.href});
 }
 
 /* ---------- Testimonios / casos (click-to-play YouTube) ---------- */
