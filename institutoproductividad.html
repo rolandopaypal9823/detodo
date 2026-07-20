@@ -196,6 +196,21 @@ a{color:inherit}
 .ic h3{font-weight:800;font-size:16px;margin-bottom:6px;color:var(--nfm-blue)}
 .ic p{font-size:13.5px;color:var(--muted);line-height:1.5}
 .incl-note{margin-top:34px;text-align:center;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mono-grey)}
+/* Recuadros de beneficio con foto real */
+.bcards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:26px;text-align:left}
+.bcard{background:#fff;border:1px solid var(--hair);border-radius:16px;overflow:hidden;box-shadow:0 12px 32px rgba(12,52,82,.06);display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s}
+.bcard:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(12,52,82,.1)}
+.bcard__ph{position:relative;aspect-ratio:4/3;background:linear-gradient(150deg,#eef3f7,#dae5ee);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.bcard__ph img{width:100%;height:100%;object-fit:cover}
+.bcard__body{padding:16px 18px 20px}
+.bcard__tag{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nfm-orange-text);font-weight:500}
+.bcard__body h3{font-weight:800;font-size:15px;color:var(--nfm-blue);margin:6px 0 6px}
+.bcard__body p{font-size:13px;color:var(--muted);line-height:1.5}
+.photo-slot--sm .photo-slot__inner{gap:9px;padding:16px}
+.photo-slot--sm .photo-slot__icon{width:40px;height:40px;border-radius:11px}
+.photo-slot--sm .photo-slot__icon svg{width:20px;height:20px}
+.photo-slot--sm .photo-slot__label{font-size:10px;letter-spacing:.1em}
+.photo-slot--sm .photo-slot__label span{font-size:9px}
 
 /* ---------- ENFOQUE INTEGRAL / PILARES ---------- */
 .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:44px}
@@ -289,6 +304,7 @@ a{color:inherit}
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:980px){
   .incl-grid{grid-template-columns:repeat(2,1fr)}
+  .bcards{grid-template-columns:repeat(2,1fr)}
   .nfm-team__grid{grid-template-columns:repeat(2,1fr);gap:20px}
 }
 @media(max-width:900px){
@@ -302,6 +318,7 @@ a{color:inherit}
 }
 @media(max-width:640px){
   .incl-grid{grid-template-columns:1fr}
+  .bcards{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}
   .nfm-team__grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}
   .brand__top{font-size:8.5px;letter-spacing:.22em}
   .brand__bottom{font-size:14px}
@@ -464,19 +481,76 @@ a{color:inherit}
           <div class="photo-slot__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
           </div>
-          <div class="photo-slot__label">Espacio para foto<span>Certificado / acto de graduación</span></div>
+          <div class="photo-slot__label">Recuadro 1 · Foto<span>Aval · certificado / acto de graduación</span></div>
         </div>
       </figure>
     </div>
 
-    <p class="feat-sep">Y además, todo lo que sostiene el cambio en el día a día:</p>
+    <p class="feat-sep">Y así se ve por dentro — cada pieza del acompañamiento con su foto real:</p>
 
-    <!-- Beneficios secundarios -->
-    <div class="incl-grid" style="text-align:left">
-      <div class="ic"><span class="mk">01</span><div><h3>Accountability Coach 1 a 1</h3><p>Un coach que te conoce, te sigue de cerca y te lleva a los lugares incómodos donde está el crecimiento. Lo que los alumnos valoran por encima de todo (8.8/10).</p></div></div>
-      <div class="ic"><span class="mk">02</span><div><h3>Biblioteca de 22 módulos</h3><p>El método completo, ordenado y secuencial: mentalidad, foco, energía, hábitos, sistemas. Píldoras cortas y accionables, no teoría.</p></div></div>
-      <div class="ic"><span class="mk">03</span><div><h3>Llamadas grupales en vivo</h3><p>Encuentros con Nico y el equipo para resolver tu caso real. "No solo se aprende de Nico, sino de los mismos compañeros."</p></div></div>
-      <div class="ic"><span class="mk">04</span><div><h3>Comunidad de pares</h3><p>Un grupo donde nadie juzga y todos acompañan. Gente en tu mismo camino — incluidas juntadas y mastermind presencial.</p></div></div>
+    <!-- Beneficios con foto (recuadros 2 a 5) -->
+    <div class="bcards">
+
+      <div class="bcard">
+        <div class="bcard__ph photo-slot photo-slot--sm">
+          <div class="photo-slot__inner">
+            <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="photo-slot__label">Recuadro 2 · Foto<span>Acompañamiento 1 a 1</span></div>
+          </div>
+        </div>
+        <div class="bcard__body">
+          <span class="bcard__tag">01 · Incluido</span>
+          <h3>Accountability Coach 1 a 1</h3>
+          <p>Un coach que te conoce y te sigue de cerca. Es lo que los alumnos valoran por encima de todo (8.8/10).</p>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bcard__ph photo-slot photo-slot--sm">
+          <div class="photo-slot__inner">
+            <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="photo-slot__label">Recuadro 3 · Foto<span>Método · Nico grabando / enseñando</span></div>
+          </div>
+        </div>
+        <div class="bcard__body">
+          <span class="bcard__tag">02 · Incluido</span>
+          <h3>Biblioteca de 22 módulos</h3>
+          <p>El método completo, ordenado y secuencial. Píldoras cortas y accionables, no teoría.</p>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bcard__ph photo-slot photo-slot--sm">
+          <div class="photo-slot__inner">
+            <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="photo-slot__label">Recuadro 4 · Foto<span>Llamadas / encuentros en vivo</span></div>
+          </div>
+        </div>
+        <div class="bcard__body">
+          <span class="bcard__tag">03 · Incluido</span>
+          <h3>Llamadas grupales en vivo</h3>
+          <p>Encuentros con Nico y el equipo para resolver tu caso real, y aprender de los compañeros.</p>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bcard__ph photo-slot photo-slot--sm">
+          <div class="photo-slot__inner">
+            <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="photo-slot__label">Recuadro 5 · Foto<span>Comunidad / mastermind presencial</span></div>
+          </div>
+        </div>
+        <div class="bcard__body">
+          <span class="bcard__tag">04 · Incluido</span>
+          <h3>Comunidad de pares</h3>
+          <p>Un grupo donde nadie juzga y todos acompañan — incluidas juntadas y mastermind presencial.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Beneficios sin foto (se quedan como tarjetas de ícono) -->
+    <div class="incl-grid" style="grid-template-columns:repeat(2,1fr);max-width:760px;margin-left:auto;margin-right:auto;text-align:left">
       <div class="ic"><span class="mk">05</span><div><h3>Sistemas listos para usar</h3><p>Habit Tracker y Second Brain para sacarte la carga de la cabeza y cerrar las fugas en segundo plano. Copiás, adaptás, aplicás.</p></div></div>
       <div class="ic"><span class="mk">06</span><div><h3>Enfoque integral, no solo "hacer más"</h3><p>Trabajamos el cuerpo (sueño, alimentación, ejercicio) como base del rendimiento. Productividad no es hacer más: es sentirte mejor haciéndolo.</p></div></div>
     </div>
