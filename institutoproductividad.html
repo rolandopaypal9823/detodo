@@ -101,7 +101,7 @@ a{color:inherit}
 /* ---------- HERO ---------- */
 .hero{padding:64px 0 40px;position:relative}
 .hero .eyebrow{margin-bottom:24px}
-.hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(32px,5.4vw,60px);line-height:1.04;letter-spacing:-.018em;color:var(--nfm-blue);max-width:14ch;margin:0 auto 20px;text-align:center;text-wrap:balance}
+.hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(32px,5.4vw,60px);line-height:1.04;letter-spacing:-.018em;color:var(--nfm-blue);max-width:17ch;margin:0 auto 20px;text-align:center;text-wrap:balance}
 .hero h1 .hl{color:var(--nfm-orange)}
 .hero h1 .shimmer{background:linear-gradient(100deg,#ff6602 18%,#ff8124 40%,#0c3452 50%,#ff8124 60%,#ff6602 82%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 5.5s linear infinite}
 @keyframes shimmer{to{background-position:200% center}}
@@ -395,8 +395,8 @@ a{color:inherit}
 <section class="hero">
   <div class="wrap">
     <div class="center"><span class="eyebrow fade-up d1">Alto rendimiento con base en neurociencia</span></div>
-    <h1 id="heroTitle">No te falta tiempo ni fuerza de voluntad. Te falta un <span class="shimmer">sistema</span> — y un equipo que te acompañe a sostenerlo.</h1>
-    <p class="sub fade-up d2">El <b>Instituto de Productividad</b> es el programa donde profesionales y emprendedores dejan de correr atrás del reloj y aprenden a rendir el doble sin quemarse. Mirá cómo funciona en este video.</p>
+    <h1 id="heroTitle">¿Por qué sabés lo que tenés que hacer y <span class="shimmer">no lo hacés</span>?</h1>
+    <p class="sub fade-up d2">No es falta de información —eso ya lo tenés. En el <b>Instituto de Productividad</b> no sumás más teoría: la <b>aplicás con el acompañamiento de profesionales</b> especializados en cada área, hasta que el cambio se sostiene. Mirá cómo funciona 👇</p>
 
     <div class="marquee fade-up d3" aria-hidden="true">
       <div class="marquee__row">
@@ -812,6 +812,57 @@ a{color:inherit}
         </div>
       </div>
 
+      <div class="cs">
+        <div class="cs-video">
+          <span class="cs-tag">Ahogado</span>
+          <button class="cs-thumb" type="button" aria-label="Reproducir entrevista de Cristian" onclick="playCase(this,'7x_hvNVvc88')">
+            <img src="https://img.youtube.com/vi/7x_hvNVvc88/hqdefault.jpg" alt="Entrevista a Cristian" loading="lazy">
+            <span class="cs-play"></span>
+          </button>
+        </div>
+        <div class="body">
+          <div class="who">Cristian</div>
+          <div class="prof">Bioquímico · dueño de laboratorio · Jujuy</div>
+          <p class="ab"><b>Antes:</b> empresa creciendo pero él superado e irritable, sin tiempo para sí. <b>Después:</b> maneja todo a distancia, más organizado y en control, con tiempo para su pareja.</p>
+          <p class="cs-quote">"Hiciste bien, vas bien, seguí. Esto es una carrera contra uno mismo."</p>
+          <a class="watch" href="https://www.youtube.com/watch?v=7x_hvNVvc88" target="_blank" rel="noopener">▶ Ver en YouTube</a>
+        </div>
+      </div>
+
+      <div class="cs">
+        <div class="cs-video">
+          <span class="cs-tag">Crónico</span>
+          <button class="cs-thumb" type="button" aria-label="Reproducir entrevista de Agustina" onclick="playCase(this,'Q0dMiePLdq8')">
+            <img src="https://img.youtube.com/vi/Q0dMiePLdq8/hqdefault.jpg" alt="Entrevista a Agustina" loading="lazy">
+            <span class="cs-play"></span>
+          </button>
+        </div>
+        <div class="body">
+          <div class="who">Agustina</div>
+          <div class="prof">Profesora de francés · actriz</div>
+          <p class="ab"><b>Antes:</b> terminó la carrera con la sensación de "¿y ahora qué?", sin norte y en automático. <b>Después:</b> procesó un rechazo con las herramientas, se preparó y ganó una beca para un máster en Francia.</p>
+          <p class="cs-quote">"Confiá y trabajá."</p>
+          <a class="watch" href="https://www.youtube.com/watch?v=Q0dMiePLdq8" target="_blank" rel="noopener">▶ Ver en YouTube</a>
+        </div>
+      </div>
+
+      <div class="cs">
+        <div class="cs-video">
+          <span class="cs-tag">Crónico</span>
+          <button class="cs-thumb" type="button" aria-label="Reproducir entrevista de Andrés" onclick="playCase(this,'C6vf1vHDkJc')">
+            <img src="https://img.youtube.com/vi/C6vf1vHDkJc/hqdefault.jpg" alt="Entrevista a Andrés" loading="lazy">
+            <span class="cs-play"></span>
+          </button>
+        </div>
+        <div class="body">
+          <div class="who">Andrés</div>
+          <div class="prof">Ingeniero agrónomo · líder de equipo</div>
+          <p class="ab"><b>Antes:</b> crecía rápido pero quemándose, "todista", abriendo todos los frentes a costa de su salud. <b>Después:</b> sostiene el crecimiento sin sacrificar otras áreas, prioriza y lidera con método.</p>
+          <p class="cs-quote">"La mejor inversión que uno puede hacer es en uno mismo."</p>
+          <a class="watch" href="https://www.youtube.com/watch?v=C6vf1vHDkJc" target="_blank" rel="noopener">▶ Ver en YouTube</a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -822,7 +873,7 @@ a{color:inherit}
     <div class="center"><span class="eyebrow">Diagnóstico de alto rendimiento</span></div>
     <h2 class="h2">30 segundos: ¿en qué punto estás?</h2>
     <p class="lead-2">Respondé tres preguntas y te muestro exactamente el caso de alguien que estaba igual que vos — y cómo lo resolvió acá adentro.</p>
-    <div class="mini-shell">
+    <div class="mini-shell mini">
       <div class="mini-progress"><div class="bar" id="mbar"></div></div>
 
       <div class="mini-intro" id="miniIntro">
