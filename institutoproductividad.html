@@ -238,18 +238,28 @@ a{color:inherit}
 .nfm-team__bio em{color:var(--nfm-blue);font-style:italic}
 
 /* ---------- CASOS ---------- */
-.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:44px}
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:44px}
 .cs{background:#fff;border:1px solid var(--nfm-blue-light);border-radius:14px;overflow:hidden;box-shadow:0 18px 44px rgba(12,52,82,.09);display:flex;flex-direction:column}
-.cs .thumb{aspect-ratio:16/9;background:var(--nfm-blue-dark);position:relative;display:flex;align-items:center;justify-content:center}
-.cs .thumb .play{width:54px;height:54px;border-radius:50%;background:rgba(255,102,2,.95);display:flex;align-items:center;justify-content:center}
-.cs .thumb .play::after{content:"";border-left:17px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
-.cs .thumb .init{position:absolute;top:12px;left:14px;font-family:'JetBrains Mono';font-size:9px;letter-spacing:.16em;color:rgba(255,255,255,.4);text-transform:uppercase}
-.cs .body{padding:22px 22px 24px;flex:1;display:flex;flex-direction:column}
+.cs-video{position:relative;aspect-ratio:16/9;background:var(--nfm-blue-dark);overflow:hidden}
+.cs-thumb{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;margin:0;cursor:pointer;background:var(--nfm-blue-dark);display:block}
+.cs-thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.94;transition:transform .35s var(--ease),opacity .2s}
+.cs-thumb:hover img{transform:scale(1.04);opacity:1}
+.cs-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;background:rgba(255,102,2,.95);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(255,102,2,.5);transition:transform .18s;pointer-events:none}
+.cs-thumb:hover .cs-play{transform:translate(-50%,-50%) scale(1.08)}
+.cs-play::after{content:"";border-left:19px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px}
+.cs-tag{position:absolute;top:12px;left:12px;z-index:2;font-family:'JetBrains Mono';font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(12,52,82,.72);backdrop-filter:blur(4px);padding:5px 10px;border-radius:100px;pointer-events:none}
+.cs-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.cs .body{padding:20px 22px 22px;flex:1;display:flex;flex-direction:column}
 .cs .who{font-weight:800;font-size:17px;color:var(--nfm-blue)}
 .cs .prof{font-size:13px;color:var(--muted);margin:4px 0 12px}
-.cs .ab{font-size:14px;color:var(--muted);margin-bottom:16px;flex:1}
+.cs .ab{font-size:14px;color:var(--muted);margin-bottom:14px}
 .cs .ab b{color:var(--nfm-blue)}
-.cs a.watch{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--nfm-orange-text);text-decoration:none;font-weight:500}
+.cs .cs-quote{font-family:'Montserrat';font-weight:700;font-size:13.5px;color:var(--nfm-blue);line-height:1.4;margin-bottom:16px;padding-left:12px;border-left:3px solid var(--nfm-orange);flex:1}
+.cs a.watch{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--nfm-orange-text);text-decoration:none;font-weight:500;margin-top:auto}
+.mini-case .mc-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mini-case .mc-thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mini-case .mc-thumb .play{position:relative;z-index:2}
+.mini-case .mc-thumb{cursor:pointer}
 
 /* ---------- MINITEST ---------- */
 .mini-shell{max-width:680px;margin:44px auto 0;background:#fff;border:1px solid var(--hair);border-radius:18px;overflow:hidden;box-shadow:0 40px 100px rgba(12,52,82,.14)}
@@ -699,12 +709,109 @@ a{color:inherit}
     <h2 class="h2">Personas iguales a vos que ya lo <span class="hl">resolvieron</span></h2>
     <p class="lead-2">No son testimonios de marketing. Son entrevistas completas, con nombre y cara. Miralas.</p>
     <div class="case-grid">
-      <div class="cs"><div class="thumb"><span class="init">Ahogado</span><div class="play"></div></div><div class="body"><div class="who">Celi</div><div class="prof">Arquitecta · lidera 45 personas · San Diego</div><p class="ab"><b>Antes:</b> malabares sin fin entre maternidad y trabajo de alto nivel. <b>Después:</b> un mes en Argentina trabajando remoto, algo antes impensable.</p><a class="watch" href="https://www.youtube.com/watch?v=95H0-szcsMs" target="_blank" rel="noopener">▶ Ver entrevista</a></div></div>
-      <div class="cs"><div class="thumb"><span class="init">Crónico</span><div class="play"></div></div><div class="body"><div class="who">Tatiana</div><div class="prof">Estudiante + au pair · EEUU</div><p class="ab"><b>Antes:</b> burnout severo, tensión crónica, "muerta por dentro". <b>Después:</b> duerme bien, retomó la carrera, se trata con paciencia.</p><a class="watch" href="https://www.youtube.com/watch?v=wePT08l1BYM" target="_blank" rel="noopener">▶ Ver entrevista</a></div></div>
-      <div class="cs"><div class="thumb"><span class="init">Bloqueado</span><div class="play"></div></div><div class="body"><div class="who">Milton</div><div class="prof">Diseñador UX · 33 años</div><p class="ab"><b>Antes:</b> postergación por miedo a empezar, el teléfono como escape. <b>Después:</b> arranca sin esperar el momento perfecto.</p><a class="watch" href="https://www.youtube.com/watch?v=xDpQB0t2RH8" target="_blank" rel="noopener">▶ Ver entrevista</a></div></div>
-      <div class="cs"><div class="thumb"><span class="init">Ahogado</span><div class="play"></div></div><div class="body"><div class="who">Juan Pablo</div><div class="prof">Operario + estudiante · 52 años</div><p class="ab"><b>Antes:</b> "no tengo tiempo", mente dispersa. <b>Después:</b> aprobó el cursillo, organizó sus tiempos, concentración que no tenía.</p><a class="watch" href="https://www.youtube.com/watch?v=Wh8jEdOMB_A" target="_blank" rel="noopener">▶ Ver entrevista</a></div></div>
-      <div class="cs"><div class="thumb"><span class="init">Crónico</span><div class="play"></div></div><div class="body"><div class="who">Natalia</div><div class="prof">Astrónoma · CONICET · emprendedora</div><p class="ab"><b>Antes:</b> dormía 3-4 horas, bruma mental, "la ruedita del hámster". <b>Después:</b> duerme 7-8 h y avanza con su emprendimiento.</p><a class="watch" href="https://www.youtube.com/watch?v=CVo9A7ADvTs" target="_blank" rel="noopener">▶ Ver entrevista</a></div></div>
-      <div class="cs"><div class="thumb"><span class="init">Ahogado</span><div class="play"></div></div><div class="body"><div class="who">Sol Romero</div><div class="prof">Contadora · compañía de seguros</div><p class="ab"><b>Antes:</b> colapsada, al borde del burnout, "cumplir por cumplir". <b>Después:</b> cambio de puesto, empezó a bailar tango, límites sanos.</p><a class="watch" href="https://www.youtube.com/watch?v=mVskd3R8hsc" target="_blank" rel="noopener">▶ Ver entrevista</a></div></div>
+
+      <div class="cs">
+        <div class="cs-video">
+          <span class="cs-tag">Ahogado</span>
+          <button class="cs-thumb" type="button" aria-label="Reproducir entrevista de Celi" onclick="playCase(this,'95H0-szcsMs')">
+            <img src="https://img.youtube.com/vi/95H0-szcsMs/hqdefault.jpg" alt="Entrevista a Celi" loading="lazy">
+            <span class="cs-play"></span>
+          </button>
+        </div>
+        <div class="body">
+          <div class="who">Celi</div>
+          <div class="prof">Arquitecta · lidera 45 personas · San Diego</div>
+          <p class="ab"><b>Antes:</b> malabares sin fin entre maternidad y trabajo de alto nivel. <b>Después:</b> un mes en Argentina trabajando remoto, algo antes impensable.</p>
+          <p class="cs-quote">"Lo debería haber hecho 10 años antes."</p>
+          <a class="watch" href="https://www.youtube.com/watch?v=95H0-szcsMs" target="_blank" rel="noopener">▶ Ver en YouTube</a>
+        </div>
+      </div>
+
+      <div class="cs">
+        <div class="cs-video">
+          <span class="cs-tag">Crónico</span>
+          <button class="cs-thumb" type="button" aria-label="Reproducir entrevista de Tatiana" onclick="playCase(this,'wePT08l1BYM')">
+            <img src="https://img.youtube.com/vi/wePT08l1BYM/hqdefault.jpg" alt="Entrevista a Tatiana" loading="lazy">
+            <span class="cs-play"></span>
+          </button>
+        </div>
+        <div class="body">
+          <div class="who">Tatiana</div>
+          <div class="prof">Estudiante + au pair · EEUU</div>
+          <p class="ab"><b>Antes:</b> burnout severo, tensión crónica, "muerta por dentro". <b>Después:</b> duerme bien, retomó la carrera, se trata con paciencia.</p>
+          <p class="cs-quote">"La mentoría fue el qué y el cómo. Y acá está el apoyo."</p>
+          <a class="watch" href="https://www.youtube.com/watch?v=wePT08l1BYM" target="_blank" rel="noopener">▶ Ver en YouTube</a>
+        </div>
+      </div>
+
+      <div class="cs">
+        <div class="cs-video">
+          <span class="cs-tag">Bloqueado</span>
+          <button class="cs-thumb" type="button" aria-label="Reproducir entrevista de Milton" onclick="playCase(this,'xDpQB0t2RH8')">
+            <img src="https://img.youtube.com/vi/xDpQB0t2RH8/hqdefault.jpg" alt="Entrevista a Milton" loading="lazy">
+            <span class="cs-play"></span>
+          </button>
+        </div>
+        <div class="body">
+          <div class="who">Milton</div>
+          <div class="prof">Diseñador UX · 33 años</div>
+          <p class="ab"><b>Antes:</b> postergación por miedo a empezar, el teléfono como escape. <b>Después:</b> arranca sin esperar el momento perfecto.</p>
+          <p class="cs-quote">"Seguí para adelante, bro. No le aflojes y confiá en el proceso."</p>
+          <a class="watch" href="https://www.youtube.com/watch?v=xDpQB0t2RH8" target="_blank" rel="noopener">▶ Ver en YouTube</a>
+        </div>
+      </div>
+
+      <div class="cs">
+        <div class="cs-video">
+          <span class="cs-tag">Ahogado</span>
+          <button class="cs-thumb" type="button" aria-label="Reproducir entrevista de Juan Pablo" onclick="playCase(this,'Wh8jEdOMB_A')">
+            <img src="https://img.youtube.com/vi/Wh8jEdOMB_A/hqdefault.jpg" alt="Entrevista a Juan Pablo" loading="lazy">
+            <span class="cs-play"></span>
+          </button>
+        </div>
+        <div class="body">
+          <div class="who">Juan Pablo</div>
+          <div class="prof">Operario + estudiante · 52 años</div>
+          <p class="ab"><b>Antes:</b> "no tengo tiempo", mente dispersa. <b>Después:</b> aprobó el cursillo, organizó sus tiempos, concentración que no tenía.</p>
+          <p class="cs-quote">"Si corrés atrás del reloj todo el día, esta mentoría es para vos."</p>
+          <a class="watch" href="https://www.youtube.com/watch?v=Wh8jEdOMB_A" target="_blank" rel="noopener">▶ Ver en YouTube</a>
+        </div>
+      </div>
+
+      <div class="cs">
+        <div class="cs-video">
+          <span class="cs-tag">Crónico</span>
+          <button class="cs-thumb" type="button" aria-label="Reproducir entrevista de Natalia" onclick="playCase(this,'CVo9A7ADvTs')">
+            <img src="https://img.youtube.com/vi/CVo9A7ADvTs/hqdefault.jpg" alt="Entrevista a Natalia" loading="lazy">
+            <span class="cs-play"></span>
+          </button>
+        </div>
+        <div class="body">
+          <div class="who">Natalia</div>
+          <div class="prof">Astrónoma · CONICET · emprendedora</div>
+          <p class="ab"><b>Antes:</b> dormía 3-4 horas, bruma mental, "la ruedita del hámster". <b>Después:</b> duerme 7-8 h y avanza con su emprendimiento.</p>
+          <p class="cs-quote">"Llegar a fin de año y levantar la copa: el 1% te da eso."</p>
+          <a class="watch" href="https://www.youtube.com/watch?v=CVo9A7ADvTs" target="_blank" rel="noopener">▶ Ver en YouTube</a>
+        </div>
+      </div>
+
+      <div class="cs">
+        <div class="cs-video">
+          <span class="cs-tag">Ahogado</span>
+          <button class="cs-thumb" type="button" aria-label="Reproducir entrevista de Sol Romero" onclick="playCase(this,'mVskd3R8hsc')">
+            <img src="https://img.youtube.com/vi/mVskd3R8hsc/hqdefault.jpg" alt="Entrevista a Sol Romero" loading="lazy">
+            <span class="cs-play"></span>
+          </button>
+        </div>
+        <div class="body">
+          <div class="who">Sol Romero</div>
+          <div class="prof">Contadora · compañía de seguros</div>
+          <p class="ab"><b>Antes:</b> colapsada, al borde del burnout, "cumplir por cumplir". <b>Después:</b> cambio de puesto, empezó a bailar tango, límites sanos.</p>
+          <p class="cs-quote">"El hack fue que me ordenó. Me tejió una red que en serio te contiene."</p>
+          <a class="watch" href="https://www.youtube.com/watch?v=mVskd3R8hsc" target="_blank" rel="noopener">▶ Ver en YouTube</a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -731,7 +838,7 @@ a{color:inherit}
         <h3 id="mResTitle">—</h3>
         <p class="rlead" id="mResLead">—</p>
         <div class="mini-case">
-          <a class="mc-thumb" id="mCaseThumb" href="#" target="_blank" rel="noopener"><div class="play"></div></a>
+          <div class="mc-thumb" id="mCaseThumb"><div class="play"></div></div>
           <div class="mc-body">
             <div class="mc-quote" id="mCaseQuote">—</div>
             <div class="mc-who" id="mCaseWho">—</div>
@@ -881,11 +988,22 @@ function mShowResult(){
   document.getElementById('mResTitle').textContent=m.title;
   document.getElementById('mResLead').innerHTML=m.lead;
   document.getElementById('mCaseQuote').textContent=m.quote;
-  document.getElementById('mCaseWho').innerHTML=m.who+` · <a href="${m.link}" target="_blank" rel="noopener">▶ ver entrevista</a>`;
-  document.getElementById('mCaseThumb').href=m.link;
+  document.getElementById('mCaseWho').innerHTML=m.who+` · <a href="${m.link}" target="_blank" rel="noopener">▶ ver en YouTube</a>`;
+  (function(){
+    var id=ytId(m.link); var th=document.getElementById('mCaseThumb');
+    th.innerHTML='<img src="https://img.youtube.com/vi/'+id+'/hqdefault.jpg" alt=""><span class="play"></span>';
+    th.onclick=function(){ th.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0" title="Entrevista" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>'; };
+  })();
   document.getElementById('miniResult').classList.add('active');
   document.getElementById('mbar').style.width='100%';
   enviarASheets({tipo:'minitest_instituto', perfil_key:perfil, respuestas:mAns.join(' | '), fuente:getUTM(), url:location.href});
+}
+
+/* ---------- Testimonios / casos (click-to-play YouTube) ---------- */
+function ytId(url){ var m=String(url).match(/[?&]v=([^&]+)/); return m?m[1]:url; }
+function playCase(btn,id){
+  var wrap=btn.parentNode;
+  wrap.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0" title="Entrevista" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>';
 }
 
 /* ---------- VSL ---------- */
