@@ -235,24 +235,6 @@ a{color:inherit}
 .photo-slot--sm .photo-slot__label{font-size:10px;letter-spacing:.1em}
 .photo-slot--sm .photo-slot__label span{font-size:9px}
 
-/* ---------- PROGRAMAS (Gold vs Platinum) ---------- */
-.plans{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:44px;text-align:left;max-width:920px;margin-left:auto;margin-right:auto}
-.plan{position:relative;background:#fff;border:1px solid var(--hair);border-radius:18px;padding:34px 30px 30px;display:flex;flex-direction:column;box-shadow:0 12px 32px rgba(12,52,82,.06)}
-.plan--featured{border:2px solid var(--nfm-orange);box-shadow:0 26px 60px -20px rgba(255,102,2,.28)}
-.plan__ribbon{position:absolute;top:-13px;left:30px;background:var(--nfm-orange);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:6px 13px;border-radius:100px;box-shadow:0 8px 20px rgba(255,102,2,.35)}
-.plan__head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.plan__tier{font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px;color:var(--nfm-blue);letter-spacing:-.01em}
-.plan__tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nfm-orange-text);background:var(--nfm-orange-wash);border:1px solid rgba(255,102,2,.22);padding:4px 10px;border-radius:100px}
-.plan__desc{font-size:14.5px;color:var(--muted);line-height:1.55;margin-bottom:18px;min-height:3em}
-.plan__price{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--nfm-blue);font-weight:500;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid var(--hair)}
-.plan__all{font-weight:800;font-size:13.5px;color:var(--nfm-blue);margin-bottom:12px}
-.plan__list{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:11px;flex:1}
-.plan__list li{position:relative;padding-left:28px;font-size:14px;color:var(--nfm-blue);line-height:1.4}
-.plan__list li::before{content:"✓";position:absolute;left:0;top:0;width:18px;height:18px;border-radius:50%;background:var(--nfm-orange);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1}
-.plan__list li b{font-weight:800}
-.plan .btn{width:100%;margin-top:auto}
-@media(max-width:760px){.plans{grid-template-columns:1fr;max-width:440px}}
-
 /* ---------- ENFOQUE INTEGRAL / PILARES ---------- */
 .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:44px}
 .pill{background:#fff;border:2px solid var(--nfm-blue-light);border-radius:12px;padding:22px 14px;text-align:center;transition:border-color .18s,transform .18s}
@@ -332,15 +314,6 @@ a{color:inherit}
 .mini-case .mc-who a{color:var(--nfm-orange-text);font-weight:700;text-decoration:none}
 .mini-cta{max-width:440px;margin:0 auto}
 .mini-cta .btn{width:100%}
-.mini-prog{border:2px solid var(--nfm-orange);background:var(--nfm-orange-wash);border-radius:16px;padding:22px 22px 24px;max-width:520px;margin:0 auto 22px;text-align:left;box-shadow:0 16px 40px -14px rgba(255,102,2,.28)}
-.mini-prog__head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.mini-prog__name{font-family:'Montserrat',sans-serif;font-weight:900;font-size:22px;color:var(--nfm-blue)}
-.mini-prog__tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nfm-orange-text);background:#fff;border:1px solid rgba(255,102,2,.25);padding:4px 10px;border-radius:100px}
-.mini-prog__list{list-style:none;padding:0;margin:0 0 18px;display:grid;gap:9px}
-.mini-prog__list li{position:relative;padding-left:26px;font-size:14px;color:var(--nfm-blue);line-height:1.4}
-.mini-prog__list li::before{content:"✓";position:absolute;left:0;top:0;width:18px;height:18px;border-radius:50%;background:var(--nfm-orange);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1}
-.mini-prog .btn{width:100%}
-.mini-mirror-cap{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mono-grey);margin:4px 0 14px}
 
 /* ---------- CTA FINAL / AGENDAR ---------- */
 .apply{text-align:center}
@@ -450,7 +423,7 @@ a{color:inherit}
         <h1 id="heroTitle">¿Por qué sabés lo que tenés que hacer y <span class="shimmer">no lo hacés</span>?</h1>
         <p class="sub fade-up d2">No es un problema de disciplina —es un problema de <b>sistema</b>. La fuerza de voluntad se agota; un sistema, no. En el <b>Instituto de Productividad</b> instalás tu <b>Sistema Operativo Personal</b> con el acompañamiento de profesionales en cada área.</p>
         <div class="hero-actions fade-up d3">
-          <a href="#programas" class="btn btn-primary btn-lg">Conocer los programas <span class="arrow">→</span></a>
+          <a href="#agendar" class="btn btn-primary btn-lg" onclick="goAgendar(event,'hero')">Agendá tu entrevista <span class="arrow">→</span></a>
           <a href="#quees" class="btn btn-ghost-blue btn-lg">Conocer más del Instituto</a>
         </div>
         <div class="hero-trust fade-up d4">
@@ -635,60 +608,7 @@ a{color:inherit}
       <div class="ic"><span class="mk">05</span><div><h3>Sistemas listos para usar</h3><p>Habit Tracker y Second Brain para sacarte la carga de la cabeza y cerrar las fugas en segundo plano. Copiás, adaptás, aplicás.</p></div></div>
       <div class="ic"><span class="mk">06</span><div><h3>Enfoque integral, no solo "hacer más"</h3><p>Trabajamos el cuerpo (sueño, alimentación, ejercicio) como base del rendimiento. Productividad no es hacer más: es sentirte mejor haciéndolo.</p></div></div>
     </div>
-    <div class="incl-note">Todo esto se organiza en dos programas: Gold y Platinum. Miralos acá abajo 👇</div>
-  </div>
-</section>
-
-<!-- PROGRAMAS (Gold vs Platinum) -->
-<section class="section tint" id="programas">
-  <div class="wrap center">
-    <div class="center"><span class="eyebrow">Los programas</span></div>
-    <h2 class="h2">Elegí el nivel de acompañamiento que <span class="hl">tu momento</span> pide</h2>
-    <p class="lead-2">Dos formas de entrar al Instituto. El método es el mismo; cambia cuánto te acompañamos de cerca. En la entrevista de admisión definimos juntos cuál encaja con vos.</p>
-
-    <div class="plans">
-
-      <!-- GOLD -->
-      <div class="plan">
-        <div class="plan__head">
-          <span class="plan__tier">Gold</span>
-          <span class="plan__tag">Estándar</span>
-        </div>
-        <p class="plan__desc">El método completo + comunidad, para instalar tu sistema con estructura y avanzar a tu ritmo.</p>
-        <div class="plan__price">Inversión: se define en tu entrevista</div>
-        <ul class="plan__list">
-          <li>Biblioteca de 22 módulos (el método completo)</li>
-          <li>Comunidad de pares + feed activo</li>
-          <li>Llamadas grupales en vivo</li>
-          <li>Sistemas listos: Habit Tracker + Second Brain</li>
-          <li>Masterclass Gold</li>
-          <li>Certificado con aval universitario</li>
-        </ul>
-        <a href="#agendar" class="btn btn-ghost-blue" onclick="goAgendar(event,'plan_gold')">Aplicar para Gold</a>
-      </div>
-
-      <!-- PLATINUM (destacado) -->
-      <div class="plan plan--featured">
-        <span class="plan__ribbon">El más elegido</span>
-        <div class="plan__head">
-          <span class="plan__tier">Platinum</span>
-          <span class="plan__tag">Premium</span>
-        </div>
-        <p class="plan__desc">Acompañamiento 1 a 1 de verdad: un equipo que te sigue de cerca hasta que el cambio se sostiene.</p>
-        <div class="plan__price">Inversión: se define en tu entrevista</div>
-        <div class="plan__all">Todo lo de Gold, y además:</div>
-        <ul class="plan__list">
-          <li><b>Accountability Coach 1 a 1</b> dedicado</li>
-          <li>Equipo multidisciplinario: nutrición, psicología, coaching</li>
-          <li>Clases grupales Platinum + consultoría directa con Nico</li>
-          <li>Mastermind presencial</li>
-          <li>Client Success Manager que te acompaña todo el proceso</li>
-        </ul>
-        <a href="#agendar" class="btn btn-primary" onclick="goAgendar(event,'plan_platinum')">Aplicar para Platinum <span class="arrow">→</span></a>
-      </div>
-
-    </div>
-    <div class="incl-note">Ambos son procesos de 6 meses · No mostramos el precio acá a propósito: lo vemos en tu entrevista, según tu caso</div>
+    <div class="incl-note">En la entrevista de admisión vemos juntos cómo aplicarlo a tu caso — sin compromiso</div>
   </div>
 </section>
 
@@ -995,29 +915,23 @@ a{color:inherit}
 <section class="section tint" id="minitest">
   <div class="wrap center">
     <div class="center"><span class="eyebrow">Diagnóstico de alto rendimiento</span></div>
-    <h2 class="h2">30 segundos y sabés por dónde <span class="hl">empezar</span></h2>
-    <p class="lead-2">Respondé 4 preguntas rápidas y te digo qué programa encaja con tu momento —Gold o Platinum— y te muestro el caso de alguien que estaba igual que vos.</p>
+    <h2 class="h2">30 segundos: ¿en qué <span class="hl">punto estás</span>?</h2>
+    <p class="lead-2">Respondé 3 preguntas y te muestro el caso de alguien que estaba igual que vos — y cómo lo resolvió adentro del Instituto.</p>
     <div class="mini-shell mini">
       <div class="mini-progress"><div class="bar" id="mbar"></div></div>
 
       <div class="mini-intro" id="miniIntro">
         <h3>Empecemos por lo más importante</h3>
-        <p>4 preguntas rápidas. Al final te digo por dónde empezar —Gold o Platinum— y te muestro un caso real igual al tuyo.</p>
+        <p>3 preguntas rápidas. Al final te muestro un caso real igual al tuyo y cómo lo resolvió.</p>
         <button class="btn btn-primary btn-lg" onclick="mStart()">Empezar <span class="arrow">→</span></button>
       </div>
 
       <div class="mini-inner"><div id="miniSteps"></div></div>
 
       <div class="mini-result" id="miniResult">
-        <span class="mono">★ Tu diagnóstico</span>
+        <span class="mono">★ Tu caso espejo</span>
         <h3 id="mResTitle">—</h3>
         <p class="rlead" id="mResLead">—</p>
-        <div class="mini-prog">
-          <div class="mini-prog__head"><span class="mini-prog__name" id="mProgName">—</span><span class="mini-prog__tag" id="mProgTag">—</span></div>
-          <ul class="mini-prog__list" id="mProgList"></ul>
-          <a href="#agendar" class="btn btn-primary" id="mProgCta">—</a>
-        </div>
-        <div class="mini-mirror-cap">Y alguien que estaba igual que vos ya lo resolvió:</div>
         <div class="mini-case">
           <div class="mc-thumb" id="mCaseThumb"><div class="play"></div></div>
           <div class="mc-body">
@@ -1026,7 +940,7 @@ a{color:inherit}
           </div>
         </div>
         <div class="mini-cta">
-          <a href="#programas" class="btn btn-ghost-blue" onclick="event.preventDefault();document.getElementById('programas').scrollIntoView({behavior:'smooth'})">Comparar Gold y Platinum</a>
+          <a href="#agendar" class="btn btn-primary btn-lg" onclick="goAgendar(event,'minitest')">Agendá tu entrevista de admisión <span class="arrow">→</span></a>
         </div>
       </div>
     </div>
@@ -1116,29 +1030,13 @@ const MINI = {
   }
 };
 
-/* ---------- Programas recomendados por el diagnóstico ----------
-   Ruteo por nivel de acompañamiento (tier: 'g'=Gold, 'p'=Platinum).
-   Para cambiar la lógica, ajustá los 'tier' en MINI_Q y estos textos. */
-const PROGRAMS = {
-  g:{ name:"Gold", tag:"Estándar",
-    head:'Empezá por <b>Gold</b>',
-    why:"Sos de los que avanzan con estructura y no necesitan que les respiren en la nuca. Con el método completo y la comunidad te alcanza para instalar tu sistema y sostenerlo.",
-    bullets:["El método completo (22 módulos)","Comunidad de pares + llamadas grupales","Sistemas listos + certificado con aval universitario"],
-    cta:"Aplicar para Gold", origen:"minitest_gold" },
-  p:{ name:"Platinum", tag:"Premium",
-    head:'Te conviene <b>Platinum</b>',
-    why:"Por tu momento, lo que más te va a servir es tener a alguien encima de tu caso que no te deje aflojar. El acompañamiento 1 a 1 y el equipo detrás son justo lo que sostiene el cambio cuando ya intentaste solo.",
-    bullets:["Todo lo de Gold + Accountability Coach 1 a 1","Equipo multidisciplinario siguiéndote de cerca","Consultoría directa con Nico + mastermind presencial"],
-    cta:"Aplicar para Platinum", origen:"minitest_platinum" }
-};
-
-/* ---------- Minitest (perfil para el caso espejo + ruteo a programa) ---------- */
+/* ---------- Minitest (3 caminos, elección directa por perfil) ---------- */
 const MINI_Q = [
   { q:"¿Cuál de estas tres te representa más hoy?",
     opts:[
       {t:"Sé qué tengo que hacer, y no arranco. Me distraigo, pospongo, agarro el celular.", k:"b"},
       {t:"No paro nunca y aun así no avanzo en lo mío. Lo urgente me tapa lo importante.", k:"a"},
-      {t:"Ya intenté de todo y me caigo siempre en el mismo punto. Vivo cansado.", k:"c", tier:"p"},
+      {t:"Ya intenté de todo y me caigo siempre en el mismo punto. Vivo cansado.", k:"c"},
     ]},
   { q:"Cuando pensás en tu energía y tu descanso…",
     opts:[
@@ -1148,19 +1046,13 @@ const MINI_Q = [
     ]},
   { q:"Y si sos honesto, hace cuánto venís con esto…",
     opts:[
-      {t:"Años. Ya me cansé y quiero resolverlo en serio.", k:"c", tier:"p"},
+      {t:"Años. Ya me cansé y quiero resolverlo en serio.", k:"c"},
       {t:"Meses, y lo veo crecer.", k:"a"},
-      {t:"Lo tengo claro hace rato, me falta dar el paso.", k:"b", tier:"g"},
-    ]},
-  { q:"Para sostenerlo de verdad, ¿cómo te ves avanzando mejor?",
-    opts:[
-      {t:"Solo/a, con un método claro y una comunidad, a mi ritmo.", k:"b", tier:"g"},
-      {t:"Con alguien que me siga 1 a 1 y no me deje aflojar cuando baje la motivación.", k:"a", tier:"p"},
-      {t:"Quiero el máximo acompañamiento: un equipo encima de mi caso.", k:"c", tier:"p"},
+      {t:"Lo tengo claro hace rato, me falta dar el paso.", k:"b"},
     ]},
 ];
 
-let mIdx=0; const mAns=[]; const mTier=[];
+let mIdx=0; const mAns=[];
 const mHost=document.getElementById('miniSteps');
 MINI_Q.forEach((item,i)=>{
   const d=document.createElement('div'); d.className='mini-step';
@@ -1173,7 +1065,6 @@ function mBar(){ const total=MINI_Q.length; document.getElementById('mbar').styl
 function mStart(){ document.getElementById('miniIntro').style.display='none'; mIdx=0; mSteps[0].classList.add('active'); mBar(); }
 function mAnswer(qi,oi){
   mAns[qi]=MINI_Q[qi].opts[oi].k;
-  mTier[qi]=MINI_Q[qi].opts[oi].tier||'';
   mSteps[qi].classList.remove('active');
   if(qi+1<mSteps.length){
     mIdx=qi+1; mSteps[qi+1].classList.add('active'); mBar();
@@ -1184,26 +1075,13 @@ function mAnswer(qi,oi){
   }
 }
 function mShowResult(){
-  // Perfil (dolor) para el caso espejo — con las 3 primeras respuestas
-  const first3=mAns.slice(0,3);
-  const cnt={a:0,b:0,c:0}; first3.forEach(k=> cnt[k]++);
-  let perfil=first3[0]||'a',max=-1;
+  const cnt={a:0,b:0,c:0}; mAns.forEach(k=> cnt[k]++);
+  let perfil=mAns[0]||'a',max=-1;
   for(const k of ['b','a','c']){ if(cnt[k]>max){max=cnt[k];perfil=k;} }
-  if(first3[0] && cnt[first3[0]]===max) perfil=first3[0];
-  // Programa recomendado — según pesos de acompañamiento (empate -> Platinum)
-  let g=0,p=0; mTier.forEach(function(t){ if(t==='g')g++; else if(t==='p')p++; });
-  const tierKey=(p>=g)?'p':'g';
-  const P=PROGRAMS[tierKey];
-  document.getElementById('mResTitle').innerHTML=P.head;
-  document.getElementById('mResLead').innerHTML=P.why;
-  document.getElementById('mProgName').textContent=P.name;
-  document.getElementById('mProgTag').textContent=P.tag;
-  document.getElementById('mProgList').innerHTML=P.bullets.map(function(b){return '<li>'+b+'</li>';}).join('');
-  var cta=document.getElementById('mProgCta');
-  cta.innerHTML=P.cta+(tierKey==='p'?' <span class="arrow">→</span>':'');
-  cta.onclick=function(e){ goAgendar(e, P.origen); };
-  // Caso espejo (prueba social)
+  if(mAns[0] && cnt[mAns[0]]===max) perfil=mAns[0];
   const m=MINI[perfil];
+  document.getElementById('mResTitle').textContent=m.title;
+  document.getElementById('mResLead').innerHTML=m.lead;
   document.getElementById('mCaseQuote').textContent=m.quote;
   document.getElementById('mCaseWho').innerHTML=m.who+` · <a href="${m.link}" target="_blank" rel="noopener">▶ ver en YouTube</a>`;
   (function(){
@@ -1213,7 +1091,7 @@ function mShowResult(){
   })();
   document.getElementById('miniResult').classList.add('active');
   document.getElementById('mbar').style.width='100%';
-  enviarASheets({tipo:'minitest_instituto', perfil_key:perfil, programa:P.name, respuestas:mAns.join(' | '), fuente:getUTM(), url:location.href});
+  enviarASheets({tipo:'minitest_instituto', perfil_key:perfil, respuestas:mAns.join(' | '), fuente:getUTM(), url:location.href});
 }
 
 /* ---------- Testimonios / casos (click-to-play YouTube) ---------- */
