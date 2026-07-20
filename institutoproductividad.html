@@ -235,6 +235,24 @@ a{color:inherit}
 .photo-slot--sm .photo-slot__label{font-size:10px;letter-spacing:.1em}
 .photo-slot--sm .photo-slot__label span{font-size:9px}
 
+/* ---------- PROGRAMAS (Gold vs Platinum) ---------- */
+.plans{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:44px;text-align:left;max-width:920px;margin-left:auto;margin-right:auto}
+.plan{position:relative;background:#fff;border:1px solid var(--hair);border-radius:18px;padding:34px 30px 30px;display:flex;flex-direction:column;box-shadow:0 12px 32px rgba(12,52,82,.06)}
+.plan--featured{border:2px solid var(--nfm-orange);box-shadow:0 26px 60px -20px rgba(255,102,2,.28)}
+.plan__ribbon{position:absolute;top:-13px;left:30px;background:var(--nfm-orange);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:6px 13px;border-radius:100px;box-shadow:0 8px 20px rgba(255,102,2,.35)}
+.plan__head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.plan__tier{font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px;color:var(--nfm-blue);letter-spacing:-.01em}
+.plan__tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nfm-orange-text);background:var(--nfm-orange-wash);border:1px solid rgba(255,102,2,.22);padding:4px 10px;border-radius:100px}
+.plan__desc{font-size:14.5px;color:var(--muted);line-height:1.55;margin-bottom:18px;min-height:3em}
+.plan__price{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--nfm-blue);font-weight:500;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid var(--hair)}
+.plan__all{font-weight:800;font-size:13.5px;color:var(--nfm-blue);margin-bottom:12px}
+.plan__list{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:11px;flex:1}
+.plan__list li{position:relative;padding-left:28px;font-size:14px;color:var(--nfm-blue);line-height:1.4}
+.plan__list li::before{content:"✓";position:absolute;left:0;top:0;width:18px;height:18px;border-radius:50%;background:var(--nfm-orange);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1}
+.plan__list li b{font-weight:800}
+.plan .btn{width:100%;margin-top:auto}
+@media(max-width:760px){.plans{grid-template-columns:1fr;max-width:440px}}
+
 /* ---------- ENFOQUE INTEGRAL / PILARES ---------- */
 .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:44px}
 .pill{background:#fff;border:2px solid var(--nfm-blue-light);border-radius:12px;padding:22px 14px;text-align:center;transition:border-color .18s,transform .18s}
@@ -423,7 +441,7 @@ a{color:inherit}
         <h1 id="heroTitle">¿Por qué sabés lo que tenés que hacer y <span class="shimmer">no lo hacés</span>?</h1>
         <p class="sub fade-up d2">No es un problema de disciplina —es un problema de <b>sistema</b>. La fuerza de voluntad se agota; un sistema, no. En el <b>Instituto de Productividad</b> instalás tu <b>Sistema Operativo Personal</b> con el acompañamiento de profesionales en cada área.</p>
         <div class="hero-actions fade-up d3">
-          <a href="#incluye" class="btn btn-primary btn-lg">Conocer los programas <span class="arrow">→</span></a>
+          <a href="#programas" class="btn btn-primary btn-lg">Conocer los programas <span class="arrow">→</span></a>
           <a href="#quees" class="btn btn-ghost-blue btn-lg">Conocer más del Instituto</a>
         </div>
         <div class="hero-trust fade-up d4">
@@ -448,7 +466,7 @@ a{color:inherit}
 <!-- VIDEO -->
 <section class="section" id="video" style="padding:52px 0 8px">
   <div class="wrap center">
-    <div class="center"><span class="eyebrow">En 2 minutos</span></div>
+    <div class="center"><span class="eyebrow">El Instituto en video</span></div>
     <h2 class="h2">Mirá cómo funciona <span class="hl">por dentro</span></h2>
     <div class="video-shell">
       <div class="video-inner">
@@ -608,7 +626,60 @@ a{color:inherit}
       <div class="ic"><span class="mk">05</span><div><h3>Sistemas listos para usar</h3><p>Habit Tracker y Second Brain para sacarte la carga de la cabeza y cerrar las fugas en segundo plano. Copiás, adaptás, aplicás.</p></div></div>
       <div class="ic"><span class="mk">06</span><div><h3>Enfoque integral, no solo "hacer más"</h3><p>Trabajamos el cuerpo (sueño, alimentación, ejercicio) como base del rendimiento. Productividad no es hacer más: es sentirte mejor haciéndolo.</p></div></div>
     </div>
-    <div class="incl-note">Gold y Platinum · En la entrevista de admisión vemos juntos cuál encaja con tu momento</div>
+    <div class="incl-note">Todo esto se organiza en dos programas: Gold y Platinum. Miralos acá abajo 👇</div>
+  </div>
+</section>
+
+<!-- PROGRAMAS (Gold vs Platinum) -->
+<section class="section tint" id="programas">
+  <div class="wrap center">
+    <div class="center"><span class="eyebrow">Los programas</span></div>
+    <h2 class="h2">Elegí el nivel de acompañamiento que <span class="hl">tu momento</span> pide</h2>
+    <p class="lead-2">Dos formas de entrar al Instituto. El método es el mismo; cambia cuánto te acompañamos de cerca. En la entrevista de admisión definimos juntos cuál encaja con vos.</p>
+
+    <div class="plans">
+
+      <!-- GOLD -->
+      <div class="plan">
+        <div class="plan__head">
+          <span class="plan__tier">Gold</span>
+          <span class="plan__tag">Estándar</span>
+        </div>
+        <p class="plan__desc">El método completo + comunidad, para instalar tu sistema con estructura y avanzar a tu ritmo.</p>
+        <div class="plan__price">Inversión: se define en tu entrevista</div>
+        <ul class="plan__list">
+          <li>Biblioteca de 22 módulos (el método completo)</li>
+          <li>Comunidad de pares + feed activo</li>
+          <li>Llamadas grupales en vivo</li>
+          <li>Sistemas listos: Habit Tracker + Second Brain</li>
+          <li>Masterclass Gold</li>
+          <li>Certificado con aval universitario</li>
+        </ul>
+        <a href="#agendar" class="btn btn-ghost-blue" onclick="goAgendar(event,'plan_gold')">Aplicar para Gold</a>
+      </div>
+
+      <!-- PLATINUM (destacado) -->
+      <div class="plan plan--featured">
+        <span class="plan__ribbon">El más elegido</span>
+        <div class="plan__head">
+          <span class="plan__tier">Platinum</span>
+          <span class="plan__tag">Premium</span>
+        </div>
+        <p class="plan__desc">Acompañamiento 1 a 1 de verdad: un equipo que te sigue de cerca hasta que el cambio se sostiene.</p>
+        <div class="plan__price">Inversión: se define en tu entrevista</div>
+        <div class="plan__all">Todo lo de Gold, y además:</div>
+        <ul class="plan__list">
+          <li><b>Accountability Coach 1 a 1</b> dedicado</li>
+          <li>Equipo multidisciplinario: nutrición, psicología, coaching</li>
+          <li>Clases grupales Platinum + consultoría directa con Nico</li>
+          <li>Mastermind presencial</li>
+          <li>Client Success Manager que te acompaña todo el proceso</li>
+        </ul>
+        <a href="#agendar" class="btn btn-primary" onclick="goAgendar(event,'plan_platinum')">Aplicar para Platinum <span class="arrow">→</span></a>
+      </div>
+
+    </div>
+    <div class="incl-note">Ambos son procesos de 6 meses · No mostramos el precio acá a propósito: lo vemos en tu entrevista, según tu caso</div>
   </div>
 </section>
 
