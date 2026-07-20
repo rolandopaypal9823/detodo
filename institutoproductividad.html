@@ -110,6 +110,29 @@ a{color:inherit}
 .hero h1.lit .ltr{opacity:1;transform:none;filter:none}
 .hero .sub{font-size:clamp(16px,2.1vw,20px);color:var(--muted);max-width:680px;margin:0 auto;text-align:center;line-height:1.55}
 .hero .sub b{color:var(--nfm-blue);font-weight:800}
+/* ---------- HERO SPLIT (1er widget: copy + foto comunidad) ---------- */
+.hero-split{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero-copy{text-align:left}
+.hero-copy h1{text-align:left;max-width:none;margin:18px 0 18px}
+.hero-copy .sub{text-align:left;margin:0 0 28px;max-width:560px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:22px}
+.hero-trust{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.hero-trust b{color:var(--nfm-blue)}
+.hero-trust .hdot{color:var(--mono-grey-soft)}
+.hero-photo{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:linear-gradient(150deg,#eef3f7,#dae5ee);border:1px solid var(--hair);box-shadow:0 30px 66px -22px rgba(12,52,82,.28);min-height:360px;display:flex;align-items:center;justify-content:center;margin:0}
+.hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-photo::before,.hero-photo::after{content:"";position:absolute;width:26px;height:26px;border:2.5px solid var(--nfm-orange);opacity:.8;z-index:2}
+.hero-photo::before{top:14px;left:14px;border-right:0;border-bottom:0;border-radius:9px 0 0 0}
+.hero-photo::after{bottom:14px;right:14px;border-left:0;border-top:0;border-radius:0 0 9px 0}
+@media(max-width:900px){
+  .hero-split{grid-template-columns:1fr;gap:26px}
+  .hero-copy{text-align:center}
+  .hero-copy h1{text-align:center;margin-left:auto;margin-right:auto}
+  .hero-copy .sub{text-align:center;margin-left:auto;margin-right:auto}
+  .hero-actions{justify-content:center}
+  .hero-trust{justify-content:center}
+  .hero-photo{aspect-ratio:16/11;min-height:240px}
+}
 
 /* ---------- MARQUEE ---------- */
 .marquee{margin:30px auto 0;max-width:960px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
@@ -391,21 +414,48 @@ a{color:inherit}
   <a href="#agendar" class="btn btn-primary btn-sm topbar__cta" onclick="goAgendar(event,'topbar')"><span class="lbl-full">Aplicar ahora</span><span class="arrow">→</span></a>
 </header>
 
-<!-- HERO + VSL -->
+<!-- HERO (1er widget) -->
 <section class="hero">
   <div class="wrap">
-    <div class="center"><span class="eyebrow fade-up d1">Alto rendimiento con base en neurociencia</span></div>
-    <h1 id="heroTitle">¿Por qué sabés lo que tenés que hacer y <span class="shimmer">no lo hacés</span>?</h1>
-    <p class="sub fade-up d2">Porque no es un problema de disciplina —es un problema de <b>sistema</b>. La fuerza de voluntad se agota todos los días; un sistema, no. En el <b>Instituto de Productividad</b> instalás tu <b>Sistema Operativo Personal</b> con el acompañamiento de profesionales en cada área, hasta que rendir deje de depender de tus ganas. Mirá cómo funciona 👇</p>
+    <div class="hero-split">
+      <div class="hero-copy">
+        <span class="eyebrow fade-up d1">Alto rendimiento con base en neurociencia</span>
+        <h1 id="heroTitle">¿Por qué sabés lo que tenés que hacer y <span class="shimmer">no lo hacés</span>?</h1>
+        <p class="sub fade-up d2">No es un problema de disciplina —es un problema de <b>sistema</b>. La fuerza de voluntad se agota; un sistema, no. En el <b>Instituto de Productividad</b> instalás tu <b>Sistema Operativo Personal</b> con el acompañamiento de profesionales en cada área.</p>
+        <div class="hero-actions fade-up d3">
+          <a href="#incluye" class="btn btn-primary btn-lg">Conocer los programas <span class="arrow">→</span></a>
+          <a href="#quees" class="btn btn-ghost-blue btn-lg">Conocer más del Instituto</a>
+        </div>
+        <div class="hero-trust fade-up d4">
+          <span><b>+2.000</b> alumnos</span><span class="hdot">·</span><span><b>Aval universitario</b></span><span class="hdot">·</span><span><b>+10</b> países</span>
+        </div>
+      </div>
 
-    <div class="marquee fade-up d3" aria-hidden="true">
+      <figure class="hero-photo photo-slot fade-up d2" aria-label="Foto de la comunidad del Instituto">
+        <div class="photo-slot__inner">
+          <div class="photo-slot__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M15.2 5.2a3.2 3.2 0 0 1 0 5.6"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 14.6A5.5 5.5 0 0 1 20.5 20"/></svg>
+          </div>
+          <div class="photo-slot__label">Foto de la comunidad<span>El equipo + los alumnos del Instituto</span></div>
+        </div>
+      </figure>
+    </div>
+
+    <div class="marquee fade-up d5" aria-hidden="true">
       <div class="marquee__row">
         <div class="marquee__group"><span class="mq-item">Aval universitario</span><span class="mq-item">Acompañamiento 1 a 1</span><span class="mq-item">Neurociencia aplicada</span><span class="mq-item">Comunidad iberoamericana</span><span class="mq-item">6 meses de proceso</span><span class="mq-item">Sistema, no fuerza de voluntad</span><span class="mq-item">Sin vendehumo</span></div>
         <div class="marquee__group"><span class="mq-item">Aval universitario</span><span class="mq-item">Acompañamiento 1 a 1</span><span class="mq-item">Neurociencia aplicada</span><span class="mq-item">Comunidad iberoamericana</span><span class="mq-item">6 meses de proceso</span><span class="mq-item">Sistema, no fuerza de voluntad</span><span class="mq-item">Sin vendehumo</span></div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="video-shell fade-up d3">
+<!-- VIDEO -->
+<section class="section" id="video" style="padding:52px 0 8px">
+  <div class="wrap center">
+    <div class="center"><span class="eyebrow">En 2 minutos</span></div>
+    <h2 class="h2">Mirá cómo funciona <span class="hl">por dentro</span></h2>
+    <div class="video-shell">
       <div class="video-inner">
         <div class="video-frame" id="vslFrame">
           <span class="corner tl"></span><span class="corner tr"></span>
@@ -427,8 +477,7 @@ a{color:inherit}
         </button>
       </div>
     </div>
-
-    <div class="hero-cta fade-up d4">
+    <div class="hero-cta">
       <a href="#agendar" class="btn btn-primary btn-lg" onclick="goAgendar(event,'hero')">Aplicar a mi entrevista de admisión <span class="arrow">→</span></a>
       <div class="note">Cupos limitados por camada · Entrevista sin costo</div>
     </div>
@@ -446,7 +495,7 @@ a{color:inherit}
 </div>
 
 <!-- QUÉ ES / PARA QUIÉN -->
-<section class="section">
+<section class="section" id="quees">
   <div class="wrap">
     <div class="split">
       <div>
