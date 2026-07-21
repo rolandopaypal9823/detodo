@@ -128,7 +128,11 @@
     appsScriptUrl: "",
 
     // Posición de la pregunta de WhatsApp en Calendly (a1 = 1ra pregunta personalizada).
-    campoWhatsApp: "a1"
+    campoWhatsApp: "a1",
+
+    // Clave de localStorage donde la página de registro deja los datos (mismo sitio).
+    // Debe coincidir con la que usás en el registro (ver README).
+    localStorageKey: "nfm_datos"
   };
 </script>
 <!-- ============================================================= -->
@@ -315,6 +319,24 @@
     };
   }
 
+  // ---------- leer datos guardados por la página de registro (mismo sitio) ----------
+  // La página de registro guarda: localStorage['nfm_datos'] = {nombre,email,telefono}
+  function datosDesdeLS(){
+    try{
+      var d = JSON.parse(localStorage.getItem(CFG.localStorageKey || "nfm_datos") || "null");
+      if(!d) return null;
+      if(!d.email && !d.telefono && !d.nombre) return null;
+      var p = partirNombre(d.nombre || "");
+      return {
+        nombreCompleto: d.nombre || "",
+        nombre: p.first || (d.nombre || ""),
+        apellido: p.last,
+        correo: d.email || "",
+        whatsapp: limpiarTel(d.telefono || "")
+      };
+    }catch(e){ return null; }
+  }
+
   // ---------- enviar a Apps Script ----------
   function enviar(payload){
     if(!CFG.appsScriptUrl){ console.warn("[NFM] appsScriptUrl vacío: no se guarda en la planilla."); return; }
@@ -449,17 +471,17 @@
       step1.style.display="none"; done.style.display="block"; return;
     }
 
-    // 1) ¿vienen los datos en la URL? -> saltar formulario
-    var urlData = datosDesdeURL();
-    if(urlData && (urlData.correo || urlData.whatsapp)){
+    // 1) datos por la URL, o 2) datos guardados por el registro (mismo sitio) -> saltar formulario
+    var datos = datosDesdeURL() || datosDesdeLS();
+    if(datos && (datos.correo || datos.whatsapp)){
       step1.style.display = "none";
       loading.style.display = "block";
       backBtn.style.display = "none";  // no hay formulario al que volver
-      procesar(urlData);
+      procesar(datos);
       return;
     }
 
-    // 2) sin datos: mostrar formulario (y repoblar si recargó)
+    // 3) sin datos: mostrar formulario (y repoblar si recargó)
     step1.style.display = "block";
     var raw = sessionStorage.getItem("nfm_lead_data");
     if(raw && sessionStorage.getItem("nfm_lead_sent") === "1"){

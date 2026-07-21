@@ -31,8 +31,16 @@ WhatsApp y preguntarle por qué no terminó. 🎯
 
 | Archivo | Qué es |
 |---|---|
-| `index.html` | La página que subís a Netlify. |
-| `apps-script.gs` | El código que va DENTRO de tu Google Sheet. |
+| `agendar.html` | La página del Calendly. La subís al **mismo sitio** de Netlify que tu registro (ej: `/agendar.html`). |
+| `apps-script.gs` | El código que va DENTRO de una Google Sheet nueva (tracking agendó / no agendó). |
+| `AGREGAR-a-registro.md` | Las 2 líneas que sumás a tu página de registro para que pase los datos sola. |
+
+## La forma más limpia (tu caso): mismo sitio de Netlify
+
+Tu página de registro **ya captura** nombre, mail y WhatsApp. Si ponés `agendar.html` en
+el **mismo sitio** de Netlify (ej: `zoom-nfm.netlify.app/agendar.html`), esa página **lee
+sola** los datos que el registro ya guardó (por `localStorage`) — la persona no reescribe
+nada y vos no armás ningún link especial. Ver **`AGREGAR-a-registro.md`**.
 
 ---
 
@@ -55,15 +63,16 @@ WhatsApp y preguntarle por qué no terminó. 🎯
 
 ---
 
-## Parte B — Configurar el `index.html`
+## Parte B — Configurar el `agendar.html`
 
-Abrí `index.html` y editá **solo el bloque `NFM_CONFIG`** (arriba del todo):
+Abrí `agendar.html` y editá **solo el bloque `NFM_CONFIG`** (arriba del todo):
 
 ```js
 window.NFM_CONFIG = {
   calendlyUrl: "https://calendly.com/nicolasfernandezmiranda/entrevista-de-admision-li-clon",
   appsScriptUrl: "PEGÁ_ACÁ_LA_URL_/exec_DEL_PASO_A",
-  campoWhatsApp: "a1"
+  campoWhatsApp: "a1",
+  localStorageKey: "nfm_datos"
 };
 ```
 
@@ -71,32 +80,38 @@ window.NFM_CONFIG = {
 - **`appsScriptUrl`** → pegá la URL `/exec` de la Parte A.
   (Si lo dejás vacío, el autocompletado funciona igual pero **no guarda nada** en la planilla.)
 - **`campoWhatsApp`** → `a1` porque el WhatsApp es la 1ª pregunta personalizada de tu Calendly.
+- **`localStorageKey`** → tiene que ser **igual** a la clave que usás en el registro
+  (ver `AGREGAR-a-registro.md`). Dejala en `"nfm_datos"` y en el registro usá la misma.
 
 ---
 
-## Parte C — Subir a Netlify
+## Parte C — Subir a Netlify (junto con tu registro)
 
-Opción más rápida (sin cuenta técnica):
+Para que el autocompletado por `localStorage` funcione, `agendar.html` tiene que estar en
+el **mismo sitio** de Netlify que tu página de registro.
 
-1. Andá a **[app.netlify.com/drop](https://app.netlify.com/drop)**.
-2. Arrastrá la **carpeta** `calendly-pre-form` (o solo el `index.html`) a la ventana.
-3. Netlify te da una URL tipo `https://algo-random.netlify.app`. ¡Esa es tu página!
-4. (Opcional) En **Site settings → Change site name** le ponés un nombre lindo,
-   o le conectás tu propio dominio.
+1. Poné en una misma carpeta: tu `index.html` (registro) + `agendar.html`.
+2. Andá a **[app.netlify.com/drop](https://app.netlify.com/drop)** (o a tu sitio ya creado →
+   pestaña **Deploys** → arrastrar).
+3. Arrastrá **la carpeta**. Quedan las dos páginas en el mismo dominio:
+   - `tusitio.netlify.app/` → registro
+   - `tusitio.netlify.app/agendar.html` → Calendly autocompletado
+4. (Opcional) En **Site settings → Change site name** le ponés un nombre lindo o tu dominio.
 
-Esa URL de Netlify es la que ponés en tus anuncios / bio / mensajes, **en lugar** del link directo de Calendly.
+El link `tusitio.netlify.app/agendar.html` es el que usás para mandar a la gente a agendar
+(en la clase, por WhatsApp, por mail), **en lugar** del link directo de Calendly.
 
 ---
 
-## ⭐ Arrastrar los datos desde el registro (por la URL)
+## Pasar los datos por la URL (respaldo para OTRO dispositivo)
 
-Este es el punto clave para que **no tengan que cargar los datos dos veces**.
-
-Cuando tu página de registro (la de la clase en vivo) manda a la persona a esta página,
-tenés que **adjuntar sus datos al final del link**, así:
+Con el mismo sitio de Netlify + `localStorage`, ya está resuelto el caso normal (la persona
+se registró y agenda desde **el mismo navegador**). Pero si mandás el link de agendar por
+**mail o WhatsApp** y lo abre en **otro dispositivo**, ahí `localStorage` no viaja. Para ese
+caso, adjuntás los datos al final del link:
 
 ```
-https://TU-PAGINA.netlify.app/?nombre=Maria+Perez&email=maria@mail.com&whatsapp=+5491123456789
+https://TU-SITIO.netlify.app/agendar.html?nombre=Maria+Perez&email=maria@mail.com&whatsapp=+5491123456789
 ```
 
 La página entiende varios nombres de parámetro (por si tu herramienta usa otros):
@@ -136,7 +151,7 @@ Por eso está configurado `campoWhatsApp: "a1"`.
 antes del WhatsApp), actualizá ese valor en `NFM_CONFIG`.
 
 **Verificación rápida:** abrí tu página agregándole datos de prueba en el link, ej:
-`https://TU-PAGINA.netlify.app/?nombre=Maria+Perez&email=maria@mail.com&whatsapp=+5491123456789`
+`https://TU-SITIO.netlify.app/agendar.html?nombre=Maria+Perez&email=maria@mail.com&whatsapp=+5491123456789`
 y fijate en Calendly que el WhatsApp aparezca bien cargado. Nombre, Apellido y Correo se
 autocompletan siempre (son campos nativos de Calendly).
 
