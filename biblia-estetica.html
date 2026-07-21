@@ -468,6 +468,37 @@ h2.h2{font-family:'Montserrat';font-weight:900;font-size:clamp(26px,4vw,40px);li
       <div class="panel tint" style="min-height:150px"><div class="plabel">Tint · #e7edf2 / glass</div><p style="font-size:13.5px;color:var(--muted)">Secciones alternas. Aire visual sin cortar.</p></div>
       <div class="panel navy" style="min-height:150px"><div class="plabel">Navy · #0c3452 / #061d30</div><p style="font-size:13.5px;color:var(--niebla)">Autoridad y cierre. Texto hueso. El naranja resalta más.</p></div>
     </div>
+
+    <div class="sec-tag">El azul elegante — navy con profundidad (no plano)</div>
+    <p class="lead" style="font-size:15px;margin-bottom:18px">Mismo hex, distinto tratamiento. A la izquierda, el navy con capas (gradiente + glow + borde de luz = "efecto espejo"). A la derecha, el navy plano. Usá siempre el de la izquierda para fondos oscuros grandes.</p>
+    <div class="grid g2" style="align-items:stretch">
+      <div style="border-radius:16px;position:relative;min-height:190px;border:1px solid var(--hair-d);overflow:hidden;background:radial-gradient(120% 90% at 18% 12%, rgba(23,70,109,.6), transparent 55%),radial-gradient(90% 80% at 88% 106%, rgba(255,102,2,.07), transparent 60%),linear-gradient(180deg,#0e3352 0%,#0c3452 45%,#061d30 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)">
+        <div style="padding:24px">
+          <div class="plabel" style="color:var(--niebla-2)">✓ Navy con profundidad</div>
+          <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:22px;color:#fff;letter-spacing:-.01em">Elegante, con brillo</div>
+          <p style="color:var(--niebla);font-size:13px;margin-top:8px;max-width:34ch">Gradiente + glow radial + calor naranja + borde de luz arriba.</p>
+        </div>
+      </div>
+      <div style="border-radius:16px;position:relative;min-height:190px;border:1px solid var(--hair-d);background:#0c3452">
+        <div style="padding:24px">
+          <div class="plabel" style="color:var(--niebla-2)">✕ Navy plano</div>
+          <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:22px;color:#fff;letter-spacing:-.01em">Correcto, pero chato</div>
+          <p style="color:var(--niebla);font-size:13px;margin-top:8px;max-width:34ch">Color sólido #0c3452 sin tratamiento. Cumple, pero se siente flat.</p>
+        </div>
+      </div>
+    </div>
+    <div class="codeblock" style="margin-top:18px">
+<span class="c">/* El azul elegante — capas sobre el navy (efecto "espejo") */</span>
+<span class="k">.navy-elegante</span>{
+  position:relative;
+  background:
+    radial-gradient(120% 90% at 18% 12%, <span class="o">rgba(23,70,109,.6)</span>, transparent 55%),   <span class="c">/* glow superior */</span>
+    radial-gradient(90% 80% at 88% 106%, <span class="o">rgba(255,102,2,.07)</span>, transparent 60%),  <span class="c">/* calor naranja tenue */</span>
+    linear-gradient(180deg, <span class="o">#0e3352</span> 0%, <span class="o">#0c3452</span> 45%, <span class="o">#061d30</span> 100%);          <span class="c">/* base con gradiente */</span>
+  box-shadow: inset 0 1px 0 <span class="o">rgba(255,255,255,.06)</span>;   <span class="c">/* borde de luz = brillo/espejo */</span>
+}
+<span class="c">/* Sumá encima: &lt;canvas&gt; neural + máscara radial (vignette) + paneles glass */</span>
+<span class="c">/* glass: background rgba(255,255,255,.04) · border rgba(255,255,255,.12) · backdrop-filter:blur(8px) */</span></div>
   </div>
 </section>
 
