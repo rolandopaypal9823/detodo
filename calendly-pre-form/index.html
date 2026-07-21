@@ -30,7 +30,6 @@
   .wrap{max-width:560px;margin:0 auto;padding:28px 18px 60px}
   .wrap.wide{max-width:1000px}
 
-  /* Header / marca */
   .brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
   .brand .logo{
     width:44px;height:44px;border-radius:12px;flex:0 0 44px;
@@ -86,7 +85,6 @@
 
   .legal{font-size:12px;color:var(--muted);margin-top:14px;text-align:center}
 
-  /* Paso 2 */
   #step2{display:none}
   .back{
     display:inline-flex;align-items:center;gap:6px;background:none;border:0;color:var(--brand);
@@ -98,7 +96,14 @@
   }
   .calendly-inline-widget{min-width:320px;height:760px}
 
-  /* Éxito */
+  /* estado de carga (modo URL) */
+  #loading{display:none;text-align:center;padding:60px 20px;color:var(--muted)}
+  #loading .spin{
+    width:34px;height:34px;border-radius:50%;border:3px solid var(--line);border-top-color:var(--brand);
+    margin:0 auto 14px;animation:sp 0.8s linear infinite;
+  }
+  @keyframes sp{to{transform:rotate(360deg)}}
+
   #done{display:none;text-align:center;padding:40px 20px}
   #done .check{
     width:66px;height:66px;border-radius:50%;background:var(--ok);color:#fff;
@@ -119,12 +124,10 @@
     calendlyUrl: "https://calendly.com/nicolasfernandezmiranda/entrevista-de-admision-li-clon",
 
     // URL del Web App de Apps Script (opcional: para registrar en Google Sheets
-    // quién dejó sus datos y quién agendó). Si lo dejás vacío, igual funciona
-    // el autocompletado, solo que NO guarda en la planilla.
+    // quién llegó y quién agendó). Vacío = igual autocompleta, pero no guarda.
     appsScriptUrl: "",
 
-    // Posición de la pregunta de WhatsApp en Calendly (a1 = 1ra pregunta, a2 = 2da...).
-    // En tu formulario el WhatsApp es la 1ra pregunta personalizada -> a1.
+    // Posición de la pregunta de WhatsApp en Calendly (a1 = 1ra pregunta personalizada).
     campoWhatsApp: "a1"
   };
 </script>
@@ -132,7 +135,7 @@
 
 <div class="wrap" id="view">
 
-  <div class="brand">
+  <div class="brand" id="brandHead">
     <div class="logo">NFM</div>
     <div>
       <div class="eyebrow">Asesores NFM</div>
@@ -140,14 +143,20 @@
     </div>
   </div>
 
-  <!-- ---------- PASO 1: datos mínimos ---------- -->
+  <!-- ---------- Cargando (cuando los datos vienen en la URL) ---------- -->
+  <div id="loading">
+    <div class="spin"></div>
+    <div>Cargando tu calendario…</div>
+  </div>
+
+  <!-- ---------- PASO 1: datos mínimos (respaldo) ---------- -->
   <div id="step1">
     <div class="steps">Paso <b>1</b> de 2 — Tus datos &nbsp;·&nbsp; Paso 2 — Elegir horario</div>
 
     <div class="card">
       <div class="intro">
         <b>👋 Antes de elegir tu horario</b>, dejanos tus datos. Así reservamos tu lugar y
-        <b>autocompletamos</b> el siguiente paso para que no tengas que volver a escribirlos.
+        <b>autocompletamos</b> el siguiente paso.
       </div>
 
       <form id="leadForm" novalidate>
@@ -197,7 +206,7 @@
   <div id="step2">
     <button class="back" id="backBtn">← Volver a mis datos</button>
     <div class="steps">Paso 1 — Tus datos ✓ &nbsp;·&nbsp; Paso <b>2</b> de 2 — Elegí tu horario</div>
-    <div class="prefill-note">✅ Tus datos ya están cargados. Solo elegí día y horario, revisá y confirmá.</div>
+    <div class="prefill-note" id="prefillNote">✅ Tus datos ya están cargados. Solo elegí día y horario, revisá y confirmá.</div>
     <div id="calendly" class="calendly-inline-widget"></div>
   </div>
 
@@ -222,26 +231,22 @@
   var step1  = document.getElementById("step1");
   var step2  = document.getElementById("step2");
   var done   = document.getElementById("done");
+  var loading= document.getElementById("loading");
   var view   = document.getElementById("view");
   var backBtn= document.getElementById("backBtn");
   var submit = document.getElementById("submitBtn");
+  var prefillNote = document.getElementById("prefillNote");
 
-  // -- ID único de este lead (persiste por si recarga la página) --
+  // ---------- utilidades ----------
   function uuid(){
     if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
     return "id-" + Date.now() + "-" + Math.floor(Math.random()*1e9);
   }
-  var leadId = sessionStorage.getItem("nfm_lead_id");
-  if(!leadId){ leadId = uuid(); sessionStorage.setItem("nfm_lead_id", leadId); }
-
-  // -- Origen: de dónde vino (utm / referrer) --
   function origen(){
     var q = location.search || "";
     var ref = document.referrer ? (" | ref:" + document.referrer) : "";
     return (q ? q.replace(/^\?/,"") : "directo") + ref;
   }
-
-  // -- Divide "Nombre Apellido" en firstName / lastName --
   function partirNombre(full){
     full = (full || "").trim().replace(/\s+/g," ");
     if(!full) return { first:"", last:"" };
@@ -249,44 +254,100 @@
     if(i === -1) return { first:full, last:"" };
     return { first:full.slice(0,i), last:full.slice(i+1) };
   }
+  function esc(s){ return (s||"").replace(/[<>&]/g,""); }
 
-  // -- Envío a Apps Script (sin bloquear la UI). no-cors + text/plain evita el preflight CORS. --
+  // ID estable: si hay correo, lo usamos como clave (así no se duplica entre visitas)
+  function computarLeadId(d){
+    if(d && d.correo) return "mail:" + d.correo.trim().toLowerCase();
+    var id = sessionStorage.getItem("nfm_lead_id");
+    if(!id){ id = uuid(); sessionStorage.setItem("nfm_lead_id", id); }
+    return id;
+  }
+
+  // ---------- leer datos que vienen en la URL ----------
+  function limpiarTel(v){
+    if(!v) return "";
+    v = String(v).trim();
+    if(v.indexOf("00") === 0) v = "+" + v.slice(2);
+    var plus = v.charAt(0) === "+";
+    var digits = v.replace(/[^\d]/g,"");
+    return (plus ? "+" : "") + digits;
+  }
+  function paramMap(){
+    var m = {};
+    try{
+      new URLSearchParams(location.search).forEach(function(v,k){ m[k.toLowerCase()] = v; });
+    }catch(e){}
+    return m;
+  }
+  function pick(m, keys){
+    for(var i=0;i<keys.length;i++){
+      var v = m[keys[i]];
+      if(v != null && String(v).trim() !== "") return String(v).trim();
+    }
+    return "";
+  }
+  function datosDesdeURL(){
+    var m = paramMap();
+    var first = pick(m, ["first_name","firstname","nombre1"]);
+    var last  = pick(m, ["last_name","lastname","apellido","surname"]);
+    var full  = pick(m, ["nombre","name","nombre_completo","fullname","full_name"]);
+    var nombre, apellido, nombreCompleto;
+    if(first || last){
+      nombre = first || full || "";
+      apellido = last || "";
+      nombreCompleto = (nombre + " " + apellido).trim();
+    } else if(full){
+      var p = partirNombre(full);
+      nombre = p.first; apellido = p.last; nombreCompleto = full;
+    } else {
+      nombre = ""; apellido = ""; nombreCompleto = "";
+    }
+    var correo = pick(m, ["email","correo","mail","e_mail","e-mail","correo_electronico"]);
+    var whatsapp = limpiarTel(pick(m, ["whatsapp","telefono","teléfono","phone","tel","celular","wa","movil","móvil","numero","número"]));
+    if(!correo && !whatsapp && !nombreCompleto) return null;
+    return {
+      nombreCompleto: nombreCompleto,
+      nombre: nombre || nombreCompleto,
+      apellido: apellido,
+      correo: correo,
+      whatsapp: whatsapp
+    };
+  }
+
+  // ---------- enviar a Apps Script ----------
   function enviar(payload){
     if(!CFG.appsScriptUrl){ console.warn("[NFM] appsScriptUrl vacío: no se guarda en la planilla."); return; }
     try{
       fetch(CFG.appsScriptUrl, {
-        method:"POST",
-        mode:"no-cors",
-        keepalive:true,
+        method:"POST", mode:"no-cors", keepalive:true,
         headers:{ "Content-Type":"text/plain;charset=utf-8" },
         body: JSON.stringify(payload)
       }).catch(function(e){ console.warn("[NFM] error enviando", e); });
     }catch(e){ console.warn("[NFM] error enviando", e); }
   }
 
-  // -- Validación --
+  // ---------- validación (solo modo formulario) ----------
   function setErr(id, on){
     var el = document.getElementById(id);
-    var m  = document.querySelector('.msg[data-for="'+id+'"]');
+    var msg = document.querySelector('.msg[data-for="'+id+'"]');
     if(el) el.classList.toggle("err", on);
-    if(m)  m.classList.toggle("show", on);
+    if(msg) msg.classList.toggle("show", on);
   }
   function val(id){ return (document.getElementById(id).value || "").trim(); }
   function emailOk(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 
-  function leerDatos(){
+  function leerFormulario(){
     var cc = document.getElementById("cc").value;
     var telNac = val("tel").replace(/[^\d]/g,"");
     var n = partirNombre(val("nombre"));
     return {
       nombreCompleto: val("nombre"),
-      nombre: n.first,
-      apellido: n.last,
+      nombre: n.first, apellido: n.last,
       correo: val("correo"),
-      whatsapp: telNac ? (cc + telNac) : ""   // E.164, ej: +59171234567
+      whatsapp: telNac ? (cc + telNac) : ""
     };
   }
-
   function validar(d){
     var ok = true;
     if(!d.nombreCompleto){ setErr("nombre",true); ok=false; } else setErr("nombre",false);
@@ -295,16 +356,21 @@
     return ok;
   }
 
-  // -- Mostrar Calendly con los datos precargados --
+  // ---------- Calendly ----------
+  var leadId = null;
   var calendlyIniciado = false;
-  function mostrarCalendly(d){
+  function abrirCalendly(d){
+    loading.style.display = "none";
     step1.style.display = "none";
     step2.style.display = "block";
     view.classList.add("wide");
+    if(d.nombre){
+      prefillNote.innerHTML = "✅ Hola " + esc(d.nombre) + ", ya tenemos tus datos. Solo elegí día y horario 👇";
+    }
     window.scrollTo(0,0);
 
     if(calendlyIniciado) return;
-    function init(){
+    (function init(){
       if(!window.Calendly){ return setTimeout(init, 200); }
       var custom = {};
       custom[CFG.campoWhatsApp] = d.whatsapp;
@@ -320,31 +386,32 @@
         }
       });
       calendlyIniciado = true;
-    }
-    init();
+    })();
   }
 
-  // -- Submit del formulario --
+  // Flujo central: registrar lead (una vez) + abrir Calendly
+  function procesar(d){
+    leadId = computarLeadId(d);
+    sessionStorage.setItem("nfm_lead_data", JSON.stringify(d));
+    if(sessionStorage.getItem("nfm_lead_sent") !== "1"){
+      enviar(Object.assign({ action:"lead", leadId:leadId, origen:origen() }, d));
+      sessionStorage.setItem("nfm_lead_sent","1");
+    }
+    abrirCalendly(d);
+  }
+
+  // ---------- eventos ----------
   form.addEventListener("submit", function(e){
     e.preventDefault();
-    var d = leerDatos();
+    var d = leerFormulario();
     if(!validar(d)){
       var first = document.querySelector(".err");
       if(first) first.focus();
       return;
     }
-    // guardamos los datos por si recarga
-    sessionStorage.setItem("nfm_lead_data", JSON.stringify(d));
-
-    // registramos el lead como "No agendó" (una sola vez)
-    if(sessionStorage.getItem("nfm_lead_sent") !== "1"){
-      enviar(Object.assign({ action:"lead", leadId:leadId, origen:origen() }, d));
-      sessionStorage.setItem("nfm_lead_sent","1");
-    }
-
     submit.textContent = "Cargando tu calendario…";
     submit.disabled = true;
-    mostrarCalendly(d);
+    procesar(d);
   });
 
   backBtn.addEventListener("click", function(){
@@ -356,7 +423,6 @@
     window.scrollTo(0,0);
   });
 
-  // -- Escuchamos cuando la persona AGENDA en Calendly --
   function esEventoCalendly(e){
     return e.data && typeof e.data.event === "string" && e.data.event.indexOf("calendly") === 0;
   }
@@ -365,28 +431,42 @@
     if(e.data.event === "calendly.event_scheduled"){
       var d = {};
       try{ d = JSON.parse(sessionStorage.getItem("nfm_lead_data")) || {}; }catch(_){}
-      enviar(Object.assign({ action:"scheduled", leadId:leadId, origen:origen() }, d));
+      enviar(Object.assign({ action:"scheduled", leadId: leadId || computarLeadId(d), origen:origen() }, d));
       sessionStorage.setItem("nfm_scheduled","1");
-      // pantalla de éxito
       step2.style.display = "none";
       step1.style.display = "none";
+      loading.style.display = "none";
       done.style.display = "block";
       view.classList.remove("wide");
       window.scrollTo(0,0);
     }
   });
 
-  // -- Si recarga en medio del flujo, retomamos donde estaba --
-  (function retomar(){
+  // ---------- arranque ----------
+  (function arranque(){
+    // ya agendó en esta sesión
     if(sessionStorage.getItem("nfm_scheduled") === "1"){
       step1.style.display="none"; done.style.display="block"; return;
     }
+
+    // 1) ¿vienen los datos en la URL? -> saltar formulario
+    var urlData = datosDesdeURL();
+    if(urlData && (urlData.correo || urlData.whatsapp)){
+      step1.style.display = "none";
+      loading.style.display = "block";
+      backBtn.style.display = "none";  // no hay formulario al que volver
+      procesar(urlData);
+      return;
+    }
+
+    // 2) sin datos: mostrar formulario (y repoblar si recargó)
+    step1.style.display = "block";
     var raw = sessionStorage.getItem("nfm_lead_data");
     if(raw && sessionStorage.getItem("nfm_lead_sent") === "1"){
       try{
         var d = JSON.parse(raw);
-        document.getElementById("nombre").value = d.nombreCompleto || "";
-        document.getElementById("correo").value = d.correo || "";
+        if(document.getElementById("nombre")) document.getElementById("nombre").value = d.nombreCompleto || "";
+        if(document.getElementById("correo")) document.getElementById("correo").value = d.correo || "";
       }catch(_){}
     }
   })();

@@ -66,8 +66,8 @@ function getSheet_() {
 }
 
 function addLead_(sheet, d) {
-  // Si ya existe una fila con este Lead ID, no duplicamos.
-  if (findRowByLeadId_(sheet, d.leadId) > 0) return;
+  // Si ya existe una fila con este Lead ID o este correo, no duplicamos.
+  if (findRow_(sheet, d.leadId, d.correo) > 0) return;
   sheet.appendRow([
     d.leadId || '',
     new Date(),
@@ -82,7 +82,7 @@ function addLead_(sheet, d) {
 }
 
 function markScheduled_(sheet, d) {
-  var row = findRowByLeadId_(sheet, d.leadId);
+  var row = findRow_(sheet, d.leadId, d.correo);
   var now = new Date();
   if (row > 0) {
     sheet.getRange(row, 7).setValue('Agendó ✅');  // columna Estado
@@ -103,13 +103,23 @@ function markScheduled_(sheet, d) {
   }
 }
 
-function findRowByLeadId_(sheet, leadId) {
-  if (!leadId) return -1;
+// Busca una fila por Lead ID; si no la encuentra, por correo. Devuelve el nro de fila o -1.
+function findRow_(sheet, leadId, correo) {
   var last = sheet.getLastRow();
   if (last < 2) return -1;
-  var ids = sheet.getRange(2, 1, last - 1, 1).getValues();
-  for (var i = 0; i < ids.length; i++) {
-    if (String(ids[i][0]) === String(leadId)) return i + 2;
+  var data = sheet.getRange(2, 1, last - 1, HEADERS.length).getValues();
+  var COL_ID = 0;      // 'Lead ID'
+  var COL_CORREO = 4;  // 'Correo'
+  if (leadId) {
+    for (var i = 0; i < data.length; i++) {
+      if (String(data[i][COL_ID]) === String(leadId)) return i + 2;
+    }
+  }
+  if (correo) {
+    var c = String(correo).trim().toLowerCase();
+    for (var j = 0; j < data.length; j++) {
+      if (String(data[j][COL_CORREO]).trim().toLowerCase() === c) return j + 2;
+    }
   }
   return -1;
 }

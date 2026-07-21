@@ -1,19 +1,29 @@
-# Pre-formulario de Calendly con autocompletado + tracking en Google Sheets
+# Página puente: autocompleta Calendly + trackea quién agenda y quién no
 
-Flujo en 2 pasos para tu **Entrevista de Admisión (LE)**:
+La página funciona en **dos modos** (elige solo según cómo entre la persona):
 
-1. **Paso 1 — Tus datos:** la persona completa solo **Nombre y apellido, Correo y WhatsApp**.
-2. **Paso 2 — Calendly:** se muestra tu Calendly con **esos datos ya autocompletados** (no los vuelve a escribir) y elige día/horario.
+### 🅰️ Modo recomendado — datos que llegan por la URL (sin formulario)
+Si la persona **ya te dejó nombre, mail y WhatsApp antes** (ej: registro de la clase en
+vivo), esos datos viajan **en el link** hacia esta página. La página los lee, **salta el
+formulario** y muestra el Calendly **ya autocompletado**. La persona solo elige horario.
+👉 Ver la sección **"Arrastrar los datos desde el registro (por la URL)"** más abajo.
+
+### 🅱️ Modo respaldo — mini-formulario
+Si alguien entra **directo** (sin datos en la URL), la página le pide **Nombre, Correo y
+WhatsApp** y recién ahí muestra el Calendly autocompletado.
 
 > El "Nombre y apellido" se divide solo: la primera palabra va al campo *Nombre* de Calendly
-> y el resto al campo *Apellido*, así los dos quedan llenos sin que la persona reescriba nada.
+> y el resto al campo *Apellido*.
 
-Y en el medio se registra **todo** en una Google Sheet:
+En los dos modos se registra **todo** en una Google Sheet:
 
-- Apenas envían el Paso 1 → fila con estado **"Registrado — No agendó"**.
-- Si terminan de agendar en Calendly → esa misma fila pasa a **"Agendó ✅"**.
+- Cuando la persona llega → fila con estado **"Registrado — No agendó"**.
+- Si termina de agendar en Calendly → esa misma fila pasa a **"Agendó ✅"**.
 
-Así podés filtrar por **"Registrado — No agendó"** y tenés la lista de gente para escribirle por WhatsApp y preguntarle por qué no terminó. 🎯
+Así filtrás por **"Registrado — No agendó"** y tenés la lista de gente para escribirle por
+WhatsApp y preguntarle por qué no terminó. 🎯
+
+> Si la misma persona (mismo correo) entra dos veces, **no se duplica** la fila.
 
 ---
 
@@ -78,6 +88,42 @@ Esa URL de Netlify es la que ponés en tus anuncios / bio / mensajes, **en lugar
 
 ---
 
+## ⭐ Arrastrar los datos desde el registro (por la URL)
+
+Este es el punto clave para que **no tengan que cargar los datos dos veces**.
+
+Cuando tu página de registro (la de la clase en vivo) manda a la persona a esta página,
+tenés que **adjuntar sus datos al final del link**, así:
+
+```
+https://TU-PAGINA.netlify.app/?nombre=Maria+Perez&email=maria@mail.com&whatsapp=+5491123456789
+```
+
+La página entiende varios nombres de parámetro (por si tu herramienta usa otros):
+
+| Dato | Parámetros que acepta |
+|---|---|
+| Nombre | `nombre`, `name`, `fullname` — o `first_name` + `last_name` por separado |
+| Correo | `email`, `correo`, `mail` |
+| WhatsApp | `whatsapp`, `telefono`, `phone`, `celular`, `numero` |
+
+👉 Lo importante: en tu herramienta de registro, en vez de escribir los datos a mano, usás
+los **campos dinámicos (merge fields)** de la persona. Ejemplos según la herramienta:
+
+- **Genérico / HTML propio:** armás el link con los valores reales al redirigir.
+- **GoHighLevel / HighLevel:**
+  `...netlify.app/?nombre={{contact.first_name}} {{contact.last_name}}&email={{contact.email}}&whatsapp={{contact.phone}}`
+- **Systeme.io / Mailchimp / ActiveCampaign / ManyChat:** usá los merge tags equivalentes
+  de cada uno (`*|FNAME|*`, `%FIRSTNAME%`, etc.) en la URL de redirección post-registro.
+
+> El WhatsApp conviene mandarlo con **código de país** (ej: `+549...`). Si tu herramienta ya
+> lo guarda así (como el `+54` de tu formulario de registro), sale perfecto.
+
+**Importante:** que la redirección post-registro apunte a **esta página** (no directo a
+Calendly). Si va directo a Calendly, se pierde el tracking de "no agendó".
+
+---
+
 ## Sobre el autocompletado en Calendly (importante)
 
 Calendly rellena las preguntas personalizadas por **orden**:
@@ -89,9 +135,10 @@ Por eso está configurado `campoWhatsApp: "a1"`.
 👉 **Si algún día cambiás el orden de las preguntas en Calendly** (o agregás una nueva
 antes del WhatsApp), actualizá ese valor en `NFM_CONFIG`.
 
-**Verificación rápida:** entrá a tu página, completá el Paso 1 y fijate en Calendly que
-el WhatsApp aparezca bien cargado. Nombre, Apellido y Correo se autocompletan siempre
-(son campos nativos de Calendly).
+**Verificación rápida:** abrí tu página agregándole datos de prueba en el link, ej:
+`https://TU-PAGINA.netlify.app/?nombre=Maria+Perez&email=maria@mail.com&whatsapp=+5491123456789`
+y fijate en Calendly que el WhatsApp aparezca bien cargado. Nombre, Apellido y Correo se
+autocompletan siempre (son campos nativos de Calendly).
 
 > Nota: el campo de teléfono de Calendly puede ser exigente con el formato. La página ya
 > arma el número en formato internacional (ej. `+59171234567`). Si en tu Calendly el
