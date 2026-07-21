@@ -2,8 +2,11 @@
 
 Flujo en 2 pasos para tu **Entrevista de Admisión (LE)**:
 
-1. **Paso 1 — Tus datos:** la persona completa Nombre, Apellido, Correo, WhatsApp y Profesión.
+1. **Paso 1 — Tus datos:** la persona completa solo **Nombre y apellido, Correo y WhatsApp**.
 2. **Paso 2 — Calendly:** se muestra tu Calendly con **esos datos ya autocompletados** (no los vuelve a escribir) y elige día/horario.
+
+> El "Nombre y apellido" se divide solo: la primera palabra va al campo *Nombre* de Calendly
+> y el resto al campo *Apellido*, así los dos quedan llenos sin que la persona reescriba nada.
 
 Y en el medio se registra **todo** en una Google Sheet:
 
@@ -50,14 +53,14 @@ Abrí `index.html` y editá **solo el bloque `NFM_CONFIG`** (arriba del todo):
 window.NFM_CONFIG = {
   calendlyUrl: "https://calendly.com/nicolasfernandezmiranda/entrevista-de-admision-li-clon",
   appsScriptUrl: "PEGÁ_ACÁ_LA_URL_/exec_DEL_PASO_A",
-  campoWhatsApp: "a1",
-  campoProfesion: "a2"
+  campoWhatsApp: "a1"
 };
 ```
 
 - **`calendlyUrl`** → ya viene con tu link; cambialo si usás otro evento.
 - **`appsScriptUrl`** → pegá la URL `/exec` de la Parte A.
-  (Si lo dejás vacío, la página funciona igual pero **no guarda nada** en la planilla.)
+  (Si lo dejás vacío, el autocompletado funciona igual pero **no guarda nada** en la planilla.)
+- **`campoWhatsApp`** → `a1` porque el WhatsApp es la 1ª pregunta personalizada de tu Calendly.
 
 ---
 
@@ -77,22 +80,18 @@ Esa URL de Netlify es la que ponés en tus anuncios / bio / mensajes, **en lugar
 
 ## Sobre el autocompletado en Calendly (importante)
 
-Calendly rellena los campos por **orden** de las preguntas personalizadas:
+Calendly rellena las preguntas personalizadas por **orden**:
 `a1` = 1ª pregunta, `a2` = 2ª, y así.
 
-En tu formulario el orden es:
-
-1. ¿Cuál es tu número de WhatsApp?  → **a1**
-2. ¿Cuál es tu profesión…?          → **a2**
-
-Por eso está configurado `campoWhatsApp: "a1"` y `campoProfesion: "a2"`.
+En tu formulario, el WhatsApp es la **1ª** pregunta personalizada → **a1**.
+Por eso está configurado `campoWhatsApp: "a1"`.
 
 👉 **Si algún día cambiás el orden de las preguntas en Calendly** (o agregás una nueva
-antes de esas), actualizá esos dos valores en `NFM_CONFIG`.
+antes del WhatsApp), actualizá ese valor en `NFM_CONFIG`.
 
 **Verificación rápida:** entrá a tu página, completá el Paso 1 y fijate en Calendly que
-el WhatsApp y la Profesión aparezcan bien cargados. Nombre, Apellido y Correo se
-autocompletan siempre (son campos nativos de Calendly).
+el WhatsApp aparezca bien cargado. Nombre, Apellido y Correo se autocompletan siempre
+(son campos nativos de Calendly).
 
 > Nota: el campo de teléfono de Calendly puede ser exigente con el formato. La página ya
 > arma el número en formato internacional (ej. `+59171234567`). Si en tu Calendly el
@@ -105,7 +104,7 @@ autocompletan siempre (son campos nativos de Calendly).
 
 En la pestaña **Leads** vas a tener estas columnas:
 
-`Lead ID · Registrado · Nombre · Apellido · Correo · WhatsApp · Profesión · Estado · Agendó · Origen`
+`Lead ID · Registrado · Nombre · Apellido · Correo · WhatsApp · Estado · Agendó · Origen`
 
 - **Los que NO agendaron:** filtrá la columna **Estado** por **"Registrado — No agendó"**.
   Esa es tu lista para escribir por WhatsApp. Tenés el número ya en formato internacional.

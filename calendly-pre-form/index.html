@@ -27,7 +27,7 @@
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:640px;margin:0 auto;padding:28px 18px 60px}
+  .wrap{max-width:560px;margin:0 auto;padding:28px 18px 60px}
   .wrap.wide{max-width:1000px}
 
   /* Header / marca */
@@ -60,8 +60,6 @@
   .req{color:#d33}
 
   .field{margin-bottom:18px}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media(max-width:480px){.row2{grid-template-columns:1fr}}
 
   input[type=text],input[type=email],input[type=tel],select{
     width:100%;padding:12px 13px;font-size:15px;border:1px solid var(--line);
@@ -113,26 +111,25 @@
 <body>
 
 <!-- ============================================================= -->
-<!-- CONFIGURACIÓN  —  editá SOLO estas 3 líneas                    -->
+<!-- CONFIGURACIÓN  —  editá SOLO estas líneas                      -->
 <!-- ============================================================= -->
 <script>
   window.NFM_CONFIG = {
     // URL de tu evento de Calendly
     calendlyUrl: "https://calendly.com/nicolasfernandezmiranda/entrevista-de-admision-li-clon",
 
-    // URL del Web App de Apps Script (la pegás después de desplegar el script).
-    // Mientras esté vacío, el formulario funciona igual pero NO guarda en la planilla.
+    // URL del Web App de Apps Script (opcional: para registrar en Google Sheets
+    // quién dejó sus datos y quién agendó). Si lo dejás vacío, igual funciona
+    // el autocompletado, solo que NO guarda en la planilla.
     appsScriptUrl: "",
 
-    // Posición de las preguntas personalizadas en Calendly (a1 = 1ra, a2 = 2da, etc.)
-    // Según tu formulario: 1ra = WhatsApp, 2da = Profesión.
-    campoWhatsApp: "a1",
-    campoProfesion: "a2"
+    // Posición de la pregunta de WhatsApp en Calendly (a1 = 1ra pregunta, a2 = 2da...).
+    // En tu formulario el WhatsApp es la 1ra pregunta personalizada -> a1.
+    campoWhatsApp: "a1"
   };
 </script>
 <!-- ============================================================= -->
 
-<!-- ---------- PASO 1: formulario ---------- -->
 <div class="wrap" id="view">
 
   <div class="brand">
@@ -143,27 +140,21 @@
     </div>
   </div>
 
+  <!-- ---------- PASO 1: datos mínimos ---------- -->
   <div id="step1">
     <div class="steps">Paso <b>1</b> de 2 — Tus datos &nbsp;·&nbsp; Paso 2 — Elegir horario</div>
 
     <div class="card">
       <div class="intro">
-        <b>👋 Antes de elegir tu horario</b>, dejanos tus datos. Con esto reservamos tu lugar y
+        <b>👋 Antes de elegir tu horario</b>, dejanos tus datos. Así reservamos tu lugar y
         <b>autocompletamos</b> el siguiente paso para que no tengas que volver a escribirlos.
       </div>
 
       <form id="leadForm" novalidate>
-        <div class="row2">
-          <div class="field">
-            <label for="nombre">Nombre <span class="req">*</span></label>
-            <input type="text" id="nombre" name="nombre" autocomplete="given-name" />
-            <div class="msg" data-for="nombre">Ingresá tu nombre.</div>
-          </div>
-          <div class="field">
-            <label for="apellido">Apellido <span class="req">*</span></label>
-            <input type="text" id="apellido" name="apellido" autocomplete="family-name" />
-            <div class="msg" data-for="apellido">Ingresá tu apellido.</div>
-          </div>
+        <div class="field">
+          <label for="nombre">Nombre y apellido <span class="req">*</span></label>
+          <input type="text" id="nombre" name="nombre" autocomplete="name" placeholder="Ej: María Pérez" />
+          <div class="msg" data-for="nombre">Ingresá tu nombre y apellido.</div>
         </div>
 
         <div class="field">
@@ -174,32 +165,26 @@
 
         <div class="field">
           <label for="tel">¿Cuál es tu número de WhatsApp? <span class="req">*</span></label>
-          <p class="hint">Asegurate de escribirlo bien: lo vamos a usar para confirmarte la sesión. Si el número es inválido o no contestás, tendremos que cancelar la llamada.</p>
+          <p class="hint">Escribilo bien: lo vamos a usar para confirmarte la sesión.</p>
           <div class="phone">
             <select id="cc" name="cc" aria-label="Código de país">
-              <option value="+591" data-flag="🇧🇴" selected>🇧🇴 +591</option>
-              <option value="+54"  data-flag="🇦🇷">🇦🇷 +54</option>
-              <option value="+56"  data-flag="🇨🇱">🇨🇱 +56</option>
-              <option value="+51"  data-flag="🇵🇪">🇵🇪 +51</option>
-              <option value="+57"  data-flag="🇨🇴">🇨🇴 +57</option>
-              <option value="+52"  data-flag="🇲🇽">🇲🇽 +52</option>
-              <option value="+598" data-flag="🇺🇾">🇺🇾 +598</option>
-              <option value="+595" data-flag="🇵🇾">🇵🇾 +595</option>
-              <option value="+593" data-flag="🇪🇨">🇪🇨 +593</option>
-              <option value="+58"  data-flag="🇻🇪">🇻🇪 +58</option>
-              <option value="+55"  data-flag="🇧🇷">🇧🇷 +55</option>
-              <option value="+34"  data-flag="🇪🇸">🇪🇸 +34</option>
-              <option value="+1"   data-flag="🇺🇸">🇺🇸 +1</option>
+              <option value="+591" selected>🇧🇴 +591</option>
+              <option value="+54">🇦🇷 +54</option>
+              <option value="+56">🇨🇱 +56</option>
+              <option value="+51">🇵🇪 +51</option>
+              <option value="+57">🇨🇴 +57</option>
+              <option value="+52">🇲🇽 +52</option>
+              <option value="+598">🇺🇾 +598</option>
+              <option value="+595">🇵🇾 +595</option>
+              <option value="+593">🇪🇨 +593</option>
+              <option value="+58">🇻🇪 +58</option>
+              <option value="+55">🇧🇷 +55</option>
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+1">🇺🇸 +1</option>
             </select>
             <input type="tel" id="tel" name="tel" inputmode="numeric" autocomplete="tel-national" placeholder="Número sin el código" />
           </div>
           <div class="msg" data-for="tel">Ingresá tu número de WhatsApp.</div>
-        </div>
-
-        <div class="field">
-          <label for="profesion">¿Cuál es tu profesión y a qué te dedicás exactamente? <span class="req">*</span></label>
-          <input type="text" id="profesion" name="profesion" placeholder="Ej: Contadora, tengo mi propio estudio…" />
-          <div class="msg" data-for="profesion">Contanos a qué te dedicás.</div>
         </div>
 
         <button type="submit" class="btn" id="submitBtn">Continuar a elegir horario →</button>
@@ -256,6 +241,15 @@
     return (q ? q.replace(/^\?/,"") : "directo") + ref;
   }
 
+  // -- Divide "Nombre Apellido" en firstName / lastName --
+  function partirNombre(full){
+    full = (full || "").trim().replace(/\s+/g," ");
+    if(!full) return { first:"", last:"" };
+    var i = full.indexOf(" ");
+    if(i === -1) return { first:full, last:"" };
+    return { first:full.slice(0,i), last:full.slice(i+1) };
+  }
+
   // -- Envío a Apps Script (sin bloquear la UI). no-cors + text/plain evita el preflight CORS. --
   function enviar(payload){
     if(!CFG.appsScriptUrl){ console.warn("[NFM] appsScriptUrl vacío: no se guarda en la planilla."); return; }
@@ -283,22 +277,21 @@
   function leerDatos(){
     var cc = document.getElementById("cc").value;
     var telNac = val("tel").replace(/[^\d]/g,"");
+    var n = partirNombre(val("nombre"));
     return {
-      nombre: val("nombre"),
-      apellido: val("apellido"),
+      nombreCompleto: val("nombre"),
+      nombre: n.first,
+      apellido: n.last,
       correo: val("correo"),
-      whatsapp: telNac ? (cc + telNac) : "",   // E.164, ej: +59171234567
-      profesion: val("profesion")
+      whatsapp: telNac ? (cc + telNac) : ""   // E.164, ej: +59171234567
     };
   }
 
   function validar(d){
     var ok = true;
-    if(!d.nombre){ setErr("nombre",true); ok=false; } else setErr("nombre",false);
-    if(!d.apellido){ setErr("apellido",true); ok=false; } else setErr("apellido",false);
+    if(!d.nombreCompleto){ setErr("nombre",true); ok=false; } else setErr("nombre",false);
     if(!emailOk(d.correo)){ setErr("correo",true); ok=false; } else setErr("correo",false);
     if(!d.whatsapp || d.whatsapp.replace(/[^\d]/g,"").length < 7){ setErr("tel",true); ok=false; } else setErr("tel",false);
-    if(!d.profesion){ setErr("profesion",true); ok=false; } else setErr("profesion",false);
     return ok;
   }
 
@@ -314,13 +307,12 @@
     function init(){
       if(!window.Calendly){ return setTimeout(init, 200); }
       var custom = {};
-      custom[CFG.campoWhatsApp]  = d.whatsapp;
-      custom[CFG.campoProfesion] = d.profesion;
+      custom[CFG.campoWhatsApp] = d.whatsapp;
       Calendly.initInlineWidget({
         url: CFG.calendlyUrl,
         parentElement: document.getElementById("calendly"),
         prefill: {
-          name: (d.nombre + " " + d.apellido).trim(),
+          name: d.nombreCompleto,
           firstName: d.nombre,
           lastName: d.apellido,
           email: d.correo,
@@ -393,11 +385,8 @@
     if(raw && sessionStorage.getItem("nfm_lead_sent") === "1"){
       try{
         var d = JSON.parse(raw);
-        // repoblar el form por si vuelve
-        document.getElementById("nombre").value = d.nombre || "";
-        document.getElementById("apellido").value = d.apellido || "";
+        document.getElementById("nombre").value = d.nombreCompleto || "";
         document.getElementById("correo").value = d.correo || "";
-        document.getElementById("profesion").value = d.profesion || "";
       }catch(_){}
     }
   })();

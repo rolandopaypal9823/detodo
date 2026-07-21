@@ -21,7 +21,6 @@ var HEADERS = [
   'Apellido',
   'Correo',
   'WhatsApp',
-  'Profesión',
   'Estado',
   'Agendó (fecha/hora)',
   'Origen'
@@ -76,7 +75,6 @@ function addLead_(sheet, d) {
     d.apellido || '',
     d.correo || '',
     formatWhatsApp_(d.whatsapp),
-    d.profesion || '',
     'Registrado — No agendó',
     '',
     d.origen || ''
@@ -87,8 +85,8 @@ function markScheduled_(sheet, d) {
   var row = findRowByLeadId_(sheet, d.leadId);
   var now = new Date();
   if (row > 0) {
-    sheet.getRange(row, 8).setValue('Agendó ✅');  // columna Estado
-    sheet.getRange(row, 9).setValue(now);          // columna Agendó
+    sheet.getRange(row, 7).setValue('Agendó ✅');  // columna Estado
+    sheet.getRange(row, 8).setValue(now);          // columna Agendó
   } else {
     // Por si el evento "scheduled" llega sin haber registrado el lead antes.
     sheet.appendRow([
@@ -98,7 +96,6 @@ function markScheduled_(sheet, d) {
       d.apellido || '',
       d.correo || '',
       formatWhatsApp_(d.whatsapp),
-      d.profesion || '',
       'Agendó ✅',
       now,
       d.origen || ''
