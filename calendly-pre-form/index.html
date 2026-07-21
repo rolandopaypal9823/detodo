@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Entrevista de Admisión (LE) — Asesores NFM</title>
+<meta name="robots" content="noindex" />
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+<style>
+  :root{
+    --brand:#0a66ff;
+    --brand-dark:#0a49b8;
+    --ink:#0b1b34;
+    --muted:#5b6b82;
+    --line:#e4e9f2;
+    --bg:#f4f6fb;
+    --ok:#12854a;
+    --radius:14px;
+    --shadow:0 10px 40px rgba(13,38,76,.10);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:28px 18px 60px}
+  .wrap.wide{max-width:1000px}
+
+  /* Header / marca */
+  .brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .brand .logo{
+    width:44px;height:44px;border-radius:12px;flex:0 0 44px;
+    background:linear-gradient(135deg,var(--brand),#3f86ff);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:800;font-size:16px;letter-spacing:.5px;
+  }
+  .brand .eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
+  .brand h1{font-size:20px;margin:2px 0 0;line-height:1.2}
+
+  .steps{display:flex;gap:8px;margin:6px 0 20px;font-size:12.5px;color:var(--muted)}
+  .steps b{color:var(--ink)}
+
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:26px 24px;
+  }
+
+  .intro{
+    background:#fff8ef;border:1px solid #f4e2c4;border-radius:12px;
+    padding:14px 16px;margin-bottom:22px;font-size:14px;color:#6b4e1e;
+  }
+  .intro b{color:#5a3f11}
+
+  label{display:block;font-size:14px;font-weight:600;margin:0 0 6px}
+  .hint{font-weight:400;color:var(--muted);font-size:13px;margin:0 0 8px}
+  .req{color:#d33}
+
+  .field{margin-bottom:18px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:480px){.row2{grid-template-columns:1fr}}
+
+  input[type=text],input[type=email],input[type=tel],select{
+    width:100%;padding:12px 13px;font-size:15px;border:1px solid var(--line);
+    border-radius:10px;background:#fff;color:var(--ink);outline:none;transition:border .15s,box-shadow .15s;
+    font-family:inherit;
+  }
+  input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(10,102,255,.15)}
+  input.err,select.err{border-color:#e15b5b;box-shadow:0 0 0 3px rgba(225,91,91,.12)}
+
+  .phone{display:grid;grid-template-columns:130px 1fr;gap:10px}
+  @media(max-width:480px){.phone{grid-template-columns:120px 1fr}}
+
+  .msg{display:none;font-size:12.5px;color:#d33;margin-top:5px}
+  .msg.show{display:block}
+
+  .btn{
+    width:100%;border:0;border-radius:11px;padding:14px 18px;font-size:15.5px;font-weight:700;
+    background:var(--brand);color:#fff;cursor:pointer;transition:background .15s,transform .05s;
+    font-family:inherit;
+  }
+  .btn:hover{background:var(--brand-dark)}
+  .btn:active{transform:translateY(1px)}
+  .btn[disabled]{opacity:.6;cursor:not-allowed}
+
+  .legal{font-size:12px;color:var(--muted);margin-top:14px;text-align:center}
+
+  /* Paso 2 */
+  #step2{display:none}
+  .back{
+    display:inline-flex;align-items:center;gap:6px;background:none;border:0;color:var(--brand);
+    font-weight:600;font-size:14px;cursor:pointer;padding:6px 0;margin-bottom:6px;font-family:inherit;
+  }
+  .prefill-note{
+    display:flex;align-items:center;gap:8px;background:#eef8f1;border:1px solid #c7e8d3;color:#155c37;
+    border-radius:10px;padding:10px 14px;font-size:13.5px;margin:6px 0 16px;
+  }
+  .calendly-inline-widget{min-width:320px;height:760px}
+
+  /* Éxito */
+  #done{display:none;text-align:center;padding:40px 20px}
+  #done .check{
+    width:66px;height:66px;border-radius:50%;background:var(--ok);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 16px;
+  }
+  #done h2{margin:0 0 8px}
+  #done p{color:var(--muted);margin:0 auto;max-width:420px}
+</style>
+</head>
+<body>
+
+<!-- ============================================================= -->
+<!-- CONFIGURACIÓN  —  editá SOLO estas 3 líneas                    -->
+<!-- ============================================================= -->
+<script>
+  window.NFM_CONFIG = {
+    // URL de tu evento de Calendly
+    calendlyUrl: "https://calendly.com/nicolasfernandezmiranda/entrevista-de-admision-li-clon",
+
+    // URL del Web App de Apps Script (la pegás después de desplegar el script).
+    // Mientras esté vacío, el formulario funciona igual pero NO guarda en la planilla.
+    appsScriptUrl: "",
+
+    // Posición de las preguntas personalizadas en Calendly (a1 = 1ra, a2 = 2da, etc.)
+    // Según tu formulario: 1ra = WhatsApp, 2da = Profesión.
+    campoWhatsApp: "a1",
+    campoProfesion: "a2"
+  };
+</script>
+<!-- ============================================================= -->
+
+<!-- ---------- PASO 1: formulario ---------- -->
+<div class="wrap" id="view">
+
+  <div class="brand">
+    <div class="logo">NFM</div>
+    <div>
+      <div class="eyebrow">Asesores NFM</div>
+      <h1>Entrevista de Admisión (LE)</h1>
+    </div>
+  </div>
+
+  <div id="step1">
+    <div class="steps">Paso <b>1</b> de 2 — Tus datos &nbsp;·&nbsp; Paso 2 — Elegir horario</div>
+
+    <div class="card">
+      <div class="intro">
+        <b>👋 Antes de elegir tu horario</b>, dejanos tus datos. Con esto reservamos tu lugar y
+        <b>autocompletamos</b> el siguiente paso para que no tengas que volver a escribirlos.
+      </div>
+
+      <form id="leadForm" novalidate>
+        <div class="row2">
+          <div class="field">
+            <label for="nombre">Nombre <span class="req">*</span></label>
+            <input type="text" id="nombre" name="nombre" autocomplete="given-name" />
+            <div class="msg" data-for="nombre">Ingresá tu nombre.</div>
+          </div>
+          <div class="field">
+            <label for="apellido">Apellido <span class="req">*</span></label>
+            <input type="text" id="apellido" name="apellido" autocomplete="family-name" />
+            <div class="msg" data-for="apellido">Ingresá tu apellido.</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="correo">Correo electrónico <span class="req">*</span></label>
+          <input type="email" id="correo" name="correo" autocomplete="email" placeholder="tucorreo@email.com" />
+          <div class="msg" data-for="correo">Ingresá un correo válido.</div>
+        </div>
+
+        <div class="field">
+          <label for="tel">¿Cuál es tu número de WhatsApp? <span class="req">*</span></label>
+          <p class="hint">Asegurate de escribirlo bien: lo vamos a usar para confirmarte la sesión. Si el número es inválido o no contestás, tendremos que cancelar la llamada.</p>
+          <div class="phone">
+            <select id="cc" name="cc" aria-label="Código de país">
+              <option value="+591" data-flag="🇧🇴" selected>🇧🇴 +591</option>
+              <option value="+54"  data-flag="🇦🇷">🇦🇷 +54</option>
+              <option value="+56"  data-flag="🇨🇱">🇨🇱 +56</option>
+              <option value="+51"  data-flag="🇵🇪">🇵🇪 +51</option>
+              <option value="+57"  data-flag="🇨🇴">🇨🇴 +57</option>
+              <option value="+52"  data-flag="🇲🇽">🇲🇽 +52</option>
+              <option value="+598" data-flag="🇺🇾">🇺🇾 +598</option>
+              <option value="+595" data-flag="🇵🇾">🇵🇾 +595</option>
+              <option value="+593" data-flag="🇪🇨">🇪🇨 +593</option>
+              <option value="+58"  data-flag="🇻🇪">🇻🇪 +58</option>
+              <option value="+55"  data-flag="🇧🇷">🇧🇷 +55</option>
+              <option value="+34"  data-flag="🇪🇸">🇪🇸 +34</option>
+              <option value="+1"   data-flag="🇺🇸">🇺🇸 +1</option>
+            </select>
+            <input type="tel" id="tel" name="tel" inputmode="numeric" autocomplete="tel-national" placeholder="Número sin el código" />
+          </div>
+          <div class="msg" data-for="tel">Ingresá tu número de WhatsApp.</div>
+        </div>
+
+        <div class="field">
+          <label for="profesion">¿Cuál es tu profesión y a qué te dedicás exactamente? <span class="req">*</span></label>
+          <input type="text" id="profesion" name="profesion" placeholder="Ej: Contadora, tengo mi propio estudio…" />
+          <div class="msg" data-for="profesion">Contanos a qué te dedicás.</div>
+        </div>
+
+        <button type="submit" class="btn" id="submitBtn">Continuar a elegir horario →</button>
+        <p class="legal">Al continuar, tus datos se usan solo para coordinar tu entrevista.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ---------- PASO 2: Calendly ---------- -->
+  <div id="step2">
+    <button class="back" id="backBtn">← Volver a mis datos</button>
+    <div class="steps">Paso 1 — Tus datos ✓ &nbsp;·&nbsp; Paso <b>2</b> de 2 — Elegí tu horario</div>
+    <div class="prefill-note">✅ Tus datos ya están cargados. Solo elegí día y horario, revisá y confirmá.</div>
+    <div id="calendly" class="calendly-inline-widget"></div>
+  </div>
+
+  <!-- ---------- ÉXITO ---------- -->
+  <div id="done">
+    <div class="check">✓</div>
+    <h2>¡Listo! Tu entrevista quedó agendada</h2>
+    <p>Te enviamos la confirmación por correo. Recordá estar en un lugar tranquilo y sin distracciones. ¡Nos vemos!</p>
+  </div>
+
+</div>
+
+<!-- Calendly -->
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+<script>
+(function(){
+  "use strict";
+  var CFG = window.NFM_CONFIG;
+
+  var form   = document.getElementById("leadForm");
+  var step1  = document.getElementById("step1");
+  var step2  = document.getElementById("step2");
+  var done   = document.getElementById("done");
+  var view   = document.getElementById("view");
+  var backBtn= document.getElementById("backBtn");
+  var submit = document.getElementById("submitBtn");
+
+  // -- ID único de este lead (persiste por si recarga la página) --
+  function uuid(){
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return "id-" + Date.now() + "-" + Math.floor(Math.random()*1e9);
+  }
+  var leadId = sessionStorage.getItem("nfm_lead_id");
+  if(!leadId){ leadId = uuid(); sessionStorage.setItem("nfm_lead_id", leadId); }
+
+  // -- Origen: de dónde vino (utm / referrer) --
+  function origen(){
+    var q = location.search || "";
+    var ref = document.referrer ? (" | ref:" + document.referrer) : "";
+    return (q ? q.replace(/^\?/,"") : "directo") + ref;
+  }
+
+  // -- Envío a Apps Script (sin bloquear la UI). no-cors + text/plain evita el preflight CORS. --
+  function enviar(payload){
+    if(!CFG.appsScriptUrl){ console.warn("[NFM] appsScriptUrl vacío: no se guarda en la planilla."); return; }
+    try{
+      fetch(CFG.appsScriptUrl, {
+        method:"POST",
+        mode:"no-cors",
+        keepalive:true,
+        headers:{ "Content-Type":"text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      }).catch(function(e){ console.warn("[NFM] error enviando", e); });
+    }catch(e){ console.warn("[NFM] error enviando", e); }
+  }
+
+  // -- Validación --
+  function setErr(id, on){
+    var el = document.getElementById(id);
+    var m  = document.querySelector('.msg[data-for="'+id+'"]');
+    if(el) el.classList.toggle("err", on);
+    if(m)  m.classList.toggle("show", on);
+  }
+  function val(id){ return (document.getElementById(id).value || "").trim(); }
+  function emailOk(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  function leerDatos(){
+    var cc = document.getElementById("cc").value;
+    var telNac = val("tel").replace(/[^\d]/g,"");
+    return {
+      nombre: val("nombre"),
+      apellido: val("apellido"),
+      correo: val("correo"),
+      whatsapp: telNac ? (cc + telNac) : "",   // E.164, ej: +59171234567
+      profesion: val("profesion")
+    };
+  }
+
+  function validar(d){
+    var ok = true;
+    if(!d.nombre){ setErr("nombre",true); ok=false; } else setErr("nombre",false);
+    if(!d.apellido){ setErr("apellido",true); ok=false; } else setErr("apellido",false);
+    if(!emailOk(d.correo)){ setErr("correo",true); ok=false; } else setErr("correo",false);
+    if(!d.whatsapp || d.whatsapp.replace(/[^\d]/g,"").length < 7){ setErr("tel",true); ok=false; } else setErr("tel",false);
+    if(!d.profesion){ setErr("profesion",true); ok=false; } else setErr("profesion",false);
+    return ok;
+  }
+
+  // -- Mostrar Calendly con los datos precargados --
+  var calendlyIniciado = false;
+  function mostrarCalendly(d){
+    step1.style.display = "none";
+    step2.style.display = "block";
+    view.classList.add("wide");
+    window.scrollTo(0,0);
+
+    if(calendlyIniciado) return;
+    function init(){
+      if(!window.Calendly){ return setTimeout(init, 200); }
+      var custom = {};
+      custom[CFG.campoWhatsApp]  = d.whatsapp;
+      custom[CFG.campoProfesion] = d.profesion;
+      Calendly.initInlineWidget({
+        url: CFG.calendlyUrl,
+        parentElement: document.getElementById("calendly"),
+        prefill: {
+          name: (d.nombre + " " + d.apellido).trim(),
+          firstName: d.nombre,
+          lastName: d.apellido,
+          email: d.correo,
+          customAnswers: custom
+        }
+      });
+      calendlyIniciado = true;
+    }
+    init();
+  }
+
+  // -- Submit del formulario --
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var d = leerDatos();
+    if(!validar(d)){
+      var first = document.querySelector(".err");
+      if(first) first.focus();
+      return;
+    }
+    // guardamos los datos por si recarga
+    sessionStorage.setItem("nfm_lead_data", JSON.stringify(d));
+
+    // registramos el lead como "No agendó" (una sola vez)
+    if(sessionStorage.getItem("nfm_lead_sent") !== "1"){
+      enviar(Object.assign({ action:"lead", leadId:leadId, origen:origen() }, d));
+      sessionStorage.setItem("nfm_lead_sent","1");
+    }
+
+    submit.textContent = "Cargando tu calendario…";
+    submit.disabled = true;
+    mostrarCalendly(d);
+  });
+
+  backBtn.addEventListener("click", function(){
+    step2.style.display = "none";
+    step1.style.display = "block";
+    view.classList.remove("wide");
+    submit.textContent = "Continuar a elegir horario →";
+    submit.disabled = false;
+    window.scrollTo(0,0);
+  });
+
+  // -- Escuchamos cuando la persona AGENDA en Calendly --
+  function esEventoCalendly(e){
+    return e.data && typeof e.data.event === "string" && e.data.event.indexOf("calendly") === 0;
+  }
+  window.addEventListener("message", function(e){
+    if(!esEventoCalendly(e)) return;
+    if(e.data.event === "calendly.event_scheduled"){
+      var d = {};
+      try{ d = JSON.parse(sessionStorage.getItem("nfm_lead_data")) || {}; }catch(_){}
+      enviar(Object.assign({ action:"scheduled", leadId:leadId, origen:origen() }, d));
+      sessionStorage.setItem("nfm_scheduled","1");
+      // pantalla de éxito
+      step2.style.display = "none";
+      step1.style.display = "none";
+      done.style.display = "block";
+      view.classList.remove("wide");
+      window.scrollTo(0,0);
+    }
+  });
+
+  // -- Si recarga en medio del flujo, retomamos donde estaba --
+  (function retomar(){
+    if(sessionStorage.getItem("nfm_scheduled") === "1"){
+      step1.style.display="none"; done.style.display="block"; return;
+    }
+    var raw = sessionStorage.getItem("nfm_lead_data");
+    if(raw && sessionStorage.getItem("nfm_lead_sent") === "1"){
+      try{
+        var d = JSON.parse(raw);
+        // repoblar el form por si vuelve
+        document.getElementById("nombre").value = d.nombre || "";
+        document.getElementById("apellido").value = d.apellido || "";
+        document.getElementById("correo").value = d.correo || "";
+        document.getElementById("profesion").value = d.profesion || "";
+      }catch(_){}
+    }
+  })();
+})();
+</script>
+</body>
+</html>
