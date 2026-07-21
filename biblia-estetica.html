@@ -406,6 +406,57 @@ h2.h2{font-family:'Montserrat';font-weight:900;font-size:clamp(26px,4vw,40px);li
   </div>
 </section>
 
+<!-- RECETA: RED NEURONAL -->
+<section class="dark" id="receta-neural" style="background:var(--navy-deep)">
+  <div class="wrap">
+    <span class="eyebrow">Receta · copiá el efecto</span>
+    <h2 class="h2">Cómo agregar la red neuronal</h2>
+    <p class="lead">El fondo animado del cover. Pegás 3 bloques (HTML + CSS + JS). Para <b style="color:#fff">fondo blanco</b> usás el preset <b style="color:#fff">light</b>; para <b style="color:#fff">fondo azul</b>, el <b style="color:#fff">dark</b>. Se apaga solo si el usuario pidió menos movimiento (accesibilidad).</p>
+    <div class="codeblock" style="margin-top:24px">
+<span class="c">&lt;!-- 1) HTML · al inicio del &lt;body&gt; --&gt;</span>
+&lt;<span class="k">canvas</span> id=<span class="o">"neuralbg"</span> aria-hidden=<span class="o">"true"</span>&gt;&lt;/<span class="k">canvas</span>&gt;
+&lt;<span class="k">div</span> id=<span class="o">"neural-mask"</span> aria-hidden=<span class="o">"true"</span>&gt;&lt;/<span class="k">div</span>&gt;
+
+<span class="c">/* 2) CSS */</span>
+#neuralbg{position:fixed;inset:0;z-index:-3}
+#neural-mask{position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:radial-gradient(120% 88% at 50% 8%,transparent 40%,<span class="o">rgba(255,255,255,.80)</span> 100%)}
+<span class="c">/* Fondo AZUL: cambiá rgba(255,255,255,.80) por rgba(6,29,48,.88) */</span>
+
+<span class="c">&lt;!-- 3) JS · antes de &lt;/body&gt; --&gt;</span>
+&lt;<span class="k">script</span>&gt;
+<span class="k">function</span> neural(canvas, o){
+  <span class="k">if</span>(!canvas) <span class="k">return</span>;
+  <span class="k">var</span> ctx=canvas.getContext(<span class="o">'2d'</span>), dpr=Math.min(devicePixelRatio||1,2), w,h,nodes=[], LINK=o.link||140;
+  <span class="k">function</span> size(){ <span class="k">var</span> r=canvas.getBoundingClientRect(); w=r.width; h=r.height;
+    canvas.width=w*dpr; canvas.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); build(); }
+  <span class="k">function</span> build(){ <span class="k">var</span> n=Math.max(14,Math.min(140,Math.round(w*h/16000))); nodes=[];
+    <span class="k">for</span>(<span class="k">var</span> i=0;i&lt;n;i++) nodes.push({x:Math.random()*w,y:Math.random()*h,
+      vx:(Math.random()-.5)*.16, vy:(Math.random()-.5)*.16, r:Math.random()*1.5+.8}); }
+  <span class="k">function</span> step(){ requestAnimationFrame(step); ctx.clearRect(0,0,w,h);
+    <span class="k">for</span>(<span class="k">var</span> i=0;i&lt;nodes.length;i++){ <span class="k">var</span> d=nodes[i]; d.x+=d.vx; d.y+=d.vy;
+      <span class="k">if</span>(d.x&lt;0||d.x&gt;w)d.vx*=-1; <span class="k">if</span>(d.y&lt;0||d.y&gt;h)d.vy*=-1; }
+    <span class="k">for</span>(<span class="k">var</span> a=0;a&lt;nodes.length;a++) <span class="k">for</span>(<span class="k">var</span> b=a+1;b&lt;nodes.length;b++){ <span class="k">var</span> A=nodes[a],B=nodes[b];
+      <span class="k">var</span> dist=Math.hypot(A.x-B.x,A.y-B.y);
+      <span class="k">if</span>(dist&lt;LINK){ ctx.strokeStyle=o.edge+(o.ea*(1-dist/LINK)).toFixed(3)+<span class="o">')'</span>;
+        ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y); ctx.stroke(); } }
+    <span class="k">for</span>(<span class="k">var</span> k=0;k&lt;nodes.length;k++){ ctx.fillStyle=o.node; ctx.beginPath();
+      ctx.arc(nodes[k].x,nodes[k].y,nodes[k].r,0,6.2832); ctx.fill(); } }
+  addEventListener(<span class="o">'resize'</span>,size); size(); step();
+}
+<span class="k">var</span> reduce = matchMedia &amp;&amp; matchMedia(<span class="o">'(prefers-reduced-motion: reduce)'</span>).matches;
+<span class="k">if</span>(!reduce){
+  <span class="c">// LIGHT · fondo blanco:</span>
+  neural(document.getElementById(<span class="o">'neuralbg'</span>),
+    {edge:<span class="o">'rgba(12,52,82,'</span>, ea:0.14, node:<span class="o">'rgba(12,52,82,0.30)'</span>, link:140});
+  <span class="c">// DARK · fondo azul (comentá el de arriba y usá este):</span>
+  <span class="c">// neural(canvas, {edge:'rgba(122,182,225,', ea:0.30, node:'rgba(150,196,232,0.55)', link:150});</span>
+}
+&lt;/<span class="k">script</span>&gt;</div>
+    <p class="lead" style="font-size:14px;margin-top:16px">Es <b style="color:#fff">fondo, no protagonista</b>: alfa bajos + la máscara hacen que el texto siempre gane. La landing suma una capa extra —señales naranjas que se disparan con el mouse— pero este preset ya te da el efecto base.</p>
+  </div>
+</section>
+
 <!-- FONDOS -->
 <section id="fondos">
   <div class="wrap">
