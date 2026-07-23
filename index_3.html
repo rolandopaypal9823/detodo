@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu diagnóstico previo — Instituto de Productividad</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap');
+:root{
+  --navy:#0c3452; --navy-700:#0a2c45; --navy-900:#082539;
+  --orange:#ff6602; --orange-600:#e65c00; --orange-50:#fff3ea;
+  --ink:#0c3452; --muted:#5b7184; --line:#e2e8ee; --line-soft:#eef2f6;
+  --bg:#f4f7fa; --card:#ffffff; --white:#ffffff;
+  --green:#1f9d57; --green-bg:#eafaf0; --green-line:#bfe9cf;
+  --red:#d63838; --red-bg:#fdf0f0; --red-line:#f3c9c9;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);font-family:'Open Sans',sans-serif;color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased}
+.page{max-width:600px;margin:0 auto;padding:34px 20px 60px}
+
+.logo{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--navy);text-align:center;margin-bottom:2rem;opacity:.85}
+
+.badge-red{display:inline-block;background:var(--orange-50);color:var(--orange-600);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;padding:5px 13px;border-radius:5px;margin-bottom:1rem;letter-spacing:.06em;text-transform:uppercase;border:1px solid #ffd9bf}
+.badge-green{display:inline-block;background:var(--green-bg);color:var(--green);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;padding:5px 13px;border-radius:5px;margin-bottom:.85rem;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--green-line)}
+.badge-alert{display:inline-block;background:var(--red-bg);color:var(--red);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;padding:5px 13px;border-radius:5px;margin-bottom:.85rem;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--red-line)}
+
+h1{font-family:'Montserrat',sans-serif;font-size:27px;font-weight:800;color:var(--navy);margin-bottom:.85rem;line-height:1.25;letter-spacing:-.01em}
+.intro-lead{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:1.25rem}
+
+.benefit-box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.25rem;margin-bottom:.7rem;display:flex;gap:.85rem;align-items:flex-start;box-shadow:0 1px 3px rgba(12,52,82,.04)}
+.benefit-icon{font-size:21px;color:var(--orange);flex-shrink:0;margin-top:2px}
+.benefit-text{font-size:14px;color:var(--muted);line-height:1.6}
+.benefit-text strong{color:var(--navy);font-weight:700}
+
+.start-btn{background:var(--orange);color:#fff;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;padding:16px 28px;border-radius:8px;border:none;cursor:pointer;width:100%;letter-spacing:.02em;margin-top:1.25rem;box-shadow:0 4px 14px rgba(255,102,2,.28);transition:all .18s}
+.start-btn:hover{background:var(--orange-600);transform:translateY(-1px)}
+.time-note{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;color:#93a3b2;text-align:center;margin-top:.7rem;letter-spacing:.06em;text-transform:uppercase}
+
+.prog-wrap{margin-bottom:2rem}
+.prog-bar{height:5px;background:var(--line);border-radius:3px;margin-bottom:.5rem;overflow:hidden}
+.prog-fill{height:5px;background:var(--orange);border-radius:3px;transition:width .5s ease}
+.prog-meta{display:flex;justify-content:space-between;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:#93a3b2;letter-spacing:.06em;text-transform:uppercase}
+
+.q-ctx{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:var(--orange);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+.q-text{font-family:'Montserrat',sans-serif;font-size:21px;font-weight:700;color:var(--navy);margin-bottom:.5rem;line-height:1.35}
+.q-hint{font-size:13px;color:var(--muted);margin-bottom:1.4rem}
+
+.opts{display:flex;flex-direction:column;gap:.6rem}
+.opt{background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:1rem 1rem 1rem 1.1rem;font-size:15px;color:#3a5061;cursor:pointer;text-align:left;font-family:'Open Sans',sans-serif;transition:all .16s;width:100%;display:flex;align-items:center;gap:.85rem;line-height:1.4}
+.opt-radio{width:21px;height:21px;border-radius:50%;border:2px solid #c3d0db;flex-shrink:0;transition:all .16s;display:flex;align-items:center;justify-content:center}
+.opt-radio.sq{border-radius:6px}
+.opt-radio-inner{width:9px;height:9px;border-radius:50%;background:#fff;opacity:0;transition:opacity .16s}
+.opt-radio.sq .opt-radio-inner{border-radius:2px}
+.opt:hover{border-color:var(--orange);color:var(--navy);background:#fff}
+.opt:hover .opt-radio{border-color:var(--orange)}
+.opt.sel{border-color:var(--orange);background:var(--orange-50);color:var(--navy);font-weight:600}
+.opt.sel .opt-radio{background:var(--orange);border-color:var(--orange)}
+.opt.sel .opt-radio-inner{opacity:1}
+
+.txt-wrap{margin-top:.25rem}
+.txt-area{width:100%;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:1rem 1.1rem;font-size:15px;color:var(--navy);font-family:'Open Sans',sans-serif;line-height:1.6;resize:none;min-height:120px;transition:border-color .16s}
+.txt-area::placeholder{color:#a9b8c4}
+.txt-area:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,102,2,.1)}
+.txt-count{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;color:#a9b8c4;text-align:right;margin-top:.4rem;letter-spacing:.04em}
+
+/* ===== paso final: nombre + correo ===== */
+.field{margin-bottom:1rem}
+.fld-label{display:block;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;color:var(--navy);margin-bottom:.45rem;letter-spacing:.01em}
+.fld-input{width:100%;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:.95rem 1.1rem;font-size:15px;color:var(--navy);font-family:'Open Sans',sans-serif;transition:border-color .16s}
+.fld-input::placeholder{color:#a9b8c4}
+.fld-input:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,102,2,.1)}
+.contact-rea{background:var(--orange-50);border:1px solid #ffd9bf;border-radius:10px;padding:.9rem 1.1rem;font-size:13.5px;color:#7a5238;line-height:1.6;margin-bottom:1.3rem;display:flex;gap:.7rem;align-items:flex-start}
+.contact-rea i{color:var(--orange);font-size:18px;flex-shrink:0;margin-top:1px}
+
+.nav{display:flex;gap:.75rem;margin-top:1.75rem}
+.btn-back{background:transparent;border:1.5px solid var(--line);color:var(--muted);font-family:'Montserrat',sans-serif;font-size:14px;font-weight:600;padding:12px 20px;border-radius:8px;cursor:pointer;flex-shrink:0;transition:all .16s}
+.btn-back:hover{border-color:var(--navy);color:var(--navy)}
+.btn-fwd{background:var(--orange);color:#fff;border:none;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;padding:13px 24px;border-radius:8px;cursor:pointer;flex:1;letter-spacing:.02em;box-shadow:0 4px 14px rgba(255,102,2,.25);transition:all .16s}
+.btn-fwd:hover{background:var(--orange-600)}
+.btn-fwd:disabled{opacity:.32;cursor:not-allowed;box-shadow:none}
+
+/* ===== PROCESANDO — Vector de Crecimiento NFM ===== */
+.proc-wrap{text-align:center;padding:2.2rem 0 1rem}
+.vector-stage{position:relative;width:140px;height:140px;margin:0 auto 1.7rem}
+.vector-disc{position:absolute;inset:10px;border-radius:50%;background:linear-gradient(135deg,var(--navy) 0%,var(--navy-900) 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(12,52,82,.3)}
+.vector-disc i{font-size:50px;color:var(--orange);animation:vPulse 1.5s ease-in-out infinite}
+@keyframes vPulse{0%,100%{transform:scale(1);filter:drop-shadow(0 0 0 rgba(255,102,2,0))}50%{transform:scale(1.12);filter:drop-shadow(0 0 12px rgba(255,102,2,.65))}}
+.vector-ring{position:absolute;inset:0;border-radius:50%;border:3px solid var(--line);border-top-color:var(--orange);animation:spin 1.05s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.vector-orbit{position:absolute;inset:0;animation:spinSlow 6s linear infinite}
+@keyframes spinSlow{to{transform:rotate(360deg)}}
+.vo-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--orange);box-shadow:0 0 10px rgba(255,102,2,.8)}
+.vo-dot.d1{top:-2px;left:calc(50% - 5px)}
+.vo-dot.d2{bottom:8px;right:6px;width:7px;height:7px;opacity:.7}
+.vo-dot.d3{bottom:14px;left:4px;width:6px;height:6px;opacity:.5}
+.proc-title{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800;color:var(--navy);margin-bottom:.75rem;line-height:1.35}
+.proc-step{font-size:14px;color:var(--muted);line-height:1.7;min-height:1.7em;transition:opacity .3s}
+.proc-bar{height:5px;background:var(--line);border-radius:3px;max-width:280px;margin:1.4rem auto 0;overflow:hidden}
+.proc-fill{height:5px;background:var(--orange);border-radius:3px;width:0%;transition:width .9s ease}
+
+/* ===== RESULTADO — libro de páginas ===== */
+.book{position:relative;perspective:1600px}
+.sheet{width:100%}
+.sheet.flying{position:relative;transform-origin:left center;animation:pageIn .8s cubic-bezier(.2,.75,.25,1) forwards;backface-visibility:hidden;box-shadow:-18px 0 40px rgba(12,52,82,.16);border-radius:12px;background:var(--bg)}
+@keyframes pageIn{0%{transform:rotateY(78deg);opacity:.25}55%{opacity:1}100%{transform:rotateY(0);opacity:1}}
+.fadeup{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+.fadeup.on{opacity:1;transform:translateY(0)}
+
+.diag-hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-900) 100%);border-radius:12px;padding:1.6rem 1.5rem;margin-bottom:1rem;position:relative;overflow:hidden}
+.diag-hero:after{content:'';position:absolute;bottom:-50px;right:-50px;width:160px;height:160px;border-radius:50%;background:rgba(255,102,2,.12)}
+.diag-eyebrow{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem}
+.diag-eyebrow .pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:dotPulse 1.4s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,102,2,.5)}50%{box-shadow:0 0 0 7px rgba(255,102,2,0)}}
+.diag-title{font-family:'Montserrat',sans-serif;font-size:24px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:.7rem;position:relative;z-index:2}
+.diag-body{font-size:15px;color:#bcd2e2;line-height:1.75;position:relative;z-index:2}
+.diag-body strong{color:#fff;font-weight:700}
+
+.det-label{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:1.4rem 0 .7rem}
+.mirror{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:10px;padding:1.1rem 1.25rem;margin-bottom:.7rem;box-shadow:0 1px 3px rgba(12,52,82,.04)}
+.mirror-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-bottom:.45rem}
+.mirror-txt{font-size:15px;color:var(--ink);line-height:1.65}
+.mirror-txt em{font-style:italic;color:var(--muted)}
+
+/* botón glow saltarín */
+.glow-btn{position:relative;background:linear-gradient(135deg,var(--orange) 0%,#ff7d24 100%);color:#fff;font-family:'Montserrat',sans-serif;font-size:16px;font-weight:800;padding:18px 26px;border-radius:10px;border:none;cursor:pointer;width:100%;letter-spacing:.02em;margin:1.6rem 0 .4rem;display:flex;align-items:center;justify-content:center;gap:.6rem;animation:glowJump 1.7s ease-in-out infinite;overflow:hidden}
+.glow-btn i{font-size:21px;animation:arrowNudge 1.7s ease-in-out infinite}
+@keyframes glowJump{0%,100%{transform:scale(1);box-shadow:0 6px 20px rgba(255,102,2,.4),0 0 0 0 rgba(255,102,2,.45)}50%{transform:scale(1.045);box-shadow:0 10px 30px rgba(255,102,2,.55),0 0 0 14px rgba(255,102,2,0)}}
+@keyframes arrowNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+.glow-btn:after{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);animation:shine 2.6s ease-in-out infinite}
+@keyframes shine{0%{left:-80%}55%,100%{left:130%}}
+.glow-note{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:#93a3b2;text-align:center;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem}
+
+/* herramientas */
+.tools-head{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:.5rem}
+.tools-sub{font-size:14.5px;color:var(--muted);line-height:1.7;margin-bottom:1.3rem}
+.tool{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.2rem 1.3rem;margin-bottom:.8rem;overflow:hidden;box-shadow:0 1px 3px rgba(12,52,82,.05)}
+.tool-top{display:flex;align-items:center;gap:.7rem;margin-bottom:.6rem}
+.tool-ic{width:40px;height:40px;border-radius:10px;background:var(--orange-50);border:1px solid #ffd9bf;display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:21px;flex-shrink:0}
+.tool-name{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;line-height:1.3}
+.tool-sub{font-family:'Open Sans',sans-serif;font-size:12px;font-weight:400;color:#93a3b2;line-height:1.45;margin-top:3px;text-transform:none;letter-spacing:0}
+.tool-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin:.4rem 0 .7rem}
+.tag{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:var(--navy);background:var(--line-soft);border:1px solid var(--line);border-radius:20px;padding:4px 11px}
+.tag.hot{color:var(--orange-600);background:var(--orange-50);border-color:#ffd9bf}
+.tool-blur{filter:blur(6.5px);user-select:none;pointer-events:none;color:#5b7184;font-size:14.5px;line-height:1.6}
+.tool-lock{position:absolute;top:1.1rem;right:1.1rem;font-size:19px;color:#c3d0db}
+.tool-status{display:inline-flex;align-items:center;gap:.45rem;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--orange-600);margin-top:.7rem}
+.tool-status .sp{width:11px;height:11px;border:2px solid #ffd9bf;border-top-color:var(--orange);border-radius:50%;animation:spin 1s linear infinite}
+
+/* premio al compromiso */
+.commit{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-900) 100%);border-radius:12px;padding:1.5rem;margin:1.5rem 0 1.4rem;position:relative;overflow:hidden}
+.commit:before{content:'';position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:rgba(255,102,2,.13)}
+.commit-eyebrow{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:.55rem}
+.commit-h{font-family:'Montserrat',sans-serif;font-size:19px;font-weight:800;color:#fff;line-height:1.3;margin-bottom:.65rem;position:relative;z-index:2}
+.commit-p{font-size:14px;color:#bcd2e2;line-height:1.75;position:relative;z-index:2}
+.commit-p strong{color:#fff}
+
+/* avance compacto */
+.mini-steps{display:flex;align-items:flex-start;gap:0;margin:1.5rem 0 1.6rem}
+.ms{flex:1;text-align:center;position:relative}
+.ms:not(:last-child):after{content:'';position:absolute;top:14px;left:calc(50% + 18px);right:calc(-50% + 18px);height:2px;background:var(--line)}
+.ms.done:not(:last-child):after{background:var(--green)}
+.ms-dot{width:30px;height:30px;border-radius:50%;margin:0 auto .45rem;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;background:#fff;border:2px solid var(--line);color:var(--muted);position:relative;z-index:2}
+.ms.done .ms-dot{background:var(--green);border-color:var(--green);color:#fff}
+.ms.now .ms-dot{background:var(--orange);border-color:var(--orange);color:#fff;box-shadow:0 0 0 5px rgba(255,102,2,.18);animation:dotPulse 1.6s ease-in-out infinite}
+.ms-t{font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);line-height:1.3}
+.ms.done .ms-t{color:var(--green)}
+.ms.now .ms-t{color:var(--orange-600)}
+
+/* cierre emocional */
+.farewell{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.7rem 1.5rem;text-align:center;box-shadow:0 1px 3px rgba(12,52,82,.05)}
+.farewell-ic{width:52px;height:52px;border-radius:50%;background:var(--orange-50);border:1.5px solid #ffd9bf;display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:26px;margin:0 auto 1rem}
+.farewell-q{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800;color:var(--navy);line-height:1.35;margin-bottom:1rem;letter-spacing:.01em}
+.farewell-prep{background:var(--orange-50);border:1.5px solid #ffd9bf;border-radius:10px;padding:1.3rem 1.35rem;font-family:'Montserrat',sans-serif;font-size:17px;font-weight:700;color:var(--navy);line-height:1.65;margin-bottom:1.1rem;text-align:left}
+.farewell-p{font-size:14.5px;color:var(--muted);line-height:1.75;margin-bottom:1rem}
+.farewell-sign{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;color:var(--orange-600);text-transform:uppercase;letter-spacing:.08em}
+
+.footer{text-align:center;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--line);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#a9b8c4}
+
+@media(max-width:480px){
+  h1{font-size:23px}
+  .q-text{font-size:19px}
+  .proc-title{font-size:20px}
+  .diag-title{font-size:21px}
+  .tools-head{font-size:20px}
+  .ms-t{font-size:9.5px}
+}
+</style>
+</head>
+<body>
+<div class="page" id="app">
+  <div class="logo">Instituto de Productividad &nbsp;·&nbsp; Alto Rendimiento</div>
+
+  <!-- INTRO -->
+  <div id="s-intro">
+    <div class="badge-red">Diagnóstico previo · obligatorio antes de tu entrevista</div>
+    <h1 id="intro-h1">¡Ya agendaste tu entrevista!<br>Antes, mirate de frente.</h1>
+    <p class="intro-lead">No es un formulario. Es el punto de partida de tu proceso: lo que respondas acá lo va a tener tu asesor adelante, y con eso vamos a empezar a construir <strong>tu sistema</strong> — la metodología adaptada a tu caso, no a uno genérico.</p>
+    <div class="benefit-box">
+      <div class="benefit-icon"><i class="ti ti-brain" aria-hidden="true"></i></div>
+      <div class="benefit-text"><strong>¿Qué pasa con tus respuestas?</strong><br>Las cruzamos con nuestra metodología basada en neurociencia y empezamos a armar tu hoja de ruta personal. Llegás a la entrevista con trabajo ya hecho sobre tu caso.</div>
+    </div>
+    <div class="benefit-box">
+      <div class="benefit-icon"><i class="ti ti-award" aria-hidden="true"></i></div>
+      <div class="benefit-text"><strong>Premiamos tu compromiso.</strong><br>Por presentarte a tu entrevista accedés a herramientas personalizadas construidas con estas respuestas. Acá nadie se va con las manos vacías.</div>
+    </div>
+    <button class="start-btn" onclick="go('s-test')">Empezar mi diagnóstico →</button>
+    <div class="time-note">10 preguntas · 3 minutos · sin vueltas</div>
+  </div>
+
+  <!-- TEST -->
+  <div id="s-test" style="display:none">
+    <div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-fill" id="prog" style="width:10%"></div></div>
+      <div class="prog-meta"><span id="qnum">1 / 10</span><span id="pct">10%</span></div>
+    </div>
+    <div class="q-ctx" id="qctx"></div>
+    <div class="q-text" id="qtext"></div>
+    <div class="q-hint" id="qhint"></div>
+    <div class="opts" id="opts"></div>
+    <div class="nav">
+      <button class="btn-back" id="bbk" onclick="prev()" style="visibility:hidden">← Atrás</button>
+      <button class="btn-fwd" id="bfw" onclick="next()" disabled>Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PASO FINAL: NOMBRE + CORREO -->
+  <div id="s-contact" style="display:none">
+    <div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div>
+      <div class="prog-meta"><span>Último paso</span><span>100%</span></div>
+    </div>
+    <div class="q-ctx">Para entregarte tus herramientas</div>
+    <div class="q-text" id="contact-h">¿A nombre y correo de quién preparamos todo?</div>
+    <div class="contact-rea">
+      <i class="ti ti-gift"></i>
+      <span>Sabemos que ya dejaste tu correo cuando agendaste. Te lo pedimos de nuevo solo para asegurarnos de que las sorpresas que tenemos guardadas para vos te lleguen sí o sí.</span>
+    </div>
+    <div class="field">
+      <label class="fld-label" for="c-nombre">Tu nombre y apellido</label>
+      <input class="fld-input" id="c-nombre" type="text" autocomplete="name" placeholder="Nombre y apellido">
+    </div>
+    <div class="field">
+      <label class="fld-label" for="c-email">El correo con el que agendaste tu entrevista</label>
+      <input class="fld-input" id="c-email" type="email" inputmode="email" autocomplete="email" placeholder="tucorreo@ejemplo.com">
+    </div>
+    <div class="nav">
+      <button class="btn-back" onclick="backFromContact()">← Atrás</button>
+      <button class="btn-fwd" id="cbtn" onclick="submitContact()" disabled>Construir mi sistema →</button>
+    </div>
+  </div>
+
+  <!-- PROCESANDO -->
+  <div id="s-proc" style="display:none">
+    <div class="proc-wrap">
+      <div class="vector-stage">
+        <div class="vector-ring"></div>
+        <div class="vector-orbit"><div class="vo-dot d1"></div><div class="vo-dot d2"></div><div class="vo-dot d3"></div></div>
+        <div class="vector-disc"><i class="ti ti-brain"></i></div>
+      </div>
+      <div class="proc-title">Estamos construyendo tu sistema…</div>
+      <div class="proc-step" id="procstep"></div>
+      <div class="proc-bar"><div class="proc-fill" id="procfill"></div></div>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="s-result" style="display:none"><div class="book" id="book"></div></div>
+
+  <div class="footer">Instituto de Productividad · Nicolás Fernández Miranda & Team</div>
+</div>
+
+<script>
+/* ============================================================
+   LZString (subset: compressToEncodedURIComponent) — inline, sin CDN
+   Comprime el link del recurso (?d=). Public domain (pieroxy).
+   ============================================================ */
+var LZString=(function(){var f=String.fromCharCode;var keyStrUriSafe="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$";var L={compressToEncodedURIComponent:function(input){if(input==null)return"";return L._compress(input,6,function(a){return keyStrUriSafe.charAt(a);});},_compress:function(uncompressed,bitsPerChar,getCharFromInt){if(uncompressed==null)return"";var i,value,context_dictionary={},context_dictionaryToCreate={},context_c="",context_wc="",context_w="",context_enlargeIn=2,context_dictSize=3,context_numBits=2,context_data=[],context_data_val=0,context_data_position=0,ii;for(ii=0;ii<uncompressed.length;ii+=1){context_c=uncompressed.charAt(ii);if(!Object.prototype.hasOwnProperty.call(context_dictionary,context_c)){context_dictionary[context_c]=context_dictSize++;context_dictionaryToCreate[context_c]=true;}context_wc=context_w+context_c;if(Object.prototype.hasOwnProperty.call(context_dictionary,context_wc)){context_w=context_wc;}else{if(Object.prototype.hasOwnProperty.call(context_dictionaryToCreate,context_w)){if(context_w.charCodeAt(0)<256){for(i=0;i<context_numBits;i++){context_data_val=(context_data_val<<1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}}value=context_w.charCodeAt(0);for(i=0;i<8;i++){context_data_val=(context_data_val<<1)|(value&1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=value>>1;}}else{value=1;for(i=0;i<context_numBits;i++){context_data_val=(context_data_val<<1)|value;if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=0;}value=context_w.charCodeAt(0);for(i=0;i<16;i++){context_data_val=(context_data_val<<1)|(value&1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=value>>1;}}context_enlargeIn--;if(context_enlargeIn==0){context_enlargeIn=Math.pow(2,context_numBits);context_numBits++;}delete context_dictionaryToCreate[context_w];}else{value=context_dictionary[context_w];for(i=0;i<context_numBits;i++){context_data_val=(context_data_val<<1)|(value&1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=value>>1;}}context_enlargeIn--;if(context_enlargeIn==0){context_enlargeIn=Math.pow(2,context_numBits);context_numBits++;}context_dictionary[context_wc]=context_dictSize++;context_w=String(context_c);}}if(context_w!==""){if(Object.prototype.hasOwnProperty.call(context_dictionaryToCreate,context_w)){if(context_w.charCodeAt(0)<256){for(i=0;i<context_numBits;i++){context_data_val=(context_data_val<<1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}}value=context_w.charCodeAt(0);for(i=0;i<8;i++){context_data_val=(context_data_val<<1)|(value&1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=value>>1;}}else{value=1;for(i=0;i<context_numBits;i++){context_data_val=(context_data_val<<1)|value;if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=0;}value=context_w.charCodeAt(0);for(i=0;i<16;i++){context_data_val=(context_data_val<<1)|(value&1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=value>>1;}}context_enlargeIn--;if(context_enlargeIn==0){context_enlargeIn=Math.pow(2,context_numBits);context_numBits++;}delete context_dictionaryToCreate[context_w];}else{value=context_dictionary[context_w];for(i=0;i<context_numBits;i++){context_data_val=(context_data_val<<1)|(value&1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=value>>1;}}context_enlargeIn--;if(context_enlargeIn==0){context_enlargeIn=Math.pow(2,context_numBits);context_numBits++;}}value=2;for(i=0;i<context_numBits;i++){context_data_val=(context_data_val<<1)|(value&1);if(context_data_position==bitsPerChar-1){context_data_position=0;context_data.push(getCharFromInt(context_data_val));context_data_val=0;}else{context_data_position++;}value=value>>1;}while(true){context_data_val=(context_data_val<<1);if(context_data_position==bitsPerChar-1){context_data.push(getCharFromInt(context_data_val));break;}else context_data_position++;}return context_data.join('');}};return L;})();
+
+/* ============================================================
+   CONFIG — reemplazar antes de publicar
+   ============================================================ */
+var ENDPOINT      = "https://script.google.com/macros/s/AKfycbwX5ixlujM9cD8Q8hToklsmKgXaJaj9DcgE77P7raJ8i9RO9SCRUaqfuMjMjUCaoPjy/exec";  // endpoint Google Sheets
+var RESOURCE_BASE = "https://tools-nfm.netlify.app/";  // recurso/herramientas (Fase 3) — recibe ?d=BASE64
+
+/* Parámetros del link que envía el closer:
+   ?asignado=Luciana&nombre=Elite
+   - asignado: fijo por closer (vos le das su link con su nombre)
+   - nombre: lo rellena el closer con el nombre del prospecto antes de enviar */
+var URLP = new URLSearchParams(window.location.search);
+function cap(s){s=(s||'').trim();return s?s.split(/\s+/).map(function(w){return w.charAt(0).toUpperCase()+w.slice(1);}).join(' '):'';}
+var LEAD_NOMBRE = cap(URLP.get('nombre')||'');   // se puede sobrescribir en el paso final
+var LEAD_EMAIL  = '';                              // lo pide el paso final
+var CLOSER      = cap(URLP.get('asignado')||URLP.get('closer')||'');
+
+/* ============================================================
+   PREGUNTAS — espejo de la estructura del closer
+   ============================================================ */
+var Q=[
+ {type:'single', ctx:"Fase 1 · Tu situación", key:"dolor_principal",
+  t:"¿Qué es eso que hasta hoy no te viene funcionando y sabés que no podés seguir viviendo así?",
+  hint:"Elegí la que más te representa.",
+  o:["Mi trabajo me sobrepasa y no llego a nada","Procrastino hace años y ya no es gracioso","Empecé mil cosas y no terminé ninguna","Quiero el siguiente nivel pero no encuentro el sistema","Estoy en un quiebre o transición y necesito reordenarme"]},
+
+ {type:'multi', ctx:"Fase 1 · Cómo te sentís", key:"emocion",
+  t:"¿Cómo te hace sentir hoy estar en esta situación?",
+  hint:"Tildá todo lo que sientas — no hay un límite.",
+  o:["Frustración — sé lo que tengo que hacer y no lo hago","Culpa o vergüenza — siento que mi vida es un desastre","Agotamiento — termino quemado/a y se arruina todo lo demás","Ansiedad — siento que es una bomba de tiempo","Me siento inservible, bueno/a para nada","Ya me está desbordando","Culpa con los míos — los que quiero se llevan mi peor versión"]},
+
+ {type:'single', ctx:"Fase 2 · El tiempo que llevás", key:"tiempo",
+  t:"¿Hace cuánto tiempo venís arrastrando estas problemáticas sin poder resolverlo?",
+  hint:"Sé honesto/a con vos.",
+  o:["Menos de 6 meses","Entre 6 meses y 2 años","Entre 2 y 5 años","Más de 5 años"]},
+
+ {type:'multi', ctx:"Fase 2 · Lo que ya te está costando", key:"precio_inaccion",
+  t:"¿Qué precio venís pagando en tu día a día por no resolver esto?",
+  hint:"Tildá todo lo que apliques.",
+  o:["Años operando por debajo de lo que puedo","Mi salud — duermo mal, irritable, con el teléfono en la mano","Mis vínculos — mi familia o pareja se lleva mi peor versión","Plata — consumo recursos sin accionar y eso tiene un límite","Oportunidades que veo pasar y no agarro"]},
+
+ {type:'text', ctx:"Fase 3 · Tu objetivo", key:"objetivo",
+  t:"¿Qué es eso que tanto querés lograr, tu gran meta, y que todavía no pudiste conseguir por tus propios medios?",
+  hint:"Ese gran objetivo que te mueve. Escribilo como te salga.",
+  ph:"Ej: tener mi propio proyecto andando y tiempo para mi familia…", min:8},
+
+ {type:'text', ctx:"Fase 3 · La parte incómoda", key:"costo_6meses",
+  t:"Si en 6 meses no cambia nada, ¿qué sentís que está en riesgo?",
+  hint:"Tomate 20 segundos. Esta es la pregunta que más importa.",
+  ph:"Ej: mi salud, darle calidad a mi familia…", min:6},
+
+ {type:'single', ctx:"Fase 4 · Por qué ahora", key:"detonante",
+  t:"¿Cuál es el detonante principal que te está diciendo: \u201cbasta, el momento de cambiar es AHORA\u201d?",
+  hint:"El que más resuena con vos hoy.",
+  o:["Ya no aguanto cómo estoy — es ahora o nunca","Toqué un quiebre (despido, cambio, crisis)","Me cansé de mí mismo/a de tanto patear esto","Tengo una ventana de tiempo o recursos y no la quiero perder"]},
+
+ {type:'single', ctx:"Fase 4 · Tu prioridad", key:"prioridad",
+  t:"¿Qué tan prioritario es para vos lograr estas metas y resolver estas problemáticas que estás teniendo actualmente?",
+  hint:"Sin respuesta correcta. La real.",
+  o:["10/10 — es mi prioridad número uno, no negociable","8-9 — está entre lo más importante de mi vida hoy","6-7 — es importante, pero compite con otras cosas","Menos de 6 — todavía no le di el lugar que merece"]},
+
+ {type:'multi', ctx:"Fase 5 · Lo que te falta", key:"limitante",
+  t:"¿Qué sentís que te está faltando para alcanzar tu meta principal?",
+  hint:"Tildá todo lo que te pase.",
+  o:["Leí libros y vi videos — info no me falta, me falta sistema","Arranqué apps o sistemas y los terminé dejando","Lo intento solo/a y no la tengo, necesito acompañamiento","Es todo una bola de nieve, no sé por dónde empezar","Me falta alguien que me marque el camino y me sostenga"]},
+
+ {type:'text', ctx:"Última · Tu yo futuro", key:"frase_yo_futuro",
+  t:"Escribí una frase para tu yo futuro — esa versión tuya 2.0 que está esperándote hace bastante tiempo.",
+  hint:"Va a formar parte de tu proceso. Escribila en serio.",
+  ph:"Ej: te prometo que esta vez no te dejo a mitad de camino…", min:8}
+];
+
+var PATRONES=[
+ {n:"Sobrecarga Reactiva", d:"vivís respondiendo a lo urgente de los demás, y lo importante tuyo queda siempre para un \u201cdespués\u201d que no llega."},
+ {n:"Bucle de Postergación Crónica", d:"sabés exactamente qué tenés que hacer — y aun así no lo hacés. No es falta de información: es un circuito que se refuerza solo."},
+ {n:"Arranque sin Sistema de Cierre", d:"tu energía de inicio es real, pero no tenés el sistema que sostiene cuando la motivación baja. Por eso todo queda al 70%."},
+ {n:"Techo Invisible", d:"ya demostraste que podés — pero estás operando sin la estructura que pide tu siguiente nivel. El esfuerzo solo ya no alcanza."},
+ {n:"Quiebre sin Mapa", d:"estás en una bisagra de tu vida sin un GPS claro. Y en las bisagras, seguir improvisando es lo más caro que hay."}
+];
+
+var TIEMPOS=["menos de 6 meses","entre 6 meses y 2 años","entre 2 y 5 años","más de 5 años — más de 1.825 días"];
+
+var cur=0;
+var ans=new Array(Q.length).fill(null);
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+/* Personalización con el nombre del lead */
+(function(){
+  if(LEAD_NOMBRE){
+    document.getElementById('intro-h1').innerHTML='¡Ya agendaste tu entrevista, '+esc(LEAD_NOMBRE)+'!<br>Antes, mirate de frente.';
+  }
+})();
+
+function go(id){
+  ['s-intro','s-test','s-contact','s-proc','s-result'].forEach(function(s){document.getElementById(s).style.display='none';});
+  document.getElementById(id).style.display='block';
+  if(id==='s-test')render();
+  if(id==='s-contact')prepContact();
+  if(id!=='s-test')window.scrollTo(0,0);
+}
+
+function isAnswered(i){
+  var a=ans[i],q=Q[i];
+  if(q.type==='single') return a!==null;
+  if(q.type==='multi')  return Array.isArray(a)&&a.length>0;
+  if(q.type==='text')   return typeof a==='string'&&a.trim().length>=(q.min||1);
+  return false;
+}
+
+function render(){
+  var q=Q[cur];
+  document.getElementById('qctx').textContent=q.ctx;
+  document.getElementById('qtext').textContent=q.t;
+  document.getElementById('qhint').textContent=q.hint||'';
+  var p=Math.round((cur+1)/Q.length*100);
+  document.getElementById('prog').style.width=p+'%';
+  document.getElementById('qnum').textContent=(cur+1)+' / '+Q.length;
+  document.getElementById('pct').textContent=p+'%';
+
+  var o=document.getElementById('opts');o.innerHTML='';
+
+  if(q.type==='text'){
+    var wrap=document.createElement('div');wrap.className='txt-wrap';
+    var ta=document.createElement('textarea');
+    ta.className='txt-area';ta.placeholder=q.ph||'';
+    ta.value=(typeof ans[cur]==='string')?ans[cur]:'';
+    var cnt=document.createElement('div');cnt.className='txt-count';
+    function upd(){
+      ans[cur]=ta.value;
+      cnt.textContent=ta.value.trim().length+' caracteres';
+      document.getElementById('bfw').disabled=!isAnswered(cur);
+    }
+    ta.addEventListener('input',upd);
+    wrap.appendChild(ta);wrap.appendChild(cnt);o.appendChild(wrap);
+    upd();setTimeout(function(){ta.focus();},80);
+  } else {
+    var multi=q.type==='multi';
+    q.o.forEach(function(txt,i){
+      var seld = multi ? (Array.isArray(ans[cur])&&ans[cur].indexOf(i)>-1)
+                       : (ans[cur]===i);
+      var b=document.createElement('button');
+      b.className='opt'+(seld?' sel':'');
+      b.innerHTML='<div class="opt-radio'+(multi?' sq':'')+'"><div class="opt-radio-inner"></div></div><span>'+txt+'</span>';
+      b.onclick=function(){ multi?toggle(i):selOne(i); };
+      o.appendChild(b);
+    });
+  }
+
+  document.getElementById('bfw').disabled=!isAnswered(cur);
+  document.getElementById('bfw').textContent=(cur===Q.length-1)?'Continuar →':'Siguiente →';
+  document.getElementById('bbk').style.visibility=cur===0?'hidden':'visible';
+}
+
+function selOne(i){
+  ans[cur]=i;
+  document.querySelectorAll('.opt').forEach(function(b,idx){b.classList.toggle('sel',idx===i);});
+  document.getElementById('bfw').disabled=false;
+}
+function toggle(i){
+  if(!Array.isArray(ans[cur]))ans[cur]=[];
+  var p=ans[cur].indexOf(i);
+  if(p>-1)ans[cur].splice(p,1); else ans[cur].push(i);
+  document.querySelectorAll('.opt').forEach(function(b,idx){b.classList.toggle('sel',ans[cur].indexOf(idx)>-1);});
+  document.getElementById('bfw').disabled=!isAnswered(cur);
+}
+
+function next(){
+  if(!isAnswered(cur))return;
+  if(cur<Q.length-1){cur++;render();window.scrollTo(0,0);}
+  else go('s-contact');
+}
+function prev(){if(cur>0){cur--;render();window.scrollTo(0,0);}}
+
+/* ============================================================
+   PASO FINAL — nombre + correo
+   ============================================================ */
+function validEmail(s){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((s||'').trim());}
+function validNombreApellido(s){return (s||'').trim().split(/\s+/).filter(Boolean).length>=2;}
+function checkContact(){
+  var nom=document.getElementById('c-nombre').value;
+  var mail=document.getElementById('c-email').value.trim();
+  document.getElementById('cbtn').disabled=!(validNombreApellido(nom) && validEmail(mail));
+}
+function prepContact(){
+  var nIn=document.getElementById('c-nombre'), eIn=document.getElementById('c-email');
+  if(LEAD_NOMBRE && !nIn.value) nIn.value=LEAD_NOMBRE;   // prefill si vino por ?nombre=
+  if(LEAD_EMAIL && !eIn.value) eIn.value=LEAD_EMAIL;
+  if(!nIn._wired){ nIn.addEventListener('input',checkContact); eIn.addEventListener('input',checkContact); nIn._wired=true; }
+  checkContact();
+  setTimeout(function(){ (nIn.value?eIn:nIn).focus(); },80);
+}
+function backFromContact(){ go('s-test'); }
+function submitContact(){
+  if(document.getElementById('cbtn').disabled)return;
+  LEAD_NOMBRE=cap(document.getElementById('c-nombre').value);
+  LEAD_EMAIL=document.getElementById('c-email').value.trim();
+  finish();
+}
+
+/* ============================================================
+   TEMAS ADAPTATIVOS — masterclass según respuestas
+   ============================================================ */
+function buildTopics(){
+  var t=[];
+  var d=ans[0];
+  if(d===0)t.push('Foco y gestión del tiempo');
+  if(d===1)t.push('Procrastinación');
+  if(d===2)t.push('Hábitos y constancia');
+  if(d===3)t.push('Alto rendimiento');
+  if(d===4)t.push('Claridad y objetivos');
+  var p=ans[3]||[];
+  if(p.indexOf(1)>-1)t.push('Sueño y energía');
+  var e=ans[1]||[];
+  if(e.indexOf(3)>-1&&t.length<3)t.push('Manejo del estrés');
+  if(e.indexOf(2)>-1&&t.indexOf('Sueño y energía')<0&&t.length<3)t.push('Energía mental');
+  var f=ans[8]||[];
+  if((f.indexOf(0)>-1||f.indexOf(1)>-1)&&t.length<3)t.push('Sistemas de productividad');
+  if(t.length<2)t.push('Neurociencia aplicada');
+  return t.slice(0,2);
+}
+
+/* ============================================================
+   PAYLOAD + LINK AUTOGENERADO PARA EL CLOSER
+   ============================================================ */
+function buildAnswers(){
+  var out={};
+  Q.forEach(function(q,i){
+    var a=ans[i],v;
+    if(q.type==='single') v=(a!==null)?q.o[a]:'';
+    else if(q.type==='multi') v=Array.isArray(a)?a.map(function(x){return q.o[x];}).join(' | '):'';
+    else v=(typeof a==='string')?a.trim():'';
+    out[q.key]=v;
+  });
+  return out;
+}
+
+function buildResourceLink(){
+  // Solo lo que el recurso realmente usa (sin closer/detonante/ts) → link más corto
+  var compact={
+    n:LEAD_NOMBRE,
+    d:ans[0], e:ans[1]||[], t:ans[2], o:ans[4]||'', p:ans[3]||[],
+    c:ans[5]||'', pr:ans[7], f:ans[8]||[], y:ans[9]||''
+  };
+  try{
+    var packed=LZString.compressToEncodedURIComponent(JSON.stringify(compact));
+    return RESOURCE_BASE.indexOf('[')===0 ? '' : RESOURCE_BASE+'?d='+packed;
+  }catch(e){return '';}
+}
+
+function capture(){
+  if(!ENDPOINT||ENDPOINT.indexOf('[')===0)return;
+  var payload=buildAnswers();
+  payload.ts=new Date().toISOString();
+  payload.nombre=LEAD_NOMBRE;
+  payload.email=LEAD_EMAIL;
+  payload.closer=CLOSER;
+  payload.patron=PATRONES[ans[0]||0].n;
+  payload.temas_masterclass=buildTopics().join(' | ');
+  payload.link_recurso=buildResourceLink();
+  try{
+    fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+  }catch(e){}
+}
+
+/* ============================================================
+   PROCESANDO
+   ============================================================ */
+var PROC_STEPS=[
+  "Leyendo lo que respondiste…",
+  "Cruzando tu caso con nuestra metodología basada en neurociencia…",
+  "Identificando el patrón que se repite en tus respuestas…",
+  "Seleccionando las herramientas específicas para tu situación…",
+  "Construyendo tu sistema…"
+];
+
+function finish(){
+  capture();
+  go('s-proc');
+  var el=document.getElementById('procstep'),fill=document.getElementById('procfill'),k=0;
+  el.textContent=PROC_STEPS[0];
+  fill.style.width='12%';
+  var iv=setInterval(function(){
+    k++;
+    if(k>=PROC_STEPS.length){clearInterval(iv);fill.style.width='100%';setTimeout(showResult,700);return;}
+    el.style.opacity=0;
+    setTimeout(function(){el.textContent=PROC_STEPS[k];el.style.opacity=1;},250);
+    fill.style.width=Math.round((k+1)/PROC_STEPS.length*100)+'%';
+  },1500);
+}
+
+/* ============================================================
+   RESULTADO — página 1 (sistema en construcción) → página 2 (libro)
+   ============================================================ */
+function showResult(){
+  var pat=PATRONES[ans[0]||0];
+  var tiempoTxt=TIEMPOS[ans[2]||0];
+  var nEmo=Array.isArray(ans[1])?ans[1].length:0;
+  var emoTop=(Array.isArray(ans[1])&&ans[1].length)?Q[1].o[ans[1][0]].split(' — ')[0].toLowerCase():'frustración';
+  var nPrecios=Array.isArray(ans[3])?ans[3].length:0;
+  var costoTxt=(typeof ans[5]==='string')?ans[5].trim():'';
+
+  var p1=
+  '<div class="sheet" id="sheet1">'+
+    '<div class="fadeup" id="f1">'+
+      '<div class="diag-hero">'+
+        '<div class="diag-eyebrow"><span class="pulse-dot"></span>Tu sistema está en construcción</div>'+
+        '<div class="diag-title">'+(LEAD_NOMBRE?esc(LEAD_NOMBRE)+', esto':'Esto')+' es lo que detectamos hasta ahora.</div>'+
+        '<div class="diag-body">Tus respuestas ya están en manos del equipo. El patrón que identificamos tiene nombre: <strong>'+esc(pat.n)+'</strong> — es lo que en el Instituto llamamos así cuando '+pat.d+'</div>'+
+      '</div>'+
+      '<div class="det-label">Lo que vos mismo/a acabás de decir</div>'+
+      '<div class="mirror">'+
+        '<div class="mirror-label">Tus datos</div>'+
+        '<div class="mirror-txt">Venís arrastrando esto hace <strong>'+esc(tiempoTxt)+'</strong>. Marcaste <strong>'+nEmo+(nEmo===1?' emoción activa':' emociones activas')+'</strong> — la primera, <strong>'+esc(emoTop)+'</strong> — y <strong>'+nPrecios+(nPrecios===1?' precio':' precios')+'</strong> que ya estás pagando en tu día a día.</div>'+
+      '</div>'+
+      (costoTxt?'<div class="mirror"><div class="mirror-label">Lo que está en juego — en tus palabras</div><div class="mirror-txt">Si nada cambia, en los próximos 6 meses esto es lo que vos mismo/a dijiste que se ve afectado:<br><em>\u201c'+esc(costoTxt)+'\u201d</em><br><span style="font-size:13.5px;color:var(--muted);display:block;margin-top:.5rem">Como dice Nico: <strong style="color:var(--navy)">no es falta de tiempo, es falta de claridad.</strong> Esto que escribiste es la base de tu sesión — tu asesor parte exactamente de acá para trazar tu plan.</span></div></div>':'')+
+      '<button class="glow-btn" onclick="flipPage()">¿Qué me espera en la entrevista? <i class="ti ti-arrow-right"></i></button>'+
+      '<div class="glow-note">Tocá para descubrirlo</div>'+
+    '</div>'+
+  '</div>';
+
+  go('s-result');
+  document.getElementById('book').innerHTML=p1;
+  setTimeout(function(){document.getElementById('f1').classList.add('on');},120);
+}
+
+function flipPage(){
+  var topics=buildTopics();
+  var tags=topics.map(function(t){return '<span class="tag hot">'+esc(t)+'</span>';}).join('');
+  var objetivoTxt=(typeof ans[4]==='string')?ans[4].trim():'';
+
+  var p2=
+  '<div class="sheet flying" id="sheet2">'+
+    '<div class="badge-green">Tu entrevista · lo que te llevás</div>'+
+    '<div class="tools-head">3 herramientas personalizadas te están esperando.</div>'+
+    '<p class="tools-sub">Construidas con tus respuestas'+(objetivoTxt?' y apuntadas a lo que escribiste: <em>\u201c'+esc(objetivoTxt)+'\u201d</em>':'')+'. Tu asesor te las presenta en la entrevista:</p>'+
+
+    '<div class="tool">'+
+      '<div class="tool-top"><div class="tool-ic"><i class="ti ti-device-tv"></i></div><div><div class="tool-name">2 clases privadas del Instituto de Productividad</div><div class="tool-sub">Impartidas por Nico y el equipo de profesionales del Instituto</div></div></div>'+
+      '<div class="tool-tags">'+tags+'</div>'+
+      '<div class="tool-blur">Estamos seleccionando las clases exactas de la metodología que atacan tu patrón — el orden en que verlas y qué implementar primero según tu caso.</div>'+
+      '<i class="ti ti-lock tool-lock"></i>'+
+      '<div class="tool-status"><span class="sp"></span>En construcción con tus respuestas</div>'+
+    '</div>'+
+
+    '<div class="tool">'+
+      '<div class="tool-top"><div class="tool-ic"><i class="ti ti-edit-circle"></i></div><div class="tool-name">Un ejercicio de claridad<br>guiado por Nico</div></div>'+
+      '<div class="tool-blur">Es el ejercicio con el que nuestros alumnos fijan el rumbo de los próximos meses. Lleva menos de 15 minutos y vas a querer guardarlo. El nombre te lo revelamos en la entrevista.</div>'+
+      '<i class="ti ti-lock tool-lock"></i>'+
+      '<div class="tool-status"><span class="sp"></span>Adaptándose a tu objetivo</div>'+
+    '</div>'+
+
+    '<div class="tool">'+
+      '<div class="tool-top"><div class="tool-ic"><i class="ti ti-sparkles"></i></div><div class="tool-name">Nuestra herramienta de tracking<br>con IA integrada</div></div>'+
+      '<div class="tool-blur">Trackea tus hábitos y te muestra, en números, cuántas horas de foco estás perdiendo por semana — y cuánta plata representa según el valor de tu hora.</div>'+
+      '<i class="ti ti-lock tool-lock"></i>'+
+      '<div class="tool-status"><span class="sp"></span>Configurándose para tu perfil</div>'+
+    '</div>'+
+
+    '<div class="commit">'+
+      '<div class="commit-eyebrow">Premiamos tu compromiso</div>'+
+      '<div class="commit-h">Esto es, literalmente, una entrevista de admisión.</div>'+
+      '<p class="commit-p">Nos gusta trabajar con personas comprometidas, y queremos que tomes la mejor decisión para tu futuro. En la entrevista vemos dos cosas: si sos candidato/a para formar parte del Instituto, y si nuestra metodología se adapta a tu rutina y estilo de vida. Llevamos <strong>más de 400 casos de éxito</strong> y queremos que sigan siendo de la mayor calidad — por eso rechazamos solicitudes todos los días. <strong>Las herramientas que viste arriba son tu premio por presentarte.</strong></p>'+
+    '</div>'+
+
+    '<div class="mini-steps">'+
+      '<div class="ms done"><div class="ms-dot"><i class="ti ti-check"></i></div><div class="ms-t">Agendaste</div></div>'+
+      '<div class="ms done"><div class="ms-dot"><i class="ti ti-check"></i></div><div class="ms-t">Diagnóstico</div></div>'+
+      '<div class="ms now"><div class="ms-dot">3</div><div class="ms-t">Tu entrevista</div></div>'+
+      '<div class="ms"><div class="ms-dot">4</div><div class="ms-t">Herramientas</div></div>'+
+    '</div>'+
+
+    '<div class="farewell">'+
+      '<div class="farewell-ic"><i class="ti ti-calendar-heart"></i></div>'+
+      '<div class="farewell-q">¡NOS VEMOS EN LA ENTREVISTA DE ADMISIÓN!</div>'+
+      '<div class="farewell-prep">Asegurate de estar en un lugar sin ruido. Venite tranquilo/a y regalate estos 60 minutos para tu desarrollo profesional y personal — que no sea una cosa más que seguís pateando y procrastinando en tu vida.<br><br>Deseamos genuinamente acompañarte en tu proceso de crecimiento.</div>'+
+      '<div class="farewell-sign">— Nico y todo el equipo del Instituto</div>'+
+    '</div>'+
+  '</div>';
+
+  var book=document.getElementById('book');
+  var s1=document.getElementById('sheet1');
+  book.insertAdjacentHTML('beforeend',p2);
+  var s2=document.getElementById('sheet2');
+  // página nueva tapa a la anterior como hoja de libro
+  s1.style.position='absolute';s1.style.top='0';s1.style.left='0';s1.style.width='100%';s1.style.zIndex='1';
+  s2.style.position='relative';s2.style.zIndex='2';
+  window.scrollTo({top:0,behavior:'smooth'});
+  s2.addEventListener('animationend',function(){
+    s1.remove();
+    s2.classList.remove('flying');
+  },{once:true});
+}
+</script>
+</body>
+</html>
