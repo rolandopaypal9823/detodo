@@ -289,7 +289,7 @@ var RESOURCE_BASE = "https://tools-nfm.netlify.app/";  // recurso/herramientas (
    - asignado: fijo por closer (vos le das su link con su nombre)
    - nombre: lo rellena el closer con el nombre del prospecto antes de enviar */
 var URLP = new URLSearchParams(window.location.search);
-function cap(s){s=(s||'').trim();return s?s.split(/\s+/).map(function(w){return w.charAt(0).toUpperCase()+w.slice(1);}).join(' '):'';}
+function cap(s){s=(s||'').trim();return s?s.charAt(0).toUpperCase()+s.slice(1):'';}
 var LEAD_NOMBRE = cap(URLP.get('nombre')||'');   // se puede sobrescribir en el paso final
 var LEAD_EMAIL  = '';                              // lo pide el paso final
 var CLOSER      = cap(URLP.get('asignado')||URLP.get('closer')||'');
@@ -455,11 +455,10 @@ function prev(){if(cur>0){cur--;render();window.scrollTo(0,0);}}
    PASO FINAL — nombre + correo
    ============================================================ */
 function validEmail(s){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((s||'').trim());}
-function validNombreApellido(s){return (s||'').trim().split(/\s+/).filter(Boolean).length>=2;}
 function checkContact(){
-  var nom=document.getElementById('c-nombre').value;
+  var nom=document.getElementById('c-nombre').value.trim();
   var mail=document.getElementById('c-email').value.trim();
-  document.getElementById('cbtn').disabled=!(validNombreApellido(nom) && validEmail(mail));
+  document.getElementById('cbtn').disabled=!(nom.length>=2 && validEmail(mail));
 }
 function prepContact(){
   var nIn=document.getElementById('c-nombre'), eIn=document.getElementById('c-email');
