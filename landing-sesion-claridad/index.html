@@ -3,19 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Entrevista Personal · Instituto de Productividad NFM</title>
-<meta name="description" content="Ordenaste tu plata. Falta ordenar la máquina que la administra. Agendá tu entrevista personal con el equipo del Instituto de Productividad.">
+<title>Entrevista personal · Instituto de Productividad NFM</title>
+<meta name="description" content="Ya estás de acuerdo en casi todo. El paso que cierra es agendar tu entrevista personal con el equipo del Instituto de Productividad.">
 
 <!--
   LANDING DE AGENDAMIENTO · Instituto de Productividad (NFM)
-  Punto del embudo: post charla "La tasa que nunca calculaste" (evento academia de finanzas Método FC).
-  Objetivo único: que el asistente agende la ENTREVISTA PERSONAL en el Calendly embebido.
-  Estrategia (acuerdos que convierten la agenda en este punto):
-    1. Certeza sobre la llamada  -> "qué es / qué no es" (es conversación, no venta; muchas veces decimos que no)
-    2. Actuar ahora (acuerdo 9)   -> la tasa/brecha se descuenta igual todos los años
-    3. Está probado (acuerdo 6)   -> testimonios reales por afinidad de oficio
-    4. No es tu voluntad (7)      -> el observador externo; esto no se arregla con motivación
-  Hilo conductor: continúa la última frase de la charla ("ordenaste tu plata, falta ordenar la máquina").
+  ACTIVO REUSABLE: sirve como página de agenda detrás de cualquier clase/conferencia de Nico.
+  Objetivo único: que la persona agende la ENTREVISTA PERSONAL en el Calendly embebido.
+
+  Motor de conversión (por pedido del cliente): NO se vende el dolor ni un dato puntual.
+  Se REAFIRMAN los acuerdos que la persona ya trae (test binario de Dan Henry) para que
+  NO agendar quede como la única salida sin lógica. Es el "puente obvio" del Funnel 400.
+
+  GANCHO EDITABLE POR EVENTO -> ver el bloque marcado [[HOOK]] en el hero:
+  es la única línea atada a la charla; cambiala en 30 seg y el resto sirve igual.
 -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,7 +82,7 @@
 
   .stepper{ display:flex; align-items:center; gap:10px; }
   .step{
-    font-family:'JetBrains Mono', monospace; text-transform:uppercase;
+    font-family:'JetBrains Mono', ui-monospace, monospace; text-transform:uppercase;
     letter-spacing:0.18em; font-size:11px; font-weight:500;
     color:rgba(255,255,255,.55);
     display:flex; align-items:center; gap:7px;
@@ -120,13 +121,13 @@
   .hero h1{
     font-family:'Montserrat', sans-serif; font-weight:900;
     font-size:clamp(34px, 4.4vw, 52px);
-    line-height:1.04; letter-spacing:-0.015em;
+    line-height:1.05; letter-spacing:-0.015em;
     margin:0 0 22px;
     color:var(--nfm-blue);
   }
-  .hero h1 .accent{ color:var(--nfm-orange); }
+  .hero h1 .accent{ color:var(--nfm-orange); display:block; }
   .hero .lead{
-    font-size:19px; color:var(--muted); max-width:38ch; margin:0 0 14px;
+    font-size:19px; color:var(--muted); max-width:40ch; margin:0 0 14px;
   }
   .hero .lead strong{ color:var(--nfm-blue); font-weight:700; }
   .continuity{
@@ -147,32 +148,40 @@
     line-height:1.12; margin:0 0 18px; color:var(--nfm-blue);
     letter-spacing:-0.01em;
   }
-  .sec p{ color:var(--muted); margin:0 0 14px; }
-  .sec p strong{ color:var(--nfm-blue); font-weight:700; }
+  .sec > p{ color:var(--muted); margin:0 0 18px; max-width:56ch; }
+  .sec > p strong{ color:var(--nfm-blue); font-weight:700; }
 
-  /* ---------- Stat block (la tasa) ---------- */
-  .stat-block{
-    background:var(--nfm-blue-dark);
-    color:#fff; border-radius:14px;
-    padding:38px 40px;
+  /* ---------- Escalera de acuerdos ---------- */
+  .ladder{ display:flex; flex-direction:column; gap:10px; margin-top:6px; }
+  .lad{
+    display:flex; gap:16px; align-items:flex-start;
+    background:#fff; border:1.5px solid var(--line); border-radius:12px;
+    padding:18px 20px;
+  }
+  .lad .mk{
+    flex:0 0 auto; width:30px; height:30px; border-radius:50%;
+    background:rgba(255,102,2,.12); color:var(--nfm-orange);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:15px; margin-top:1px;
+  }
+  .lad .mk::before{ content:'✓'; }
+  .lad .txt{ font-size:16px; line-height:1.5; }
+  .lad .txt b{ color:var(--nfm-blue); font-weight:700; }
+  .lad .txt span{ color:var(--muted); }
+
+  /* ---------- Cierre (puente obvio) ---------- */
+  .closer{
+    background:var(--nfm-blue-dark); color:#fff; border-radius:14px;
+    padding:36px 40px; margin-top:20px;
     box-shadow:0 40px 90px rgba(12,52,82,.20);
   }
-  .stat-block .sec-label{ color:var(--nfm-orange); }
-  .stat-figure{
-    font-family:'Montserrat', sans-serif; font-weight:900;
-    font-size:clamp(52px, 8vw, 82px);
-    line-height:.95; color:var(--nfm-orange);
-    letter-spacing:-0.02em; margin:6px 0 2px;
+  .closer p{ color:rgba(255,255,255,.82); font-size:17px; margin:0; max-width:52ch; }
+  .closer .big{
+    display:block; font-family:'Montserrat', sans-serif; font-weight:800;
+    font-size:clamp(22px, 3vw, 31px); color:#fff; line-height:1.22;
+    margin-top:14px; letter-spacing:-0.01em; max-width:24ch;
   }
-  .stat-cap{ color:rgba(255,255,255,.82); font-size:16px; max-width:46ch; margin:12px 0 0; }
-  .stat-cap strong{ color:#fff; font-weight:700; }
-  .stat-kicker{
-    font-family:'Montserrat', sans-serif; font-weight:700; font-size:20px;
-    color:#fff; margin:22px 0 0; padding-top:22px;
-    border-top:1px solid rgba(255,255,255,.14);
-    line-height:1.35;
-  }
-  .stat-kicker .accent{ color:var(--nfm-orange); }
+  .closer .big .accent{ color:var(--nfm-orange); }
 
   /* ---------- Es / No es ---------- */
   .duo{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:6px; }
@@ -199,16 +208,6 @@
   .duo-card.is li::before{ content:'✓'; position:absolute; left:0; top:0; color:var(--nfm-orange); font-weight:800; }
   .duo-card.isnt li{ color:#8a97a2; }
   .duo-card.isnt li::before{ content:'✗'; position:absolute; left:0; top:0; color:#c2ccd4; font-weight:800; }
-
-  /* ---------- Quote panel (observador externo) ---------- */
-  .panel{
-    background:var(--nfm-blue-light);
-    border-radius:14px; padding:34px 38px; margin-top:6px;
-  }
-  .panel p{ color:var(--nfm-blue); font-size:18px; line-height:1.55; margin:0 0 14px; }
-  .panel p:last-child{ margin-bottom:0; }
-  .panel .hl{ color:var(--nfm-orange); font-weight:700; }
-  .panel strong{ font-weight:700; }
 
   /* ---------- Testimonios ---------- */
   .cards{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:6px; }
@@ -263,9 +262,7 @@
   .cal-foot span::before{ content:'✓'; color:var(--nfm-orange); font-weight:800; }
 
   /* ---------- Footer ---------- */
-  footer{
-    border-top:1px solid var(--line); margin-top:24px;
-  }
+  footer{ border-top:1px solid var(--line); margin-top:24px; }
   .foot-in{
     max-width:1240px; margin:0 auto; padding:26px 28px;
     display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
@@ -291,8 +288,7 @@
     main{ padding:0 18px 32px; }
     .duo{ grid-template-columns:1fr; }
     .cards{ grid-template-columns:1fr; }
-    .stat-block{ padding:28px 24px; }
-    .panel{ padding:26px 22px; }
+    .closer{ padding:28px 24px; }
     .foot-in{ padding:22px 18px; }
   }
 </style>
@@ -306,7 +302,7 @@
       <div class="brand-name">Instituto de Productividad<span>Nicolás Fernández Miranda</span></div>
     </div>
     <nav class="stepper" aria-label="Progreso">
-      <span class="step done">Charla</span>
+      <span class="step done">La clase</span>
       <span class="step-sep">›</span>
       <span class="step active">Entrevista personal</span>
       <span class="step-sep">›</span>
@@ -319,23 +315,35 @@
 
   <!-- HERO -->
   <div class="hero">
-    <span class="mono kicker">Entrevista personal · Paso siguiente</span>
-    <h1>Ordenaste tu plata.<br>Falta ordenar la <span class="accent">máquina</span> que la administra.</h1>
-    <p class="lead">Elegí un horario acá al lado. Es una conversación con mi equipo, <strong>no una venta</strong>: te miran el caso y te dicen, con honestidad, si esto es para vos o no.</p>
-    <p class="lead">Muchas veces decimos que no. Por eso, salgas o no adentro, la entrevista te sirve igual.</p>
+    <span class="mono kicker">Entrevista personal · El paso obvio</span>
+    <h1>Estuviste asintiendo toda la clase.<span class="accent">El único paso que cierra es este.</span></h1>
+    <!-- [[HOOK]] Única línea atada a la charla puntual. Editable por evento. -->
+    <p class="lead">Elegí un horario acá al lado. No es una venta: es la conversación donde miramos tu caso puntual y te decimos, con honestidad, si esto es para vos. <strong>Muchas veces decimos que no.</strong></p>
+    <p class="lead">Si estuviste de acuerdo hasta acá, no agendar sería la única salida sin lógica.</p>
     <span class="continuity">Ya hiciste la parte difícil. Esto es lo que sigue.</span>
   </div>
 
   <!-- BODY (columna izquierda de persuasión) -->
   <div class="body">
 
-    <!-- 1. LA TASA (actuar ahora / costo) -->
+    <!-- 1. ESCALERA DE ACUERDOS -->
     <section class="sec">
-      <div class="stat-block">
-        <span class="mono sec-label">La tasa que no calculaste</span>
-        <div class="stat-figure">US$&nbsp;230.000</div>
-        <p class="stat-cap">Es lo que la brecha de comportamiento le saca a una cartera de US$&nbsp;200.000 en veinte años. <strong>Más que todo tu capital.</strong> No la perdés por elegir mal el activo: la perdés en decisiones tomadas mal dormido, desconcentrado y con la cabeza en otro lado.</p>
-        <p class="stat-kicker">Esa tasa no se descuenta el día que agendás ni el día que no. Se descuenta igual, todos los años, con la puntualidad de una comisión. <span class="accent">La única pregunta es cuántos años más la vas a seguir pagando entera.</span></p>
+      <span class="mono sec-label">En lo que ya estás de acuerdo</span>
+      <h2>Repasá lo que ya sabés.</h2>
+      <p>Ninguna de estas frases te suena nueva. Las trajiste puestas o las confirmaste hoy. Leelas de corrido, sin apurarte.</p>
+
+      <div class="ladder">
+        <div class="lad"><div class="mk"></div><div class="txt"><b>El problema es real, y es ahora.</b> <span>Hace rato que decís “esto lo ordeno este año” y seguís en el mismo lugar.</span></div></div>
+        <div class="lad"><div class="mk"></div><div class="txt"><b>Lo que intentaste solo no se sostiene.</b> <span>Arrancaste mil veces, con la mejor intención. Ninguna quedó en pie.</span></div></div>
+        <div class="lad"><div class="mk"></div><div class="txt"><b>No es falta de ganas.</b> <span>Ya viste que a esto no se llega con más disciplina ni levantándote más temprano.</span></div></div>
+        <div class="lad"><div class="mk"></div><div class="txt"><b>Solo no lo vas a ver.</b> <span>El instrumento con el que te medís es el primero que se rompe. Por eso hace falta alguien del otro lado.</span></div></div>
+        <div class="lad"><div class="mk"></div><div class="txt"><b>Ya le funcionó a gente con tu carga.</b> <span>No es teoría ni motivación: es gente con tu oficio y tu agenda, del otro lado.</span></div></div>
+        <div class="lad"><div class="mk"></div><div class="txt"><b>Cada mes que pasa, la cuenta corre.</b> <span>Y a diferencia de casi todo lo demás, este tiempo no vuelve.</span></div></div>
+      </div>
+
+      <div class="closer">
+        <p>Si asentiste a todo esto, queda una sola cosa sin explicación: por qué seguís de este lado de la pantalla.</p>
+        <span class="big">Agendar no es un salto de fe. <span class="accent">Es la única conclusión que cierra con lo que ya pensás.</span></span>
       </div>
     </section>
 
@@ -347,9 +355,9 @@
         <div class="duo-card is">
           <div class="duo-head"><span class="tag">Es</span> Una admisión real</div>
           <ul>
-            <li>Una conversación sobre tu caso puntual: cómo dormís, cómo decidís, dónde se te va la tasa.</li>
-            <li>Una entrevista de admisión de verdad. No entran todos: muchas veces decimos que no.</li>
-            <li>El primer paso hacia eso que en la charla llamamos el observador externo.</li>
+            <li>Una conversación sobre tu caso puntual: miramos dónde se te traba y qué haría falta.</li>
+            <li>Una entrevista de verdad. No entran todos: muchas veces decimos que no.</li>
+            <li>El primer paso para tener a alguien del otro lado, que es justo lo que te falta.</li>
           </ul>
         </div>
         <div class="duo-card isnt">
@@ -357,22 +365,13 @@
           <ul>
             <li>Una llamada de ventas con otro nombre.</li>
             <li>Un PDF, un video más, ni contenido para consumir solo.</li>
-            <li>Un sermón sobre ponerle más ganas. Ya viste que esto no se arregla con motivación.</li>
+            <li>Un sermón sobre ponerle más ganas. Ya sabés que no es por ahí.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- 3. POR QUÉ NO LLEGÁS SOLO (no es tu voluntad + solución de otra categoría) -->
-    <section class="sec">
-      <span class="mono sec-label">Por qué a esto no se llega solo</span>
-      <div class="panel">
-        <p>En la charla lo dijimos con Van Dongen: <strong>el instrumento con el que medís tu propio estado es el primero que se rompe.</strong> Cuando estás en déficit no lo ves, y no es por falta de honestidad: es que el sistema que evalúa es el mismo que está degradado.</p>
-        <p>Con tu plata ya sacaste esa conclusión. Estás en una academia de finanzas y no aprendiendo solo con videos de YouTube, porque sabés que un sistema con acompañamiento rinde distinto que un PDF. <span class="hl">Con la máquina que administra tu plata, es exactamente igual.</span></p>
-      </div>
-    </section>
-
-    <!-- 4. PRUEBA (está probado) -->
+    <!-- 3. PRUEBA (está probado) -->
     <section class="sec">
       <span class="mono sec-label">Gente con tu carga, ya del otro lado</span>
       <h2>No es teoría. Ya le pasó a alguien como vos.</h2>
@@ -380,7 +379,7 @@
         <div class="tcard">
           <span class="mono oficio">Astrónoma · CONICET</span>
           <div class="name">Natalia</div>
-          <p class="fact">Pasó de dormir 3 o 4 horas a dormir 7 u 8. El mismo sistema del que hablamos hoy, sostenido en el tiempo.</p>
+          <p class="fact">Pasó de dormir 3 o 4 horas a dormir 7 u 8. El mismo sistema, sostenido en el tiempo.</p>
         </div>
         <div class="tcard">
           <span class="mono oficio">Contadora · Cía. de seguros</span>
@@ -400,7 +399,7 @@
       </div>
     </section>
 
-    <!-- 5. CÓMO FUNCIONA (expectativa / darle sentido a las preguntas) -->
+    <!-- 4. CÓMO FUNCIONA -->
     <section class="sec">
       <span class="mono sec-label">Cómo funciona</span>
       <h2>Tres pasos, y el bloque es tuyo.</h2>
@@ -438,7 +437,7 @@
       <div class="cal-head">
         <span class="mono lbl">Agendá acá</span>
         <h3>Reservá tu entrevista personal</h3>
-        <p>Si en una hora de charla sacaste esto, es razonable preguntarse qué pasaría en seis meses.</p>
+        <p>Si en una clase sacaste esto, imaginate lo que sale de seis meses con acompañamiento.</p>
       </div>
       <!-- Widget integrado de Calendly -->
       <div class="calendly-inline-widget" data-url="https://calendly.com/nicolasfernandezmiranda/sesion-de-claridad-htc-clon" style="min-width:320px;"></div>
@@ -456,7 +455,7 @@
 <footer>
   <div class="foot-in">
     <span class="mono">Instituto de Productividad · NFM</span>
-    <span>La mejor estrategia financiera pasa por un cuello de botella de un kilo trescientos gramos. Ordená la máquina.</span>
+    <span>El paso más corto del recorrido. Y el único que es cien por ciento tuyo.</span>
   </div>
 </footer>
 
