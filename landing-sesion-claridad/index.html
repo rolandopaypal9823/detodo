@@ -209,22 +209,10 @@
     box-shadow:0 20px 50px rgba(0,0,0,.28);
     display:flex; flex-direction:column;
   }
-  .caso-thumb{
-    position:relative; aspect-ratio:16/9; background:#0a2138;
-    cursor:pointer; overflow:hidden;
+  .caso-video{
+    position:relative; aspect-ratio:16/9; background:#0a2138; overflow:hidden;
   }
-  .caso-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .caso-thumb iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
-  .play{
-    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-    width:58px; height:58px; border-radius:50%;
-    background:var(--nfm-orange); color:#fff;
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 10px 26px rgba(255,102,2,.5);
-    transition:transform .18s ease;
-  }
-  .caso-thumb:hover .play{ transform:translate(-50%,-50%) scale(1.08); }
-  .play::before{ content:'►'; font-size:18px; margin-left:3px; }
+  .caso-video iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
   .caso-body{ padding:18px 20px 22px; }
   .caso .name{ font-family:'Montserrat', sans-serif; font-weight:800; font-size:18px; color:#fff; }
   .caso .prof{
@@ -376,27 +364,27 @@
 
     <div class="casos-grid">
       <div class="caso">
-        <div class="caso-thumb" data-video="vgF6e9MptW4"><img loading="lazy" src="https://img.youtube.com/vi/vgF6e9MptW4/hqdefault.jpg" alt="Testimonio de Pierina"><span class="play"></span></div>
+        <div class="caso-video"><iframe loading="lazy" src="https://www.youtube.com/embed/vgF6e9MptW4?rel=0" title="Testimonio de Pierina" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
         <div class="caso-body"><div class="name">Pierina</div><div class="prof">Doctoranda en Roma · Teóloga</div><p class="quote">“Es una inversión para la vida. Lo que aprendí es para siempre.”</p></div>
       </div>
       <div class="caso">
-        <div class="caso-thumb" data-video="95H0-szcsMs"><img loading="lazy" src="https://img.youtube.com/vi/95H0-szcsMs/hqdefault.jpg" alt="Testimonio de Celi"><span class="play"></span></div>
+        <div class="caso-video"><iframe loading="lazy" src="https://www.youtube.com/embed/95H0-szcsMs?rel=0" title="Testimonio de Celi" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
         <div class="caso-body"><div class="name">Celi</div><div class="prof">Arquitecta · Líder de equipo</div><p class="quote">“Lo debería haber hecho 10 años antes.”</p></div>
       </div>
       <div class="caso">
-        <div class="caso-thumb" data-video="jQ8AmqqiN_g"><img loading="lazy" src="https://img.youtube.com/vi/jQ8AmqqiN_g/hqdefault.jpg" alt="Testimonio de Germán"><span class="play"></span></div>
+        <div class="caso-video"><iframe loading="lazy" src="https://www.youtube.com/embed/jQ8AmqqiN_g?rel=0" title="Testimonio de Germán" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
         <div class="caso-body"><div class="name">Germán</div><div class="prof">Dueño de farmacia familiar</div><p class="quote">“De vivir apagando incendios a tener un norte claro para todo el año.”</p></div>
       </div>
       <div class="caso">
-        <div class="caso-thumb" data-video="mVskd3R8hsc"><img loading="lazy" src="https://img.youtube.com/vi/mVskd3R8hsc/hqdefault.jpg" alt="Testimonio de Sol Romero"><span class="play"></span></div>
+        <div class="caso-video"><iframe loading="lazy" src="https://www.youtube.com/embed/mVskd3R8hsc?rel=0" title="Testimonio de Sol Romero" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
         <div class="caso-body"><div class="name">Sol Romero</div><div class="prof">Contadora · Cía. de seguros</div><p class="quote">“El hack fue que me ordenó. Me hizo ir tejiendo una red que en serio te sostiene.”</p></div>
       </div>
       <div class="caso">
-        <div class="caso-thumb" data-video="7x_hvNVvc88"><img loading="lazy" src="https://img.youtube.com/vi/7x_hvNVvc88/hqdefault.jpg" alt="Testimonio de Cristian"><span class="play"></span></div>
+        <div class="caso-video"><iframe loading="lazy" src="https://www.youtube.com/embed/7x_hvNVvc88?rel=0" title="Testimonio de Cristian" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
         <div class="caso-body"><div class="name">Cristian</div><div class="prof">Empresario · Bioquímico</div><p class="quote">“Hiciste bien, vas bien, seguí. Esto es una carrera contra uno mismo.”</p></div>
       </div>
       <div class="caso">
-        <div class="caso-thumb" data-video="CVo9A7ADvTs"><img loading="lazy" src="https://img.youtube.com/vi/CVo9A7ADvTs/hqdefault.jpg" alt="Testimonio de Natalia"><span class="play"></span></div>
+        <div class="caso-video"><iframe loading="lazy" src="https://www.youtube.com/embed/CVo9A7ADvTs?rel=0" title="Testimonio de Natalia" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
         <div class="caso-body"><div class="name">Natalia</div><div class="prof">Astrónoma (CONICET) · Emprendedora</div><p class="quote">“Pasé de dormir 3 horas a 7–8. El 1% diario te cambia el año.”</p></div>
       </div>
     </div>
@@ -455,15 +443,6 @@
     var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     neural(document.getElementById('neuralbg'), {edge:'rgba(122,182,225,', ea:0.20, node:'rgba(150,196,232,0.42)', link:150, dens:24000, max:88, spd:0.12, still:reduce});
   })();
-
-  // Casos de éxito: click en la miniatura -> reproduce el video de YouTube inline.
-  document.querySelectorAll('.caso-thumb').forEach(function(t){
-    t.addEventListener('click', function(){
-      var id = t.getAttribute('data-video');
-      if(!id) return;
-      t.innerHTML = '<iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0" title="Testimonio" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-    });
-  });
 </script>
 </body>
 </html>
