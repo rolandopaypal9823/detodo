@@ -14,8 +14,11 @@ está roto, funciona distinto. El problema es el combustible que le cargás.
 - **Puente:** *No sos vos, es el combustible.*
 - **Nivel 2 — combustible correcto:** un solo foco por vez, el primer paso chiquito,
   cambiar la creencia. La misma camioneta ahora salta los mismos obstáculos.
-- **Cierre:** reflexión + invitación a la clase del **martes 28 de julio, 19 hs (Arg)**
-  con CTA a WhatsApp.
+- **Resumen:** el cambio de paradigma. Se tacha la creencia vieja ("es falta de
+  voluntad", "soy un desastre", "algo está mal en mí") y se muestra el encuadre nuevo:
+  *cada cerebro con TDA/TDAH opera distinto, y eso nadie te lo enseñó.*
+- **Cierre:** invitación a la clase del **martes 28 de julio, 19 hs (Arg)** con
+  Soledad Funes (psicóloga del Instituto de Productividad, experta en TDA/H) y CTA a WhatsApp.
 
 Contenido apoyado en la clase de Soledad Funes (deck del Día de la Neurodiversidad y
 el TDA) y en la voz de marca NFM.

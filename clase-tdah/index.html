@@ -177,6 +177,24 @@ body{
 .btn.ghost:hover{transform:none;color:var(--white)}
 .hint{margin-top:12px;font-size:11px;color:var(--ink-dim)}
 
+/* resumen: tachar la creencia vieja -> nuevo encuadre */
+.screen.scroll{max-height:calc(100dvh - 30px);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.flips{display:flex;flex-direction:column;margin-top:18px;background:var(--glass-bg);
+  border:1px solid var(--glass-br);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-radius:16px;overflow:hidden;box-shadow:0 18px 46px rgba(3,12,22,.42)}
+.flip{padding:13px 17px;border-top:1px solid rgba(255,255,255,.07)}
+.flip:first-child{border-top:none}
+.flip .antes{margin:0;font-size:13.5px;color:var(--ink-dim);opacity:.85;
+  text-decoration:line-through;text-decoration-color:rgba(226,59,26,.75)}
+.flip .despues{margin:5px 0 0;font-size:15.5px;color:var(--white);font-weight:600;
+  line-height:1.35;display:flex;gap:9px}
+.flip .despues::before{content:"→";color:var(--nfm-orange);font-weight:700;flex:0 0 auto}
+.reflex{margin-top:20px}
+.reflex .big{font-family:'Montserrat',sans-serif;font-weight:900;line-height:1.08;margin:0;
+  font-size:clamp(23px,6vw,32px);letter-spacing:-.01em;text-wrap:balance}
+.reflex .big em{color:var(--nfm-orange);font-style:normal}
+.reflex .sub{margin:12px 0 0;font-size:14.5px;color:var(--ink-dim);line-height:1.55;text-wrap:pretty}
+
 /* chips de combustible */
 .chips{display:flex;flex-direction:column;gap:10px;margin-top:20px}
 .chip{display:flex;align-items:center;gap:14px;background:var(--glass-bg);border:1px solid var(--glass-br);
@@ -258,10 +276,10 @@ body{
   </section>
 
   <!-- LOAD 1 -->
-  <section class="screen dock" data-s="load1">
+  <section class="screen dock scroll" data-s="load1">
     <div class="inner">
       <p class="kicker mono">Nivel 1 · Combustible equivocado</p>
-      <h1 class="mid">La nafta en un motor diésel.</h1>
+      <h1 class="mid">El combustible que tu cerebro no sabe quemar.</h1>
       <p class="lead dim">Esto es lo que el mundo (y vos) le venís poniendo a tu cerebro:</p>
       <div class="chips">
         <div class="chip bad"><div class="n">1</div><div class="t">"Esforzate más"<small>Pura fuerza de voluntad. Si quisieras, podrías.</small></div></div>
@@ -273,7 +291,7 @@ body{
   </section>
 
   <!-- BRIDGE -->
-  <section class="screen dock" data-s="bridge">
+  <section class="screen dock scroll" data-s="bridge">
     <div class="inner">
       <p class="kicker mono">Pará un segundo</p>
       <h1 class="mid">No sos vos.<br>Es el combustible.</h1>
@@ -283,7 +301,7 @@ body{
   </section>
 
   <!-- LOAD 2 -->
-  <section class="screen dock" data-s="load2">
+  <section class="screen dock scroll" data-s="load2">
     <div class="inner">
       <p class="kicker mono">Nivel 2 · Combustible correcto</p>
       <h1 class="mid">El mismo cerebro. Otro combustible.</h1>
@@ -297,15 +315,40 @@ body{
     </div>
   </section>
 
+  <!-- RESUMEN -->
+  <section class="screen scroll" data-s="resumen">
+    <p class="kicker mono">El cambio de paradigma</p>
+    <h1 class="mid">No es fuerza de voluntad. Es cómo funciona tu cerebro.</h1>
+    <div class="flips">
+      <div class="flip">
+        <p class="antes">"Si quisiera, podría. Es falta de voluntad."</p>
+        <p class="despues">La intención está. Lo que falla es la puesta en marcha.</p>
+      </div>
+      <div class="flip">
+        <p class="antes">"Soy un desastre, un vago, un desatento."</p>
+        <p class="despues">No estás roto: funcionás de este modo. Y eso se trabaja.</p>
+      </div>
+      <div class="flip">
+        <p class="antes">"Algo está mal en mí."</p>
+        <p class="despues">Es una variación, no un defecto.</p>
+      </div>
+    </div>
+    <div class="reflex">
+      <p class="big">Cada cerebro con TDA/TDAH opera distinto. <em>Y eso nadie te lo enseñó.</em></p>
+      <p class="sub">El costo más grande nunca fue el síntoma: fue la creencia que te quedó pegada encima. No es un problema de actitud, es una forma de funcionar que el entorno todavía no aprendió a acompañar.</p>
+    </div>
+    <button class="btn" data-go="final">Quiero las herramientas <span class="arrow">›</span></button>
+  </section>
+
   <!-- FINAL -->
-  <section class="screen dock" data-s="final">
+  <section class="screen dock scroll" data-s="final">
     <div class="inner">
       <p class="kicker mono">Para llevarte</p>
       <p class="quote">Nadie es más que su rendimiento, y <em>nadie es menos por funcionar distinto.</em></p>
       <div class="classcard">
         <p class="tagline mono">Clase en vivo · Gratis</p>
         <h2>No estás roto: tu cerebro funciona distinto</h2>
-        <p>El 28 de julio, Día de la Neurodiversidad y el TDA, con la Lic. Soledad Funes. Vas a entender por qué tu cerebro pide otro combustible, y te llevás las herramientas concretas para dárselo.</p>
+        <p>El 28 de julio, Día de la Neurodiversidad y el TDA, con Soledad Funes, psicóloga del Instituto de Productividad y experta en TDA/H. Vas a entender por qué tu cerebro pide otro combustible, y te llevás las herramientas concretas para dárselo.</p>
         <div class="when"><span class="dot"></span><span class="mono">Martes 28 de julio · 19 hs (Arg)</span></div>
         <a class="wa" href="https://go.wha.link/clase-28-7-neurociencia" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2.2A9.8 9.8 0 0 0 3.6 17l-1.3 4.8L7.2 20.5A9.8 9.8 0 1 0 12 2.2zm0 17.9c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3a8.1 8.1 0 1 1 6.8 3.7z"/></svg>
@@ -631,7 +674,7 @@ function capShow(v){cap.classList.toggle('on',v);if(!v)cap.classList.remove('vis
 function go(name){
   state=name;
   const playing=name==='play1'||name==='play2';
-  document.getElementById('logo').style.opacity=playing?'0':'.9';
+  document.getElementById('logo').style.opacity=name==='intro'?'.9':'0';
   hudShow(playing);capShow(playing);
   jumpBtn.classList.toggle('show',playing);
   skip.classList.toggle('show',name==='intro');
@@ -643,12 +686,12 @@ document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=
 skip.addEventListener('click',()=>go('load1'));
 
 function startLevel(lv){
-  play.level=lv;play.scroll=0;play.speed=play.baseSpeed*(lv===1?0.82:1);
+  play.level=lv;play.scroll=0;play.speed=lv===1?120:145;play.runSpeed=play.speed;
   play.truckY=0;play.vy=0;play.jumping=false;play.onGround=true;play.tilt=0;play.shake=0;
   play.fuel=1;play.idx=0;play.phase='run';play.phaseT=0;play.done=false;play.finishT=0;
   particles=[];
   const {tx}=scene();
-  const gap=W*0.62, first=W*0.72;
+  const gap=W*0.8, first=W*0.72;
   play.obstacles=OBST.map((l,i)=>({label:l,sx:play.scroll+first+i*gap,state:'wait',anim:0}));
   fuel.className=lv===1?'wrong':'right';
   fuelBar.style.width='100%';
@@ -695,14 +738,14 @@ function updatePlay(dt){
           ob.state='cleared';
           if(clears){puff(ox,gy-rockH,'burst');}
           else{ob.anim=0.001;puff(ox,gy-rockH*0.6,'burst');play.shake=0.6;} // pasa por encima igual
-          showCap(capsRight[play.idx],3.2);
+          showCap(capsRight[play.idx],3.6);
           play.idx++;
           if(play.idx>=play.obstacles.length){play.phase='finish';play.phaseT=0;}
         }else{
           // nivel 1: choca, se frena, pierde combustible
           ob.state='block';play.phase='block';play.phaseT=0;
           play.shake=0.8;puff(ox,gy-rockH*0.7,'smoke');puff(ox,gy-rockH*0.4,'smoke');
-          showCap(capsWrong[play.idx],3.4);
+          showCap(capsWrong[play.idx],4.2);
           play.speed=0;
         }
       }
@@ -710,7 +753,7 @@ function updatePlay(dt){
   }else if(play.phase==='block'){
     play.phaseT+=dt;
     if(Math.random()<0.5)puff(tx-108*ts,gy-30*ts,'smoke');
-    if(play.phaseT>1.15){
+    if(play.phaseT>1.9){
       // empuja el obstáculo, avanza a los tumbos, baja combustible
       play.obstacles[play.idx].state='shoved';
       play.fuel=Math.max(0,play.fuel-1/3);
@@ -719,18 +762,18 @@ function updatePlay(dt){
       if(play.fuel<=0.001||play.idx>=play.obstacles.length){
         play.phase='stall';play.phaseT=0;showCap(capStall,4);
       }else{
-        play.phase='run';play.speed=play.baseSpeed*0.6;
+        play.phase='run';play.speed=play.runSpeed*0.8;
       }
     }
   }else if(play.phase==='stall'){
     play.phaseT+=dt;
     if(Math.random()<0.6)puff(tx-108*ts,gy-30*ts,'smoke');
-    if(play.phaseT>2.6){go('bridge');}
+    if(play.phaseT>2.8){go('bridge');}
   }else if(play.phase==='finish'){
     play.phaseT+=dt;play.speed+=dt*260;play.scroll+=play.speed*dt;
     if(Math.random()<0.4)puff(tx-40*ts,gy,'dust');
     play.finishT=play.phaseT;
-    if(play.phaseT>2.0){go('final');}
+    if(play.phaseT>2.0){go('resumen');}
   }
   // animar obstáculos "cleared/shoved"
   for(const ob of play.obstacles){
@@ -774,51 +817,73 @@ function openRoad(gy,scroll){
   ctx.lineDashOffset=-scroll%44;
   ctx.beginPath();ctx.moveTo(0,gy+15);ctx.lineTo(W,gy+15);ctx.stroke();ctx.restore();
 }
+// dónde empieza el texto (para acomodar la escena arriba y que nunca se pisen)
+function stageBottom(){
+  const s=document.querySelector('.screen.active');
+  if(!s) return H;
+  const inner=s.querySelector('.inner')||s;
+  return inner.getBoundingClientRect().top;
+}
 function drawHero(){
-  const ts=scene().ts;
+  const ts0=scene().ts, sb=stageBottom(), topM=Math.max(H*0.05,18);
   if(portrait){
-    const gy=Math.round(H*0.44);
+    let tsc=ts0*0.92, bsc=ts0*0.72;
+    const gap=12, natural=115*bsc*2+gap+118*tsc, avail=(sb-14)-topM;
+    const k=clamp(avail/natural,0.5,1); tsc*=k; bsc*=k;
+    const brad=115*bsc, gy=Math.round(topM+brad*2+gap+118*tsc);
     openRoad(gy,anim.t*40);
-    drawBrain(W*0.5,H*0.18,ts*0.74,anim.pulse);
-    drawTruck(W*0.5,gy,ts*0.9,'right',anim.t*3,-0.01,Math.sin(anim.t*2)*1.2);
+    drawTruck(W*0.5,gy,tsc,'right',anim.t*3,-0.01,Math.sin(anim.t*2)*1.2);
+    drawBrain(W*0.5,topM+brad,bsc,anim.pulse);
   }else{
-    const gy=Math.round(H*0.31);
+    const gy=Math.round(clamp(sb-16,H*0.26,H*0.6));
+    const tsc=ts0*0.82, bsc=ts0*0.7;
     openRoad(gy,anim.t*40);
-    drawBrain(W*0.31,H*0.25,ts*0.7,anim.pulse);
-    drawTruck(W*0.68,gy,ts*0.8,'right',anim.t*3,-0.01,Math.sin(anim.t*2)*1.2);
+    drawTruck(W*0.68,gy,tsc,'right',anim.t*3,-0.01,Math.sin(anim.t*2)*1.2);
+    drawBrain(W*0.30,Math.max(topM+96*bsc,gy-118*tsc*0.5-24),bsc,anim.pulse);
   }
 }
+function idleGeom(){
+  const ts0=scene().ts, sb=stageBottom(), topM=Math.max(H*0.05,18);
+  const base=ts0*(portrait?0.88:0.78);
+  const k=clamp(((sb-14)-topM)/(120*base),0.5,1), sc=base*k;
+  const gy=Math.round(clamp(sb-16, topM+118*sc, H*0.62));
+  const tx=Math.round(W*(portrait?0.5:0.44));
+  return {sc,gy,tx};
+}
 function drawIdle(mode){
-  const ts=scene().ts, sc=ts*(portrait?0.85:0.75);
-  const gy=Math.round(H*(portrait?0.34:0.30)), tx=Math.round(W*(portrait?0.5:0.44));
+  const {sc,gy,tx}=idleGeom();
   openRoad(gy,anim.t*30);
   if(mode==='wrong'&&Math.random()<0.25)puff(tx-104*sc,gy-30*sc,'smoke');
   drawTruck(tx,gy,sc,mode,anim.t*2,-0.01,Math.sin(anim.t*3)*1.0);
 }
 function drawStalled(){
-  const ts=scene().ts, sc=ts*(portrait?0.85:0.75);
-  const gy=Math.round(H*(portrait?0.34:0.30)), tx=Math.round(W*(portrait?0.5:0.44));
+  const {sc,gy,tx}=idleGeom();
   openRoad(gy,0);
   if(Math.random()<0.4)puff(tx-104*sc,gy-30*sc,'smoke');
   drawTruck(tx,gy,sc,'wrong',0,0.02,0);
 }
+function drawCalm(){
+  // fondo sobrio para la reflexión (el texto manda)
+  const g=ctx.createRadialGradient(W*0.5,H*0.92,10,W*0.5,H*0.92,H*0.6);
+  g.addColorStop(0,'rgba(255,120,40,.1)');g.addColorStop(1,'rgba(255,120,40,0)');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+}
 function drawWin(){
-  // escena calma arriba (el texto va abajo): camioneta entrando a la luz
-  const ts=scene().ts;
-  const gy=Math.round(H*(portrait?0.27:0.36));
-  const tx=Math.round(W*(portrait?0.5:0.42));
-  // amanecer naranja
-  const sg=ctx.createRadialGradient(W*0.62,gy,10,W*0.62,gy,W*0.6);
-  sg.addColorStop(0,'rgba(255,150,55,.32)');sg.addColorStop(.55,'rgba(255,120,40,.07)');sg.addColorStop(1,'rgba(255,120,40,0)');
-  ctx.fillStyle=sg;ctx.fillRect(0,0,W,gy+90);
-  // ruta abierta (sólo líneas, sin banda)
-  ctx.strokeStyle='rgba(255,102,2,.5)';ctx.lineWidth=2;
-  ctx.beginPath();ctx.moveTo(0,gy+1);ctx.lineTo(W,gy+1);ctx.stroke();
-  ctx.save();ctx.strokeStyle='rgba(200,215,225,.22)';ctx.lineWidth=3;ctx.setLineDash([26,22]);
-  ctx.lineDashOffset=-(anim.t*260)%48;
-  ctx.beginPath();ctx.moveTo(0,gy+16);ctx.lineTo(W,gy+16);ctx.stroke();ctx.restore();
-  if(Math.random()<0.5)puff(tx-42*ts,gy,'dust');
-  drawTruck(tx,gy,ts*(portrait?0.82:0.92),'right',anim.t*22,-0.03,Math.sin(anim.t*20)*1.3);
+  const ts0=scene().ts, sb=stageBottom(), topM=Math.max(H*0.05,18);
+  const avail=(sb-14)-topM;
+  // amanecer naranja arriba (siempre)
+  const gg=Math.max(avail*0.6,H*0.14);
+  const sg=ctx.createRadialGradient(W*0.55,gg,10,W*0.55,gg,W*0.62);
+  sg.addColorStop(0,'rgba(255,150,55,.3)');sg.addColorStop(.55,'rgba(255,120,40,.07)');sg.addColorStop(1,'rgba(255,120,40,0)');
+  ctx.fillStyle=sg;ctx.fillRect(0,0,W,Math.max(gg+90,H*0.3));
+  // camioneta entrando a la luz, sólo si hay lugar arriba del texto
+  if(avail>96){
+    const base=ts0*0.82, k=clamp(avail/(120*base),0.5,1), sc=base*k;
+    const gy=Math.round(clamp(sb-16, topM+118*sc, H*0.55)), tx=Math.round(W*0.5);
+    openRoad(gy,anim.t*220);
+    if(Math.random()<0.5)puff(tx-42*sc,gy,'dust');
+    drawTruck(tx,gy,sc,'right',anim.t*22,-0.03,Math.sin(anim.t*20)*1.3);
+  }
 }
 
 /* ===================== loop ===================== */
@@ -831,6 +896,7 @@ function frame(now){
   else if(state==='load1')drawIdle('wrong');
   else if(state==='load2')drawIdle('right');
   else if(state==='bridge')drawStalled();
+  else if(state==='resumen')drawCalm();
   else if(state==='final')drawWin();
   else if(state==='play1'||state==='play2'){updatePlay(dt);drawPlaySceneFrame();}
   drawParticles(dt);
