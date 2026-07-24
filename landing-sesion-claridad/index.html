@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrevista Personal · Instituto de Productividad NFM</title>
+<meta name="description" content="Ordenaste tu plata. Falta ordenar la máquina que la administra. Agendá tu entrevista personal con el equipo del Instituto de Productividad.">
+
+<!--
+  LANDING DE AGENDAMIENTO · Instituto de Productividad (NFM)
+  Punto del embudo: post charla "La tasa que nunca calculaste" (evento academia de finanzas Método FC).
+  Objetivo único: que el asistente agende la ENTREVISTA PERSONAL en el Calendly embebido.
+  Estrategia (acuerdos que convierten la agenda en este punto):
+    1. Certeza sobre la llamada  -> "qué es / qué no es" (es conversación, no venta; muchas veces decimos que no)
+    2. Actuar ahora (acuerdo 9)   -> la tasa/brecha se descuenta igual todos los años
+    3. Está probado (acuerdo 6)   -> testimonios reales por afinidad de oficio
+    4. No es tu voluntad (7)      -> el observador externo; esto no se arregla con motivación
+  Hilo conductor: continúa la última frase de la charla ("ordenaste tu plata, falta ordenar la máquina").
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --nfm-blue:       #0c3452;
+    --nfm-blue-dark:  #061d30;
+    --nfm-blue-light: #e7edf2;
+    --nfm-orange:     #ff6602;
+    --nfm-white:      #ffffff;
+    --ink:            #0c3452;
+    --muted:          #4a6377;
+    --line:           #d7e0e8;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--nfm-white);
+    color: var(--ink);
+    font-family:'Open Sans', system-ui, sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  p{ text-wrap: pretty; }
+  h1,h2,h3{ text-wrap: balance; }
+  a{ color: inherit; }
+
+  .mono{
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    font-weight:500;
+    font-size:12px;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position: sticky; top:0; z-index:50;
+    background: var(--nfm-blue);
+    color:#fff;
+    border-bottom: 1px solid var(--nfm-blue-dark);
+  }
+  .bar{
+    max-width:1240px; margin:0 auto;
+    padding:14px 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+  }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand-mark{
+    width:34px; height:34px; border-radius:8px;
+    background:var(--nfm-orange); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Montserrat', sans-serif; font-weight:900; font-size:20px; line-height:1;
+  }
+  .brand-name{ font-family:'Montserrat', sans-serif; font-weight:700; font-size:14px; letter-spacing:0.02em; }
+  .brand-name span{ display:block; font-family:'JetBrains Mono', ui-monospace, monospace; font-weight:400; font-size:10px; letter-spacing:0.24em; opacity:.7; text-transform:uppercase; margin-top:2px; }
+
+  .stepper{ display:flex; align-items:center; gap:10px; }
+  .step{
+    font-family:'JetBrains Mono', monospace; text-transform:uppercase;
+    letter-spacing:0.18em; font-size:11px; font-weight:500;
+    color:rgba(255,255,255,.55);
+    display:flex; align-items:center; gap:7px;
+  }
+  .step.done{ color:rgba(255,255,255,.75); }
+  .step.done::before{ content:'✓'; color:#61d095; font-weight:700; }
+  .step.active{ color:#fff; }
+  .step.active::before{
+    content:''; width:7px; height:7px; border-radius:50%;
+    background:var(--nfm-orange); box-shadow:0 0 0 4px rgba(255,102,2,.25);
+  }
+  .step-sep{ color:rgba(255,255,255,.3); font-size:12px; }
+
+  /* ---------- Layout ---------- */
+  main{
+    max-width:1240px; margin:0 auto;
+    padding:0 28px 40px;
+    display:grid;
+    gap:56px 60px;
+    grid-template-columns: minmax(0,1fr) minmax(390px, 470px);
+    grid-template-areas:
+      "hero  aside"
+      "body  aside";
+    align-items:start;
+  }
+  .hero{ grid-area:hero; padding-top:56px; }
+  .body{ grid-area:body; }
+  aside{
+    grid-area:aside;
+    position:sticky; top:96px;
+    align-self:start;
+  }
+
+  /* ---------- Hero ---------- */
+  .kicker{ color:var(--nfm-orange); margin-bottom:20px; }
+  .hero h1{
+    font-family:'Montserrat', sans-serif; font-weight:900;
+    font-size:clamp(34px, 4.4vw, 52px);
+    line-height:1.04; letter-spacing:-0.015em;
+    margin:0 0 22px;
+    color:var(--nfm-blue);
+  }
+  .hero h1 .accent{ color:var(--nfm-orange); }
+  .hero .lead{
+    font-size:19px; color:var(--muted); max-width:38ch; margin:0 0 14px;
+  }
+  .hero .lead strong{ color:var(--nfm-blue); font-weight:700; }
+  .continuity{
+    display:inline-flex; align-items:center; gap:9px;
+    margin-top:8px; padding:9px 15px;
+    background:var(--nfm-blue-light); border-radius:100px;
+    font-size:13.5px; color:var(--nfm-blue); font-weight:600;
+  }
+  .continuity::before{ content:'✓'; color:#2f9e63; font-weight:800; }
+
+  /* ---------- Sections ---------- */
+  section{ margin-top:52px; }
+  section:first-child{ margin-top:0; }
+  .sec-label{ color:var(--nfm-orange); margin-bottom:14px; display:block; }
+  h2{
+    font-family:'Montserrat', sans-serif; font-weight:800;
+    font-size:clamp(23px, 2.6vw, 30px);
+    line-height:1.12; margin:0 0 18px; color:var(--nfm-blue);
+    letter-spacing:-0.01em;
+  }
+  .sec p{ color:var(--muted); margin:0 0 14px; }
+  .sec p strong{ color:var(--nfm-blue); font-weight:700; }
+
+  /* ---------- Stat block (la tasa) ---------- */
+  .stat-block{
+    background:var(--nfm-blue-dark);
+    color:#fff; border-radius:14px;
+    padding:38px 40px;
+    box-shadow:0 40px 90px rgba(12,52,82,.20);
+  }
+  .stat-block .sec-label{ color:var(--nfm-orange); }
+  .stat-figure{
+    font-family:'Montserrat', sans-serif; font-weight:900;
+    font-size:clamp(52px, 8vw, 82px);
+    line-height:.95; color:var(--nfm-orange);
+    letter-spacing:-0.02em; margin:6px 0 2px;
+  }
+  .stat-cap{ color:rgba(255,255,255,.82); font-size:16px; max-width:46ch; margin:12px 0 0; }
+  .stat-cap strong{ color:#fff; font-weight:700; }
+  .stat-kicker{
+    font-family:'Montserrat', sans-serif; font-weight:700; font-size:20px;
+    color:#fff; margin:22px 0 0; padding-top:22px;
+    border-top:1px solid rgba(255,255,255,.14);
+    line-height:1.35;
+  }
+  .stat-kicker .accent{ color:var(--nfm-orange); }
+
+  /* ---------- Es / No es ---------- */
+  .duo{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:6px; }
+  .duo-card{
+    border:1.5px solid var(--line); border-radius:12px; padding:24px 22px; background:#fff;
+  }
+  .duo-card.is{ border-color:rgba(12,52,82,.28); }
+  .duo-head{
+    font-family:'Montserrat', sans-serif; font-weight:800; font-size:15px;
+    letter-spacing:.04em; margin-bottom:16px; display:flex; align-items:center; gap:9px;
+  }
+  .duo-card.is .duo-head{ color:var(--nfm-blue); }
+  .duo-card.isnt .duo-head{ color:#7d8a95; }
+  .duo-head .tag{
+    font-family:'JetBrains Mono', ui-monospace, monospace; font-size:10px; letter-spacing:.2em; font-weight:700;
+    padding:3px 9px; border-radius:100px;
+  }
+  .duo-card.is .duo-head .tag{ background:var(--nfm-blue); color:#fff; }
+  .duo-card.isnt .duo-head .tag{ background:#e7ebef; color:#7d8a95; }
+  .duo-card ul{ list-style:none; margin:0; padding:0; }
+  .duo-card li{ position:relative; padding-left:26px; margin-bottom:13px; font-size:15px; line-height:1.5; }
+  .duo-card li:last-child{ margin-bottom:0; }
+  .duo-card.is li{ color:var(--nfm-blue); }
+  .duo-card.is li::before{ content:'✓'; position:absolute; left:0; top:0; color:var(--nfm-orange); font-weight:800; }
+  .duo-card.isnt li{ color:#8a97a2; }
+  .duo-card.isnt li::before{ content:'✗'; position:absolute; left:0; top:0; color:#c2ccd4; font-weight:800; }
+
+  /* ---------- Quote panel (observador externo) ---------- */
+  .panel{
+    background:var(--nfm-blue-light);
+    border-radius:14px; padding:34px 38px; margin-top:6px;
+  }
+  .panel p{ color:var(--nfm-blue); font-size:18px; line-height:1.55; margin:0 0 14px; }
+  .panel p:last-child{ margin-bottom:0; }
+  .panel .hl{ color:var(--nfm-orange); font-weight:700; }
+  .panel strong{ font-weight:700; }
+
+  /* ---------- Testimonios ---------- */
+  .cards{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:6px; }
+  .tcard{
+    background:#fff; border:1.5px solid var(--line); border-radius:12px;
+    padding:22px 22px 24px;
+    box-shadow:0 18px 44px rgba(12,52,82,.06);
+  }
+  .tcard .oficio{ color:var(--muted); margin-bottom:12px; display:block; }
+  .tcard .name{
+    font-family:'Montserrat', sans-serif; font-weight:800; font-size:17px; color:var(--nfm-blue);
+    display:flex; align-items:center; gap:8px; margin-bottom:8px;
+  }
+  .tcard .name::before{ content:'★'; color:var(--nfm-orange); font-size:14px; }
+  .tcard .fact{ color:var(--muted); font-size:15px; line-height:1.5; margin:0; }
+
+  /* ---------- Cómo funciona ---------- */
+  .steps{ counter-reset:s; margin-top:6px; }
+  .stepline{ display:flex; gap:18px; padding:18px 0; border-top:1px solid var(--line); }
+  .stepline:first-child{ border-top:none; }
+  .stepline .n{
+    counter-increment:s; flex:0 0 auto;
+    width:38px; height:38px; border-radius:50%;
+    border:2px solid var(--nfm-blue); color:var(--nfm-blue);
+    font-family:'Montserrat', sans-serif; font-weight:800; font-size:17px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .stepline .n::before{ content:counter(s); }
+  .stepline h4{ font-family:'Montserrat', sans-serif; font-weight:700; font-size:16px; margin:6px 0 5px; color:var(--nfm-blue); }
+  .stepline p{ margin:0; color:var(--muted); font-size:15px; }
+
+  /* ---------- Calendly aside ---------- */
+  .cal-card{
+    background:#fff; border:1.5px solid var(--line); border-radius:16px;
+    box-shadow:0 40px 100px rgba(12,52,82,.14);
+    overflow:hidden;
+  }
+  .cal-top{ height:4px; background:var(--nfm-orange); }
+  .cal-head{ padding:22px 24px 8px; }
+  .cal-head .lbl{ color:var(--nfm-orange); display:block; margin-bottom:10px; }
+  .cal-head h3{
+    font-family:'Montserrat', sans-serif; font-weight:800; font-size:22px; color:var(--nfm-blue);
+    margin:0 0 6px; letter-spacing:-0.01em;
+  }
+  .cal-head p{ margin:0; color:var(--muted); font-size:14px; }
+  .calendly-inline-widget{ min-width:320px; height:680px; }
+  .cal-foot{
+    padding:14px 24px 20px; border-top:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:8px 18px;
+  }
+  .cal-foot span{ font-size:13px; color:var(--muted); display:flex; align-items:center; gap:7px; }
+  .cal-foot span::before{ content:'✓'; color:var(--nfm-orange); font-weight:800; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--line); margin-top:24px;
+  }
+  .foot-in{
+    max-width:1240px; margin:0 auto; padding:26px 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    color:var(--muted); font-size:13px;
+  }
+  .foot-in .mono{ color:var(--nfm-blue); letter-spacing:.18em; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 980px){
+    main{
+      grid-template-columns:1fr;
+      grid-template-areas:"hero" "aside" "body";
+      gap:38px;
+    }
+    aside{ position:static; }
+    .hero{ padding-top:38px; }
+    .stepper{ display:none; }
+    .calendly-inline-widget{ height:640px; }
+  }
+  @media (max-width: 620px){
+    body{ font-size:16px; }
+    .bar{ padding:12px 18px; }
+    main{ padding:0 18px 32px; }
+    .duo{ grid-template-columns:1fr; }
+    .cards{ grid-template-columns:1fr; }
+    .stat-block{ padding:28px 24px; }
+    .panel{ padding:26px 22px; }
+    .foot-in{ padding:22px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <div class="brand">
+      <div class="brand-mark">N</div>
+      <div class="brand-name">Instituto de Productividad<span>Nicolás Fernández Miranda</span></div>
+    </div>
+    <nav class="stepper" aria-label="Progreso">
+      <span class="step done">Charla</span>
+      <span class="step-sep">›</span>
+      <span class="step active">Entrevista personal</span>
+      <span class="step-sep">›</span>
+      <span class="step">Tu sistema</span>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="mono kicker">Entrevista personal · Paso siguiente</span>
+    <h1>Ordenaste tu plata.<br>Falta ordenar la <span class="accent">máquina</span> que la administra.</h1>
+    <p class="lead">Elegí un horario acá al lado. Es una conversación con mi equipo, <strong>no una venta</strong>: te miran el caso y te dicen, con honestidad, si esto es para vos o no.</p>
+    <p class="lead">Muchas veces decimos que no. Por eso, salgas o no adentro, la entrevista te sirve igual.</p>
+    <span class="continuity">Ya hiciste la parte difícil. Esto es lo que sigue.</span>
+  </div>
+
+  <!-- BODY (columna izquierda de persuasión) -->
+  <div class="body">
+
+    <!-- 1. LA TASA (actuar ahora / costo) -->
+    <section class="sec">
+      <div class="stat-block">
+        <span class="mono sec-label">La tasa que no calculaste</span>
+        <div class="stat-figure">US$&nbsp;230.000</div>
+        <p class="stat-cap">Es lo que la brecha de comportamiento le saca a una cartera de US$&nbsp;200.000 en veinte años. <strong>Más que todo tu capital.</strong> No la perdés por elegir mal el activo: la perdés en decisiones tomadas mal dormido, desconcentrado y con la cabeza en otro lado.</p>
+        <p class="stat-kicker">Esa tasa no se descuenta el día que agendás ni el día que no. Se descuenta igual, todos los años, con la puntualidad de una comisión. <span class="accent">La única pregunta es cuántos años más la vas a seguir pagando entera.</span></p>
+      </div>
+    </section>
+
+    <!-- 2. QUÉ ES / QUÉ NO ES (certeza) -->
+    <section class="sec">
+      <span class="mono sec-label">Antes de elegir horario</span>
+      <h2>Qué es esta entrevista. Y qué no es.</h2>
+      <div class="duo">
+        <div class="duo-card is">
+          <div class="duo-head"><span class="tag">Es</span> Una admisión real</div>
+          <ul>
+            <li>Una conversación sobre tu caso puntual: cómo dormís, cómo decidís, dónde se te va la tasa.</li>
+            <li>Una entrevista de admisión de verdad. No entran todos: muchas veces decimos que no.</li>
+            <li>El primer paso hacia eso que en la charla llamamos el observador externo.</li>
+          </ul>
+        </div>
+        <div class="duo-card isnt">
+          <div class="duo-head"><span class="tag">No es</span> Una venta disfrazada</div>
+          <ul>
+            <li>Una llamada de ventas con otro nombre.</li>
+            <li>Un PDF, un video más, ni contenido para consumir solo.</li>
+            <li>Un sermón sobre ponerle más ganas. Ya viste que esto no se arregla con motivación.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. POR QUÉ NO LLEGÁS SOLO (no es tu voluntad + solución de otra categoría) -->
+    <section class="sec">
+      <span class="mono sec-label">Por qué a esto no se llega solo</span>
+      <div class="panel">
+        <p>En la charla lo dijimos con Van Dongen: <strong>el instrumento con el que medís tu propio estado es el primero que se rompe.</strong> Cuando estás en déficit no lo ves, y no es por falta de honestidad: es que el sistema que evalúa es el mismo que está degradado.</p>
+        <p>Con tu plata ya sacaste esa conclusión. Estás en una academia de finanzas y no aprendiendo solo con videos de YouTube, porque sabés que un sistema con acompañamiento rinde distinto que un PDF. <span class="hl">Con la máquina que administra tu plata, es exactamente igual.</span></p>
+      </div>
+    </section>
+
+    <!-- 4. PRUEBA (está probado) -->
+    <section class="sec">
+      <span class="mono sec-label">Gente con tu carga, ya del otro lado</span>
+      <h2>No es teoría. Ya le pasó a alguien como vos.</h2>
+      <div class="cards">
+        <div class="tcard">
+          <span class="mono oficio">Astrónoma · CONICET</span>
+          <div class="name">Natalia</div>
+          <p class="fact">Pasó de dormir 3 o 4 horas a dormir 7 u 8. El mismo sistema del que hablamos hoy, sostenido en el tiempo.</p>
+        </div>
+        <div class="tcard">
+          <span class="mono oficio">Contadora · Cía. de seguros</span>
+          <div class="name">Sol Romero</div>
+          <p class="fact">Cambió de puesto y la empresa terminó pagándole la capacitación que ella iba a pagar de su bolsillo. Volvió al tango.</p>
+        </div>
+        <div class="tcard">
+          <span class="mono oficio">Farmacéutico · Dueño, 6 empleados</span>
+          <div class="name">Germán</div>
+          <p class="fact">De un burnout con los números sin cerrar, a delegar y tener un norte claro para todo el año.</p>
+        </div>
+        <div class="tcard">
+          <span class="mono oficio">Arquitecta · Lidera ~45 personas</span>
+          <div class="name">Celi</div>
+          <p class="fact">Un mes en Argentina con los hijos sin soltar el trabajo, y de vuelta al movimiento: su primer año con actividad física desde que es madre.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. CÓMO FUNCIONA (expectativa / darle sentido a las preguntas) -->
+    <section class="sec">
+      <span class="mono sec-label">Cómo funciona</span>
+      <h2>Tres pasos, y el bloque es tuyo.</h2>
+      <div class="steps">
+        <div class="stepline">
+          <div class="n"></div>
+          <div>
+            <h4>Elegí día y horario acá al lado.</h4>
+            <p>Los que ves son los reales de esta semana. Se ocupan por orden de llegada.</p>
+          </div>
+        </div>
+        <div class="stepline">
+          <div class="n"></div>
+          <div>
+            <h4>Respondé unas preguntas cortas.</h4>
+            <p>No son de trámite. Sirven para que quien te atienda ya conozca tu caso y la entrevista no arranque de cero.</p>
+          </div>
+        </div>
+        <div class="stepline">
+          <div class="n"></div>
+          <div>
+            <h4>Te llega la confirmación.</h4>
+            <p>Reservá ese bloque como la reunión más importante de tu semana. Es la única que es cien por ciento tuya.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /body -->
+
+  <!-- ASIDE: CALENDLY -->
+  <aside>
+    <div class="cal-card">
+      <div class="cal-top"></div>
+      <div class="cal-head">
+        <span class="mono lbl">Agendá acá</span>
+        <h3>Reservá tu entrevista personal</h3>
+        <p>Si en una hora de charla sacaste esto, es razonable preguntarse qué pasaría en seis meses.</p>
+      </div>
+      <!-- Widget integrado de Calendly -->
+      <div class="calendly-inline-widget" data-url="https://calendly.com/nicolasfernandezmiranda/sesion-de-claridad-htc-clon" style="min-width:320px;"></div>
+      <!-- /Calendly -->
+      <div class="cal-foot">
+        <span>Sin costo</span>
+        <span>Es una conversación, no una venta</span>
+        <span>Si tu caso no encaja, te lo decimos</span>
+      </div>
+    </div>
+  </aside>
+
+</main>
+
+<footer>
+  <div class="foot-in">
+    <span class="mono">Instituto de Productividad · NFM</span>
+    <span>La mejor estrategia financiera pasa por un cuello de botella de un kilo trescientos gramos. Ordená la máquina.</span>
+  </div>
+</footer>
+
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</body>
+</html>
