@@ -248,6 +248,7 @@
   .chart-val { position: absolute; left: 50%; transform: translateX(-50%); font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 12.5px; white-space: nowrap; font-variant-numeric: tabular-nums; }
   .chart-months { display: grid; grid-template-columns: repeat(5, 1fr); gap: 26px; padding: 10px 10px 0; border-top: 2.5px solid var(--nfm-blue); }
   .chart-months div { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+  .chart-months small { display: block; font-size: 8px; letter-spacing: 0.08em; opacity: 0.55; margin-top: 3px; }
   .chart-legend { display: flex; gap: 22px; flex-wrap: wrap; padding: 14px 10px 4px; }
   .chart-legend span { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; }
   .chart-legend i { width: 12px; height: 12px; border-radius: 3px; }
@@ -666,9 +667,11 @@
 <section class="view page" id="view-timeline">
   <div class="eyebrow">Línea de tiempo · Agosto a diciembre 2026</div>
   <h1 class="h1">El plan mes a mes hasta fin de año</h1>
-  <p class="lead">Cada mes muestra su mini calculadora por clase (inversión, registros, agendas, cierres, cash) y la suma mensual. Corren dos series con el mismo motor: la <strong>azul</strong> escala solo la pauta ($5K → $5,5K → $10K → $15K → $20K por clase) con el CPL degradado a propósito para absorber el costo de escalar; la <strong>naranja</strong> le suma las palancas comerciales (agenda 9 a 9,5%, asistencia 22%, ticket $900). El piso de $100K cae en septiembre; de octubre en adelante el cuello deja de ser Meta y pasa a ser el equipo comercial.</p>
+  <p class="lead">Cada mes muestra su mini calculadora por clase (registros, agendas, cierres, cash) y, al pie, <strong>cuánto se invierte en ads ese mes y qué ROAS devuelve</strong>. Elegí el ritmo de escalado: el <strong>gradual</strong> sube la inversión ~27% por mes; el <strong>agresivo</strong> es tu idea de $10K, $15K y $20K por clase de octubre a diciembre. En los dos, la serie azul escala solo pauta con el CPL degradado a propósito, y la naranja suma las palancas comerciales (agenda 9 a 9,5%, asistencia 22%, ticket $900).</p>
 
   <div class="sec-title">De agosto al desbloqueo</div>
+  <div class="presets" id="tlModes" style="margin: 0 0 6px;"></div>
+  <div class="preset-hint" id="tlModeHint" style="margin-bottom: 18px;"></div>
   <div class="tl-scroll">
     <div class="tl-row" id="tlRow"></div>
   </div>
@@ -705,12 +708,12 @@
     <div class="scale-item hot">
       <div class="scale-tag">Nuestro plan</div>
       <div class="scale-title">CPL degradado a propósito</div>
-      <div class="scale-body">El modelo no asume que el CPL aguanta intacto a 4x de presupuesto, porque nadie puede prometer eso: lo sube a $0,64 en octubre, $0,70 en noviembre y $0,76 en diciembre (+31% acumulado). Si el CPL real se comporta como en julio ($0,51), todos estos números quedan cortos. Cada mes entran ganchos nuevos para defenderlo.</div>
+      <div class="scale-body">El modelo no asume que el CPL aguanta intacto al escalar, porque nadie puede prometer eso: en el ritmo gradual lo sube hasta $0,68 y en el agresivo hasta $0,76 (+17% y +31% acumulado). Por eso el ROAS baja de 4,4x hacia 3,2-3,6x a fin de año: es el costo real de escalar. Si el CPL se comporta como en julio ($0,51), todos estos números quedan cortos. Cada mes entran ganchos nuevos para defenderlo.</div>
     </div>
   </div>
 
   <div class="risks" style="margin-top:14px; grid-template-columns:1fr;">
-    <div class="risk"><span><b>El cuello nuevo no va a ser Meta: va a ser el equipo comercial.</b> Con $20K por clase el modelo pide ~1.500 agendas y ~290 cierres por mes, contra los 109 y 25 actuales. Si el escalado de octubre a diciembre va en serio, hay que agrandar setters y closers un trimestre antes, no cuando explote.</span></div>
+    <div class="risk"><span id="tlOpsText"></span></div>
   </div>
 </section>
 
@@ -1324,25 +1327,38 @@
   }
 
   /* ============================================================
-     LÍNEA DE TIEMPO · mismo motor, mes a mes
+     LÍNEA DE TIEMPO · mismo motor, mes a mes, dos ritmos
   ============================================================ */
-  const MESES = [
-    { name:'Agosto', title:'Transición siempre-on', wk:2, gasto:5000, cpl:0.58, now:true,
-      acc:['Anuncios sin fecha, mensaje general','Landing con las 2 fechas fijas','2-3 ganchos nuevos + conjunto 55+'],
-      B:{} },
-    { name:'Septiembre', title:'Ritmo semanal sagrado', wk:4, gasto:5500, cpl:0.58,
-      acc:['Los ads pasan a "el próximo martes"','Alternar ángulo A y B por semana'],
-      B:{ pagenda:9 } },
-    { name:'Octubre', title:'Primera gran escala', wk:4, gasto:10000, cpl:0.64,
-      acc:['Duplicar pauta en subas de ~16%','Teatro: pauta geo en la ciudad'],
-      B:{ pagenda:9.5, pasist:22 } },
-    { name:'Noviembre', title:'Escala plena', wk:4, gasto:15000, cpl:0.70,
-      acc:['Más mix Platinum y más closers','Preparar webinar pago (feedback teatro)'],
-      B:{ pagenda:9.5, pasist:22, ticket:900 } },
-    { name:'Diciembre', title:'Techo del semanal', wk:4, gasto:20000, cpl:0.76,
-      acc:['Sostener el CPL con creativos nuevos','Validar webinar pago en vivo'],
-      B:{ pagenda:9.5, pasist:22, ticket:900 } },
-  ];
+  const ACC_AGO = ['Anuncios sin fecha, mensaje general','Landing con las 2 fechas fijas','2-3 ganchos nuevos + conjunto 55+'];
+  const ACC_SEP = ['Los ads pasan a "el próximo martes"','Alternar ángulo A y B por semana'];
+  const B_SEP = { pagenda:9 };
+  const B_OCT = { pagenda:9.5, pasist:22 };
+  const B_NOV = { pagenda:9.5, pasist:22, ticket:900 };
+
+  const MODOS = {
+    gradual: {
+      label: 'Gradual · +25-30% por mes',
+      hint: 'El ritmo seguro: la inversión mensual sube ~27% por mes ($22K en septiembre a $46K en diciembre). Cada suba entra en 2 o 3 pasos chicos por semana, lejísimos del límite de la regla de aprendizaje.',
+      meses: [
+        { name:'Agosto', title:'Transición siempre-on', wk:2, gasto:5000, cpl:0.58, now:true, acc:ACC_AGO, B:{} },
+        { name:'Septiembre', title:'Ritmo semanal sagrado', wk:4, gasto:5500, cpl:0.58, acc:ACC_SEP, B:B_SEP },
+        { name:'Octubre', title:'Primera escala', wk:4, gasto:7000, cpl:0.61, acc:['Subir pauta en 2-3 pasos por semana','Teatro: pauta geo en la ciudad'], B:B_OCT },
+        { name:'Noviembre', title:'Escala sostenida', wk:4, gasto:9000, cpl:0.65, acc:['Más mix Platinum y más closers','Preparar webinar pago (feedback teatro)'], B:B_NOV },
+        { name:'Diciembre', title:'Cierre de año', wk:4, gasto:11500, cpl:0.68, acc:['Sostener el CPL con creativos nuevos','Validar webinar pago en vivo'], B:B_NOV },
+      ]
+    },
+    agresivo: {
+      label: 'Agresivo · duplicar en octubre',
+      hint: 'El ritmo que pisa fondo: $10K, $15K y $20K por clase de octubre a diciembre ($40K a $80K de inversión mensual). Entra en la regla (+20% cada 2-3 días) pero exige creativos nuevos constantes y equipo comercial ampliado un trimestre antes.',
+      meses: [
+        { name:'Agosto', title:'Transición siempre-on', wk:2, gasto:5000, cpl:0.58, now:true, acc:ACC_AGO, B:{} },
+        { name:'Septiembre', title:'Ritmo semanal sagrado', wk:4, gasto:5500, cpl:0.58, acc:ACC_SEP, B:B_SEP },
+        { name:'Octubre', title:'Primera gran escala', wk:4, gasto:10000, cpl:0.64, acc:['Duplicar pauta en subas de ~16%','Teatro: pauta geo en la ciudad'], B:B_OCT },
+        { name:'Noviembre', title:'Escala plena', wk:4, gasto:15000, cpl:0.70, acc:['Más mix Platinum y más closers','Preparar webinar pago (feedback teatro)'], B:B_NOV },
+        { name:'Diciembre', title:'Techo del semanal', wk:4, gasto:20000, cpl:0.76, acc:['Sostener el CPL con creativos nuevos','Validar webinar pago en vivo'], B:B_NOV },
+      ]
+    }
+  };
 
   function mesCalc(m){
     const a = calc({ ...DEF, gasto:m.gasto, cpl:m.cpl, wk:m.wk });
@@ -1351,15 +1367,30 @@
   }
   const $k0 = n => '$' + nf0.format(Math.round(n/1000)) + 'K';
 
-  (function buildTimeline(){
+  function setTlMode(k){
+    state.tlMode = k; persist(); renderTimeline();
+  }
+
+  function renderTimeline(){
     const row = document.getElementById('tlRow');
     if (!row) return;
+    const modo = MODOS[state.tlMode] ? state.tlMode : 'gradual';
+    const M = MODOS[modo];
+
+    document.getElementById('tlModes').innerHTML = Object.entries(MODOS).map(([k, v]) =>
+      `<button class="preset${k === modo ? ' active' : ''}${k === 'agresivo' ? ' goal' : ''}" onclick="setTlMode('${k}')">${v.label}</button>`
+    ).join('');
+    document.getElementById('tlModeHint').textContent = M.hint;
+
+    /* tarjetas por mes */
     let html = '';
-    MESES.forEach((m, i) => {
+    M.meses.forEach((m, i) => {
       const { a, b } = mesCalc(m);
-      const prev = i > 0 ? MESES[i-1].gasto : null;
-      const delta = prev ? Math.round((m.gasto/prev - 1) * 100) : null;
+      const inv = m.gasto * m.wk;
+      const prev = i > 0 ? M.meses[i-1].gasto * M.meses[i-1].wk : null;
+      const delta = i > 1 ? Math.round((inv/prev - 1) * 100) : null;
       const hasB = b.mes.cash - a.mes.cash > 500;
+      const roas = nf1.format(a.mes.cash / inv);
       html += `<div class="tl-item${m.now ? ' now' : ''}">
         <div class="tl-dot"></div>
         <div class="tl-card">
@@ -1368,7 +1399,7 @@
           <div class="tl-chips">
             <span class="tl-chip">${m.wk} clases</span>
             <span class="tl-chip soft">${$$(m.gasto)}/clase</span>
-            ${delta !== null ? `<span class="tl-chip soft">pauta +${delta}%</span>` : ''}
+            ${delta !== null ? `<span class="tl-chip soft">inversión +${delta}%</span>` : ''}
           </div>
           <ul class="tl-list">${m.acc.map(x => `<li>${x}</li>`).join('')}</ul>
           <div class="tl-funnel">
@@ -1379,7 +1410,8 @@
             <div class="tl-kv big"><span class="tl-kv-label">Cash por clase</span><span class="tl-kv-val">${$$(a.cash)}</span></div>
           </div>
           <div class="tl-cash">
-            <div class="tl-cash-label">Cash del mes · ${m.wk} × ${$k0(a.cash)}</div>
+            <div class="tl-kv big" style="margin-bottom:7px;"><span class="tl-kv-label" style="color:var(--nfm-orange); opacity:1;">Inversión del mes</span><span class="tl-kv-val">${$$(inv)}</span></div>
+            <div class="tl-cash-label">Cash del mes · ROAS ${roas}x</div>
             <div class="tl-cash-num">${$$(a.mes.cash)}</div>
             <div class="tl-cash-up">${hasB ? 'hasta ' + $$(b.mes.cash) + ' con palancas' : 'mes de transición'}</div>
           </div>
@@ -1404,29 +1436,34 @@
       </div>
     </div>`;
     row.innerHTML = html;
-  })();
 
-  (function buildChart(){
-    const chart = document.getElementById('chart');
-    if (!chart) return;
-    const data = MESES.map(m => { const { a, b } = mesCalc(m); return { name:m.name, a:a.mes.cash, b:b.mes.cash }; });
-    const MAX = 350000;
-    let html = `
+    /* curva */
+    const data = M.meses.map(m => { const { a, b } = mesCalc(m); return { name:m.name, a:a.mes.cash, b:b.mes.cash, inv:m.gasto*m.wk }; });
+    const maxB = Math.max(...data.map(d => d.b));
+    const MAX = Math.max(200000, Math.ceil(maxB * 1.08 / 25000) * 25000);
+    let ch = `
       <div class="goal-line" style="bottom:${100000/MAX*100}%"><span>PISO $100K</span></div>
       <div class="goal-line meta" style="bottom:${150000/MAX*100}%"><span>META $150K</span></div>`;
     data.forEach(d => {
       const ha = d.a/MAX*100, hb = Math.max(d.b - d.a, 0)/MAX*100;
       const top = Math.max(d.a, d.b)/MAX*100;
       const label = d.b - d.a > 500 ? `${$k0(d.a)}–${$k0(d.b)}` : $k0(d.a);
-      html += `<div class="chart-col">
+      ch += `<div class="chart-col">
         <div class="chart-seg a" style="height:${ha}%"></div>
         ${hb > 0.2 ? `<div class="chart-seg b" style="bottom:${ha}%; height:${hb}%"></div>` : ''}
         <div class="chart-val" style="bottom:calc(${top}% + 6px)">${label}</div>
       </div>`;
     });
-    chart.innerHTML = html;
-    document.getElementById('chartMonths').innerHTML = data.map(d => `<div>${d.name.slice(0,3)}</div>`).join('');
-  })();
+    document.getElementById('chart').innerHTML = ch;
+    document.getElementById('chartMonths').innerHTML = data.map(d =>
+      `<div>${d.name.slice(0,3)}<small>${$k0(d.inv)} en ads</small></div>`).join('');
+
+    /* alerta operativa con los números del ritmo elegido */
+    const dic = mesCalc(M.meses[M.meses.length - 1]);
+    document.getElementById('tlOpsText').innerHTML =
+      `<b>El cuello nuevo no va a ser Meta: va a ser el equipo comercial.</b> En diciembre, este ritmo pide ~${$n(dic.a.agendas * 4)} agendas, ~${$n(dic.a.show * 4)} llamadas asistidas y ~${$n(dic.a.mes.cierres)} cierres por mes, contra los 109, 78 y 25 actuales. Si el escalado va en serio, setters y closers se agrandan un trimestre antes, no cuando explote.`;
+  }
+  renderTimeline();
 
   /* ---------- arranque ---------- */
   fillInputs();
