@@ -110,6 +110,8 @@
   .canvas-container.grabbing { cursor: grabbing; }
   .canvas-grid { position: absolute; inset: -10000px; background-image: radial-gradient(circle, rgba(12,52,82,0.08) 1px, transparent 1px); background-size: 50px 50px; pointer-events: none; }
   .canvas { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; will-change: transform; }
+  .canvas-link { position: absolute; height: 3.5px; background: var(--nfm-blue-soft); opacity: 0.65; }
+  .canvas-link::after { content: ''; position: absolute; right: -2px; top: 50%; transform: translateY(-50%); border-top: 9px solid transparent; border-bottom: 9px solid transparent; border-left: 14px solid var(--nfm-blue-soft); }
 
   .oval-island { position: absolute; background: var(--nfm-white); border-radius: 50%; border: 8px solid; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px; box-shadow: 0 40px 100px rgba(12,52,82,0.12); }
   .oval-island[data-c="motor"] { border-color: var(--c-motor); box-shadow: 0 40px 100px rgba(255,102,2,0.2); }
@@ -201,20 +203,70 @@
   .instructions-item::before { content: ''; width: 12px; height: 12px; border-radius: 4px; background: var(--nfm-orange); }
   .instructions-close { background: transparent; border: none; color: var(--nfm-white); cursor: pointer; font-size: 14px; opacity: 0.6; padding: 0 0 0 8px; }
 
-  /* ============ ROADMAP ============ */
-  .phases { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 8px; }
-  .phase { border: 2.5px solid var(--nfm-blue); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; position: relative; }
-  .phase.now { border-color: var(--nfm-orange); box-shadow: 0 14px 34px rgba(255,102,2,0.14); }
-  .phase-when { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nfm-blue); opacity: 0.55; }
-  .phase.now .phase-when { color: var(--nfm-orange); opacity: 1; }
-  .phase-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 17px; line-height: 1.15; }
-  .phase-chip { align-self: flex-start; background: var(--nfm-blue); color: #fff; border-radius: 100px; padding: 4px 12px; font-family: 'JetBrains Mono', monospace; font-size: 8.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
-  .phase.now .phase-chip { background: var(--nfm-orange); }
-  .phase-list { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-  .phase-list li { font-size: 12.5px; line-height: 1.45; padding-left: 14px; position: relative; text-wrap: pretty; }
-  .phase-list li::before { content: ''; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--nfm-blue); opacity: 0.4; }
-  .phase-meta { border-top: 1.5px solid var(--nfm-blue-light); padding-top: 10px; font-size: 12px; font-weight: 600; }
-  .phase-meta b { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--nfm-orange); display: block; margin-bottom: 3px; }
+  /* ============ LÍNEA DE TIEMPO ============ */
+  .tl-scroll { overflow-x: auto; padding: 6px 2px 14px; }
+  .tl-row { display: grid; grid-template-columns: repeat(6, minmax(215px, 1fr)); gap: 14px; min-width: 1320px; }
+  .tl-item { position: relative; padding-top: 34px; }
+  .tl-item::before { content: ''; position: absolute; top: 7px; left: -7px; right: -7px; height: 2.5px; background: var(--nfm-blue-light); }
+  .tl-item:first-child::before { left: 50%; }
+  .tl-item:last-child::before { right: 50%; }
+  .tl-dot { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 16px; height: 16px; border-radius: 50%; background: var(--nfm-white); border: 4px solid var(--nfm-blue); z-index: 2; }
+  .tl-item.now .tl-dot { border-color: var(--nfm-orange); background: var(--nfm-orange); }
+  .tl-item.future .tl-dot { border-color: var(--c-futuro); border-style: dashed; }
+  .tl-card { border: 2.5px solid var(--nfm-blue); border-radius: 12px; padding: 16px 16px 14px; background: #fff; height: 100%; display: flex; flex-direction: column; gap: 9px; }
+  .tl-item.now .tl-card { border-color: var(--nfm-orange); box-shadow: 0 14px 34px rgba(255,102,2,0.14); }
+  .tl-item.future .tl-card { border-style: dashed; border-color: var(--c-futuro); }
+  .tl-month { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--nfm-blue); opacity: 0.55; }
+  .tl-item.now .tl-month { color: var(--nfm-orange); opacity: 1; }
+  .tl-item.future .tl-month { color: var(--c-futuro); opacity: 1; }
+  .tl-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15.5px; line-height: 1.15; }
+  .tl-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tl-chip { background: var(--nfm-blue); color: #fff; border-radius: 100px; padding: 3px 10px; font-family: 'JetBrains Mono', monospace; font-size: 8px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; }
+  .tl-chip.soft { background: var(--nfm-blue-light); color: var(--nfm-blue); }
+  .tl-item.now .tl-chip:first-child { background: var(--nfm-orange); }
+  .tl-list { list-style: none; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .tl-list li { font-size: 11.5px; line-height: 1.4; padding-left: 12px; position: relative; text-wrap: pretty; }
+  .tl-list li::before { content: ''; position: absolute; left: 0; top: 6px; width: 4px; height: 4px; border-radius: 50%; background: var(--nfm-blue); opacity: 0.4; }
+  .tl-cash { border-top: 1.5px solid var(--nfm-blue-light); padding-top: 9px; }
+  .tl-cash-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.55; }
+  .tl-cash-num { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 24px; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; line-height: 1.1; margin-top: 3px; }
+  .tl-cash-up { font-size: 11px; font-weight: 600; color: var(--nfm-orange); margin-top: 2px; }
+
+  /* Curva de facturación */
+  .chart-scroll { overflow-x: auto; }
+  .chart-inner { min-width: 640px; padding: 4px 6px 0; }
+  .chart { position: relative; height: 280px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 26px; align-items: end; padding: 30px 10px 0; }
+  .goal-line { position: absolute; left: 0; right: 0; height: 0; border-top: 2px dashed var(--nfm-blue-soft); z-index: 1; }
+  .goal-line span { position: absolute; left: 2px; top: -16px; font-family: 'JetBrains Mono', monospace; font-size: 8.5px; font-weight: 700; letter-spacing: 0.14em; color: var(--nfm-blue-soft); background: #fff; padding: 0 4px; z-index: 3; }
+  .goal-line.meta { border-top-color: var(--nfm-orange); }
+  .goal-line.meta span { color: var(--nfm-orange); }
+  .chart-col { position: relative; height: 100%; z-index: 2; }
+  .chart-seg { position: absolute; left: 12%; right: 12%; border-radius: 6px 6px 0 0; }
+  .chart-seg.a { background: var(--nfm-blue); border-radius: 0; bottom: 0; }
+  .chart-seg.b { background: var(--nfm-orange); }
+  .chart-seg.b::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: #fff; }
+  .chart-val { position: absolute; left: 50%; transform: translateX(-50%); font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 12.5px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .chart-months { display: grid; grid-template-columns: repeat(5, 1fr); gap: 26px; padding: 10px 10px 0; border-top: 2.5px solid var(--nfm-blue); }
+  .chart-months div { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+  .chart-legend { display: flex; gap: 22px; flex-wrap: wrap; padding: 14px 10px 4px; }
+  .chart-legend span { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; }
+  .chart-legend i { width: 12px; height: 12px; border-radius: 3px; }
+
+  /* Regla de escalado */
+  .scale-rule { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .scale-item { border: 2.5px solid var(--nfm-blue); border-radius: 12px; padding: 18px 20px; }
+  .scale-item.hot { background: var(--nfm-blue); color: #fff; border-color: var(--nfm-blue); }
+  .scale-tag { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nfm-orange); }
+  .scale-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; margin-top: 6px; line-height: 1.2; }
+  .scale-body { font-size: 12.5px; line-height: 1.5; margin-top: 7px; opacity: 0.92; text-wrap: pretty; }
+
+  /* Mini calculadora dentro de cada mes */
+  .tl-funnel { border-top: 1.5px solid var(--nfm-blue-light); padding-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .tl-kv { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .tl-kv-label { font-size: 10.5px; opacity: 0.65; }
+  .tl-kv-val { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 12px; font-variant-numeric: tabular-nums; }
+  .tl-kv.big .tl-kv-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55; }
+  .tl-kv.big .tl-kv-val { font-size: 14px; font-weight: 900; }
 
   /* ============ CALCULADORA ============ */
   .presets { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 6px; }
@@ -349,9 +401,8 @@
   @media (max-width: 980px) {
     .calc-grid { grid-template-columns: 1fr; }
     .tiles, .rules { grid-template-columns: 1fr; }
-    .phases { grid-template-columns: 1fr 1fr; }
     .swap { grid-template-columns: 1fr; }
-    .levers, .risks { grid-template-columns: 1fr; }
+    .levers, .risks, .scale-rule { grid-template-columns: 1fr; }
     .stat-grid { grid-template-columns: 1fr 1fr; }
     .stat:nth-child(2) { border-right: none; }
     .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1.5px solid var(--nfm-blue-light); }
@@ -361,7 +412,6 @@
     .page { padding: 88px 18px 60px; }
   }
   @media (max-width: 560px) {
-    .phases { grid-template-columns: 1fr; }
     .funnel-row { grid-template-columns: 96px 1fr 64px; }
     .funnel-pct { display: none; }
   }
@@ -381,7 +431,7 @@
   <nav class="toolbar-nav" aria-label="Secciones">
     <button class="nav-btn" id="nav-cambio" onclick="showView('cambio')">01 El cambio</button>
     <button class="nav-btn" id="nav-mapa" onclick="showView('mapa')">02 Mapa</button>
-    <button class="nav-btn" id="nav-roadmap" onclick="showView('roadmap')">03 Roadmap</button>
+    <button class="nav-btn" id="nav-timeline" onclick="showView('timeline')">03 Línea de tiempo</button>
     <button class="nav-btn" id="nav-calc" onclick="showView('calc')">04 Calculadora</button>
     <button class="nav-btn" id="nav-proy" onclick="showView('proy')">05 Proyecciones</button>
   </nav>
@@ -466,7 +516,10 @@
     <div class="canvas" id="canvas">
 
       <!-- Isla 1 · Motor frío siempre-on -->
-      <div class="oval-island" data-c="motor" data-size="large" id="isla1" style="left: -575px; top: 0px; width: 1150px; height: 1150px;">
+      <div class="canvas-link" style="left: -590px; top: 561px; width: 180px;"></div>
+      <div class="canvas-link" style="left: 510px; top: 561px; width: 180px;"></div>
+
+      <div class="oval-island" data-c="motor" data-size="large" id="isla1" style="left: -1750px; top: 0px; width: 1150px; height: 1150px;">
         <div class="oval-tag">★ Embudo principal · Nunca se apaga</div>
         <div class="oval-title">Motor frío<br>siempre-on</div>
         <div class="fc size-xs">
@@ -514,7 +567,7 @@
       </div>
 
       <!-- Isla 2 · Conversión tibia -->
-      <div class="oval-island" data-c="tibio" id="isla2" style="left: -1130px; top: 1370px; width: 900px; height: 900px;">
+      <div class="oval-island" data-c="tibio" id="isla2" style="left: -400px; top: 125px; width: 900px; height: 900px;">
         <div class="oval-tag">Tráfico tibio · Evergreen</div>
         <div class="oval-title">Conversión<br>tibia</div>
         <div class="fc size-sm">
@@ -554,7 +607,7 @@
       </div>
 
       <!-- Isla 3 · Desbloqueos -->
-      <div class="oval-island" data-c="futuro" id="isla3" style="left: 230px; top: 1370px; width: 900px; height: 900px;">
+      <div class="oval-island" data-c="futuro" id="isla3" style="left: 700px; top: 125px; width: 900px; height: 900px;">
         <div class="oval-tag">⚙ A desbloquear · En este orden</div>
         <div class="oval-title">Ultra<br>escala</div>
         <div class="fc size-sm">
@@ -609,62 +662,55 @@
   </div>
 </section>
 
-<!-- ==================== 03 · ROADMAP ==================== -->
-<section class="view page" id="view-roadmap">
-  <div class="eyebrow">Roadmap de implementación</div>
-  <h1 class="h1">De 2 clases en agosto al motor diario</h1>
-  <p class="lead">Cada fase desbloquea la siguiente. Primero el siempre-on con el calendario real de agosto, después el ritmo semanal sagrado, y recién con el feedback del teatro y del webinar pago se abre la ultra-escala.</p>
+<!-- ==================== 03 · LÍNEA DE TIEMPO ==================== -->
+<section class="view page" id="view-timeline">
+  <div class="eyebrow">Línea de tiempo · Agosto a diciembre 2026</div>
+  <h1 class="h1">El plan mes a mes hasta fin de año</h1>
+  <p class="lead">Cada mes muestra su mini calculadora por clase (inversión, registros, agendas, cierres, cash) y la suma mensual. Corren dos series con el mismo motor: la <strong>azul</strong> escala solo la pauta ($5K → $5,5K → $10K → $15K → $20K por clase) con el CPL degradado a propósito para absorber el costo de escalar; la <strong>naranja</strong> le suma las palancas comerciales (agenda 9 a 9,5%, asistencia 22%, ticket $900). El piso de $100K cae en septiembre; de octubre en adelante el cuello deja de ser Meta y pasa a ser el equipo comercial.</p>
 
-  <div class="sec-title">Las 4 fases</div>
-  <div class="phases">
-    <div class="phase now">
-      <div class="phase-when">Fase 0 · Agosto 2026</div>
-      <div class="phase-title">Transición al siempre-on</div>
-      <div class="phase-chip">2 clases en el mes</div>
-      <ul class="phase-list">
-        <li>Encender anuncios sin fecha, con el mensaje general</li>
-        <li>Landing con las 2 fechas fijas del mes</li>
-        <li>No pausar nada entre clase y clase</li>
-        <li>Producir 2 o 3 ganchos nuevos nivel "Sin batería": hoy un solo creativo concentra el 45% de los leads</li>
-        <li>Conjunto dedicado 55+ (CPL $0,53 y CTR 8,77% en julio)</li>
-      </ul>
-      <div class="phase-meta"><b>Meta del mes</b>Sostener el 4x con la pauta prendida</div>
+  <div class="sec-title">De agosto al desbloqueo</div>
+  <div class="tl-scroll">
+    <div class="tl-row" id="tlRow"></div>
+  </div>
+
+  <div class="sec-title">La curva de cash collected</div>
+  <div class="panel">
+    <div class="panel-head">Proyección mensual · piso $100K · meta $150K</div>
+    <div class="panel-body">
+      <div class="chart-scroll">
+        <div class="chart-inner">
+          <div class="chart" id="chart"></div>
+          <div class="chart-months" id="chartMonths"></div>
+          <div class="chart-legend">
+            <span><i style="background:var(--nfm-blue)"></i>Solo escala de pauta (CPL degradado)</span>
+            <span><i style="background:var(--nfm-orange)"></i>Sumando palancas comerciales</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="phase">
-      <div class="phase-when">Fase 1 · Septiembre</div>
-      <div class="phase-title">Ritmo semanal sagrado</div>
-      <div class="phase-chip">Clase todas las semanas</div>
-      <ul class="phase-list">
-        <li>Los anuncios pasan a "el próximo martes doy una clase"</li>
-        <li>Landing en automático: siempre la próxima fecha</li>
-        <li>Alternar ángulo A y ángulo B por semana</li>
-        <li>Escalar presupuesto gradual, sin reiniciar campañas</li>
-      </ul>
-      <div class="phase-meta"><b>Meta</b>Cruzar los $100K cash en el mes</div>
+  </div>
+
+  <div class="sec-title">Cómo se sube la pauta sin romper el aprendizaje</div>
+  <div class="scale-rule">
+    <div class="scale-item">
+      <div class="scale-tag">Lo que dice Meta</div>
+      <div class="scale-title">50 eventos para aprender, y no tocarlo</div>
+      <div class="scale-body">Un conjunto sale de la fase de aprendizaje con ~50 eventos de optimización, y una edición significativa (públicos, creativos o un cambio grande de presupuesto) lo manda a aprender de nuevo. Meta no publica un porcentaje exacto. Con 300 a 900 registros por día, cada conjunto junta sus 50 eventos en horas: el aprendizaje deja de ser el cuello.</div>
     </div>
-    <div class="phase">
-      <div class="phase-when">Fase 2 · Siguiente</div>
-      <div class="phase-title">Escala + teatro</div>
-      <div class="phase-chip">Pauta $5K → $8K por semana</div>
-      <ul class="phase-list">
-        <li>Subir inversión semanal: la frecuencia 1,68 dice que hay pista</li>
-        <li>Teatro con pauta geo en la ciudad del evento</li>
-        <li>El teatro devuelve pricing y ángulo validados para el paso que sigue</li>
-      </ul>
-      <div class="phase-meta"><b>Meta</b>Consolidar $150K cash por mes</div>
+    <div class="scale-item">
+      <div class="scale-tag">Lo que maneja la industria</div>
+      <div class="scale-title">Hasta +20% cada 2 o 3 días</div>
+      <div class="scale-body">El consenso de media buyers: subas de hasta 20% cada 2 o 3 días no reinician el aprendizaje. Pasar de $5.500 a $10.000 en octubre son cuatro subas de ~16% repartidas en el mes: dentro de la regla. Y si el CPL se dispara antes de tiempo, se escala horizontal: duplicar conjuntos ganadores y meter creativos nuevos, no forzar más presupuesto en el mismo conjunto.</div>
     </div>
-    <div class="phase">
-      <div class="phase-when">Fase 3 · Desbloqueo</div>
-      <div class="phase-title">Webinar pago → ultra-escala</div>
-      <div class="phase-chip">El embudo que se destraba</div>
-      <ul class="phase-list">
-        <li>Validar webinar pago en vivo (no grabado al inicio)</li>
-        <li>Si valida: gratuito grabado diario + pago diario grabado estilo Dan Henry</li>
-        <li>Nadie paga dos veces, nadie descubre que es grabado; chat moderado 1:1; el pago invita al gratis</li>
-        <li>El tiempo de Nico va a las clases pagas; las agendas entran todos los días</li>
-      </ul>
-      <div class="phase-meta"><b>Meta</b>Romper el techo del semanal</div>
+    <div class="scale-item hot">
+      <div class="scale-tag">Nuestro plan</div>
+      <div class="scale-title">CPL degradado a propósito</div>
+      <div class="scale-body">El modelo no asume que el CPL aguanta intacto a 4x de presupuesto, porque nadie puede prometer eso: lo sube a $0,64 en octubre, $0,70 en noviembre y $0,76 en diciembre (+31% acumulado). Si el CPL real se comporta como en julio ($0,51), todos estos números quedan cortos. Cada mes entran ganchos nuevos para defenderlo.</div>
     </div>
+  </div>
+
+  <div class="risks" style="margin-top:14px; grid-template-columns:1fr;">
+    <div class="risk"><span><b>El cuello nuevo no va a ser Meta: va a ser el equipo comercial.</b> Con $20K por clase el modelo pide ~1.500 agendas y ~290 cierres por mes, contra los 109 y 25 actuales. Si el escalado de octubre a diciembre va en serio, hay que agrandar setters y closers un trimestre antes, no cuando explote.</span></div>
   </div>
 </section>
 
@@ -969,8 +1015,9 @@
   }
 
   /* ---------- vistas ---------- */
-  const VIEWS = ['cambio','mapa','roadmap','calc','proy'];
+  const VIEWS = ['cambio','mapa','timeline','calc','proy'];
   function showView(name){
+    if (name === 'roadmap') name = 'timeline';
     if (!VIEWS.includes(name)) name = 'cambio';
     state.view = name; persist();
     VIEWS.forEach(v => {
@@ -1173,14 +1220,14 @@
      CANVAS · mapa navegable
   ============================================================ */
   let mapaInit = false;
-  let scale = 0.31, posX = 0, posY = -350;
+  let scale = 0.38, posX = 29, posY = -215;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const nodes = {
-    home:  { scale: 0.31, x: 0, y: -350 },
-    isla1: { scale: 0.52, x: 0, y: -340 },
-    isla2: { scale: 0.58, x: 394, y: -1086 },
-    isla3: { scale: 0.58, x: -394, y: -1086 },
+    home:  { scale: 0.38, x: 29, y: -215 },
+    isla1: { scale: 0.52, x: 611, y: -339 },
+    isla2: { scale: 0.58, x: -29, y: -364 },
+    isla3: { scale: 0.58, x: -667, y: -364 },
   };
 
   function applyTransform(){
@@ -1275,6 +1322,111 @@
     inst.classList.remove('hidden');
     setTimeout(() => inst.classList.add('hidden'), 7000);
   }
+
+  /* ============================================================
+     LÍNEA DE TIEMPO · mismo motor, mes a mes
+  ============================================================ */
+  const MESES = [
+    { name:'Agosto', title:'Transición siempre-on', wk:2, gasto:5000, cpl:0.58, now:true,
+      acc:['Anuncios sin fecha, mensaje general','Landing con las 2 fechas fijas','2-3 ganchos nuevos + conjunto 55+'],
+      B:{} },
+    { name:'Septiembre', title:'Ritmo semanal sagrado', wk:4, gasto:5500, cpl:0.58,
+      acc:['Los ads pasan a "el próximo martes"','Alternar ángulo A y B por semana'],
+      B:{ pagenda:9 } },
+    { name:'Octubre', title:'Primera gran escala', wk:4, gasto:10000, cpl:0.64,
+      acc:['Duplicar pauta en subas de ~16%','Teatro: pauta geo en la ciudad'],
+      B:{ pagenda:9.5, pasist:22 } },
+    { name:'Noviembre', title:'Escala plena', wk:4, gasto:15000, cpl:0.70,
+      acc:['Más mix Platinum y más closers','Preparar webinar pago (feedback teatro)'],
+      B:{ pagenda:9.5, pasist:22, ticket:900 } },
+    { name:'Diciembre', title:'Techo del semanal', wk:4, gasto:20000, cpl:0.76,
+      acc:['Sostener el CPL con creativos nuevos','Validar webinar pago en vivo'],
+      B:{ pagenda:9.5, pasist:22, ticket:900 } },
+  ];
+
+  function mesCalc(m){
+    const a = calc({ ...DEF, gasto:m.gasto, cpl:m.cpl, wk:m.wk });
+    const b = calc({ ...DEF, gasto:m.gasto, cpl:m.cpl, wk:m.wk, ...m.B });
+    return { a, b };
+  }
+  const $k0 = n => '$' + nf0.format(Math.round(n/1000)) + 'K';
+
+  (function buildTimeline(){
+    const row = document.getElementById('tlRow');
+    if (!row) return;
+    let html = '';
+    MESES.forEach((m, i) => {
+      const { a, b } = mesCalc(m);
+      const prev = i > 0 ? MESES[i-1].gasto : null;
+      const delta = prev ? Math.round((m.gasto/prev - 1) * 100) : null;
+      const hasB = b.mes.cash - a.mes.cash > 500;
+      html += `<div class="tl-item${m.now ? ' now' : ''}">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-month">${m.name}</div>
+          <div class="tl-title">${m.title}</div>
+          <div class="tl-chips">
+            <span class="tl-chip">${m.wk} clases</span>
+            <span class="tl-chip soft">${$$(m.gasto)}/clase</span>
+            ${delta !== null ? `<span class="tl-chip soft">pauta +${delta}%</span>` : ''}
+          </div>
+          <ul class="tl-list">${m.acc.map(x => `<li>${x}</li>`).join('')}</ul>
+          <div class="tl-funnel">
+            <div class="tl-kv"><span class="tl-kv-label">Registros · CPL $${nf2.format(m.cpl)}</span><span class="tl-kv-val">${$n(a.reg)}</span></div>
+            <div class="tl-kv"><span class="tl-kv-label">Asisten a la clase</span><span class="tl-kv-val">${$n(a.asist)}</span></div>
+            <div class="tl-kv"><span class="tl-kv-label">Agendan llamada</span><span class="tl-kv-val">${$n(a.agendas)}</span></div>
+            <div class="tl-kv"><span class="tl-kv-label">Cierres</span><span class="tl-kv-val">${$n(a.cierres)}</span></div>
+            <div class="tl-kv big"><span class="tl-kv-label">Cash por clase</span><span class="tl-kv-val">${$$(a.cash)}</span></div>
+          </div>
+          <div class="tl-cash">
+            <div class="tl-cash-label">Cash del mes · ${m.wk} × ${$k0(a.cash)}</div>
+            <div class="tl-cash-num">${$$(a.mes.cash)}</div>
+            <div class="tl-cash-up">${hasB ? 'hasta ' + $$(b.mes.cash) + ' con palancas' : 'mes de transición'}</div>
+          </div>
+        </div>
+      </div>`;
+    });
+    html += `<div class="tl-item future">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-month">2027 · Desbloqueo</div>
+        <div class="tl-title">Webinar pago → ultra-escala</div>
+        <div class="tl-chips"><span class="tl-chip" style="background:var(--c-futuro)">Se abre si el pago valida</span></div>
+        <ul class="tl-list">
+          <li>Gratuito grabado todos los días + pago diario grabado estilo Dan Henry</li>
+          <li>Nadie paga dos veces: nadie descubre que es grabado; chat 1:1 moderado</li>
+          <li>El tiempo de Nico va a las clases pagas; agendas entrando a diario</li>
+        </ul>
+        <div class="tl-cash">
+          <div class="tl-cash-label">Techo</div>
+          <div class="tl-cash-num" style="font-size:17px; line-height:1.25;">Se define con el pago validado</div>
+        </div>
+      </div>
+    </div>`;
+    row.innerHTML = html;
+  })();
+
+  (function buildChart(){
+    const chart = document.getElementById('chart');
+    if (!chart) return;
+    const data = MESES.map(m => { const { a, b } = mesCalc(m); return { name:m.name, a:a.mes.cash, b:b.mes.cash }; });
+    const MAX = 350000;
+    let html = `
+      <div class="goal-line" style="bottom:${100000/MAX*100}%"><span>PISO $100K</span></div>
+      <div class="goal-line meta" style="bottom:${150000/MAX*100}%"><span>META $150K</span></div>`;
+    data.forEach(d => {
+      const ha = d.a/MAX*100, hb = Math.max(d.b - d.a, 0)/MAX*100;
+      const top = Math.max(d.a, d.b)/MAX*100;
+      const label = d.b - d.a > 500 ? `${$k0(d.a)}–${$k0(d.b)}` : $k0(d.a);
+      html += `<div class="chart-col">
+        <div class="chart-seg a" style="height:${ha}%"></div>
+        ${hb > 0.2 ? `<div class="chart-seg b" style="bottom:${ha}%; height:${hb}%"></div>` : ''}
+        <div class="chart-val" style="bottom:calc(${top}% + 6px)">${label}</div>
+      </div>`;
+    });
+    chart.innerHTML = html;
+    document.getElementById('chartMonths').innerHTML = data.map(d => `<div>${d.name.slice(0,3)}</div>`).join('');
+  })();
 
   /* ---------- arranque ---------- */
   fillInputs();
