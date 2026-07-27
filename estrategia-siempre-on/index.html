@@ -285,13 +285,18 @@
   .panel-head { padding: 14px 20px 12px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--nfm-orange); border-bottom: 1.5px solid var(--nfm-blue-light); }
   .panel-body { padding: 8px 20px 16px; }
 
-  .inp-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--nfm-blue-light); }
+  .inp-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--nfm-blue-light); }
+  .inp-row .inp-label { flex: 1 1 auto; min-width: 0; }
   .inp-row:last-child { border-bottom: none; }
   .inp-label { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; line-height: 1.2; }
   .inp-label small { display: block; font-family: 'Open Sans', sans-serif; font-weight: 400; font-size: 10.5px; opacity: 0.6; margin-top: 1px; }
   .inp-box { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
   .inp-box input { width: 84px; border: 1.5px solid var(--nfm-blue-light); background: #f4f7f9; border-radius: 8px; padding: 7px 10px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 14px; color: var(--nfm-blue); text-align: right; font-variant-numeric: tabular-nums; }
   .inp-box input:focus { outline: 2px solid var(--nfm-orange); outline-offset: 1px; background: #fff; }
+  .inp-calc { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 14.5px; color: var(--nfm-blue); font-variant-numeric: tabular-nums; white-space: nowrap; margin-left: auto; padding-right: 2px; }
+  .inp-calc::before { content: '→'; opacity: 0.4; margin-right: 5px; font-weight: 700; }
+  .inp-calc small { font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 10px; opacity: 0.6; margin-left: 3px; }
+  .inp-calc.hot { color: var(--nfm-orange); }
   .inp-unit { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; opacity: 0.55; width: 14px; }
   .inp-auto { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--nfm-blue-light); }
   .inp-auto:last-child { border-bottom: none; }
@@ -748,6 +753,10 @@
             <span class="inp-label">Registros orgánicos<small>sin pauta paga</small></span>
             <span class="inp-box"><input id="i-org" inputmode="decimal" aria-label="Registros orgánicos"><span class="inp-unit">&nbsp;</span></span>
           </div>
+          <div class="inp-auto">
+            <span class="inp-auto-label">Registros totales por clase<small>ads + orgánico</small></span>
+            <span class="inp-auto-val" id="o-regtot">—</span>
+          </div>
         </div>
       </div>
 
@@ -756,22 +765,27 @@
         <div class="panel-body">
           <div class="inp-row">
             <span class="inp-label">Entran al grupo<small>% de registros totales</small></span>
+            <span class="inp-calc" id="c-grupo">—</span>
             <span class="inp-box"><input id="i-pgrupo" inputmode="decimal" aria-label="Porcentaje al grupo"><span class="inp-unit">%</span></span>
           </div>
           <div class="inp-row">
             <span class="inp-label">Asisten a la clase<small>% del grupo</small></span>
+            <span class="inp-calc" id="c-asist">—</span>
             <span class="inp-box"><input id="i-pasist" inputmode="decimal" aria-label="Porcentaje de asistencia"><span class="inp-unit">%</span></span>
           </div>
           <div class="inp-row">
             <span class="inp-label">Agendan llamada<small>% de asistentes</small></span>
+            <span class="inp-calc" id="c-agendas">—</span>
             <span class="inp-box"><input id="i-pagenda" inputmode="decimal" aria-label="Porcentaje que agenda"><span class="inp-unit">%</span></span>
           </div>
           <div class="inp-row">
             <span class="inp-label">Show-up<small>% de los que agendaron</small></span>
+            <span class="inp-calc" id="c-show">—</span>
             <span class="inp-box"><input id="i-pshow" inputmode="decimal" aria-label="Porcentaje de show-up"><span class="inp-unit">%</span></span>
           </div>
           <div class="inp-row">
             <span class="inp-label">Cierres<small>% de los que se presentaron</small></span>
+            <span class="inp-calc hot" id="c-cierres">—</span>
             <span class="inp-box"><input id="i-pcierre" inputmode="decimal" aria-label="Porcentaje de cierre"><span class="inp-unit">%</span></span>
           </div>
         </div>
@@ -786,10 +800,12 @@
           </div>
           <div class="inp-row">
             <span class="inp-label">Mix Platinum<small>% del total de cierres</small></span>
+            <span class="inp-calc" id="c-mixp">—</span>
             <span class="inp-box"><input id="i-mixp" inputmode="decimal" aria-label="Mix Platinum"><span class="inp-unit">%</span></span>
           </div>
           <div class="inp-row">
             <span class="inp-label">Mix Gold<small>% del total de cierres</small></span>
+            <span class="inp-calc" id="c-mixg">—</span>
             <span class="inp-box"><input id="i-mixg" inputmode="decimal" aria-label="Mix Gold"><span class="inp-unit">%</span></span>
           </div>
           <div class="inp-row">
@@ -1082,6 +1098,16 @@
     const r = calc(state.v);
 
     document.getElementById('o-ads').textContent = $n(r.ads);
+    document.getElementById('o-regtot').textContent = $n(r.reg);
+
+    /* números absolutos al lado de cada % */
+    document.getElementById('c-grupo').textContent = $n(r.grupo);
+    document.getElementById('c-asist').textContent = $n(r.asist);
+    document.getElementById('c-agendas').textContent = $n(r.agendas);
+    document.getElementById('c-show').textContent = $n(r.show);
+    document.getElementById('c-cierres').textContent = $n(r.cierres);
+    document.getElementById('c-mixp').innerHTML = $n(r.cPlat) + '<small>cierres</small>';
+    document.getElementById('c-mixg').innerHTML = $n(r.cGold) + '<small>cierres</small>';
 
     /* embudo */
     const f = document.getElementById('funnel');
