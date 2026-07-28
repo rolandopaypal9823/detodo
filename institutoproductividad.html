@@ -334,6 +334,18 @@ a{color:inherit}
 .foot .links a:hover{color:var(--nfm-orange-text)}
 .foot small{font-size:11px;font-family:'JetBrains Mono';letter-spacing:.14em;text-transform:uppercase;color:var(--mono-grey-soft)}
 
+/* ---------- NAVY ELEGANTE (secciones ancla: equipo + cierre) ---------- */
+.section--navy{position:relative;background:radial-gradient(120% 90% at 18% 10%, rgba(23,70,109,.55), transparent 55%),radial-gradient(90% 80% at 88% 104%, rgba(255,102,2,.06), transparent 60%),linear-gradient(180deg,#0e3352 0%,#0c3452 45%,#061d30 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+.section--navy .eyebrow{color:#ffd0ac;background:rgba(255,102,2,.14);border-color:rgba(255,255,255,.16)}
+.section--navy .h2,.section--navy.apply h2{color:#fff}
+.section--navy .h2 .hl,.section--navy.apply h2 .hl{color:var(--nfm-orange)}
+.section--navy .lead-2{color:#9fb6c8}
+.section--navy .lead-2 b{color:#fff}
+.section--navy.apply p{color:#9fb6c8}
+.section--navy.apply p b{color:#fff}
+.section--navy.apply .st{color:#9fb6c8}
+.section--navy.apply .note{color:#6f8aa1}
+
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:980px){
   .incl-grid{grid-template-columns:repeat(2,1fr)}
@@ -631,7 +643,7 @@ a{color:inherit}
 <!-- ============================================================
      EQUIPO QUE TE ACOMPAÑA (6 miembros) — widget integrado
      ============================================================ -->
-<section class="section tint nfm-team" id="nfm-equipo">
+<section class="section section--navy nfm-team" id="nfm-equipo">
   <div class="wrap center">
     <div class="center"><span class="eyebrow">El equipo</span></div>
     <h2 class="h2">Este es el equipo que te va a estar <span class="hl">esperando del otro lado</span></h2>
@@ -948,11 +960,11 @@ a{color:inherit}
 </section>
 
 <!-- CTA FINAL / AGENDAR -->
-<section class="section apply" id="agendar">
+<section class="section apply section--navy" id="agendar">
   <div class="wrap">
     <div class="center"><span class="eyebrow">El siguiente paso</span></div>
-    <h2>Poné a alguien del otro lado <span class="hl">esperando lo tuyo</span></h2>
-    <p>No es una llamada de ventas ni una suscripción de internet: es una <b>entrevista de admisión</b>. Vemos tu caso, dónde se traba hoy y si el Instituto es para vos. Sin compromiso.</p>
+    <h2>Dejá de correr la zanahoria que <span class="hl">mueve otro</span></h2>
+    <p>Poné a alguien del otro lado esperando lo tuyo y empezá a construir tu propio huerto. No es una llamada de ventas ni una suscripción de internet: es una <b>entrevista de admisión</b>. Vemos tu caso, dónde se traba hoy y si el Instituto es para vos. Sin compromiso.</p>
     <div class="steps">
       <div class="st"><span class="b">1</span> Dejás tus datos</div>
       <div class="st"><span class="b">2</span> Charlamos tu caso</div>
