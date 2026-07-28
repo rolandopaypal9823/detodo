@@ -314,6 +314,28 @@ a{color:inherit}
 .mini-case .mc-who a{color:var(--nfm-orange-text);font-weight:700;text-decoration:none}
 .mini-cta{max-width:440px;margin:0 auto}
 .mini-cta .btn{width:100%}
+/* ---------- APLICÁ · form embebido ---------- */
+.apf-split{display:grid;grid-template-columns:1.05fr .82fr;gap:34px;align-items:center;margin-top:44px}
+.apf-shell{max-width:none;margin:0}
+.apf-photo{margin:0}
+.mini-bar{height:5px;background:var(--nfm-blue-light)}
+.mini-bar span{display:block;height:100%;background:var(--nfm-orange);transition:width .4s;border-radius:0 3px 3px 0}
+.apf-step-mono,.apf-shell .mono{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--nfm-orange-text);margin-bottom:14px;display:block}
+.apf-shell .opts{margin-top:4px}
+.apf-field{text-align:left;margin-bottom:16px}
+.apf-field label{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mono-grey);display:block;margin-bottom:7px}
+.apf-field input,.apf-field select{width:100%;font-family:'Open Sans';font-size:15px;color:var(--nfm-blue);background:#fff;border:2px solid var(--nfm-blue-light);border-radius:11px;padding:13px 15px;transition:border-color .15s}
+.apf-field input::placeholder{color:#9fb2c2}
+.apf-field input:focus,.apf-field select:focus{outline:none;border-color:var(--nfm-orange)}
+.apf-phone{display:flex;gap:9px}
+.apf-phone select{flex:0 0 112px}
+.apf-phone input{flex:1}
+.apf-shell .mini-inner .btn{width:100%;margin-top:8px}
+.apf-fine{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mono-grey);text-align:center;margin-top:14px}
+@media(max-width:820px){
+  .apf-split{grid-template-columns:1fr;gap:26px}
+  .apf-photo{aspect-ratio:16/10;order:-1;max-width:520px;margin:0 auto}
+}
 
 /* ---------- CTA FINAL / AGENDAR ---------- */
 .apply{text-align:center}
@@ -423,46 +445,17 @@ a{color:inherit}
       <span class="brand__bottom">Productividad</span>
     </span>
   </a>
-  <a href="#agendar" class="btn btn-primary btn-sm topbar__cta" onclick="goAgendar(event,'topbar')"><span class="lbl-full">Aplicar ahora</span><span class="arrow">→</span></a>
+  <a href="#aplica" class="btn btn-primary btn-sm topbar__cta"><span class="lbl-full">Aplicar ahora</span><span class="arrow">→</span></a>
 </header>
 
-<!-- HERO (1er widget) -->
+<!-- HERO (video-first) -->
 <section class="hero">
-  <div class="wrap">
-    <div class="hero-split">
-      <div class="hero-copy">
-        <span class="eyebrow fade-up d1">Alto rendimiento con base en neurociencia</span>
-        <h1 id="heroTitle">Cumplís con todos... <span class="shimmer">menos con vos</span>.</h1>
-        <p class="sub fade-up d2">La razón no es disciplina ni tiempo: tu cerebro le pone urgencia a lo que <b>alguien está esperando</b> —y lo tuyo no tiene a nadie del otro lado. En el <b>Instituto de Productividad</b> le ponemos a lo tuyo la única variable que ya hace funcionar lo ajeno: un equipo esperándote.</p>
-        <div class="hero-actions fade-up d3">
-          <a href="#agendar" class="btn btn-primary btn-lg" onclick="goAgendar(event,'hero')">Quiero hacer el cambio <span class="arrow">→</span></a>
-          <a href="#quees" class="btn btn-ghost-blue btn-lg">Conocer más del Instituto</a>
-        </div>
-        <div class="hero-trust fade-up d4">
-          <span><b>+2.000</b> alumnos</span><span class="hdot">·</span><span><b>Aval universitario</b></span><span class="hdot">·</span><span><b>+10</b> países</span>
-        </div>
-      </div>
-
-      <figure class="hero-photo fade-up d2">
-        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/07/DSC01859_VSCO-scaled.jpg" alt="La comunidad del Instituto de Productividad: equipo y alumnos en el mastermind presencial" loading="eager">
-      </figure>
-    </div>
-
-    <div class="marquee fade-up d5" aria-hidden="true">
-      <div class="marquee__row">
-        <div class="marquee__group"><span class="mq-item">Cumplís con todos menos con vos</span><span class="mq-item">Urgencia prestada</span><span class="mq-item">Un equipo del otro lado esperándote</span><span class="mq-item">Aval universitario</span><span class="mq-item">Mastermind presencial</span><span class="mq-item">Acompañamiento 1 a 1</span><span class="mq-item">Sin vendehumo</span></div>
-        <div class="marquee__group"><span class="mq-item">Cumplís con todos menos con vos</span><span class="mq-item">Urgencia prestada</span><span class="mq-item">Un equipo del otro lado esperándote</span><span class="mq-item">Aval universitario</span><span class="mq-item">Mastermind presencial</span><span class="mq-item">Acompañamiento 1 a 1</span><span class="mq-item">Sin vendehumo</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- VIDEO -->
-<section class="section" id="video" style="padding:52px 0 8px">
   <div class="wrap center">
-    <div class="center"><span class="eyebrow">El Instituto en video</span></div>
-    <h2 class="h2">Mirá cómo funciona <span class="hl">por dentro</span></h2>
-    <div class="video-shell">
+    <span class="eyebrow fade-up d1">Alto rendimiento con base en neurociencia</span>
+    <h1 id="heroTitle" style="max-width:22ch;margin-left:auto;margin-right:auto">¿Por qué tu cerebro cumple con todos... <span class="shimmer">menos con vos</span>?</h1>
+    <p class="sub fade-up d2" style="margin-left:auto;margin-right:auto">Tu cerebro no jerarquiza por importancia: jerarquiza por <b>quién está esperando</b>. Lo ajeno viene con alguien del otro lado; lo tuyo, no. Mirá por qué —y qué se hace al respecto— en este video.</p>
+
+    <div class="video-shell fade-up d3" style="margin-top:32px">
       <div class="video-inner">
         <div class="video-frame" id="vslFrame">
           <span class="corner tl"></span><span class="corner tr"></span>
@@ -484,9 +477,98 @@ a{color:inherit}
         </button>
       </div>
     </div>
-    <div class="hero-cta">
-      <a href="#agendar" class="btn btn-primary btn-lg" onclick="goAgendar(event,'video')">Quiero hacer el cambio <span class="arrow">→</span></a>
-      <div class="note">Cupos limitados por camada · Entrevista sin costo</div>
+
+    <div class="hero-cta fade-up d4">
+      <a href="#aplica" class="btn btn-primary btn-lg">Quiero hacer el cambio <span class="arrow">→</span></a>
+      <div class="note">Aplicá acá abajo · 40 segundos · Sin salir de la página</div>
+    </div>
+
+    <div class="marquee fade-up d5" aria-hidden="true">
+      <div class="marquee__row">
+        <div class="marquee__group"><span class="mq-item">Cumplís con todos menos con vos</span><span class="mq-item">Urgencia prestada</span><span class="mq-item">Un equipo del otro lado esperándote</span><span class="mq-item">Aval universitario</span><span class="mq-item">Mastermind presencial</span><span class="mq-item">Acompañamiento 1 a 1</span><span class="mq-item">Sin vendehumo</span></div>
+        <div class="marquee__group"><span class="mq-item">Cumplís con todos menos con vos</span><span class="mq-item">Urgencia prestada</span><span class="mq-item">Un equipo del otro lado esperándote</span><span class="mq-item">Aval universitario</span><span class="mq-item">Mastermind presencial</span><span class="mq-item">Acompañamiento 1 a 1</span><span class="mq-item">Sin vendehumo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APLICÁ (form embebido, sin salir de la página) -->
+<section class="section" id="aplica">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Aplicá sin salir de acá</span>
+      <h2 class="h2">Dejá que alguien empiece a <span class="hl">esperar lo tuyo</span></h2>
+      <p class="lead" style="max-width:60ch;margin:14px auto 0">Tres respuestas cortas y tu WhatsApp. Con eso vemos si tu caso encaja y coordinamos una entrevista sin costo. No es un formulario largo: es el primer escalón.</p>
+    </div>
+
+    <div class="apf-split">
+      <div class="mini-shell mini apf-shell">
+        <div class="mini-bar"><span id="apfBar" style="width:8%"></span></div>
+        <div class="mini-inner">
+          <div id="apfForm">
+            <!-- Paso 1 · comportamiento -->
+            <div class="mini-step active">
+              <span class="mono">◆ Paso 1 de 3</span>
+              <h3 class="mini-q">Hoy, lo que es tuyo —tu objetivo, tu proyecto—, ¿cómo viene?</h3>
+              <div class="opts">
+                <button type="button" class="opt" onclick="apfPick('situacion','Lo pospongo hace tiempo')">Lo vengo posponiendo hace meses (o años)</button>
+                <button type="button" class="opt" onclick="apfPick('situacion','Avanza a los tirones')">Avanza a los tirones, cuando me queda tiempo</button>
+                <button type="button" class="opt" onclick="apfPick('situacion','Cumplo con todos menos conmigo')">Cumplo con todo el mundo, menos conmigo</button>
+              </div>
+            </div>
+            <!-- Paso 2 · discriminador platinum -->
+            <div class="mini-step">
+              <span class="mono">◆ Paso 2 de 3</span>
+              <h3 class="mini-q">¿Hay gente cuyo trabajo depende de tus decisiones?</h3>
+              <div class="opts">
+                <button type="button" class="opt" onclick="apfPick('equipo','Tengo empresa / equipo')">Sí — tengo empresa o equipo a cargo</button>
+                <button type="button" class="opt" onclick="apfPick('equipo','Socio / operación propia')">Sí — soy socio o llevo una operación propia</button>
+                <button type="button" class="opt" onclick="apfPick('equipo','Todavía no, pero voy hacia ahí')">Todavía no, pero voy hacia ahí</button>
+              </div>
+            </div>
+            <!-- Paso 3 · contacto -->
+            <div class="mini-step">
+              <span class="mono">◆ Paso 3 de 3</span>
+              <h3 class="mini-q">¿A dónde te escribimos para coordinar?</h3>
+              <div class="apf-field">
+                <label for="apfName">Tu nombre</label>
+                <input id="apfName" type="text" autocomplete="name" placeholder="Nombre y apellido">
+              </div>
+              <div class="apf-field">
+                <label for="apfTel">WhatsApp</label>
+                <div class="apf-phone">
+                  <select id="apfDial" aria-label="Código de país">
+                    <option value="+54">🇦🇷 +54</option>
+                    <option value="+52">🇲🇽 +52</option>
+                    <option value="+57">🇨🇴 +57</option>
+                    <option value="+56">🇨🇱 +56</option>
+                    <option value="+51">🇵🇪 +51</option>
+                    <option value="+593">🇪🇨 +593</option>
+                    <option value="+598">🇺🇾 +598</option>
+                    <option value="+34">🇪🇸 +34</option>
+                    <option value="+1">🇺🇸 +1</option>
+                    <option value="+00">🌎 +00</option>
+                  </select>
+                  <input id="apfTel" type="tel" inputmode="tel" autocomplete="tel" placeholder="Número de WhatsApp">
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary btn-lg" onclick="apfSend()">Quiero hacer el cambio <span class="arrow">→</span></button>
+              <div class="apf-fine">Solo lo usamos para coordinar la entrevista · Cupos limitados por camada</div>
+            </div>
+          </div>
+          <!-- Resultado -->
+          <div class="mini-result" id="apfDone">
+            <span class="mono">◆ Aplicación recibida</span>
+            <h3 class="mini-q" id="apfDoneT">¡Listo! Te esperamos del otro lado.</h3>
+            <p class="lead-2" style="margin-top:10px">Un asesor del Instituto te escribe por WhatsApp para coordinar la entrevista. Desde hoy, tu objetivo dejó de estar solo: alguien del otro lado ya lo está esperando.</p>
+          </div>
+        </div>
+      </div>
+
+      <figure class="hero-photo apf-photo">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/07/DSC01859_VSCO-scaled.jpg" alt="Comunidad del Instituto de Productividad" loading="lazy">
+        <figcaption>La comunidad del Instituto · +10 países</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -1111,6 +1193,42 @@ function ytId(url){ var m=String(url).match(/[?&]v=([^&]+)/); return m?m[1]:url;
 function playCase(btn,id){
   var wrap=btn.parentNode;
   wrap.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0" title="Entrevista" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+}
+
+/* ---------- Aplicá · form embebido ---------- */
+var apfEls=null, apfIdx=0, apfData={};
+function apfPick(key,val){
+  apfData[key]=val;
+  if(!apfEls) apfEls=[].slice.call(document.querySelectorAll('#apfForm .mini-step'));
+  if(apfIdx<apfEls.length-1){
+    apfEls[apfIdx].classList.remove('active');
+    apfIdx++;
+    apfEls[apfIdx].classList.add('active');
+  }
+  var pct=Math.min(100, 8 + (apfIdx/(apfEls.length-1))*84);
+  document.getElementById('apfBar').style.width=pct+'%';
+  document.getElementById('aplica').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function apfSend(){
+  var name=(document.getElementById('apfName').value||'').trim();
+  var tel=(document.getElementById('apfTel').value||'').trim();
+  var dial=document.getElementById('apfDial').value;
+  if(name.length<2 || tel.replace(/\D/g,'').length<6){
+    alert('Completá tu nombre y tu WhatsApp para coordinar la entrevista.');
+    return;
+  }
+  apfData.nombre=name;
+  apfData.whatsapp=dial+' '+tel;
+  enviarASheets(Object.assign({tipo:'aplicacion_landing', fuente:getUTM(), url:location.href}, apfData));
+  document.getElementById('apfForm').style.display='none';
+  document.getElementById('apfBar').style.width='100%';
+  var d=document.getElementById('apfDone'); d.classList.add('active');
+  var t=document.getElementById('apfDoneT');
+  if(t) t.textContent='¡Listo, '+(name.split(' ')[0]||'')+'! Te esperamos del otro lado.';
+  d.scrollIntoView({behavior:'smooth',block:'center'});
+  if(CONFIG.LINK_AGENDAR && CONFIG.LINK_AGENDAR.indexOf('http')===0 && CONFIG.LINK_AGENDAR.indexOf('TU-LINK')<0){
+    setTimeout(function(){ window.open(CONFIG.LINK_AGENDAR,'_blank'); }, 800);
+  }
 }
 
 /* ---------- VSL ---------- */
