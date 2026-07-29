@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cumplís con todos menos con vos — Clase gratuita en vivo | Nicolás Fernández Miranda</title>
+<meta name="description" content="Clase gratuita en vivo: la razón neurológica por la que tu cerebro ejecuta lo ajeno y archiva lo tuyo. Para profesionales, líderes y dueños que cumplen con todos menos con ellos.">
+
+<!-- ════════════════════════════════════════════════════════════════
+     META PIXEL  ·  En GoHighLevel va en: Settings → Tracking Code → HEAD
+     (acá está incluido sólo para que el archivo funcione como preview)
+     ════════════════════════════════════════════════════════════════ -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1203017011123382');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1203017011123382&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- ═══════════ DESDE ACÁ EMPIEZA LO QUE VA EN EL CUSTOM CODE DE GHL ═══════════ -->
+
+<style>
+/* ════════════════════════════════════════════════════════════════
+   NFM · LANDING SIEMPRE-ON  ·  UNA URL, DOS TEMÁTICAS, FECHAS AUTOMÁTICAS
+   Sistema visual: NFM × disciplina Linear × atmósfera Stripe
+   ════════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  /* — Surface ladder sobre navy (Linear aplicado a NFM) — */
+  --nfm-navy-deep:  #081F33;   /* canvas más profundo (anchor) */
+  --nfm-navy:       #0C3452;   /* navy de marca */
+  --nfm-navy-1:     #0E2E4A;   /* superficie 1 */
+  --nfm-navy-2:     #143A5C;   /* superficie 2 */
+  --nfm-teal:       #1A4A6E;
+
+  /* — Acento único — */
+  --nfm-orange:       #FF6602;
+  --nfm-orange-hover: #FF8033;
+  --nfm-orange-deep:  #E55A00;
+  --nfm-orange-glow:  rgba(255,102,2,0.35);
+
+  /* — Neutros — */
+  --nfm-white:    #FFFFFF;
+  --nfm-gray-50:  #F4F6FA;
+  --nfm-gray-100: #EDF1F7;
+  --nfm-gray-200: #E2E8F0;
+  --nfm-ink:        #0C3452;
+  --nfm-ink-mute:   #5A6B7E;
+  --nfm-ink-subtle: #8A98A8;
+
+  /* — Texto sobre oscuro — */
+  --nfm-tl:  rgba(255,255,255,0.87);
+  --nfm-tm:  rgba(255,255,255,0.60);
+  --nfm-ts:  rgba(255,255,255,0.42);
+  --nfm-hair:rgba(255,255,255,0.09);
+  --nfm-hair-strong:rgba(255,255,255,0.16);
+
+  --nfm-font-h: 'Space Grotesk', sans-serif;
+  --nfm-font-b: 'DM Sans', 'Inter', sans-serif;
+  --nfm-r:   14px;
+  --nfm-r-lg:22px;
+  --nfm-ease:cubic-bezier(0.22,1,0.36,1);
+}
+
+/* ─── reset acotado ─── */
+html, body{ margin:0; padding:0; background:#081F33; }
+.nfm-page, .nfm-page *, .nfm-page *::before, .nfm-page *::after{ box-sizing:border-box; }
+.nfm-page{ font-family:var(--nfm-font-b); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+.nfm-page img{ max-width:100%; height:auto; display:block; }
+.nfm-page a{ text-decoration:none; color:inherit; }
+.nfm-page ul,.nfm-page ol{ list-style:none; margin:0; padding:0; }
+
+/* ─── utilidades ─── */
+.nfm-container{ max-width:1200px; margin:0 auto; padding:0 24px; }
+.nfm-narrow{ max-width:760px; }
+.nfm-mid{ max-width:920px; }
+.nfm-accent{ color:var(--nfm-orange); }
+
+.nfm-eyebrow{
+  display:inline-block; font-family:var(--nfm-font-h);
+  font-size:0.72rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--nfm-orange); border:1px solid rgba(255,102,2,0.32);
+  padding:6px 16px; border-radius:50px; margin-bottom:20px;
+}
+.nfm-eyebrow--solid{ background:rgba(255,102,2,0.10); }
+
+/* ─── botón primario ─── */
+.nfm-btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  font-family:var(--nfm-font-h); font-size:1.02rem; font-weight:600; letter-spacing:0.01em;
+  color:#fff; background:var(--nfm-orange); border:none; border-radius:50px;
+  padding:17px 36px; cursor:pointer; position:relative; overflow:hidden;
+  transition:transform .25s var(--nfm-ease), box-shadow .25s var(--nfm-ease), background .25s var(--nfm-ease);
+  box-shadow:0 6px 28px var(--nfm-orange-glow);
+}
+.nfm-btn::after{ /* shine */
+  content:''; position:absolute; top:0; left:-120%; width:60%; height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,0.35),transparent);
+  transform:skewX(-20deg); transition:left .6s var(--nfm-ease);
+}
+.nfm-btn:hover{ background:var(--nfm-orange-hover); transform:translateY(-2px); box-shadow:0 10px 38px var(--nfm-orange-glow); color:#fff; }
+.nfm-btn:hover::after{ left:140%; }
+.nfm-btn svg{ width:18px; height:18px; flex-shrink:0; transition:transform .25s var(--nfm-ease); }
+.nfm-btn:hover svg{ transform:translateX(4px); }
+.nfm-btn--full{ width:100%; }
+
+/* ─── reveal on scroll (con stagger) ─── */
+.nfm-reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s var(--nfm-ease), transform .7s var(--nfm-ease); }
+.nfm-reveal.nfm-vis{ opacity:1; transform:none; }
+.nfm-d1{ transition-delay:.08s } .nfm-d2{ transition-delay:.16s } .nfm-d3{ transition-delay:.24s } .nfm-d4{ transition-delay:.32s }
+
+/* ════════════════ NAV ════════════════ */
+.nfm-nav{
+  position:fixed; top:0; left:0; right:0; z-index:9999; padding:14px 0;
+  background:rgba(8,31,51,0.30); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  transition:all .3s var(--nfm-ease); border-bottom:1px solid transparent;
+}
+.nfm-nav.nfm-nav--scrolled{
+  background:rgba(8,31,51,0.92); padding:9px 0;
+  border-bottom:1px solid var(--nfm-hair); box-shadow:0 6px 30px rgba(0,0,0,0.35);
+}
+.nfm-nav__inner{ display:flex; align-items:center; justify-content:space-between; }
+.nfm-nav__logo img{ height:64px; width:auto; transition:height .3s var(--nfm-ease); }
+.nfm-nav--scrolled .nfm-nav__logo img{ height:48px; }
+.nfm-nav__cta{
+  font-family:var(--nfm-font-h); font-size:0.82rem; font-weight:600; color:#fff;
+  background:var(--nfm-orange); border:none; border-radius:50px; padding:11px 24px; cursor:pointer;
+  transition:all .25s var(--nfm-ease); box-shadow:0 4px 18px var(--nfm-orange-glow);
+}
+.nfm-nav__cta:hover{ background:var(--nfm-orange-hover); transform:translateY(-1px); color:#fff; }
+
+/* ════════════════ HERO ════════════════ */
+.nfm-hero{
+  position:relative; overflow:hidden; padding:128px 0 84px;
+  background:
+    radial-gradient(900px 500px at 78% 12%, rgba(255,102,2,0.16), transparent 60%),
+    radial-gradient(700px 600px at 10% 100%, rgba(26,74,110,0.55), transparent 65%),
+    linear-gradient(160deg, #0C3452 0%, #081F33 100%);
+}
+.nfm-hero::before{ /* grano sutil */
+  content:''; position:absolute; inset:0; opacity:0.04; pointer-events:none; z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.nfm-hero__particles{ position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none; }
+.nfm-particle{ position:absolute; bottom:-12px; border-radius:50%; background:rgba(255,102,2,0.35); animation:nfm-float linear infinite; }
+@keyframes nfm-float{ 0%{transform:translateY(0) scale(1);opacity:.55} 100%{transform:translateY(-112vh) scale(.35);opacity:0} }
+
+.nfm-hero__grid{
+  position:relative; z-index:2; display:grid; grid-template-columns:1.12fr 0.88fr; gap:52px; align-items:stretch;
+}
+.nfm-hero__tag{
+  display:inline-block; font-family:var(--nfm-font-h); font-size:0.74rem; font-weight:600;
+  letter-spacing:0.12em; text-transform:uppercase; color:var(--nfm-orange);
+  background:rgba(255,102,2,0.12); border:1px solid rgba(255,102,2,0.34);
+  padding:7px 16px; border-radius:50px; margin-bottom:22px;
+  animation:nfm-fu .6s var(--nfm-ease) both;
+}
+.nfm-hero__title{
+  font-family:var(--nfm-font-h); font-size:clamp(2.2rem,4.4vw,3.5rem); font-weight:700;
+  color:#fff; line-height:1.06; letter-spacing:-0.03em; margin:0 0 14px;
+  animation:nfm-fu .6s .12s var(--nfm-ease) both;
+}
+.nfm-hero__title em{ color:var(--nfm-orange); font-style:normal; }
+.nfm-hero__kicker{
+  font-family:var(--nfm-font-h); font-size:clamp(1rem,1.7vw,1.22rem); font-weight:500;
+  color:var(--nfm-orange); line-height:1.3; letter-spacing:-0.01em; margin:0 0 22px;
+  animation:nfm-fu .6s .2s var(--nfm-ease) both;
+}
+.nfm-hero__seed{
+  font-size:1.02rem; color:var(--nfm-tl); line-height:1.65; margin:0 0 26px; max-width:34em;
+  animation:nfm-fu .6s .28s var(--nfm-ease) both;
+}
+.nfm-hero__seed strong{ color:#fff; font-weight:600; }
+.nfm-hero__date{
+  font-family:var(--nfm-font-h); font-size:0.95rem; color:var(--nfm-tm); margin:0 0 22px;
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  animation:nfm-fu .6s .34s var(--nfm-ease) both;
+}
+.nfm-hero__date strong{ color:#fff; font-weight:600; }
+.nfm-hero__date .nfm-dot{ width:4px; height:4px; border-radius:50%; background:var(--nfm-orange); }
+
+.nfm-cd-label{ font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:600; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--nfm-ts); margin:0 0 12px; animation:nfm-fu .6s .4s var(--nfm-ease) both; }
+.nfm-cd{ display:flex; gap:12px; margin-bottom:30px; animation:nfm-fu .6s .44s var(--nfm-ease) both; }
+.nfm-cd__item{
+  display:flex; flex-direction:column; align-items:center; min-width:66px; padding:13px 16px;
+  background:rgba(255,255,255,0.06); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+}
+.nfm-cd__num{ font-family:var(--nfm-font-h); font-size:1.9rem; font-weight:700; color:var(--nfm-orange); line-height:1; }
+.nfm-cd__unit{ font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--nfm-tm); margin-top:5px; }
+
+/* — estado EN VIVO (durante los minutos de gracia) — */
+.nfm-live{ display:none; align-items:center; gap:10px; margin-bottom:30px;
+  background:rgba(255,102,2,0.10); border:1px solid rgba(255,102,2,0.34); border-radius:var(--nfm-r);
+  padding:14px 18px; font-family:var(--nfm-font-h); font-weight:600; color:#fff; font-size:0.98rem; }
+.nfm-live__dot{ width:9px; height:9px; border-radius:50%; background:var(--nfm-orange); flex-shrink:0;
+  box-shadow:0 0 0 0 var(--nfm-orange-glow); animation:nfm-pulse 1.6s infinite; }
+@keyframes nfm-pulse{ 0%{box-shadow:0 0 0 0 rgba(255,102,2,.55)} 70%{box-shadow:0 0 0 12px rgba(255,102,2,0)} 100%{box-shadow:0 0 0 0 rgba(255,102,2,0)} }
+.nfm-is-live .nfm-cd, .nfm-is-live .nfm-cd-label{ display:none; }
+.nfm-is-live .nfm-live{ display:flex; }
+
+.nfm-hero__cta-wrap{ animation:nfm-fu .6s .5s var(--nfm-ease) both; }
+.nfm-hero__micro{ font-size:0.82rem; color:var(--nfm-tm); margin:14px 0 0; }
+.nfm-hero__micro strong{ color:var(--nfm-tl); }
+
+/* imagen hero */
+.nfm-hero__img{ position:relative; height:100%; min-height:580px; border-radius:var(--nfm-r-lg); overflow:hidden;
+  border:1px solid var(--nfm-hair); box-shadow:0 30px 80px rgba(0,0,0,0.45); animation:nfm-fu .7s .3s var(--nfm-ease) both; }
+.nfm-hero__img img{ width:100%; height:100%; object-fit:cover; object-position:center 22%; }
+.nfm-hero__img::after{ content:''; position:absolute; inset:0;
+  background:linear-gradient(to bottom, transparent 45%, rgba(8,31,51,0.85) 100%); pointer-events:none; }
+
+@keyframes nfm-fu{ from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:none} }
+
+/* ════════════════ SOCIAL PROOF ════════════════ */
+.nfm-proof{ background:var(--nfm-gray-50); padding:30px 0 34px; border-bottom:1px solid var(--nfm-gray-200); }
+.nfm-proof__label{ text-align:center; font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:600;
+  letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-ink-subtle); margin:0 0 20px; }
+.nfm-proof__row{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:28px 46px; }
+.nfm-proof__logo{ max-height:30px; width:auto; filter:grayscale(100%); opacity:0.5; transition:all .25s var(--nfm-ease); }
+.nfm-proof__logo:hover{ filter:grayscale(0%); opacity:1; }
+
+/* ════════════════ ESPEJO ════════════════ */
+.nfm-espejo{ background:var(--nfm-white); padding:84px 0; }
+.nfm-espejo__label{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:600;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-orange);
+  border:1px solid rgba(255,102,2,0.3); border-radius:50px; padding:5px 15px; margin-bottom:18px; }
+.nfm-espejo h2{ font-family:var(--nfm-font-h); font-size:clamp(1.6rem,3.2vw,2.3rem); font-weight:700;
+  color:var(--nfm-ink); line-height:1.15; letter-spacing:-0.02em; margin:0 0 14px; }
+.nfm-espejo h2 em{ color:var(--nfm-orange); font-style:normal; }
+.nfm-espejo__intro{ font-size:1.02rem; color:var(--nfm-ink-mute); line-height:1.7; margin:0 0 30px; }
+.nfm-espejo__intro strong{ color:var(--nfm-ink); }
+.nfm-espejo__item{ display:flex; gap:14px; align-items:flex-start; margin-bottom:14px; }
+.nfm-espejo__ic{ flex-shrink:0; margin-top:3px; width:22px; height:22px; background:rgba(255,102,2,0.12);
+  border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.nfm-espejo__ic svg{ width:10px; height:10px; stroke:var(--nfm-orange); fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+.nfm-espejo__item p{ font-size:0.98rem; color:#2a3f54; line-height:1.6; margin:0; }
+.nfm-espejo__close{ margin-top:26px; padding:22px 24px; border-left:3px solid var(--nfm-orange);
+  background:rgba(255,102,2,0.06); border-radius:0 var(--nfm-r) var(--nfm-r) 0; }
+.nfm-espejo__close p{ font-size:1rem; color:#3a4f64; line-height:1.7; font-style:italic; margin:0; }
+.nfm-espejo__close strong{ color:var(--nfm-ink); font-style:normal; }
+
+/* ════════════════ PUENTE / MECANISMO (Semilla 1) ════════════════ */
+.nfm-bridge{ position:relative; padding:100px 0; overflow:hidden;
+  background:linear-gradient(180deg, #081F33 0%, #0C3452 55%, #081F33 100%); color:#fff; }
+.nfm-bridge::before{ content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,102,2,0.4),transparent); }
+.nfm-bridge__head{ max-width:760px; margin:0 auto 44px; text-align:center; }
+.nfm-bridge h2{ font-family:var(--nfm-font-h); font-size:clamp(1.7rem,3.6vw,2.6rem); font-weight:700;
+  line-height:1.16; letter-spacing:-0.02em; margin:0 0 20px; }
+.nfm-bridge h2 em{ color:var(--nfm-orange); font-style:normal; }
+.nfm-bridge__head p{ font-size:1.05rem; color:var(--nfm-tl); line-height:1.7; margin:0; }
+.nfm-bridge__head p strong{ color:#fff; }
+
+.nfm-bridge__viz{ display:flex; align-items:center; justify-content:center; gap:0; max-width:640px; margin:0 auto 40px; }
+.nfm-bridge__node{ flex:1; max-width:210px; text-align:center; padding:26px 18px;
+  background:var(--nfm-navy-1); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg); }
+.nfm-bridge__node strong{ display:block; font-family:var(--nfm-font-h); font-size:1.32rem; font-weight:700; color:#fff; letter-spacing:0.02em; margin-bottom:4px; }
+.nfm-bridge__node span{ font-size:0.82rem; color:var(--nfm-tm); line-height:1.45; display:block; }
+.nfm-bridge__node--mine{ border-color:rgba(255,102,2,0.30); }
+.nfm-bridge__node--mine strong{ color:var(--nfm-orange); }
+.nfm-bridge__gap{ flex:0 0 92px; position:relative; height:3px;
+  background:repeating-linear-gradient(90deg, var(--nfm-orange) 0 8px, transparent 8px 16px); opacity:.7; }
+.nfm-bridge__gap::after{ content:'✕'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  font-size:0.9rem; color:var(--nfm-orange); background:#0C3452; width:26px; height:26px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,102,2,0.5); }
+
+.nfm-bridge__body{ max-width:680px; margin:0 auto; }
+.nfm-bridge__body p{ font-size:1.02rem; color:var(--nfm-tl); line-height:1.75; margin:0 0 16px; text-align:center; }
+.nfm-bridge__quote{ margin:36px auto 0; max-width:600px; text-align:center;
+  padding:28px 32px; background:rgba(255,255,255,0.04); border:1px solid var(--nfm-hair);
+  border-radius:var(--nfm-r-lg); }
+.nfm-bridge__quote p{ font-family:var(--nfm-font-h); font-size:1.25rem; font-weight:500; color:#fff;
+  line-height:1.4; letter-spacing:-0.01em; margin:0 0 12px; font-style:italic; }
+.nfm-bridge__quote span{ font-size:0.82rem; color:var(--nfm-tm); }
+.nfm-bridge__kick{ text-align:center; font-family:var(--nfm-font-h); font-size:1.05rem; font-weight:600;
+  color:var(--nfm-orange); margin:36px auto 0; max-width:580px; line-height:1.45; }
+
+/* ════════════════ QUÉ VAS A DESCUBRIR ════════════════ */
+.nfm-learn{ background:var(--nfm-white); padding:96px 0; color:var(--nfm-ink); }
+.nfm-learn__head{ text-align:center; margin-bottom:48px; }
+.nfm-learn__head h2{ font-family:var(--nfm-font-h); font-size:clamp(1.7rem,3.4vw,2.4rem); font-weight:700;
+  letter-spacing:-0.02em; line-height:1.15; margin:0 0 12px; color:var(--nfm-ink); }
+.nfm-learn__head p{ font-size:1.02rem; color:var(--nfm-ink-mute); max-width:580px; margin:0 auto; line-height:1.6; }
+.nfm-map{ max-width:860px; margin:0 auto; background:var(--nfm-white); border:1px solid var(--nfm-gray-200);
+  border-radius:var(--nfm-r-lg); padding:20px 40px; box-shadow:0 20px 60px rgba(12,52,82,0.07); }
+.nfm-map__item{ display:flex; gap:26px; align-items:flex-start; padding:26px 0; border-bottom:1px solid var(--nfm-gray-200); }
+.nfm-map__item:last-child{ border-bottom:none; }
+.nfm-map__num{ font-family:var(--nfm-font-h); font-size:2rem; font-weight:700;
+  color:transparent; -webkit-text-stroke:1.5px var(--nfm-orange); min-width:52px; line-height:1; }
+.nfm-map__txt h4{ font-family:var(--nfm-font-h); font-size:1.14rem; font-weight:700; color:var(--nfm-ink); margin:0 0 6px; letter-spacing:-0.01em; }
+.nfm-map__txt p{ font-size:0.96rem; color:var(--nfm-ink-mute); line-height:1.6; margin:0; }
+.nfm-learn__cta{ text-align:center; margin-top:44px; }
+
+/* ════════════════ FORM / REGISTRO ════════════════ */
+.nfm-reg{ position:relative; overflow:hidden; padding:88px 0; background:var(--nfm-gray-50); }
+.nfm-reg__particles{ position:absolute; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+.nfm-reg-particle{ position:absolute; bottom:-10px; border-radius:50%; background:var(--nfm-orange); opacity:.4; animation:nfm-rfloat linear infinite; }
+@keyframes nfm-rfloat{ 0%{transform:translateY(0) scale(1);opacity:.4} 100%{transform:translateY(-110vh) scale(.3);opacity:0} }
+.nfm-reg .nfm-container{ position:relative; z-index:1; }
+.nfm-reg__title{ font-family:var(--nfm-font-h); font-size:clamp(1.6rem,3.2vw,2.3rem); font-weight:700;
+  text-align:center; color:var(--nfm-ink); letter-spacing:-0.02em; line-height:1.18; margin:0 auto 14px; max-width:18em; }
+.nfm-reg__title span{ color:var(--nfm-orange); }
+.nfm-reg__sub{ font-family:var(--nfm-font-b); font-size:1.04rem; font-weight:500; color:var(--nfm-ink-mute);
+  text-align:center; max-width:680px; margin:0 auto 26px; line-height:1.6; }
+.nfm-reg__sub strong{ color:var(--nfm-ink); font-weight:700; }
+.nfm-reg__when{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:8px 14px;
+  font-family:var(--nfm-font-h); font-size:0.9rem; font-weight:600; color:var(--nfm-ink);
+  background:#fff; border:1px solid var(--nfm-gray-200); border-radius:50px;
+  padding:10px 22px; width:max-content; max-width:100%; margin:0 auto 34px; box-shadow:0 8px 26px rgba(12,52,82,0.07); }
+.nfm-reg__when .nfm-dot{ width:5px; height:5px; border-radius:50%; background:var(--nfm-orange); flex-shrink:0; }
+.nfm-reg__form{ max-width:560px; margin:0 auto; border-radius:18px; overflow:hidden;
+  border:1px solid var(--nfm-gray-200); box-shadow:0 24px 70px rgba(12,52,82,0.14); background:#fff; }
+.nfm-reg__form iframe{ width:100%; min-height:729px; border:none; display:block; }
+
+/* ════════════════ TESTIMONIOS ════════════════ */
+.nfm-tst{ padding:96px 0; background:linear-gradient(180deg,#0C3452 0%,#081F33 100%); color:#fff; }
+.nfm-tst__head{ text-align:center; margin-bottom:48px; }
+.nfm-tst__head h2{ font-family:var(--nfm-font-h); font-size:clamp(1.6rem,3.2vw,2.3rem); font-weight:700;
+  letter-spacing:-0.02em; line-height:1.18; margin:0 0 12px; color:#fff; }
+.nfm-tst__head p{ color:var(--nfm-tm); max-width:560px; margin:0 auto; font-size:1rem; line-height:1.6; }
+.nfm-tst__grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.nfm-tst__card{ display:flex; flex-direction:column; gap:16px; background:var(--nfm-navy-1);
+  border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg); padding:24px; transition:all .25s var(--nfm-ease); }
+.nfm-tst__card:hover{ border-color:rgba(255,102,2,0.28); transform:translateY(-4px); }
+.nfm-tst__video{ position:relative; width:100%; aspect-ratio:16/9; border-radius:14px; overflow:hidden; border:1px solid var(--nfm-hair); }
+.nfm-tst__video iframe{ width:100%; height:100%; border:none; display:block; }
+.nfm-tst__card h4{ font-family:var(--nfm-font-h); font-size:1.05rem; font-weight:700; color:#fff; margin:0; }
+.nfm-tst__role{ font-size:0.8rem; color:var(--nfm-tm); margin:-10px 0 0; display:block; }
+.nfm-tst__card p{ font-size:0.92rem; color:var(--nfm-tl); line-height:1.6; font-style:italic; margin:0; }
+.nfm-insight{ margin-top:44px; background:rgba(255,102,2,0.07); border-left:3px solid var(--nfm-orange);
+  border-radius:0 var(--nfm-r) var(--nfm-r) 0; padding:24px 28px; max-width:820px; margin-left:auto; margin-right:auto; }
+.nfm-insight p{ font-size:1rem; color:var(--nfm-tl); line-height:1.7; margin:0; }
+.nfm-insight strong{ color:var(--nfm-orange); font-weight:700; }
+
+/* ════════════════ QUIÉN DA LA CLASE ════════════════ */
+.nfm-nico{ background:var(--nfm-white); padding:88px 0; color:var(--nfm-ink); }
+.nfm-nico__grid{ display:grid; grid-template-columns:0.8fr 1.2fr; gap:48px; align-items:center; max-width:1000px; margin:0 auto; }
+.nfm-nico__img{ border-radius:var(--nfm-r-lg); overflow:hidden; border:1px solid var(--nfm-gray-200);
+  box-shadow:0 24px 60px rgba(12,52,82,0.16); aspect-ratio:4/5; }
+.nfm-nico__img img{ width:100%; height:100%; object-fit:cover; object-position:center 20%; }
+.nfm-nico h2{ font-family:var(--nfm-font-h); font-size:clamp(1.6rem,3.2vw,2.2rem); font-weight:700;
+  letter-spacing:-0.02em; line-height:1.15; margin:0 0 8px; color:var(--nfm-ink); }
+.nfm-nico__role{ font-family:var(--nfm-font-h); font-size:0.9rem; font-weight:600; color:var(--nfm-orange);
+  letter-spacing:0.02em; margin:0 0 18px; }
+.nfm-nico p{ font-size:1rem; color:var(--nfm-ink-mute); line-height:1.7; margin:0 0 14px; }
+.nfm-nico p strong{ color:var(--nfm-ink); font-weight:600; }
+.nfm-nico__facts{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:24px; }
+.nfm-nico__fact{ background:var(--nfm-gray-50); border:1px solid var(--nfm-gray-200); border-radius:var(--nfm-r); padding:14px 16px; }
+.nfm-nico__fact strong{ display:block; font-family:var(--nfm-font-h); font-size:1.25rem; font-weight:700; color:var(--nfm-orange); line-height:1; margin-bottom:5px; }
+.nfm-nico__fact span{ font-size:0.82rem; color:var(--nfm-ink-mute); line-height:1.4; }
+
+/* ════════════════ ANCLA / GIRO (Semilla 2) ════════════════ */
+.nfm-anchor{ padding:100px 0; background:#081F33; color:#fff; }
+.nfm-anchor__head{ text-align:center; max-width:740px; margin:0 auto 18px; }
+.nfm-anchor h2{ font-family:var(--nfm-font-h); font-size:clamp(1.8rem,3.8vw,2.7rem); font-weight:700;
+  line-height:1.14; letter-spacing:-0.02em; margin:0 0 22px; }
+.nfm-anchor h2 em{ color:var(--nfm-orange); font-style:normal; }
+.nfm-anchor__body{ max-width:660px; margin:0 auto 44px; }
+.nfm-anchor__body p{ font-size:1.04rem; color:var(--nfm-tl); line-height:1.75; margin:0 0 16px; text-align:center; }
+.nfm-anchor__obj{ display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:840px; margin:0 auto; }
+.nfm-anchor__card{ background:var(--nfm-navy-1); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg); padding:30px 28px; }
+.nfm-anchor__card h4{ font-family:var(--nfm-font-h); font-size:1.05rem; font-weight:600; color:#fff;
+  margin:0 0 12px; font-style:italic; }
+.nfm-anchor__card p{ font-size:0.96rem; color:var(--nfm-tl); line-height:1.65; margin:0; }
+.nfm-anchor__card p strong{ color:var(--nfm-orange); font-weight:600; }
+
+/* — las salidas cerradas — */
+.nfm-outs{ max-width:900px; margin:52px auto 0; }
+.nfm-outs__t{ text-align:center; font-family:var(--nfm-font-h); font-size:0.72rem; font-weight:600;
+  letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-ts); margin:0 0 22px; }
+.nfm-outs__grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+.nfm-outs__item{ display:flex; gap:14px; align-items:flex-start; background:rgba(255,255,255,0.035);
+  border:1px solid var(--nfm-hair); border-radius:var(--nfm-r); padding:18px 20px; }
+.nfm-outs__x{ flex-shrink:0; width:20px; height:20px; border-radius:50%; background:rgba(255,102,2,0.14);
+  display:flex; align-items:center; justify-content:center; margin-top:2px; }
+.nfm-outs__x svg{ width:9px; height:9px; stroke:var(--nfm-orange); stroke-width:3; fill:none; stroke-linecap:round; }
+.nfm-outs__item h5{ font-family:var(--nfm-font-h); font-size:0.95rem; font-weight:600; color:#fff; margin:0 0 5px; font-style:italic; }
+.nfm-outs__item p{ font-size:0.9rem; color:var(--nfm-tm); line-height:1.55; margin:0; text-align:left; }
+
+/* ════════════════ CTA FINAL ════════════════ */
+.nfm-final{ position:relative; overflow:hidden; padding:104px 0; text-align:center; color:#fff;
+  background:
+    radial-gradient(600px 300px at 50% 0%, rgba(255,102,2,0.18), transparent 70%),
+    linear-gradient(180deg,#081F33 0%, #0C3452 100%); }
+.nfm-final h2{ font-family:var(--nfm-font-h); font-size:clamp(1.9rem,4.2vw,3rem); font-weight:700;
+  line-height:1.12; letter-spacing:-0.025em; margin:0 auto 18px; max-width:16em; }
+.nfm-final h2 em{ color:var(--nfm-orange); font-style:normal; }
+.nfm-final p{ font-size:1.06rem; color:var(--nfm-tl); max-width:30em; margin:0 auto 34px; line-height:1.6; }
+.nfm-final__date{ font-family:var(--nfm-font-h); font-weight:600; font-size:0.95rem; color:var(--nfm-tl);
+  margin-top:22px; display:inline-flex; align-items:center; gap:8px; }
+.nfm-final__date .nfm-dot{ width:4px; height:4px; border-radius:50%; background:var(--nfm-orange); }
+
+/* ════════════════ FOOTER ════════════════ */
+.nfm-footer{ background:#081F33; padding:34px 0; text-align:center; border-top:1px solid var(--nfm-hair); }
+.nfm-footer p{ font-size:0.8rem; color:var(--nfm-tm); margin:0; }
+
+/* ════════════════ STICKY MOBILE CTA ════════════════ */
+.nfm-sticky{ position:fixed; left:0; right:0; bottom:0; z-index:9998; padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:rgba(8,31,51,0.94); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border-top:1px solid var(--nfm-hair); transform:translateY(120%); transition:transform .35s var(--nfm-ease); display:none; }
+.nfm-sticky.nfm-sticky--show{ transform:none; }
+.nfm-sticky .nfm-btn{ width:100%; padding:15px; font-size:1rem; box-shadow:none; }
+
+/* ════════════════ RESPONSIVE ════════════════ */
+/* — Tablet landscape — */
+@media (max-width:1024px){
+  .nfm-hero{ padding:116px 0 72px; }
+  .nfm-hero__grid{ gap:40px; }
+  .nfm-tst__grid{ grid-template-columns:1fr 1fr; }
+  .nfm-tst__card:last-child{ grid-column:1 / -1; max-width:560px; margin:0 auto; width:100%; }
+  .nfm-map{ padding:16px 30px; }
+  .nfm-nico__grid{ gap:34px; }
+}
+/* — Tablet portrait / hero a una columna con imagen de fondo — */
+@media (max-width:900px){
+  .nfm-hero{ padding:104px 0 64px; }
+  .nfm-hero__grid{ grid-template-columns:1fr; gap:0; position:static; }
+  .nfm-hero__img-col{ position:absolute; inset:0; z-index:0; }
+  .nfm-hero__img{ width:100%; height:100%; aspect-ratio:auto; border-radius:0; border:none; box-shadow:none; }
+  .nfm-hero__img img{ object-position:center top; filter:brightness(0.62) saturate(1.05); }
+  .nfm-hero__img::after{ inset:0;
+    background:linear-gradient(180deg, rgba(8,31,51,0.55) 0%, rgba(8,31,51,0.72) 45%, rgba(8,31,51,0.92) 100%); }
+  .nfm-hero__text-col{ position:relative; z-index:3; }
+  .nfm-hero__title{ text-shadow:0 2px 18px rgba(0,0,0,0.55); }
+  .nfm-cd__item{ background:rgba(8,31,51,0.5); }
+  .nfm-hero__cta-wrap .nfm-btn{ width:100%; }
+  .nfm-bridge__viz{ gap:0; }
+  .nfm-nico__grid{ grid-template-columns:1fr; max-width:560px; }
+  .nfm-nico__img{ aspect-ratio:16/10; }
+}
+/* — Mobile — */
+@media (max-width:768px){
+  .nfm-espejo, .nfm-learn, .nfm-reg, .nfm-tst, .nfm-anchor, .nfm-nico{ padding:64px 0; }
+  .nfm-bridge, .nfm-final{ padding:72px 0; }
+  .nfm-anchor__obj{ grid-template-columns:1fr; }
+  .nfm-outs__grid{ grid-template-columns:1fr; }
+  .nfm-nico__facts{ grid-template-columns:1fr 1fr; }
+  .nfm-tst__grid{ grid-template-columns:1fr; }
+  .nfm-tst__card:last-child{ grid-column:auto; }
+  .nfm-bridge__viz{ flex-direction:column; gap:0; }
+  .nfm-bridge__node{ max-width:280px; width:100%; }
+  .nfm-bridge__gap{ flex:0 0 56px; width:3px; height:56px;
+    background:repeating-linear-gradient(180deg, var(--nfm-orange) 0 8px, transparent 8px 16px); }
+  .nfm-map{ padding:8px 22px; }
+  .nfm-map__item{ gap:18px; }
+  .nfm-map__num{ font-size:1.6rem; min-width:40px; }
+  .nfm-proof__row{ gap:22px 30px; }
+  .nfm-proof__logo{ max-height:24px; }
+  .nfm-nav__logo img{ height:48px; }
+  .nfm-sticky{ display:block; }
+  .nfm-cd{ gap:8px; }
+  .nfm-cd__item{ min-width:0; flex:1; padding:11px 8px; }
+  .nfm-cd__num{ font-size:1.5rem; }
+  .nfm-reg__when{ border-radius:var(--nfm-r); padding:14px 18px; text-align:center; }
+}
+@media (max-width:480px){
+  .nfm-container{ padding:0 18px; }
+  .nfm-hero__title{ font-size:1.75rem; }
+  .nfm-btn{ padding:15px 24px; font-size:0.95rem; }
+}
+</style>
+
+
+<div class="nfm-page">
+
+<!-- ════════════════ NAV ════════════════ -->
+<nav class="nfm-nav" id="nfm-nav">
+  <div class="nfm-container nfm-nav__inner">
+    <a href="#nfm-hero" class="nfm-nav__logo" aria-label="Nicolás Fernández Miranda">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png" alt="Nicolás Fernández Miranda">
+    </a>
+    <button type="button" class="nfm-nav__cta" data-scroll-to="nfm-registro">QUIERO MI LUGAR →</button>
+  </div>
+</nav>
+
+<!-- ════════════════ HERO (Semilla 1: la causa no es la que creés) ════════════════
+     El texto que está escrito acá es el del TEMA A. Cuando la fecha activa
+     corresponda al TEMA B, el script de abajo reemplaza todo lo que tenga
+     data-nfm="..." sin que se vea ningún salto.
+     ════════════════════════════════════════════════════════════════════════════ -->
+<section class="nfm-hero" id="nfm-hero">
+  <div class="nfm-hero__particles" id="nfm-particles"></div>
+  <div class="nfm-container">
+    <div class="nfm-hero__grid">
+
+      <div class="nfm-hero__text-col">
+        <span class="nfm-hero__tag" data-nfm="heroTag">Clase gratuita · En vivo por Zoom</span>
+
+        <h1 class="nfm-hero__title" data-nfm="h1">Cumplís con todos <em>menos con vos.</em></h1>
+
+        <p class="nfm-hero__kicker" data-nfm="kicker">La razón neurológica por la que tu cerebro ejecuta lo ajeno y archiva lo tuyo.</p>
+
+        <p class="nfm-hero__seed" data-nfm="seed">
+          No es falta de disciplina. Nunca dejaste caer nada de otro: se cae sólo lo tuyo.
+          <strong>Eso no es un defecto de carácter, es un mecanismo</strong> — tiene nombre, y en esta clase lo vas a ver funcionando en tu propia semana.
+        </p>
+
+        <p class="nfm-hero__date">
+          <span class="nfm-dot"></span> <span data-nfm-fecha="larga">Lunes 10 de agosto</span>
+          <span class="nfm-dot"></span> <strong data-nfm-fecha="hora">19:00 hs (Argentina)</strong>
+          <span class="nfm-dot"></span> En vivo por Zoom
+        </p>
+
+        <p class="nfm-cd-label">La clase comienza en...</p>
+        <div class="nfm-cd">
+          <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-days">00</span><span class="nfm-cd__unit">Días</span></div>
+          <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-hours">00</span><span class="nfm-cd__unit">Horas</span></div>
+          <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-min">00</span><span class="nfm-cd__unit">Min</span></div>
+          <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-sec">00</span><span class="nfm-cd__unit">Seg</span></div>
+        </div>
+        <div class="nfm-live"><span class="nfm-live__dot"></span><span>La clase está empezando ahora — registrate y entrás directo.</span></div>
+
+        <div class="nfm-hero__cta-wrap">
+          <button class="nfm-btn" data-scroll-to="nfm-registro">
+            <span data-nfm="ctaHero">QUIERO MI LUGAR EN LA CLASE</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <p class="nfm-hero__micro" data-nfm="micro">100% gratuita · <strong>No es más información para acumular: es el porqué que ninguna app, ningún planner y ninguna terapia te explicó</strong></p>
+        </div>
+      </div>
+
+      <div class="nfm-hero__img-col">
+        <div class="nfm-hero__img">
+          <picture>
+            <source media="(max-width:900px)" srcset="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/10/conference-speaking-ClThYPd4.jpg">
+            <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/10/tedx-speaking-sVwipZ23.jpg" alt="Nicolás Fernández Miranda dando una conferencia" loading="eager">
+          </picture>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ SOCIAL PROOF ════════════════ -->
+<section class="nfm-proof">
+  <div class="nfm-container">
+    <p class="nfm-proof__label">Su trabajo fue destacado en</p>
+    <div class="nfm-proof__row">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/CNN.png" alt="CNN" class="nfm-proof__logo">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-110.svg" alt="Infobae" class="nfm-proof__logo">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-104.svg" alt="Endeavor" class="nfm-proof__logo">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-105.svg" alt="TEDx" class="nfm-proof__logo">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/Yale-Bulldogs-logo.png" alt="Yale" class="nfm-proof__logo">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/5-1.png" alt="YPF" class="nfm-proof__logo">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/6-1.png" alt="Samsung" class="nfm-proof__logo">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/accountlogo.jpg" alt="Ternium" class="nfm-proof__logo">
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ ESPEJO ════════════════ -->
+<section class="nfm-espejo">
+  <div class="nfm-container nfm-narrow">
+    <span class="nfm-espejo__label nfm-reveal" data-nfm="espejoLabel">¿Te suena familiar?</span>
+    <h2 class="nfm-reveal nfm-d1" data-nfm="espejoTitulo">¿Alguno de estos momentos <em>te suena familiar?</em></h2>
+    <p class="nfm-espejo__intro nfm-reveal nfm-d1" data-nfm="espejoIntro">
+      Si alguien te está esperando, aparecés. Sin falta, sin excusa, aunque estés fundido.
+      <strong>Lo tuyo, en cambio, se corre para la semana que viene desde hace dos años.</strong>
+    </p>
+
+    <div id="nfm-espejo-items">
+      <div class="nfm-espejo__item nfm-reveal nfm-d1">
+        <div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
+        <p>Nunca dejaste caer una entrega, una reunión ni un compromiso de otro. Lo tuyo se cae solo, y encima siempre.</p>
+      </div>
+      <div class="nfm-espejo__item nfm-reveal nfm-d1">
+        <div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
+        <p>Terminás el día habiendo resuelto once cosas de otros y ninguna tuya — y no podés ni decir que no hiciste nada.</p>
+      </div>
+      <div class="nfm-espejo__item nfm-reveal nfm-d2">
+        <div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
+        <p>El mismo objetivo tuyo está en la misma lista, con la misma prioridad, desde hace dos años. Nunca llega a la cima de la pila.</p>
+      </div>
+      <div class="nfm-espejo__item nfm-reveal nfm-d2">
+        <div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
+        <p>Probaste el planner, Notion, levantarte a las 5, contratar a alguien, la terapia. Duró tres meses. Después se cayó, como siempre.</p>
+      </div>
+      <div class="nfm-espejo__item nfm-reveal nfm-d2">
+        <div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
+        <p>Y cada vez que se cayó, la conclusión fue la misma: “soy un desastre con mis cosas, me falta disciplina”.</p>
+      </div>
+      <div class="nfm-espejo__item nfm-reveal nfm-d2">
+        <div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
+        <p>Sos el que resuelve. Todos lo saben, todos te buscan. Y ese, exactamente, es el problema.</p>
+      </div>
+    </div>
+
+    <div class="nfm-espejo__close nfm-reveal nfm-d2">
+      <p data-nfm="espejoCierre">
+        Si algo de esto resonó: <strong>no te falta voluntad y no sos un vago.</strong>
+        Sos demasiado responsable, mal apuntado. Tu cerebro no jerarquiza por importancia:
+        jerarquiza por quién está esperando — <strong>y lo tuyo es lo único que no tiene a nadie del otro lado.</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ FORM / REGISTRO  ·  (arriba a propósito: registro temprano, baja fricción) ════════════════ -->
+<section class="nfm-reg" id="nfm-registro">
+  <div class="nfm-reg__particles" id="nfm-reg-particles"></div>
+  <div class="nfm-container">
+    <h2 class="nfm-reg__title nfm-reveal" data-nfm="regTitulo">Reservá tu lugar en la clase. <span>Es gratis.</span></h2>
+    <p class="nfm-reg__sub nfm-reveal nfm-d1" data-nfm="regSub">
+      Para profesionales, líderes y dueños que hace años saben qué tendrían que hacer con lo suyo
+      y siguen cumpliéndole a todo el mundo primero. <strong>No es para quienes recién están empezando.</strong>
+    </p>
+
+    <p class="nfm-reg__when nfm-reveal nfm-d1">
+      <span class="nfm-dot"></span> <span data-nfm-fecha="completa">Lunes 10 de agosto · 19:00 hs (Argentina) · En vivo por Zoom</span>
+    </p>
+
+    <div class="nfm-reg__form nfm-reveal nfm-d1">
+      <!-- ⚠️ El src real se arma por JS (abajo) para inyectarle los UTM + la edición de la clase.
+           El <noscript> deja el form funcionando igual si el visitante tiene JS desactivado. -->
+      <iframe
+        data-src="https://api.leadconnectorhq.com/widget/form/kLh5onxCgHdGDA10c8NU"
+        id="inline-kLh5onxCgHdGDA10c8NU"
+        data-layout="{'id':'INLINE'}"
+        data-trigger-type="alwaysShow"
+        data-trigger-value=""
+        data-activation-type="alwaysActivated"
+        data-activation-value=""
+        data-deactivation-type="neverDeactivate"
+        data-deactivation-value=""
+        data-form-name="Form AGOSTO NUEVO"
+        data-height="729"
+        data-layout-iframe-id="inline-kLh5onxCgHdGDA10c8NU"
+        data-form-id="kLh5onxCgHdGDA10c8NU"
+        title="Form AGOSTO NUEVO"
+        style="width:100%;height:100%;border:none;border-radius:15px">
+      </iframe>
+      <noscript>
+        <iframe src="https://api.leadconnectorhq.com/widget/form/kLh5onxCgHdGDA10c8NU"
+                style="width:100%;min-height:729px;border:none;border-radius:15px"
+                title="Form AGOSTO NUEVO"></iframe>
+      </noscript>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ EL MECANISMO · URGENCIA PRESTADA (Semilla 1) ════════════════ -->
+<section class="nfm-bridge">
+  <div class="nfm-container">
+    <div class="nfm-bridge__head nfm-reveal">
+      <span class="nfm-eyebrow nfm-eyebrow--solid">El mecanismo</span>
+      <h2 data-nfm="bridgeTitulo">Tu cerebro no ordena por importancia.<br>Ordena por <em>quién está esperando.</em></h2>
+      <p data-nfm="bridgeIntro">Se llama <strong>urgencia prestada</strong>. Lo ajeno llega con fecha, con nombre y con alguien del otro lado esperándolo. Lo tuyo llega solo. Y sin alguien esperando, tu cerebro nunca lo sube a la cima de la pila.</p>
+    </div>
+
+    <div class="nfm-bridge__viz nfm-reveal nfm-d1">
+      <div class="nfm-bridge__node"><strong>LO AJENO</strong><span>tiene fecha y alguien esperando</span></div>
+      <div class="nfm-bridge__gap"></div>
+      <div class="nfm-bridge__node nfm-bridge__node--mine"><strong>LO TUYO</strong><span>no tiene a nadie del otro lado</span></div>
+    </div>
+
+    <div class="nfm-bridge__body nfm-reveal nfm-d1">
+      <p data-nfm="bridgeBody">
+        Por eso sos el conejito que corre una zanahoria que mueve otro: rendís impecable con lo de todo el mundo
+        y con lo tuyo no podés. No es una falla de carácter, es una jerarquía mal cableada.
+        <strong style="color:#fff">Y hay una capa más incómoda todavía:</strong> como tu identidad depende de ser el que resuelve,
+        no sólo recibís urgencia ajena — la fabricás.
+      </p>
+
+      <div class="nfm-bridge__quote">
+        <p data-nfm="bridgeQuote">“Necesito problemas para que todo el mundo vea que los resuelvo, y con eso valido que soy lo que soy, que soy capaz, que soy importante.”</p>
+        <span data-nfm="bridgeQuoteAutor">— Francisco, 40, director de operaciones. Dicho en una entrevista, no en un anuncio.</span>
+      </div>
+
+      <p class="nfm-bridge__kick" data-nfm="bridgeKick">Por eso el patrón no cede solo. Y por eso “ponerle más voluntad” nunca alcanzó: la voluntad no es la variable que está fallando.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ QUÉ VAS A DESCUBRIR ════════════════ -->
+<section class="nfm-learn">
+  <div class="nfm-container">
+    <div class="nfm-learn__head nfm-reveal">
+      <span class="nfm-eyebrow">La clase</span>
+      <h2 data-nfm="learnTitulo">Lo que vas a descubrir el <span data-nfm-fecha="corta">10 de agosto</span></h2>
+      <p data-nfm="learnSub">Una hora para entender el mecanismo que ninguna app ni ningún curso te explicó — y salir con tu primera palanca, no con más información para acumular.</p>
+    </div>
+
+    <div class="nfm-map nfm-reveal nfm-d1" id="nfm-map">
+      <div class="nfm-map__item">
+        <div class="nfm-map__num">01</div>
+        <div class="nfm-map__txt">
+          <h4>Urgencia prestada: el mecanismo que decide por vos</h4>
+          <p>Por qué tu cerebro no ordena por importancia sino por quién está esperando — y por qué lo tuyo, que no tiene a nadie, nunca llega arriba de la pila.</p>
+        </div>
+      </div>
+      <div class="nfm-map__item">
+        <div class="nfm-map__num">02</div>
+        <div class="nfm-map__txt">
+          <h4>La prueba de que no es un problema de disciplina</h4>
+          <p>Tu procrastinación es selectiva: falla en una sola categoría, la tuya. Un problema de jerarquía no se arregla con más fuerza de voluntad.</p>
+        </div>
+      </div>
+      <div class="nfm-map__item">
+        <div class="nfm-map__num">03</div>
+        <div class="nfm-map__txt">
+          <h4>Por qué fabricás urgencia sin darte cuenta</h4>
+          <p>La capa que casi nadie se anima a mirar: si tu identidad depende de ser el que resuelve, el sistema se retroalimenta. Ahí está la razón por la que el patrón no cede solo.</p>
+        </div>
+      </div>
+      <div class="nfm-map__item">
+        <div class="nfm-map__num">04</div>
+        <div class="nfm-map__txt">
+          <h4>La única variable que le falta a lo tuyo</h4>
+          <p>Qué le tenés que poner a lo tuyo para que se mueva con la misma prolijidad con la que ya movés lo de todos. Y el primer movimiento, esa misma noche.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="nfm-learn__cta nfm-reveal nfm-d2">
+      <button class="nfm-btn" data-scroll-to="nfm-registro">
+        RESERVAR MI LUGAR
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ TESTIMONIOS (Semilla 3: ya le pasó a alguien como vos) ════════════════ -->
+<section class="nfm-tst">
+  <div class="nfm-container">
+    <div class="nfm-tst__head nfm-reveal">
+      <span class="nfm-eyebrow nfm-eyebrow--solid">Ya le pasó a alguien como vos</span>
+      <h2>Gente con tu oficio y <span class="nfm-accent">tu misma carga</span></h2>
+      <p>No son casos espectaculares: son personas con nombre, oficio y un hecho verificable. Más de 400 pasaron por el Instituto de Productividad.</p>
+    </div>
+
+    <div class="nfm-tst__grid">
+      <div class="nfm-tst__card nfm-reveal nfm-d1">
+        <div class="nfm-tst__video">
+          <iframe src="https://www.youtube.com/embed/95H0-szcsMs" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" title="Testimonio Celina — Nicolás Fernández Miranda"></iframe>
+        </div>
+        <h4>Celina</h4>
+        <span class="nfm-tst__role">Arquitecta · lidera ~45 personas · San Diego</span>
+        <p>“Un mes entero en Argentina con los hijos, trabajando remoto. Pilates 3 veces por semana: su primer año con actividad física desde que es madre. Y la ciudadanía de los hijos, postergada años, hecha.”</p>
+      </div>
+
+      <div class="nfm-tst__card nfm-reveal nfm-d2">
+        <div class="nfm-tst__video">
+          <iframe src="https://www.youtube.com/embed/0o-tzNPybNk" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" title="Testimonio Andrés — Nicolás Fernández Miranda"></iframe>
+        </div>
+        <h4>Andrés</h4>
+        <span class="nfm-tst__role">Ing. agrónomo · lidera una comunidad</span>
+        <p>“Revisiones semanales, mensuales y anuales funcionando de verdad. Y lo más difícil para alguien que sostiene todo: aprendió a decir que no.”</p>
+      </div>
+
+      <div class="nfm-tst__card nfm-reveal nfm-d3">
+        <div class="nfm-tst__video">
+          <iframe src="https://www.youtube.com/embed/vgF6e9MptW4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" title="Testimonio Pierina — Nicolás Fernández Miranda"></iframe>
+        </div>
+        <h4>Pierina</h4>
+        <span class="nfm-tst__role">Teóloga · doctoranda en Roma</span>
+        <p>“El doctorado avanzando y una clase dada en La Gregoriana. Lo propio, que llevaba años esperando turno, por fin con fecha y con alguien del otro lado.”</p>
+      </div>
+    </div>
+
+    <div class="nfm-insight nfm-reveal">
+      <p data-nfm="insight"><strong>No consiguieron más disciplina. No metieron más horas. No dejaron caer nada de nadie.</strong> Le pusieron a lo suyo la única cosa que ya hacía funcionar lo de todos los demás: alguien del otro lado esperándolo. Eso es lo que vas a entender en la clase.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ QUIÉN DA LA CLASE ════════════════ -->
+<section class="nfm-nico">
+  <div class="nfm-container">
+    <div class="nfm-nico__grid">
+      <div class="nfm-nico__img nfm-reveal">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/10/conference-speaking-ClThYPd4.jpg" alt="Nicolás Fernández Miranda" loading="lazy">
+      </div>
+      <div class="nfm-reveal nfm-d1">
+        <span class="nfm-eyebrow">Quién da la clase</span>
+        <h2>Nicolás Fernández Miranda</h2>
+        <p class="nfm-nico__role">Fundador del Instituto de Productividad</p>
+        <p>
+          Contador público con medalla de oro, doctorando y máster en neurociencia. Charla TEDx.
+          Autor de <strong>Hackea tu cerebro</strong>. Creador del protocolo Synaps.
+        </p>
+        <p>
+          Antes de todo eso desaprobó matemáticas cuatro veces, trabajaba 14 horas por día, tenía migrañas
+          crónicas y sobrepeso. <strong>No enseña esto porque le salió fácil: lo enseña porque le tocó armarlo.</strong>
+          Sin neurohumo y sin hacks mágicos: evidencia bajada a lo que hacés el lunes.
+        </p>
+        <div class="nfm-nico__facts">
+          <div class="nfm-nico__fact"><strong>400+</strong><span>personas dentro del Instituto</span></div>
+          <div class="nfm-nico__fact"><strong>TEDx</strong><span>y prensa en CNN, Infobae y Endeavor</span></div>
+          <div class="nfm-nico__fact"><strong>1 hora</strong><span>de clase, en vivo, sin grabación previa</span></div>
+          <div class="nfm-nico__fact"><strong>$0</strong><span>la clase es gratuita, de punta a punta</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ EL GIRO · CREENCIA VIEJA vs PARADIGMA NUEVO (Semilla 2) ════════════════ -->
+<section class="nfm-anchor">
+  <div class="nfm-container">
+    <div class="nfm-anchor__head nfm-reveal">
+      <span class="nfm-eyebrow nfm-eyebrow--solid">El giro</span>
+      <h2 data-nfm="anchorTitulo">Probaste mil cosas. Y todas eran <em>la misma cosa disfrazada:</em> poné más voluntad.</h2>
+    </div>
+
+    <div class="nfm-anchor__body nfm-reveal nfm-d1">
+      <p data-nfm="anchorBody1">
+        Disciplina, planners, la app nueva, el método del gurú, levantarte a las 5, contratar a alguien que te ordene.
+        Todo apunta al mismo lugar. <strong style="color:#fff">Y por eso seguís igual.</strong>
+      </p>
+      <p data-nfm="anchorBody2">
+        Pensalo al revés: cuando contrataste un entrenador no fue porque no supieras hacer sentadillas — eso está gratis
+        en YouTube. Fue porque el martes a las 7 hay alguien esperándote. Y funcionó. Nunca pensaste que ahí te faltaba carácter.
+        <strong style="color:#fff">Eso mismo es lo único que le falta a todo lo tuyo.</strong>
+      </p>
+    </div>
+
+    <div class="nfm-anchor__obj">
+      <div class="nfm-anchor__card nfm-reveal nfm-d1">
+        <h4 data-nfm="anchorViejaT">La creencia vieja</h4>
+        <p data-nfm="anchorVieja">“Si no logro sostener lo que me propongo es porque me falta voluntad. Soy un desastre, un procrastinador, un indisciplinado.” <strong>La culpa siempre cae sobre vos.</strong></p>
+      </div>
+      <div class="nfm-anchor__card nfm-reveal nfm-d2">
+        <h4 data-nfm="anchorNuevaT">El paradigma nuevo</h4>
+        <p data-nfm="anchorNueva">Tu cerebro le pone urgencia a lo que tiene a alguien del otro lado esperándolo. No es un sistema mejor lo que falta: es ponerle a lo tuyo la única variable que ya hace funcionar lo ajeno. <strong>La disciplina no es la causa del cambio: es la consecuencia.</strong></p>
+      </div>
+    </div>
+
+    <div class="nfm-outs nfm-reveal nfm-d2">
+      <p class="nfm-outs__t">Las cuatro salidas que ya probaste</p>
+      <div class="nfm-outs__grid">
+        <div class="nfm-outs__item">
+          <div class="nfm-outs__x"><svg viewBox="0 0 10 10"><path d="M1 1l8 8M9 1l-8 8"/></svg></div>
+          <div>
+            <h5>“Me pongo las pilas.”</h5>
+            <p>Lo intentaste cinco veces. El intento promedio dura tres meses. La voluntad no es la variable que falla.</p>
+          </div>
+        </div>
+        <div class="nfm-outs__item">
+          <div class="nfm-outs__x"><svg viewBox="0 0 10 10"><path d="M1 1l8 8M9 1l-8 8"/></svg></div>
+          <div>
+            <h5>“Con lo que sé, lo armo solo.”</h5>
+            <p>Ya lo armaste solo, varias veces, durante años. Tu propia biografía es la refutación.</p>
+          </div>
+        </div>
+        <div class="nfm-outs__item">
+          <div class="nfm-outs__x"><svg viewBox="0 0 10 10"><path d="M1 1l8 8M9 1l-8 8"/></svg></div>
+          <div>
+            <h5>“Voy al psicólogo.”</h5>
+            <p>Casi todos los que entrevistamos ya fueron. Ayuda con la identidad; no mueve la ejecución del martes.</p>
+          </div>
+        </div>
+        <div class="nfm-outs__item">
+          <div class="nfm-outs__x"><svg viewBox="0 0 10 10"><path d="M1 1l8 8M9 1l-8 8"/></svg></div>
+          <div>
+            <h5>“Contrato a alguien que me controle.”</h5>
+            <p>Francisco contrató un director de operaciones y siguió igual: delegó el seguimiento de lo ajeno, no el de lo suyo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ CTA FINAL ════════════════ -->
+<section class="nfm-final">
+  <div class="nfm-container nfm-mid">
+    <h2 class="nfm-reveal" data-nfm="finalTitulo">El <span data-nfm-fecha="corta">10 de agosto</span> dejás de ser <em>el último de tu propia lista.</em></h2>
+    <p class="nfm-reveal nfm-d1" data-nfm="finalSub">Una hora. Un mecanismo con nombre. Tu primera palanca esa misma noche. 100% gratuita y en vivo.</p>
+    <div class="nfm-reveal nfm-d1">
+      <button class="nfm-btn" data-scroll-to="nfm-registro">
+        <span data-nfm="ctaFinal">QUIERO MI LUGAR EN LA CLASE</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <div class="nfm-reveal nfm-d2">
+      <p class="nfm-final__date"><span class="nfm-dot"></span> <span data-nfm-fecha="completa">Lunes 10 de agosto · 19:00 hs (Argentina) · En vivo por Zoom</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ FOOTER ════════════════ -->
+<footer class="nfm-footer">
+  <div class="nfm-container">
+    <p>© Nicolás Fernández Miranda · Instituto de Productividad · Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- ════════════════ STICKY MOBILE CTA ════════════════ -->
+<div class="nfm-sticky" id="nfm-sticky">
+  <button class="nfm-btn" data-scroll-to="nfm-registro"><span data-nfm="ctaSticky">Reservá tu lugar — es gratis</span></button>
+</div>
+
+</div><!-- /.nfm-page -->
+
+
+<script>
+/* ════════════════════════════════════════════════════════════════════════════════
+   NFM · MOTOR DE LA LANDING SIEMPRE-ON
+   ────────────────────────────────────────────────────────────────────────────────
+   Una sola URL, siempre prendida. Lo único que se toca es el bloque CONFIG.
+
+   ▸ Las fechas se actualizan solas. Cuando pasan las 19:00 hs de Argentina de una
+     clase, la landing salta sola a la siguiente: contador, fechas y copy.
+   ▸ Cada clase tiene TEMA A o TEMA B. Si el lead ya vino a la clase anterior,
+     lo que ve la segunda vez no se llama igual ni dice lo mismo.
+   ▸ Cuando se terminan las fechas cargadas a mano, sigue sola en modo semanal
+     (martes 19:00 hs, alternando tema) para que la URL nunca muestre una fecha vencida.
+   ▸ Los UTM de la URL entran al iframe del form, y si no hay UTM de pauta se
+     etiqueta igual con la campaña de la clase activa: un solo form para todo,
+     leads separados por UTM.
+   ════════════════════════════════════════════════════════════════════════════════ */
+(function(){
+'use strict';
+
+/* ══════════════════════════════════════════════════════════════════
+   ①  CONFIG · ESTO ES LO ÚNICO QUE SE EDITA
+   ══════════════════════════════════════════════════════════════════ */
+var CONFIG = {
+
+  /* — Las clases del mes. Agregá o cambiá líneas y listo. —
+     fecha: 'AAAA-MM-DD'  ·  tema: 'A' o 'B'  ·  utm: nombre de campaña para etiquetar los leads
+     (hora: siempre HORA_CLASE, definida más abajo) */
+  CLASES: [
+    { fecha:'2026-08-10', tema:'A', utm:'clase-ago10-cumplis-con-todos' },   // lunes 10 de agosto
+    { fecha:'2026-08-25', tema:'B', utm:'clase-ago25-sostenes-todo'     }    // martes 25 de agosto
+  ],
+
+  HORA_CLASE: 19,          // 19 = 19:00 hs de Argentina
+  MINUTOS_CLASE: 0,
+  OFFSET_ARG: -3,          // Argentina = UTC-3 todo el año (no tiene horario de verano)
+
+  /* — Cuándo la landing deja de apuntar a una clase y salta a la siguiente — */
+  MINUTOS_DE_GRACIA: 0,    // minutos DESPUÉS del inicio en los que la landing sigue apuntando a esa clase.
+                           // 0 = a las 19:00 en punto ya muestra la clase siguiente (como quedó definido).
+                           // Si algún día querés seguir captando mientras la clase pasa, poné 90.
+
+  CERRAR_CAPTACION_HORAS: 0, // horas ANTES del inicio en las que la landing salta sola a la clase siguiente.
+                             // 0 = se capta hasta la hora de la clase.
+                             // 48 = se corta la captación 2 días antes (lo que van a definir con el trafficker).
+
+  /* — Modo siempre-on: cuando se terminan las fechas de CLASES, sigue solo — */
+  AUTO_SEMANAL: true,
+  AUTO_DIA: 2,             // día de la semana de la clase automática. 0=domingo, 1=lunes, 2=martes...
+  AUTO_TEMA_ALTERNA: true, // alterna A / B / A / B en cada clase automática
+
+  /* — Form de GoHighLevel (siempre el mismo; los leads se separan por UTM) — */
+  FORM_ID: 'kLh5onxCgHdGDA10c8NU',
+  FORM_ALTO_MINIMO: 729,
+
+  /* — Trackeo — */
+  TRACKEAR_LEAD_EN_PAGINA: false  // dejalo en false si el evento Lead ya lo dispara GHL.
+                                  // true = la landing intenta disparar fbq('track','Lead') al enviarse el form.
+};
+
+
+/* ══════════════════════════════════════════════════════════════════
+   ②  COPY DE CADA TEMÁTICA
+   ══════════════════════════════════════════════════════════════════
+   TEMA A · "Cumplís con todos menos con vos"        → título definido
+   TEMA B · "El que sostiene todo es el que no avanza" → mismo mecanismo,
+            puerta de entrada de dueños y líderes (recluta Platinum),
+            con "escalá tu vida, no tu cansancio" como bajada.
+
+   {{fechaLarga}}    → Lunes 10 de agosto
+   {{fechaCorta}}    → 10 de agosto
+   {{fechaCompleta}} → Lunes 10 de agosto · 19:00 hs (Argentina) · En vivo por Zoom
+   {{dia}}           → lunes
+   ══════════════════════════════════════════════════════════════════ */
+var TEMAS = {
+
+  /* ─────────────────────────── TEMA A ─────────────────────────── */
+  A: {
+    tituloPagina: 'Cumplís con todos menos con vos — Clase gratuita en vivo | Nicolás Fernández Miranda',
+
+    heroTag: 'Clase gratuita · En vivo por Zoom',
+    h1: 'Cumplís con todos <em>menos con vos.</em>',
+    kicker: 'La razón neurológica por la que tu cerebro ejecuta lo ajeno y archiva lo tuyo.',
+    seed: 'No es falta de disciplina. Nunca dejaste caer nada de otro: se cae sólo lo tuyo. '+
+          '<strong>Eso no es un defecto de carácter, es un mecanismo</strong> — tiene nombre, y en esta clase lo vas a ver funcionando en tu propia semana.',
+    ctaHero: 'QUIERO MI LUGAR EN LA CLASE',
+    micro: '100% gratuita · <strong>No es más información para acumular: es el porqué que ninguna app, ningún planner y ninguna terapia te explicó</strong>',
+
+    espejoLabel: '¿Te suena familiar?',
+    espejoTitulo: '¿Alguno de estos momentos <em>te suena familiar?</em>',
+    espejoIntro: 'Si alguien te está esperando, aparecés. Sin falta, sin excusa, aunque estés fundido. '+
+                 '<strong>Lo tuyo, en cambio, se corre para la semana que viene desde hace dos años.</strong>',
+    espejoItems: [
+      'Nunca dejaste caer una entrega, una reunión ni un compromiso de otro. Lo tuyo se cae solo, y encima siempre.',
+      'Terminás el día habiendo resuelto once cosas de otros y ninguna tuya — y no podés ni decir que no hiciste nada.',
+      'El mismo objetivo tuyo está en la misma lista, con la misma prioridad, desde hace dos años. Nunca llega a la cima de la pila.',
+      'Probaste el planner, Notion, levantarte a las 5, contratar a alguien, la terapia. Duró tres meses. Después se cayó, como siempre.',
+      'Y cada vez que se cayó, la conclusión fue la misma: “soy un desastre con mis cosas, me falta disciplina”.',
+      'Sos el que resuelve. Todos lo saben, todos te buscan. Y ese, exactamente, es el problema.'
+    ],
+    espejoCierre: 'Si algo de esto resonó: <strong>no te falta voluntad y no sos un vago.</strong> '+
+                  'Sos demasiado responsable, mal apuntado. Tu cerebro no jerarquiza por importancia: '+
+                  'jerarquiza por quién está esperando — <strong>y lo tuyo es lo único que no tiene a nadie del otro lado.</strong>',
+
+    regTitulo: 'Reservá tu lugar en la clase. <span>Es gratis.</span>',
+    regSub: 'Para profesionales, líderes y dueños que hace años saben qué tendrían que hacer con lo suyo '+
+            'y siguen cumpliéndole a todo el mundo primero. <strong>No es para quienes recién están empezando.</strong>',
+
+    bridgeTitulo: 'Tu cerebro no ordena por importancia.<br>Ordena por <em>quién está esperando.</em>',
+    bridgeIntro: 'Se llama <strong>urgencia prestada</strong>. Lo ajeno llega con fecha, con nombre y con alguien del otro lado esperándolo. Lo tuyo llega solo. Y sin alguien esperando, tu cerebro nunca lo sube a la cima de la pila.',
+    bridgeNodoA: 'LO AJENO', bridgeNodoASub: 'tiene fecha y alguien esperando',
+    bridgeNodoB: 'LO TUYO',  bridgeNodoBSub: 'no tiene a nadie del otro lado',
+    bridgeBody: 'Por eso sos el conejito que corre una zanahoria que mueve otro: rendís impecable con lo de todo el mundo '+
+                'y con lo tuyo no podés. No es una falla de carácter, es una jerarquía mal cableada. '+
+                '<strong style="color:#fff">Y hay una capa más incómoda todavía:</strong> como tu identidad depende de ser el que resuelve, '+
+                'no sólo recibís urgencia ajena — la fabricás.',
+    bridgeQuote: '“Necesito problemas para que todo el mundo vea que los resuelvo, y con eso valido que soy lo que soy, que soy capaz, que soy importante.”',
+    bridgeQuoteAutor: '— Francisco, 40, director de operaciones. Dicho en una entrevista, no en un anuncio.',
+    bridgeKick: 'Por eso el patrón no cede solo. Y por eso “ponerle más voluntad” nunca alcanzó: la voluntad no es la variable que está fallando.',
+
+    learnTitulo: 'Lo que vas a descubrir el {{fechaCorta}}',
+    learnSub: 'Una hora para entender el mecanismo que ninguna app ni ningún curso te explicó — y salir con tu primera palanca, no con más información para acumular.',
+    learnItems: [
+      { t:'Urgencia prestada: el mecanismo que decide por vos',
+        d:'Por qué tu cerebro no ordena por importancia sino por quién está esperando — y por qué lo tuyo, que no tiene a nadie, nunca llega arriba de la pila.' },
+      { t:'La prueba de que no es un problema de disciplina',
+        d:'Tu procrastinación es selectiva: falla en una sola categoría, la tuya. Un problema de jerarquía no se arregla con más fuerza de voluntad.' },
+      { t:'Por qué fabricás urgencia sin darte cuenta',
+        d:'La capa que casi nadie se anima a mirar: si tu identidad depende de ser el que resuelve, el sistema se retroalimenta. Ahí está la razón por la que el patrón no cede solo.' },
+      { t:'La única variable que le falta a lo tuyo',
+        d:'Qué le tenés que poner a lo tuyo para que se mueva con la misma prolijidad con la que ya movés lo de todos. Y el primer movimiento, esa misma noche.' }
+    ],
+
+    insight: '<strong>No consiguieron más disciplina. No metieron más horas. No dejaron caer nada de nadie.</strong> '+
+             'Le pusieron a lo suyo la única cosa que ya hacía funcionar lo de todos los demás: alguien del otro lado esperándolo. Eso es lo que vas a entender en la clase.',
+
+    anchorTitulo: 'Probaste mil cosas. Y todas eran <em>la misma cosa disfrazada:</em> poné más voluntad.',
+    anchorBody1: 'Disciplina, planners, la app nueva, el método del gurú, levantarte a las 5, contratar a alguien que te ordene. '+
+                 'Todo apunta al mismo lugar. <strong style="color:#fff">Y por eso seguís igual.</strong>',
+    anchorBody2: 'Pensalo al revés: cuando contrataste un entrenador no fue porque no supieras hacer sentadillas — eso está gratis '+
+                 'en YouTube. Fue porque el martes a las 7 hay alguien esperándote. Y funcionó. Nunca pensaste que ahí te faltaba carácter. '+
+                 '<strong style="color:#fff">Eso mismo es lo único que le falta a todo lo tuyo.</strong>',
+    anchorViejaT: 'La creencia vieja',
+    anchorVieja: '“Si no logro sostener lo que me propongo es porque me falta voluntad. Soy un desastre, un procrastinador, un indisciplinado.” <strong>La culpa siempre cae sobre vos.</strong>',
+    anchorNuevaT: 'El paradigma nuevo',
+    anchorNueva: 'Tu cerebro le pone urgencia a lo que tiene a alguien del otro lado esperándolo. No es un sistema mejor lo que falta: es ponerle a lo tuyo la única variable que ya hace funcionar lo ajeno. <strong>La disciplina no es la causa del cambio: es la consecuencia.</strong>',
+
+    finalTitulo: 'El {{fechaCorta}} dejás de ser <em>el último de tu propia lista.</em>',
+    finalSub: 'Una hora. Un mecanismo con nombre. Tu primera palanca esa misma noche. 100% gratuita y en vivo.',
+    ctaFinal: 'QUIERO MI LUGAR EN LA CLASE',
+    ctaSticky: 'Reservá tu lugar — es gratis'
+  },
+
+  /* ─────────────────────────── TEMA B ─────────────────────────── */
+  B: {
+    tituloPagina: 'El que sostiene todo es el que no avanza — Clase gratuita en vivo | Nicolás Fernández Miranda',
+
+    heroTag: 'Clase gratuita · En vivo por Zoom',
+    h1: 'El que sostiene todo <em>es el que no avanza.</em>',
+    kicker: 'Escalá tu vida, no tu cansancio: por qué tu operación crece y lo tuyo sigue exactamente donde estaba.',
+    seed: 'Tu equipo, tus clientes, tu área: todo se mueve porque estás vos. '+
+          '<strong>Y cuando algo tiene que ceder, la variable de ajuste siempre termina siendo la misma: vos.</strong> '+
+          'No es falta de método ni de capacidad de gestión. Es dónde tu cerebro pone la urgencia.',
+    ctaHero: 'QUIERO MI LUGAR EN LA CLASE',
+    micro: '100% gratuita · <strong>No es para trabajar menos: es para dejar de ser el cuello de botella de tu propia vida</strong>',
+
+    espejoLabel: '¿Te pasa esto?',
+    espejoTitulo: '¿Cuánto de lo que sostenés <em>funciona sólo si estás vos?</em>',
+    espejoIntro: 'Sos el que resuelve, el que responde, el que aparece. Todo lo que armaste funciona. '+
+                 '<strong>Y sin embargo lo tuyo es lo único que hace años no se mueve un centímetro.</strong>',
+    espejoItems: [
+      'Todo lo que sostenés camina porque estás vos. Y eso ya dejó de darte orgullo: te asusta.',
+      'Facturás más que nunca y tenés menos vida propia que nunca. Los números están bien; la cuenta no cierra.',
+      'Cuando algo tiene que ceder no cede el cliente ni el equipo: cede tu entrenamiento, tu descanso, tu proyecto, tu familia.',
+      'Delegaste, contrataste, armaste procesos. Delegaste el seguimiento de todos. Lo tuyo sigue sin nadie a cargo.',
+      'No querés trabajar menos ni retirarte. Querés dejar de ser el cuello de botella — y nadie te está resolviendo eso.',
+      'Y en el fondo hay una comparación que no dices en voz alta: conocés tu potencial y sabés que deberías estar más arriba.'
+    ],
+    espejoCierre: 'Si esto resonó: <strong>el problema no es la carga de trabajo.</strong> '+
+                  'Tu cerebro le pone urgencia a lo que tiene a alguien del otro lado esperándolo, y todo lo que sostenés lo tiene. '+
+                  '<strong>Lo único que no tiene a nadie esperándolo es lo tuyo.</strong>',
+
+    regTitulo: 'Reservá tu lugar en la clase. <span>Es gratis.</span>',
+    regSub: 'Para dueños, socios, gerentes y líderes que sostienen la operación de todos y hace años no mueven la propia. '+
+            '<strong>No es para quienes recién están empezando.</strong>',
+
+    bridgeTitulo: 'Escalaste todo.<br>Todo <em>menos lo tuyo.</em>',
+    bridgeIntro: 'El mecanismo se llama <strong>urgencia prestada</strong>. Lo que involucra a otro llega con fecha, con nombre y con alguien esperándolo del otro lado. Lo tuyo llega solo. Y lo que llega solo nunca sube a la cima de la pila.',
+    bridgeNodoA: 'LO DE TODOS', bridgeNodoASub: 'tiene fecha, dueño y alguien esperando',
+    bridgeNodoB: 'LO TUYO',     bridgeNodoBSub: 'no tiene a nadie del otro lado',
+    bridgeBody: 'Por eso podés diseñarle el sistema a tu equipo y no podés sostener el tuyo. Por eso tu empresa dejó de ser '+
+                'un engranaje de tu vida y pasó a ser el motor. <strong style="color:#fff">Y hay una capa más incómoda todavía:</strong> '+
+                'si tu identidad se apoya en ser el que resuelve, no sólo recibís urgencia ajena — la fabricás.',
+    bridgeQuote: '“Normalmente la variable de ajuste se termina transformando en Diego, o en mi familia.”',
+    bridgeQuoteAutor: '— Diego, 56, contador. Dicho en una entrevista, no en un anuncio.',
+    bridgeKick: 'Por eso el patrón no cede solo. Y por eso más gestión, más procesos y más voluntad no lo mueven: no es lo que está fallando.',
+
+    learnTitulo: 'Lo que vas a descubrir el {{fechaCorta}}',
+    learnSub: 'Una hora para entender por qué el que sostiene todo es el último en avanzar — y salir con la primera palanca, no con más teoría de gestión.',
+    learnItems: [
+      { t:'Por qué el que sostiene todo es el último en avanzar',
+        d:'Urgencia prestada en lenguaje de operación: lo que involucra a otro viene con fecha y con alguien esperando. Lo tuyo, no. Y tu cerebro ordena por eso, no por importancia.' },
+      { t:'Cómo tu operación pasó de ser un engranaje a ser el motor',
+        d:'El momento exacto en que dejaste de manejarla y empezó a manejarte. Y por qué revertirlo no exige bajar la producción ni trabajar menos.' },
+      { t:'Por qué delegar no te sacó del cuello de botella',
+        d:'Delegaste el seguimiento de lo ajeno, nunca el de lo tuyo. Es el error que hace que contratar a alguien más te deje exactamente igual.' },
+      { t:'La primera palanca, esa misma noche',
+        d:'Qué le ponés a lo tuyo para que empiece a moverse con la misma prolijidad con la que ya movés lo de todos. Simple y sin reorganizarte la vida.' }
+    ],
+
+    insight: '<strong>Ninguno bajó la producción. Ninguno delegó más. Ninguno metió más horas.</strong> '+
+             'Dejaron de ser la variable de ajuste, y lo suyo empezó a moverse con la misma prolijidad con la que siempre movieron lo de otros.',
+
+    anchorTitulo: 'No te falta capacidad de gestión. Te falta <em>alguien esperando lo tuyo.</em>',
+    anchorBody1: 'Más procesos, más delegación, el software nuevo, levantarte a las 5, el método del gurú. '+
+                 'Todo eso ya lo aplicaste — y lo aplicaste bien, porque sos bueno en esto. '+
+                 '<strong style="color:#fff">Lo tuyo igual sigue en el mismo lugar.</strong>',
+    anchorBody2: 'Pensalo al revés: cuando contrataste un entrenador no fue porque no supieras hacer sentadillas — eso está gratis '+
+                 'en YouTube. Fue porque el martes a las 7 hay alguien esperándote. Y funcionó sin que te pidieras más carácter. '+
+                 '<strong style="color:#fff">Eso mismo es lo único que le falta a todo lo tuyo.</strong>',
+    anchorViejaT: 'La creencia vieja',
+    anchorVieja: '“Si lo mío no avanza es porque no me organizo, porque no delego bien, porque no me da la disciplina.” <strong>La variable de ajuste siempre termina siendo vos.</strong>',
+    anchorNuevaT: 'El paradigma nuevo',
+    anchorNueva: 'Tu cerebro le pone urgencia a lo que tiene a alguien del otro lado esperándolo — y por eso lo ajeno se mueve solo. La jugada no es más gestión: es ponerle a lo tuyo esa misma variable. <strong>Que tu operación vuelva a ser un engranaje de tu vida, no el motor.</strong>',
+
+    finalTitulo: 'El {{fechaCorta}} dejás de ser <em>la variable de ajuste.</em>',
+    finalSub: 'Una hora. Un mecanismo con nombre. La primera palanca esa misma noche. 100% gratuita y en vivo.',
+    ctaFinal: 'QUIERO MI LUGAR EN LA CLASE',
+    ctaSticky: 'Reservá tu lugar — es gratis'
+  }
+};
+
+
+/* ══════════════════════════════════════════════════════════════════
+   ③  MOTOR · de acá para abajo no hace falta tocar nada
+   ══════════════════════════════════════════════════════════════════ */
+
+var DIAS  = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+var HORA  = 3600000, DIA = 86400000;
+
+function pad(n){ n = String(n); return n.length < 2 ? '0'+n : n; }
+function qs(k){
+  var m = new RegExp('[?&]'+k+'=([^&#]*)').exec(window.location.search);
+  return m ? decodeURIComponent(m[1].replace(/\+/g,' ')) : null;
+}
+
+/* — “ahora”. Se puede simular con ?nfm_now=2026-08-11T00:00:00Z para previsualizar — */
+function ahora(){
+  var sim = qs('nfm_now');
+  if(sim){ var t = Date.parse(sim); if(!isNaN(t)) return t; }
+  return Date.now();
+}
+
+/* — Una fecha 'AAAA-MM-DD' + hora de clase, resuelta a timestamp UTC real.
+     Argentina es UTC-3 fijo, así que 19:00 ART = 22:00 UTC. Se calcula en UTC
+     para que el contador sea correcto desde cualquier país. — */
+function tsClase(fechaISO){
+  var p = fechaISO.split('-');
+  return Date.UTC(+p[0], +p[1]-1, +p[2], CONFIG.HORA_CLASE - CONFIG.OFFSET_ARG, CONFIG.MINUTOS_CLASE, 0, 0);
+}
+/* — Momento en que la landing deja de apuntar a esa clase — */
+function tsCorte(ts){
+  return ts + CONFIG.MINUTOS_DE_GRACIA*60000 - CONFIG.CERRAR_CAPTACION_HORAS*HORA;
+}
+/* — Partes de la fecha leídas en hora de Argentina — */
+function partesArg(ts){
+  var d = new Date(ts + CONFIG.OFFSET_ARG*HORA);
+  return { dow:d.getUTCDay(), dia:d.getUTCDate(), mes:d.getUTCMonth(), anio:d.getUTCFullYear(),
+           hh:d.getUTCHours(), mm:d.getUTCMinutes() };
+}
+function isoDe(ts){
+  var p = partesArg(ts);
+  return p.anio+'-'+pad(p.mes+1)+'-'+pad(p.dia);
+}
+function fechasDe(ts){
+  var p = partesArg(ts);
+  var hora  = pad(p.hh)+':'+pad(p.mm)+' hs (Argentina)';
+  var larga = DIAS[p.dow]+' '+p.dia+' de '+MESES[p.mes];
+  return {
+    dia: DIAS[p.dow].toLowerCase(),
+    corta: p.dia+' de '+MESES[p.mes],
+    larga: larga,
+    hora: hora,
+    completa: larga+' · '+hora+' · En vivo por Zoom'
+  };
+}
+
+/* — Elegir la clase activa: la primera que todavía no pasó su corte.
+     Si ya pasaron todas y AUTO_SEMANAL está prendido, genera la siguiente
+     (próximo AUTO_DIA a las HORA_CLASE) alternando temática. — */
+function claseActiva(){
+  var now = ahora(), i, ts;
+  if(!CONFIG.CLASES || !CONFIG.CLASES.length){
+    return { ts: now + 7*DIA, tema:'A', utm:'clase-sin-fecha-cargada', auto:true };
+  }
+
+  for(i=0; i<CONFIG.CLASES.length; i++){
+    ts = tsClase(CONFIG.CLASES[i].fecha);
+    if(now < tsCorte(ts)) return { ts:ts, tema:CONFIG.CLASES[i].tema, utm:CONFIG.CLASES[i].utm, auto:false };
+  }
+
+  var ultima = CONFIG.CLASES[CONFIG.CLASES.length-1];
+  if(!CONFIG.AUTO_SEMANAL) return { ts:tsClase(ultima.fecha), tema:ultima.tema, utm:ultima.utm, auto:false };
+
+  /* modo semanal automático */
+  var tema = ultima.tema;
+  ts = tsClase(ultima.fecha);
+  var guarda = 0;
+  while(guarda++ < 520){
+    /* avanzar al próximo AUTO_DIA posterior a ts */
+    ts += DIA;
+    var dow = partesArg(ts).dow;
+    var saltos = (CONFIG.AUTO_DIA - dow + 7) % 7;
+    ts += saltos*DIA;
+    if(CONFIG.AUTO_TEMA_ALTERNA) tema = (tema === 'A') ? 'B' : 'A';
+    if(now < tsCorte(ts)) break;
+  }
+  return { ts:ts, tema:tema, utm:'clase-semanal-'+isoDe(ts)+'-tema'+tema, auto:true };
+}
+
+/* — Forzar temática para previsualizar: ?nfm_tema=B — */
+var clase = claseActiva();
+var temaForzado = qs('nfm_tema');
+if(temaForzado && TEMAS[temaForzado.toUpperCase()]) clase.tema = temaForzado.toUpperCase();
+
+var COPY   = TEMAS[clase.tema] || TEMAS.A;
+var FECHAS = fechasDe(clase.ts);
+
+/* — Render del copy — */
+function tpl(s){
+  return String(s)
+    .replace(/\{\{fechaLarga\}\}/g,    FECHAS.larga)
+    .replace(/\{\{fechaCorta\}\}/g,    FECHAS.corta)
+    .replace(/\{\{fechaCompleta\}\}/g, FECHAS.completa)
+    .replace(/\{\{hora\}\}/g,          FECHAS.hora)
+    .replace(/\{\{dia\}\}/g,           FECHAS.dia);
+}
+
+function pintar(){
+  /* fechas */
+  var f = document.querySelectorAll('[data-nfm-fecha]'), i;
+  for(i=0;i<f.length;i++){
+    var k = f[i].getAttribute('data-nfm-fecha');
+    if(FECHAS[k] != null) f[i].textContent = FECHAS[k];
+  }
+
+  /* textos simples */
+  var e = document.querySelectorAll('[data-nfm]');
+  for(i=0;i<e.length;i++){
+    var key = e[i].getAttribute('data-nfm');
+    if(COPY[key] != null) e[i].innerHTML = tpl(COPY[key]);
+  }
+  /* los títulos que llevan fecha adentro se re-pintan al final */
+  var f2 = document.querySelectorAll('[data-nfm] [data-nfm-fecha]');
+  for(i=0;i<f2.length;i++){
+    var k2 = f2[i].getAttribute('data-nfm-fecha');
+    if(FECHAS[k2] != null) f2[i].textContent = FECHAS[k2];
+  }
+
+  /* nodos del mecanismo */
+  var nodos = document.querySelectorAll('.nfm-bridge__node');
+  if(nodos.length === 2){
+    if(COPY.bridgeNodoA){ nodos[0].querySelector('strong').textContent = COPY.bridgeNodoA; nodos[0].querySelector('span').textContent = COPY.bridgeNodoASub; }
+    if(COPY.bridgeNodoB){ nodos[1].querySelector('strong').textContent = COPY.bridgeNodoB; nodos[1].querySelector('span').textContent = COPY.bridgeNodoBSub; }
+  }
+
+  /* espejo: lista de ítems */
+  var cont = document.getElementById('nfm-espejo-items');
+  if(cont && COPY.espejoItems && COPY.espejoItems.length){
+    var html = '';
+    for(i=0;i<COPY.espejoItems.length;i++){
+      html += '<div class="nfm-espejo__item nfm-reveal nfm-d'+(i<3?1:2)+'">'+
+                '<div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>'+
+                '<p>'+tpl(COPY.espejoItems[i])+'</p>'+
+              '</div>';
+    }
+    cont.innerHTML = html;
+  }
+
+  /* qué vas a descubrir */
+  var map = document.getElementById('nfm-map');
+  if(map && COPY.learnItems && COPY.learnItems.length){
+    var h = '';
+    for(i=0;i<COPY.learnItems.length;i++){
+      h += '<div class="nfm-map__item">'+
+             '<div class="nfm-map__num">'+pad(i+1)+'</div>'+
+             '<div class="nfm-map__txt"><h4>'+tpl(COPY.learnItems[i].t)+'</h4><p>'+tpl(COPY.learnItems[i].d)+'</p></div>'+
+           '</div>';
+    }
+    map.innerHTML = h;
+  }
+
+  /* título del navegador */
+  if(COPY.tituloPagina) document.title = tpl(COPY.tituloPagina);
+}
+pintar();
+
+/* ─── FORM: un solo form, leads separados por UTM ───
+   Los UTM que traiga la URL se pasan al iframe. Si el visitante llega sin UTM
+   (orgánico, WhatsApp, directo), se etiqueta igual con la campaña de la clase
+   activa, así ningún lead queda sin origen. Además viaja la edición de la clase. */
+(function(){
+  var ifr = document.getElementById('inline-'+CONFIG.FORM_ID);
+  if(!ifr) return;
+
+  var pasar = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','utm_id',
+               'fbclid','gclid','ttclid','ad_id','adset_id','campaign_id','ref'];
+  var p = [], i, v, tieneSource = false, tieneCampaign = false;
+
+  for(i=0;i<pasar.length;i++){
+    v = qs(pasar[i]);
+    if(v){
+      p.push(encodeURIComponent(pasar[i])+'='+encodeURIComponent(v));
+      if(pasar[i] === 'utm_source')   tieneSource = true;
+      if(pasar[i] === 'utm_campaign') tieneCampaign = true;
+    }
+  }
+  if(!tieneSource)   p.push('utm_source=directo');
+  if(!tieneCampaign) p.push('utm_campaign='+encodeURIComponent(clase.utm));
+
+  /* datos de la clase: si en GHL creás campos con estas claves, se llenan solos */
+  p.push('clase_fecha='+encodeURIComponent(isoDe(clase.ts)));
+  p.push('clase_tema='+encodeURIComponent(clase.tema));
+  p.push('edicion='+encodeURIComponent(clase.utm));
+
+  var base = ifr.getAttribute('data-src') || ('https://api.leadconnectorhq.com/widget/form/'+CONFIG.FORM_ID);
+  ifr.src = base + (base.indexOf('?') === -1 ? '?' : '&') + p.join('&');
+  ifr.style.minHeight = CONFIG.FORM_ALTO_MINIMO + 'px';
+
+  /* guardar el origen por si después se necesita en el agradecimiento */
+  try{ window.sessionStorage.setItem('nfm_clase', clase.utm); }catch(err){}
+})();
+
+/* ─── Lead opcional al enviarse el form (apagado por defecto) ─── */
+if(CONFIG.TRACKEAR_LEAD_EN_PAGINA){
+  (function(){
+    var yaDisparo = false;
+    window.addEventListener('message', function(ev){
+      if(yaDisparo) return;
+      if(!ev.origin || ev.origin.indexOf('leadconnectorhq') === -1) return;
+      var d = '';
+      try{ d = (typeof ev.data === 'string') ? ev.data : JSON.stringify(ev.data); }catch(err){ return; }
+      if(/resize|height/i.test(d)) return;
+      if(!/submit|success|thank/i.test(d)) return;
+      yaDisparo = true;
+      if(window.fbq) window.fbq('track','Lead',{content_name:clase.utm});
+    }, false);
+  })();
+}
+
+/* ─── CONTADOR ─── */
+(function(){
+  var d = document.getElementById('nfm-cd-days'), h = document.getElementById('nfm-cd-hours'),
+      m = document.getElementById('nfm-cd-min'),  s = document.getElementById('nfm-cd-sec');
+  if(!d) return;
+  var page = document.querySelector('.nfm-page');
+
+  function tick(){
+    var diff = clase.ts - ahora();
+    if(diff <= 0){
+      /* sólo puede pasar durante los MINUTOS_DE_GRACIA */
+      if(page) page.classList.add('nfm-is-live');
+      d.textContent = h.textContent = m.textContent = s.textContent = '00';
+      return;
+    }
+    if(page) page.classList.remove('nfm-is-live');
+    d.textContent = pad(Math.floor(diff/DIA));
+    h.textContent = pad(Math.floor((diff%DIA)/HORA));
+    m.textContent = pad(Math.floor((diff%HORA)/60000));
+    s.textContent = pad(Math.floor((diff%60000)/1000));
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* ─── partículas ─── */
+function makeParticles(id, count){
+  var c = document.getElementById(id); if(!c) return;
+  for(var i=0;i<count;i++){
+    var p = document.createElement('div');
+    p.className = (id === 'nfm-particles') ? 'nfm-particle' : 'nfm-reg-particle';
+    var s = (3 + Math.random()*5)+'px';
+    p.style.cssText = 'left:'+(Math.random()*100)+'%;width:'+s+';height:'+s+
+      ';animation-duration:'+(10+Math.random()*14)+'s;animation-delay:-'+(Math.random()*12)+'s';
+    c.appendChild(p);
+  }
+}
+makeParticles('nfm-particles', 22);
+makeParticles('nfm-reg-particles', 16);
+
+/* ─── nav + sticky ─── */
+(function(){
+  var nav = document.getElementById('nfm-nav'), sticky = document.getElementById('nfm-sticky');
+  window.addEventListener('scroll', function(){
+    if(nav)    nav.classList.toggle('nfm-nav--scrolled', window.scrollY > 60);
+    if(sticky) sticky.classList.toggle('nfm-sticky--show', window.scrollY > 700);
+  }, {passive:true});
+})();
+
+/* ─── reveal on scroll ─── */
+function reveal(){
+  var els = document.querySelectorAll('.nfm-reveal'), wh = window.innerHeight;
+  for(var i=0;i<els.length;i++){
+    if(els[i].getBoundingClientRect().top < wh - 70) els[i].classList.add('nfm-vis');
+  }
+}
+window.addEventListener('scroll', reveal, {passive:true});
+window.addEventListener('load', reveal);
+reveal();
+
+/* ─── scroll-to ─── */
+function scrollToId(id){
+  var t = document.getElementById(id); if(!t) return;
+  window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 76, behavior:'smooth' });
+}
+document.addEventListener('click', function(e){
+  var b = e.target.closest ? e.target.closest('[data-scroll-to]') : null;
+  if(b){ e.preventDefault(); scrollToId(b.getAttribute('data-scroll-to')); return; }
+  var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+  if(a){ var href = a.getAttribute('href'); if(href.length > 1){ e.preventDefault(); scrollToId(href.slice(1)); } }
+});
+
+})();
+</script>
+
+<!-- GHL form embed · va DESPUÉS del script de arriba -->
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
+<!-- ═══════════ HASTA ACÁ EL CUSTOM CODE DE GHL ═══════════ -->
+</body>
+</html>
