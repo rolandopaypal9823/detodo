@@ -3,6 +3,10 @@
 Una sola URL, prendida los 365 días. Las fechas y el copy se cambian solos.
 Archivo único: **`index.html`**.
 
+**Estructura:** exactamente la misma de la landing que ya está al aire — nav → hero → prueba social →
+espejo → formulario → mecanismo → qué vas a descubrir → testimonios → el giro → CTA final → footer. No se
+agregó, sacó ni movió ninguna sección. Lo que cambia es el copy, y que ahora es dinámico.
+
 ---
 
 ## 1. Decisión de los dos títulos
@@ -119,12 +123,31 @@ reiniciarse en cada lanzamiento (Regla 02 del doc de estrategia). La landing ya 
 
 ---
 
-## 5. Cómo verlo antes de publicar
+## 5. `/test-landing2` · ver la segunda versión antes de que exista
+
+Cualquier URL que contenga **`test-landing2`** muestra la landing tal como va a quedar sola
+**después** de que pase la clase que está activa hoy. Funciona de dos formas:
+
+- **Pegándoselo a la landing real:** `tulanding.com/clase?test-landing2` — no hay que crear nada.
+- **Como página aparte en GHL:** creá una página con el path `/test-landing2` y pegale el mismo custom
+  code. Detecta el path solo.
+
+Lo que vas a ver ahí: título *El que sostiene todo es el que no avanza*, fecha **martes 25 de agosto**,
+contador corriendo hacia el 25, y todo el copy del tema B. Arriba aparece una barra naranja
+**"Modo prueba · simulando que ya pasó la clase del 10 de agosto"** para que no se confunda con la real.
+
+No es una copia congelada: es el mismo motor salteando una clase. Si mañana cambiás las fechas o el copy,
+`/test-landing2` muestra el cambio también. Después del 25 de agosto, esa misma URL te va a mostrar la
+clase del 1 de septiembre. Ojo: si el pixel está puesto a nivel sitio en GHL, las visitas a esa página
+cuentan como PageView igual que cualquier otra.
+
+### Los demás modos de preview
 
 | Querés ver | URL |
 |---|---|
-| La clase del 25 (tema B) tal como se va a ver | `?nfm_tema=B` |
-| Cómo queda la landing el 11 de agosto | `?nfm_now=2026-08-11T15:00:00Z` |
+| La versión siguiente, la que se publica sola | `?test-landing2` |
+| Sólo el copy del tema B, con la fecha de hoy | `?nfm_tema=B` |
+| Un día puntual del calendario | `?nfm_now=2026-08-11T15:00:00Z` |
 | Cómo queda en septiembre, en modo semanal | `?nfm_now=2026-09-20T15:00:00Z` |
 | Que los UTM entren bien al form | `?utm_source=meta&utm_medium=cpc&utm_campaign=test` |
 
@@ -142,6 +165,8 @@ Verificado en Chromium headless, con el código real del archivo:
   (título, nodos, cita), 4 puntos de la clase, giro y cierre. Sin restos del otro tema.
 - Fechas en castellano y con el día de la semana correcto: *Lunes 10 de agosto*, *Martes 25 de agosto*,
   *Martes 1 de septiembre*.
+- `/test-landing2` en las dos formas (como path de página y como `?test-landing2`): muestra el 25 de agosto
+  con el tema B, el contador corriendo hacia el 25 y la barra de modo prueba, sin romper la landing real.
 - Estado "en vivo" con `MINUTOS_DE_GRACIA: 90`: oculta el contador y muestra el cartel.
 - `CERRAR_CAPTACION_HORAS: 48`: el 8/8 a las 20:00 ya apunta al 25.
 - UTM: con pauta pasa los de la URL; sin pauta etiqueta `directo` + la campaña de la clase.
@@ -153,7 +178,34 @@ mirarlo una vez publicado. Son las mismas URLs que ya usa la landing que está a
 
 ---
 
-## 7. Dos cosas para tener en el radar
+## 7. Los 3 testimonios: dos están bien, uno no
+
+El criterio del MD (Parte 5) es elegir **por afinidad de oficio con quien escucha**, y el discriminador
+Platinum (Parte 1) es *"¿hay gente cuyo trabajo depende de sus decisiones?"* — 13 de 14 compradores Platinum
+dicen sí. Contra eso:
+
+| Caso | Veredicto | Por qué |
+|---|---|---|
+| **Celina** — arquitecta, lidera ~45 personas | ✅ **El más fuerte, va primero** | Lidera equipo grande, y su hecho es exactamente lo propio postergado años: la ciudadanía de los hijos, y su primer año con actividad física desde que es madre. Es urgencia prestada resuelta, contada sin una sola palabra de teoría. |
+| **Andrés** — ing. agrónomo, lidera una comunidad | ✅ **Sirve** | Tiene gente a cargo, y "aprendió a decir que no" es literalmente dejar de aceptar urgencia ajena. Encaja con el mecanismo sin forzarlo. |
+| **Pierina** — teóloga, doctoranda en Roma | ⚠️ **Es la que sobra** | No tiene gente cuyo trabajo dependa de sus decisiones. Es el perfil que en el corpus se queda en Gold (Carolina, profesora: *"se me escapaba el presupuesto"*). Su caso es admirable pero le habla al académico, no al dueño con equipo — y con el tema B, que apunta a dueños y gerentes, el desajuste se agranda. |
+
+**El reemplazo correcto es Germán** — farmacéutico, dueño, 6 empleados: *"de burnout y números que no
+cerraban a delegación y norte anual"* (MD Parte 5). Es el único caso del documento que junta las tres cosas
+que compra el Platinum: dueño, equipo a cargo, y salida del cuello de botella sin bajar producción. Sirve
+para las dos temáticas y es perfecto para la B.
+
+**Lo que me falta para hacerlo: el video de Germán.** Los 3 IDs de YouTube que están en el código son los
+que venían de la landing anterior; no tengo uno suyo y no lo voy a inventar. Así que la sección quedó
+funcionando con los 3 actuales, ordenados de más fuerte a menos (Celina → Andrés → Pierina), y **dejé el
+hueco preparado en el código**: hay un comentario arriba de la tercera tarjeta con el texto de Germán ya
+escrito, sólo hay que pegar el ID del video. Si no aparece el de Germán, la segunda opción es Sol Romero
+(contadora en compañía de seguros: la empresa le pagó la capacitación que iba a pagar ella, y volvió al
+tango) — no lidera, pero al menos suena corporativo.
+
+---
+
+## 8. Dos cosas para tener en el radar
 
 - **El alto del form.** Está en `FORM_ALTO_MINIMO: 729`, heredado del form anterior. Si el "Form AGOSTO NUEVO"
   es más corto o más largo, se ajusta ese número (el script de GHL igual lo redimensiona solo en la mayoría
