@@ -886,6 +886,14 @@ var CONFIG = {
   FORM_ID: 'kLh5onxCgHdGDA10c8NU',
   FORM_ALTO_MINIMO: 729,
 
+  /* — Plan B para identificar la clase —
+     La clase siempre viaja en clase_fecha / clase_tema / edicion. Si GHL no te guarda
+     esos campos personalizados, poné esto en true y la clase viaja TAMBIÉN en utm_term,
+     que GHL captura nativo sin configurar nada.
+     Ojo: en ese caso pisa el utm_term que manda Meta (nombre del conjunto), así que
+     sacá utm_term de la URL del anuncio y usá adset_id={{adset.id}} en su lugar. */
+  CLASE_EN_UTM_TERM: false,
+
   /* — Trackeo — */
   TRACKEAR_LEAD_EN_PAGINA: false  // dejalo en false si el evento Lead ya lo dispara GHL.
                                   // true = la landing intenta disparar fbq('track','Lead') al enviarse el form.
@@ -1270,6 +1278,8 @@ if(TEST_SIGUIENTE && claseSalteada){
   var p = [], i, v, tieneSource = false, tieneCampaign = false;
 
   for(i=0;i<pasar.length;i++){
+    /* si utm_term queda reservado para la clase, no copiamos el que venga en la URL */
+    if(CONFIG.CLASE_EN_UTM_TERM && pasar[i] === 'utm_term') continue;
     v = qs(pasar[i]);
     if(v){
       p.push(encodeURIComponent(pasar[i])+'='+encodeURIComponent(v));
@@ -1279,6 +1289,7 @@ if(TEST_SIGUIENTE && claseSalteada){
   }
   if(!tieneSource)   p.push('utm_source=directo');
   if(!tieneCampaign) p.push('utm_campaign='+encodeURIComponent(clase.utm));
+  if(CONFIG.CLASE_EN_UTM_TERM) p.push('utm_term='+encodeURIComponent(clase.utm));
 
   /* datos de la clase: si en GHL creás campos con estas claves, se llenan solos */
   p.push('clase_fecha='+encodeURIComponent(isoDe(clase.ts)));

@@ -111,6 +111,11 @@ reiniciarse en cada lanzamiento (Regla 02 del doc de estrategia). La landing ya 
    `edicion`, se llenan solos** y podés segmentar por clase sin depender de la pauta. Eso es lo que vuelve
    sistemática la cosa: un form para todo el año, y en el CRM cada lead sabe a qué clase se anotó.
 
+**Plan B si GHL no guarda los campos personalizados:** poné `CLASE_EN_UTM_TERM: true` en `CONFIG` y la
+clase viaja también en `utm_term`, que GHL captura nativo sin configurar nada. En ese caso hay que **sacar
+`utm_term` de la URL de los anuncios** (ahí Meta manda el nombre del conjunto y se pisarían) y usar
+`adset_id={{adset.id}}` en su lugar, que la landing ya reenvía al form.
+
 **Lo que hay que hacer del lado de GHL:**
 
 - Poner el Meta Pixel en *Settings → Tracking Code → HEAD* (en el archivo está sólo para que el preview
