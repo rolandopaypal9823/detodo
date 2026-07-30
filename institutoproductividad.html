@@ -234,6 +234,16 @@ a{color:inherit}
 .photo-slot--sm .photo-slot__icon svg{width:20px;height:20px}
 .photo-slot--sm .photo-slot__label{font-size:10px;letter-spacing:.1em}
 .photo-slot--sm .photo-slot__label span{font-size:9px}
+/* Collage de fotos reales dentro de un recuadro (1 a 4 fotos) */
+.photo-slot{overflow:hidden}
+.collage{position:absolute;inset:0;display:grid;gap:3px;background:#fff}
+.collage img{width:100%;height:100%;object-fit:cover;display:block}
+.collage--1{grid-template-columns:1fr}
+.collage--2{grid-template-columns:1fr 1fr}
+.collage--3{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.collage--3 img:first-child{grid-row:1 / -1}
+.collage--4{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.photo-slot.is-filled{background:none}
 
 /* ---------- ENFOQUE INTEGRAL / PILARES ---------- */
 .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:44px}
@@ -608,12 +618,12 @@ a{color:inherit}
           <li>Válido para tu CV y tu perfil profesional</li>
         </ul>
       </div>
-      <figure class="incl-feature__photo photo-slot">
+      <figure class="incl-feature__photo photo-slot" data-img="certificados" data-alt="Alumno del Instituto de Productividad con su certificado">
         <div class="photo-slot__inner">
           <div class="photo-slot__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
           </div>
-          <div class="photo-slot__label">Recuadro 1 · Foto<span>Aval · certificado / acto de graduación</span></div>
+          <div class="photo-slot__label">Recuadro 1 · Foto<span>Aval · alumnos con su certificado (hasta 4)</span></div>
         </div>
       </figure>
     </div>
@@ -624,7 +634,7 @@ a{color:inherit}
     <div class="bcards">
 
       <div class="bcard">
-        <div class="bcard__ph photo-slot photo-slot--sm">
+        <div class="bcard__ph photo-slot photo-slot--sm" data-img="coach" data-alt="Sesión de acompañamiento 1 a 1 del Instituto">
           <div class="photo-slot__inner">
             <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
             <div class="photo-slot__label">Recuadro 2 · Foto<span>Acompañamiento 1 a 1</span></div>
@@ -638,10 +648,10 @@ a{color:inherit}
       </div>
 
       <div class="bcard">
-        <div class="bcard__ph photo-slot photo-slot--sm">
+        <div class="bcard__ph photo-slot photo-slot--sm" data-img="modulos" data-alt="Plataforma del curso El ABC del Alto Rendimiento">
           <div class="photo-slot__inner">
             <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-            <div class="photo-slot__label">Recuadro 3 · Foto<span>Método · Nico grabando / enseñando</span></div>
+            <div class="photo-slot__label">Recuadro 3 · Foto<span>Método · plataforma del curso</span></div>
           </div>
         </div>
         <div class="bcard__body">
@@ -652,10 +662,10 @@ a{color:inherit}
       </div>
 
       <div class="bcard">
-        <div class="bcard__ph photo-slot photo-slot--sm">
+        <div class="bcard__ph photo-slot photo-slot--sm" data-img="llamadas" data-alt="Clase en vivo del Instituto de Productividad">
           <div class="photo-slot__inner">
             <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-            <div class="photo-slot__label">Recuadro 4 · Foto<span>Llamadas / encuentros en vivo</span></div>
+            <div class="photo-slot__label">Recuadro 4 · Foto<span>Clases / encuentros en vivo</span></div>
           </div>
         </div>
         <div class="bcard__body">
@@ -666,7 +676,7 @@ a{color:inherit}
       </div>
 
       <div class="bcard">
-        <div class="bcard__ph photo-slot photo-slot--sm">
+        <div class="bcard__ph photo-slot photo-slot--sm" data-img="comunidad" data-alt="Comunidad del Instituto de Productividad">
           <div class="photo-slot__inner">
             <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
             <div class="photo-slot__label">Recuadro 5 · Foto<span>Comunidad / mastermind presencial</span></div>
@@ -1083,6 +1093,37 @@ const CONFIG = {
   // Volver a la landing madre
   LINK_MADRE: "landing-madre.html",
 };
+
+/* ===== FOTOS REALES DE LOS RECUADROS =====
+   Subí cada foto a tu WordPress (Medios) y pegá el link https entre comillas.
+   Podés poner VARIAS por recuadro y se arma un collage solo (hasta 4). */
+const IMG = {
+  // Recuadro 5 · Comunidad (foto grupal) — YA CARGADA
+  comunidad: [
+    "https://nicolasfernandezmiranda.com/wp-content/uploads/2026/07/DSC01859_VSCO-scaled.jpg"
+  ],
+  // Recuadro 3 · Biblioteca de módulos (screenshot del curso "El ABC del Alto Rendimiento")
+  modulos: [
+    // "https://nicolasfernandezmiranda.com/wp-content/uploads/2026/07/curso-abc.jpg"
+  ],
+  // Recuadro 2 · Coach 1 a 1 (videollamada + los dos en el sofá)
+  coach: [
+    // "https://nicolasfernandezmiranda.com/wp-content/uploads/2026/07/coach-videollamada.jpg",
+    // "https://nicolasfernandezmiranda.com/wp-content/uploads/2026/07/coach-sofa-1.jpg",
+    // "https://nicolasfernandezmiranda.com/wp-content/uploads/2026/07/coach-sofa-2.jpg"
+  ],
+  // Recuadro 4 · Clases en vivo (mirando la videollamada grupal)
+  llamadas: [
+    // "https://nicolasfernandezmiranda.com/wp-content/uploads/2026/07/clase-en-vivo.jpg"
+  ],
+  // Recuadro 1 · Aval (alumnos con su certificado — hasta 4, se arma collage 2x2)
+  certificados: [
+    // "https://nicolasfernandezmiranda.com/wp-content/uploads/2026/07/cert-andres.jpg",
+    // "https://nicolasfernandezmiranda.com/wp-content/uploads/2026/07/cert-leonel.jpg",
+    // "https://nicolasfernandezmiranda.com/wp-content/uploads/2026/07/cert-jair.jpg",
+    // "https://nicolasfernandezmiranda.com/wp-content/uploads/2026/07/cert-karina.jpg"
+  ],
+};
 /* ===================== FIN DE LO QUE TENÉS QUE EDITAR ===================== */
 
 
@@ -1277,8 +1318,26 @@ function enviarASheets(data){
   fetch(CONFIG.SHEETS_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)}).catch(err=>console.warn(err));
 }
 
+/* ---------- Fotos reales en los recuadros (collage 1 a 4) ---------- */
+function fillPhotos(){
+  var slots=document.querySelectorAll('[data-img]');
+  for(var s=0;s<slots.length;s++){
+    var slot=slots[s], key=slot.getAttribute('data-img');
+    var arr=(typeof IMG!=='undefined' && IMG[key])?IMG[key]:[];
+    arr=arr.filter(function(u){ return u && u.indexOf('http')===0; });
+    if(!arr.length) continue;
+    var n=Math.min(arr.length,4);
+    var alt=slot.getAttribute('data-alt')||'Instituto de Productividad';
+    var html='<div class="collage collage--'+n+'">';
+    for(var i=0;i<n;i++){ html+='<img src="'+arr[i]+'" alt="'+alt+'" loading="lazy">'; }
+    html+='</div>';
+    slot.innerHTML=html;
+    slot.classList.add('is-filled');
+  }
+}
+
 /* ---------- init ---------- */
-window.addEventListener('DOMContentLoaded',()=>{ initVSL(); });
+window.addEventListener('DOMContentLoaded',()=>{ initVSL(); fillPhotos(); });
 </script>
 
 <!-- ==== DECORATIVO (aislado): red neuronal + barra de carga + título por letra ==== -->
