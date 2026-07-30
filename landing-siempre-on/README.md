@@ -1,7 +1,9 @@
 # Landing Siempre-On · NFM
 
 Una sola URL, prendida los 365 días. Las fechas y el copy se cambian solos.
-Archivo único: **`index.html`**.
+
+- **`index.html`** — la landing de registro.
+- **`thank-you.html`** — la página de gracias, con la misma lógica de fechas y el grupo de WhatsApp por clase.
 
 **Estructura:** exactamente la misma de la landing que ya está al aire — nav → hero → prueba social →
 espejo → formulario → mecanismo → qué vas a descubrir → testimonios → el giro → CTA final → footer. No se
@@ -180,6 +182,50 @@ Verificado en Chromium headless, con el código real del archivo:
 
 Las imágenes y los iframes (GHL, YouTube) están bloqueados en este entorno de prueba, así que eso hay que
 mirarlo una vez publicado. Son las mismas URLs que ya usa la landing que está al aire.
+
+---
+
+## 6bis. La thank you page (`thank-you.html`)
+
+Misma estructura que la que ya tenías (nav, confirmación, video de Loom, los 2 pasos, el disclaimer del
+mail, la tarjeta del evento y el footer). Lo que cambió: **fecha, día de la semana, título de la clase,
+título del navegador y link del grupo de WhatsApp** salen del mismo calendario que la landing.
+
+### ⚠️ Un grupo de WhatsApp por clase
+
+El link que me pasaste tiene la fecha adentro (`clase-10-08-neurociencia-aplicada`), así que **cada clase
+necesita su propio grupo**. Por eso el link va cargado por clase:
+
+```js
+CLASES: [
+  { fecha:'2026-08-10', tema:'A', utm:'...', wa:'https://go.wha.link/clase-10-08-neurociencia-aplicada' },
+  { fecha:'2026-08-25', tema:'B', utm:'...', wa:'' }    // ⚠️ falta cargar este
+]
+```
+
+**Falta el grupo de la clase del 25.** Mientras `wa` esté vacío, el botón manda al grupo del 10 (`WA_FALLBACK`)
+para que nunca quede un botón roto — pero eso significa que los leads del 25 caerían en el grupo del 10.
+**Cargalo antes del lunes 10 a las 19:00.** Para verificar: entrá a `thank-you.html?test-landing2` y mirá si
+la barra naranja de arriba dice *"⚠ falta cargar el grupo de WhatsApp de esta clase"*. Cuando lo cargues, ese
+aviso desaparece. También queda un warning en la consola del navegador.
+
+### El caso borde que resuelve
+
+Alguien se registra 18:59 del día de la clase y aterriza en la thank you page 19:00:30, cuando la landing ya
+rotó. Sin protección le mostraríamos la clase siguiente y lo mandaríamos al grupo equivocado. La landing deja
+guardada la clase en el navegador (`sessionStorage`) y la thank you page la lee, así que ve la clase a la que
+**realmente** se anotó. El orden de prioridad es: `?clase_fecha=` en la URL → lo guardado por la landing →
+el calendario.
+
+### Si querés un video distinto por clase
+
+Agregale `loom:'ID_DEL_VIDEO'` a la clase en `CLASES`. Si no, usa el de `CONFIG.LOOM_ID` para todas.
+
+### Mantenimiento
+
+El bloque `CLASES` está duplicado en los dos archivos (la landing y la thank you page) porque en GHL cada
+página es independiente. **Si agregás o cambiás una clase, hacelo en los dos.** Los dos archivos tienen un
+comentario recordándolo.
 
 ---
 

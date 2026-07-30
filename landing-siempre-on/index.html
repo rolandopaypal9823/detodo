@@ -863,6 +863,7 @@ var CONFIG = {
     { fecha:'2026-08-10', tema:'A', utm:'clase-ago10-cumplis-con-todos' },   // lunes 10 de agosto
     { fecha:'2026-08-25', tema:'B', utm:'clase-ago25-sostenes-todo'     }    // martes 25 de agosto
   ],
+  /* Si cambiás este bloque, cambialo IGUAL en thank-you.html */
 
   HORA_CLASE: 19,          // 19 = 19:00 hs de Argentina
   MINUTOS_CLASE: 0,
@@ -1300,8 +1301,12 @@ if(TEST_SIGUIENTE && claseSalteada){
   ifr.src = base + (base.indexOf('?') === -1 ? '?' : '&') + p.join('&');
   ifr.style.minHeight = CONFIG.FORM_ALTO_MINIMO + 'px';
 
-  /* guardar el origen por si después se necesita en el agradecimiento */
-  try{ window.sessionStorage.setItem('nfm_clase', clase.utm); }catch(err){}
+  /* guardar la clase para que la thank-you page muestre la MISMA, incluso si
+     alguien se registra 19:00:30 y la landing ya rotó a la siguiente */
+  try{
+    window.sessionStorage.setItem('nfm_clase', clase.utm);
+    window.sessionStorage.setItem('nfm_clase_fecha', isoDe(clase.ts));
+  }catch(err){}
 })();
 
 /* ─── Lead opcional al enviarse el form (apagado por defecto) ─── */
