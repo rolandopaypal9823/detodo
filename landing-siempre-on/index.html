@@ -896,8 +896,9 @@ var CONFIG = {
   CLASE_EN_UTM_TERM: false,
 
   /* — Trackeo — */
-  TRACKEAR_LEAD_EN_PAGINA: false  // dejalo en false si el evento Lead ya lo dispara GHL.
-                                  // true = la landing intenta disparar fbq('track','Lead') al enviarse el form.
+  TRACKEAR_LEAD_EN_PAGINA: false  // ⚠️ DEJALO EN FALSE. El evento Lead lo dispara la thank you page,
+                                  // que es donde se confirma el registro de verdad. Si prendés esto,
+                                  // Meta cuenta el Lead dos veces por cada registro.
 };
 
 
