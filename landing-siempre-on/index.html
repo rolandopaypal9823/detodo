@@ -367,8 +367,9 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-final h2 em{ color:var(--nfm-orange); font-style:normal; }
 .nfm-final p{ font-size:1.06rem; color:var(--nfm-tl); max-width:30em; margin:0 auto 34px; line-height:1.6; }
 .nfm-final__date{ font-family:var(--nfm-font-h); font-weight:600; font-size:0.95rem; color:var(--nfm-tl);
-  margin-top:22px; display:inline-flex; align-items:center; gap:8px; }
-.nfm-final__date .nfm-dot{ width:4px; height:4px; border-radius:50%; background:var(--nfm-orange); }
+  margin-top:22px; display:block; text-align:center; }
+.nfm-final__date .nfm-dot{ display:inline-block; width:4px; height:4px; border-radius:50%;
+  background:var(--nfm-orange); vertical-align:middle; margin-right:8px; }
 
 /* ════════════════ FOOTER ════════════════ */
 .nfm-footer{ background:#081F33; padding:34px 0; text-align:center; border-top:1px solid var(--nfm-hair); }
@@ -910,10 +911,15 @@ var CONFIG = {
             puerta de entrada de dueños y líderes (recluta Platinum),
             con "escalá tu vida, no tu cansancio" como bajada.
 
-   {{fechaLarga}}    → Lunes 10 de agosto
-   {{fechaCorta}}    → 10 de agosto
-   {{fechaCompleta}} → Lunes 10 de agosto · 19:00 hs (Argentina) · En vivo por Zoom
-   {{dia}}           → lunes
+   ⚠️ Los placeholders van con [[corchetes dobles]], NO con llaves: GoHighLevel usa
+      {{ }} para sus propias variables y su editor las reformatea al guardar, lo que
+      rompía el reemplazo y dejaba el texto crudo en pantalla.
+
+   [[fechaLarga]]    → Lunes 10 de agosto
+   [[fechaCorta]]    → 10 de agosto
+   [[fechaCompleta]] → Lunes 10 de agosto · 19:00 hs (Argentina) · En vivo por Zoom
+   [[hora]]          → 19:00 hs (Argentina)
+   [[dia]]           → lunes
    ══════════════════════════════════════════════════════════════════ */
 var TEMAS = {
 
@@ -961,7 +967,7 @@ var TEMAS = {
     bridgeQuoteAutor: '— Francisco, 40, director de operaciones. Dicho en una entrevista, no en un anuncio.',
     bridgeKick: 'Por eso el patrón no cede solo. Y por eso “ponerle más voluntad” nunca alcanzó: la voluntad no es la variable que está fallando.',
 
-    learnTitulo: 'Lo que vas a descubrir el {{fechaCorta}}',
+    learnTitulo: 'Lo que vas a descubrir el [[fechaCorta]]',
     learnSub: 'Una hora para entender el mecanismo que ninguna app ni ningún curso te explicó — y salir con tu primera palanca, no con más información para acumular.',
     learnItems: [
       { t:'Urgencia prestada: el mecanismo que decide por vos',
@@ -988,7 +994,7 @@ var TEMAS = {
     anchorNuevaT: 'El paradigma nuevo',
     anchorNueva: 'Tu cerebro le pone urgencia a lo que tiene a alguien del otro lado esperándolo. No es un sistema mejor lo que falta: es ponerle a lo tuyo la única variable que ya hace funcionar lo ajeno. <strong>La disciplina no es la causa del cambio: es la consecuencia.</strong>',
 
-    finalTitulo: 'El {{fechaCorta}} dejás de ser <em>el último de tu propia lista.</em>',
+    finalTitulo: 'El [[fechaCorta]] dejás de ser <em>el último de tu propia lista.</em>',
     finalSub: 'Una hora. Un mecanismo con nombre. Tu primera palanca esa misma noche. 100% gratuita y en vivo.',
     ctaFinal: 'QUIERO MI LUGAR EN LA CLASE',
     ctaSticky: 'Reservá tu lugar — es gratis'
@@ -1038,7 +1044,7 @@ var TEMAS = {
     bridgeQuoteAutor: '— Diego, 56, contador. Dicho en una entrevista, no en un anuncio.',
     bridgeKick: 'Por eso el patrón no cede solo. Y por eso más gestión, más procesos y más voluntad no lo mueven: no es lo que está fallando.',
 
-    learnTitulo: 'Lo que vas a descubrir el {{fechaCorta}}',
+    learnTitulo: 'Lo que vas a descubrir el [[fechaCorta]]',
     learnSub: 'Una hora para entender por qué el que sostiene todo es el último en avanzar — y salir con la primera palanca, no con más teoría de gestión.',
     learnItems: [
       { t:'Por qué el que sostiene todo es el último en avanzar',
@@ -1066,7 +1072,7 @@ var TEMAS = {
     anchorNuevaT: 'El paradigma nuevo',
     anchorNueva: 'Tu cerebro le pone urgencia a lo que tiene a alguien del otro lado esperándolo — y por eso lo ajeno se mueve solo. La jugada no es más gestión: es ponerle a lo tuyo esa misma variable. <strong>Que tu operación vuelva a ser un engranaje de tu vida, no el motor.</strong>',
 
-    finalTitulo: 'El {{fechaCorta}} dejás de ser <em>la variable de ajuste.</em>',
+    finalTitulo: 'El [[fechaCorta]] dejás de ser <em>la variable de ajuste.</em>',
     finalSub: 'Una hora. Un mecanismo con nombre. La primera palanca esa misma noche. 100% gratuita y en vivo.',
     ctaFinal: 'QUIERO MI LUGAR EN LA CLASE',
     ctaSticky: 'Reservá tu lugar — es gratis'
@@ -1188,14 +1194,21 @@ if(temaForzado && TEMAS[temaForzado.toUpperCase()]) clase.tema = temaForzado.toU
 var COPY   = TEMAS[clase.tema] || TEMAS.A;
 var FECHAS = fechasDe(clase.ts);
 
-/* — Render del copy — */
+/* — Render del copy —
+   Reemplaza [[fechaCorta]] y compañía. Acepta las dos sintaxis y con o sin espacios
+   adentro, porque el editor de GoHighLevel reformatea lo que parezca variable suya. */
+var VARS = {
+  fechaLarga:    FECHAS.larga,
+  fechaCorta:    FECHAS.corta,
+  fechaCompleta: FECHAS.completa,
+  hora:          FECHAS.hora,
+  dia:           FECHAS.dia
+};
 function tpl(s){
-  return String(s)
-    .replace(/\{\{fechaLarga\}\}/g,    FECHAS.larga)
-    .replace(/\{\{fechaCorta\}\}/g,    FECHAS.corta)
-    .replace(/\{\{fechaCompleta\}\}/g, FECHAS.completa)
-    .replace(/\{\{hora\}\}/g,          FECHAS.hora)
-    .replace(/\{\{dia\}\}/g,           FECHAS.dia);
+  return String(s).replace(/\[\[\s*([a-zA-Z]+)\s*\]\]|\{\{\s*([a-zA-Z]+)\s*\}\}/g, function(m, a, b){
+    var k = a || b;
+    return VARS[k] != null ? VARS[k] : m;
+  });
 }
 
 function pintar(){
