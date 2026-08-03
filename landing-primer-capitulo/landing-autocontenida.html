@@ -211,6 +211,22 @@ h1{font-family:'Montserrat',sans-serif;font-weight:900;
 </head>
 <body>
 
+<!-- ===========================================================================
+     LO ÚNICO QUE HAY QUE TOCAR (buscá y reemplazá estas 4 cadenas):
+
+     1. assets/ebook-primer-capitulo.png   → URL de la imagen del capítulo
+     2. assets/ebook-libro-completo.png    → URL de la imagen del libro
+     3. https://nicolasfernandezmiranda.com/wp-content/uploads/2026/03/HTC-1-CAP.pdf
+                                           → URL del PDF
+     4. https://comunidadproductiva.circle.so/hackea-tu-cerebro?utm_source=1ercap
+                                           → URL de compra
+
+     En WordPress los puntos 1 y 2 SON OBLIGATORIOS: adentro de un bloque HTML
+     las rutas relativas no resuelven. Subí los PNG a la Biblioteca de medios y
+     pegá acá las URLs completas (https://...). El logo no hace falta cambiarlo:
+     en landing-autocontenida.html ya va embebido en base64.
+     =========================================================================== -->
+
 <div class="bg" aria-hidden="true"></div>
 <canvas id="neuralbg" aria-hidden="true"></canvas>
 <div id="neural-mask" aria-hidden="true"></div>
