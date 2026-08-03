@@ -6,17 +6,17 @@ Experiencia interactiva gamificada de ~3 min (misma **estructura de juego paso a
 de referencia de FlowScale), adaptada al nicho de NFM con la metáfora eje **"tu cerebro es el motor de
 tu alto rendimiento"**. No vende directo: **califica/descalifica en silencio** y ramifica el cierre.
 
-## Estructura (motor de 7 escenas + HUD "Nivel X/6")
+## Estructura (motor de 7 escenas + HUD "Nivel X/6") — 3 mini-juegos interactivos (CSS 3D, sin librerías)
 
 | Nivel | Metáfora / pantalla | Qué hace la persona |
 |---|---|---|
-| **0 · Inicio** | Hero + demo de la batería del cerebro drenándose (apps en 2° plano) | "Empezar el viaje" |
-| **1 · El motor** | Enciende el motor → ve que está en reserva → por qué (apps en 2° plano) | Instala el One Belief |
-| **2 · El tablero** | Encuesta de 3 preguntas (profesión · dolor · momento) | **Califica / descalifica** |
-| **3 · El mensaje** | Llamada entrante + chat de Nico (estilo WhatsApp) | No es info, es sistema + acompañamiento |
-| **4 · La travesía** | 4 estaciones/pilares: Energía · Foco · Sistema · Identidad | Recorre el método |
-| **5 · La decisión** | Dos caminos: seguir en reserva vs operar a favor del cerebro | Compromiso |
-| **6 · La recompensa** | **Ramifica según si calificó** | Cierre |
+| **0 · Inicio** | Hero + demo de la batería drenándose | "Empezar el viaje" |
+| **1 · La cabina** 🎮 | Cockpit 3D: girás la llave, el motor arranca **en reserva**, y **mantenés apretado el acelerador** → más esfuerzo = la batería se vacía más rápido | La lección del One Belief, en el cuerpo |
+| **2 · El tablero** | Encuesta de 3 preguntas | **Califica / descalifica** |
+| **3 · El enjambre** 🎮 | Juego imposible: tocás notificaciones para cerrarlas y **por cada una aparecen dos** → la energía se agota igual | "La voluntad pierde siempre; el sistema gana" → llamada + chat de Nico |
+| **4 · La ruta** 🎮 | Carretera 3D: manejás y parás en las 4 estaciones (Energía · Foco · Sistema · Identidad) | Recorre el método |
+| **5 · La bifurcación** | Dos rutas en 3D: reserva vs sistema | Compromiso |
+| **6 · La recompensa** | **Ramifica según si calificó** (sin nombrarlo) | Cierre |
 
 ## Ramificación del cierre (Nivel 6)
 - **Califica** → invitación a **agendar entrevista** (popup de Calendly, cierra solo con la X).
@@ -40,7 +40,7 @@ gratuito"**; todos los demás califican → call.
 - El "feel" de juego: `shake()`+vibración, glows pulsantes, `countTo()`, transiciones `wipeTo()`.
 
 ## Verificación
-Probado end-to-end en Chromium en los **dos finales**: sin errores de JS, las 7 escenas avanzan, la
-encuesta califica/descalifica bien, el popup de Calendly abre, y el ruteo call/ebook funciona. Tracking:
-`load → start_viaje → nivel×6 → answers → call → decision → result → cta_click`. *(En el sandbox no
-cargan Google Fonts ni Calendly; el logo va embebido. En producción cargan normal.)*
+Probado end-to-end en Chromium en los **dos finales**: sin errores de JS, los 3 juegos se juegan
+(encender+acelerar, enjambre hasta el final, 4 estaciones), el popup de Calendly abre y el ruteo
+call/ebook funciona. Tracking incluye eventos de juego: `game[cabina:encender/leccion]`,
+`game[enjambre]{cerradas,aparecieron}`, `game[ruta]{estacion}`. `?test` acelera todos los timings.
