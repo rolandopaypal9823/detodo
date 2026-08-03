@@ -581,322 +581,6 @@ a{color:inherit}
   </div>
 </section>
 
-<!-- ═══ DIAGNÓSTICO INTERACTIVO · 3 escenas con analogías de Nico → agenda ═══ -->
-<style>
-  .exp{position:relative}
-  .exp-shell{max-width:720px;margin:40px auto 0;background:#fff;border:1px solid var(--hair);border-radius:18px;overflow:hidden;box-shadow:0 40px 100px rgba(12,52,82,.14)}
-  .exp-bar{height:5px;background:var(--nfm-blue-light)}
-  .exp-bar span{display:block;height:100%;background:var(--nfm-orange);transition:width .45s;border-radius:0 3px 3px 0}
-  .exp-body{padding:34px 34px 32px;text-align:left}
-  .exp-step{display:none;animation:expfade .4s ease both}
-  .exp-step.active{display:block}
-  @keyframes expfade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-  .exp-mono{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--nfm-orange-text);font-weight:500;display:block;margin-bottom:12px}
-  .exp-q{font-family:'Montserrat';font-weight:800;font-size:clamp(19px,2.8vw,25px);color:var(--nfm-blue);line-height:1.2;margin:0 0 18px}
-  .exp-hint{font-size:14px;color:var(--muted);margin:0 0 12px}
-  /* stage auto */
-  .exp-car-stage{position:relative;height:130px;overflow:hidden;border-radius:12px;background:linear-gradient(180deg,#f7fafc 0%,#eef3f7 66%,#e6edf2 66%,#d9e2ea 100%);margin-bottom:14px}
-  .exp-gauge{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:150px;height:6px;background:#dbe4ec;border-radius:100px;overflow:hidden}
-  .exp-gauge span{display:block;height:100%;width:6%;background:linear-gradient(90deg,#3fb950,#e6a700 60%,#c0392b);transition:width .12s}
-  .exp-car{position:absolute;left:50%;bottom:8px;width:150px;transform:translateX(-50%)}
-  .exp-car.rev{animation:expjud .16s linear 3}
-  @keyframes expjud{0%,100%{transform:translateX(-50%)}25%{transform:translate(calc(-50% - 2px),1px)}75%{transform:translate(calc(-50% + 2px),-1px)}}
-  .exp-car .b{fill:var(--nfm-blue)}.exp-car .w{fill:#cfe0ee}.exp-car .a{fill:var(--nfm-orange)}
-  .exp-car .wh{transform-box:fill-box;transform-origin:center}
-  .exp-car.spin .wh{animation:expspin .13s linear 6}
-  @keyframes expspin{to{transform:rotate(360deg)}}
-  .exp-road{position:absolute;left:0;right:0;bottom:20px;height:3px;background:repeating-linear-gradient(90deg,#9fb0bd 0 14px,transparent 14px 30px);opacity:.55}
-  .exp-km{position:absolute;bottom:6px;right:12px;font-family:'JetBrains Mono';font-size:10px;letter-spacing:.06em;color:var(--mono-grey)}
-  .exp-km b{color:var(--nfm-blue)}
-  .exp-smoke{position:absolute;left:calc(50% - 74px);bottom:30px;width:14px;height:14px;pointer-events:none}
-  .exp-smoke i{position:absolute;bottom:0;left:0;width:11px;height:11px;border-radius:50%;background:rgba(96,106,116,.5);opacity:0}
-  .exp-smoke.go i:nth-child(1){animation:exppuff 1s ease-out}
-  .exp-smoke.go i:nth-child(2){animation:exppuff 1s ease-out .4s}
-  @keyframes exppuff{0%{opacity:.55;transform:translate(0,0) scale(.5)}100%{opacity:0;transform:translate(-18px,-24px) scale(1.6)}}
-  .exp-accel{display:block;width:100%;font-family:'Montserrat';font-weight:800;font-size:15px;letter-spacing:.04em;color:#fff;background:var(--nfm-orange);border:none;border-radius:12px;padding:16px;cursor:pointer;box-shadow:0 8px 22px rgba(255,102,2,.3);transition:transform .08s}
-  .exp-accel:active{transform:scale(.97)}
-  .exp-accel:disabled{opacity:.4;cursor:default;box-shadow:none}
-  /* batería */
-  .exp-battery{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-  .exp-battwrap{position:relative;flex:1;height:26px;border:2px solid var(--nfm-blue);border-radius:7px;overflow:hidden;background:#fff}
-  .exp-battwrap::after{content:"";position:absolute;right:-6px;top:7px;width:4px;height:10px;background:var(--nfm-blue);border-radius:0 2px 2px 0}
-  .exp-battwrap span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#c0392b,#e6a700 55%,#3fb950);transition:width .35s}
-  .exp-battpct{font-family:'JetBrains Mono';font-size:13px;font-weight:700;color:var(--nfm-blue);min-width:46px;text-align:right}
-  .exp-apps{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:6px}
-  .exp-app{text-align:left;font-family:'Open Sans';font-size:13.5px;font-weight:600;color:var(--nfm-blue);background:#f7fafc;border:1.5px solid var(--nfm-blue-light);border-radius:10px;padding:11px 13px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:8px}
-  .exp-app::before{content:"○";color:var(--mono-grey-soft);font-size:14px}
-  .exp-app:hover{border-color:rgba(255,102,2,.5)}
-  .exp-app.on{border-color:var(--nfm-orange);background:var(--nfm-orange-wash);color:var(--nfm-blue)}
-  .exp-app.on::before{content:"●";color:var(--nfm-orange)}
-  /* escena 3: el personaje que nunca llega a lo suyo */
-  .exp-actor{display:flex;align-items:flex-start;gap:14px;margin-bottom:12px}
-  .exp-actor__face{flex:0 0 84px;width:84px;height:84px;border-radius:50%;background:linear-gradient(150deg,#eef3f7,#dae5ee);border:1.5px solid var(--hair);display:flex;align-items:center;justify-content:center;font-size:44px;line-height:1;transition:background .3s,border-color .3s}
-  .exp-actor__face.alarm{background:linear-gradient(150deg,#ffe6d3,#ffceab);border-color:rgba(255,102,2,.45)}
-  .exp-actor__face.sleep{background:linear-gradient(150deg,#12395c,#061d30);border-color:#0c3452}
-  .exp-actor__face.drained{background:#f1f4f6;border-color:var(--hair)}
-  .exp-actor__face.pop{animation:facepop .5s cubic-bezier(.2,1.5,.4,1)}
-  @keyframes facepop{0%{transform:scale(.55) rotate(-10deg)}100%{transform:none}}
-  .exp-actor__bubble{position:relative;flex:1;background:#fff;border:1.5px solid var(--nfm-blue-light);border-radius:16px;padding:15px 17px;font-family:'Montserrat';font-weight:700;font-size:14.5px;line-height:1.45;color:var(--nfm-blue);min-height:58px;display:flex;align-items:center}
-  .exp-actor__bubble::before{content:"";position:absolute;left:-8px;top:32px;width:14px;height:14px;background:#fff;border-left:1.5px solid var(--nfm-blue-light);border-bottom:1.5px solid var(--nfm-blue-light);transform:rotate(45deg)}
-  .exp-actor__bubble b{color:var(--nfm-orange-text)}
-  .exp-chips{display:flex;flex-wrap:wrap;gap:8px}
-  .exp-chips:not(:empty){margin-bottom:14px}
-  .exp-chip{font-family:'Open Sans';font-size:12.5px;font-weight:700;color:#b0451c;background:#fff2e8;border:1.5px solid rgba(255,102,2,.45);border-radius:100px;padding:8px 13px;animation:expdrop .4s cubic-bezier(.2,1.4,.4,1)}
-  @keyframes expdrop{from{opacity:0;transform:translateY(-10px) scale(.85)}to{opacity:1;transform:none}}
-  .exp-step.shake{animation:stshake .45s linear}
-  @keyframes stshake{0%,100%{transform:none}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
-  @media(max-width:520px){.exp-actor__face{flex-basis:66px;width:66px;height:66px;font-size:34px}.exp-actor__bubble{font-size:13.5px;padding:12px 14px}.exp-actor__bubble::before{top:24px}}
-  .exp-proj{display:block;width:100%;font-family:'Montserrat';font-weight:800;font-size:15px;line-height:1.35;color:#fff;background:var(--nfm-orange);border:none;border-radius:12px;padding:16px 18px;cursor:pointer;box-shadow:0 8px 22px rgba(255,102,2,.3);animation:projpulse 1.7s infinite;transition:background .25s}
-  @keyframes projpulse{0%{box-shadow:0 8px 22px rgba(255,102,2,.3),0 0 0 0 rgba(255,102,2,.4)}70%{box-shadow:0 8px 22px rgba(255,102,2,.3),0 0 0 14px rgba(255,102,2,0)}100%{box-shadow:0 8px 22px rgba(255,102,2,.3),0 0 0 0 rgba(255,102,2,0)}}
-  .exp-proj.locked{background:#8a97a3;box-shadow:none;cursor:not-allowed;animation:none}
-  /* verdict + botones */
-  .exp-verdict{margin-top:16px;padding:16px 18px;border-left:3px solid var(--nfm-orange);background:var(--nfm-orange-wash);border-radius:0 10px 10px 0}
-  .exp-verdict p{margin:0;font-size:14.5px;line-height:1.6;color:var(--nfm-blue)}
-  .exp-verdict b{color:var(--nfm-orange-text)}
-  .exp-go{margin-top:18px}
-  .exp-go .btn{width:100%}
-  .exp-go .btn:disabled{opacity:.35;cursor:default}
-  /* reveal */
-  .exp-reveal{text-align:center}
-  .exp-ab{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin:4px 0 18px;text-align:left}
-  .exp-ab-card{border-radius:12px;padding:14px 15px}
-  .exp-ab-a{background:#f4f6f8;border:1px solid var(--hair)}
-  .exp-ab-b{background:var(--nfm-orange-wash);border:1px solid rgba(255,102,2,.28)}
-  .exp-ab-card .t{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mono-grey);display:block;margin-bottom:6px}
-  .exp-ab-b .t{color:var(--nfm-orange-text)}
-  .exp-ab-card p{margin:0;font-size:13.5px;line-height:1.5;color:var(--nfm-blue)}
-  .exp-ab-arrow{display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--nfm-orange);font-weight:800}
-  .exp-rev-text{font-size:15px;line-height:1.65;color:var(--muted);max-width:56ch;margin:0 auto 22px}
-  .exp-rev-text b{color:var(--nfm-blue)}
-  .exp-reveal .btn{margin:0 auto}
-  .exp-retake{margin-top:14px}
-  .exp-retake button{background:transparent;border:1px solid rgba(12,52,82,.18);color:var(--muted);font-family:'JetBrains Mono';font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:9px 20px;border-radius:100px;cursor:pointer;transition:all .2s}
-  .exp-retake button:hover{color:var(--nfm-blue);border-color:var(--nfm-blue)}
-  @media(max-width:640px){.exp-body{padding:26px 22px 26px}.exp-apps{grid-template-columns:1fr}.exp-ab{grid-template-columns:1fr}.exp-ab-arrow{transform:rotate(90deg)}}
-  @media(prefers-reduced-motion:reduce){.exp-chip,.exp-step.shake,.exp-actor__face.pop,.exp-car.rev,.exp-car.spin .wh{animation:none!important}}
-</style>
-
-<section class="section tint exp" id="exp-diag">
-  <div class="wrap center">
-    <div class="center"><span class="eyebrow">Diagnóstico interactivo · 90 segundos</span></div>
-    <h2 class="h2">¿Le estás peleando a <span class="hl">tu propio cerebro</span>?</h2>
-    <p class="lead-2">Lo que Nico te acaba de contar en el video, ahora vivilo. Tres escenas rápidas para sentir en carne propia cómo tu cerebro te gana el día — y por qué no es falta de disciplina.</p>
-
-    <div class="exp-shell">
-      <div class="exp-bar"><span id="expBar" style="width:8%"></span></div>
-      <div class="exp-body">
-
-        <!-- ESCENA 1 · el freno de mano -->
-        <div class="exp-step active" data-step="0">
-          <span class="exp-mono">◆ Escena 1 · El freno de mano</span>
-          <h3 class="exp-q">Pisá el acelerador. A fondo.</h3>
-          <div class="exp-car-stage">
-            <div class="exp-gauge"><span id="expRpm"></span></div>
-            <div class="exp-smoke" id="expSmoke"><i></i><i></i></div>
-            <svg class="exp-car" id="expCar" viewBox="0 0 150 64" width="150" aria-hidden="true">
-              <path class="b" d="M5 46 C5 36 13 34 22 33 L42 20 C57 13 95 13 110 20 L127 33 C139 34 145 37 145 46 L145 48 C145 51 143 52 140 52 L10 52 C7 52 5 51 5 48 Z"/>
-              <path class="w" d="M46 22 C59 16 91 16 103 22 L112 32 L38 32 Z"/>
-              <rect class="a" x="5" y="43" width="140" height="4" rx="2"/>
-              <g class="wh"><circle cx="40" cy="52" r="10" fill="#22323f"/><circle cx="40" cy="52" r="4.5" fill="#9aa6b0"/><path d="M40 44v16M32 52h16M34.5 46.5l11 11M45.5 46.5l-11 11" stroke="#3a4a58" stroke-width="1.4"/></g>
-              <g class="wh"><circle cx="112" cy="52" r="10" fill="#22323f"/><circle cx="112" cy="52" r="4.5" fill="#9aa6b0"/><path d="M112 44v16M104 52h16M106.5 46.5l11 11M117.5 46.5l-11 11" stroke="#3a4a58" stroke-width="1.4"/></g>
-            </svg>
-            <div class="exp-road"></div>
-            <div class="exp-km">Avanzaste: <b id="expKm">0,0 km</b></div>
-          </div>
-          <button class="exp-accel" id="expAccel" onclick="expRev()">🚗 &nbsp;PISÁ EL ACELERADOR</button>
-          <div class="exp-verdict" id="expV1" hidden>
-            <p>Estás a fondo y el auto no avanza. Y no, <b>no es falta de disciplina</b> — disciplina tenés, por algo llegaste hasta donde estás. Es el freno de mano: tu cerebro trabajando en contra. Apretar más fuerte no lo suelta.</p>
-          </div>
-          <div class="exp-go"><button class="btn btn-primary" id="expGo0" onclick="expNext(0)" disabled>Seguir <span class="arrow">→</span></button></div>
-        </div>
-
-        <!-- ESCENA 2 · la batería con apps de fondo -->
-        <div class="exp-step" data-step="1">
-          <span class="exp-mono">◆ Escena 2 · Tu CEO interno</span>
-          <h3 class="exp-q">¿Cuántas apps tenés abiertas… en la cabeza?</h3>
-          <div class="exp-battery">
-            <div class="exp-battwrap"><span id="expBatt"></span></div>
-            <div class="exp-battpct" id="expBattPct">100%</div>
-          </div>
-          <p class="exp-hint">Tocá las que están corriendo ahora mismo en tu cabeza:</p>
-          <div class="exp-apps">
-            <button type="button" class="exp-app" onclick="expApp(this)">El mail sin responder</button>
-            <button type="button" class="exp-app" onclick="expApp(this)">La reunión de mañana</button>
-            <button type="button" class="exp-app" onclick="expApp(this)">Lo que no le dije a alguien</button>
-            <button type="button" class="exp-app" onclick="expApp(this)">La factura / los números</button>
-            <button type="button" class="exp-app" onclick="expApp(this)">El proyecto que es MÍO</button>
-            <button type="button" class="exp-app" onclick="expApp(this)">Cómo está mi cuerpo</button>
-          </div>
-          <div class="exp-verdict" id="expV2" hidden>
-            <p>Tenés <b id="expAppN">0</b> procesos corriendo en segundo plano. Esa batería que se drena tiene nombre: tu <b>corteza prefrontal</b> — el CEO de tu cerebro, el que decide qué importa. Cada decisión, cada interrupción, cada preocupación la fatiga. Y cuando se fatiga, no te avisa: <b>le cede el control al sistema límbico</b>. Mirá lo que pasa entonces…</p>
-          </div>
-          <div class="exp-go"><button class="btn btn-primary" id="expGo1" onclick="expNext(1)" disabled>Seguir <span class="arrow">→</span></button></div>
-        </div>
-
-        <!-- ESCENA 3 · el personaje que nunca llega a lo suyo (sistema límbico) -->
-        <div class="exp-step" data-step="2">
-          <span class="exp-mono">◆ Escena 3 · El sistema límbico al mando</span>
-          <h3 class="exp-q">Viernes, 6 PM. Por fin un hueco para lo tuyo.</h3>
-          <div class="exp-actor">
-            <div class="exp-actor__face" id="expFace">😌</div>
-            <div class="exp-actor__bubble" id="expBubble">Por fin un rato libre… <b>Ahora sí avanzo con lo mío.</b></div>
-          </div>
-          <div class="exp-chips" id="expChips"></div>
-          <button type="button" class="exp-proj" id="expProj" onclick="expProjTry()">▶ &nbsp;Avanzar con tu proyecto — el que postergás hace años</button>
-          <div class="exp-verdict" id="expV3" hidden>
-            <p>Bombero, trasnochado y saturado — eso es tu <b>sistema límbico al mando</b>: todo es urgente, todo es un problema, y lo tuyo… para el lunes. Por eso terminás el día habiendo hecho <b>de todo</b>, sin la sensación de haber avanzado. Y con culpa. ¿Hace cuántos años que este juego te viene ganando?</p>
-          </div>
-          <div class="exp-go"><button class="btn btn-primary" id="expGo2" onclick="expNext(2)" disabled>Seguir <span class="arrow">→</span></button></div>
-        </div>
-
-        <!-- REVEAL -->
-        <div class="exp-step exp-reveal" data-step="3">
-          <span class="exp-mono">◆ Tu diagnóstico</span>
-          <h3 class="exp-q" style="text-align:center">No fallaste. Nadie te enseñó cómo funciona tu cerebro.</h3>
-          <div class="exp-ab">
-            <div class="exp-ab-card exp-ab-a"><span class="t">El síntoma</span><p>Apretar la canilla que gotea con todas tus fuerzas: más horas, más apps, más culpa al final del día.</p></div>
-            <div class="exp-ab-arrow">→</div>
-            <div class="exp-ab-card exp-ab-b"><span class="t">La causa</span><p>Entender cómo funciona la canilla: un protocolo a favor de tu cerebro — y alguien del otro lado, esperando lo tuyo.</p></div>
-          </div>
-          <p class="exp-rev-text" id="expRevText">Tu corteza prefrontal se fatigó, el sistema límbico tomó el control y todo se volvió urgente. Más información no lo arregla — ya lo probaste. Y si nada cambia, ¿dónde vas a estar <b>en uno, dos, cinco años</b>? Exactamente acá. El <b>1%</b> que separa un antes de un después es una entrevista gratuita: contás dónde estás, a dónde querés llegar, y armamos el camino.</p>
-          <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('diagnostico');return false">Quiero hacer el cambio <span class="arrow">→</span></a>
-          <div class="exp-retake"><button type="button" onclick="expReset()">↻ Volver a empezar</button></div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-(function(){
-  var revs=0, apps=0, built=false;
-  var BARS=[8,38,68,100];
-
-  function $(id){return document.getElementById(id);}
-
-  window.expRev=function(){
-    if(revs>=3) return;
-    revs++;
-    var car=$('expCar'), smoke=$('expSmoke');
-    $('expRpm').style.width=Math.min(100,20+revs*28)+'%';
-    car.classList.remove('rev','spin'); void car.offsetWidth; car.classList.add('rev','spin');
-    smoke.classList.remove('go'); void smoke.offsetWidth; smoke.classList.add('go');
-    $('expKm').textContent=(revs*0.1).toFixed(1).replace('.',',')+' km';
-    if(revs>=3){
-      $('expAccel').disabled=true;
-      $('expAccel').textContent='🔥  RECALIENTA — y no avanzás';
-      $('expV1').hidden=false;
-      $('expGo0').disabled=false;
-    }
-  };
-
-  window.expApp=function(el){
-    el.classList.toggle('on');
-    apps=document.querySelectorAll('#exp-diag .exp-app.on').length;
-    var pct=Math.max(6,100-apps*15);
-    $('expBatt').style.width=pct+'%';
-    $('expBattPct').textContent=pct+'%';
-    $('expAppN').textContent=apps;
-    $('expV2').hidden = apps<1;
-    $('expGo1').disabled = apps<1;
-  };
-
-  /* Escena 3 · el personaje que nunca llega a lo suyo: cada clic en el
-     proyecto lo interrumpe con un "disfraz" nuevo (bombero → pijama →
-     agotado). Un solo botón activo, siempre. */
-  var ACT=[
-    {face:'🧑‍🚒', cls:'alarm',
-     bubble:'¡Esperá! Surgió un incendio — <b>hay que apagarlo primero.</b>',
-     chips:['🔥 Reunión «urgente» que se estiró','🔥 El mail que “no puede esperar”'],
-     backFace:'😮‍💨', backBubble:'Listo, apagado. <b>Ahora sí puedo avanzar.</b>'},
-    {face:'😴', cls:'sleep',
-     bubble:'No das más… anoche dormiste <b>menos de 5 horas.</b>',
-     chips:['🛌 4 h 50 de sueño','📱 47 notificaciones'],
-     backFace:'🥱', backBubble:'Mañana temprano lo agarro. <b>Ahora sí.</b>'},
-    {face:'😵‍💫', cls:'drained',
-     bubble:'Lo siento — estás <b>sobresaturado de tareas</b>. Mejor lo dejamos para el lunes… de la semana que viene.',
-     chips:['📋 La lista interminable','🧯 Trabajo extra de última hora']}
-  ];
-  var expAct=0, expBusy=false;
-  function expSetActor(face, cls, bubbleHTML, chips){
-    var f=$('expFace'), b=$('expBubble'), c=$('expChips');
-    f.textContent=face;
-    f.className='exp-actor__face'+(cls?' '+cls:'');
-    void f.offsetWidth; f.classList.add('pop');
-    b.innerHTML=bubbleHTML;
-    c.innerHTML=(chips||[]).map(function(t){ return '<span class="exp-chip">'+t+'</span>'; }).join('');
-  }
-  function expBuildDay(){
-    expAct=0; expBusy=false;
-    expSetActor('😌','','Por fin un rato libre… <b>Ahora sí avanzo con lo mío.</b>',[]);
-    var p=$('expProj');
-    p.classList.remove('locked');
-    p.innerHTML='▶ &nbsp;Avanzar con tu proyecto — el que postergás hace años';
-  }
-  window.expProjTry=function(){
-    var p=$('expProj');
-    if(expBusy || p.classList.contains('locked')) return;
-    expBusy=true;
-    var step=ACT[expAct]; expAct++;
-    p.classList.add('locked');
-    var st=document.querySelector('#exp-diag .exp-step[data-step="2"]');
-    st.classList.remove('shake'); void st.offsetWidth; st.classList.add('shake');
-    expSetActor(step.face, step.cls, step.bubble, step.chips);
-    if(expAct<ACT.length){
-      p.innerHTML='🔒 Interrumpido…';
-      setTimeout(function(){
-        expSetActor(step.backFace,'',step.backBubble,[]);
-        p.classList.remove('locked');
-        p.innerHTML='▶ &nbsp;Avanzar con tu proyecto — ahora sí';
-        expBusy=false;
-      },2600);
-    } else {
-      p.innerHTML='🔒 Lunes de la semana que viene…';
-      $('expV3').hidden=false;
-      $('expGo2').disabled=false;
-      expBusy=false;
-    }
-  };
-
-  window.expNext=function(idx){
-    var steps=document.querySelectorAll('#exp-diag .exp-step');
-    if(idx>=steps.length-1) return;
-    steps[idx].classList.remove('active');
-    steps[idx+1].classList.add('active');
-    $('expBar').style.width=BARS[idx+1]+'%';
-    if(idx+1===2 && !built){ expBuildDay(); built=true; }
-    if(idx+1===3){ buildReveal(); }
-    $('exp-diag').scrollIntoView({behavior:'smooth',block:'start'});
-  };
-
-  function buildReveal(){
-    var n=apps||'varios';
-    $('expRevText').innerHTML='Tu corteza prefrontal se fatigó con <b>'+n+' procesos en segundo plano</b>, el sistema límbico tomó el control y todo se volvió urgente. Más información no lo arregla — ya lo probaste. Y la salida tampoco es «lo resuelvo solo»: todos los que entran al Instituto dicen la misma frase, <b>«solo no pude»</b>. Si nada cambia, ¿dónde vas a estar <b>en uno, dos, cinco años</b>? Exactamente acá. El <b>1%</b> que separa un antes de un después es una entrevista gratuita: contás dónde estás, a dónde querés llegar, y armamos el camino.';
-  }
-
-  window.expReset=function(){
-    revs=0; apps=0; dodges=0;
-    var steps=document.querySelectorAll('#exp-diag .exp-step');
-    steps.forEach(function(s,i){ s.classList.toggle('active', i===0); });
-    $('expBar').style.width='8%';
-    $('expRpm').style.width='6%'; $('expKm').textContent='0,0 km';
-    $('expAccel').disabled=false; $('expAccel').innerHTML='🚗 &nbsp;PISÁ EL ACELERADOR';
-    $('expV1').hidden=true; $('expGo0').disabled=true;
-    document.querySelectorAll('#exp-diag .exp-app.on').forEach(function(a){a.classList.remove('on');});
-    $('expBatt').style.width='100%'; $('expBattPct').textContent='100%'; $('expAppN').textContent='0';
-    $('expV2').hidden=true; $('expGo1').disabled=true;
-    // reset del ciclo de incendios
-    if(built) expBuildDay();
-    $('expV3').hidden=true; $('expGo2').disabled=true;
-    $('exp-diag').scrollIntoView({behavior:'smooth',block:'start'});
-  };
-
-  // init
-  $('expRpm').style.width='6%';
-})();
-</script>
-
 <!-- TRUST BAR -->
 <div class="trust">
   <div class="wrap">
@@ -906,6 +590,36 @@ a{color:inherit}
     <div class="stat"><div class="n">+10<span class="u"> países</span></div><div class="l">Comunidad iberoamericana</div></div>
   </div>
 </div>
+
+<!-- AVAL UNIVERSITARIO (3er widget · el diferencial arriba) -->
+<section class="section" id="aval">
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">El respaldo</span></div>
+    <h2 class="h2 center">Lo que casi ningún programa te puede mostrar</h2>
+    <p class="lead-2 center" style="max-width:62ch;margin-left:auto;margin-right:auto">Antes de contarte nada más: esto es lo que separa al Instituto de "un curso más".</p>
+    <div class="incl-feature">
+      <div class="incl-feature__body">
+        <span class="feat-badge">★ El diferencial · Respaldo académico</span>
+        <h3 class="feat-title">Tu sistema, con <span class="hl">aval universitario</span></h3>
+        <p class="feat-lead">No es una constancia por asistir. La versión <b>Platinum</b> se certifica de forma conjunta con la <b>Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy (UNJu)</b>: un trayecto de 250 horas con evaluación y un trabajo final aplicado a tu propia vida o negocio. Se gana, no se regala — y por eso pesa distinto en tu CV, tu LinkedIn y frente a quien sea.</p>
+        <ul class="feat-list">
+          <li>Trayecto de 250 horas certificado por la Facultad, con evaluación y trabajo final</li>
+          <li>Certificado digital emitido y firmado por la Facultad, con mecanismo de verificación</li>
+          <li>Exclusivo de la versión Platinum · Certificación optativa</li>
+        </ul>
+        <p class="feat-legal">El certificado es emitido por la Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy en el marco de un programa de certificación conjunta con NFM Productivity S.A.S. La certificación universitaria es optativa, exige requisitos académicos de aprobación y no constituye título universitario de grado ni de posgrado, ni acredita equivalencias automáticas.</p>
+      </div>
+      <figure class="incl-feature__photo photo-slot" data-img="certificados" data-alt="Alumno del Instituto de Productividad con su certificado">
+        <div class="photo-slot__inner">
+          <div class="photo-slot__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          </div>
+          <div class="photo-slot__label">Recuadro 1 · Foto<span>Aval · alumnos con su certificado (hasta 4)</span></div>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
 
 <!-- QUÉ ES / PARA QUIÉN -->
 <section class="section" id="quees">
@@ -934,30 +648,7 @@ a{color:inherit}
   <div class="wrap center">
     <div class="center"><span class="eyebrow">Qué incluye</span></div>
     <h2 class="h2">Qué incluyen los programas del <span class="hl">Instituto de Productividad</span></h2>
-    <p class="lead-2">Todo lo que ponemos del otro lado —dentro de nuestros procesos— para que lo tuyo, esta vez, sí se mueva. Empezando por lo que casi ningún programa te da: un respaldo académico de verdad.</p>
-
-    <!-- DESTACADO: AVAL UNIVERSITARIO -->
-    <div class="incl-feature">
-      <div class="incl-feature__body">
-        <span class="feat-badge">★ El diferencial · Respaldo académico</span>
-        <h3 class="feat-title">Tu sistema, con <span class="hl">aval universitario</span></h3>
-        <p class="feat-lead">No es una constancia por asistir. La versión <b>Platinum</b> se certifica de forma conjunta con la <b>Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy (UNJu)</b>: un trayecto de 250 horas con evaluación y un trabajo final aplicado a tu propia vida o negocio. Se gana, no se regala — y por eso pesa distinto en tu CV, tu LinkedIn y frente a quien sea.</p>
-        <ul class="feat-list">
-          <li>Trayecto de 250 horas certificado por la Facultad, con evaluación y trabajo final</li>
-          <li>Certificado digital emitido y firmado por la Facultad, con mecanismo de verificación</li>
-          <li>Exclusivo de la versión Platinum · Certificación optativa</li>
-        </ul>
-        <p class="feat-legal">El certificado es emitido por la Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy en el marco de un programa de certificación conjunta con NFM Productivity S.A.S. La certificación universitaria es optativa, exige requisitos académicos de aprobación y no constituye título universitario de grado ni de posgrado, ni acredita equivalencias automáticas.</p>
-      </div>
-      <figure class="incl-feature__photo photo-slot" data-img="certificados" data-alt="Alumno del Instituto de Productividad con su certificado">
-        <div class="photo-slot__inner">
-          <div class="photo-slot__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          </div>
-          <div class="photo-slot__label">Recuadro 1 · Foto<span>Aval · alumnos con su certificado (hasta 4)</span></div>
-        </div>
-      </figure>
-    </div>
+    <p class="lead-2">Todo lo que ponemos del otro lado —dentro de nuestros procesos— para que lo tuyo, esta vez, sí se mueva. Un profesional por cada frente, no un PDF y suerte.</p>
 
     <!-- Beneficios con foto (recuadros 2 a 5) -->
     <div class="bcards">
@@ -2385,7 +2076,7 @@ function agdLoadCalendly(){
     <div class="links">
       <a href="#incluye">Qué incluye</a>
       <a href="#nfm-equipo">Equipo</a>
-      <a href="#exp-diag">Diagnóstico</a>
+      <a href="#aval">Aval universitario</a>
       <a href="#agendar">Agendar entrevista</a>
     </div>
     <small>© Instituto de Productividad · Nicolás Fernández Miranda</small>
