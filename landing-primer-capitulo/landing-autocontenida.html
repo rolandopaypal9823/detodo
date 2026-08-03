@@ -119,24 +119,46 @@ h1{font-family:'Montserrat',sans-serif;font-weight:900;
   border:1px solid rgba(255,255,255,.13);padding:4px 10px;border-radius:100px;
   font-size:9.5px;letter-spacing:.14em}
 
-/* Slot de imagen del mockup. Si el PNG no existe todavía, cae al placeholder. */
-.shot{position:relative;aspect-ratio:1/1;max-height:330px;border-radius:14px;margin-bottom:22px;
+/* Placa clara del producto. La foto del libro viene con fondo blanco, así que
+   en vez de recortarla la apoyamos sobre una superficie clara: se lee como un
+   product shot de estudio. El cartel va en HTML, no quemado en el PNG. */
+.shot{position:relative;aspect-ratio:4/3;border-radius:14px;margin-bottom:22px;
   display:flex;align-items:center;justify-content:center;overflow:hidden;
-  background:radial-gradient(72% 62% at 50% 44%,rgba(23,70,109,.55),transparent 70%)}
+  padding:18px;
+  background:linear-gradient(160deg,#ffffff 0%,#fafcfd 60%,#f2f6f9 100%);
+  box-shadow:inset 0 0 0 1px rgba(12,52,82,.10), 0 10px 26px -14px rgba(0,0,0,.55)}
+/* Esquina FRAMER de la marca (solo la inferior: arriba va el sello) */
+.shot::after{content:"";position:absolute;width:20px;height:20px;
+  border:2.5px solid var(--orange);opacity:.9;z-index:2;
+  bottom:11px;right:11px;border-left:0;border-top:0;border-radius:0 0 7px 0}
+/* multiply funde el fondo blanco de la foto con la placa: no se ve el recuadro */
 .shot img{width:auto;height:100%;max-width:100%;object-fit:contain;
-  filter:drop-shadow(0 26px 42px rgba(0,0,0,.5));
+  mix-blend-mode:multiply;
   transition:transform .45s var(--ease)}
-.card:hover .shot img{transform:translateY(-6px) scale(1.02)}
-/* Placeholder elegante mientras no exista el PNG (marco FRAMER de la biblia) */
-.shot .ph{display:none;position:absolute;inset:14px;border-radius:12px;
-  border:1px dashed rgba(255,255,255,.18);
+/* Convergen hacia el centro. El scale se come parte del margen blanco de la foto
+   original. Si tu foto tiene mucho aire y el libro se ve chico, subilo a 1.14;
+   si el libro llega a cortarse abajo, bajalo a 1. */
+.shot--izq img{transform:rotate(-2.5deg) scale(1.08)}
+.shot--der img{transform:rotate(2.5deg) scale(1.08)}
+.card:hover .shot--izq img{transform:rotate(-2.5deg) scale(1.13) translateY(-4px)}
+.card:hover .shot--der img{transform:rotate(2.5deg) scale(1.13) translateY(-4px)}
+
+/* El cartelito, pinchado sobre la placa */
+.sello{position:absolute;top:15px;left:15px;z-index:3;
+  transform:rotate(-4deg);
+  font-family:'Montserrat',sans-serif;font-weight:900;
+  font-size:12.5px;letter-spacing:.02em;text-transform:uppercase;
+  padding:9px 15px;border-radius:8px;white-space:nowrap;
+  box-shadow:0 8px 20px -6px rgba(12,52,82,.45)}
+.sello--naranja{background:var(--orange);color:#fff}
+.sello--blanco{background:#fff;color:var(--navy);box-shadow:0 8px 20px -6px rgba(12,52,82,.45),
+  inset 0 0 0 2px var(--orange)}
+
+/* Placeholder si la imagen no carga */
+.shot .ph{display:none;position:absolute;inset:0;
   align-items:center;justify-content:center;text-align:center;padding:20px;
   font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--niebla-2);line-height:1.9}
-.shot .ph::before,.shot .ph::after{content:"";position:absolute;width:22px;height:22px;
-  border:2.5px solid var(--orange);opacity:.85}
-.shot .ph::before{top:10px;left:10px;border-right:0;border-bottom:0;border-radius:8px 0 0 0}
-.shot .ph::after{bottom:10px;right:10px;border-left:0;border-top:0;border-radius:0 0 8px 0}
+  text-transform:uppercase;color:#7a93a6;line-height:1.9}
 .shot.is-empty img{display:none}
 .shot.is-empty .ph{display:flex}
 
@@ -212,19 +234,21 @@ h1{font-family:'Montserrat',sans-serif;font-weight:900;
 <body>
 
 <!-- ===========================================================================
-     LO ÚNICO QUE HAY QUE TOCAR (buscá y reemplazá estas 4 cadenas):
+     CONFIGURACIÓN — está todo listo, esto es solo por si querés cambiar algo.
 
-     1. assets/ebook-primer-capitulo.png   → URL de la imagen del capítulo
-     2. assets/ebook-libro-completo.png    → URL de la imagen del libro
-     3. https://nicolasfernandezmiranda.com/wp-content/uploads/2026/03/HTC-1-CAP.pdf
-                                           → URL del PDF
-     4. https://comunidadproductiva.circle.so/hackea-tu-cerebro?utm_source=1ercap
-                                           → URL de compra
+     Las 3 URLs de la página (buscá y reemplazá):
+       · Foto del libro  https://nicolasfernandezmiranda.com/wp-content/uploads/
+                         2026/08/Diseno_sin_titulo_11-scaled.webp   (x2, una por card)
+       · PDF             https://nicolasfernandezmiranda.com/wp-content/uploads/
+                         2026/03/HTC-1-CAP.pdf
+       · Compra          https://comunidadproductiva.circle.so/hackea-tu-cerebro?utm_source=1ercap
 
-     En WordPress los puntos 1 y 2 SON OBLIGATORIOS: adentro de un bloque HTML
-     las rutas relativas no resuelven. Subí los PNG a la Biblioteca de medios y
-     pegá acá las URLs completas (https://...). El logo no hace falta cambiarlo:
-     en landing-autocontenida.html ya va embebido en base64.
+     Las tres son absolutas, así que esto funciona igual subido a un hosting o
+     pegado en un bloque HTML de WordPress. El logo va embebido en base64 en
+     landing-autocontenida.html.
+
+     Los carteles ("PRIMER CAPÍTULO · PDF" / "LIBRO COMPLETO") son texto HTML,
+     no están quemados en la imagen: buscá class="sello" y cambiá lo que diga.
      =========================================================================== -->
 
 <div class="bg" aria-hidden="true"></div>
@@ -254,10 +278,12 @@ h1{font-family:'Montserrat',sans-serif;font-weight:900;
 
           <!-- IZQUIERDA · el regalo -->
           <article class="card rv">
-            <div class="step"><span class="n">01</span> Empezá acá <span class="tag">Gratis</span></div>
-            <div class="shot">
-              <img src="assets/ebook-primer-capitulo.png"
-                   alt="Primer capítulo de Hackea tu cerebro en PDF"
+            <div class="step"><span class="n">01</span> Empezá acá</div>
+            <div class="shot shot--izq">
+              <span class="sello sello--naranja">Primer capítulo · PDF</span>
+              <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/08/Diseno_sin_titulo_11-scaled.webp"
+                   alt="Libro Hackea tu cerebro, de Nico Fernández Miranda"
+                   loading="lazy"
                    onerror="this.closest('.shot').classList.add('is-empty')">
               <div class="ph">Imagen<br>Primer capítulo PDF</div>
             </div>
@@ -273,10 +299,12 @@ h1{font-family:'Montserrat',sans-serif;font-weight:900;
 
           <!-- DERECHA · la venta -->
           <article class="card card--focus rv">
-            <div class="step"><span class="n">02</span> Si te resuena <span class="tag">Libro completo</span></div>
-            <div class="shot">
-              <img src="assets/ebook-libro-completo.png"
-                   alt="Libro completo Hackea tu cerebro"
+            <div class="step"><span class="n">02</span> Si te resuena</div>
+            <div class="shot shot--der">
+              <span class="sello sello--blanco">Libro completo</span>
+              <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/08/Diseno_sin_titulo_11-scaled.webp"
+                   alt="Libro Hackea tu cerebro, edición completa"
+                   loading="lazy"
                    onerror="this.closest('.shot').classList.add('is-empty')">
               <div class="ph">Imagen<br>Libro completo</div>
             </div>

@@ -25,23 +25,24 @@ landing-primer-capitulo/
 ├── PROMPTS-IMAGENES.md         ← los 2 prompts de GPT-image para las imágenes
 └── assets/
     ├── logo-nfm-blanco.png     ← logo oficial (versión negativa, para fondo oscuro)
-    ├── logo-nfm-navy.png       ← logo oficial navy (por si hace falta sobre claro)
-    ├── ebook-primer-capitulo.png   ← FALTA: generalo con el Prompt A
-    └── ebook-libro-completo.png    ← FALTA: generalo con el Prompt B
+    └── logo-nfm-navy.png       ← logo oficial navy (por si hace falta sobre claro)
 ```
 
-Mientras las dos imágenes del ebook no existan, cada card muestra un marco FRAMER limpio con el
-label de qué va ahí. No se rompe nada: podés publicarla igual y sumar las imágenes después.
+## Las imágenes: ya están resueltas
 
-**La forma rápida y segura de generarlas** (sin IA, la tapa queda pixel a pixel):
+Las dos cards usan **la foto del libro que ya está en WordPress**, por URL absoluta. No hay nada
+que generar ni que subir.
 
-```bash
-pip install Pillow
-python3 armar-mockups.py /ruta/a/la/foto-del-ebook.png
-```
+Y los carteles —"PRIMER CAPÍTULO · PDF" y "LIBRO COMPLETO"— **son texto HTML**, no están quemados
+en la imagen. Eso significa: nítidos en cualquier pantalla, se cambian escribiendo (buscá
+`class="sello"`), y ningún modelo de IA le toca la cara a Nico.
 
-Deja las dos en `assets/` con los nombres correctos. Detalle y alternativas con IA en
-`PROMPTS-IMAGENES.md`.
+Como la foto viene con fondo blanco y las cards son azul oscuro, el libro va apoyado sobre una
+**placa clara** con `mix-blend-mode: multiply`, que funde ese fondo con la placa. Se lee como un
+product shot de estudio. Los dos libros están rotados ±2.5° para converger hacia el centro.
+
+Si algún día querés los mockups recortados en PNG transparente, `armar-mockups.py` los arma sin
+IA a partir de la foto (ver `PROMPTS-IMAGENES.md`). No hace falta para publicar.
 
 ## Links que usa
 
@@ -58,10 +59,8 @@ Para cambiarlos, buscá `href=` en `index.html`. Son los dos únicos.
 con rutas relativas, así que funciona en cualquier hosting sin tocar nada.
 
 **Opción B — dentro de WordPress (Elementor / bloque HTML).** Copiá todo el contenido de
-`landing-autocontenida.html` en un bloque HTML a página completa. El logo ya viene embebido en
-base64; solo tenés que subir las dos imágenes del ebook a la Biblioteca de medios y reemplazar
-`assets/ebook-primer-capitulo.png` y `assets/ebook-libro-completo.png` por las URLs que te da
-WordPress.
+`landing-autocontenida.html` en un bloque HTML a página completa. No hay que tocar nada: el logo
+va embebido en base64 y la foto del libro, el PDF y el link de compra son URLs absolutas.
 
 ## Detalles técnicos
 
