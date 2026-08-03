@@ -253,6 +253,49 @@ a{color:inherit}
 .pill:hover{border-color:var(--nfm-orange);transform:translateY(-3px)}
 .pill .mono{font-family:'JetBrains Mono';text-transform:uppercase;font-size:10px;letter-spacing:.16em;color:var(--nfm-orange-text);display:block;margin-bottom:8px}
 .pill h3{font-weight:800;font-size:15px;color:var(--nfm-blue)}
+/* ---------- ANIMACIÓN: el auto completo vs pisar el acelerador ---------- */
+.autos{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:880px;margin:42px auto 10px}
+.auto{margin:0;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:16px 16px 15px;box-shadow:0 12px 32px rgba(12,52,82,.06);overflow:hidden}
+.auto--ok{border-color:rgba(255,102,2,.30)}
+.auto__cap{display:flex;justify-content:center;margin-bottom:10px}
+.auto__badge{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:6px 12px;border-radius:100px}
+.auto__badge--err{color:var(--mono-grey);background:#f1f4f6;border:1px solid var(--hair)}
+.auto__badge--ok{color:var(--nfm-orange-text);background:var(--nfm-orange-wash);border:1px solid rgba(255,102,2,.28)}
+.auto__stage{position:relative;height:118px;overflow:hidden;border-radius:12px;background:linear-gradient(180deg,#f7fafc 0%,#eef3f7 66%,#e6edf2 66%,#d9e2ea 100%)}
+.auto__road{position:absolute;left:0;right:0;bottom:20px;height:3px;background:repeating-linear-gradient(90deg,#9fb0bd 0 14px,transparent 14px 30px);opacity:.55}
+.auto--ok .auto__road{animation:roadmove .5s linear infinite}
+.auto--error .auto__road{animation:roadmove 3.4s linear infinite}
+@keyframes roadmove{to{background-position:-30px 0}}
+.auto__car{position:absolute;left:50%;bottom:8px;width:150px;transform:translateX(-50%)}
+.auto--error .auto__car{animation:carjudder .17s linear infinite}
+@keyframes carjudder{0%,100%{transform:translateX(-50%)}25%{transform:translate(calc(-50% - 1.5px),1px)}75%{transform:translate(calc(-50% + 1.5px),-1px)}}
+.auto__body{fill:var(--nfm-blue)}
+.auto--error .auto__body{fill:#8a97a3}
+.auto__win{fill:#cfe0ee}
+.auto--ok .auto__accent{fill:var(--nfm-orange)}
+.auto--error .auto__accent{fill:#6b7885}
+.auto__car .wheel{transform-box:fill-box;transform-origin:center}
+.auto--ok .auto__car .wheel{animation:spin 1.1s linear infinite}
+.auto--error .auto__car .wheel{animation:spin .13s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.auto__smoke{position:absolute;left:calc(50% - 74px);bottom:30px;width:18px;height:18px;pointer-events:none}
+.auto__smoke i{position:absolute;bottom:0;left:0;width:12px;height:12px;border-radius:50%;background:rgba(96,106,116,.5)}
+.auto__smoke i:nth-child(1){animation:puff 1.1s ease-out infinite}
+.auto__smoke i:nth-child(2){animation:puff 1.1s ease-out .55s infinite}
+@keyframes puff{0%{opacity:.55;transform:translate(0,0) scale(.5)}100%{opacity:0;transform:translate(-18px,-26px) scale(1.6)}}
+.auto__heat{position:absolute;top:9px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono';font-size:9.5px;font-weight:700;letter-spacing:.08em;color:#c0392b;background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.32);padding:3px 9px;border-radius:100px;animation:heatblink 1s steps(2) infinite}
+@keyframes heatblink{50%{opacity:.35}}
+.auto__dash{margin-top:12px;min-height:44px;display:flex;flex-direction:column;justify-content:center}
+.auto__pilars{display:flex;gap:5px;justify-content:center;flex-wrap:wrap}
+.auto__pilars span{font-family:'JetBrains Mono';font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--nfm-blue);background:var(--nfm-orange-wash);border:1px solid rgba(255,102,2,.22);padding:4px 8px;border-radius:100px;display:inline-flex;align-items:center;gap:5px}
+.auto__pilars span::before{content:"";width:6px;height:6px;border-radius:50%;background:#3fb950;box-shadow:0 0 0 2px rgba(63,185,80,.18)}
+.auto__result{text-align:center;font-family:'Montserrat';font-weight:700;font-size:13px}
+.auto__pilars + .auto__result{margin-top:9px}
+.auto--error .auto__result{color:var(--mono-grey)}
+.auto--ok .auto__result{color:var(--nfm-orange-text)}
+.auto__result b{color:var(--nfm-blue)}
+@media(max-width:640px){.autos{grid-template-columns:1fr;max-width:420px}}
+@media(prefers-reduced-motion:reduce){.auto__road,.auto__car,.auto__car .wheel,.auto__smoke i,.auto__heat{animation:none!important}.auto__smoke{display:none}}
 
 /* ---------- EQUIPO (widget integrado) ---------- */
 .nfm-team{padding:8px 0 0}
@@ -706,6 +749,46 @@ a{color:inherit}
     <div class="center"><span class="eyebrow">El método</span></div>
     <h2 class="h2">La productividad es el <span class="hl">auto completo</span>, no pisar más el acelerador.</h2>
     <p class="lead-2">Service, aceite, gomas: rendir sostenido no es apretar más fuerte, es que todo el sistema funcione. Por eso el método toca las cinco áreas —no una técnica suelta.</p>
+
+    <div class="autos" aria-hidden="true">
+      <figure class="auto auto--error">
+        <div class="auto__cap"><span class="auto__badge auto__badge--err">✗ Solo pisar el acelerador</span></div>
+        <div class="auto__stage">
+          <div class="auto__heat">🔥 Recalienta</div>
+          <div class="auto__smoke"><i></i><i></i></div>
+          <svg class="auto__car" viewBox="0 0 150 64" width="150">
+            <path class="auto__body" d="M5 46 C5 36 13 34 22 33 L42 20 C57 13 95 13 110 20 L127 33 C139 34 145 37 145 46 L145 48 C145 51 143 52 140 52 L10 52 C7 52 5 51 5 48 Z"/>
+            <path class="auto__win" d="M46 22 C59 16 91 16 103 22 L112 32 L38 32 Z"/>
+            <rect class="auto__accent" x="5" y="43" width="140" height="4" rx="2"/>
+            <g class="wheel"><circle cx="40" cy="52" r="10" fill="#22323f"/><circle cx="40" cy="52" r="4.5" fill="#9aa6b0"/><path d="M40 44v16M32 52h16M34.5 46.5l11 11M45.5 46.5l-11 11" stroke="#3a4a58" stroke-width="1.4"/></g>
+            <g class="wheel"><circle cx="112" cy="52" r="10" fill="#22323f"/><circle cx="112" cy="52" r="4.5" fill="#9aa6b0"/><path d="M112 44v16M104 52h16M106.5 46.5l11 11M117.5 46.5l-11 11" stroke="#3a4a58" stroke-width="1.4"/></g>
+          </svg>
+          <div class="auto__road"></div>
+        </div>
+        <div class="auto__dash">
+          <div class="auto__result">Mucho ruido. <b>Cero avance.</b></div>
+        </div>
+      </figure>
+
+      <figure class="auto auto--ok">
+        <div class="auto__cap"><span class="auto__badge auto__badge--ok">✓ El auto completo</span></div>
+        <div class="auto__stage">
+          <svg class="auto__car" viewBox="0 0 150 64" width="150">
+            <path class="auto__body" d="M5 46 C5 36 13 34 22 33 L42 20 C57 13 95 13 110 20 L127 33 C139 34 145 37 145 46 L145 48 C145 51 143 52 140 52 L10 52 C7 52 5 51 5 48 Z"/>
+            <path class="auto__win" d="M46 22 C59 16 91 16 103 22 L112 32 L38 32 Z"/>
+            <rect class="auto__accent" x="5" y="43" width="140" height="4" rx="2"/>
+            <g class="wheel"><circle cx="40" cy="52" r="10" fill="#22323f"/><circle cx="40" cy="52" r="4.5" fill="#9aa6b0"/><path d="M40 44v16M32 52h16M34.5 46.5l11 11M45.5 46.5l-11 11" stroke="#3a4a58" stroke-width="1.4"/></g>
+            <g class="wheel"><circle cx="112" cy="52" r="10" fill="#22323f"/><circle cx="112" cy="52" r="4.5" fill="#9aa6b0"/><path d="M112 44v16M104 52h16M106.5 46.5l11 11M117.5 46.5l-11 11" stroke="#3a4a58" stroke-width="1.4"/></g>
+          </svg>
+          <div class="auto__road"></div>
+        </div>
+        <div class="auto__dash">
+          <div class="auto__pilars"><span>Descanso</span><span>Alimentación</span><span>Movimiento</span><span>Foco</span><span>Mentalidad</span></div>
+          <div class="auto__result">Todo en verde. <b>Avanza parejo.</b></div>
+        </div>
+      </figure>
+    </div>
+
     <div class="pillars">
       <div class="pill"><span class="mono">Pilar 01</span><h3>Descanso y energía</h3></div>
       <div class="pill"><span class="mono">Pilar 02</span><h3>Alimentación</h3></div>
