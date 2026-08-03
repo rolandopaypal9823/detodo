@@ -218,7 +218,67 @@ rectángulo sobre el navy con gradiente y arruina el efecto.
 
 ---
 
-## 8. Accesibilidad — el bloque que va siempre
+## 8. Pieza que se va a pegar en WordPress: scopeala
+
+Si el HTML termina dentro de un bloque de WordPress / Elementor, **el CSS sin scope pierde**.
+Un `h1{color:#fff}` tiene especificidad (0,0,1) y cualquier regla del tema tipo
+`.entry-content h1` (0,1,1) le gana: el título sale del color del tema. Y peor: un
+`*{margin:0;padding:0}` global le rompe el espaciado a **toda la página del sitio**.
+
+Regla: **todo bajo una clase raíz** (`.nfm-lp`), y `!important` en las propiedades visualmente
+críticas (color, background, font).
+
+```html
+<div class="nfm-lp">…toda la pieza…</div>
+```
+
+```css
+.nfm-lp{ /* tokens + tipografía + color base */ }
+.nfm-lp *{box-sizing:border-box;margin:0;padding:0;
+  font-family:'Open Sans',sans-serif !important}
+.nfm-lp h1{color:#fff !important;background:none !important;padding:0 !important}
+.nfm-lp img{border:0 !important}          /* muchos temas le ponen borde a las img */
+.nfm-lp a{text-decoration:none !important}
+```
+
+Cuatro trampas que aparecen sí o sí:
+
+1. **La fuente no se hereda si el tema la declara directo.** `.entry-content p{font-family:Georgia}`
+   le gana a la heredada del wrapper, porque una declaración directa siempre vence a la herencia.
+   Por eso la base va en `.nfm-lp *` con `!important`, y las excepciones (Montserrat, Mono) tienen
+   más especificidad.
+2. **Los inline tienen que heredar tamaño.** Si el tema pone `.entry-content span{font-size:19px}`,
+   te destroza el shimmer y las negritas. Fijalo:
+   ```css
+   .nfm-lp .shimmer,.nfm-lp b,.nfm-lp strong,.nfm-lp .arw{
+     font-size:inherit !important;line-height:inherit !important;font-family:inherit !important}
+   ```
+3. **`background:` shorthand resetea `background-clip`.** El shimmer se ve como un bloque de color
+   sólido. Usá `background-image:` y ponele `!important` al clip:
+   ```css
+   .nfm-lp .shimmer{background-image:linear-gradient(…) !important;
+     -webkit-background-clip:text !important;background-clip:text !important;
+     -webkit-text-fill-color:transparent !important}
+   ```
+4. **Nada de `position:fixed` en los fondos.** Embebido, un fondo fijo tapa el header y el footer del
+   sitio. Van `absolute` dentro del wrapper (que es `position:relative`), así el fondo queda confinado
+   a la pieza y scrollea con el contenido.
+
+**Probalo antes de entregar.** Envolvé la pieza en un tema hostil simulado y sacá screenshot:
+
+```css
+/* tema falso: si tu pieza sobrevive a esto, sobrevive a cualquier WordPress */
+.entry-content h1,.entry-content h2{color:#222 !important;font-family:Georgia;background:#fafafa;padding:10px}
+.entry-content p,.entry-content span,.entry-content div{color:#555;font-family:Georgia;font-size:19px}
+.entry-content a{color:#0645ad;text-decoration:underline}
+.entry-content img{border:4px solid #f0c}
+```
+
+Chequeá que el header y el footer del tema queden intactos: si se movieron, tu reset se escapó.
+
+---
+
+## 9. Accesibilidad — el bloque que va siempre
 
 ```css
 @media(prefers-reduced-motion:reduce){
@@ -236,7 +296,7 @@ if(!reduce){ /* neural, parallax, autoplay */ }
 
 ---
 
-## 9. Logo embebido en HTML autocontenido
+## 10. Logo embebido en HTML autocontenido
 
 ```bash
 base64 -w0 logo-nfm-blanco.png
@@ -260,7 +320,7 @@ im.resize((400, round(400*h/w)), Image.LANCZOS)\
 
 ---
 
-## 10. Verificación visual antes de entregar
+## 11. Verificación visual antes de entregar
 
 Chromium está preinstalado en el entorno remoto (`/opt/pw-browsers/chromium`). No corras
 `playwright install`.

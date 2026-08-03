@@ -18,8 +18,18 @@
    Sistema de diseño: Biblia Estética NFM / Instituto de Productividad
    Azul NFM #0c3452 (con profundidad, nunca plano) · Naranja Acción #ff6602
    (único color de activación) · Montserrat + Open Sans + JetBrains Mono
+
+   TODO está scopeado bajo .nfm-lp a propósito. Pegado en WordPress, un CSS
+   sin scope (h1{}, body{}, *{}) pierde contra las reglas del tema y encima le
+   rompe los márgenes al resto de la página. Si tocás algo, mantené el prefijo.
    ========================================================================= */
-:root{
+
+/* Opcional: pinta de navy el resto de la página. Si en WordPress te rompe el
+   header o el footer del tema, borrá estas dos líneas y listo. */
+html,body{margin:0;padding:0}
+body{background:#061d30}
+
+.nfm-lp{
   --orange:#ff6602;
   --orange-hi:#ff8124;
   --orange-hover:#e65a00;
@@ -34,65 +44,84 @@
   --shadow-cta:0 10px 30px rgba(255,102,2,.32);
   --ease:cubic-bezier(.16,1,.3,1);
   --maxw:1060px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:'Open Sans',sans-serif;
-  color:var(--hueso);
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-  min-height:100vh;
+
   position:relative;
+  overflow:hidden;
+  min-height:100vh;
+  font-family:'Open Sans',sans-serif !important;
+  color:var(--hueso) !important;
   background:var(--navy-deep);
+  line-height:1.6;
+  font-size:16px;
+  text-align:left;
+  -webkit-font-smoothing:antialiased;
 }
-::selection{background:var(--orange);color:#fff}
-img{max-width:100%;display:block}
-a{color:inherit}
+/* La fuente se declara elemento por elemento: si el tema pone font-family en
+   `.entry-content p`, esa declaración directa le gana a la heredada del wrapper.
+   Base Open Sans; las excepciones (Montserrat / Mono) tienen más especificidad. */
+.nfm-lp *{box-sizing:border-box;margin:0;padding:0;
+  font-family:'Open Sans',sans-serif !important}
+.nfm-lp ::selection{background:var(--orange);color:#fff}
+.nfm-lp img{max-width:100%;display:block;height:auto;
+  border:0 !important;box-shadow:none;background:none}
+.nfm-lp a{color:inherit;text-decoration:none !important;box-shadow:none}
 
 /* Capas de fondo. El azul elegante = gradiente + glow superior + calor naranja
-   + borde de luz. Nunca navy plano. */
-.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+   + borde de luz. Nunca navy plano. Absolutas (no fixed) para no taparle la
+   pantalla al resto del sitio cuando esto va embebido. */
+.nfm-lp .bg{position:absolute;inset:0;z-index:0;pointer-events:none;
   background:
     radial-gradient(120% 90% at 18% 0%, rgba(23,70,109,.62), transparent 55%),
     radial-gradient(90% 70% at 88% 104%, rgba(255,102,2,.09), transparent 60%),
     linear-gradient(180deg,#0e3352 0%,#0c3452 42%,#061d30 100%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
-#neuralbg{position:fixed;inset:0;z-index:1;pointer-events:none}
-#neural-mask{position:fixed;inset:0;z-index:2;pointer-events:none;
-  background:radial-gradient(120% 88% at 50% 4%,transparent 34%,rgba(6,29,48,.86) 100%)}
-.page{position:relative;z-index:3}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.nfm-lp #neuralbg{position:absolute;inset:0;z-index:1;pointer-events:none}
+.nfm-lp .neural-mask{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(120% 70% at 50% 2%,transparent 30%,rgba(6,29,48,.86) 100%)}
+.nfm-lp .page{position:relative;z-index:3}
+.nfm-lp .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 
 /* ---------- Header ---------- */
-.top{padding:34px 0 6px;text-align:center}
-.top .logo{height:46px;width:auto;margin:0 auto;opacity:.96}
-.top .rule{width:64px;height:2px;margin:22px auto 0;border-radius:2px;
+.nfm-lp .top{padding:34px 0 6px;text-align:center}
+.nfm-lp .top .logo{height:46px;width:auto;margin:0 auto;opacity:.96}
+.nfm-lp .top .rule{width:64px;height:2px;margin:22px auto 0;border-radius:2px;
   background:linear-gradient(90deg,transparent,var(--orange),transparent)}
 
 /* ---------- Hero ---------- */
-.hero{padding:34px 0 8px;text-align:center}
-.eyebrow{display:inline-flex;align-items:center;gap:9px;
-  font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.2em;
-  font-size:10.5px;font-weight:500;color:#ffd0ac;
+.nfm-lp .hero{padding:34px 0 8px;text-align:center}
+.nfm-lp .eyebrow{display:inline-flex;align-items:center;gap:9px;
+  font-family:'JetBrains Mono',monospace !important;text-transform:uppercase;letter-spacing:.2em;
+  font-size:10.5px;font-weight:500;color:#ffd0ac !important;
   background:rgba(255,102,2,.14);border:1px solid rgba(255,255,255,.14);
   padding:8px 15px;border-radius:100px;margin-bottom:22px}
-.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--orange);
-  box-shadow:0 0 0 0 rgba(255,102,2,.55);animation:pulse 2.6s infinite}
-@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(255,102,2,0)}100%{box-shadow:0 0 0 0 rgba(255,102,2,0)}}
-h1{font-family:'Montserrat',sans-serif;font-weight:900;
-  font-size:clamp(30px,5.6vw,54px);line-height:1.04;letter-spacing:-.022em;
-  color:#fff;max-width:15ch;margin:0 auto 18px}
-.shimmer{background:linear-gradient(100deg,#ff6602 18%,#ff8124 40%,#fff 50%,#ff8124 60%,#ff6602 82%);
-  background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
-  animation:shim 5.5s linear infinite}
-@keyframes shim{to{background-position:200% center}}
-.hero p.lead{color:var(--niebla);font-size:clamp(15px,2vw,18px);max-width:56ch;margin:0 auto}
-.hero p.lead b{color:#fff;font-weight:700}
+.nfm-lp .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--orange);
+  box-shadow:0 0 0 0 rgba(255,102,2,.55);animation:nfmpulse 2.6s infinite}
+@keyframes nfmpulse{70%{box-shadow:0 0 0 9px rgba(255,102,2,0)}100%{box-shadow:0 0 0 0 rgba(255,102,2,0)}}
+.nfm-lp h1{font-family:'Montserrat',sans-serif !important;font-weight:900 !important;
+  font-size:clamp(30px,5.6vw,54px) !important;line-height:1.04 !important;
+  letter-spacing:-.022em;color:#fff !important;background:none !important;
+  max-width:15ch;margin:0 auto 18px !important;padding:0 !important;text-align:center}
+/* Los inline dentro de texto tienen que heredar del padre: si el tema declara
+   `.entry-content span{font-size:19px}`, esa regla directa gana sobre la herencia
+   y te deja el shimmer o las negritas en otro tamaño. */
+.nfm-lp .shimmer,.nfm-lp b,.nfm-lp strong,.nfm-lp em,.nfm-lp .arw{
+  font-size:inherit !important;line-height:inherit !important;
+  letter-spacing:inherit !important;font-family:inherit !important}
+/* Ojo: `background:` (shorthand) resetea background-clip. Va background-image. */
+.nfm-lp .shimmer{
+  background-image:linear-gradient(100deg,#ff6602 18%,#ff8124 40%,#fff 50%,#ff8124 60%,#ff6602 82%) !important;
+  background-size:200% auto !important;background-color:transparent !important;
+  -webkit-background-clip:text !important;background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;color:transparent !important;
+  animation:nfmshim 5.5s linear infinite}
+@keyframes nfmshim{to{background-position:200% center}}
+.nfm-lp .lead{color:var(--niebla) !important;font-size:clamp(15px,2vw,18px);
+  max-width:56ch;margin:0 auto !important}
+.nfm-lp .lead b{color:#fff !important;font-weight:700}
 
 /* ---------- Las dos cards ---------- */
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:46px 0 0;align-items:stretch}
-.card{position:relative;display:flex;flex-direction:column;
+.nfm-lp .cards{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:46px 0 0;align-items:stretch}
+.nfm-lp .card{position:relative;display:flex;flex-direction:column;
   background:rgba(255,255,255,.045);
   border:1px solid var(--hair-d);
   border-radius:var(--radius);
@@ -100,134 +129,143 @@ h1{font-family:'Montserrat',sans-serif;font-weight:900;
   backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 18px 44px -22px rgba(0,0,0,.6);
   transition:transform .3s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease)}
-.card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.22)}
+.nfm-lp .card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.22)}
 /* Card foco (la venta): borde naranja + calor, según la biblia */
-.card--focus{border-color:rgba(255,102,2,.42);
+.nfm-lp .card--focus{border-color:rgba(255,102,2,.42);
   background:
     radial-gradient(100% 60% at 50% 0%,rgba(255,102,2,.10),transparent 62%),
     rgba(255,255,255,.045);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 22px 52px -24px rgba(255,102,2,.34)}
-.card--focus:hover{border-color:rgba(255,102,2,.7);
+.nfm-lp .card--focus:hover{border-color:rgba(255,102,2,.7);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.09), 0 26px 60px -22px rgba(255,102,2,.46)}
 
-.step{display:flex;align-items:center;gap:10px;
-  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--niebla-2);margin-bottom:18px}
-.step .n{font-family:'Montserrat',sans-serif;font-weight:900;font-size:15px;
-  letter-spacing:0;color:var(--orange)}
-.step .tag{margin-left:auto;color:#ffd0ac;background:rgba(255,102,2,.14);
-  border:1px solid rgba(255,255,255,.13);padding:4px 10px;border-radius:100px;
-  font-size:9.5px;letter-spacing:.14em}
+.nfm-lp .step{display:flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace !important;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--niebla-2) !important;margin-bottom:18px}
+.nfm-lp .step .n{font-family:'Montserrat',sans-serif !important;font-weight:900;font-size:15px;
+  letter-spacing:0;color:var(--orange) !important}
 
 /* Placa clara del producto. La foto del libro viene con fondo blanco, así que
    en vez de recortarla la apoyamos sobre una superficie clara: se lee como un
    product shot de estudio. El cartel va en HTML, no quemado en el PNG. */
-.shot{position:relative;aspect-ratio:4/3;border-radius:14px;margin-bottom:22px;
+.nfm-lp .shot{position:relative;aspect-ratio:4/3;border-radius:14px;margin-bottom:22px;
   display:flex;align-items:center;justify-content:center;overflow:hidden;
   padding:18px;
   background:linear-gradient(160deg,#ffffff 0%,#fafcfd 60%,#f2f6f9 100%);
   box-shadow:inset 0 0 0 1px rgba(12,52,82,.10), 0 10px 26px -14px rgba(0,0,0,.55)}
 /* Esquina FRAMER de la marca (solo la inferior: arriba va el sello) */
-.shot::after{content:"";position:absolute;width:20px;height:20px;
+.nfm-lp .shot::after{content:"";position:absolute;width:20px;height:20px;
   border:2.5px solid var(--orange);opacity:.9;z-index:2;
   bottom:11px;right:11px;border-left:0;border-top:0;border-radius:0 0 7px 0}
 /* multiply funde el fondo blanco de la foto con la placa: no se ve el recuadro */
-.shot img{width:auto;height:100%;max-width:100%;object-fit:contain;
+.nfm-lp .shot img{width:auto;height:100%;max-width:100%;object-fit:contain;
   mix-blend-mode:multiply;
   transition:transform .45s var(--ease)}
 /* Convergen hacia el centro. El scale se come parte del margen blanco de la foto
    original. Si tu foto tiene mucho aire y el libro se ve chico, subilo a 1.14;
    si el libro llega a cortarse abajo, bajalo a 1. */
-.shot--izq img{transform:rotate(-2.5deg) scale(1.08)}
-.shot--der img{transform:rotate(2.5deg) scale(1.08)}
-.card:hover .shot--izq img{transform:rotate(-2.5deg) scale(1.13) translateY(-4px)}
-.card:hover .shot--der img{transform:rotate(2.5deg) scale(1.13) translateY(-4px)}
+.nfm-lp .shot--izq img{transform:rotate(-2.5deg) scale(1.08)}
+.nfm-lp .shot--der img{transform:rotate(2.5deg) scale(1.08)}
+.nfm-lp .card:hover .shot--izq img{transform:rotate(-2.5deg) scale(1.13) translateY(-4px)}
+.nfm-lp .card:hover .shot--der img{transform:rotate(2.5deg) scale(1.13) translateY(-4px)}
 
 /* El cartelito, pinchado sobre la placa */
-.sello{position:absolute;top:15px;left:15px;z-index:3;
+.nfm-lp .sello{position:absolute;top:15px;left:15px;z-index:3;
   transform:rotate(-4deg);
-  font-family:'Montserrat',sans-serif;font-weight:900;
-  font-size:12.5px;letter-spacing:.02em;text-transform:uppercase;
+  font-family:'Montserrat',sans-serif !important;font-weight:900;
+  font-size:12.5px;letter-spacing:.02em;text-transform:uppercase;line-height:1.2;
   padding:9px 15px;border-radius:8px;white-space:nowrap;
   box-shadow:0 8px 20px -6px rgba(12,52,82,.45)}
-.sello--naranja{background:var(--orange);color:#fff}
-.sello--blanco{background:#fff;color:var(--navy);box-shadow:0 8px 20px -6px rgba(12,52,82,.45),
-  inset 0 0 0 2px var(--orange)}
+.nfm-lp .sello--naranja{background:var(--orange) !important;color:#fff !important}
+.nfm-lp .sello--blanco{background:#fff !important;color:var(--navy) !important;
+  box-shadow:0 8px 20px -6px rgba(12,52,82,.45), inset 0 0 0 2px var(--orange)}
 
 /* Placeholder si la imagen no carga */
-.shot .ph{display:none;position:absolute;inset:0;
+.nfm-lp .shot .ph{display:none;position:absolute;inset:0;
   align-items:center;justify-content:center;text-align:center;padding:20px;
-  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;
-  text-transform:uppercase;color:#7a93a6;line-height:1.9}
-.shot.is-empty img{display:none}
-.shot.is-empty .ph{display:flex}
+  font-family:'JetBrains Mono',monospace !important;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:#7a93a6 !important;line-height:1.9}
+.nfm-lp .shot.is-empty img{display:none}
+.nfm-lp .shot.is-empty .ph{display:flex}
 
-.card h2{font-family:'Montserrat',sans-serif;font-weight:800;
-  font-size:clamp(19px,2.4vw,23px);line-height:1.16;letter-spacing:-.01em;color:#fff;margin-bottom:9px}
-.card p{color:var(--niebla);font-size:14.5px;line-height:1.6;margin-bottom:22px}
-.card p b{color:var(--hueso);font-weight:700}
-.card .spacer{flex:1}
+.nfm-lp .card h2{font-family:'Montserrat',sans-serif !important;font-weight:800 !important;
+  font-size:clamp(19px,2.4vw,23px) !important;line-height:1.16 !important;
+  letter-spacing:-.01em;color:#fff !important;background:none !important;
+  margin:0 0 9px !important;padding:0 !important;text-align:left}
+.nfm-lp .card p{color:var(--niebla) !important;font-size:14.5px;line-height:1.6;
+  margin:0 0 22px !important}
+.nfm-lp .card p b{color:var(--hueso) !important;font-weight:700}
+.nfm-lp .card .spacer{flex:1}
 
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
-  font-family:'Montserrat',sans-serif;font-weight:800;font-size:15.5px;
-  padding:16px 22px;border-radius:12px;border:none;cursor:pointer;text-decoration:none;
-  line-height:1.1;transition:transform .18s var(--ease),box-shadow .18s,background .18s,border-color .18s}
-.btn .arw{font-size:1.1em;transition:transform .2s}
-.btn:hover .arw{transform:translateX(4px)}
-.btn-primary{background:var(--orange);color:#fff;box-shadow:var(--shadow-cta)}
-.btn-primary:hover{transform:translateY(-2px);background:var(--orange-hover);
+.nfm-lp .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  font-family:'Montserrat',sans-serif !important;font-weight:800 !important;font-size:15.5px !important;
+  padding:16px 22px !important;border-radius:12px !important;border:none;cursor:pointer;
+  text-decoration:none !important;line-height:1.1;text-transform:none;
+  transition:transform .18s var(--ease),box-shadow .18s,background .18s,border-color .18s}
+.nfm-lp .btn .arw{font-size:1.1em;transition:transform .2s}
+.nfm-lp .btn:hover .arw{transform:translateX(4px)}
+.nfm-lp .btn-primary{background:var(--orange) !important;color:#fff !important;
+  box-shadow:var(--shadow-cta)}
+.nfm-lp .btn-primary:hover{transform:translateY(-2px);background:var(--orange-hover) !important;
   box-shadow:0 16px 38px rgba(255,102,2,.44)}
-.btn-ghost{background:rgba(255,255,255,.05);color:#fff;border:2px solid rgba(255,255,255,.46)}
-.btn-ghost:hover{transform:translateY(-2px);border-color:#fff;background:rgba(255,255,255,.11)}
-.note{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--niebla-2);text-align:center;margin-top:12px}
+.nfm-lp .btn-ghost{background:rgba(255,255,255,.05) !important;color:#fff !important;
+  border:2px solid rgba(255,255,255,.46) !important}
+.nfm-lp .btn-ghost:hover{transform:translateY(-2px);border-color:#fff !important;
+  background:rgba(255,255,255,.11) !important}
+.nfm-lp .note{font-family:'JetBrains Mono',monospace !important;font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--niebla-2) !important;text-align:center;margin-top:12px}
 
 /* ---------- Cita ---------- */
-.quote{margin:64px auto 0;max-width:760px;text-align:center;position:relative;padding:0 12px}
-.quote .mark{font-family:'Montserrat',sans-serif;font-weight:900;font-size:60px;
-  color:var(--orange);opacity:.5;line-height:.6;margin-bottom:14px}
-.quote blockquote{font-family:'Montserrat',sans-serif;font-weight:700;
-  font-size:clamp(17px,2.5vw,23px);line-height:1.4;color:#fff;letter-spacing:-.01em}
-.quote cite{display:block;margin-top:16px;font-style:normal;
-  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--niebla-2)}
+.nfm-lp .quote{margin:64px auto 0;max-width:760px;text-align:center;position:relative;padding:0 12px}
+.nfm-lp .quote .mark{font-family:'Montserrat',sans-serif !important;font-weight:900;font-size:60px;
+  color:var(--orange) !important;opacity:.5;line-height:.6;margin-bottom:14px}
+.nfm-lp .quote blockquote{font-family:'Montserrat',sans-serif !important;font-weight:700;
+  font-size:clamp(17px,2.5vw,23px);line-height:1.4;color:#fff !important;letter-spacing:-.01em;
+  margin:0 !important;padding:0 !important;border:0 !important;background:none !important;
+  font-style:normal;quotes:none}
+.nfm-lp .quote blockquote::before,.nfm-lp .quote blockquote::after{content:none}
+.nfm-lp .quote cite{display:block;margin-top:16px;font-style:normal;
+  font-family:'JetBrains Mono',monospace !important;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--niebla-2) !important}
 
 /* ---------- Marquee ---------- */
-.marq{margin-top:56px;overflow:hidden;
+.nfm-lp .marq{margin-top:56px;overflow:hidden;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
   mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-.marq__row{display:flex;width:max-content;animation:mq 30s linear infinite}
-.mq-i{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--niebla-2);white-space:nowrap;
+.nfm-lp .marq__row{display:flex;width:max-content;animation:nfmmq 30s linear infinite}
+.nfm-lp .mq-i{font-family:'JetBrains Mono',monospace !important;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--niebla-2) !important;white-space:nowrap;
   display:inline-flex;align-items:center;gap:18px;padding:0 18px}
-.mq-i::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--orange);opacity:.75}
-@keyframes mq{to{transform:translateX(-50%)}}
+.nfm-lp .mq-i::after{content:"";width:5px;height:5px;border-radius:50%;
+  background:var(--orange);opacity:.75}
+@keyframes nfmmq{to{transform:translateX(-50%)}}
 
 /* ---------- Footer ---------- */
-.foot{margin-top:56px;padding:34px 0 46px;text-align:center;
+.nfm-lp .foot{margin-top:56px;padding:34px 0 46px;text-align:center;
   border-top:1px solid rgba(255,255,255,.08)}
-.foot .logo{height:34px;width:auto;margin:0 auto 14px;opacity:.72}
-.foot .t{font-family:'Montserrat',sans-serif;font-weight:700;font-size:12.5px;color:var(--niebla)}
-.foot small{display:block;margin-top:8px;font-family:'JetBrains Mono',monospace;
-  font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--niebla-2)}
+.nfm-lp .foot .logo{height:34px;width:auto;margin:0 auto 14px;opacity:.72}
+.nfm-lp .foot .t{font-family:'Montserrat',sans-serif !important;font-weight:700;font-size:12.5px;
+  color:var(--niebla) !important}
+.nfm-lp .foot small{display:block;margin-top:8px;font-family:'JetBrains Mono',monospace !important;
+  font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--niebla-2) !important}
 
 /* ---------- Reveal ----------
-   Se ocultan SOLO si el JS corrió (clase js en <html>). Sin JS, todo visible. */
-.js .rv{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
-.js .rv.in{opacity:1;transform:none}
+   Se ocultan SOLO si el JS corrió (clase js en el wrapper). Sin JS, todo visible. */
+.nfm-lp.js .rv{opacity:0;transform:translateY(18px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.nfm-lp.js .rv.in{opacity:1;transform:none}
 
 /* ---------- Responsive ---------- */
 @media(max-width:860px){
-  .cards{grid-template-columns:1fr;gap:18px;margin-top:36px}
-  .card{padding:22px 20px 24px}
-  .shot{aspect-ratio:4/3}
-  .top{padding:26px 0 4px}
-  .top .logo{height:38px}
-  .quote{margin-top:48px}
+  .nfm-lp .cards{grid-template-columns:1fr;gap:18px;margin-top:36px}
+  .nfm-lp .card{padding:22px 20px 24px}
+  .nfm-lp .top{padding:26px 0 4px}
+  .nfm-lp .top .logo{height:38px}
+  .nfm-lp .quote{margin-top:48px}
 }
 @media(prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
-  .rv{opacity:1;transform:none}
+  .nfm-lp *{animation:none !important;transition:none !important}
+  .nfm-lp .rv{opacity:1 !important;transform:none !important}
 }
 </style>
 </head>
@@ -237,161 +275,169 @@ h1{font-family:'Montserrat',sans-serif;font-weight:900;
      CONFIGURACIÓN — está todo listo, esto es solo por si querés cambiar algo.
 
      Las 3 URLs de la página (buscá y reemplazá):
-       · Foto del libro  https://nicolasfernandezmiranda.com/wp-content/uploads/
-                         2026/08/Diseno_sin_titulo_11-scaled.webp   (x2, una por card)
-       · PDF             https://nicolasfernandezmiranda.com/wp-content/uploads/
-                         2026/03/HTC-1-CAP.pdf
+       · Foto del libro  .../2026/08/Diseno_sin_titulo_11-scaled.webp  (x2, una por card)
+       · PDF             .../2026/03/HTC-1-CAP.pdf
        · Compra          https://comunidadproductiva.circle.so/hackea-tu-cerebro?utm_source=1ercap
 
-     Las tres son absolutas, así que esto funciona igual subido a un hosting o
-     pegado en un bloque HTML de WordPress. El logo va embebido en base64 en
+     Las tres son absolutas: esto funciona igual subido a un hosting o pegado en
+     un bloque HTML de WordPress. El logo va embebido en base64 en
      landing-autocontenida.html.
 
-     Los carteles ("PRIMER CAPÍTULO · PDF" / "LIBRO COMPLETO") son texto HTML,
-     no están quemados en la imagen: buscá class="sello" y cambiá lo que diga.
+     Los carteles ("PRIMER CAPÍTULO · PDF" / "LIBRO COMPLETO") son texto HTML, no
+     están quemados en la imagen: buscá class="sello" y cambiá lo que diga.
+
+     Todo el CSS está scopeado bajo .nfm-lp para que el tema de WordPress no lo
+     pise y para no romperle los estilos al resto del sitio. No saques esa clase.
      =========================================================================== -->
 
-<div class="bg" aria-hidden="true"></div>
-<canvas id="neuralbg" aria-hidden="true"></canvas>
-<div id="neural-mask" aria-hidden="true"></div>
+<div class="nfm-lp">
+  <div class="bg" aria-hidden="true"></div>
+  <canvas id="neuralbg" aria-hidden="true"></canvas>
+  <div class="neural-mask" aria-hidden="true"></div>
 
-<div class="page">
-  <header class="top">
-    <div class="wrap">
-      <img class="logo" src="assets/logo-nfm-blanco.png" alt="Nico Fernández Miranda">
-      <div class="rule"></div>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
+  <div class="page">
+    <header class="top">
       <div class="wrap">
-        <span class="eyebrow rv"><span class="dot"></span> Descarga lista</span>
-        <h1 class="rv">Tu primer capítulo <span class="shimmer">ya es tuyo</span>.</h1>
-        <p class="lead rv">Bajalo en PDF y leelo hoy. Y si después te resuena <b>el enfoque del 1%</b>, abajo tenés el libro completo.</p>
+        <img class="logo" src="assets/logo-nfm-blanco.png" alt="Nico Fernández Miranda">
+        <div class="rule"></div>
       </div>
-    </section>
+    </header>
 
-    <section>
+    <main>
+      <section class="hero">
+        <div class="wrap">
+          <span class="eyebrow rv"><span class="dot"></span> Descarga lista</span>
+          <h1 class="rv">Tu primer capítulo <span class="shimmer">ya es tuyo</span>.</h1>
+          <p class="lead rv">Bajalo en PDF y leelo hoy. Y si después te resuena <b>el enfoque del 1%</b>, abajo tenés el libro completo.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <div class="cards">
+
+            <!-- IZQUIERDA · el regalo -->
+            <article class="card rv">
+              <div class="step"><span class="n">01</span> Empezá acá</div>
+              <div class="shot shot--izq">
+                <span class="sello sello--naranja">Primer capítulo · PDF</span>
+                <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/08/Diseno_sin_titulo_11-scaled.webp"
+                     alt="Libro Hackea tu cerebro, de Nico Fernández Miranda"
+                     loading="lazy"
+                     onerror="this.closest('.shot').classList.add('is-empty')">
+                <div class="ph">Imagen<br>Primer capítulo PDF</div>
+              </div>
+              <h2>Primer capítulo en PDF</h2>
+              <p>El capítulo 1 de <b>«Hackea tu cerebro»</b>, completo y sin recortes. Se abre en cualquier dispositivo y es tuyo para siempre.</p>
+              <div class="spacer"></div>
+              <a class="btn btn-primary"
+                 href="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/03/HTC-1-CAP.pdf"
+                 target="_blank" rel="noopener" download>
+                 Descargar primer capítulo <span class="arw">→</span></a>
+              <div class="note">PDF · Descarga inmediata</div>
+            </article>
+
+            <!-- DERECHA · la venta -->
+            <article class="card card--focus rv">
+              <div class="step"><span class="n">02</span> Si te resuena</div>
+              <div class="shot shot--der">
+                <span class="sello sello--blanco">Libro completo</span>
+                <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/08/Diseno_sin_titulo_11-scaled.webp"
+                     alt="Libro Hackea tu cerebro, edición completa"
+                     loading="lazy"
+                     onerror="this.closest('.shot').classList.add('is-empty')">
+                <div class="ph">Imagen<br>Libro completo</div>
+              </div>
+              <h2>El libro completo</h2>
+              <p>Un capítulo te muestra el enfoque. El libro entero te da <b>el sistema</b>: neurociencia, productividad y aprendizaje, bajados a algo que podés aplicar hoy.</p>
+              <div class="spacer"></div>
+              <a class="btn btn-ghost"
+                 href="https://comunidadproductiva.circle.so/hackea-tu-cerebro?utm_source=1ercap"
+                 target="_blank" rel="noopener">
+                 Conseguir libro completo <span class="arw">→</span></a>
+              <div class="note">Te lleva a la página del libro</div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="quote rv">
+        <div class="mark">”</div>
+        <blockquote>Hackear el cerebro para vencer la procrastinación, entrenar el foco y sostener la energía mental alta.</blockquote>
+        <cite>Nicolás Fernández Miranda</cite>
+      </section>
+
+      <div class="marq" aria-hidden="true">
+        <div class="marq__row">
+          <div style="display:flex">
+            <span class="mq-i">Neurociencia aplicada</span>
+            <span class="mq-i">Productividad real</span>
+            <span class="mq-i">Aprendizaje</span>
+            <span class="mq-i">El enfoque del 1%</span>
+            <span class="mq-i">Sistema, no fuerza de voluntad</span>
+          </div>
+          <div style="display:flex">
+            <span class="mq-i">Neurociencia aplicada</span>
+            <span class="mq-i">Productividad real</span>
+            <span class="mq-i">Aprendizaje</span>
+            <span class="mq-i">El enfoque del 1%</span>
+            <span class="mq-i">Sistema, no fuerza de voluntad</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="foot">
       <div class="wrap">
-        <div class="cards">
-
-          <!-- IZQUIERDA · el regalo -->
-          <article class="card rv">
-            <div class="step"><span class="n">01</span> Empezá acá</div>
-            <div class="shot shot--izq">
-              <span class="sello sello--naranja">Primer capítulo · PDF</span>
-              <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/08/Diseno_sin_titulo_11-scaled.webp"
-                   alt="Libro Hackea tu cerebro, de Nico Fernández Miranda"
-                   loading="lazy"
-                   onerror="this.closest('.shot').classList.add('is-empty')">
-              <div class="ph">Imagen<br>Primer capítulo PDF</div>
-            </div>
-            <h2>Primer capítulo en PDF</h2>
-            <p>El capítulo 1 de <b>«Hackea tu cerebro»</b>, completo y sin recortes. Se abre en cualquier dispositivo y es tuyo para siempre.</p>
-            <div class="spacer"></div>
-            <a class="btn btn-primary"
-               href="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/03/HTC-1-CAP.pdf"
-               target="_blank" rel="noopener" download>
-               Descargar primer capítulo <span class="arw">→</span></a>
-            <div class="note">PDF · Descarga inmediata</div>
-          </article>
-
-          <!-- DERECHA · la venta -->
-          <article class="card card--focus rv">
-            <div class="step"><span class="n">02</span> Si te resuena</div>
-            <div class="shot shot--der">
-              <span class="sello sello--blanco">Libro completo</span>
-              <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/08/Diseno_sin_titulo_11-scaled.webp"
-                   alt="Libro Hackea tu cerebro, edición completa"
-                   loading="lazy"
-                   onerror="this.closest('.shot').classList.add('is-empty')">
-              <div class="ph">Imagen<br>Libro completo</div>
-            </div>
-            <h2>El libro completo</h2>
-            <p>Un capítulo te muestra el enfoque. El libro entero te da <b>el sistema</b>: neurociencia, productividad y aprendizaje, bajados a algo que podés aplicar hoy.</p>
-            <div class="spacer"></div>
-            <a class="btn btn-ghost"
-               href="https://comunidadproductiva.circle.so/hackea-tu-cerebro?utm_source=1ercap"
-               target="_blank" rel="noopener">
-               Conseguir libro completo <span class="arw">→</span></a>
-            <div class="note">Te lleva a la página del libro</div>
-          </article>
-
-        </div>
+        <img class="logo" src="assets/logo-nfm-blanco.png" alt="Nico Fernández Miranda">
+        <div class="t">Instituto de Productividad · Nicolás Fernández Miranda</div>
+        <small>Hackea tu cerebro · Neurociencia · Productividad · Aprendizaje</small>
       </div>
-    </section>
-
-    <section class="quote rv">
-      <div class="mark">”</div>
-      <blockquote>Hackear el cerebro para vencer la procrastinación, entrenar el foco y sostener la energía mental alta.</blockquote>
-      <cite>Nicolás Fernández Miranda</cite>
-    </section>
-
-    <div class="marq" aria-hidden="true">
-      <div class="marq__row">
-        <div style="display:flex">
-          <span class="mq-i">Neurociencia aplicada</span>
-          <span class="mq-i">Productividad real</span>
-          <span class="mq-i">Aprendizaje</span>
-          <span class="mq-i">El enfoque del 1%</span>
-          <span class="mq-i">Sistema, no fuerza de voluntad</span>
-        </div>
-        <div style="display:flex">
-          <span class="mq-i">Neurociencia aplicada</span>
-          <span class="mq-i">Productividad real</span>
-          <span class="mq-i">Aprendizaje</span>
-          <span class="mq-i">El enfoque del 1%</span>
-          <span class="mq-i">Sistema, no fuerza de voluntad</span>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <footer class="foot">
-    <div class="wrap">
-      <img class="logo" src="assets/logo-nfm-blanco.png" alt="Nico Fernández Miranda">
-      <div class="t">Instituto de Productividad · Nicolás Fernández Miranda</div>
-      <small>Hackea tu cerebro · Neurociencia · Productividad · Aprendizaje</small>
-    </div>
-  </footer>
+    </footer>
+  </div>
 </div>
 
 <script>
-/* Red neuronal de fondo — preset dark de la Biblia Estética NFM */
-function neural(canvas,opt){
-  if(!canvas) return;
-  var ctx=canvas.getContext('2d'), dpr=Math.min(window.devicePixelRatio||1,2);
-  var w,h,nodes=[],LINK=opt.link||150;
-  function size(){var r=canvas.getBoundingClientRect();w=Math.max(1,r.width);h=Math.max(1,r.height);
-    canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);build();}
-  function build(){var n=Math.max(12,Math.min(70,Math.round(w*h/22000)));nodes=[];
-    for(var i=0;i<n;i++){nodes.push({x:Math.random()*w,y:Math.random()*h,
-      vx:(Math.random()-.5)*.16,vy:(Math.random()-.5)*.16,r:Math.random()*1.5+.8});}}
-  function step(){requestAnimationFrame(step);ctx.clearRect(0,0,w,h);
-    for(var i=0;i<nodes.length;i++){var nd=nodes[i];nd.x+=nd.vx;nd.y+=nd.vy;
-      if(nd.x<0||nd.x>w)nd.vx*=-1;if(nd.y<0||nd.y>h)nd.vy*=-1;}
-    for(var a=0;a<nodes.length;a++){for(var b=a+1;b<nodes.length;b++){var A=nodes[a],B=nodes[b];
-      var d=Math.hypot(A.x-B.x,A.y-B.y);
-      if(d<LINK){ctx.strokeStyle=opt.edge+(opt.edgeA*(1-d/LINK)).toFixed(3)+')';
-        ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(A.x,A.y);ctx.lineTo(B.x,B.y);ctx.stroke();}}}
-    for(var k=0;k<nodes.length;k++){var N=nodes[k];ctx.fillStyle=opt.node;ctx.beginPath();
-      ctx.arc(N.x,N.y,N.r,0,6.2832);ctx.fill();}}
-  window.addEventListener('resize',size);size();step();
-}
-var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-if(!reduce){
-  neural(document.getElementById('neuralbg'),
-    {edge:'rgba(122,182,225,',edgeA:0.18,node:'rgba(150,196,232,0.36)',link:132});
-}
-
-/* Reveal on scroll — solo si hay soporte real; si no, el contenido queda visible */
 (function(){
-  var els=[].slice.call(document.querySelectorAll('.rv'));
+  var raiz = document.querySelector('.nfm-lp');
+  if(!raiz) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Red neuronal de fondo — preset dark de la Biblia Estética NFM */
+  function neural(canvas,opt){
+    if(!canvas) return;
+    var ctx=canvas.getContext('2d'), dpr=Math.min(window.devicePixelRatio||1,2);
+    var w,h,nodes=[],LINK=opt.link||132;
+    function size(){var r=canvas.getBoundingClientRect();w=Math.max(1,r.width);h=Math.max(1,r.height);
+      canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);build();}
+    function build(){var n=Math.max(12,Math.min(70,Math.round(w*h/22000)));nodes=[];
+      for(var i=0;i<n;i++){nodes.push({x:Math.random()*w,y:Math.random()*h,
+        vx:(Math.random()-.5)*.16,vy:(Math.random()-.5)*.16,r:Math.random()*1.5+.8});}}
+    function step(){requestAnimationFrame(step);ctx.clearRect(0,0,w,h);
+      for(var i=0;i<nodes.length;i++){var nd=nodes[i];nd.x+=nd.vx;nd.y+=nd.vy;
+        if(nd.x<0||nd.x>w)nd.vx*=-1;if(nd.y<0||nd.y>h)nd.vy*=-1;}
+      for(var a=0;a<nodes.length;a++){for(var b=a+1;b<nodes.length;b++){var A=nodes[a],B=nodes[b];
+        var d=Math.hypot(A.x-B.x,A.y-B.y);
+        if(d<LINK){ctx.strokeStyle=opt.edge+(opt.edgeA*(1-d/LINK)).toFixed(3)+')';
+          ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(A.x,A.y);ctx.lineTo(B.x,B.y);ctx.stroke();}}}
+      for(var k=0;k<nodes.length;k++){var N=nodes[k];ctx.fillStyle=opt.node;ctx.beginPath();
+        ctx.arc(N.x,N.y,N.r,0,6.2832);ctx.fill();}}
+    window.addEventListener('resize',size);
+    if(window.ResizeObserver){new ResizeObserver(size).observe(canvas.parentNode);}
+    size();step();
+  }
+  if(!reduce){
+    neural(raiz.querySelector('#neuralbg'),
+      {edge:'rgba(122,182,225,',edgeA:0.18,node:'rgba(150,196,232,0.36)',link:132});
+  }
+
+  /* Reveal on scroll — solo si hay soporte real; si no, el contenido queda visible */
+  var els=[].slice.call(raiz.querySelectorAll('.rv'));
   if(reduce||!('IntersectionObserver' in window)) return;
-  document.documentElement.classList.add('js');
+  raiz.classList.add('js');
   var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(en,i){
+    entries.forEach(function(en){
       if(en.isIntersecting){var el=en.target;
         setTimeout(function(){el.classList.add('in')}, (el.dataset.d||0)*1);
         io.unobserve(el);}
