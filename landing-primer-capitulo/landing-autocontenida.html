@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tu descarga está lista · Hackea tu cerebro — Nicolás Fernández Miranda</title>
+<meta name="description" content="Descargá gratis el primer capítulo de «Hackea tu cerebro» en PDF. Y si te resuena el enfoque del 1%, conseguí el libro completo.">
+<meta name="robots" content="noindex,follow">
+<meta property="og:title" content="Tu descarga está lista · Hackea tu cerebro">
+<meta property="og:description" content="El primer capítulo de «Hackea tu cerebro» en PDF, gratis.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================================
+   LANDING · Entrega del 1er capítulo de "Hackea tu cerebro"
+   Sistema de diseño: Biblia Estética NFM / Instituto de Productividad
+   Azul NFM #0c3452 (con profundidad, nunca plano) · Naranja Acción #ff6602
+   (único color de activación) · Montserrat + Open Sans + JetBrains Mono
+   ========================================================================= */
+:root{
+  --orange:#ff6602;
+  --orange-hi:#ff8124;
+  --orange-hover:#e65a00;
+  --navy:#0c3452;
+  --navy-deep:#061d30;
+  --navy-lift:#16466d;
+  --hueso:#f3f7fb;
+  --niebla:#9fb6c8;
+  --niebla-2:#6f8aa1;
+  --hair-d:rgba(255,255,255,.12);
+  --radius:20px;
+  --shadow-cta:0 10px 30px rgba(255,102,2,.32);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --maxw:1060px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Open Sans',sans-serif;
+  color:var(--hueso);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  position:relative;
+  background:var(--navy-deep);
+}
+::selection{background:var(--orange);color:#fff}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+/* Capas de fondo. El azul elegante = gradiente + glow superior + calor naranja
+   + borde de luz. Nunca navy plano. */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(120% 90% at 18% 0%, rgba(23,70,109,.62), transparent 55%),
+    radial-gradient(90% 70% at 88% 104%, rgba(255,102,2,.09), transparent 60%),
+    linear-gradient(180deg,#0e3352 0%,#0c3452 42%,#061d30 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+#neuralbg{position:fixed;inset:0;z-index:1;pointer-events:none}
+#neural-mask{position:fixed;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(120% 88% at 50% 4%,transparent 34%,rgba(6,29,48,.86) 100%)}
+.page{position:relative;z-index:3}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ---------- Header ---------- */
+.top{padding:34px 0 6px;text-align:center}
+.top .logo{height:46px;width:auto;margin:0 auto;opacity:.96}
+.top .rule{width:64px;height:2px;margin:22px auto 0;border-radius:2px;
+  background:linear-gradient(90deg,transparent,var(--orange),transparent)}
+
+/* ---------- Hero ---------- */
+.hero{padding:34px 0 8px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;
+  font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.2em;
+  font-size:10.5px;font-weight:500;color:#ffd0ac;
+  background:rgba(255,102,2,.14);border:1px solid rgba(255,255,255,.14);
+  padding:8px 15px;border-radius:100px;margin-bottom:22px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--orange);
+  box-shadow:0 0 0 0 rgba(255,102,2,.55);animation:pulse 2.6s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(255,102,2,0)}100%{box-shadow:0 0 0 0 rgba(255,102,2,0)}}
+h1{font-family:'Montserrat',sans-serif;font-weight:900;
+  font-size:clamp(30px,5.6vw,54px);line-height:1.04;letter-spacing:-.022em;
+  color:#fff;max-width:15ch;margin:0 auto 18px}
+.shimmer{background:linear-gradient(100deg,#ff6602 18%,#ff8124 40%,#fff 50%,#ff8124 60%,#ff6602 82%);
+  background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shim 5.5s linear infinite}
+@keyframes shim{to{background-position:200% center}}
+.hero p.lead{color:var(--niebla);font-size:clamp(15px,2vw,18px);max-width:56ch;margin:0 auto}
+.hero p.lead b{color:#fff;font-weight:700}
+
+/* ---------- Las dos cards ---------- */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:46px 0 0;align-items:stretch}
+.card{position:relative;display:flex;flex-direction:column;
+  background:rgba(255,255,255,.045);
+  border:1px solid var(--hair-d);
+  border-radius:var(--radius);
+  padding:26px 26px 28px;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 18px 44px -22px rgba(0,0,0,.6);
+  transition:transform .3s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease)}
+.card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.22)}
+/* Card foco (la venta): borde naranja + calor, según la biblia */
+.card--focus{border-color:rgba(255,102,2,.42);
+  background:
+    radial-gradient(100% 60% at 50% 0%,rgba(255,102,2,.10),transparent 62%),
+    rgba(255,255,255,.045);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 22px 52px -24px rgba(255,102,2,.34)}
+.card--focus:hover{border-color:rgba(255,102,2,.7);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.09), 0 26px 60px -22px rgba(255,102,2,.46)}
+
+.step{display:flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--niebla-2);margin-bottom:18px}
+.step .n{font-family:'Montserrat',sans-serif;font-weight:900;font-size:15px;
+  letter-spacing:0;color:var(--orange)}
+.step .tag{margin-left:auto;color:#ffd0ac;background:rgba(255,102,2,.14);
+  border:1px solid rgba(255,255,255,.13);padding:4px 10px;border-radius:100px;
+  font-size:9.5px;letter-spacing:.14em}
+
+/* Slot de imagen (mockup del ebook generado con GPT-image) */
+.shot{position:relative;aspect-ratio:1/1;max-height:330px;border-radius:14px;margin-bottom:22px;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:radial-gradient(72% 62% at 50% 44%,rgba(23,70,109,.55),transparent 70%)}
+.shot img{width:auto;height:100%;max-width:100%;object-fit:contain;
+  filter:drop-shadow(0 26px 42px rgba(0,0,0,.5));
+  transition:transform .45s var(--ease)}
+.card:hover .shot img{transform:translateY(-6px) scale(1.02)}
+/* Placeholder elegante mientras no exista el PNG (marco FRAMER de la biblia) */
+.shot .ph{display:none;position:absolute;inset:14px;border-radius:12px;
+  border:1px dashed rgba(255,255,255,.18);
+  align-items:center;justify-content:center;text-align:center;padding:20px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--niebla-2);line-height:1.9}
+.shot .ph::before,.shot .ph::after{content:"";position:absolute;width:22px;height:22px;
+  border:2.5px solid var(--orange);opacity:.85}
+.shot .ph::before{top:10px;left:10px;border-right:0;border-bottom:0;border-radius:8px 0 0 0}
+.shot .ph::after{bottom:10px;right:10px;border-left:0;border-top:0;border-radius:0 0 8px 0}
+.shot.is-empty img{display:none}
+.shot.is-empty .ph{display:flex}
+
+.card h2{font-family:'Montserrat',sans-serif;font-weight:800;
+  font-size:clamp(19px,2.4vw,23px);line-height:1.16;letter-spacing:-.01em;color:#fff;margin-bottom:9px}
+.card p{color:var(--niebla);font-size:14.5px;line-height:1.6;margin-bottom:22px}
+.card p b{color:var(--hueso);font-weight:700}
+.card .spacer{flex:1}
+
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  font-family:'Montserrat',sans-serif;font-weight:800;font-size:15.5px;
+  padding:16px 22px;border-radius:12px;border:none;cursor:pointer;text-decoration:none;
+  line-height:1.1;transition:transform .18s var(--ease),box-shadow .18s,background .18s,border-color .18s}
+.btn .arw{font-size:1.1em;transition:transform .2s}
+.btn:hover .arw{transform:translateX(4px)}
+.btn-primary{background:var(--orange);color:#fff;box-shadow:var(--shadow-cta)}
+.btn-primary:hover{transform:translateY(-2px);background:var(--orange-hover);
+  box-shadow:0 16px 38px rgba(255,102,2,.44)}
+.btn-ghost{background:rgba(255,255,255,.05);color:#fff;border:2px solid rgba(255,255,255,.46)}
+.btn-ghost:hover{transform:translateY(-2px);border-color:#fff;background:rgba(255,255,255,.11)}
+.note{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--niebla-2);text-align:center;margin-top:12px}
+
+/* ---------- Cita ---------- */
+.quote{margin:64px auto 0;max-width:760px;text-align:center;position:relative;padding:0 12px}
+.quote .mark{font-family:'Montserrat',sans-serif;font-weight:900;font-size:60px;
+  color:var(--orange);opacity:.5;line-height:.6;margin-bottom:14px}
+.quote blockquote{font-family:'Montserrat',sans-serif;font-weight:700;
+  font-size:clamp(17px,2.5vw,23px);line-height:1.4;color:#fff;letter-spacing:-.01em}
+.quote cite{display:block;margin-top:16px;font-style:normal;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--niebla-2)}
+
+/* ---------- Marquee ---------- */
+.marq{margin-top:56px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marq__row{display:flex;width:max-content;animation:mq 30s linear infinite}
+.mq-i{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--niebla-2);white-space:nowrap;
+  display:inline-flex;align-items:center;gap:18px;padding:0 18px}
+.mq-i::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--orange);opacity:.75}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ---------- Footer ---------- */
+.foot{margin-top:56px;padding:34px 0 46px;text-align:center;
+  border-top:1px solid rgba(255,255,255,.08)}
+.foot .logo{height:34px;width:auto;margin:0 auto 14px;opacity:.72}
+.foot .t{font-family:'Montserrat',sans-serif;font-weight:700;font-size:12.5px;color:var(--niebla)}
+.foot small{display:block;margin-top:8px;font-family:'JetBrains Mono',monospace;
+  font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--niebla-2)}
+
+/* ---------- Reveal ----------
+   Se ocultan SOLO si el JS corrió (clase js en <html>). Sin JS, todo visible. */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+
+/* ---------- Responsive ---------- */
+@media(max-width:860px){
+  .cards{grid-template-columns:1fr;gap:18px;margin-top:36px}
+  .card{padding:22px 20px 24px}
+  .shot{aspect-ratio:4/3}
+  .top{padding:26px 0 4px}
+  .top .logo{height:38px}
+  .quote{margin-top:48px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bg" aria-hidden="true"></div>
+<canvas id="neuralbg" aria-hidden="true"></canvas>
+<div id="neural-mask" aria-hidden="true"></div>
+
+<div class="page">
+  <header class="top">
+    <div class="wrap">
+      <img class="logo" src="data:image/png;base64,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" alt="Nico Fernández Miranda">
+      <div class="rule"></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <span class="eyebrow rv"><span class="dot"></span> Descarga lista</span>
+        <h1 class="rv">Tu primer capítulo <span class="shimmer">ya es tuyo</span>.</h1>
+        <p class="lead rv">Bajalo en PDF y leelo hoy. Y si después te resuena <b>el enfoque del 1%</b>, abajo tenés el libro completo.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="cards">
+
+          <!-- IZQUIERDA · el regalo -->
+          <article class="card rv">
+            <div class="step"><span class="n">01</span> Empezá acá <span class="tag">Gratis</span></div>
+            <div class="shot">
+              <img src="assets/ebook-primer-capitulo.png"
+                   alt="Primer capítulo de Hackea tu cerebro en PDF"
+                   onerror="this.closest('.shot').classList.add('is-empty')">
+              <div class="ph">Imagen<br>Primer capítulo PDF</div>
+            </div>
+            <h2>Primer capítulo en PDF</h2>
+            <p>El capítulo 1 de <b>«Hackea tu cerebro»</b>, completo y sin recortes. Se abre en cualquier dispositivo y es tuyo para siempre.</p>
+            <div class="spacer"></div>
+            <a class="btn btn-primary"
+               href="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/03/HTC-1-CAP.pdf"
+               target="_blank" rel="noopener" download>
+               Descargar primer capítulo <span class="arw">→</span></a>
+            <div class="note">PDF · Descarga inmediata</div>
+          </article>
+
+          <!-- DERECHA · la venta -->
+          <article class="card card--focus rv">
+            <div class="step"><span class="n">02</span> Si te resuena <span class="tag">Libro completo</span></div>
+            <div class="shot">
+              <img src="assets/ebook-libro-completo.png"
+                   alt="Libro completo Hackea tu cerebro"
+                   onerror="this.closest('.shot').classList.add('is-empty')">
+              <div class="ph">Imagen<br>Libro completo</div>
+            </div>
+            <h2>El libro completo</h2>
+            <p>Un capítulo te muestra el enfoque. El libro entero te da <b>el sistema</b>: neurociencia, productividad y aprendizaje, bajados a algo que podés aplicar hoy.</p>
+            <div class="spacer"></div>
+            <a class="btn btn-ghost"
+               href="https://comunidadproductiva.circle.so/hackea-tu-cerebro?utm_source=1ercap"
+               target="_blank" rel="noopener">
+               Conseguir libro completo <span class="arw">→</span></a>
+            <div class="note">Te lleva a la página del libro</div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="quote rv">
+      <div class="mark">”</div>
+      <blockquote>Hackear el cerebro para vencer la procrastinación, entrenar el foco y sostener la energía mental alta.</blockquote>
+      <cite>Nicolás Fernández Miranda</cite>
+    </section>
+
+    <div class="marq" aria-hidden="true">
+      <div class="marq__row">
+        <div style="display:flex">
+          <span class="mq-i">Neurociencia aplicada</span>
+          <span class="mq-i">Productividad real</span>
+          <span class="mq-i">Aprendizaje</span>
+          <span class="mq-i">El enfoque del 1%</span>
+          <span class="mq-i">Sistema, no fuerza de voluntad</span>
+        </div>
+        <div style="display:flex">
+          <span class="mq-i">Neurociencia aplicada</span>
+          <span class="mq-i">Productividad real</span>
+          <span class="mq-i">Aprendizaje</span>
+          <span class="mq-i">El enfoque del 1%</span>
+          <span class="mq-i">Sistema, no fuerza de voluntad</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <img class="logo" src="data:image/png;base64,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" alt="Nico Fernández Miranda">
+      <div class="t">Instituto de Productividad · Nicolás Fernández Miranda</div>
+      <small>Hackea tu cerebro · Neurociencia · Productividad · Aprendizaje</small>
+    </div>
+  </footer>
+</div>
+
+<script>
+/* Red neuronal de fondo — preset dark de la Biblia Estética NFM */
+function neural(canvas,opt){
+  if(!canvas) return;
+  var ctx=canvas.getContext('2d'), dpr=Math.min(window.devicePixelRatio||1,2);
+  var w,h,nodes=[],LINK=opt.link||150;
+  function size(){var r=canvas.getBoundingClientRect();w=Math.max(1,r.width);h=Math.max(1,r.height);
+    canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);build();}
+  function build(){var n=Math.max(12,Math.min(70,Math.round(w*h/22000)));nodes=[];
+    for(var i=0;i<n;i++){nodes.push({x:Math.random()*w,y:Math.random()*h,
+      vx:(Math.random()-.5)*.16,vy:(Math.random()-.5)*.16,r:Math.random()*1.5+.8});}}
+  function step(){requestAnimationFrame(step);ctx.clearRect(0,0,w,h);
+    for(var i=0;i<nodes.length;i++){var nd=nodes[i];nd.x+=nd.vx;nd.y+=nd.vy;
+      if(nd.x<0||nd.x>w)nd.vx*=-1;if(nd.y<0||nd.y>h)nd.vy*=-1;}
+    for(var a=0;a<nodes.length;a++){for(var b=a+1;b<nodes.length;b++){var A=nodes[a],B=nodes[b];
+      var d=Math.hypot(A.x-B.x,A.y-B.y);
+      if(d<LINK){ctx.strokeStyle=opt.edge+(opt.edgeA*(1-d/LINK)).toFixed(3)+')';
+        ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(A.x,A.y);ctx.lineTo(B.x,B.y);ctx.stroke();}}}
+    for(var k=0;k<nodes.length;k++){var N=nodes[k];ctx.fillStyle=opt.node;ctx.beginPath();
+      ctx.arc(N.x,N.y,N.r,0,6.2832);ctx.fill();}}
+  window.addEventListener('resize',size);size();step();
+}
+var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduce){
+  neural(document.getElementById('neuralbg'),
+    {edge:'rgba(122,182,225,',edgeA:0.18,node:'rgba(150,196,232,0.36)',link:132});
+}
+
+/* Reveal on scroll — solo si hay soporte real; si no, el contenido queda visible */
+(function(){
+  var els=[].slice.call(document.querySelectorAll('.rv'));
+  if(reduce||!('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('js');
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en,i){
+      if(en.isIntersecting){var el=en.target;
+        setTimeout(function(){el.classList.add('in')}, (el.dataset.d||0)*1);
+        io.unobserve(el);}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(el,i){el.dataset.d=(i%3)*90;io.observe(el);});
+})();
+</script>
+</body>
+</html>

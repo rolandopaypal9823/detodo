@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biblia Estética · Instituto de Productividad</title>
+<meta name="description" content="Sistema de diseño del Instituto de Productividad (NFM): colores, tipografía, componentes y reglas — en fondo blanco y azul. Para aplicar la misma estética a cualquier pieza.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================================
+   BIBLIA ESTÉTICA — Instituto de Productividad / NFM
+   Reglas base: Azul NFM (#0c3452) institucional · Naranja Acción (#ff6602)
+   ÚNICO color de activación (solo CTAs/acentos, nunca fondo) · Blanco = respiro.
+   Montserrat (títulos) · Open Sans (cuerpo) · JetBrains Mono (labels/eyebrows).
+   ========================================================================= */
+:root{
+  /* — Marca — */
+  --orange:#ff6602;        /* Naranja Acción — CTAs, acentos, activación */
+  --orange-hi:#ff8124;     /* naranja brillante — shimmer / gradiente sutil */
+  --orange-hover:#e65a00;  /* hover del CTA */
+  --orange-text:#d95400;   /* naranja legible (AA) para TEXTO chico sobre blanco */
+  --orange-wash:#fff7f2;   /* fondo de acento naranja muy lavado */
+  --navy:#0c3452;          /* Azul NFM — ink + superficies oscuras */
+  --navy-deep:#061d30;     /* azul profundo — fondos dark, sombras */
+  --navy-lift:#16466d;     /* azul intermedio (superficies dark secundarias) */
+  /* — Superficies claras — */
+  --white:#ffffff;
+  --blue-light:#e7edf2;    /* tint claro (cards, secciones) */
+  --hair:rgba(12,52,82,.10);      /* bordes/divisores sobre claro */
+  --hair-2:rgba(12,52,82,.16);
+  /* — Texto sobre claro — */
+  --ink:#0c3452;
+  --muted:#33536b;         /* secundario */
+  --mono-grey:#7a93a6;     /* terciario / metadatos */
+  --mono-grey-soft:#9db0bf;
+  /* — Texto/bordes sobre oscuro (navy) — */
+  --hueso:#f3f7fb;         /* texto principal sobre navy */
+  --niebla:#9fb6c8;        /* secundario sobre navy */
+  --niebla-2:#6f8aa1;      /* terciario sobre navy */
+  --hair-d:rgba(255,255,255,.12);
+  /* — Sistema — */
+  --radius:16px;
+  --shadow-card:0 1px 3px rgba(12,52,82,.08),0 8px 24px rgba(12,52,82,.06);
+  --shadow-cta:0 8px 24px rgba(255,102,2,.28);
+  --shadow-elev:0 12px 40px rgba(12,52,82,.12);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  --maxw:1080px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans',sans-serif;color:var(--ink);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.mont{font-family:'Montserrat',sans-serif}
+.mono{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.2em}
+::selection{background:var(--orange);color:#fff}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+code{font-family:'JetBrains Mono',monospace;font-size:.86em}
+
+/* ---- Nav sticky ---- */
+.topnav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--hair)}
+.topnav .wrap{display:flex;align-items:center;gap:18px;height:60px;flex-wrap:wrap}
+.topnav .bmark{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+.topnav .bmark svg{height:30px;width:auto}
+.topnav .bmark b{font-family:'Montserrat';font-weight:900;font-size:14px;color:var(--navy);letter-spacing:.01em}
+.topnav a.lnk{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+.topnav a.lnk:hover{color:var(--orange-text)}
+@media(max-width:820px){.topnav a.lnk{display:none}}
+
+/* ---- Secciones ---- */
+section{padding:72px 0}
+section.dark{background:var(--navy-deep);color:var(--hueso);position:relative;overflow:hidden}
+section.dark h2,section.dark h3{color:#fff}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.2em;font-size:11px;font-weight:500;color:var(--orange-text);background:var(--orange-wash);border:1px solid rgba(255,102,2,.22);padding:7px 14px;border-radius:100px;margin-bottom:18px}
+.dark .eyebrow{color:#ffd0ac;background:rgba(255,102,2,.14);border-color:rgba(255,255,255,.14)}
+h2.h2{font-family:'Montserrat';font-weight:900;font-size:clamp(26px,4vw,40px);line-height:1.08;letter-spacing:-.015em;color:var(--navy);margin-bottom:14px}
+.dark h2.h2{color:#fff}
+.lead{font-size:clamp(16px,2vw,19px);color:var(--muted);max-width:660px;line-height:1.6;margin-bottom:8px}
+.dark .lead{color:var(--niebla)}
+.sec-tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mono-grey);margin:34px 0 16px;font-weight:500}
+.dark .sec-tag{color:var(--niebla-2)}
+
+/* ---- Cover ---- */
+.cover{padding:96px 0 84px}
+.cover .kicker{color:#ffd0ac;background:rgba(255,102,2,.14);border-color:rgba(255,255,255,.14)}
+.cover h1{font-family:'Montserrat';font-weight:900;font-size:clamp(34px,6vw,64px);line-height:1.02;letter-spacing:-.02em;color:#fff;max-width:16ch;margin:12px 0 20px}
+.shimmer{background:linear-gradient(100deg,#ff6602 18%,#ff8124 40%,#fff 50%,#ff8124 60%,#ff6602 82%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shim 5.5s linear infinite}
+@keyframes shim{to{background-position:200% center}}
+.cover p{color:var(--niebla);font-size:clamp(15px,2vw,18px);max-width:52ch}
+#neuralCover{position:absolute;inset:0;z-index:0}
+.cover .wrap{position:relative;z-index:2}
+.cover-mask{position:absolute;inset:0;z-index:1;background:radial-gradient(120% 100% at 20% 20%,transparent 30%,rgba(6,29,48,.7) 100%)}
+
+/* ---- Grid utilitario ---- */
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:820px){.g3,.g4{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}
+@media(max-width:520px){.g3,.g4{grid-template-columns:1fr}}
+
+/* ---- Swatches ---- */
+.sw{border-radius:12px;overflow:hidden;border:1px solid var(--hair);background:#fff}
+.dark .sw{border-color:var(--hair-d);background:rgba(255,255,255,.03)}
+.sw .chip{height:78px}
+.sw .meta{padding:12px 14px}
+.sw .meta .nm{font-weight:700;font-size:13.5px;color:var(--ink)}
+.dark .sw .meta .nm{color:var(--hueso)}
+.sw .meta .hx{font-family:'JetBrains Mono';font-size:11px;color:var(--mono-grey);margin-top:2px}
+.dark .sw .meta .hx{color:var(--niebla-2)}
+.sw .meta .use{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.4}
+.dark .sw .meta .use{color:var(--niebla)}
+.sw .chip.brd{box-shadow:inset 0 0 0 1px var(--hair)}
+
+/* ---- Cards demo ---- */
+.card{background:#fff;border:1px solid var(--hair);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-card)}
+.card h4{font-weight:800;font-size:16px;color:var(--navy);margin-bottom:6px}
+.card p{font-size:13.5px;color:var(--muted);line-height:1.55}
+.card--navy{background:rgba(255,255,255,.04);border-color:var(--hair-d)}
+.card--navy h4{color:#fff}
+.card--navy p{color:var(--niebla)}
+.card .mk{font-family:'Montserrat';font-weight:900;font-size:20px;color:var(--orange);display:block;margin-bottom:8px}
+.panel{border-radius:16px;padding:26px;border:1px solid var(--hair)}
+.panel.white{background:#fff}
+.panel.tint{background:var(--blue-light)}
+.panel.navy{background:var(--navy);color:var(--hueso);border-color:var(--hair-d)}
+.panel .plabel{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mono-grey);margin-bottom:14px}
+.panel.navy .plabel{color:var(--niebla-2)}
+
+/* ---- Botones ---- */
+.btn{display:inline-flex;align-items:center;gap:9px;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px;padding:15px 28px;border-radius:12px;border:none;cursor:pointer;text-decoration:none;transition:transform .16s var(--ease),box-shadow .16s,background .16s;line-height:1.1}
+.btn-primary{background:var(--orange);color:#fff;box-shadow:var(--shadow-cta)}
+.btn-primary:hover{transform:translateY(-2px);background:var(--orange-hover);box-shadow:0 14px 34px rgba(255,102,2,.4)}
+.btn-ghost{background:transparent;color:var(--navy);border:2px solid rgba(12,52,82,.2)}
+.btn-ghost:hover{border-color:var(--navy)}
+.btn-ghost-d{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.35)}
+.btn-ghost-d:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+.btn-sm{font-size:13px;padding:10px 18px;border-radius:10px}
+.btn-lg{font-size:18px;padding:18px 34px}
+.btn .arw{font-size:1.1em;transition:transform .2s}
+.btn:hover .arw{transform:translateX(3px)}
+.btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+
+/* ---- Badge ---- */
+.badge{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono';font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--orange-text);background:var(--orange-wash);border:1px solid rgba(255,102,2,.22);padding:5px 12px;border-radius:100px}
+
+/* ---- Tipografía muestras ---- */
+.type-row{display:flex;align-items:baseline;gap:18px;padding:16px 0;border-bottom:1px solid var(--hair);flex-wrap:wrap}
+.type-row:last-child{border-bottom:0}
+.type-row .tk{font-family:'JetBrains Mono';font-size:11px;color:var(--mono-grey);width:150px;flex:0 0 150px;letter-spacing:.04em}
+.type-row .sp{color:var(--navy)}
+.d-xl{font-family:'Montserrat';font-weight:900;font-size:48px;letter-spacing:-.02em;line-height:1.05}
+.d-lg{font-family:'Montserrat';font-weight:800;font-size:34px;letter-spacing:-.015em}
+.d-h{font-family:'Montserrat';font-weight:800;font-size:24px;letter-spacing:-.01em}
+.d-lead{font-family:'Open Sans';font-weight:400;font-size:19px;color:var(--muted)}
+.d-body{font-family:'Open Sans';font-weight:400;font-size:16px;color:var(--muted)}
+.d-mono{font-family:'JetBrains Mono';font-weight:500;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange-text)}
+
+/* ---- Framer photo (esquinas) ---- */
+.framer{position:relative;aspect-ratio:16/10;border-radius:16px;background:linear-gradient(150deg,#eef3f7,#dae5ee);border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;color:var(--mono-grey);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.12em;text-transform:uppercase;overflow:hidden}
+.framer::before,.framer::after{content:"";position:absolute;width:24px;height:24px;border:2.5px solid var(--orange);opacity:.85}
+.framer::before{top:12px;left:12px;border-right:0;border-bottom:0;border-radius:8px 0 0 0}
+.framer::after{bottom:12px;right:12px;border-left:0;border-top:0;border-radius:0 0 8px 0}
+.framer.on-navy{background:linear-gradient(150deg,#0e3350,#0a2942);color:var(--niebla-2);border-color:var(--hair-d)}
+
+/* ---- Marquee ---- */
+.marq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.marq__row{display:flex;width:max-content;animation:mq 26s linear infinite}
+.mq-i{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mono-grey);white-space:nowrap;display:inline-flex;align-items:center;gap:16px;padding:0 16px}
+.mq-i::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--orange);opacity:.75}
+.dark .mq-i{color:var(--niebla-2)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ---- Stat ---- */
+.stat{text-align:center}
+.stat .n{font-family:'Montserrat';font-weight:900;font-size:clamp(26px,4vw,38px);color:var(--navy);line-height:1}
+.dark .stat .n{color:#fff}
+.stat .n .u{color:var(--orange)}
+.stat .l{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.dark .stat .l{color:var(--niebla)}
+
+/* ---- Tablas de tokens ---- */
+.tk-table{width:100%;border-collapse:collapse;font-size:13.5px}
+.tk-table th,.tk-table td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--hair)}
+.tk-table th{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mono-grey);font-weight:500}
+.tk-table td code{background:var(--blue-light);padding:2px 7px;border-radius:6px;color:var(--navy)}
+.tk-table .dot{display:inline-block;width:16px;height:16px;border-radius:5px;vertical-align:middle;margin-right:8px;box-shadow:inset 0 0 0 1px var(--hair)}
+
+/* ---- Code block ---- */
+.codeblock{background:var(--navy-deep);color:#cfe0ec;border-radius:14px;padding:22px 22px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;border:1px solid var(--hair-d)}
+.codeblock .c{color:#6f8aa1}
+.codeblock .o{color:#ff8124}
+.codeblock .k{color:#8fb7d6}
+
+/* ---- Do / Don't ---- */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.dd{grid-template-columns:1fr}}
+.dd .box{border-radius:14px;padding:20px 22px;border:1px solid var(--hair);background:#fff}
+.dd .box h4{font-family:'Montserrat';font-weight:800;font-size:14px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.dd .do h4{color:#1c7a3f}
+.dd .dont h4{color:#c0392b}
+.dd ul{list-style:none;display:grid;gap:9px}
+.dd li{font-size:13.5px;color:var(--muted);line-height:1.45;padding-left:22px;position:relative}
+.dd .do li::before{content:"✓";position:absolute;left:0;color:#1c9648;font-weight:700}
+.dd .dont li::before{content:"✕";position:absolute;left:0;color:#d0483a;font-weight:700}
+
+/* ---- Footer ---- */
+.foot{background:var(--navy-deep);color:var(--niebla);text-align:center;padding:40px 0}
+.foot svg{height:34px;margin-bottom:12px;opacity:.9}
+.foot .t{font-family:'Montserrat';font-weight:700;font-size:13px;color:var(--hueso)}
+.foot small{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--niebla-2);display:block;margin-top:8px}
+</style>
+</head>
+<body>
+
+<!-- Logo símbolo reutilizable (Vector de Crecimiento) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="ipNavy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#17466d"/><stop offset="1" stop-color="#0c3452"/></linearGradient>
+    <linearGradient id="ipNavyD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe0ec"/><stop offset="1" stop-color="#9fb6c8"/></linearGradient>
+    <linearGradient id="ipOrange" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#ff6602"/><stop offset="1" stop-color="#ff9440"/></linearGradient>
+  </defs>
+  <symbol id="ip-logo" viewBox="0 0 132 112">
+    <ellipse cx="65" cy="99" rx="53" ry="4.5" fill="#0c3452" opacity=".10"/>
+    <rect x="24" y="60" width="21" height="37" rx="4" fill="var(--logo-bar,url(#ipNavy))"/>
+    <rect x="53" y="44" width="21" height="53" rx="4" fill="var(--logo-bar,url(#ipNavy))"/>
+    <rect x="82" y="28" width="21" height="69" rx="4" fill="var(--logo-bar,url(#ipNavy))"/>
+    <path d="M16 84 C 40 92, 52 68, 68 54 C 84 40, 100 28, 114 16" fill="none" stroke="url(#ipOrange)" stroke-width="9" stroke-linecap="round"/>
+    <path d="M114 16 L98 20 M114 16 L111 35" fill="none" stroke="url(#ipOrange)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<!-- NAV -->
+<nav class="topnav">
+  <div class="wrap">
+    <a href="#top" class="bmark"><svg viewBox="0 0 132 112"><use href="#ip-logo"/></svg><b>Biblia Estética</b></a>
+    <a href="#color" class="lnk">Color</a>
+    <a href="#tipo" class="lnk">Tipografía</a>
+    <a href="#botones" class="lnk">Botones</a>
+    <a href="#cards" class="lnk">Cards</a>
+    <a href="#motifs" class="lnk">Motifs</a>
+    <a href="#fondos" class="lnk">Fondos</a>
+    <a href="#tokens" class="lnk">Tokens</a>
+  </div>
+</nav>
+
+<!-- COVER (navy + neural) -->
+<section class="dark cover" id="top">
+  <canvas id="neuralCover" aria-hidden="true"></canvas>
+  <div class="cover-mask" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="eyebrow kicker">Sistema de diseño · NFM</span>
+    <h1>Biblia Estética del <span class="shimmer">Instituto de Productividad</span></h1>
+    <p>Todo el lenguaje visual de la landing en un solo lugar —colores, tipografía, componentes y reglas— listo para aplicar a cualquier pieza, <b style="color:#fff">en fondo blanco o en fondo azul</b>.</p>
+  </div>
+</section>
+
+<!-- FILOSOFÍA / REGLAS BASE -->
+<section id="reglas">
+  <div class="wrap">
+    <span class="eyebrow">La regla de oro</span>
+    <h2 class="h2">Azul serio, naranja para activar, blanco para respirar.</h2>
+    <p class="lead">El sistema se ancla en dos voltajes: <b>Azul NFM</b> como base institucional (rigor, profundidad) y <b>Naranja Acción</b> como el ÚNICO color de activación —reservado a CTAs y acentos que exigen atención. El blanco (o el navy profundo) es espacio de respiro. Titulares en Montserrat, cuerpo en Open Sans, labels en JetBrains Mono.</p>
+    <div class="grid g3" style="margin-top:30px">
+      <div class="card"><span class="mk">01</span><h4>Un solo naranja</h4><p>#ff6602 es el único color de activación. Nunca inventar un segundo naranja ni usarlo como fondo de página: es acento, no relleno.</p></div>
+      <div class="card"><span class="mk">02</span><h4>Sombras teñidas de azul</h4><p>Las sombras y overlays usan azul NFM, nunca negro puro. Dan profundidad sin ensuciar.</p></div>
+      <div class="card"><span class="mk">03</span><h4>El blanco es identidad</h4><p>El respiro es parte de la marca. Ritmo generoso: no llenar cada pixel.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COLOR -->
+<section class="dark" id="color" style="background:var(--navy)">
+  <div class="wrap">
+    <span class="eyebrow">Paleta</span>
+    <h2 class="h2">Color</h2>
+    <p class="lead">Mismos colores, dos modos: sobre blanco y sobre azul. El naranja se comporta igual en ambos; para <b style="color:#fff">texto naranja chico sobre blanco</b> se usa la variante legible <code style="color:#ffd0ac">#d95400</code>.</p>
+
+    <div class="sec-tag">Marca</div>
+    <div class="grid g4">
+      <div class="sw"><div class="chip" style="background:#ff6602"></div><div class="meta"><div class="nm">Naranja Acción</div><div class="hx">#ff6602</div><div class="use">CTAs, acentos, activación</div></div></div>
+      <div class="sw"><div class="chip" style="background:#ff8124"></div><div class="meta"><div class="nm">Naranja bright</div><div class="hx">#ff8124</div><div class="use">Shimmer / gradiente sutil</div></div></div>
+      <div class="sw"><div class="chip" style="background:#d95400"></div><div class="meta"><div class="nm">Naranja texto</div><div class="hx">#d95400</div><div class="use">Texto chico sobre blanco (AA)</div></div></div>
+      <div class="sw"><div class="chip brd" style="background:#fff7f2"></div><div class="meta"><div class="nm">Naranja wash</div><div class="hx">#fff7f2</div><div class="use">Fondo de acento lavado</div></div></div>
+      <div class="sw"><div class="chip" style="background:#0c3452"></div><div class="meta"><div class="nm">Azul NFM</div><div class="hx">#0c3452</div><div class="use">Ink + superficies oscuras</div></div></div>
+      <div class="sw"><div class="chip" style="background:#061d30"></div><div class="meta"><div class="nm">Azul profundo</div><div class="hx">#061d30</div><div class="use">Fondos dark, sombras</div></div></div>
+      <div class="sw"><div class="chip" style="background:#16466d"></div><div class="meta"><div class="nm">Azul intermedio</div><div class="hx">#16466d</div><div class="use">Superficies dark 2°</div></div></div>
+      <div class="sw"><div class="chip brd" style="background:#e7edf2"></div><div class="meta"><div class="nm">Azul claro / tint</div><div class="hx">#e7edf2</div><div class="use">Cards y secciones claras</div></div></div>
+    </div>
+
+    <div class="sec-tag">Texto sobre blanco</div>
+    <div class="grid g4">
+      <div class="sw"><div class="chip" style="background:#0c3452"></div><div class="meta"><div class="nm">Ink</div><div class="hx">#0c3452</div><div class="use">Texto principal</div></div></div>
+      <div class="sw"><div class="chip" style="background:#33536b"></div><div class="meta"><div class="nm">Muted</div><div class="hx">#33536b</div><div class="use">Texto secundario</div></div></div>
+      <div class="sw"><div class="chip" style="background:#7a93a6"></div><div class="meta"><div class="nm">Mono-grey</div><div class="hx">#7a93a6</div><div class="use">Metadatos / labels</div></div></div>
+      <div class="sw"><div class="chip brd" style="background:#9db0bf"></div><div class="meta"><div class="nm">Mono-grey soft</div><div class="hx">#9db0bf</div><div class="use">Terciario</div></div></div>
+    </div>
+
+    <div class="sec-tag">Texto sobre azul</div>
+    <div class="grid g4">
+      <div class="sw"><div class="chip brd" style="background:#f3f7fb"></div><div class="meta"><div class="nm">Hueso</div><div class="hx">#f3f7fb</div><div class="use">Texto principal s/navy</div></div></div>
+      <div class="sw"><div class="chip" style="background:#9fb6c8"></div><div class="meta"><div class="nm">Niebla</div><div class="hx">#9fb6c8</div><div class="use">Secundario s/navy</div></div></div>
+      <div class="sw"><div class="chip" style="background:#6f8aa1"></div><div class="meta"><div class="nm">Niebla 2</div><div class="hx">#6f8aa1</div><div class="use">Terciario s/navy</div></div></div>
+      <div class="sw"><div class="chip brd" style="background:rgba(255,255,255,.12)"></div><div class="meta"><div class="nm">Hairline dark</div><div class="hx">rgba(255,255,255,.12)</div><div class="use">Bordes s/navy</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPOGRAFÍA -->
+<section id="tipo">
+  <div class="wrap">
+    <span class="eyebrow">Tipografía</span>
+    <h2 class="h2">Montserrat + Open Sans + JetBrains Mono</h2>
+    <p class="lead">Títulos en <b>Montserrat</b> (900/800, tracking negativo). Cuerpo en <b>Open Sans</b> (400/600). Labels y eyebrows en <b>JetBrains Mono</b> (500, mayúsculas, tracking amplio). No mezclar otras fuentes.</p>
+    <div class="panel white" style="margin-top:26px">
+      <div class="type-row"><span class="tk">Display XL · Montserrat 900</span><span class="sp d-xl">Rendí sin quemarte</span></div>
+      <div class="type-row"><span class="tk">Display LG · Montserrat 800</span><span class="sp d-lg">No te falta disciplina</span></div>
+      <div class="type-row"><span class="tk">Heading · Montserrat 800</span><span class="sp d-h">Te falta un sistema</span></div>
+      <div class="type-row"><span class="tk">Lead · Open Sans 400</span><span class="sp d-lead">Instalás tu Sistema Operativo Personal con acompañamiento.</span></div>
+      <div class="type-row"><span class="tk">Body · Open Sans 400</span><span class="sp d-body">La fuerza de voluntad se agota todos los días; un sistema, no. Por eso el método se calibra a tu medida.</span></div>
+      <div class="type-row"><span class="tk">Mono / Eyebrow · JetBrains 500</span><span class="sp d-mono">Alto rendimiento con base en neurociencia</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTONES -->
+<section class="dark" id="botones" style="background:var(--navy)">
+  <div class="wrap">
+    <span class="eyebrow">Componentes</span>
+    <h2 class="h2">Botones</h2>
+    <p class="lead">Un solo CTA primario por pantalla. El primario es naranja lleno con glow; el secundario es ghost (contorno). Radio 12px (10px en small). En navy, el ghost va con contorno blanco.</p>
+    <div class="grid g2" style="margin-top:26px">
+      <div class="panel white">
+        <div class="plabel">Sobre blanco</div>
+        <div class="btnrow" style="margin-bottom:16px"><a class="btn btn-primary">Agendá tu entrevista <span class="arw">→</span></a><a class="btn btn-ghost">Conocer más</a></div>
+        <div class="btnrow"><a class="btn btn-primary btn-sm">CTA small</a><a class="btn btn-primary btn-lg">CTA large <span class="arw">→</span></a></div>
+      </div>
+      <div class="panel navy">
+        <div class="plabel">Sobre azul</div>
+        <div class="btnrow" style="margin-bottom:16px"><a class="btn btn-primary">Agendá tu entrevista <span class="arw">→</span></a><a class="btn btn-ghost-d">Conocer más</a></div>
+        <div class="btnrow"><span class="badge">★ El diferencial</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARDS -->
+<section id="cards">
+  <div class="wrap">
+    <span class="eyebrow">Componentes</span>
+    <h2 class="h2">Cards, badges y stats</h2>
+    <p class="lead">Cards blancas con borde hairline y sombra teñida de azul; en navy, cards translúcidas. El acento naranja solo cuando la card es el foco.</p>
+
+    <div class="sec-tag">Cards — sobre blanco</div>
+    <div class="grid g3">
+      <div class="card"><span class="badge" style="margin-bottom:12px">Incluido</span><h4>Accountability Coach 1 a 1</h4><p>Un coach que te conoce y te sigue de cerca. Lo que los alumnos valoran por encima de todo.</p></div>
+      <div class="card"><span class="mk">22</span><h4>Biblioteca de módulos</h4><p>El método completo, ordenado y accionable. Píldoras cortas, no teoría.</p></div>
+      <div class="card" style="border:2px solid var(--orange);box-shadow:0 20px 46px -18px rgba(255,102,2,.28)"><span class="badge" style="margin-bottom:12px">Destacado</span><h4>Aval universitario</h4><p>Certificado de graduación con peso real. La card foco lleva borde naranja.</p></div>
+    </div>
+
+    <div class="sec-tag">Stats / prueba</div>
+    <div class="panel tint">
+      <div class="grid g4">
+        <div class="stat"><div class="n">+2.000</div><div class="l">Alumnos</div></div>
+        <div class="stat"><div class="n">8.8<span class="u">/10</span></div><div class="l">Acompañamiento</div></div>
+        <div class="stat"><div class="n">6<span class="u"> meses</span></div><div class="l">De proceso</div></div>
+        <div class="stat"><div class="n">+10<span class="u"> países</span></div><div class="l">Comunidad</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOTIFS -->
+<section class="dark" id="motifs" style="background:var(--navy-deep)">
+  <div class="wrap">
+    <span class="eyebrow">Sello de marca</span>
+    <h2 class="h2">Motifs: neural, shimmer, framer, vector de crecimiento</h2>
+    <p class="lead">Los recursos que hacen que una pieza "se sienta" del Instituto.</p>
+    <div class="grid g2" style="margin-top:26px">
+      <div class="panel navy" style="position:relative;overflow:hidden;min-height:180px">
+        <div class="plabel" style="position:relative;z-index:2">Red neuronal · versión dark</div>
+        <canvas id="neuralDark" style="position:absolute;inset:0;z-index:0"></canvas>
+        <p style="position:relative;z-index:2;color:var(--niebla);font-size:13.5px;max-width:34ch">Constelación sutil sobre navy. Nodos claros, señales naranjas. Fondo, nunca protagonista.</p>
+      </div>
+      <div class="panel white" style="position:relative;overflow:hidden;min-height:180px">
+        <div class="plabel" style="position:relative;z-index:2">Red neuronal · versión light</div>
+        <canvas id="neuralLight" style="position:absolute;inset:0;z-index:0"></canvas>
+        <p style="position:relative;z-index:2;color:var(--muted);font-size:13.5px;max-width:34ch">Misma malla, en navy muy tenue sobre blanco. Textura tech que no compite con el texto.</p>
+      </div>
+      <div class="panel white">
+        <div class="plabel">Framer (marco de foto)</div>
+        <div class="framer">Foto / imagen</div>
+      </div>
+      <div class="panel navy">
+        <div class="plabel">Shimmer + Vector de Crecimiento</div>
+        <div style="font-family:'Montserrat';font-weight:900;font-size:30px;line-height:1.1"><span class="shimmer">Rendí el doble</span></div>
+        <div style="display:flex;align-items:center;gap:14px;margin-top:16px"><svg viewBox="0 0 132 112" style="height:56px"><use href="#ip-logo"/></svg><span style="color:var(--niebla);font-size:12.5px;max-width:24ch">Flechas ascendentes = siempre hay un nivel siguiente.</span></div>
+      </div>
+    </div>
+    <div class="sec-tag" style="color:var(--niebla-2)">Marquee (cinta de conceptos)</div>
+    <div class="marq"><div class="marq__row">
+      <div style="display:flex"><span class="mq-i">Aval universitario</span><span class="mq-i">Acompañamiento 1 a 1</span><span class="mq-i">Neurociencia aplicada</span><span class="mq-i">Sistema, no fuerza de voluntad</span><span class="mq-i">Sin vendehumo</span></div>
+      <div style="display:flex"><span class="mq-i">Aval universitario</span><span class="mq-i">Acompañamiento 1 a 1</span><span class="mq-i">Neurociencia aplicada</span><span class="mq-i">Sistema, no fuerza de voluntad</span><span class="mq-i">Sin vendehumo</span></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- RECETA: RED NEURONAL -->
+<section class="dark" id="receta-neural" style="background:var(--navy-deep)">
+  <div class="wrap">
+    <span class="eyebrow">Receta · copiá el efecto</span>
+    <h2 class="h2">Cómo agregar la red neuronal</h2>
+    <p class="lead">El fondo animado del cover. Pegás 3 bloques (HTML + CSS + JS). Para <b style="color:#fff">fondo blanco</b> usás el preset <b style="color:#fff">light</b>; para <b style="color:#fff">fondo azul</b>, el <b style="color:#fff">dark</b>. Se apaga solo si el usuario pidió menos movimiento (accesibilidad).</p>
+    <div class="codeblock" style="margin-top:24px">
+<span class="c">&lt;!-- 1) HTML · al inicio del &lt;body&gt; --&gt;</span>
+&lt;<span class="k">canvas</span> id=<span class="o">"neuralbg"</span> aria-hidden=<span class="o">"true"</span>&gt;&lt;/<span class="k">canvas</span>&gt;
+&lt;<span class="k">div</span> id=<span class="o">"neural-mask"</span> aria-hidden=<span class="o">"true"</span>&gt;&lt;/<span class="k">div</span>&gt;
+
+<span class="c">/* 2) CSS */</span>
+#neuralbg{position:fixed;inset:0;z-index:-3}
+#neural-mask{position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:radial-gradient(120% 88% at 50% 8%,transparent 40%,<span class="o">rgba(255,255,255,.80)</span> 100%)}
+<span class="c">/* Fondo AZUL: cambiá rgba(255,255,255,.80) por rgba(6,29,48,.88) */</span>
+
+<span class="c">&lt;!-- 3) JS · antes de &lt;/body&gt; --&gt;</span>
+&lt;<span class="k">script</span>&gt;
+<span class="k">function</span> neural(canvas, o){
+  <span class="k">if</span>(!canvas) <span class="k">return</span>;
+  <span class="k">var</span> ctx=canvas.getContext(<span class="o">'2d'</span>), dpr=Math.min(devicePixelRatio||1,2), w,h,nodes=[], LINK=o.link||140;
+  <span class="k">function</span> size(){ <span class="k">var</span> r=canvas.getBoundingClientRect(); w=r.width; h=r.height;
+    canvas.width=w*dpr; canvas.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); build(); }
+  <span class="k">function</span> build(){ <span class="k">var</span> n=Math.max(14,Math.min(140,Math.round(w*h/16000))); nodes=[];
+    <span class="k">for</span>(<span class="k">var</span> i=0;i&lt;n;i++) nodes.push({x:Math.random()*w,y:Math.random()*h,
+      vx:(Math.random()-.5)*.16, vy:(Math.random()-.5)*.16, r:Math.random()*1.5+.8}); }
+  <span class="k">function</span> step(){ requestAnimationFrame(step); ctx.clearRect(0,0,w,h);
+    <span class="k">for</span>(<span class="k">var</span> i=0;i&lt;nodes.length;i++){ <span class="k">var</span> d=nodes[i]; d.x+=d.vx; d.y+=d.vy;
+      <span class="k">if</span>(d.x&lt;0||d.x&gt;w)d.vx*=-1; <span class="k">if</span>(d.y&lt;0||d.y&gt;h)d.vy*=-1; }
+    <span class="k">for</span>(<span class="k">var</span> a=0;a&lt;nodes.length;a++) <span class="k">for</span>(<span class="k">var</span> b=a+1;b&lt;nodes.length;b++){ <span class="k">var</span> A=nodes[a],B=nodes[b];
+      <span class="k">var</span> dist=Math.hypot(A.x-B.x,A.y-B.y);
+      <span class="k">if</span>(dist&lt;LINK){ ctx.strokeStyle=o.edge+(o.ea*(1-dist/LINK)).toFixed(3)+<span class="o">')'</span>;
+        ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y); ctx.stroke(); } }
+    <span class="k">for</span>(<span class="k">var</span> k=0;k&lt;nodes.length;k++){ ctx.fillStyle=o.node; ctx.beginPath();
+      ctx.arc(nodes[k].x,nodes[k].y,nodes[k].r,0,6.2832); ctx.fill(); } }
+  addEventListener(<span class="o">'resize'</span>,size); size(); step();
+}
+<span class="k">var</span> reduce = matchMedia &amp;&amp; matchMedia(<span class="o">'(prefers-reduced-motion: reduce)'</span>).matches;
+<span class="k">if</span>(!reduce){
+  <span class="c">// LIGHT · fondo blanco:</span>
+  neural(document.getElementById(<span class="o">'neuralbg'</span>),
+    {edge:<span class="o">'rgba(12,52,82,'</span>, ea:0.14, node:<span class="o">'rgba(12,52,82,0.30)'</span>, link:140});
+  <span class="c">// DARK · fondo azul (comentá el de arriba y usá este):</span>
+  <span class="c">// neural(canvas, {edge:'rgba(122,182,225,', ea:0.30, node:'rgba(150,196,232,0.55)', link:150});</span>
+}
+&lt;/<span class="k">script</span>&gt;</div>
+    <p class="lead" style="font-size:14px;margin-top:16px">Es <b style="color:#fff">fondo, no protagonista</b>: alfa bajos + la máscara hacen que el texto siempre gane. La landing suma una capa extra —señales naranjas que se disparan con el mouse— pero este preset ya te da el efecto base.</p>
+  </div>
+</section>
+
+<!-- FONDOS -->
+<section id="fondos">
+  <div class="wrap">
+    <span class="eyebrow">Fondos</span>
+    <h2 class="h2">Los tres lienzos</h2>
+    <p class="lead">Blanco (respiro y foco) · Tint azul claro / glass (secciones alternas) · Navy (autoridad, cierre, prueba premium). El ritmo blanco → tint → navy es lo que da profundidad.</p>
+    <div class="grid g3" style="margin-top:26px">
+      <div class="panel white" style="min-height:150px"><div class="plabel">Blanco · #ffffff</div><p style="font-size:13.5px;color:var(--muted)">Fondo por defecto. Texto ink. Máximo respiro.</p></div>
+      <div class="panel tint" style="min-height:150px"><div class="plabel">Tint · #e7edf2 / glass</div><p style="font-size:13.5px;color:var(--muted)">Secciones alternas. Aire visual sin cortar.</p></div>
+      <div class="panel navy" style="min-height:150px"><div class="plabel">Navy · #0c3452 / #061d30</div><p style="font-size:13.5px;color:var(--niebla)">Autoridad y cierre. Texto hueso. El naranja resalta más.</p></div>
+    </div>
+
+    <div class="sec-tag">El azul elegante — navy con profundidad (no plano)</div>
+    <p class="lead" style="font-size:15px;margin-bottom:18px">Mismo hex, distinto tratamiento. A la izquierda, el navy con capas (gradiente + glow + borde de luz = "efecto espejo"). A la derecha, el navy plano. Usá siempre el de la izquierda para fondos oscuros grandes.</p>
+    <div class="grid g2" style="align-items:stretch">
+      <div style="border-radius:16px;position:relative;min-height:190px;border:1px solid var(--hair-d);overflow:hidden;background:radial-gradient(120% 90% at 18% 12%, rgba(23,70,109,.6), transparent 55%),radial-gradient(90% 80% at 88% 106%, rgba(255,102,2,.07), transparent 60%),linear-gradient(180deg,#0e3352 0%,#0c3452 45%,#061d30 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)">
+        <div style="padding:24px">
+          <div class="plabel" style="color:var(--niebla-2)">✓ Navy con profundidad</div>
+          <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:22px;color:#fff;letter-spacing:-.01em">Elegante, con brillo</div>
+          <p style="color:var(--niebla);font-size:13px;margin-top:8px;max-width:34ch">Gradiente + glow radial + calor naranja + borde de luz arriba.</p>
+        </div>
+      </div>
+      <div style="border-radius:16px;position:relative;min-height:190px;border:1px solid var(--hair-d);background:#0c3452">
+        <div style="padding:24px">
+          <div class="plabel" style="color:var(--niebla-2)">✕ Navy plano</div>
+          <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:22px;color:#fff;letter-spacing:-.01em">Correcto, pero chato</div>
+          <p style="color:var(--niebla);font-size:13px;margin-top:8px;max-width:34ch">Color sólido #0c3452 sin tratamiento. Cumple, pero se siente flat.</p>
+        </div>
+      </div>
+    </div>
+    <div class="codeblock" style="margin-top:18px">
+<span class="c">/* El azul elegante — capas sobre el navy (efecto "espejo") */</span>
+<span class="k">.navy-elegante</span>{
+  position:relative;
+  background:
+    radial-gradient(120% 90% at 18% 12%, <span class="o">rgba(23,70,109,.6)</span>, transparent 55%),   <span class="c">/* glow superior */</span>
+    radial-gradient(90% 80% at 88% 106%, <span class="o">rgba(255,102,2,.07)</span>, transparent 60%),  <span class="c">/* calor naranja tenue */</span>
+    linear-gradient(180deg, <span class="o">#0e3352</span> 0%, <span class="o">#0c3452</span> 45%, <span class="o">#061d30</span> 100%);          <span class="c">/* base con gradiente */</span>
+  box-shadow: inset 0 1px 0 <span class="o">rgba(255,255,255,.06)</span>;   <span class="c">/* borde de luz = brillo/espejo */</span>
+}
+<span class="c">/* Sumá encima: &lt;canvas&gt; neural + máscara radial (vignette) + paneles glass */</span>
+<span class="c">/* glass: background rgba(255,255,255,.04) · border rgba(255,255,255,.12) · backdrop-filter:blur(8px) */</span></div>
+  </div>
+</section>
+
+<!-- TOKENS -->
+<section class="dark" id="tokens" style="background:var(--navy)">
+  <div class="wrap">
+    <span class="eyebrow">Para copiar y pegar</span>
+    <h2 class="h2">Tokens del sistema</h2>
+    <p class="lead">Radios, sombras, espaciado y motion. Abajo, el bloque <code style="color:#ffd0ac">:root</code> listo para pegar en cualquier proyecto.</p>
+
+    <div class="grid g2" style="margin-top:26px;align-items:start">
+      <div class="panel white">
+        <div class="plabel">Radios · Sombras · Espaciado</div>
+        <table class="tk-table">
+          <tr><th>Token</th><th>Valor</th><th>Uso</th></tr>
+          <tr><td>radius sm/md/lg/xl</td><td><code>8 / 12 / 16 / 24</code></td><td>inputs → cards → destacados</td></tr>
+          <tr><td>pill</td><td><code>999px</code></td><td>badges, eyebrows</td></tr>
+          <tr><td>shadow-card</td><td><code>azul .06–.08</code></td><td>cards</td></tr>
+          <tr><td>shadow-cta</td><td><code>naranja .28</code></td><td>glow del CTA</td></tr>
+          <tr><td>espaciado</td><td><code>base 4px</code></td><td>4·8·12·16·24·32·48·64·96</td></tr>
+          <tr><td>section</td><td><code>88 / 62px</code></td><td>vertical desktop / mobile</td></tr>
+          <tr><td>content max</td><td><code>1120px</code></td><td>ancho de contenido</td></tr>
+        </table>
+      </div>
+      <div class="panel white">
+        <div class="plabel">Motion</div>
+        <table class="tk-table">
+          <tr><th>Token</th><th>Valor</th></tr>
+          <tr><td>ease</td><td><code>cubic-bezier(.16,1,.3,1)</code></td></tr>
+          <tr><td>spring</td><td><code>cubic-bezier(.34,1.56,.64,1)</code></td></tr>
+          <tr><td>micro</td><td><code>160–320ms</code></td></tr>
+          <tr><td>entrada sección</td><td><code>600–900ms</code></td></tr>
+          <tr><td>patrón</td><td><code>fade + translate-Y ascendente</code></td></tr>
+          <tr><td>shimmer</td><td><code>5.5s linear infinite</code></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="sec-tag" style="color:var(--niebla-2)">Bloque :root (copiar)</div>
+    <div class="codeblock"><span class="c">/* Sistema de diseño · Instituto de Productividad (NFM) */</span>
+<span class="k">:root</span>{
+  <span class="c">/* Marca */</span>
+  --orange:<span class="o">#ff6602</span>; --orange-hi:<span class="o">#ff8124</span>; --orange-hover:<span class="o">#e65a00</span>;
+  --orange-text:<span class="o">#d95400</span>; --orange-wash:<span class="o">#fff7f2</span>;
+  --navy:<span class="o">#0c3452</span>; --navy-deep:<span class="o">#061d30</span>; --navy-lift:<span class="o">#16466d</span>;
+  <span class="c">/* Superficies claras */</span>
+  --white:<span class="o">#ffffff</span>; --blue-light:<span class="o">#e7edf2</span>;
+  --hair:<span class="o">rgba(12,52,82,.10)</span>; --hair-2:<span class="o">rgba(12,52,82,.16)</span>;
+  <span class="c">/* Texto sobre claro */</span>
+  --ink:<span class="o">#0c3452</span>; --muted:<span class="o">#33536b</span>; --mono-grey:<span class="o">#7a93a6</span>; --mono-grey-soft:<span class="o">#9db0bf</span>;
+  <span class="c">/* Texto/bordes sobre navy */</span>
+  --hueso:<span class="o">#f3f7fb</span>; --niebla:<span class="o">#9fb6c8</span>; --niebla-2:<span class="o">#6f8aa1</span>; --hair-d:<span class="o">rgba(255,255,255,.12)</span>;
+  <span class="c">/* Sistema */</span>
+  --radius:<span class="o">16px</span>; --ease:<span class="o">cubic-bezier(.16,1,.3,1)</span>;
+  --shadow-card:<span class="o">0 1px 3px rgba(12,52,82,.08),0 8px 24px rgba(12,52,82,.06)</span>;
+  --shadow-cta:<span class="o">0 8px 24px rgba(255,102,2,.28)</span>;
+}
+<span class="c">/* Fuentes: Montserrat (títulos) · Open Sans (cuerpo) · JetBrains Mono (labels) */</span></div>
+  </div>
+</section>
+
+<!-- DO / DON'T -->
+<section id="reglas2">
+  <div class="wrap">
+    <span class="eyebrow">Reglas rápidas</span>
+    <h2 class="h2">Qué sí, qué no</h2>
+    <div class="dd" style="margin-top:24px">
+      <div class="box do">
+        <h4>✓ Hacé</h4>
+        <ul>
+          <li>Naranja solo en CTAs y 1 dato clave por bloque.</li>
+          <li>Un único CTA primario por pantalla; el resto ghost.</li>
+          <li>Sombras y overlays teñidos de azul NFM.</li>
+          <li>Títulos Montserrat, cuerpo Open Sans, labels JetBrains Mono.</li>
+          <li>Alternar fondos blanco → tint → navy para dar profundidad.</li>
+          <li>Neural y shimmer como acento sutil, de fondo.</li>
+        </ul>
+      </div>
+      <div class="box dont">
+        <h4>✕ Evitá</h4>
+        <ul>
+          <li>Un segundo naranja o gradiente naranja→otro color de protagonista.</li>
+          <li>Naranja como fondo de página completa.</li>
+          <li>Negro puro en sombras o texto (usar navy / muted).</li>
+          <li>Mezclar otras tipografías.</li>
+          <li>Saturar: dejar sin respiro / llenar cada pixel.</li>
+          <li>Neural o animaciones que compitan con la lectura.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <svg viewBox="0 0 132 112"><use href="#ip-logo"/></svg>
+    <div class="t">Instituto de Productividad · Nicolás Fernández Miranda</div>
+    <small>Biblia Estética · Sistema de diseño NFM</small>
+  </div>
+</footer>
+
+<script>
+/* Red neuronal reutilizable (escalada al contenedor) */
+function neural(canvas, opt){
+  if(!canvas) return;
+  var ctx=canvas.getContext('2d'), dpr=Math.min(window.devicePixelRatio||1,2);
+  var w,h,nodes=[],LINK=opt.link||130;
+  function size(){ var r=canvas.getBoundingClientRect(); w=Math.max(1,r.width); h=Math.max(1,r.height);
+    canvas.width=w*dpr; canvas.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); build(); }
+  function build(){ var n=Math.max(14,Math.min(64,Math.round(w*h/9000))); nodes=[];
+    for(var i=0;i<n;i++){ nodes.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.16,vy:(Math.random()-.5)*.16,r:Math.random()*1.5+.8}); } }
+  function step(){ requestAnimationFrame(step); ctx.clearRect(0,0,w,h);
+    for(var i=0;i<nodes.length;i++){ var nd=nodes[i]; nd.x+=nd.vx; nd.y+=nd.vy;
+      if(nd.x<0||nd.x>w)nd.vx*=-1; if(nd.y<0||nd.y>h)nd.vy*=-1; }
+    for(var a=0;a<nodes.length;a++){ for(var b=a+1;b<nodes.length;b++){ var A=nodes[a],B=nodes[b];
+      var d=Math.hypot(A.x-B.x,A.y-B.y); if(d<LINK){ ctx.strokeStyle=opt.edge.replace('A$',(opt.edgeA*(1-d/LINK)).toFixed(3));
+        ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y); ctx.stroke(); } } }
+    for(var k=0;k<nodes.length;k++){ var N=nodes[k]; ctx.fillStyle=opt.node; ctx.beginPath(); ctx.arc(N.x,N.y,N.r,0,6.2832); ctx.fill(); } }
+  window.addEventListener('resize',size); size(); step();
+}
+var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduce){
+  neural(document.getElementById('neuralCover'), {edge:'rgba(122,182,225,A$)', edgeA:0.30, node:'rgba(150,196,232,0.55)', link:150});
+  neural(document.getElementById('neuralDark'),  {edge:'rgba(122,182,225,A$)', edgeA:0.28, node:'rgba(150,196,232,0.5)', link:120});
+  neural(document.getElementById('neuralLight'), {edge:'rgba(12,52,82,A$)',    edgeA:0.14, node:'rgba(12,52,82,0.32)', link:120});
+}
+</script>
+</body>
+</html>
