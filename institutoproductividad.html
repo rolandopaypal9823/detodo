@@ -599,13 +599,12 @@ a{color:inherit}
   .exp-app:hover{border-color:rgba(255,102,2,.5)}
   .exp-app.on{border-color:var(--nfm-orange);background:var(--nfm-orange-wash);color:var(--nfm-blue)}
   .exp-app.on::before{content:"●";color:var(--nfm-orange)}
-  /* ciclo: apagar incendios → intentar avanzar → nueva urgencia */
+  /* ciclo: UNA sola cosa activa a la vez — palpita en naranja fuerte */
   .exp-fires{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px;min-height:46px}
-  .exp-fire{font-family:'Open Sans';font-size:13px;font-weight:700;color:#b0451c;background:#fff2e8;border:1.5px solid rgba(255,102,2,.45);border-radius:100px;padding:10px 15px;cursor:pointer;transition:all .25s;user-select:none;-webkit-user-select:none;animation:expflick .8s ease-in-out infinite alternate}
-  .exp-fire:hover{transform:scale(1.04)}
-  @keyframes expflick{from{box-shadow:0 0 0 0 rgba(255,102,2,.25)}to{box-shadow:0 0 0 7px rgba(255,102,2,0)}}
+  .exp-fire{font-family:'Open Sans';font-size:13px;font-weight:700;border-radius:100px;padding:10px 15px;transition:all .25s;user-select:none;-webkit-user-select:none;border:1.5px solid transparent}
+  .exp-fire.active{color:#fff;background:var(--nfm-orange);border-color:var(--nfm-orange);cursor:pointer;animation:projpulse 1.5s infinite, expdrop .4s cubic-bezier(.2,1.4,.4,1)}
+  .exp-fire.active:hover{transform:scale(1.05)}
   .exp-fire.out{color:var(--mono-grey);background:#f1f4f6;border-color:var(--hair);cursor:default;animation:none;text-decoration:line-through;text-decoration-color:rgba(107,114,128,.55)}
-  .exp-fire.new{animation:expflick .8s ease-in-out infinite alternate, expdrop .4s cubic-bezier(.2,1.4,.4,1)}
   @keyframes expdrop{from{opacity:0;transform:translateY(-12px) scale(.85)}to{opacity:1;transform:none}}
   .exp-proj{display:block;width:100%;font-family:'Montserrat';font-weight:800;font-size:15px;line-height:1.35;color:#fff;background:var(--nfm-orange);border:none;border-radius:12px;padding:16px 18px;cursor:pointer;box-shadow:0 8px 22px rgba(255,102,2,.3);animation:projpulse 1.7s infinite;transition:background .25s}
   @keyframes projpulse{0%{box-shadow:0 8px 22px rgba(255,102,2,.3),0 0 0 0 rgba(255,102,2,.4)}70%{box-shadow:0 8px 22px rgba(255,102,2,.3),0 0 0 14px rgba(255,102,2,0)}100%{box-shadow:0 8px 22px rgba(255,102,2,.3),0 0 0 0 rgba(255,102,2,0)}}
@@ -698,7 +697,7 @@ a{color:inherit}
         <div class="exp-step" data-step="2">
           <span class="exp-mono">◆ Escena 3 · El sistema límbico al mando</span>
           <h3 class="exp-q">Un día cualquiera. Apagá los incendios.</h3>
-          <p class="exp-hint" id="expHint3">Tocá cada incendio para apagarlo. Uno por uno.</p>
+          <p class="exp-hint" id="expHint3">Apagá el incendio.</p>
           <div class="exp-fires" id="expFires"></div>
           <button type="button" class="exp-proj" id="expProj" hidden onclick="expProjTry()">▶ &nbsp;Avanzar en tu proyecto — el que postergás hace años</button>
           <div class="exp-verdict" id="expV3" hidden>
@@ -760,23 +759,28 @@ a{color:inherit}
     $('expGo1').disabled = apps<1;
   };
 
-  /* Escena 3 · ciclo del sistema límbico: apagás incendios uno por uno,
-     querés avanzar con lo tuyo, y aparece una urgencia nueva. Paso a paso. */
-  var URGS=['🔥 Reunión que se estiró','🔥 El mail “no puede esperar”','🔥 47 notificaciones','🔥 Un problema del equipo','🔥 Trabajo extra de última hora'];
-  var expFireIdx=0, expTries=0, expLit=0;
-  function expAddFire(){
-    if(expFireIdx>=URGS.length) return;
+  /* Escena 3 · ciclo del sistema límbico, UNA sola cosa activa a la vez:
+     incendio → lo apagás → otro → … → tu proyecto palpita → clic → nueva
+     urgencia lo bloquea → la apagás → clic → "otra semana será". */
+  var FIRES_INI=['🔥 Reunión que se estiró','🔥 El mail “no puede esperar”','🔥 47 notificaciones'];
+  var FIRES_TRY=['🔥 Un problema del equipo','🔥 Trabajo extra de última hora'];
+  var expIniIdx=0, expTries=0;
+  function expSpawn(label, clickable){
     var c=document.createElement('button');
-    c.type='button'; c.className='exp-fire new'; c.textContent=URGS[expFireIdx++];
-    c.onclick=function(){ expPutOut(c); };
-    $('expFires').appendChild(c); expLit++;
+    c.type='button'; c.className='exp-fire active'; c.textContent=label;
+    if(clickable!==false){ c.onclick=function(){ expPutOut(c); }; }
+    $('expFires').appendChild(c);
+    return c;
   }
   function expPutOut(c){
-    if(c.classList.contains('out')) return;
-    c.classList.remove('new'); c.classList.add('out');
+    if(!c.classList.contains('active')) return;
+    c.classList.remove('active'); c.classList.add('out');
     c.textContent='✓ '+c.textContent.replace('🔥 ','');
-    expLit--;
-    if(expLit<=0 && expTries<2){
+    if(expIniIdx<FIRES_INI.length){
+      var nxt=expIniIdx;
+      expSpawn(FIRES_INI[expIniIdx++]);
+      $('expHint3').textContent = nxt===1 ? 'Otro más…' : 'Y va otro…';
+    } else if(expTries<2){
       var proj=$('expProj');
       proj.hidden=false; proj.classList.remove('locked');
       proj.innerHTML='▶ &nbsp;Avanzar en tu proyecto — el que postergás hace años';
@@ -784,24 +788,25 @@ a{color:inherit}
     }
   }
   function expBuildDay(){
-    expFireIdx=0; expTries=0; expLit=0;
+    expIniIdx=0; expTries=0;
     $('expFires').innerHTML='';
     $('expProj').hidden=true;
-    $('expHint3').textContent='Tocá cada incendio para apagarlo. Uno por uno.';
-    for(var i=0;i<3;i++) expAddFire();
+    $('expHint3').textContent='Apagá el incendio.';
+    expSpawn(FIRES_INI[expIniIdx++]);
   }
   window.expProjTry=function(){
     var proj=$('expProj');
-    if(proj.classList.contains('locked')) return;
+    if(proj.hidden || proj.classList.contains('locked')) return;
     expTries++;
     proj.classList.add('locked');
-    expAddFire();
     if(expTries<2){
       proj.innerHTML='🔒 Esperá — surgió algo…';
       $('expHint3').textContent='Justo cuando ibas a arrancar… apagá eso primero.';
+      expSpawn(FIRES_TRY[0]);
     } else {
       proj.innerHTML='🔒 Otra semana será…';
       $('expHint3').textContent='Y así, un día más.';
+      expSpawn(FIRES_TRY[1], false);
       $('expV3').hidden=false;
       $('expGo2').disabled=false;
     }
