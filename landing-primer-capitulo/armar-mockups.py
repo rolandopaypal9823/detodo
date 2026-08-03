@@ -5,16 +5,22 @@ Arma las dos imágenes de la landing SIN generación de IA.
 La tapa (y por lo tanto la cara de Nico) nunca pasa por un modelo: se recorta,
 se rota y se compone con manipulación de pixeles. Es imposible que cambie.
 
-    python3 armar-mockups.py ebook.png
+    python3 armar-mockups.py libro.png
 
-Salida:
-    assets/ebook-primer-capitulo.png   (tablet inclinada 6° horario, cartel naranja)
-    assets/ebook-libro-completo.png    (tablet inclinada 6° antihorario, cartel blanco)
+Entrada: la foto del libro o del ebook, con fondo claro o transparente.
+Salida (1024x1024, PNG con alpha real):
+    assets/ebook-primer-capitulo.png   inclinado 6° horario, cartel naranja
+    assets/ebook-libro-completo.png    inclinado 6° antihorario, cartel blanco
+Los dos convergen hacia el centro para quedar uno al lado del otro.
 
 Opciones:
-    --no-recorte      la imagen de entrada ya viene con fondo transparente
-    --tolerancia N    umbral del recorte de fondo blanco (default 32, subilo si queda halo)
-    --font RUTA.ttf   fuente de los carteles (default: busca Montserrat, si no usa la del sistema)
+    --no-recorte      la imagen ya viene con fondo transparente
+    --tolerancia N    umbral del recorte de fondo (default 70; subilo si queda
+                      halo o sombra, bajalo si se come partes claras del libro)
+    --sombra N        opacidad de la sombra de contacto, 0-255 (default 140;
+                      0 la apaga si el render ya trae su propia sombra)
+    --font RUTA.ttf   fuente de los carteles (default: busca Montserrat, si no
+                      usa la bold del sistema y avisa)
     --salida DIR      carpeta de salida (default: assets)
 """
 import argparse
