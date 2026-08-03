@@ -627,13 +627,24 @@ a{color:inherit}
   .exp-app:hover{border-color:rgba(255,102,2,.5)}
   .exp-app.on{border-color:var(--nfm-orange);background:var(--nfm-orange-wash);color:var(--nfm-blue)}
   .exp-app.on::before{content:"●";color:var(--nfm-orange)}
-  /* ciclo: UNA sola cosa activa a la vez — palpita en naranja fuerte */
-  .exp-fires{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px;min-height:46px}
-  .exp-fire{font-family:'Open Sans';font-size:13px;font-weight:700;border-radius:100px;padding:10px 15px;transition:all .25s;user-select:none;-webkit-user-select:none;border:1.5px solid transparent}
-  .exp-fire.active{color:#fff;background:var(--nfm-orange);border-color:var(--nfm-orange);cursor:pointer;animation:projpulse 1.5s infinite, expdrop .4s cubic-bezier(.2,1.4,.4,1)}
-  .exp-fire.active:hover{transform:scale(1.05)}
-  .exp-fire.out{color:var(--mono-grey);background:#f1f4f6;border-color:var(--hair);cursor:default;animation:none;text-decoration:line-through;text-decoration-color:rgba(107,114,128,.55)}
-  @keyframes expdrop{from{opacity:0;transform:translateY(-12px) scale(.85)}to{opacity:1;transform:none}}
+  /* escena 3: el personaje que nunca llega a lo suyo */
+  .exp-actor{display:flex;align-items:flex-start;gap:14px;margin-bottom:12px}
+  .exp-actor__face{flex:0 0 84px;width:84px;height:84px;border-radius:50%;background:linear-gradient(150deg,#eef3f7,#dae5ee);border:1.5px solid var(--hair);display:flex;align-items:center;justify-content:center;font-size:44px;line-height:1;transition:background .3s,border-color .3s}
+  .exp-actor__face.alarm{background:linear-gradient(150deg,#ffe6d3,#ffceab);border-color:rgba(255,102,2,.45)}
+  .exp-actor__face.sleep{background:linear-gradient(150deg,#12395c,#061d30);border-color:#0c3452}
+  .exp-actor__face.drained{background:#f1f4f6;border-color:var(--hair)}
+  .exp-actor__face.pop{animation:facepop .5s cubic-bezier(.2,1.5,.4,1)}
+  @keyframes facepop{0%{transform:scale(.55) rotate(-10deg)}100%{transform:none}}
+  .exp-actor__bubble{position:relative;flex:1;background:#fff;border:1.5px solid var(--nfm-blue-light);border-radius:16px;padding:15px 17px;font-family:'Montserrat';font-weight:700;font-size:14.5px;line-height:1.45;color:var(--nfm-blue);min-height:58px;display:flex;align-items:center}
+  .exp-actor__bubble::before{content:"";position:absolute;left:-8px;top:32px;width:14px;height:14px;background:#fff;border-left:1.5px solid var(--nfm-blue-light);border-bottom:1.5px solid var(--nfm-blue-light);transform:rotate(45deg)}
+  .exp-actor__bubble b{color:var(--nfm-orange-text)}
+  .exp-chips{display:flex;flex-wrap:wrap;gap:8px}
+  .exp-chips:not(:empty){margin-bottom:14px}
+  .exp-chip{font-family:'Open Sans';font-size:12.5px;font-weight:700;color:#b0451c;background:#fff2e8;border:1.5px solid rgba(255,102,2,.45);border-radius:100px;padding:8px 13px;animation:expdrop .4s cubic-bezier(.2,1.4,.4,1)}
+  @keyframes expdrop{from{opacity:0;transform:translateY(-10px) scale(.85)}to{opacity:1;transform:none}}
+  .exp-step.shake{animation:stshake .45s linear}
+  @keyframes stshake{0%,100%{transform:none}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+  @media(max-width:520px){.exp-actor__face{flex-basis:66px;width:66px;height:66px;font-size:34px}.exp-actor__bubble{font-size:13.5px;padding:12px 14px}.exp-actor__bubble::before{top:24px}}
   .exp-proj{display:block;width:100%;font-family:'Montserrat';font-weight:800;font-size:15px;line-height:1.35;color:#fff;background:var(--nfm-orange);border:none;border-radius:12px;padding:16px 18px;cursor:pointer;box-shadow:0 8px 22px rgba(255,102,2,.3);animation:projpulse 1.7s infinite;transition:background .25s}
   @keyframes projpulse{0%{box-shadow:0 8px 22px rgba(255,102,2,.3),0 0 0 0 rgba(255,102,2,.4)}70%{box-shadow:0 8px 22px rgba(255,102,2,.3),0 0 0 14px rgba(255,102,2,0)}100%{box-shadow:0 8px 22px rgba(255,102,2,.3),0 0 0 0 rgba(255,102,2,0)}}
   .exp-proj.locked{background:#8a97a3;box-shadow:none;cursor:not-allowed;animation:none}
@@ -661,7 +672,7 @@ a{color:inherit}
   .exp-retake button{background:transparent;border:1px solid rgba(12,52,82,.18);color:var(--muted);font-family:'JetBrains Mono';font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:9px 20px;border-radius:100px;cursor:pointer;transition:all .2s}
   .exp-retake button:hover{color:var(--nfm-blue);border-color:var(--nfm-blue)}
   @media(max-width:640px){.exp-body{padding:26px 22px 26px}.exp-apps{grid-template-columns:1fr}.exp-ab{grid-template-columns:1fr}.exp-ab-arrow{transform:rotate(90deg)}}
-  @media(prefers-reduced-motion:reduce){.exp-urg.on,.exp-car.rev,.exp-car.spin .wh{animation:none!important}}
+  @media(prefers-reduced-motion:reduce){.exp-chip,.exp-step.shake,.exp-actor__face.pop,.exp-car.rev,.exp-car.spin .wh{animation:none!important}}
 </style>
 
 <section class="section tint exp" id="exp-diag">
@@ -721,15 +732,18 @@ a{color:inherit}
           <div class="exp-go"><button class="btn btn-primary" id="expGo1" onclick="expNext(1)" disabled>Seguir <span class="arrow">→</span></button></div>
         </div>
 
-        <!-- ESCENA 3 · lo urgente contra lo tuyo (ciclo: apagar → intentar avanzar → nueva urgencia) -->
+        <!-- ESCENA 3 · el personaje que nunca llega a lo suyo (sistema límbico) -->
         <div class="exp-step" data-step="2">
           <span class="exp-mono">◆ Escena 3 · El sistema límbico al mando</span>
-          <h3 class="exp-q">Un día cualquiera. Apagá los incendios.</h3>
-          <p class="exp-hint" id="expHint3">Apagá el incendio.</p>
-          <div class="exp-fires" id="expFires"></div>
-          <button type="button" class="exp-proj" id="expProj" hidden onclick="expProjTry()">▶ &nbsp;Avanzar en tu proyecto — el que postergás hace años</button>
+          <h3 class="exp-q">Viernes, 6 PM. Por fin un hueco para lo tuyo.</h3>
+          <div class="exp-actor">
+            <div class="exp-actor__face" id="expFace">😌</div>
+            <div class="exp-actor__bubble" id="expBubble">Por fin un rato libre… <b>Ahora sí avanzo con lo mío.</b></div>
+          </div>
+          <div class="exp-chips" id="expChips"></div>
+          <button type="button" class="exp-proj" id="expProj" onclick="expProjTry()">▶ &nbsp;Avanzar con tu proyecto — el que postergás hace años</button>
           <div class="exp-verdict" id="expV3" hidden>
-            <p>Eso que acabás de vivir es tu <b>sistema límbico al mando</b>: todo es urgente, todo es un problema, todo es un caos. Por eso terminás el día habiendo hecho <b>de todo</b> — pero sin la sensación de haber avanzado. Y con culpa. ¿Hace cuántos años que este juego te viene ganando?</p>
+            <p>Bombero, trasnochado y saturado — eso es tu <b>sistema límbico al mando</b>: todo es urgente, todo es un problema, y lo tuyo… para el lunes. Por eso terminás el día habiendo hecho <b>de todo</b>, sin la sensación de haber avanzado. Y con culpa. ¿Hace cuántos años que este juego te viene ganando?</p>
           </div>
           <div class="exp-go"><button class="btn btn-primary" id="expGo2" onclick="expNext(2)" disabled>Seguir <span class="arrow">→</span></button></div>
         </div>
@@ -787,56 +801,60 @@ a{color:inherit}
     $('expGo1').disabled = apps<1;
   };
 
-  /* Escena 3 · ciclo del sistema límbico, UNA sola cosa activa a la vez:
-     incendio → lo apagás → otro → … → tu proyecto palpita → clic → nueva
-     urgencia lo bloquea → la apagás → clic → "otra semana será". */
-  var FIRES_INI=['🔥 Reunión que se estiró','🔥 El mail “no puede esperar”','🔥 47 notificaciones'];
-  var FIRES_TRY=['🔥 Un problema del equipo','🔥 Trabajo extra de última hora'];
-  var expIniIdx=0, expTries=0;
-  function expSpawn(label, clickable){
-    var c=document.createElement('button');
-    c.type='button'; c.className='exp-fire active'; c.textContent=label;
-    if(clickable!==false){ c.onclick=function(){ expPutOut(c); }; }
-    $('expFires').appendChild(c);
-    return c;
-  }
-  function expPutOut(c){
-    if(!c.classList.contains('active')) return;
-    c.classList.remove('active'); c.classList.add('out');
-    c.textContent='✓ '+c.textContent.replace('🔥 ','');
-    if(expIniIdx<FIRES_INI.length){
-      var nxt=expIniIdx;
-      expSpawn(FIRES_INI[expIniIdx++]);
-      $('expHint3').textContent = nxt===1 ? 'Otro más…' : 'Y va otro…';
-    } else if(expTries<2){
-      var proj=$('expProj');
-      proj.hidden=false; proj.classList.remove('locked');
-      proj.innerHTML='▶ &nbsp;Avanzar en tu proyecto — el que postergás hace años';
-      $('expHint3').textContent = expTries===0 ? 'Despejado ✨ Ahora sí: avanzá con lo tuyo.' : 'Listo otra vez. Dale, ahora sí.';
-    }
+  /* Escena 3 · el personaje que nunca llega a lo suyo: cada clic en el
+     proyecto lo interrumpe con un "disfraz" nuevo (bombero → pijama →
+     agotado). Un solo botón activo, siempre. */
+  var ACT=[
+    {face:'🧑‍🚒', cls:'alarm',
+     bubble:'¡Esperá! Surgió un incendio — <b>hay que apagarlo primero.</b>',
+     chips:['🔥 Reunión «urgente» que se estiró','🔥 El mail que “no puede esperar”'],
+     backFace:'😮‍💨', backBubble:'Listo, apagado. <b>Ahora sí puedo avanzar.</b>'},
+    {face:'😴', cls:'sleep',
+     bubble:'No das más… anoche dormiste <b>menos de 5 horas.</b>',
+     chips:['🛌 4 h 50 de sueño','📱 47 notificaciones'],
+     backFace:'🥱', backBubble:'Mañana temprano lo agarro. <b>Ahora sí.</b>'},
+    {face:'😵‍💫', cls:'drained',
+     bubble:'Lo siento — estás <b>sobresaturado de tareas</b>. Mejor lo dejamos para el lunes… de la semana que viene.',
+     chips:['📋 La lista interminable','🧯 Trabajo extra de última hora']}
+  ];
+  var expAct=0, expBusy=false;
+  function expSetActor(face, cls, bubbleHTML, chips){
+    var f=$('expFace'), b=$('expBubble'), c=$('expChips');
+    f.textContent=face;
+    f.className='exp-actor__face'+(cls?' '+cls:'');
+    void f.offsetWidth; f.classList.add('pop');
+    b.innerHTML=bubbleHTML;
+    c.innerHTML=(chips||[]).map(function(t){ return '<span class="exp-chip">'+t+'</span>'; }).join('');
   }
   function expBuildDay(){
-    expIniIdx=0; expTries=0;
-    $('expFires').innerHTML='';
-    $('expProj').hidden=true;
-    $('expHint3').textContent='Apagá el incendio.';
-    expSpawn(FIRES_INI[expIniIdx++]);
+    expAct=0; expBusy=false;
+    expSetActor('😌','','Por fin un rato libre… <b>Ahora sí avanzo con lo mío.</b>',[]);
+    var p=$('expProj');
+    p.classList.remove('locked');
+    p.innerHTML='▶ &nbsp;Avanzar con tu proyecto — el que postergás hace años';
   }
   window.expProjTry=function(){
-    var proj=$('expProj');
-    if(proj.hidden || proj.classList.contains('locked')) return;
-    expTries++;
-    proj.classList.add('locked');
-    if(expTries<2){
-      proj.innerHTML='🔒 Esperá — surgió algo…';
-      $('expHint3').textContent='Justo cuando ibas a arrancar… apagá eso primero.';
-      expSpawn(FIRES_TRY[0]);
+    var p=$('expProj');
+    if(expBusy || p.classList.contains('locked')) return;
+    expBusy=true;
+    var step=ACT[expAct]; expAct++;
+    p.classList.add('locked');
+    var st=document.querySelector('#exp-diag .exp-step[data-step="2"]');
+    st.classList.remove('shake'); void st.offsetWidth; st.classList.add('shake');
+    expSetActor(step.face, step.cls, step.bubble, step.chips);
+    if(expAct<ACT.length){
+      p.innerHTML='🔒 Interrumpido…';
+      setTimeout(function(){
+        expSetActor(step.backFace,'',step.backBubble,[]);
+        p.classList.remove('locked');
+        p.innerHTML='▶ &nbsp;Avanzar con tu proyecto — ahora sí';
+        expBusy=false;
+      },2600);
     } else {
-      proj.innerHTML='🔒 Otra semana será…';
-      $('expHint3').textContent='Y así, un día más.';
-      expSpawn(FIRES_TRY[1], false);
+      p.innerHTML='🔒 Lunes de la semana que viene…';
       $('expV3').hidden=false;
       $('expGo2').disabled=false;
+      expBusy=false;
     }
   };
 
