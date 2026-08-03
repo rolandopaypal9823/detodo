@@ -68,17 +68,37 @@ def buscar_fuente(rutas, tam):
 
 
 def recortar_fondo(im, tolerancia):
-    """Saca el fondo claro por flood fill desde los bordes. No toca el interior:
-    si la tapa tiene blanco propio, queda intacto porque no está conectado al borde."""
+    """Saca el fondo por flood fill desde los bordes, midiendo distancia al color de
+    fondo real (muestreado en las esquinas), no a blanco puro. Con tolerancia amplia
+    también se come la sombra suave, que es continua con el fondo.
+
+    No toca el interior de la tapa: el blanco del logo de la editorial o de la
+    ilustración queda intacto porque está rodeado de oscuro y el fill nunca llega."""
     im = im.convert("RGBA")
     w, h = im.size
     px = im.load()
+
+    # color de fondo = mediana de las 4 esquinas (16x16 cada una)
+    muestras = []
+    for ox, oy in ((0, 0), (w - 16, 0), (0, h - 16), (w - 16, h - 16)):
+        for dx in range(16):
+            for dy in range(16):
+                r, g, b, a = px[max(0, min(w - 1, ox + dx)), max(0, min(h - 1, oy + dy))]
+                if a > 0:
+                    muestras.append((r, g, b))
+    if muestras:
+        fondo = tuple(sorted(c[i] for c in muestras)[len(muestras) // 2] for i in range(3))
+    else:
+        fondo = (255, 255, 255)
+
     visto = bytearray(w * h)
     cola = deque()
 
     def claro(x, y):
         r, g, b, a = px[x, y]
-        return a > 0 and r >= 255 - tolerancia and g >= 255 - tolerancia and b >= 255 - tolerancia
+        if a == 0:
+            return False
+        return max(abs(r - fondo[0]), abs(g - fondo[1]), abs(b - fondo[2])) <= tolerancia
 
     for x in range(w):
         for y in (0, h - 1):
@@ -134,7 +154,7 @@ def cartel(texto, fuente, fondo, color_texto, borde, angulo=-8.0):
     return im.rotate(angulo, resample=Image.BICUBIC, expand=True)
 
 
-def armar(base, pieza, f_cartel, f_pie):
+def armar(base, pieza, f_cartel, f_pie, opacidad_sombra=140):
     lienzo = Image.new("RGBA", (LIENZO, LIENZO), (0, 0, 0, 0))
 
     alto = int(LIENZO * ALTO_DISPOSITIVO)
@@ -145,8 +165,8 @@ def armar(base, pieza, f_cartel, f_pie):
     x = (LIENZO - disp.width) // 2
     y = int(LIENZO * 0.40) - disp.height // 2
 
-    sm = sombra(disp)
-    lienzo.alpha_composite(sm, (x, y))
+    if opacidad_sombra > 0:
+        lienzo.alpha_composite(sombra(disp, opacidad=opacidad_sombra), (x, y))
     lienzo.alpha_composite(disp, (x, y))
 
     b = cartel(pieza["cartel"], f_cartel, pieza["cartel_fondo"],
@@ -167,7 +187,9 @@ def main():
     ap = argparse.ArgumentParser(description="Arma los mockups sin tocar la tapa.")
     ap.add_argument("entrada", help="PNG/JPG del ebook (tablet con la tapa)")
     ap.add_argument("--no-recorte", action="store_true")
-    ap.add_argument("--tolerancia", type=int, default=32)
+    ap.add_argument("--tolerancia", type=int, default=70)
+    ap.add_argument("--sombra", type=int, default=140,
+                    help="opacidad de la sombra de contacto (0 la desactiva)")
     ap.add_argument("--font")
     ap.add_argument("--salida", default="assets")
     a = ap.parse_args()
@@ -187,7 +209,7 @@ def main():
     os.makedirs(a.salida, exist_ok=True)
     for p in PIEZAS:
         destino = os.path.join(a.salida, p["salida"])
-        armar(base, p, f_cartel, f_pie).save(destino, optimize=True)
+        armar(base, p, f_cartel, f_pie, a.sombra).save(destino, optimize=True)
         print(f"  ✓ {destino}")
     print("\nListo. La tapa nunca pasó por un modelo: la cara es la original, pixel a pixel.")
 
