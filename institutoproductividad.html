@@ -2060,7 +2060,7 @@ a{color:inherit}
   @media(max-width:560px){.agd-card{padding:26px 20px 22px}.agd-cal,.agd-cal iframe,.agd-cal-ph{min-height:560px}}
 </style>
 
-<div class="agd-overlay" id="agdModal" onclick="if(event.target===this)agdClose()">
+<div class="agd-overlay" id="agdModal">
   <div class="agd-card" id="agdCard" role="dialog" aria-modal="true" aria-label="Agendar entrevista">
     <button class="agd-x" type="button" onclick="agdClose()" aria-label="Cerrar">✕</button>
 
@@ -2085,7 +2085,7 @@ a{color:inherit}
     <!-- Paso 3 · Calendly -->
     <div class="agd-step" data-agd="2">
       <span class="agd-mono">◆ Elegí día y hora · 60 min · Sin costo</span>
-      <h3>Dejá que alguien empiece a esperar lo tuyo.</h3>
+      <h3>Agendá tu entrevista personal, para empezar a trabajar lo tuyo con acompañamiento profesional.</h3>
       <div class="agd-cal" id="agdCal"><div class="agd-cal-ph">Cargando calendario…</div></div>
       <div class="agd-fine">Cupos limitados por camada · Entrevista de admisión sin costo</div>
     </div>
@@ -2152,7 +2152,7 @@ function agdLoadCalendly(){
   s.onerror=function(){ box.innerHTML='<div class="agd-cal-ph">No se pudo cargar el calendario. <a href="'+url+'" target="_blank" style="color:var(--nfm-orange-text);font-weight:700">Abrir en una pestaña →</a></div>'; };
   document.head.appendChild(s);
 }
-document.addEventListener('keydown', function(e){ if(e.key==='Escape') agdClose(); });
+/* Cierre solo con la X — sin clic afuera ni Escape, para evitar salidas por error */
 </script>
 
 <!-- FOOTER -->
