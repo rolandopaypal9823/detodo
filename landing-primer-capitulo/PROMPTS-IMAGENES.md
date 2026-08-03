@@ -22,14 +22,34 @@ inclinación (convergen hacia el centro) y el cartel.
 > El **botón va en HTML**, no dentro de la imagen: es clickeable, se ve nítido en cualquier
 > pantalla y se puede medir. Si igual querés uno pintado en la imagen, al final está el add-on.
 
+## ⚠️ Regla dura: la tapa no se toca
+
+Los modelos de imagen, si les das una foto con una cara, **la vuelven a dibujar**. Te devuelven un
+Nico que no es Nico: otra nariz, otros ojos, otra edad, el bigote distinto, los anteojos cambiados.
+Es el error más común y el que arruina la pieza.
+
+La tapa —foto de Nico, ilustración, rayos, tipografía, logos de la editorial— es un **asset cerrado**
+que se copia tal cual. Lo único que el modelo puede hacer es **acomodar el dispositivo**: rotarlo,
+escalarlo, iluminarlo y ponerle sombra. Nada de lo que está adentro de la pantalla se regenera.
+
+Los dos prompts ya traen esa instrucción en mayúsculas. Igual, **mirá la cara antes de dar por buena
+cada imagen**. Si cambió aunque sea un poco, mandá el re-roll de más abajo.
+
 ---
 
 ## PROMPT A — Primer capítulo (card izquierda)
 
 ```
-Use the attached image as the exact reference for the device and the book cover: same tablet,
-same cover artwork, same illustration, same colors, same cover typography. Reproduce the cover
-faithfully — do not redesign it, do not re-letter it, do not re-illustrate it.
+ABSOLUTE RULE — THE COVER IS A LOCKED ASSET. The attached image contains a photograph of a real
+person (the author). Copy the book cover from the attached image pixel-for-pixel: the photograph of
+the man, his FACE, his facial features, his expression, his eyes, his eyebrows, his nose, his
+moustache and beard, his glasses, his hair, his skin tone, his tattoo and his t-shirt, plus the
+illustration, the lightning shapes, every word of the cover typography and the publisher logos.
+DO NOT redraw, regenerate, re-render, restyle, retouch, beautify, smooth, re-age, reproportion or
+swap the man's face. DO NOT change his expression. DO NOT redesign, re-letter or re-illustrate the
+cover. Treat everything inside the screen as an untouchable photographic paste-in.
+The ONLY thing you may do with the device is reposition it: rotate it, rescale it, light it and
+give it a shadow, as a single rigid object. Any change to the man's face is a failed result.
 
 Square 1:1 product hero shot on a FULLY TRANSPARENT background (real alpha channel — no backdrop,
 no floor, no room, no scene, no color fill).
@@ -52,17 +72,29 @@ style), ALL CAPS. Render the Spanish text EXACTLY as written, accents included:
 Style: premium editorial tech mockup. High contrast, clean, generous negative space. Palette
 limited to the cover's own colors plus navy #0c3452, orange #ff6602 and white.
 
-Avoid: any text other than the two strings above, watermarks, extra logos, hands, people, desks,
-plants, background gradients, framed drop shadows, glossy 3D bevels, plastic reflections,
-misspelled Spanish, and missing accents — "CAPÍTULO" must keep its Í.
+Avoid: ANY alteration of the author's face or of the cover artwork, AI-retouched or "prettified"
+skin, a different-looking person, a redrawn illustration, re-typeset cover text, any text other
+than the two strings above, watermarks, extra logos, hands, people, desks, plants, background
+gradients, framed drop shadows, glossy 3D bevels, plastic reflections, misspelled Spanish, and
+missing accents — "CAPÍTULO" must keep its Í.
 ```
 
 ## PROMPT B — Libro completo (card derecha)
 
 ```
 Same device, same cover, same lighting, same scale and same treatment as the previous image —
-this is its twin for a side-by-side layout. Use the attached image again as the exact reference
-for the tablet and the book cover; reproduce the cover faithfully, do not redesign or re-letter it.
+this is its twin for a side-by-side layout.
+
+ABSOLUTE RULE — THE COVER IS A LOCKED ASSET, exactly as in the previous image. Copy the book cover
+from the attached image pixel-for-pixel: the photograph of the real man (the author), his FACE, his
+facial features, his expression, his eyes, his eyebrows, his nose, his moustache and beard, his
+glasses, his hair, his skin tone, his tattoo and his t-shirt, plus the illustration, the lightning
+shapes, every word of the cover typography and the publisher logos. DO NOT redraw, regenerate,
+re-render, restyle, retouch, beautify, smooth, re-age, reproportion or swap the man's face. DO NOT
+change his expression. DO NOT redesign, re-letter or re-illustrate the cover. Treat everything
+inside the screen as an untouchable photographic paste-in. The ONLY thing you may do with the
+device is reposition it: rotate it, rescale it, light it and give it a shadow, as a single rigid
+object. His face must be identical to the previous image and to the reference.
 
 Square 1:1 product hero shot on a FULLY TRANSPARENT background (real alpha channel — no backdrop,
 no floor, no scene, no color fill).
@@ -84,9 +116,11 @@ contact shadow, same heavy geometric sans (Montserrat Black style) in ALL CAPS.
 Style: premium editorial tech mockup. High contrast, clean, generous negative space. Palette limited
 to the cover's own colors plus navy #0c3452, orange #ff6602 and white.
 
-Avoid: any text other than the two strings above, watermarks, extra logos, hands, people, desks,
-plants, background gradients, framed drop shadows, glossy 3D bevels, plastic reflections,
-misspelled Spanish, and missing accents — "EDICIÓN" must keep its Ó.
+Avoid: ANY alteration of the author's face or of the cover artwork, AI-retouched or "prettified"
+skin, a different-looking person, a face that does not match the previous image, a redrawn
+illustration, re-typeset cover text, any text other than the two strings above, watermarks, extra
+logos, hands, people, desks, plants, background gradients, framed drop shadows, glossy 3D bevels,
+plastic reflections, misspelled Spanish, and missing accents — "EDICIÓN" must keep its Ó.
 ```
 
 ---
@@ -108,6 +142,28 @@ sistema NFM el naranja es el único color de activación y no debe competir cons
 pantalla.
 
 ---
+
+## Si le cambió la cara a Nico
+
+Es el fallo más probable. Re-roll, pegando esto en la misma conversación:
+
+```
+The author's face changed. Regenerate keeping the composition, rotation, lighting, shadow and badge
+exactly as they are, but restore the book cover to be pixel-identical to the attached reference: the
+same photograph of the same real man, same face, same features, same expression, same moustache and
+beard, same glasses, same hair, same skin tone, same tattoo, same t-shirt, same illustration, same
+typography. Do not redraw or retouch his face in any way — copy it, do not interpret it.
+```
+
+Si a la segunda o tercera sigue cambiándola, no insistas: el modelo no la está copiando, la está
+volviendo a dibujar. Salida segura:
+
+- Generá la imagen **con la pantalla vacía** (agregá: *"leave the tablet screen empty, a plain dark
+  screen, no cover artwork"*), y después **pegás la tapa original encima** en Canva/Photoshop, con
+  la misma rotación. La tapa queda intacta porque nunca pasó por el modelo.
+- O usá la foto del ebook tal cual, recortada en PNG con fondo transparente, sin generar nada. La
+  landing igual se ve bien: el cartel de "Primer capítulo" y "Libro completo" ya lo dicen los
+  títulos de cada card.
 
 ## Si el modelo rompe los acentos
 
