@@ -599,15 +599,17 @@ a{color:inherit}
   .exp-app:hover{border-color:rgba(255,102,2,.5)}
   .exp-app.on{border-color:var(--nfm-orange);background:var(--nfm-orange-wash);color:var(--nfm-blue)}
   .exp-app.on::before{content:"●";color:var(--nfm-orange)}
-  /* el proyecto que te esquiva + incendios que se cruzan */
-  .exp-dodge{position:relative;height:250px;border-radius:12px;background:linear-gradient(180deg,#f7fafc,#eef3f7);border:1px solid var(--hair);overflow:hidden;margin-bottom:4px}
-  .exp-proj{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);max-width:78%;font-family:'Montserrat';font-weight:800;font-size:14px;line-height:1.3;color:#fff;background:var(--nfm-orange);border:none;border-radius:12px;padding:14px 18px;cursor:pointer;box-shadow:0 10px 26px rgba(255,102,2,.35);transition:left .38s cubic-bezier(.2,1.4,.4,1),top .38s cubic-bezier(.2,1.4,.4,1);touch-action:none;user-select:none;-webkit-user-select:none;z-index:2}
-  .exp-proj.locked{background:#8a97a3;box-shadow:none;cursor:not-allowed}
-  .exp-urg{position:absolute;transform:translate(-50%,-50%) scale(.6);opacity:0;font-family:'Open Sans';font-size:12px;font-weight:700;color:#b0451c;background:#fff2e8;border:1.5px solid rgba(255,102,2,.4);border-radius:100px;padding:7px 13px;white-space:nowrap;pointer-events:none;z-index:1;transition:opacity .3s,transform .3s}
-  .exp-urg.on{opacity:1;transform:translate(-50%,-50%) scale(1);animation:expflick .8s ease-in-out infinite alternate}
-  @keyframes expflick{from{transform:translate(-50%,-50%) scale(1)}to{transform:translate(-50%,-50%) scale(1.06)}}
-  .exp-tries{position:absolute;top:9px;right:12px;font-family:'JetBrains Mono';font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--mono-grey);z-index:3}
-  .exp-tries b{color:var(--nfm-orange-text)}
+  /* ciclo: apagar incendios → intentar avanzar → nueva urgencia */
+  .exp-fires{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px;min-height:46px}
+  .exp-fire{font-family:'Open Sans';font-size:13px;font-weight:700;color:#b0451c;background:#fff2e8;border:1.5px solid rgba(255,102,2,.45);border-radius:100px;padding:10px 15px;cursor:pointer;transition:all .25s;user-select:none;-webkit-user-select:none;animation:expflick .8s ease-in-out infinite alternate}
+  .exp-fire:hover{transform:scale(1.04)}
+  @keyframes expflick{from{box-shadow:0 0 0 0 rgba(255,102,2,.25)}to{box-shadow:0 0 0 7px rgba(255,102,2,0)}}
+  .exp-fire.out{color:var(--mono-grey);background:#f1f4f6;border-color:var(--hair);cursor:default;animation:none;text-decoration:line-through;text-decoration-color:rgba(107,114,128,.55)}
+  .exp-fire.new{animation:expflick .8s ease-in-out infinite alternate, expdrop .4s cubic-bezier(.2,1.4,.4,1)}
+  @keyframes expdrop{from{opacity:0;transform:translateY(-12px) scale(.85)}to{opacity:1;transform:none}}
+  .exp-proj{display:block;width:100%;font-family:'Montserrat';font-weight:800;font-size:15px;line-height:1.35;color:#fff;background:var(--nfm-orange);border:none;border-radius:12px;padding:16px 18px;cursor:pointer;box-shadow:0 8px 22px rgba(255,102,2,.3);animation:projpulse 1.7s infinite;transition:background .25s}
+  @keyframes projpulse{0%{box-shadow:0 8px 22px rgba(255,102,2,.3),0 0 0 0 rgba(255,102,2,.4)}70%{box-shadow:0 8px 22px rgba(255,102,2,.3),0 0 0 14px rgba(255,102,2,0)}100%{box-shadow:0 8px 22px rgba(255,102,2,.3),0 0 0 0 rgba(255,102,2,0)}}
+  .exp-proj.locked{background:#8a97a3;box-shadow:none;cursor:not-allowed;animation:none}
   /* verdict + botones */
   .exp-verdict{margin-top:16px;padding:16px 18px;border-left:3px solid var(--nfm-orange);background:var(--nfm-orange-wash);border-radius:0 10px 10px 0}
   .exp-verdict p{margin:0;font-size:14.5px;line-height:1.6;color:var(--nfm-blue)}
@@ -639,7 +641,7 @@ a{color:inherit}
   <div class="wrap center">
     <div class="center"><span class="eyebrow">Diagnóstico interactivo · 90 segundos</span></div>
     <h2 class="h2">¿Le estás peleando a <span class="hl">tu propio cerebro</span>?</h2>
-    <p class="lead-2">Sabés exactamente qué tenés que hacer. Hace años. Y aun así no lo hacés. Tres escenas rápidas para ver por qué —y no, no es falta de disciplina.</p>
+    <p class="lead-2">Lo que Nico te acaba de contar en el video, ahora vivilo. Tres escenas rápidas para sentir en carne propia cómo tu cerebro te gana el día — y por qué no es falta de disciplina.</p>
 
     <div class="exp-shell">
       <div class="exp-bar"><span id="expBar" style="width:8%"></span></div>
@@ -664,14 +666,14 @@ a{color:inherit}
           </div>
           <button class="exp-accel" id="expAccel" onclick="expRev()">🚗 &nbsp;PISÁ EL ACELERADOR</button>
           <div class="exp-verdict" id="expV1" hidden>
-            <p>Estás a fondo y el auto no avanza. <b>El freno de mano puesto sos vos</b> — peleándole a tu cerebro con más esfuerzo. Meterle más horas no mueve el auto: lo funde.</p>
+            <p>Estás a fondo y el auto no avanza. Y no, <b>no es falta de disciplina</b> — disciplina tenés, por algo llegaste hasta donde estás. Es el freno de mano: tu cerebro trabajando en contra. Apretar más fuerte no lo suelta.</p>
           </div>
           <div class="exp-go"><button class="btn btn-primary" id="expGo0" onclick="expNext(0)" disabled>Seguir <span class="arrow">→</span></button></div>
         </div>
 
         <!-- ESCENA 2 · la batería con apps de fondo -->
         <div class="exp-step" data-step="1">
-          <span class="exp-mono">◆ Escena 2 · La batería</span>
+          <span class="exp-mono">◆ Escena 2 · Tu CEO interno</span>
           <h3 class="exp-q">¿Cuántas apps tenés abiertas… en la cabeza?</h3>
           <div class="exp-battery">
             <div class="exp-battwrap"><span id="expBatt"></span></div>
@@ -687,21 +689,20 @@ a{color:inherit}
             <button type="button" class="exp-app" onclick="expApp(this)">Cómo está mi cuerpo</button>
           </div>
           <div class="exp-verdict" id="expV2" hidden>
-            <p>Tenés <b id="expAppN">0</b> procesos corriendo en segundo plano. Por eso llegás a la noche sin batería. <b>No es que seas vago</b> — es que tu RAM está llena.</p>
+            <p>Tenés <b id="expAppN">0</b> procesos corriendo en segundo plano. Esa batería que se drena tiene nombre: tu <b>corteza prefrontal</b> — el CEO de tu cerebro, el que decide qué importa. Cada decisión, cada interrupción, cada preocupación la fatiga. Y cuando se fatiga, no te avisa: <b>le cede el control al sistema límbico</b>. Mirá lo que pasa entonces…</p>
           </div>
           <div class="exp-go"><button class="btn btn-primary" id="expGo1" onclick="expNext(1)" disabled>Seguir <span class="arrow">→</span></button></div>
         </div>
 
-        <!-- ESCENA 3 · lo urgente contra lo tuyo (el proyecto que te esquiva) -->
+        <!-- ESCENA 3 · lo urgente contra lo tuyo (ciclo: apagar → intentar avanzar → nueva urgencia) -->
         <div class="exp-step" data-step="2">
-          <span class="exp-mono">◆ Escena 3 · Lo urgente contra lo tuyo</span>
-          <h3 class="exp-q">Tocá el proyecto que venís postergando hace años.</h3>
-          <p class="exp-hint">Dale. Es un solo clic.</p>
-          <div class="exp-dodge" id="expDodge">
-            <button type="button" class="exp-proj" id="expProj">🎯 Tu proyecto — el que sabés que te hace bien</button>
-          </div>
+          <span class="exp-mono">◆ Escena 3 · El sistema límbico al mando</span>
+          <h3 class="exp-q">Un día cualquiera. Apagá los incendios.</h3>
+          <p class="exp-hint" id="expHint3">Tocá cada incendio para apagarlo. Uno por uno.</p>
+          <div class="exp-fires" id="expFires"></div>
+          <button type="button" class="exp-proj" id="expProj" hidden onclick="expProjTry()">▶ &nbsp;Avanzar en tu proyecto — el que postergás hace años</button>
           <div class="exp-verdict" id="expV3" hidden>
-            <p>Lo intentaste <b>3 veces</b> — y las 3 veces se te cruzó un incendio primero. Así es tu semana: <b>lo urgente de otros siempre corre más rápido que lo importante tuyo.</b> ¿Hace cuántos años que este juego te viene ganando?</p>
+            <p>Eso que acabás de vivir es tu <b>sistema límbico al mando</b>: todo es urgente, todo es un problema, todo es un caos. Por eso terminás el día habiendo hecho <b>de todo</b> — pero sin la sensación de haber avanzado. Y con culpa. ¿Hace cuántos años que este juego te viene ganando?</p>
           </div>
           <div class="exp-go"><button class="btn btn-primary" id="expGo2" onclick="expNext(2)" disabled>Seguir <span class="arrow">→</span></button></div>
         </div>
@@ -709,13 +710,13 @@ a{color:inherit}
         <!-- REVEAL -->
         <div class="exp-step exp-reveal" data-step="3">
           <span class="exp-mono">◆ Tu diagnóstico</span>
-          <h3 class="exp-q" style="text-align:center">Corrés detrás de la zanahoria… y nunca la alcanzás.</h3>
+          <h3 class="exp-q" style="text-align:center">No fallaste. Nadie te enseñó cómo funciona tu cerebro.</h3>
           <div class="exp-ab">
-            <div class="exp-ab-card exp-ab-a"><span class="t">La zanahoria</span><p>Meterle más esfuerzo, más apps, más horas. Correr detrás de algo que se mueve con vos. Cansancio sin avance.</p></div>
+            <div class="exp-ab-card exp-ab-a"><span class="t">El síntoma</span><p>Apretar la canilla que gotea con todas tus fuerzas: más horas, más apps, más culpa al final del día.</p></div>
             <div class="exp-ab-arrow">→</div>
-            <div class="exp-ab-card exp-ab-b"><span class="t">Tu huerta</span><p>Entender cómo funciona tu cerebro y cultivar lo tuyo con las herramientas correctas. Menos esfuerzo, más avance.</p></div>
+            <div class="exp-ab-card exp-ab-b"><span class="t">La causa</span><p>Entender cómo funciona la canilla: un protocolo a favor de tu cerebro — y alguien del otro lado, esperando lo tuyo.</p></div>
           </div>
-          <p class="exp-rev-text" id="expRevText">Hoy vas a fondo con el freno de mano puesto, la cabeza llena de procesos y lo urgente ganándole a lo tuyo hace años. Si nada cambia, en <b>700 días</b> vas a estar exactamente acá. La salida no es «lo resuelvo solo»: es entender <b>cómo funciona tu cerebro</b> y ponerle a lo tuyo alguien que lo espere.</p>
+          <p class="exp-rev-text" id="expRevText">Tu corteza prefrontal se fatigó, el sistema límbico tomó el control y todo se volvió urgente. Más información no lo arregla — ya lo probaste. Si nada cambia, en <b>700 días</b> vas a estar exactamente acá. El <b>1%</b> que separa un antes de un después es una entrevista gratuita: contás dónde estás, a dónde querés llegar, y armamos el camino.</p>
           <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('diagnostico');return false">Quiero hacer el cambio <span class="arrow">→</span></a>
           <div class="exp-retake"><button type="button" onclick="expReset()">↻ Volver a empezar</button></div>
         </div>
@@ -759,49 +760,52 @@ a{color:inherit}
     $('expGo1').disabled = apps<1;
   };
 
-  /* Escena 3: el proyecto esquiva el clic; cada intento deja un incendio real
-     (urgencias textuales de las llamadas de venta) donde el proyecto estaba */
-  var URGS=['🔥 Reunión que se estiró','🔥 El mail “no puede esperar”','🔥 Un problema del equipo','🔥 Trabajo extra de última hora','🔥 Dormiste 5 hs — cero energía','🔥 47 notificaciones'];
-  var DODGE_POS=[{x:50,y:45},{x:26,y:74},{x:72,y:26},{x:40,y:56}];
-  var dodges=0;
-  function expBuildDodge(){
-    var wrap=$('expDodge'); var proj=$('expProj');
-    // contador de intentos
-    if(!document.getElementById('expTries')){
-      var t=document.createElement('div'); t.className='exp-tries'; t.id='expTries';
-      t.innerHTML='Intentos: <b>0</b> / 3'; wrap.appendChild(t);
-    }
-    proj.style.left=DODGE_POS[0].x+'%'; proj.style.top=DODGE_POS[0].y+'%';
-    var attempt=function(e){
-      if(dodges>=3) return;
-      if(e && e.cancelable) e.preventDefault();
-      var from=DODGE_POS[dodges];
-      dodges++;
-      document.getElementById('expTries').innerHTML='Intentos: <b>'+dodges+'</b> / 3';
-      // el incendio aparece donde estaba el proyecto
-      var u=document.createElement('span');
-      u.className='exp-urg'; u.textContent=URGS[(dodges-1)%URGS.length];
-      u.style.left=from.x+'%'; u.style.top=from.y+'%';
-      wrap.appendChild(u);
-      requestAnimationFrame(function(){ u.classList.add('on'); });
-      if(dodges<3){
-        var to=DODGE_POS[dodges];
-        proj.style.left=to.x+'%'; proj.style.top=to.y+'%';
-      } else {
-        var to2=DODGE_POS[3];
-        proj.style.left=to2.x+'%'; proj.style.top=to2.y+'%';
-        setTimeout(function(){
-          proj.classList.add('locked');
-          proj.textContent='🔒 Otra semana será…';
-          $('expV3').hidden=false;
-          $('expGo2').disabled=false;
-        },420);
-      }
-    };
-    proj.addEventListener('pointerenter',function(e){ if(e.pointerType!=='touch') attempt(e); });
-    proj.addEventListener('touchstart',attempt,{passive:false});
-    proj.addEventListener('click',attempt);
+  /* Escena 3 · ciclo del sistema límbico: apagás incendios uno por uno,
+     querés avanzar con lo tuyo, y aparece una urgencia nueva. Paso a paso. */
+  var URGS=['🔥 Reunión que se estiró','🔥 El mail “no puede esperar”','🔥 47 notificaciones','🔥 Un problema del equipo','🔥 Trabajo extra de última hora'];
+  var expFireIdx=0, expTries=0, expLit=0;
+  function expAddFire(){
+    if(expFireIdx>=URGS.length) return;
+    var c=document.createElement('button');
+    c.type='button'; c.className='exp-fire new'; c.textContent=URGS[expFireIdx++];
+    c.onclick=function(){ expPutOut(c); };
+    $('expFires').appendChild(c); expLit++;
   }
+  function expPutOut(c){
+    if(c.classList.contains('out')) return;
+    c.classList.remove('new'); c.classList.add('out');
+    c.textContent='✓ '+c.textContent.replace('🔥 ','');
+    expLit--;
+    if(expLit<=0 && expTries<2){
+      var proj=$('expProj');
+      proj.hidden=false; proj.classList.remove('locked');
+      proj.innerHTML='▶ &nbsp;Avanzar en tu proyecto — el que postergás hace años';
+      $('expHint3').textContent = expTries===0 ? 'Despejado ✨ Ahora sí: avanzá con lo tuyo.' : 'Listo otra vez. Dale, ahora sí.';
+    }
+  }
+  function expBuildDay(){
+    expFireIdx=0; expTries=0; expLit=0;
+    $('expFires').innerHTML='';
+    $('expProj').hidden=true;
+    $('expHint3').textContent='Tocá cada incendio para apagarlo. Uno por uno.';
+    for(var i=0;i<3;i++) expAddFire();
+  }
+  window.expProjTry=function(){
+    var proj=$('expProj');
+    if(proj.classList.contains('locked')) return;
+    expTries++;
+    proj.classList.add('locked');
+    expAddFire();
+    if(expTries<2){
+      proj.innerHTML='🔒 Esperá — surgió algo…';
+      $('expHint3').textContent='Justo cuando ibas a arrancar… apagá eso primero.';
+    } else {
+      proj.innerHTML='🔒 Otra semana será…';
+      $('expHint3').textContent='Y así, un día más.';
+      $('expV3').hidden=false;
+      $('expGo2').disabled=false;
+    }
+  };
 
   window.expNext=function(idx){
     var steps=document.querySelectorAll('#exp-diag .exp-step');
@@ -809,14 +813,14 @@ a{color:inherit}
     steps[idx].classList.remove('active');
     steps[idx+1].classList.add('active');
     $('expBar').style.width=BARS[idx+1]+'%';
-    if(idx+1===2 && !built){ expBuildDodge(); built=true; }
+    if(idx+1===2 && !built){ expBuildDay(); built=true; }
     if(idx+1===3){ buildReveal(); }
     $('exp-diag').scrollIntoView({behavior:'smooth',block:'start'});
   };
 
   function buildReveal(){
     var n=apps||'varios';
-    $('expRevText').innerHTML='Hoy vas a fondo con el freno de mano puesto, con <b>'+n+' procesos corriendo en la cabeza</b>, y lo urgente le viene ganando a lo tuyo hace años. Si nada cambia, en <b>700 días</b> vas a estar exactamente acá: mismo proyecto, misma lista. Y la salida no es «lo resuelvo solo» — todos los que entran al Instituto dicen la misma frase: <b>«solo no pude»</b>. No es un defecto tuyo: es tu cerebro sin nadie del otro lado. Cultivar tu huerta es eso — entender cómo funciona tu cerebro y ponerle a lo tuyo alguien que lo espere.';
+    $('expRevText').innerHTML='Tu corteza prefrontal se fatigó con <b>'+n+' procesos en segundo plano</b>, el sistema límbico tomó el control y todo se volvió urgente. Más información no lo arregla — ya lo probaste. Y la salida tampoco es «lo resuelvo solo»: todos los que entran al Instituto dicen la misma frase, <b>«solo no pude»</b>. Si nada cambia, en <b>700 días</b> vas a estar exactamente acá. El <b>1%</b> que separa un antes de un después es una entrevista gratuita: contás dónde estás, a dónde querés llegar, y armamos el camino.';
   }
 
   window.expReset=function(){
@@ -830,11 +834,8 @@ a{color:inherit}
     document.querySelectorAll('#exp-diag .exp-app.on').forEach(function(a){a.classList.remove('on');});
     $('expBatt').style.width='100%'; $('expBattPct').textContent='100%'; $('expAppN').textContent='0';
     $('expV2').hidden=true; $('expGo1').disabled=true;
-    // reset del juego de esquive
-    document.querySelectorAll('#expDodge .exp-urg').forEach(function(u){ u.remove(); });
-    var tr=document.getElementById('expTries'); if(tr) tr.innerHTML='Intentos: <b>0</b> / 3';
-    var pj=$('expProj'); pj.classList.remove('locked'); pj.textContent='🎯 Tu proyecto — el que sabés que te hace bien';
-    pj.style.left='50%'; pj.style.top='45%';
+    // reset del ciclo de incendios
+    if(built) expBuildDay();
     $('expV3').hidden=true; $('expGo2').disabled=true;
     $('exp-diag').scrollIntoView({behavior:'smooth',block:'start'});
   };
