@@ -22,20 +22,98 @@ inclinación (convergen hacia el centro) y el cartel.
 > El **botón va en HTML**, no dentro de la imagen: es clickeable, se ve nítido en cualquier
 > pantalla y se puede medir. Si igual querés uno pintado en la imagen, al final está el add-on.
 
-## ⚠️ Regla dura: la tapa no se toca
+## ⚠️ Leé esto primero: por qué te cambia la cara de Nico
 
-Los modelos de imagen, si les das una foto con una cara, **la vuelven a dibujar**. Te devuelven un
-Nico que no es Nico: otra nariz, otros ojos, otra edad, el bigote distinto, los anteojos cambiados.
-Es el error más común y el que arruina la pieza.
+**No es un problema de prompt.** Un modelo de imagen no recorta ni copia: **sintetiza cada pixel de
+cero**. Cuando le pedís "acomodá la tablet, iluminala, ponele sombra", está generando una imagen
+nueva entera — y la cara de Nico entra en esa generación. Vuelve a dibujarla siempre. A veces te la
+devuelve parecida y zafás; a veces te devuelve a otra persona.
 
-La tapa —foto de Nico, ilustración, rayos, tipografía, logos de la editorial— es un **asset cerrado**
-que se copia tal cual. Lo único que el modelo puede hacer es **acomodar el dispositivo**: rotarlo,
-escalarlo, iluminarlo y ponerle sombra. Nada de lo que está adentro de la pantalla se regenera.
+Escribir la regla más fuerte, en mayúsculas y repetida, **baja la probabilidad pero no la elimina**.
+No hay redacción que la lleve a cero, porque le estás pidiendo justamente lo que rompe la cara.
 
-Los dos prompts ya traen esa instrucción en mayúsculas. Igual, **mirá la cara antes de dar por buena
-cada imagen**. Si cambió aunque sea un poco, mandá el re-roll de más abajo.
+La única forma de garantía es que **la tapa nunca pase por el modelo**.
+
+### Las tres vías, de más segura a más riesgosa
+
+| | Vía | Fidelidad de la cara | Trabajo |
+|---|---|---|---|
+| **1** | **El script `armar-mockups.py`** — sin IA, manipulación de pixeles | **100%, garantizada** | 1 comando |
+| **2** | IA con **pantalla vacía** + pegás la tapa encima | 100% (la tapa no se genera) | 10 min en Canva |
+| **3** | IA generando todo (Prompts A y B) | **no garantizada** | rápido, pero re-rolls |
+
+Si ya probaste la 3 y te la sigue cambiando: **no insistas, andá a la 1**.
 
 ---
+
+## VÍA 1 — El script (recomendada)
+
+Cero IA. Recorta el fondo, rota el dispositivo, le pone el cartel y la sombra. La tapa se mueve
+como un bloque de pixeles: **es imposible que la cara cambie, porque nadie la vuelve a dibujar.**
+
+```bash
+cd landing-primer-capitulo
+python3 armar-mockups.py /ruta/a/la/foto-del-ebook.png
+```
+
+Te deja las dos imágenes en `assets/` con los nombres exactos que la landing espera. Listo.
+
+Detalles:
+
+- Necesita Pillow: `pip install Pillow`.
+- Si la foto ya viene con fondo transparente: `--no-recorte`.
+- Si queda un halo blanco alrededor del dispositivo: subí el umbral, `--tolerancia 48`.
+- El recorte va por *flood fill* desde los bordes, así que **el blanco que esté dentro de la tapa no
+  se toca** — solo se saca el fondo que rodea al dispositivo.
+- Para el tipo exacto de los carteles: `--font /ruta/Montserrat-Black.ttf`. Sin eso usa la fuente
+  bold del sistema y avisa.
+
+---
+
+## VÍA 2 — IA con la pantalla vacía
+
+Si querés la luz y la sombra de un render de IA pero sin arriesgar la cara: generás la tablet
+**vacía** y después le pegás la tapa encima en Canva/Photoshop, con la misma inclinación.
+
+Prompt:
+
+```
+Use the attached image only as a reference for the DEVICE SHAPE (the tablet's silhouette, bezel,
+thickness and proportions). Do NOT reproduce the artwork on the screen.
+
+Render the tablet with a COMPLETELY EMPTY SCREEN: a flat, uniform, pure magenta screen (#FF00FF),
+edge to edge, with no image, no text, no logo, no reflection and no gradient on it. The magenta area
+must be perfectly flat and uniform so it can be used as a chroma key.
+
+Square 1:1 on a FULLY TRANSPARENT background (real alpha channel — no backdrop, no floor, no scene).
+The tablet floats upright and centered, rotated about 6 degrees clockwise, subtle three-quarter
+perspective, occupying about 62% of the frame height, nothing cropped.
+
+Lighting: cool studio key light from the upper left; deep navy rim light (#0c3452) along the right
+edge; warm orange accent (#ff6602) grazing the lower-right corner. Soft semi-transparent contact
+shadow under the device that fades out completely — never a hard black blob. Light the bezel and the
+body, never the screen area.
+
+Avoid: any artwork, text, person, face, logo or reflection on the screen; gradients or highlights
+over the magenta; backgrounds; hands; desks.
+```
+
+Para la segunda imagen, cambiá **clockwise** por **counter-clockwise**.
+
+Después, en Canva: ponés la tapa original arriba, la rotás los mismos 6°, la ajustás al rectángulo
+magenta y le sumás el cartel. La cara nunca pasó por el modelo.
+
+---
+
+## VÍA 3 — IA generando todo
+
+Los dos prompts de abajo traen la regla de la cara lo más dura que se puede escribir. Aun así,
+**la fidelidad no está garantizada** (ver arriba). Usalos si querés probar rápido, y mirá la cara
+antes de dar por buena cada imagen.
+
+Si tu herramienta tiene **edición con máscara** (el pincel de "seleccioná el área a editar"),
+usala: pintá **solo el fondo alrededor del dispositivo** y dejá la pantalla fuera de la selección.
+Lo que queda fuera de la máscara no se regenera — y ahí sí la cara está protegida de verdad.
 
 ## PROMPT A — Primer capítulo (card izquierda)
 
@@ -155,15 +233,9 @@ beard, same glasses, same hair, same skin tone, same tattoo, same t-shirt, same 
 typography. Do not redraw or retouch his face in any way — copy it, do not interpret it.
 ```
 
-Si a la segunda o tercera sigue cambiándola, no insistas: el modelo no la está copiando, la está
-volviendo a dibujar. Salida segura:
-
-- Generá la imagen **con la pantalla vacía** (agregá: *"leave the tablet screen empty, a plain dark
-  screen, no cover artwork"*), y después **pegás la tapa original encima** en Canva/Photoshop, con
-  la misma rotación. La tapa queda intacta porque nunca pasó por el modelo.
-- O usá la foto del ebook tal cual, recortada en PNG con fondo transparente, sin generar nada. La
-  landing igual se ve bien: el cartel de "Primer capítulo" y "Libro completo" ya lo dicen los
-  títulos de cada card.
+**Un solo re-roll.** Si a la segunda te la vuelve a cambiar, dejá de pelearla: el modelo no la está
+copiando, la está volviendo a dibujar, y va a seguir haciéndolo. Andá a la **Vía 1** (el script) o a
+la **Vía 2** (pantalla vacía). Ahí el problema desaparece por construcción, no por suerte.
 
 ## Si el modelo rompe los acentos
 

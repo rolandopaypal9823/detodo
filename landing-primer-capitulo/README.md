@@ -21,6 +21,7 @@ abajo, red neuronal de fondo.
 landing-primer-capitulo/
 ├── index.html                  ← la landing (referencia assets/ por separado)
 ├── landing-autocontenida.html  ← misma landing en 1 solo archivo (logo embebido)
+├── armar-mockups.py            ← arma las 2 imágenes SIN IA (la cara de Nico no se toca)
 ├── PROMPTS-IMAGENES.md         ← los 2 prompts de GPT-image para las imágenes
 └── assets/
     ├── logo-nfm-blanco.png     ← logo oficial (versión negativa, para fondo oscuro)
@@ -31,6 +32,16 @@ landing-primer-capitulo/
 
 Mientras las dos imágenes del ebook no existan, cada card muestra un marco FRAMER limpio con el
 label de qué va ahí. No se rompe nada: podés publicarla igual y sumar las imágenes después.
+
+**La forma rápida y segura de generarlas** (sin IA, la tapa queda pixel a pixel):
+
+```bash
+pip install Pillow
+python3 armar-mockups.py /ruta/a/la/foto-del-ebook.png
+```
+
+Deja las dos en `assets/` con los nombres correctos. Detalle y alternativas con IA en
+`PROMPTS-IMAGENES.md`.
 
 ## Links que usa
 
