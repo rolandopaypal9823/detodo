@@ -314,6 +314,21 @@ a{color:inherit}
 .nfm-team__list li{position:relative;padding-left:16px;font-size:.85rem;color:var(--muted);line-height:1.5;margin-bottom:6px}
 .nfm-team__list li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--nfm-orange)}
 .nfm-team__bio em{color:var(--nfm-blue);font-style:italic}
+/* Coaches de admisión (dentro del equipo, tarjetas compactas) */
+.nfm-adm{margin-top:56px}
+.nfm-adm__eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--nfm-orange);display:block;margin-bottom:10px}
+.nfm-adm__title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(19px,2.6vw,25px);color:#fff;margin:0 0 8px}
+.nfm-adm__sub{font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.75);max-width:58ch;margin:0 auto 32px}
+.nfm-adm__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;text-align:center}
+.nfm-adm__card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:22px 13px 18px;transition:transform .2s,background .2s;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.nfm-adm__card:hover{transform:translateY(-3px);background:rgba(255,255,255,.09)}
+.nfm-adm__photo{width:82px;height:82px;border-radius:50%;overflow:hidden;margin:0 auto 12px;border:2px solid rgba(255,255,255,.85);box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.nfm-adm__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.nfm-adm__name{font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;color:#fff;margin:0 0 3px}
+.nfm-adm__role{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--nfm-orange);margin:0 0 9px}
+.nfm-adm__bio{font-size:12px;line-height:1.5;color:rgba(255,255,255,.72);margin:0}
+@media(max-width:960px){.nfm-adm__grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.nfm-adm__grid{grid-template-columns:repeat(2,1fr);gap:12px}}
 
 /* ---------- CASOS ---------- */
 .case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:44px}
@@ -1044,7 +1059,7 @@ a{color:inherit}
   <div class="wrap center">
     <div class="center"><span class="eyebrow">El equipo</span></div>
     <h2 class="h2">Este es el equipo que te va a estar <span class="hl">esperando del otro lado</span></h2>
-    <p class="lead-2">Lo que le falta a lo tuyo no es método —es alguien esperándolo. Acá tenés <b>un profesional por cada frente</b>: coach dedicada, psicólogos, nutricionistas y coaches de alto rendimiento. No es Nico solo: es un equipo que te ve, te sigue y no te deja aflojar.</p>
+    <p class="lead-2">Lo que le falta a lo tuyo no es método —es alguien esperándolo. Acá tenés <b>un profesional por cada frente</b>: coach dedicada, psicólogos, nutricionistas y coaches de alto rendimiento. No es Nico solo: es un equipo que te ve, te sigue y no te deja aflojar. Con nombre y cara, incluso quien te va a atender en la primera charla.</p>
 
     <div class="nfm-team__grid">
 
@@ -1151,6 +1166,45 @@ a{color:inherit}
         </ul>
       </div>
 
+    </div>
+
+    <!-- COACHES DE ADMISIÓN -->
+    <div class="nfm-adm">
+      <span class="nfm-adm__eyebrow">◆ Tu primera conversación</span>
+      <h3 class="nfm-adm__title">Coaches de admisión</h3>
+      <p class="nfm-adm__sub">La entrevista la tenés con uno de ellos: escuchan dónde estás, a dónde querés llegar, y arman con vos el camino. Sin compromiso.</p>
+      <div class="nfm-adm__grid">
+        <div class="nfm-adm__card">
+          <div class="nfm-adm__photo"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-19-at-1.08.42-PM-1.jpg" alt="Valentín" loading="lazy"></div>
+          <h4 class="nfm-adm__name">Valentín</h4>
+          <p class="nfm-adm__role">Coach de admisión</p>
+          <p class="nfm-adm__bio">Te escucha y te ayuda a definir el mejor camino para tu caso.</p>
+        </div>
+        <div class="nfm-adm__card">
+          <div class="nfm-adm__photo"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-19-at-11.20.09-AM.jpeg" alt="Luciana" loading="lazy"></div>
+          <h4 class="nfm-adm__name">Luciana</h4>
+          <p class="nfm-adm__role">Coach de admisión</p>
+          <p class="nfm-adm__bio">Conoce tu caso en detalle y te muestra cómo avanzar.</p>
+        </div>
+        <div class="nfm-adm__card">
+          <div class="nfm-adm__photo"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-19-at-12.51.15-PM.jpeg" alt="Cristina" loading="lazy" style="object-position:center 10%"></div>
+          <h4 class="nfm-adm__name">Cristina</h4>
+          <p class="nfm-adm__role">Coach de admisión</p>
+          <p class="nfm-adm__bio">Entiende qué necesitás y cómo el Instituto puede ayudarte.</p>
+        </div>
+        <div class="nfm-adm__card">
+          <div class="nfm-adm__photo"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/06/image-1.png" alt="Paula" loading="lazy" style="object-position:center top"></div>
+          <h4 class="nfm-adm__name">Paula</h4>
+          <p class="nfm-adm__role">Coach de admisión</p>
+          <p class="nfm-adm__bio">Ve con vos tu situación y si el programa es para vos.</p>
+        </div>
+        <div class="nfm-adm__card">
+          <div class="nfm-adm__photo"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/06/image.png" alt="Matías" loading="lazy"></div>
+          <h4 class="nfm-adm__name">Matías</h4>
+          <p class="nfm-adm__role">Coach de admisión</p>
+          <p class="nfm-adm__bio">Te acompaña a encontrar el mejor camino para arrancar.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1634,6 +1688,43 @@ a{color:inherit}
     text-align: center;
   }
 
+  /* ── TODOS LOS CASOS ── */
+  .nfm-cases__all {
+    margin-top: 64px;
+    padding-top: 52px;
+    border-top: 1px solid var(--border);
+  }
+
+  .nfm-cases__all-head {
+    text-align: center;
+    margin-bottom: 34px;
+  }
+
+  .nfm-cases__all-head h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin: 0 0 10px;
+  }
+
+  .nfm-cases__all-head h3 span { color: var(--orange); }
+
+  .nfm-cases__all-head p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .nfm-cases__grid--all { margin-bottom: 0; }
+
+  .nfm-cases__grid--all .nfm-cases__card-header { border-bottom: none; padding-bottom: 4px; }
+  .nfm-cases__grid--all .nfm-cases__card-body { padding-top: 8px; }
+
   .nfm-cases__retake {
     background: transparent;
     color: var(--muted);
@@ -1687,7 +1778,7 @@ a{color:inherit}
         Conocé a 3 personas que <span>tuvieron tu mismo punto de partida</span>
       </h2>
       <p class="nfm-cases__subtitle">
-        Respondé 3 preguntas rápidas y te muestro tres alumnos del Instituto que se parecen a vos — mismo perfil, mismo dolor, mismo punto donde estás hoy.
+        Respondé 3 preguntas rápidas y te muestro tres alumnos que se parecen a vos — mismo perfil, mismo dolor, mismo punto donde estás hoy. Y si preferís, más abajo están <b>todas</b> las entrevistas completas.
       </p>
     </div>
 
@@ -1726,6 +1817,15 @@ a{color:inherit}
       <div class="nfm-cases__retake-wrap">
         <button class="nfm-cases__retake" onclick="nfmCasesReset()">↻ Volver a hacer el test</button>
       </div>
+    </div>
+
+    <!-- TODOS LOS CASOS (siempre visibles — transparencia total) -->
+    <div class="nfm-cases__all">
+      <div class="nfm-cases__all-head">
+        <h3>O miralos <span>todos</span></h3>
+        <p>Sin recortes ni selección: todas las entrevistas, con nombre, cara y oficio. Elegí la que quieras.</p>
+      </div>
+      <div class="nfm-cases__grid nfm-cases__grid--all" id="nfm-cases-allgrid"></div>
     </div>
 
   </div>
@@ -2022,7 +2122,38 @@ a{color:inherit}
     document.getElementById('nfm-casos').scrollIntoView({behavior:'smooth', block:'start'});
   }
 
+  function cardHTML(c){
+    return `
+      <div class="nfm-cases__card">
+        ${renderVideo(c)}
+        <div class="nfm-cases__card-header">
+          <div class="nfm-cases__card-intro">${c.intro}</div>
+          <div class="nfm-cases__card-name">${c.nombre}</div>
+          <div class="nfm-cases__card-perfil">${c.perfil}</div>
+        </div>
+        <div class="nfm-cases__card-body">
+          <div class="nfm-cases__beforeafter">
+            <div class="nfm-cases__ba-block">
+              <div class="nfm-cases__ba-label">Antes</div>
+              <div class="nfm-cases__ba-text">${c.puntoA}</div>
+            </div>
+            <div class="nfm-cases__ba-block">
+              <div class="nfm-cases__ba-label">Después</div>
+              <div class="nfm-cases__ba-text">${c.puntoB}</div>
+            </div>
+          </div>
+          <div class="nfm-cases__quote">${c.frase}</div>
+        </div>
+      </div>`;
+  }
+
+  function renderAll(){
+    var grid=document.getElementById('nfm-cases-allgrid');
+    if(grid) grid.innerHTML = casos.map(cardHTML).join('');
+  }
+
   render();
+  renderAll();
 })();
 </script>
 
