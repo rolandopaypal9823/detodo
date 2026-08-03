@@ -1788,41 +1788,292 @@ a{color:inherit}
 })();
 </script>
 
-<!-- MINITEST -->
-<section class="section tint" id="minitest">
+<!-- ═══ DIAGNÓSTICO INTERACTIVO · 3 escenas con analogías de Nico → agenda ═══ -->
+<style>
+  .exp{position:relative}
+  .exp-shell{max-width:720px;margin:40px auto 0;background:#fff;border:1px solid var(--hair);border-radius:18px;overflow:hidden;box-shadow:0 40px 100px rgba(12,52,82,.14)}
+  .exp-bar{height:5px;background:var(--nfm-blue-light)}
+  .exp-bar span{display:block;height:100%;background:var(--nfm-orange);transition:width .45s;border-radius:0 3px 3px 0}
+  .exp-body{padding:34px 34px 32px;text-align:left}
+  .exp-step{display:none;animation:expfade .4s ease both}
+  .exp-step.active{display:block}
+  @keyframes expfade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .exp-mono{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--nfm-orange-text);font-weight:500;display:block;margin-bottom:12px}
+  .exp-q{font-family:'Montserrat';font-weight:800;font-size:clamp(19px,2.8vw,25px);color:var(--nfm-blue);line-height:1.2;margin:0 0 18px}
+  .exp-hint{font-size:14px;color:var(--muted);margin:0 0 12px}
+  /* stage auto */
+  .exp-car-stage{position:relative;height:130px;overflow:hidden;border-radius:12px;background:linear-gradient(180deg,#f7fafc 0%,#eef3f7 66%,#e6edf2 66%,#d9e2ea 100%);margin-bottom:14px}
+  .exp-gauge{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:150px;height:6px;background:#dbe4ec;border-radius:100px;overflow:hidden}
+  .exp-gauge span{display:block;height:100%;width:6%;background:linear-gradient(90deg,#3fb950,#e6a700 60%,#c0392b);transition:width .12s}
+  .exp-car{position:absolute;left:50%;bottom:8px;width:150px;transform:translateX(-50%)}
+  .exp-car.rev{animation:expjud .16s linear 3}
+  @keyframes expjud{0%,100%{transform:translateX(-50%)}25%{transform:translate(calc(-50% - 2px),1px)}75%{transform:translate(calc(-50% + 2px),-1px)}}
+  .exp-car .b{fill:var(--nfm-blue)}.exp-car .w{fill:#cfe0ee}.exp-car .a{fill:var(--nfm-orange)}
+  .exp-car .wh{transform-box:fill-box;transform-origin:center}
+  .exp-car.spin .wh{animation:expspin .13s linear 6}
+  @keyframes expspin{to{transform:rotate(360deg)}}
+  .exp-road{position:absolute;left:0;right:0;bottom:20px;height:3px;background:repeating-linear-gradient(90deg,#9fb0bd 0 14px,transparent 14px 30px);opacity:.55}
+  .exp-km{position:absolute;bottom:6px;right:12px;font-family:'JetBrains Mono';font-size:10px;letter-spacing:.06em;color:var(--mono-grey)}
+  .exp-km b{color:var(--nfm-blue)}
+  .exp-smoke{position:absolute;left:calc(50% - 74px);bottom:30px;width:14px;height:14px;pointer-events:none}
+  .exp-smoke i{position:absolute;bottom:0;left:0;width:11px;height:11px;border-radius:50%;background:rgba(96,106,116,.5);opacity:0}
+  .exp-smoke.go i:nth-child(1){animation:exppuff 1s ease-out}
+  .exp-smoke.go i:nth-child(2){animation:exppuff 1s ease-out .4s}
+  @keyframes exppuff{0%{opacity:.55;transform:translate(0,0) scale(.5)}100%{opacity:0;transform:translate(-18px,-24px) scale(1.6)}}
+  .exp-accel{display:block;width:100%;font-family:'Montserrat';font-weight:800;font-size:15px;letter-spacing:.04em;color:#fff;background:var(--nfm-orange);border:none;border-radius:12px;padding:16px;cursor:pointer;box-shadow:0 8px 22px rgba(255,102,2,.3);transition:transform .08s}
+  .exp-accel:active{transform:scale(.97)}
+  .exp-accel:disabled{opacity:.4;cursor:default;box-shadow:none}
+  /* batería */
+  .exp-battery{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .exp-battwrap{position:relative;flex:1;height:26px;border:2px solid var(--nfm-blue);border-radius:7px;overflow:hidden;background:#fff}
+  .exp-battwrap::after{content:"";position:absolute;right:-6px;top:7px;width:4px;height:10px;background:var(--nfm-blue);border-radius:0 2px 2px 0}
+  .exp-battwrap span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#c0392b,#e6a700 55%,#3fb950);transition:width .35s}
+  .exp-battpct{font-family:'JetBrains Mono';font-size:13px;font-weight:700;color:var(--nfm-blue);min-width:46px;text-align:right}
+  .exp-apps{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:6px}
+  .exp-app{text-align:left;font-family:'Open Sans';font-size:13.5px;font-weight:600;color:var(--nfm-blue);background:#f7fafc;border:1.5px solid var(--nfm-blue-light);border-radius:10px;padding:11px 13px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:8px}
+  .exp-app::before{content:"○";color:var(--mono-grey-soft);font-size:14px}
+  .exp-app:hover{border-color:rgba(255,102,2,.5)}
+  .exp-app.on{border-color:var(--nfm-orange);background:var(--nfm-orange-wash);color:var(--nfm-blue)}
+  .exp-app.on::before{content:"●";color:var(--nfm-orange)}
+  /* incendios */
+  .exp-fires{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+  .exp-fire{aspect-ratio:1.4/1;border-radius:12px;border:1.5px solid var(--hair);background:#f7fafc;font-size:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;user-select:none}
+  .exp-fire.lit{background:#fff2e8;border-color:rgba(255,102,2,.4)}
+  .exp-fire.lit::after{content:"";position:absolute;inset:0;border-radius:12px;box-shadow:0 0 0 0 rgba(255,102,2,.35);animation:expflick 1s ease-out infinite}
+  .exp-fire{position:relative}
+  @keyframes expflick{to{box-shadow:0 0 0 10px rgba(255,102,2,0)}}
+  .exp-fire.out{opacity:.5}
+  .exp-firecount{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mono-grey);margin-bottom:8px}
+  .exp-firecount b{color:var(--nfm-orange-text)}
+  .exp-mine{color:var(--mono-grey);text-decoration:line-through;text-decoration-color:rgba(107,114,128,.5)}
+  /* verdict + botones */
+  .exp-verdict{margin-top:16px;padding:16px 18px;border-left:3px solid var(--nfm-orange);background:var(--nfm-orange-wash);border-radius:0 10px 10px 0}
+  .exp-verdict p{margin:0;font-size:14.5px;line-height:1.6;color:var(--nfm-blue)}
+  .exp-verdict b{color:var(--nfm-orange-text)}
+  .exp-go{margin-top:18px}
+  .exp-go .btn{width:100%}
+  .exp-go .btn:disabled{opacity:.35;cursor:default}
+  /* reveal */
+  .exp-reveal{text-align:center}
+  .exp-ab{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;margin:4px 0 18px;text-align:left}
+  .exp-ab-card{border-radius:12px;padding:14px 15px}
+  .exp-ab-a{background:#f4f6f8;border:1px solid var(--hair)}
+  .exp-ab-b{background:var(--nfm-orange-wash);border:1px solid rgba(255,102,2,.28)}
+  .exp-ab-card .t{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mono-grey);display:block;margin-bottom:6px}
+  .exp-ab-b .t{color:var(--nfm-orange-text)}
+  .exp-ab-card p{margin:0;font-size:13.5px;line-height:1.5;color:var(--nfm-blue)}
+  .exp-ab-arrow{display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--nfm-orange);font-weight:800}
+  .exp-rev-text{font-size:15px;line-height:1.65;color:var(--muted);max-width:56ch;margin:0 auto 22px}
+  .exp-rev-text b{color:var(--nfm-blue)}
+  .exp-reveal .btn{margin:0 auto}
+  .exp-retake{margin-top:14px}
+  .exp-retake button{background:transparent;border:1px solid rgba(12,52,82,.18);color:var(--muted);font-family:'JetBrains Mono';font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:9px 20px;border-radius:100px;cursor:pointer;transition:all .2s}
+  .exp-retake button:hover{color:var(--nfm-blue);border-color:var(--nfm-blue)}
+  @media(max-width:640px){.exp-body{padding:26px 22px 26px}.exp-apps{grid-template-columns:1fr}.exp-ab{grid-template-columns:1fr}.exp-ab-arrow{transform:rotate(90deg)}}
+  @media(prefers-reduced-motion:reduce){.exp-fire.lit,.exp-car.rev,.exp-car.spin .wh{animation:none!important}}
+</style>
+
+<section class="section tint exp" id="exp-diag">
   <div class="wrap center">
-    <div class="center"><span class="eyebrow">Diagnóstico de 30 segundos</span></div>
-    <h2 class="h2">¿Cumplís con todos... <span class="hl">menos con vos</span>?</h2>
-    <p class="lead-2">Respondé 3 preguntas y te muestro el caso de alguien con tu carga que estaba igual — y cómo lo resolvió adentro del Instituto.</p>
-    <div class="mini-shell mini">
-      <div class="mini-progress"><div class="bar" id="mbar"></div></div>
+    <div class="center"><span class="eyebrow">Diagnóstico interactivo · 90 segundos</span></div>
+    <h2 class="h2">¿Le estás peleando a <span class="hl">tu propio cerebro</span>?</h2>
+    <p class="lead-2">Tres escenas rápidas. Tocá, jugá, y mirá por qué —con la neurociencia de tu lado— la salida nunca fue meterle más.</p>
 
-      <div class="mini-intro" id="miniIntro">
-        <h3>Empecemos por lo más importante</h3>
-        <p>3 preguntas rápidas. Al final te muestro un caso real igual al tuyo y cómo lo resolvió.</p>
-        <button class="btn btn-primary btn-lg" onclick="mStart()">Empezar <span class="arrow">→</span></button>
-      </div>
+    <div class="exp-shell">
+      <div class="exp-bar"><span id="expBar" style="width:8%"></span></div>
+      <div class="exp-body">
 
-      <div class="mini-inner"><div id="miniSteps"></div></div>
-
-      <div class="mini-result" id="miniResult">
-        <span class="mono">★ Tu caso espejo</span>
-        <h3 id="mResTitle">—</h3>
-        <p class="rlead" id="mResLead">—</p>
-        <div class="mini-case">
-          <div class="mc-thumb" id="mCaseThumb"><div class="play"></div></div>
-          <div class="mc-body">
-            <div class="mc-quote" id="mCaseQuote">—</div>
-            <div class="mc-who" id="mCaseWho">—</div>
+        <!-- ESCENA 1 · el freno de mano -->
+        <div class="exp-step active" data-step="0">
+          <span class="exp-mono">◆ Escena 1 · El freno de mano</span>
+          <h3 class="exp-q">Pisá el acelerador. A fondo.</h3>
+          <div class="exp-car-stage">
+            <div class="exp-gauge"><span id="expRpm"></span></div>
+            <div class="exp-smoke" id="expSmoke"><i></i><i></i></div>
+            <svg class="exp-car" id="expCar" viewBox="0 0 150 64" width="150" aria-hidden="true">
+              <path class="b" d="M5 46 C5 36 13 34 22 33 L42 20 C57 13 95 13 110 20 L127 33 C139 34 145 37 145 46 L145 48 C145 51 143 52 140 52 L10 52 C7 52 5 51 5 48 Z"/>
+              <path class="w" d="M46 22 C59 16 91 16 103 22 L112 32 L38 32 Z"/>
+              <rect class="a" x="5" y="43" width="140" height="4" rx="2"/>
+              <g class="wh"><circle cx="40" cy="52" r="10" fill="#22323f"/><circle cx="40" cy="52" r="4.5" fill="#9aa6b0"/><path d="M40 44v16M32 52h16M34.5 46.5l11 11M45.5 46.5l-11 11" stroke="#3a4a58" stroke-width="1.4"/></g>
+              <g class="wh"><circle cx="112" cy="52" r="10" fill="#22323f"/><circle cx="112" cy="52" r="4.5" fill="#9aa6b0"/><path d="M112 44v16M104 52h16M106.5 46.5l11 11M117.5 46.5l-11 11" stroke="#3a4a58" stroke-width="1.4"/></g>
+            </svg>
+            <div class="exp-road"></div>
+            <div class="exp-km">Avanzaste: <b id="expKm">0,0 km</b></div>
           </div>
+          <button class="exp-accel" id="expAccel" onclick="expRev()">🚗 &nbsp;PISÁ EL ACELERADOR</button>
+          <div class="exp-verdict" id="expV1" hidden>
+            <p>Estás a fondo y el auto no avanza. <b>El freno de mano puesto sos vos</b> — peleándole a tu cerebro con más esfuerzo. Meterle más horas no mueve el auto: lo funde.</p>
+          </div>
+          <div class="exp-go"><button class="btn btn-primary" id="expGo0" onclick="expNext(0)" disabled>Seguir <span class="arrow">→</span></button></div>
         </div>
-        <div class="mini-cta">
-          <a href="#agendar" class="btn btn-primary btn-lg" onclick="goAgendar(event,'minitest')">Quiero hacer el cambio <span class="arrow">→</span></a>
+
+        <!-- ESCENA 2 · la batería con apps de fondo -->
+        <div class="exp-step" data-step="1">
+          <span class="exp-mono">◆ Escena 2 · La batería</span>
+          <h3 class="exp-q">¿Cuántas apps tenés abiertas… en la cabeza?</h3>
+          <div class="exp-battery">
+            <div class="exp-battwrap"><span id="expBatt"></span></div>
+            <div class="exp-battpct" id="expBattPct">100%</div>
+          </div>
+          <p class="exp-hint">Tocá las que están corriendo ahora mismo en tu cabeza:</p>
+          <div class="exp-apps">
+            <button type="button" class="exp-app" onclick="expApp(this)">El mail sin responder</button>
+            <button type="button" class="exp-app" onclick="expApp(this)">La reunión de mañana</button>
+            <button type="button" class="exp-app" onclick="expApp(this)">Lo que no le dije a alguien</button>
+            <button type="button" class="exp-app" onclick="expApp(this)">La factura / los números</button>
+            <button type="button" class="exp-app" onclick="expApp(this)">El proyecto que es MÍO</button>
+            <button type="button" class="exp-app" onclick="expApp(this)">Cómo está mi cuerpo</button>
+          </div>
+          <div class="exp-verdict" id="expV2" hidden>
+            <p>Tenés <b id="expAppN">0</b> procesos corriendo en segundo plano. Por eso llegás a la noche sin batería. <b>No es que seas vago</b> — es que tu RAM está llena.</p>
+          </div>
+          <div class="exp-go"><button class="btn btn-primary" id="expGo1" onclick="expNext(1)" disabled>Seguir <span class="arrow">→</span></button></div>
         </div>
+
+        <!-- ESCENA 3 · el bombero -->
+        <div class="exp-step" data-step="2">
+          <span class="exp-mono">◆ Escena 3 · El bombero</span>
+          <h3 class="exp-q">Apagá los incendios. Todos.</h3>
+          <div class="exp-fires" id="expFires"></div>
+          <div class="exp-firecount">Incendios apagados: <b id="expFireN">0</b> &nbsp;·&nbsp; Lo tuyo: <span class="exp-mine">sigue sin tocar</span></div>
+          <div class="exp-verdict" id="expV3" hidden>
+            <p>Apagaste <b id="expFireN2">5</b> incendios ajenos. <b>¿Y lo tuyo?</b> Sigue exactamente donde estaba. Así se te va el día — y el año.</p>
+          </div>
+          <div class="exp-go"><button class="btn btn-primary" id="expGo2" onclick="expNext(2)" disabled>Seguir <span class="arrow">→</span></button></div>
+        </div>
+
+        <!-- REVEAL -->
+        <div class="exp-step exp-reveal" data-step="3">
+          <span class="exp-mono">◆ Tu diagnóstico</span>
+          <h3 class="exp-q" style="text-align:center">Corrés detrás de la zanahoria… y nunca la alcanzás.</h3>
+          <div class="exp-ab">
+            <div class="exp-ab-card exp-ab-a"><span class="t">La zanahoria</span><p>Meterle más esfuerzo, más apps, más horas. Correr detrás de algo que se mueve con vos. Cansancio sin avance.</p></div>
+            <div class="exp-ab-arrow">→</div>
+            <div class="exp-ab-card exp-ab-b"><span class="t">Tu huerta</span><p>Entender cómo funciona tu cerebro y cultivar lo tuyo con las herramientas correctas. Menos esfuerzo, más avance.</p></div>
+          </div>
+          <p class="exp-rev-text" id="expRevText">Hoy le metés más esfuerzo con el freno de mano puesto, la batería llena de procesos y el día en modo bombero. El Instituto no te da otra zanahoria: te enseña <b>cómo funciona tu cerebro</b> y las herramientas para que lo tuyo, por fin, avance. Eso es cultivar tu huerta.</p>
+          <a href="#aplica" class="btn btn-primary btn-lg" onclick="expToAplica(event)">Quiero hacer el cambio <span class="arrow">→</span></a>
+          <div class="exp-retake"><button type="button" onclick="expReset()">↻ Volver a empezar</button></div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
+
+<script>
+(function(){
+  var revs=0, apps=0, fireTaps=0, fireCells=[], built=false;
+  var BARS=[8,38,68,100];
+
+  function $(id){return document.getElementById(id);}
+
+  window.expRev=function(){
+    if(revs>=3) return;
+    revs++;
+    var car=$('expCar'), smoke=$('expSmoke');
+    $('expRpm').style.width=Math.min(100,20+revs*28)+'%';
+    car.classList.remove('rev','spin'); void car.offsetWidth; car.classList.add('rev','spin');
+    smoke.classList.remove('go'); void smoke.offsetWidth; smoke.classList.add('go');
+    $('expKm').textContent=(revs*0.1).toFixed(1).replace('.',',')+' km';
+    if(revs>=3){
+      $('expAccel').disabled=true;
+      $('expAccel').textContent='🔥  RECALIENTA — y no avanzás';
+      $('expV1').hidden=false;
+      $('expGo0').disabled=false;
+    }
+  };
+
+  window.expApp=function(el){
+    el.classList.toggle('on');
+    apps=document.querySelectorAll('#exp-diag .exp-app.on').length;
+    var pct=Math.max(6,100-apps*15);
+    $('expBatt').style.width=pct+'%';
+    $('expBattPct').textContent=pct+'%';
+    $('expAppN').textContent=apps;
+    $('expV2').hidden = apps<1;
+    $('expGo1').disabled = apps<1;
+  };
+
+  function buildFires(){
+    var wrap=$('expFires'); wrap.innerHTML='';
+    fireCells=[];
+    for(var i=0;i<6;i++){
+      var c=document.createElement('div');
+      c.className='exp-fire';
+      c.setAttribute('data-i',i);
+      c.onclick=(function(cell){return function(){expFire(cell);};})(c);
+      wrap.appendChild(c);
+      fireCells.push(c);
+    }
+    setLit(0,true); setLit(3,true);
+  }
+  function setLit(i,on){
+    var c=fireCells[i];
+    if(on){ c.classList.add('lit'); c.classList.remove('out'); c.textContent='🔥'; }
+    else{ c.classList.remove('lit'); c.classList.add('out'); c.textContent='💧'; }
+  }
+  window.expFire=function(cell){
+    if(!cell.classList.contains('lit')) return;
+    if(fireTaps>=5) return;
+    var i=+cell.getAttribute('data-i');
+    setLit(i,false);
+    fireTaps++;
+    $('expFireN').textContent=fireTaps;
+    if(fireTaps>=5){
+      for(var k=0;k<6;k++){ if(fireCells[k].classList.contains('lit')) setLit(k,false); }
+      $('expFireN2').textContent=fireTaps;
+      $('expV3').hidden=false;
+      $('expGo2').disabled=false;
+      return;
+    }
+    // encender otro apagado al azar (determinista por tap)
+    var outIdx=[];
+    for(var j=0;j<6;j++){ if(!fireCells[j].classList.contains('lit')) outIdx.push(j); }
+    if(outIdx.length){ setLit(outIdx[(fireTaps*2+1)%outIdx.length],true); }
+  };
+
+  window.expNext=function(idx){
+    var steps=document.querySelectorAll('#exp-diag .exp-step');
+    if(idx>=steps.length-1) return;
+    steps[idx].classList.remove('active');
+    steps[idx+1].classList.add('active');
+    $('expBar').style.width=BARS[idx+1]+'%';
+    if(idx+1===2 && !built){ buildFires(); built=true; }
+    if(idx+1===3){ buildReveal(); }
+    $('exp-diag').scrollIntoView({behavior:'smooth',block:'start'});
+  };
+
+  function buildReveal(){
+    var n=apps||'varios';
+    $('expRevText').innerHTML='Hoy le metés más esfuerzo con el freno de mano puesto, con <b>'+n+' procesos corriendo en la cabeza</b> y el día en modo bombero. El Instituto no te da otra zanahoria: te enseña <b>cómo funciona tu cerebro</b> y las herramientas para que lo tuyo, por fin, avance. Eso es cultivar tu huerta.';
+  }
+
+  window.expToAplica=function(e){
+    if(e) e.preventDefault();
+    var t=document.getElementById('aplica');
+    if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+  };
+
+  window.expReset=function(){
+    revs=0; apps=0; fireTaps=0; built=false;
+    var steps=document.querySelectorAll('#exp-diag .exp-step');
+    steps.forEach(function(s,i){ s.classList.toggle('active', i===0); });
+    $('expBar').style.width='8%';
+    $('expRpm').style.width='6%'; $('expKm').textContent='0,0 km';
+    $('expAccel').disabled=false; $('expAccel').innerHTML='🚗 &nbsp;PISÁ EL ACELERADOR';
+    $('expV1').hidden=true; $('expGo0').disabled=true;
+    document.querySelectorAll('#exp-diag .exp-app.on').forEach(function(a){a.classList.remove('on');});
+    $('expBatt').style.width='100%'; $('expBattPct').textContent='100%'; $('expAppN').textContent='0';
+    $('expV2').hidden=true; $('expGo1').disabled=true;
+    $('expFireN').textContent='0'; $('expV3').hidden=true; $('expGo2').disabled=true;
+    $('exp-diag').scrollIntoView({behavior:'smooth',block:'start'});
+  };
+
+  // init
+  $('expRpm').style.width='6%';
+})();
+</script>
 
 <!-- CTA FINAL / AGENDAR -->
 <section class="section apply section--navy" id="agendar">
@@ -1913,95 +2164,6 @@ const IMG = {
 };
 /* ===================== FIN DE LO QUE TENÉS QUE EDITAR ===================== */
 
-
-/* ---------- Casos afines a cada perfil (para el minitest) ---------- */
-const MINI = {
-  b:{ // Bloqueado
-    title:"Sos como Milton antes de entrar",
-    lead:"Tenías todo para arrancar y no arrancabas: el teléfono como escape, la tarea importante intacta. <b>Milton lo resolvió.</b> Ahora arranca sin esperar el momento perfecto.",
-    quote:"“Seguí para adelante, bro. No le aflojes y confiá en el proceso.”",
-    who:"Milton · Diseñador UX",
-    link:"https://www.youtube.com/watch?v=xDpQB0t2RH8"
-  },
-  a:{ // Ahogado
-    title:"Sos como Celi antes de entrar",
-    lead:"No parabas en todo el día y aun así lo tuyo quedaba para después. <b>Celi lo resolvió.</b> Pasó de vivir en modo reactivo a viajar un mes trabajando remoto.",
-    quote:"“Lo debería haber hecho 10 años antes.”",
-    who:"Celi · Arquitecta, lidera 45 personas · San Diego",
-    link:"https://www.youtube.com/watch?v=95H0-szcsMs"
-  },
-  c:{ // Crónico
-    title:"Sos como Natalia antes de entrar",
-    lead:"Ya lo habías intentado todo y arrastrabas el cansancio: dormías 3-4 horas, bruma mental, la ruedita del hámster. <b>Natalia lo resolvió.</b> Volvió a dormir 7-8 horas y hoy avanza con su emprendimiento.",
-    quote:"“Llegar a fin de año y levantar la copa: logré todo esto. El 1% te da eso.”",
-    who:"Natalia · Astrónoma · CONICET",
-    link:"https://www.youtube.com/watch?v=CVo9A7ADvTs"
-  }
-};
-
-/* ---------- Minitest (3 caminos, elección directa por perfil) ---------- */
-const MINI_Q = [
-  { q:"¿Con cuál te sentís más identificado hoy?",
-    opts:[
-      {t:"Cumplo con todo el mundo, pero lo mío lleva años en la misma lista.", k:"a"},
-      {t:"Sé lo que tengo que hacer para mí y no arranco. Lo dejo siempre para después.", k:"b"},
-      {t:"Ya intenté de todo y me caigo siempre en el mismo punto. Vivo agotado.", k:"c"},
-    ]},
-  { q:"Cuando pensás en tu energía y tu descanso…",
-    opts:[
-      {t:"Duermo mal / poco, y lo arrastro todo el día.", k:"c"},
-      {t:"Depende del quilombo. Los días bravos termino fundido.", k:"a"},
-      {t:"El descanso está más o menos, mi tema es arrancar y sostener el foco.", k:"b"},
-    ]},
-  { q:"Y si sos honesto, hace cuánto venís con esto…",
-    opts:[
-      {t:"Años. Ya me cansé y quiero resolverlo en serio.", k:"c"},
-      {t:"Meses, y lo veo crecer.", k:"a"},
-      {t:"Lo tengo claro hace rato, me falta dar el paso.", k:"b"},
-    ]},
-];
-
-let mIdx=0; const mAns=[];
-const mHost=document.getElementById('miniSteps');
-MINI_Q.forEach((item,i)=>{
-  const d=document.createElement('div'); d.className='mini-step';
-  let h=`<div class="mini-count">Pregunta ${i+1} de ${MINI_Q.length}</div><div class="mini-q">${item.q}</div>`;
-  item.opts.forEach((o,oi)=> h+=`<button class="opt" onclick="mAnswer(${i},${oi})">${o.t}</button>`);
-  d.innerHTML=h; mHost.appendChild(d);
-});
-const mSteps=[...document.querySelectorAll('#miniSteps .mini-step')];
-function mBar(){ const total=MINI_Q.length; document.getElementById('mbar').style.width=Math.min(100,(mIdx/total)*100)+'%'; }
-function mStart(){ document.getElementById('miniIntro').style.display='none'; mIdx=0; mSteps[0].classList.add('active'); mBar(); }
-function mAnswer(qi,oi){
-  mAns[qi]=MINI_Q[qi].opts[oi].k;
-  mSteps[qi].classList.remove('active');
-  if(qi+1<mSteps.length){
-    mIdx=qi+1; mSteps[qi+1].classList.add('active'); mBar();
-    document.getElementById('minitest').scrollIntoView({behavior:'smooth'});
-  } else {
-    mIdx=MINI_Q.length; mBar(); mShowResult();
-    document.getElementById('miniResult').scrollIntoView({behavior:'smooth'});
-  }
-}
-function mShowResult(){
-  const cnt={a:0,b:0,c:0}; mAns.forEach(k=> cnt[k]++);
-  let perfil=mAns[0]||'a',max=-1;
-  for(const k of ['b','a','c']){ if(cnt[k]>max){max=cnt[k];perfil=k;} }
-  if(mAns[0] && cnt[mAns[0]]===max) perfil=mAns[0];
-  const m=MINI[perfil];
-  document.getElementById('mResTitle').textContent=m.title;
-  document.getElementById('mResLead').innerHTML=m.lead;
-  document.getElementById('mCaseQuote').textContent=m.quote;
-  document.getElementById('mCaseWho').innerHTML=m.who+` · <a href="${m.link}" target="_blank" rel="noopener">▶ ver en YouTube</a>`;
-  (function(){
-    var id=ytId(m.link); var th=document.getElementById('mCaseThumb');
-    th.innerHTML='<img src="https://img.youtube.com/vi/'+id+'/hqdefault.jpg" alt=""><span class="play"></span>';
-    th.onclick=function(){ th.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0" title="Entrevista" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>'; };
-  })();
-  document.getElementById('miniResult').classList.add('active');
-  document.getElementById('mbar').style.width='100%';
-  enviarASheets({tipo:'minitest_instituto', perfil_key:perfil, respuestas:mAns.join(' | '), fuente:getUTM(), url:location.href});
-}
 
 /* ---------- Testimonios / casos (click-to-play YouTube) ---------- */
 function ytId(url){ var m=String(url).match(/[?&]v=([^&]+)/); return m?m[1]:url; }
