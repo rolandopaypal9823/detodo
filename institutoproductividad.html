@@ -254,37 +254,50 @@ a{color:inherit}
 .pill .mono{font-family:'JetBrains Mono';text-transform:uppercase;font-size:10px;letter-spacing:.16em;color:var(--nfm-orange-text);display:block;margin-bottom:8px}
 .pill h3{font-weight:800;font-size:15px;color:var(--nfm-blue)}
 /* ---------- ANIMACIÓN: el auto completo vs pisar el acelerador ---------- */
-.autos{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:880px;margin:42px auto 10px}
+.autos{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;margin:44px auto 10px}
 .auto{margin:0;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:16px 16px 15px;box-shadow:0 12px 32px rgba(12,52,82,.06);overflow:hidden}
 .auto--ok{border-color:rgba(255,102,2,.30)}
 .auto__cap{display:flex;justify-content:center;margin-bottom:10px}
 .auto__badge{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:6px 12px;border-radius:100px}
 .auto__badge--err{color:var(--mono-grey);background:#f1f4f6;border:1px solid var(--hair)}
 .auto__badge--ok{color:var(--nfm-orange-text);background:var(--nfm-orange-wash);border:1px solid rgba(255,102,2,.28)}
-.auto__stage{position:relative;height:118px;overflow:hidden;border-radius:12px;background:linear-gradient(180deg,#f7fafc 0%,#eef3f7 66%,#e6edf2 66%,#d9e2ea 100%)}
-.auto__road{position:absolute;left:0;right:0;bottom:20px;height:3px;background:repeating-linear-gradient(90deg,#9fb0bd 0 14px,transparent 14px 30px);opacity:.55}
-.auto--ok .auto__road{animation:roadmove .5s linear infinite}
-.auto--error .auto__road{animation:roadmove 3.4s linear infinite}
-@keyframes roadmove{to{background-position:-30px 0}}
-.auto__car{position:absolute;left:50%;bottom:8px;width:150px;transform:translateX(-50%)}
-.auto--error .auto__car{animation:carjudder .17s linear infinite}
-@keyframes carjudder{0%,100%{transform:translateX(-50%)}25%{transform:translate(calc(-50% - 1.5px),1px)}75%{transform:translate(calc(-50% + 1.5px),-1px)}}
-.auto__body{fill:var(--nfm-blue)}
-.auto--error .auto__body{fill:#8a97a3}
-.auto__win{fill:#cfe0ee}
-.auto--ok .auto__accent{fill:var(--nfm-orange)}
-.auto--error .auto__accent{fill:#6b7885}
-.auto__car .wheel{transform-box:fill-box;transform-origin:center}
-.auto--ok .auto__car .wheel{animation:spin 1.1s linear infinite}
-.auto--error .auto__car .wheel{animation:spin .13s linear infinite}
+.auto__stage{position:relative;height:132px;overflow:hidden;border-radius:12px;background:linear-gradient(180deg,#eaf2f8 0%,#f4f8fb 52%,#dfe8ef 62%,#c9d6e0 100%)}
+/* parallax de fondo */
+.auto__hills{position:absolute;left:0;bottom:34px;width:200%;height:44px;opacity:.5;
+  background:radial-gradient(closest-side,#c3d4e2 98%,transparent) 0 100%/90px 42px repeat-x,
+             radial-gradient(closest-side,#d6e2ec 98%,transparent) 55px 100%/130px 32px repeat-x}
+.auto--ok .auto__hills{animation:bgmove 6s linear infinite}
+.auto--error .auto__hills{animation:bgmove 60s linear infinite}
+@keyframes bgmove{to{transform:translateX(-180px)}}
+.auto__road{position:absolute;left:0;right:0;bottom:24px;height:4px;border-radius:2px;background:repeating-linear-gradient(90deg,#94a7b6 0 16px,transparent 16px 34px);opacity:.6}
+.auto--ok .auto__road{animation:roadmove .45s linear infinite}
+.auto--error .auto__road{animation:roadmove 4s linear infinite}
+@keyframes roadmove{to{background-position:-34px 0}}
+.auto__ground{position:absolute;left:0;right:0;bottom:0;height:26px;background:linear-gradient(180deg,#c9d6e0,#b9c8d4)}
+.auto__car{position:absolute;left:50%;bottom:14px;width:186px;transform:translateX(-50%);filter:drop-shadow(0 8px 10px rgba(12,52,82,.22))}
+.auto--error .auto__car{animation:carjudder .16s linear infinite}
+@keyframes carjudder{0%,100%{transform:translateX(-50%)}25%{transform:translate(calc(-50% - 1.6px),1px)}75%{transform:translate(calc(-50% + 1.6px),-1px)}}
+.auto--ok{--body-fill:url(#carOk);--accent-fill:#ff6602}
+.auto--error{--body-fill:url(#carErr);--accent-fill:#5f6b76}
+.auto__car .wheel-rot{transform-box:fill-box;transform-origin:center}
+.auto--ok .auto__car .wheel-rot{animation:spin 1s linear infinite}
+.auto--error .auto__car .wheel-rot{animation:spin .12s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.auto__smoke{position:absolute;left:calc(50% - 74px);bottom:30px;width:18px;height:18px;pointer-events:none}
-.auto__smoke i{position:absolute;bottom:0;left:0;width:12px;height:12px;border-radius:50%;background:rgba(96,106,116,.5)}
+/* líneas de velocidad (solo el que avanza) */
+.auto__speed{position:absolute;right:8px;bottom:44px;width:56px;height:26px;opacity:0}
+.auto--ok .auto__speed{opacity:1}
+.auto__speed i{position:absolute;right:0;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(12,52,82,.34))}
+.auto__speed i:nth-child(1){top:2px;width:34px;animation:dash .6s linear infinite}
+.auto__speed i:nth-child(2){top:11px;width:50px;animation:dash .6s linear .2s infinite}
+.auto__speed i:nth-child(3){top:20px;width:26px;animation:dash .6s linear .4s infinite}
+@keyframes dash{0%{transform:translateX(14px);opacity:0}30%{opacity:1}100%{transform:translateX(-30px);opacity:0}}
+.auto__smoke{position:absolute;left:calc(50% - 92px);bottom:34px;width:18px;height:18px;pointer-events:none}
+.auto__smoke i{position:absolute;bottom:0;left:0;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(120,130,140,.62),rgba(120,130,140,.28))}
 .auto__smoke i:nth-child(1){animation:puff 1.1s ease-out infinite}
 .auto__smoke i:nth-child(2){animation:puff 1.1s ease-out .55s infinite}
-@keyframes puff{0%{opacity:.55;transform:translate(0,0) scale(.5)}100%{opacity:0;transform:translate(-18px,-26px) scale(1.6)}}
-.auto__heat{position:absolute;top:9px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono';font-size:9.5px;font-weight:700;letter-spacing:.08em;color:#c0392b;background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.32);padding:3px 9px;border-radius:100px;animation:heatblink 1s steps(2) infinite}
-@keyframes heatblink{50%{opacity:.35}}
+@keyframes puff{0%{opacity:.6;transform:translate(0,0) scale(.5)}100%{opacity:0;transform:translate(-22px,-30px) scale(1.8)}}
+.auto__heat{position:absolute;top:9px;left:50%;transform:translateX(-50%);z-index:3;font-family:'JetBrains Mono';font-size:9.5px;font-weight:700;letter-spacing:.08em;color:#c0392b;background:rgba(255,255,255,.9);border:1px solid rgba(192,57,43,.4);padding:3px 9px;border-radius:100px;animation:heatblink 1s steps(2) infinite}
+@keyframes heatblink{50%{opacity:.4}}
 .auto__dash{margin-top:12px;min-height:44px;display:flex;flex-direction:column;justify-content:center}
 .auto__pilars{display:flex;gap:5px;justify-content:center;flex-wrap:wrap}
 .auto__pilars span{font-family:'JetBrains Mono';font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--nfm-blue);background:var(--nfm-orange-wash);border:1px solid rgba(255,102,2,.22);padding:4px 8px;border-radius:100px;display:inline-flex;align-items:center;gap:5px}
@@ -295,7 +308,7 @@ a{color:inherit}
 .auto--ok .auto__result{color:var(--nfm-orange-text)}
 .auto__result b{color:var(--nfm-blue)}
 @media(max-width:640px){.autos{grid-template-columns:1fr;max-width:420px}}
-@media(prefers-reduced-motion:reduce){.auto__road,.auto__car,.auto__car .wheel,.auto__smoke i,.auto__heat{animation:none!important}.auto__smoke{display:none}}
+@media(prefers-reduced-motion:reduce){.auto__road,.auto__hills,.auto__car,.auto__car .wheel-rot,.auto__smoke i,.auto__heat,.auto__speed i{animation:none!important}.auto__smoke{display:none}}
 
 /* ---------- EQUIPO (widget integrado) ---------- */
 .nfm-team{padding:8px 0 0}
@@ -1004,19 +1017,69 @@ a{color:inherit}
     <p class="lead-2">Service, aceite, gomas: rendir sostenido no es apretar más fuerte, es que todo el sistema funcione. Por eso el método toca las cinco áreas —no una técnica suelta.</p>
 
     <div class="autos" aria-hidden="true">
+      <!-- defs compartidos -->
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+        <linearGradient id="carOk" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#1b4f7a"/><stop offset=".45" stop-color="#0c3452"/><stop offset="1" stop-color="#061d30"/>
+        </linearGradient>
+        <linearGradient id="carErr" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#aab6c0"/><stop offset=".45" stop-color="#8b98a4"/><stop offset="1" stop-color="#6c7883"/>
+        </linearGradient>
+        <linearGradient id="glassG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#eaf4fd"/><stop offset=".5" stop-color="#b9d6ee"/><stop offset="1" stop-color="#8fb8d8"/>
+        </linearGradient>
+        <linearGradient id="rimG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#f2f5f7"/><stop offset="1" stop-color="#aab6c0"/>
+        </linearGradient>
+        <radialGradient id="headG"><stop offset="0" stop-color="#fff8e1"/><stop offset="1" stop-color="#ffd54a"/></radialGradient>
+        <g id="carShape">
+          <!-- sombra al piso -->
+          <ellipse cx="100" cy="74" rx="86" ry="5" fill="rgba(12,52,82,.20)"/>
+          <!-- carrocería -->
+          <path fill="var(--body-fill,#0c3452)" d="M8 62 L8 50 C8 43 13 39 22 37 L44 33 L62 17 C69 11 80 8 98 8 L126 8 C142 8 152 11 159 17 L176 32 L186 36 C192 39 194 44 194 50 L194 62 C194 65 192 66 189 66 L13 66 C10 66 8 65 8 62 Z"/>
+          <!-- brillo superior -->
+          <path d="M62 17 C69 11 80 8 98 8 L126 8 C142 8 152 11 159 17 L163 21 C150 15 138 13 118 13 L92 13 C76 13 68 15 60 19 Z" fill="rgba(255,255,255,.22)"/>
+          <!-- ventanas -->
+          <path d="M70 20 C76 15 85 13 99 13 L110 13 L110 32 L58 32 Z" fill="url(#glassG)"/>
+          <path d="M116 13 L125 13 C138 13 146 15 152 20 L164 32 L116 32 Z" fill="url(#glassG)"/>
+          <!-- línea de cintura naranja -->
+          <rect fill="var(--accent-fill,#ff6602)" x="10" y="45" width="182" height="3.5" rx="1.75"/>
+          <!-- manija -->
+          <rect x="96" y="40" width="14" height="3" rx="1.5" fill="rgba(255,255,255,.35)"/>
+          <!-- faro delantero + piloto trasero -->
+          <ellipse cx="188" cy="43" rx="7" ry="5" fill="url(#headG)"/>
+          <rect x="8" y="40" width="7" height="6" rx="2.5" fill="#d94a2a"/>
+          <!-- ruedas -->
+          <g>
+            <circle cx="56" cy="64" r="17" fill="#1c2733"/>
+            <circle cx="56" cy="64" r="16" fill="none" stroke="#0f1821" stroke-width="2"/>
+            <g class="wheel-rot">
+              <circle cx="56" cy="64" r="10.5" fill="url(#rimG)"/>
+              <circle cx="56" cy="64" r="3.4" fill="#7b8894"/>
+              <path d="M56 54v20M46 64h20M48.8 56.8l14.4 14.4M63.2 56.8L48.8 71.2" stroke="#8e9ba7" stroke-width="2.6" stroke-linecap="round"/>
+            </g>
+          </g>
+          <g>
+            <circle cx="150" cy="64" r="17" fill="#1c2733"/>
+            <circle cx="150" cy="64" r="16" fill="none" stroke="#0f1821" stroke-width="2"/>
+            <g class="wheel-rot">
+              <circle cx="150" cy="64" r="10.5" fill="url(#rimG)"/>
+              <circle cx="150" cy="64" r="3.4" fill="#7b8894"/>
+              <path d="M150 54v20M140 64h20M142.8 56.8l14.4 14.4M157.2 56.8l-14.4 14.4" stroke="#8e9ba7" stroke-width="2.6" stroke-linecap="round"/>
+            </g>
+          </g>
+        </g>
+      </defs></svg>
+
       <figure class="auto auto--error">
         <div class="auto__cap"><span class="auto__badge auto__badge--err">✗ Solo pisar el acelerador</span></div>
         <div class="auto__stage">
           <div class="auto__heat">🔥 Recalienta</div>
-          <div class="auto__smoke"><i></i><i></i></div>
-          <svg class="auto__car" viewBox="0 0 150 64" width="150">
-            <path class="auto__body" d="M5 46 C5 36 13 34 22 33 L42 20 C57 13 95 13 110 20 L127 33 C139 34 145 37 145 46 L145 48 C145 51 143 52 140 52 L10 52 C7 52 5 51 5 48 Z"/>
-            <path class="auto__win" d="M46 22 C59 16 91 16 103 22 L112 32 L38 32 Z"/>
-            <rect class="auto__accent" x="5" y="43" width="140" height="4" rx="2"/>
-            <g class="wheel"><circle cx="40" cy="52" r="10" fill="#22323f"/><circle cx="40" cy="52" r="4.5" fill="#9aa6b0"/><path d="M40 44v16M32 52h16M34.5 46.5l11 11M45.5 46.5l-11 11" stroke="#3a4a58" stroke-width="1.4"/></g>
-            <g class="wheel"><circle cx="112" cy="52" r="10" fill="#22323f"/><circle cx="112" cy="52" r="4.5" fill="#9aa6b0"/><path d="M112 44v16M104 52h16M106.5 46.5l11 11M117.5 46.5l-11 11" stroke="#3a4a58" stroke-width="1.4"/></g>
-          </svg>
+          <div class="auto__hills"></div>
+          <div class="auto__ground"></div>
           <div class="auto__road"></div>
+          <div class="auto__smoke"><i></i><i></i></div>
+          <svg class="auto__car" viewBox="0 0 202 82" width="186"><use href="#carShape"/></svg>
         </div>
         <div class="auto__dash">
           <div class="auto__result">Mucho ruido. <b>Cero avance.</b></div>
@@ -1026,14 +1089,11 @@ a{color:inherit}
       <figure class="auto auto--ok">
         <div class="auto__cap"><span class="auto__badge auto__badge--ok">✓ El auto completo</span></div>
         <div class="auto__stage">
-          <svg class="auto__car" viewBox="0 0 150 64" width="150">
-            <path class="auto__body" d="M5 46 C5 36 13 34 22 33 L42 20 C57 13 95 13 110 20 L127 33 C139 34 145 37 145 46 L145 48 C145 51 143 52 140 52 L10 52 C7 52 5 51 5 48 Z"/>
-            <path class="auto__win" d="M46 22 C59 16 91 16 103 22 L112 32 L38 32 Z"/>
-            <rect class="auto__accent" x="5" y="43" width="140" height="4" rx="2"/>
-            <g class="wheel"><circle cx="40" cy="52" r="10" fill="#22323f"/><circle cx="40" cy="52" r="4.5" fill="#9aa6b0"/><path d="M40 44v16M32 52h16M34.5 46.5l11 11M45.5 46.5l-11 11" stroke="#3a4a58" stroke-width="1.4"/></g>
-            <g class="wheel"><circle cx="112" cy="52" r="10" fill="#22323f"/><circle cx="112" cy="52" r="4.5" fill="#9aa6b0"/><path d="M112 44v16M104 52h16M106.5 46.5l11 11M117.5 46.5l-11 11" stroke="#3a4a58" stroke-width="1.4"/></g>
-          </svg>
+          <div class="auto__hills"></div>
+          <div class="auto__ground"></div>
           <div class="auto__road"></div>
+          <div class="auto__speed"><i></i><i></i><i></i></div>
+          <svg class="auto__car" viewBox="0 0 202 82" width="186"><use href="#carShape"/></svg>
         </div>
         <div class="auto__dash">
           <div class="auto__pilars"><span>Descanso</span><span>Alimentación</span><span>Movimiento</span><span>Foco</span><span>Mentalidad</span></div>
