@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Society, Mind &amp; Market — B2 ESL Discussion Deck</title>
+<style>
+/* ============================================================
+   Society, Mind & Market — B2 ESL Discussion Deck
+   Design tokens
+   ============================================================ */
+:root{
+  --paper:#EEF1F6;
+  --paper-tint-a:#E8EEF7;
+  --paper-tint-b:#F7EFE8;
+  --card:#FFFFFF;
+  --card-2:#F6F8FB;
+  --line:#D6DEE8;
+  --line-soft:#E5EAF1;
+  --ink:#0F1720;
+  --body:#36414E;
+  --muted:#697786;
+  --accent:#B93F0B;
+  --accent-strong:#E2620E;
+  --accent-soft:#FCEADC;
+  --blue:#154468;
+  --blue-strong:#1E6396;
+  --blue-soft:#E2EDF6;
+  --shadow:0 1px 2px rgba(15,23,32,.05), 0 10px 26px -14px rgba(15,23,32,.28);
+
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Segoe UI Mono",Consolas,"Roboto Mono","Courier New",monospace;
+
+  /* Type scale, in px on the fixed 1600 x 900 stage.
+     34px here == 20.4pt on a 13.33in slide. Nothing drops below 19px. */
+  --t-display:104px;
+  --t-h1:46px;
+  --t-h2:36px;
+  --t-lead:38px;
+  --t-body:34px;
+  --t-body-sm:31px;
+  --t-label:21px;
+  --t-foot:20px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#0B1017; --paper-tint-a:#111B26; --paper-tint-b:#1D1610;
+    --card:#151D27; --card-2:#111922; --line:#26313E; --line-soft:#1F2833;
+    --ink:#EDF2F7; --body:#C0CBD7; --muted:#8593A3;
+    --accent:#FF9450; --accent-strong:#F97B33; --accent-soft:#3A2415;
+    --blue:#8FC4EF; --blue-strong:#5FA6DF; --blue-soft:#132A3D;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0B1017; --paper-tint-a:#111B26; --paper-tint-b:#1D1610;
+  --card:#151D27; --card-2:#111922; --line:#26313E; --line-soft:#1F2833;
+  --ink:#EDF2F7; --body:#C0CBD7; --muted:#8593A3;
+  --accent:#FF9450; --accent-strong:#F97B33; --accent-soft:#3A2415;
+  --blue:#8FC4EF; --blue-strong:#5FA6DF; --blue-soft:#132A3D;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -16px rgba(0,0,0,.8);
+}
+:root[data-theme="light"]{
+  --paper:#EEF1F6; --paper-tint-a:#E8EEF7; --paper-tint-b:#F7EFE8;
+  --card:#FFFFFF; --card-2:#F6F8FB; --line:#D6DEE8; --line-soft:#E5EAF1;
+  --ink:#0F1720; --body:#36414E; --muted:#697786;
+  --accent:#B93F0B; --accent-strong:#E2620E; --accent-soft:#FCEADC;
+  --blue:#154468; --blue-strong:#1E6396; --blue-soft:#E2EDF6;
+  --shadow:0 1px 2px rgba(15,23,32,.05), 0 10px 26px -14px rgba(15,23,32,.28);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--body);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+:focus-visible{outline:3px solid var(--accent-strong);outline-offset:3px;border-radius:4px}
+
+/* ============================================================
+   Stage — fixed 1600x900 canvas, scaled to the viewport
+   ============================================================ */
+.viewport{position:fixed;inset:0;display:grid;place-items:center;overflow:hidden}
+.stage{
+  width:1600px;height:900px;position:relative;flex:none;
+  transform:scale(var(--s,1));
+  transform-origin:center center;
+}
+.slide{
+  position:absolute;inset:0;
+  display:none;
+  flex-direction:column;
+  padding:52px 64px 26px;
+  background:
+    radial-gradient(120% 90% at 88% 4%, var(--paper-tint-b) 0%, transparent 55%),
+    radial-gradient(110% 100% at 2% 96%, var(--paper-tint-a) 0%, transparent 52%),
+    var(--paper);
+  overflow:hidden;
+}
+.slide.is-active{display:flex}
+
+/* ============================================================
+   Slide header
+   ============================================================ */
+.head{display:flex;align-items:center;gap:20px;flex:none;margin-bottom:26px}
+.head-num{
+  flex:none;width:60px;height:60px;border-radius:16px;
+  background:var(--accent-strong);color:#fff;
+  font-family:var(--mono);font-size:28px;font-weight:700;letter-spacing:-.02em;
+  display:grid;place-items:center;
+}
+.head-txt{min-width:0}
+.head-eyebrow{
+  font-size:var(--t-label);font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 3px;
+}
+.head h1{
+  margin:0;font-size:var(--t-h1);line-height:1.08;font-weight:800;
+  letter-spacing:-.018em;color:var(--ink);text-wrap:balance;
+}
+
+/* ============================================================
+   Body grid
+   ============================================================ */
+.body{flex:1;min-height:0;display:grid;gap:34px}
+.g-58-42{grid-template-columns:57fr 43fr}
+.g-3{grid-template-columns:repeat(3,1fr)}
+.g-2{grid-template-columns:repeat(2,1fr)}
+.g-45-55{grid-template-columns:44fr 56fr}
+.col{display:flex;flex-direction:column;min-height:0}
+
+.label{
+  font-size:var(--t-label);font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  margin:0 0 14px;
+}
+.label.is-accent{color:var(--accent)}
+.label.is-blue{color:var(--blue-strong)}
+
+/* ============================================================
+   Motif: target words.
+   .w  = headword chip, opens a dictionary entry.
+   .hl = the same word highlighted inside a running sentence
+        (no padding, so punctuation after it never gains a gap).
+   ============================================================ */
+.w{
+  background:var(--accent-soft);color:var(--accent);
+  font-weight:800;padding:.05em .3em;border-radius:.26em;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;
+}
+.hl{
+  color:var(--accent);font-weight:800;
+  background:linear-gradient(to top,var(--accent-soft) 0 42%,transparent 42%);
+}
+.pos{
+  font-family:var(--mono);font-size:.72em;font-weight:600;
+  color:var(--muted);letter-spacing:.01em;
+}
+
+/* Vocabulary list */
+.lex{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.lex li{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  box-shadow:var(--shadow);
+  padding:17px 24px;
+  font-size:var(--t-body);line-height:1.34;color:var(--body);
+}
+.lex .w{margin-right:.18em}
+.lex .pos{margin-right:.3em}
+
+/* Prompts */
+.prompts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;counter-reset:p}
+.prompts li{
+  display:flex;gap:16px;align-items:flex-start;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  box-shadow:var(--shadow);
+  padding:17px 22px;
+  font-size:var(--t-body);line-height:1.34;color:var(--body);
+}
+.prompts li::before{
+  counter-increment:p;content:counter(p);
+  flex:none;width:38px;height:38px;border-radius:11px;
+  background:var(--blue-soft);color:var(--blue-strong);
+  font-family:var(--mono);font-size:20px;font-weight:700;
+  display:grid;place-items:center;margin-top:3px;
+}
+.prompts li > span{flex:1;min-width:0}
+
+/* Task / question panel */
+.task{
+  background:var(--blue-soft);border:1px solid color-mix(in srgb,var(--blue-strong) 26%, transparent);
+  border-radius:20px;padding:28px 30px;
+  display:flex;flex-direction:column;gap:12px;
+}
+.task .label{margin-bottom:0}
+.task p{
+  margin:0;font-size:var(--t-lead);line-height:1.3;font-weight:600;
+  color:var(--ink);text-wrap:pretty;
+}
+.task .w{background:color-mix(in srgb,var(--accent-soft) 82%, transparent)}
+.col > .task{margin-top:auto}
+
+/* ============================================================
+   Concept cards (sections 4 and 9)
+   ============================================================ */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;flex:1;min-height:0;align-content:center}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:22px;
+  box-shadow:var(--shadow);
+  padding:30px 30px 26px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.icon{
+  flex:none;width:70px;height:70px;border-radius:20px;
+  background:var(--accent-soft);color:var(--accent);
+  display:grid;place-items:center;
+}
+.icon svg{width:38px;height:38px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.card h2{
+  margin:0;font-size:var(--t-h2);line-height:1.14;font-weight:800;
+  letter-spacing:-.012em;color:var(--ink);text-wrap:balance;
+}
+.card p{margin:0;font-size:var(--t-body);line-height:1.34;color:var(--body)}
+.card .ask{
+  margin-top:auto;padding-top:18px;border-top:1px solid var(--line-soft);
+  display:flex;gap:13px;align-items:flex-start;
+  font-size:var(--t-body);line-height:1.32;font-weight:600;color:var(--blue);
+}
+/* A debate card is only a question, so it needs no rule separating it from nothing. */
+.card.is-debate .ask{margin-top:0;padding-top:0;border-top:0}
+.card.is-debate{gap:22px}
+.card .ask::before{
+  content:"?";flex:none;width:34px;height:34px;border-radius:10px;
+  background:var(--blue-soft);color:var(--blue-strong);
+  font-family:var(--mono);font-size:20px;font-weight:700;
+  display:grid;place-items:center;
+}
+.card .ask > span{flex:1;min-width:0}
+
+/* ============================================================
+   Cover + closing
+   ============================================================ */
+.slide.cover,.slide.closing{
+  justify-content:center;align-items:center;text-align:center;
+  padding:64px 120px;
+  background:
+    radial-gradient(80% 60% at 50% 0%, color-mix(in srgb,var(--accent-strong) 12%, transparent) 0%, transparent 62%),
+    radial-gradient(90% 70% at 50% 100%, color-mix(in srgb,var(--blue-strong) 12%, transparent) 0%, transparent 60%),
+    var(--paper);
+}
+.badge{
+  display:inline-block;padding:12px 26px;border-radius:999px;
+  background:var(--blue-soft);color:var(--blue-strong);
+  border:1px solid color-mix(in srgb,var(--blue-strong) 26%, transparent);
+  font-size:var(--t-label);font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+}
+.badge.is-accent{
+  background:var(--accent-soft);color:var(--accent);
+  border-color:color-mix(in srgb,var(--accent-strong) 30%, transparent);
+}
+.cover h1,.closing h1{
+  margin:34px 0 0;font-size:var(--t-display);line-height:1.02;font-weight:800;
+  letter-spacing:-.035em;color:var(--ink);text-wrap:balance;
+}
+.cover .sub,.closing .sub{
+  margin:26px 0 0;max-width:1080px;
+  font-size:var(--t-lead);line-height:1.36;color:var(--body);text-wrap:pretty;
+}
+.meta{display:flex;gap:18px;margin-top:44px;justify-content:center;flex-wrap:wrap}
+.meta div{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  box-shadow:var(--shadow);
+  padding:18px 30px;min-width:230px;
+}
+.meta b{
+  display:block;font-family:var(--mono);font-size:44px;font-weight:700;
+  color:var(--accent);letter-spacing:-.02em;line-height:1;
+}
+.meta span{
+  display:block;margin-top:8px;font-size:var(--t-label);font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+}
+.cover .series{
+  margin-top:52px;font-size:var(--t-body-sm);font-weight:600;color:var(--muted);
+}
+
+/* ============================================================
+   Goals slide
+   ============================================================ */
+.goals{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;flex:1;min-height:0;align-content:center}
+.goal{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  box-shadow:var(--shadow);
+  padding:34px 36px;display:flex;gap:24px;align-items:flex-start;
+}
+.goal .icon{width:66px;height:66px;border-radius:18px}
+.goal .icon svg{width:35px;height:35px}
+.goal h2{margin:0 0 9px;font-size:40px;line-height:1.12;font-weight:800;color:var(--ink)}
+.goal p{margin:0;font-size:var(--t-body);line-height:1.34;color:var(--body)}
+
+/* Lesson map */
+.map{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  flex:1;min-height:0;align-content:center;
+}
+.map a{
+  display:grid;grid-template-columns:56px 1fr;column-gap:18px;row-gap:7px;align-items:start;
+  text-decoration:none;color:inherit;
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  box-shadow:var(--shadow);padding:26px 30px;
+}
+.map a:hover{border-color:var(--accent-strong)}
+.map b{
+  grid-row:span 2;width:56px;height:56px;border-radius:15px;
+  background:var(--accent-soft);color:var(--accent);
+  font-family:var(--mono);font-size:24px;font-weight:700;
+  display:grid;place-items:center;
+}
+.map strong{grid-column:2;font-size:33px;line-height:1.12;font-weight:800;color:var(--ink);text-wrap:balance}
+.map span{grid-column:2;font-size:28px;line-height:1.32;color:var(--body)}
+
+/* ============================================================
+   Stat slide
+   ============================================================ */
+.stat{
+  display:flex;flex-direction:column;justify-content:center;
+  background:var(--card);border:1px solid var(--line);border-radius:24px;
+  box-shadow:var(--shadow);padding:44px 44px 38px;
+}
+.stat b{
+  display:block;font-size:200px;line-height:.86;font-weight:800;
+  letter-spacing:-.05em;color:var(--accent);
+  font-variant-numeric:tabular-nums;
+}
+.stat p{margin:26px 0 0;font-size:var(--t-lead);line-height:1.3;color:var(--ink);font-weight:600}
+.stat cite{
+  display:block;margin-top:24px;font-style:normal;
+  font-size:23px;line-height:1.42;color:var(--muted);font-weight:600;
+}
+
+/* ============================================================
+   Glossary cards
+   ============================================================ */
+.gloss{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;flex:1;min-height:0;align-content:center}
+.gloss article{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  box-shadow:var(--shadow);padding:26px 30px;
+  display:flex;flex-direction:column;gap:12px;
+}
+.gloss h2{margin:0;font-size:var(--t-h2);line-height:1.1;font-weight:800;color:var(--accent)}
+.gloss h2 .pos{margin-left:.4em}
+.gloss p{margin:0;font-size:var(--t-body-sm);line-height:1.33;color:var(--body)}
+.gloss .ex{
+  margin-top:auto;background:var(--card-2);border-radius:13px;
+  padding:14px 18px;font-size:var(--t-body-sm);line-height:1.32;
+  color:var(--ink);font-style:italic;
+}
+
+/* ============================================================
+   Bar chart
+   ============================================================ */
+.chart{display:flex;flex-direction:column;gap:20px;flex:none;margin-bottom:26px}
+.bar{display:grid;grid-template-columns:400px 1fr;align-items:center;gap:26px}
+.bar .name{
+  font-size:var(--t-body);line-height:1.2;font-weight:700;color:var(--ink);text-align:right;
+}
+.bar .track{
+  position:relative;height:62px;border-radius:14px;
+  background:var(--card-2);border:1px solid var(--line-soft);overflow:hidden;
+}
+.bar .fill{
+  position:absolute;inset:0 auto 0 0;border-radius:13px;
+  display:flex;align-items:center;justify-content:flex-end;
+  padding-right:20px;
+  font-family:var(--mono);font-size:28px;font-weight:700;color:#fff;
+  font-variant-numeric:tabular-nums;
+}
+.bar:nth-child(1) .fill{background:var(--accent-strong)}
+.bar:nth-child(2) .fill{background:var(--blue-strong)}
+.bar:nth-child(3) .fill{background:#6E7F92}
+.bar:nth-child(4) .fill{background:#A9B6C4;color:#1B2632}
+
+/* ============================================================
+   Recap chips
+   ============================================================ */
+.recap{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 26px;flex:1;min-height:0;align-content:center}
+.recap section{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  box-shadow:var(--shadow);padding:22px 24px;
+}
+.recap h2{
+  margin:0 0 15px;font-size:23px;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);
+}
+.recap ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.recap li{
+  background:var(--accent-soft);color:var(--accent);
+  font-size:29px;font-weight:700;padding:8px 15px;border-radius:11px;line-height:1.15;
+}
+
+/* ============================================================
+   Sources
+   ============================================================ */
+.sources{display:flex;flex-direction:column;gap:18px;flex:1;min-height:0;justify-content:center}
+.sources article{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  box-shadow:var(--shadow);padding:24px 30px;
+  display:grid;grid-template-columns:260px 1fr;gap:28px;align-items:baseline;
+}
+.sources h2{
+  margin:0;font-size:23px;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);
+}
+.sources p{margin:0;font-size:var(--t-body-sm);line-height:1.36;color:var(--body)}
+.sources a{color:var(--blue-strong)}
+
+/* Closing */
+.homework{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:60px;width:100%;text-align:left}
+.homework div{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  box-shadow:var(--shadow);padding:32px 34px;
+}
+.homework b{
+  display:block;font-family:var(--mono);font-size:22px;font-weight:700;
+  color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;
+}
+.homework p{margin:0;font-size:var(--t-body);line-height:1.34;color:var(--body)}
+
+/* ============================================================
+   Footer rail
+   ============================================================ */
+/* Footer content stays left so the floating controls never sit on top of it. */
+.foot{
+  flex:none;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);
+  display:flex;align-items:center;justify-content:flex-start;gap:16px;
+  font-size:var(--t-foot);color:var(--muted);font-weight:600;
+}
+.foot .sec{font-family:var(--mono);letter-spacing:.04em}
+.slide.cover .foot,.slide.closing .foot{display:none}
+
+/* ============================================================
+   HUD + contents overlay
+   ============================================================ */
+.hud{
+  position:fixed;right:18px;bottom:16px;z-index:20;
+  display:flex;align-items:center;gap:8px;
+  background:color-mix(in srgb,var(--card) 92%, transparent);
+  border:1px solid var(--line);border-radius:999px;
+  padding:6px 8px;box-shadow:var(--shadow);
+  font-family:var(--sans);
+  opacity:.35;transition:opacity .2s ease;
+}
+.hud:hover,.hud:focus-within{opacity:1}
+.hud button{
+  appearance:none;border:0;background:transparent;cursor:pointer;
+  width:38px;height:38px;border-radius:999px;
+  color:var(--body);font-size:17px;font-weight:700;line-height:1;
+  display:grid;place-items:center;
+}
+.hud button:hover{background:var(--card-2);color:var(--ink)}
+.hud .count{
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--muted);
+  padding:0 10px;font-variant-numeric:tabular-nums;
+}
+.progress{
+  position:fixed;left:0;top:0;height:4px;z-index:21;
+  background:var(--accent-strong);width:0;transition:width .28s ease;
+}
+
+.contents{
+  position:fixed;inset:0;z-index:30;display:none;
+  background:var(--paper);
+  padding:44px 48px;overflow-y:auto;
+}
+.contents.is-open{display:block}
+.contents h2{
+  margin:0 0 26px;font-size:28px;font-weight:800;color:var(--ink);
+  letter-spacing:.1em;text-transform:uppercase;
+}
+.contents ol{
+  list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;
+}
+.contents button{
+  width:100%;text-align:left;cursor:pointer;
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  box-shadow:var(--shadow);padding:16px 20px;
+  display:flex;gap:14px;align-items:baseline;font-family:var(--sans);
+}
+.contents button:hover{border-color:var(--accent-strong)}
+.contents button b{font-family:var(--mono);font-size:15px;color:var(--accent);font-weight:700}
+.contents button span{font-size:19px;font-weight:600;color:var(--ink);line-height:1.25}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important}
+}
+
+/* ============================================================
+   Print → one slide per landscape page (Save as PDF)
+   ============================================================ */
+@media print{
+  @page{size:1600px 900px;margin:0}
+  body{overflow:visible;background:#fff}
+  .viewport{position:static;display:block;overflow:visible}
+  .stage{transform:none !important;width:auto;height:auto}
+  .slide{position:static;display:flex !important;width:1600px;height:900px;break-after:page}
+  .hud,.progress,.contents{display:none !important}
+}
+</style>
+
+<div class="progress" id="progress"></div>
+
+<div class="viewport">
+<div class="stage" id="stage">
+
+<!-- ========== 1 · COVER ========== -->
+<section class="slide cover is-active" data-title="Title — Society, Mind &amp; Market">
+  <span class="badge">Upper-intermediate B2 English</span>
+  <h1>Society, Mind &amp; Market</h1>
+  <p class="sub">An interactive discussion deck exploring history, economy, marketing, social media, religion and values — through speaking prompts and advanced vocabulary.</p>
+  <div class="meta">
+    <div><b>9</b><span>Discussion sections</span></div>
+    <div><b>24</b><span>Target B2–C1 words</span></div>
+    <div><b>19</b><span>Speaking prompts</span></div>
+  </div>
+  <p class="series">B2 ESL Language &amp; Culture Series</p>
+</section>
+
+<!-- ========== 2 · GOALS ========== -->
+<section class="slide" data-title="Themes &amp; Learning Goals">
+  <header class="head">
+    <div class="head-txt">
+      <p class="head-eyebrow">Overview</p>
+      <h1>Themes &amp; Learning Goals</h1>
+    </div>
+  </header>
+
+      <div class="goals">
+        <div class="goal">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 4H8a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2v3l4-3h6a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/><path d="M6 18H4a2 2 0 0 1-2-2V9"/></svg></span>
+          <div>
+            <h2>Express complex opinions</h2>
+            <p>Agree, disagree and qualify your position with precision.</p>
+          </div>
+        </div>
+        <div class="goal">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 20V4"/><path d="M3 20h18"/><path d="m7 15 4-5 3 3 6-7"/><path d="M17 6h3v3"/></svg></span>
+          <div>
+            <h2>Discuss global trends</h2>
+            <p>Compare how societies, media and markets are changing.</p>
+          </div>
+        </div>
+        <div class="goal">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span>
+          <div>
+            <h2>Analyze economic concepts</h2>
+            <p>Talk about inflation, scarcity and value in clear English.</p>
+          </div>
+        </div>
+        <div class="goal">
+          <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5Z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H19v3H6.5A2.5 2.5 0 0 1 4 20.5Z"/><path d="M9 7.5h6"/><path d="M9 11h4"/></svg></span>
+          <div>
+            <h2>Master 24 B2–C1 words</h2>
+            <p>Use the target lexicon accurately in your own sentences.</p>
+          </div>
+        </div>
+      </div>
+
+  <footer class="foot"><span>Society, Mind &amp; Market · B2 ESL</span><span aria-hidden="true">·</span><span class="sec"></span></footer>
+</section>
+
+<!-- ========== 3 · LESSON MAP ========== -->
+<section class="slide" data-title="Lesson Map — the nine sections">
+  <header class="head">
+    <div class="head-txt">
+      <p class="head-eyebrow">Lesson map</p>
+      <h1>Where we are going</h1>
+    </div>
+  </header>
+
+  <nav class="map">
+    <a href="#s3"><b>01</b><strong>History &amp; Heritage</strong><span>Epochs, legacies and the precedents we inherit.</span></a>
+    <a href="#s4"><b>02</b><strong>Economy</strong><span>Inflation, scarcity and what money can actually buy.</span></a>
+    <a href="#s5"><b>03</b><strong>Marketing</strong><span>How brands earn loyalty and make campaigns resonate.</span></a>
+    <a href="#s6"><b>04</b><strong>Social Media</strong><span>Algorithms, echo chambers and the business of attention.</span></a>
+    <a href="#s7"><b>05</b><strong>Faith &amp; Religion</strong><span>Secular life, heritage, devotion and morality.</span></a>
+    <a href="#s8"><b>06</b><strong>Core Values</strong><span>Individualism, collectivism and where you stand.</span></a>
+    <a href="#s9"><b>07</b><strong>Glossary</strong><span>Four C1 words to take into your own speaking.</span></a>
+    <a href="#s10"><b>08</b><strong>Priorities</strong><span>What young adults now say matters most at work.</span></a>
+    <a href="#s11"><b>09</b><strong>Debates</strong><span>Three dilemmas with no comfortable answer.</span></a>
+  </nav>
+
+  <footer class="foot"><span>Society, Mind &amp; Market · B2 ESL</span><span aria-hidden="true">·</span><span class="sec"></span></footer>
+</section>
+
+<!-- ========== 3 · SECTION 1 ========== -->
+<section class="slide" id="s3" data-title="1 · History &amp; Human Heritage" data-section="1">
+  <header class="head">
+    <span class="head-num">01</span>
+    <div class="head-txt">
+      <p class="head-eyebrow">Target lexicon</p>
+      <h1>History &amp; Human Heritage</h1>
+    </div>
+  </header>
+
+  <div class="body g-58-42">
+    <div class="col">
+      <p class="label is-accent">Key words</p>
+      <ul class="lex">
+        <li><b class="w">Epoch</b> <span class="pos">noun</span> — A particular period of time in history marked by notable events.</li>
+        <li><b class="w">Predecessor</b> <span class="pos">noun</span> — Something or someone that came before another.</li>
+        <li><b class="w">Legacy</b> <span class="pos">noun</span> — Long-lasting impact or achievements handed down from the past.</li>
+        <li><b class="w">Precedent</b> <span class="pos">noun</span> — An earlier event or action that serves as an example.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <p class="label is-blue">Discussion prompts</p>
+      <ul class="prompts">
+        <li><span>Do you agree that “history repeats itself”, or do modern technological advancements make our <b class="hl">epoch</b> completely unique?</span></li>
+        <li><span>Which historical figure left the most important <b class="hl">legacy</b> for modern society? Why?</span></li>
+        <li><span>How can learning about historical economic mistakes help us avoid <b class="hl">crises</b> today?</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <footer class="foot"><span>Society, Mind &amp; Market · B2 ESL</span><span aria-hidden="true">·</span><span class="sec"></span></footer>
+</section>
+
+<!-- ========== 4 · SECTION 2 ========== -->
+<section class="slide" id="s4" data-title="2 · Economy &amp; Financial Reality" data-section="2">
+  <header class="head">
+    <span class="head-num">02</span>
+    <div class="head-txt">
+      <p class="head-eyebrow">Economic vocabulary</p>
+      <h1>Economy &amp; Financial Reality</h1>
+    </div>
+  </header>
+
+  <div class="body g-58-42">
+    <div class="col">
+      <p class="label is-accent">Key words</p>
+      <ul class="lex">
+        <li><b class="w">Purchasing power</b> <span class="pos">noun</span> — The financial ability to buy products and services.</li>
+        <li><b class="w">Inflation</b> <span class="pos">noun</span> — A general increase in prices and a fall in the purchasing value of money.</li>
+        <li><b class="w">Commodity</b> <span class="pos">noun</span> — A raw material or primary agricultural product that can be bought and sold.</li>
+        <li><b class="w">Scarcity</b> <span class="pos">noun</span> — The state of being in short supply or limited availability.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <div class="task">
+        <p class="label is-blue">Speaking task</p>
+        <p>How has <b class="hl">inflation</b> impacted consumer behavior in your country over the last three years?</p>
+      </div>
+      <div class="task" style="margin-top:20px;background:var(--card);border-color:var(--line)">
+        <p class="label is-accent">Push yourself</p>
+        <p style="font-size:var(--t-body-sm);font-weight:500;color:var(--body)">Use at least two key words from this slide in your answer, and give one concrete example — a price, a product, a habit that changed.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot"><span>Society, Mind &amp; Market · B2 ESL</span><span aria-hidden="true">·</span><span class="sec"></span></footer>
+</section>
+
+<!-- ========== 5 · SECTION 3 ========== -->
+<section class="slide" id="s5" data-title="3 · The Power of Marketing" data-section="3">
+  <header class="head">
+    <span class="head-num">03</span>
+    <div class="head-txt">
+      <p class="head-eyebrow">Key concept · Consumer persuasion</p>
+      <h1>The Power of Marketing</h1>
+    </div>
+  </header>
+
+  <div class="body g-58-42">
+    <div class="col">
+      <p class="label is-accent">Target lexicon</p>
+      <ul class="lex">
+        <li><b class="w">Brand loyalty</b> <span class="pos">noun</span> — The tendency of consumers to continuously purchase one brand over another.</li>
+        <li><b class="w">Resonate</b> <span class="pos">verb</span> — To evoke a positive feeling or emotional response in an audience.</li>
+        <li><b class="w">Demographic</b> <span class="pos">noun</span> — A specific section of a population grouped by age, income or interest.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <div class="task">
+        <p class="label is-blue">Question</p>
+        <p>What is a recent marketing campaign that deeply <b class="hl">resonated</b> with you, and why was it effective?</p>
+      </div>
+      <div class="task" style="margin-top:20px;background:var(--card);border-color:var(--line)">
+        <p class="label is-accent">Follow-up</p>
+        <p style="font-size:var(--t-body-sm);font-weight:500;color:var(--body)">Which <b class="hl">demographic</b> was that campaign aimed at? Would it work the same way with your parents’ generation?</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot"><span>Society, Mind &amp; Market · B2 ESL</span><span aria-hidden="true">·</span><span class="sec"></span></footer>
+</section>
+
+<!-- ========== 6 · SECTION 4 ========== -->
+<section class="slide" id="s6" data-title="4 · Social Media &amp; Digital Culture" data-section="4">
+  <header class="head">
+    <span class="head-num">04</span>
+    <div class="head-txt">
+      <p class="head-eyebrow">Three concepts, three debates</p>
+      <h1>Social Media &amp; Digital Culture</h1>
+    </div>
+  </header>
+
+  <div class="cards">
+    <article class="card">
+      <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="12" r="2.4"/><circle cx="6" cy="18" r="2.4"/><path d="M8.2 7.2 15.8 11"/><path d="M15.8 13 8.2 16.8"/></svg></span>
+      <h2>The algorithm <span class="pos">noun</span></h2>
+      <p>Calculated rules that determine what content appears on your screen.</p>
+      <p class="ask"><span>Does content curation restrict free thought?</span></p>
+    </article>
+    <article class="card">
+      <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 10v4a1 1 0 0 0 1 1h3l6 4V5L7 9H4a1 1 0 0 0-1 1Z"/><path d="M17.5 8.5a5 5 0 0 1 0 7"/><path d="M20.5 5.5a9 9 0 0 1 0 13"/></svg></span>
+      <h2>Echo chambers <span class="pos">noun</span></h2>
+      <p>Environments where a person only encounters beliefs similar to their own.</p>
+      <p class="ask"><span>How do echo chambers shape political views?</span></p>
+    </article>
+    <article class="card">
+      <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7.5" ry="2.8"/><path d="M4.5 6v5c0 1.55 3.36 2.8 7.5 2.8s7.5-1.25 7.5-2.8V6"/><path d="M4.5 11v5c0 1.55 3.36 2.8 7.5 2.8s7.5-1.25 7.5-2.8v-5"/></svg></span>
+      <h2>Monetization <span class="pos">noun</span></h2>
+      <p>Converting social media engagement and traffic into financial profit.</p>
+      <p class="ask"><span>Are influencers trustworthy business actors?</span></p>
+    </article>
+  </div>
+
+  <footer class="foot"><span>Society, Mind &amp; Market · B2 ESL</span><span aria-hidden="true">·</span><span class="sec"></span></footer>
+</section>
+
+<!-- ========== 7 · SECTION 5 ========== -->
+<section class="slide" id="s7" data-title="5 · Faith, Religion &amp; Society" data-section="5">
+  <header class="head">
+    <span class="head-num">05</span>
+    <div class="head-txt">
+      <p class="head-eyebrow">Cultural lexicon</p>
+      <h1>Faith, Religion &amp; Society</h1>
+    </div>
+  </header>
+
+  <div class="body g-58-42">
+    <div class="col">
+      <p class="label is-accent">Key words</p>
+      <ul class="lex">
+        <li><b class="w">Secular</b> <span class="pos">adjective</span> — Denoting attitudes or activities with no religious or spiritual basis.</li>
+        <li><b class="w">Heritage</b> <span class="pos">noun</span> — Features belonging to the culture or traditions of a society, created in the past.</li>
+        <li><b class="w">Devotion</b> <span class="pos">noun</span> — Love, loyalty or enthusiasm for a cause or religious practice.</li>
+        <li><b class="w">Morality</b> <span class="pos">noun</span> — Principles concerning the distinction between right and wrong.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <div class="task">
+        <p class="label is-blue">Discussion</p>
+        <p>Is modern society becoming increasingly <b class="hl">secular</b>? What role do traditional holidays play today?</p>
+      </div>
+      <div class="task" style="margin-top:20px;background:var(--card);border-color:var(--line)">
+        <p class="label is-accent">Follow-up</p>
+        <p style="font-size:var(--t-body-sm);font-weight:500;color:var(--body)">Is a tradition still <b class="hl">heritage</b> if people keep the celebration but forget its meaning?</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot"><span>Society, Mind &amp; Market · B2 ESL</span><span aria-hidden="true">·</span><span class="sec"></span></footer>
+</section>
+
+<!-- ========== 8 · SECTION 6 ========== -->
+<section class="slide" id="s8" data-title="6 · Core Values &amp; Global Statistics" data-section="6">
+  <header class="head">
+    <span class="head-num">06</span>
+    <div class="head-txt">
+      <p class="head-eyebrow">Concept · Social cohesion</p>
+      <h1>Core Values &amp; Global Statistics</h1>
+    </div>
+  </header>
+
+  <div class="body g-45-55">
+    <div class="stat">
+      <b>84%</b>
+      <p>of the global population identifies with a religious or spiritual belief system.</p>
+      <cite>Source: Pew Research Center, <em>The Global Religious Landscape</em> (share of people worldwide affiliated with a religious group).</cite>
+    </div>
+    <div class="col">
+      <p class="label is-accent">Individualism vs. collectivism</p>
+      <ul class="lex">
+        <li><b class="w">Individualism</b> <span class="pos">noun</span> — Prioritizing personal independence, self-reliance and individual rights.</li>
+        <li><b class="w">Collectivism</b> <span class="pos">noun</span> — Emphasizing community harmony, family cohesion and shared goals.</li>
+      </ul>
+      <div class="task" style="margin-top:20px">
+        <p class="label is-blue">Discussion</p>
+        <p>Which of these two value systems dominates your culture, and what are its main advantages?</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot"><span>Society, Mind &amp; Market · B2 ESL</span><span aria-hidden="true">·</span><span class="sec"></span></footer>
+</section>
+
+<!-- ========== 9 · SECTION 7 ========== -->
+<section class="slide" id="s9" data-title="7 · Vocabulary Spotlight (B2–C1)" data-section="7">
+  <header class="head">
+    <span class="head-num">07</span>
+    <div class="head-txt">
+      <p class="head-eyebrow">Vocabulary spotlight · B2–C1 glossary</p>
+      <h1>Four words to take away</h1>
+    </div>
+  </header>
+
+  <div class="gloss">
+    <article>
+      <h2>Paradigm shift <span class="pos">noun</span></h2>
+      <p>A fundamental change in approach or underlying assumptions.</p>
+      <p class="ex">“Remote work caused a massive paradigm shift in the economy.”</p>
+    </article>
+    <article>
+      <h2>Saturated <span class="pos">adjective</span></h2>
+      <p>Holding as much as can be absorbed; completely full.</p>
+      <p class="ex">“The smartphone market is heavily saturated with competing brands.”</p>
+    </article>
+    <article>
+      <h2>Consumerism <span class="pos">noun</span></h2>
+      <p>A preoccupation with buying and owning consumer goods.</p>
+      <p class="ex">“Modern holidays are often criticized for excessive consumerism.”</p>
+    </article>
+    <article>
+      <h2>Civic duty <span class="pos">noun</span></h2>
+      <p>A legal or moral obligation to participate in community decisions.</p>
+      <p class="ex">“Voting in national elections is viewed as an essential civic duty.”</p>
+    </article>
+  </div>
+
+  <footer class="foot"><span>Society, Mind &amp; Market · B2 ESL</span><span aria-hidden="true">·</span><span class="sec"></span></footer>
+</section>
+
+<!-- ========== 10 · SECTION 8 ========== -->
+<section class="slide" id="s10" data-title="8 · Changing Priorities Among Young Adults" data-section="8">
+  <header class="head">
+    <span class="head-num">08</span>
+    <div class="head-txt">
+      <p class="head-eyebrow">What young adults say matters most at work</p>
+      <h1>Changing Priorities Among Young Adults</h1>
+    </div>
+  </header>
+
+  <div class="body" style="grid-template-columns:1fr;gap:0">
+    <div class="col" style="justify-content:center">
+      <div class="chart">
+        <div class="bar"><span class="name">Work–life balance</span><span class="track"><span class="fill" style="width:88%">88%</span></span></div>
+        <div class="bar"><span class="name">Ethical brand values</span><span class="track"><span class="fill" style="width:72%">72%</span></span></div>
+        <div class="bar"><span class="name">High financial salary</span><span class="track"><span class="fill" style="width:65%">65%</span></span></div>
+        <div class="bar"><span class="name">Brand loyalty</span><span class="track"><span class="fill" style="width:38%">38%</span></span></div>
+      </div>
+      <div class="task">
+        <p class="label is-blue">Analysis</p>
+        <p>Younger generations (Gen&nbsp;Z &amp; Millennials) prioritize personal balance and corporate ethics over traditional <b class="hl">brand loyalty</b>. How does this trend affect business strategy?</p>
+      </div>
+      <p style="margin:18px 0 0;font-size:23px;line-height:1.4;color:var(--muted);font-weight:600">Figures are illustrative and intended as a discussion starting point — they do not come from a single published survey.</p>
+    </div>
+  </div>
+
+  <footer class="foot"><span>Society, Mind &amp; Market · B2 ESL</span><span aria-hidden="true">·</span><span class="sec"></span></footer>
+</section>
+
+<!-- ========== 11 · SECTION 9 ========== -->
+<section class="slide" id="s11" data-title="9 · Critical Debates &amp; Dilemmas" data-section="9">
+  <header class="head">
+    <span class="head-num">09</span>
+    <div class="head-txt">
+      <p class="head-eyebrow">Take a side · defend it · change your mind</p>
+      <h1>Critical Debates &amp; Dilemmas</h1>
+    </div>
+  </header>
+
+  <div class="cards">
+    <article class="card is-debate">
+      <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M6 6.5h12"/><path d="M6 6.5 3 14h6Z"/><path d="M18 6.5 15 14h6Z"/><path d="M8.5 21h7"/></svg></span>
+      <h2>Ethics in marketing</h2>
+      <p class="ask"><span>Should companies be allowed to use psychological data to target vulnerable consumers on social platforms?</span></p>
+    </article>
+    <article class="card is-debate">
+      <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 9.5 12 4l9 5.5"/><path d="M4.5 9.5v9"/><path d="M9 9.5v9"/><path d="M15 9.5v9"/><path d="M19.5 9.5v9"/><path d="M2.5 20.5h19"/></svg></span>
+      <h2>History in schools</h2>
+      <p class="ask"><span>Should history education focus more on national achievements or critical analysis of past wrongdoings?</span></p>
+    </article>
+    <article class="card is-debate">
+      <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.2 12h17.6"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M12 3a15 15 0 0 0 0 18"/></svg></span>
+      <h2>Economic growth</h2>
+      <p class="ask"><span>Is perpetual economic growth sustainable on a planet with finite natural resources and energy limits?</span></p>
+    </article>
+  </div>
+
+  <footer class="foot"><span>Society, Mind &amp; Market · B2 ESL</span><span aria-hidden="true">·</span><span class="sec"></span></footer>
+</section>
+
+<!-- ========== 12 · RECAP ========== -->
+<section class="slide" data-title="Vocabulary Recap — all 24 words">
+  <header class="head">
+    <div class="head-txt">
+      <p class="head-eyebrow">Recap</p>
+      <h1>The 24 target words</h1>
+    </div>
+  </header>
+
+  <div class="recap">
+    <section><h2>01 · History &amp; heritage</h2><ul><li>epoch</li><li>predecessor</li><li>legacy</li><li>precedent</li></ul></section>
+    <section><h2>02 · Economy</h2><ul><li>purchasing power</li><li>inflation</li><li>commodity</li><li>scarcity</li></ul></section>
+    <section><h2>03 · Marketing</h2><ul><li>brand loyalty</li><li>resonate</li><li>demographic</li></ul></section>
+    <section><h2>04 · Social media</h2><ul><li>the algorithm</li><li>echo chambers</li><li>monetization</li></ul></section>
+    <section><h2>05 · Faith &amp; religion</h2><ul><li>secular</li><li>heritage</li><li>devotion</li><li>morality</li></ul></section>
+    <section><h2>06 · Core values</h2><ul><li>individualism</li><li>collectivism</li></ul></section>
+    <section style="grid-column:span 3"><h2>07 · Vocabulary spotlight</h2><ul><li>paradigm shift</li><li>saturated</li><li>consumerism</li><li>civic duty</li></ul></section>
+  </div>
+
+  <footer class="foot"><span>Society, Mind &amp; Market · B2 ESL</span><span aria-hidden="true">·</span><span class="sec"></span></footer>
+</section>
+
+<!-- ========== 13 · CLOSING ========== -->
+<section class="slide closing" data-title="Great Discussion! — Homework">
+  <span class="badge is-accent">Lesson wrap-up</span>
+  <h1>Great discussion!</h1>
+  <p class="sub">Three things to do before our next lesson.</p>
+  <div class="homework">
+    <div><b>01 · Review</b><p>Go back through the 24 target words and check you can say each one out loud.</p></div>
+    <div><b>02 · Prepare</b><p>Write your personal answer to one debate scenario from section 9.</p></div>
+    <div><b>03 · Produce</b><p>Bring two new example sentences using words you had never used before.</p></div>
+  </div>
+</section>
+
+<!-- ========== 14 · SOURCES ========== -->
+<section class="slide" data-title="Sources &amp; Credits">
+  <header class="head">
+    <div class="head-txt">
+      <p class="head-eyebrow">Transparency</p>
+      <h1>Sources &amp; Credits</h1>
+    </div>
+  </header>
+
+  <div class="sources">
+    <article>
+      <h2>84% statistic</h2>
+      <p>Pew Research Center, <em>The Global Religious Landscape</em> — the share of the world population affiliated with a religious group. Cited in section 6.</p>
+    </article>
+    <article>
+      <h2>Chart figures</h2>
+      <p>The percentages in section 8 are illustrative and designed to open a discussion. They are not taken from a single published survey and should not be quoted as data.</p>
+    </article>
+    <article>
+      <h2>Definitions</h2>
+      <p>Adapted from standard learner-dictionary entries and simplified for B2–C1 classroom use.</p>
+    </article>
+    <article>
+      <h2>Images</h2>
+      <p>The stock photographs used in the original deck were removed: one carried a visible watermark, and the rest were decorative. Every visual in this version is drawn in the deck itself, so there are no licensing restrictions.</p>
+    </article>
+  </div>
+
+  <footer class="foot"><span>Society, Mind &amp; Market · B2 ESL</span><span aria-hidden="true">·</span><span class="sec"></span></footer>
+</section>
+
+</div><!-- /stage -->
+</div><!-- /viewport -->
+
+<nav class="hud" aria-label="Slide navigation">
+  <button type="button" id="btnPrev" title="Previous slide (←)" aria-label="Previous slide">‹</button>
+  <span class="count" id="count">1 / 14</span>
+  <button type="button" id="btnNext" title="Next slide (→)" aria-label="Next slide">›</button>
+  <button type="button" id="btnList" title="Contents (C)" aria-label="Contents">☰</button>
+  <button type="button" id="btnTheme" title="Light / dark (T)" aria-label="Toggle light or dark theme">◐</button>
+  <button type="button" id="btnFull" title="Fullscreen (F)" aria-label="Toggle fullscreen">⛶</button>
+</nav>
+
+<div class="contents" id="contents" role="dialog" aria-modal="true" aria-label="Contents">
+  <h2>Contents</h2>
+  <ol id="contentsList"></ol>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var stage    = document.getElementById("stage");
+  var slides   = Array.prototype.slice.call(stage.querySelectorAll(".slide"));
+  var progress = document.getElementById("progress");
+  var count    = document.getElementById("count");
+  var contents = document.getElementById("contents");
+  var list     = document.getElementById("contentsList");
+  var index    = 0;
+
+  /* ---- scale the 1600x900 stage into the viewport ---- */
+  function fit(){
+    var s = Math.min(window.innerWidth / 1600, window.innerHeight / 900);
+    stage.style.setProperty("--s", s);
+  }
+  window.addEventListener("resize", fit);
+  fit();
+
+  /* ---- footer text + contents entries ---- */
+  slides.forEach(function(sl, i){
+    var foot = sl.querySelector(".foot .sec");
+    if (foot){
+      var sec = sl.getAttribute("data-section");
+      foot.textContent = (sec ? "Section " + sec + " of 9   ·   " : "") +
+                         String(i + 1).padStart(2, "0") + " / " + String(slides.length).padStart(2, "0");
+    }
+    var li  = document.createElement("li");
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.innerHTML = "<b>" + String(i + 1).padStart(2, "0") + "</b><span></span>";
+    btn.querySelector("span").textContent = sl.getAttribute("data-title") || ("Slide " + (i + 1));
+    btn.addEventListener("click", function(){ go(i); closeContents(); });
+    li.appendChild(btn);
+    list.appendChild(li);
+  });
+
+  function go(n){
+    index = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function(sl, i){ sl.classList.toggle("is-active", i === index); });
+    progress.style.width = ((index + 1) / slides.length * 100) + "%";
+    count.textContent = (index + 1) + " / " + slides.length;
+    if (location.hash !== "#" + (index + 1)) history.replaceState(null, "", "#" + (index + 1));
+  }
+  function next(){ go(index + 1); }
+  function prev(){ go(index - 1); }
+
+  function openContents(){ contents.classList.add("is-open"); }
+  function closeContents(){ contents.classList.remove("is-open"); }
+  function toggleContents(){ contents.classList.toggle("is-open"); }
+
+  function toggleTheme(){
+    var root = document.documentElement;
+    var dark = root.getAttribute("data-theme") === "dark" ||
+               (!root.getAttribute("data-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    root.setAttribute("data-theme", dark ? "light" : "dark");
+  }
+  function toggleFull(){
+    if (document.fullscreenElement) document.exitFullscreen();
+    else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+  }
+
+  document.getElementById("btnPrev").addEventListener("click", prev);
+  document.getElementById("btnNext").addEventListener("click", next);
+  document.getElementById("btnList").addEventListener("click", toggleContents);
+  document.getElementById("btnTheme").addEventListener("click", toggleTheme);
+  document.getElementById("btnFull").addEventListener("click", toggleFull);
+  contents.addEventListener("click", function(e){ if (e.target === contents) closeContents(); });
+
+  document.addEventListener("keydown", function(e){
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    switch (e.key){
+      case "ArrowRight": case "PageDown": case " ": case "n": e.preventDefault(); next(); break;
+      case "ArrowLeft":  case "PageUp":   case "p": e.preventDefault(); prev(); break;
+      case "Home": e.preventDefault(); go(0); break;
+      case "End":  e.preventDefault(); go(slides.length - 1); break;
+      case "c": case "C": toggleContents(); break;
+      case "t": case "T": toggleTheme(); break;
+      case "f": case "F": toggleFull(); break;
+      case "Escape": closeContents(); break;
+    }
+  });
+
+  /* in-deck section links on the overview slide */
+  stage.addEventListener("click", function(e){
+    var a = e.target.closest("a[href^='#s']");
+    if (!a) return;
+    e.preventDefault();
+    var target = document.querySelector(a.getAttribute("href"));
+    if (target) go(slides.indexOf(target));
+  });
+
+  var start = parseInt((location.hash || "").slice(1), 10);
+  go(isNaN(start) ? 0 : start - 1);
+})();
+</script>
+</html>
