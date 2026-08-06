@@ -391,7 +391,9 @@ section,.trust,footer.foot{position:relative;z-index:2}
 .foot small{font-size:11px;font-family:'JetBrains Mono';letter-spacing:.14em;text-transform:uppercase;color:var(--mono-grey-soft)}
 
 /* ---------- NAVY ELEGANTE (secciones ancla: equipo + cierre) ---------- */
-.section--navy{position:relative;background:linear-gradient(180deg, var(--nfm-white) 0px, rgba(255,255,255,0) 130px),linear-gradient(0deg, var(--nfm-white) 0px, rgba(255,255,255,0) 130px),radial-gradient(120% 90% at 18% 10%, rgba(23,70,109,.55), transparent 55%),radial-gradient(90% 80% at 88% 104%, rgba(255,102,2,.06), transparent 60%),linear-gradient(180deg,#0e3352 0%,#0c3452 45%,#061d30 100%);padding-top:118px;padding-bottom:118px}
+.section--navy{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(120% 90% at 18% 10%, rgba(23,70,109,.55), transparent 55%),radial-gradient(90% 80% at 88% 104%, rgba(255,102,2,.06), transparent 60%),linear-gradient(180deg,#0e3352 0%,#0c3452 45%,#061d30 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+.neural-local{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none}
+.section--navy>*:not(.neural-local),.trust--navy>*:not(.neural-local){position:relative;z-index:1}
 .section--navy .eyebrow{color:#ffd0ac;background:rgba(255,102,2,.14);border-color:rgba(255,255,255,.16)}
 .section--navy .h2,.section--navy.apply h2{color:#fff}
 .section--navy .h2 .hl,.section--navy.apply h2 .hl{color:var(--nfm-orange)}
@@ -402,8 +404,8 @@ section,.trust,footer.foot{position:relative;z-index:2}
 .section--navy.apply .st{color:#9fb6c8}
 .section--navy.apply .note{color:#6f8aa1}
 /* trust bar en navy elegante */
-.trust--navy{background:linear-gradient(180deg, var(--nfm-white) 0px, rgba(255,255,255,0) 62px),linear-gradient(0deg, var(--nfm-white) 0px, rgba(255,255,255,0) 62px),radial-gradient(120% 90% at 18% 10%, rgba(23,70,109,.55), transparent 55%),radial-gradient(90% 80% at 88% 104%, rgba(255,102,2,.06), transparent 60%),linear-gradient(180deg,#0e3352 0%,#0c3452 45%,#061d30 100%);border:0;backdrop-filter:none;-webkit-backdrop-filter:none}
-.trust--navy .wrap{padding:74px 24px}
+.trust--navy{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(120% 90% at 18% 10%, rgba(23,70,109,.55), transparent 55%),radial-gradient(90% 80% at 88% 104%, rgba(255,102,2,.06), transparent 60%),linear-gradient(180deg,#0e3352 0%,#0c3452 45%,#061d30 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:none;-webkit-backdrop-filter:none}
+.trust--navy .wrap{padding:52px 24px}
 .trust--navy .stat .n{color:#fff}
 .trust--navy .stat .l{color:#9fb6c8}
 /* textos sueltos dentro de secciones navy nuevas */
@@ -441,7 +443,7 @@ section,.trust,footer.foot{position:relative;z-index:2}
 }
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001s!important;transition-duration:.001s!important}
-  #neuralbg{display:none}
+  #neuralbg{opacity:.85}
   .fade-up{opacity:1;transform:none}
   .hero h1 .ltr{opacity:1;transform:none;filter:none}
 }
@@ -2065,20 +2067,30 @@ window.addEventListener('DOMContentLoaded',()=>{ initVSL(); fillPhotos(); });
 <!-- ==== DECORATIVO (aislado): red neuronal + barra de carga + título por letra ==== -->
 <script>
 (function(){
-  /* ----- Fondo red neuronal (tema claro) ----- */
+  /* ----- Red neuronal: motor reutilizable (claro y oscuro) ----- */
   try{
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var canvas = document.getElementById("neuralbg");
-    if(canvas && !reduce){
-      var ctx = canvas.getContext("2d");
-      var dpr = Math.min(window.devicePixelRatio||1, 2);
-      var LINK = 150, rand=function(a,b){return Math.random()*(b-a)+a;};
-      var w,h,nodes=[],edges=[],signals=[],glows=[],mouse={x:-9999,y:-9999},rt;
+    /* sin hover = touch: la red se mueve sola, no espera al mouse */
+    var noHover = !(window.matchMedia && window.matchMedia("(hover: hover)").matches);
+
+    function crearRed(canvas, opt){
+      if(!canvas) return null;
+      var ctx=canvas.getContext("2d");
+      var dpr=Math.min(window.devicePixelRatio||1, 2);
+      var C=opt.node, A=opt.accent||"255,102,2";
+      var LINK=opt.link||150, DENS=opt.dens||17000, MAXN=opt.maxn||140, MINN=opt.minn||24;
+      var rand=function(a,b){return Math.random()*(b-a)+a;};
+      var w=0,h=0,nodes=[],edges=[],signals=[],glows=[],rt,visible=true,raf=null;
+      var probe={x:-9999,y:-9999}, auto={x:0,y:0,tx:0,ty:0}, lastSpawn=0;
+
       function build(){
-        w=innerWidth; h=innerHeight;
-        canvas.width=w*dpr; canvas.height=h*dpr; canvas.style.width=w+"px"; canvas.style.height=h+"px";
+        var r=canvas.getBoundingClientRect();
+        w=Math.max(1,Math.round(opt.fixed?innerWidth:r.width));
+        h=Math.max(1,Math.round(opt.fixed?innerHeight:r.height));
+        canvas.width=w*dpr; canvas.height=h*dpr;
+        if(opt.fixed){ canvas.style.width=w+"px"; canvas.style.height=h+"px"; }
         ctx.setTransform(dpr,0,0,dpr,0,0);
-        var count=Math.max(38, Math.min(140, Math.round(w*h/17000)));
+        var count=Math.max(MINN, Math.min(MAXN, Math.round(w*h/DENS)));
         nodes=[];
         for(var i=0;i<count;i++){var x=Math.random()*w,y=Math.random()*h;
           nodes.push({x:x,y:y,bx:x,by:y,r:rand(1,2.1),flash:0,nbr:[]});}
@@ -2087,54 +2099,112 @@ window.addEventListener('DOMContentLoaded',()=>{ initVSL(); fillPhotos(); });
           var dx=nodes[a].bx-nodes[b].bx,dy=nodes[a].by-nodes[b].by,d=Math.hypot(dx,dy);
           if(d<LINK){edges.push([a,b,d]);nodes[a].nbr.push(b);nodes[b].nbr.push(a);}}}
         glows=[];
-        for(var k=0;k<3;k++) glows.push({x:rand(.18,.82)*w,y:rand(.06,.5)*h,r:rand(300,480),ph:Math.random()*6.28,sp:rand(.05,.12)});
+        for(var k=0;k<3;k++) glows.push({x:rand(.18,.82)*w,y:rand(.06,.6)*h,r:rand(300,480),ph:Math.random()*6.28,sp:rand(.05,.12)});
         signals=[];
+        auto.x=auto.tx=w*0.5; auto.y=auto.ty=h*0.45;
       }
-      function step(){
-        requestAnimationFrame(step);
-        ctx.clearRect(0,0,w,h);
-        for(var g=0;g<glows.length;g++){ var G=glows[g]; G.ph+=G.sp*0.02;
-          var gx=G.x+Math.cos(G.ph)*40, gy=G.y+Math.sin(G.ph*1.3)*30;
-          var rg=ctx.createRadialGradient(gx,gy,0,gx,gy,G.r);
-          rg.addColorStop(0,"rgba(12,52,82,0.05)"); rg.addColorStop(1,"rgba(12,52,82,0)");
-          ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(gx,gy,G.r,0,6.2832); ctx.fill(); }
-        for(var n0=0;n0<nodes.length;n0++){ if(nodes[n0].flash>0) nodes[n0].flash-=0.035; }
-        for(var e=0;e<edges.length;e++){ var A=nodes[edges[e][0]],B=nodes[edges[e][1]];
-          var mx=(A.x+B.x)/2,my=(A.y+B.y)/2, md=Math.hypot(mouse.x-mx,mouse.y-my);
-          var al=0.055*(1-edges[e][2]/LINK); if(md<175) al+=0.18*(1-md/175);
-          ctx.strokeStyle="rgba(12,52,82,"+al.toFixed(3)+")"; ctx.lineWidth=1;
-          ctx.beginPath(); ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y); ctx.stroke(); }
-        for(var n=0;n<nodes.length;n++){ var N=nodes[n]; var md2=Math.hypot(mouse.x-N.x,mouse.y-N.y);
-          var near=md2<175?(1-md2/175):0, fl=Math.max(near,N.flash);
-          ctx.fillStyle="rgba(12,52,82,"+(0.11+fl*0.55).toFixed(3)+")";
-          ctx.beginPath(); ctx.arc(N.x,N.y,N.r+fl*1.6,0,6.2832); ctx.fill();
-          if(fl>0.15){ var r=12+fl*16, hg=ctx.createRadialGradient(N.x,N.y,0,N.x,N.y,r);
-            hg.addColorStop(0,"rgba(255,102,2,"+(fl*0.42).toFixed(3)+")"); hg.addColorStop(1,"rgba(255,102,2,0)");
-            ctx.fillStyle=hg; ctx.beginPath(); ctx.arc(N.x,N.y,r,0,6.2832); ctx.fill(); } }
-        for(var i=signals.length-1;i>=0;i--){ var s=signals[i]; s.p+=s.sp;
-          var sa=nodes[s.from],sb=nodes[s.to]; if(!sa||!sb){signals.splice(i,1);continue;}
-          var x=sa.x+(sb.x-sa.x)*s.p, y=sa.y+(sb.y-sa.y)*s.p;
-          var pg=ctx.createRadialGradient(x,y,0,x,y,7);
-          pg.addColorStop(0,"rgba(255,142,44,0.95)"); pg.addColorStop(.4,"rgba(255,102,2,0.55)"); pg.addColorStop(1,"rgba(255,102,2,0)");
-          ctx.fillStyle=pg; ctx.beginPath(); ctx.arc(x,y,7,0,6.2832); ctx.fill();
-          ctx.fillStyle="rgba(217,84,0,0.95)"; ctx.beginPath(); ctx.arc(x,y,1.6,0,6.2832); ctx.fill();
-          if(s.p>=1){ sb.flash=1; signals.splice(i,1);
-            if(s.gen<3 && Math.random()<0.72){ var nb=sb.nbr.filter(function(j){return j!==s.from;});
-              if(nb.length) signals.push({from:s.to,to:nb[(Math.random()*nb.length)|0],p:0,sp:s.sp,gen:s.gen+1}); } } }
-      }
-      build();
-      addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(build,180);});
-      var lastSpawn=0;
+
       function spawnFrom(mx,my){
-        if(!nodes.length || signals.length>28) return;
+        if(!nodes.length || signals.length>(opt.maxsig||28)) return;
         var best=-1,bd=1e9;
         for(var i=0;i<nodes.length;i++){var d=Math.hypot(nodes[i].x-mx,nodes[i].y-my); if(d<bd){bd=d;best=i;}}
         if(best<0 || bd>220) return;
         var nb=nodes[best].nbr; if(!nb.length) return;
         signals.push({from:best,to:nb[(Math.random()*nb.length)|0],p:0,sp:rand(.012,.024),gen:0});
       }
-      addEventListener("mousemove",function(e){mouse.x=e.clientX;mouse.y=e.clientY;var now=performance.now();if(now-lastSpawn>110){spawnFrom(mouse.x,mouse.y);lastSpawn=now;}});
+
+      function step(){
+        raf=requestAnimationFrame(step);
+        if(!visible) return;
+        /* modo autónomo: un foco que deambula lento y dispara solo */
+        if(opt.autoplay){
+          if(Math.hypot(auto.tx-auto.x,auto.ty-auto.y)<28){ auto.tx=rand(.1,.9)*w; auto.ty=rand(.1,.9)*h; }
+          auto.x+=(auto.tx-auto.x)*0.006; auto.y+=(auto.ty-auto.y)*0.006;
+          probe.x=auto.x; probe.y=auto.y;
+          var now=performance.now();
+          if(now-lastSpawn>(opt.autorate||1500)){ spawnFrom(probe.x,probe.y); lastSpawn=now; }
+        }
+        ctx.clearRect(0,0,w,h);
+        for(var g=0;g<glows.length;g++){ var G=glows[g]; G.ph+=G.sp*0.02;
+          var gx=G.x+Math.cos(G.ph)*40, gy=G.y+Math.sin(G.ph*1.3)*30;
+          var rg=ctx.createRadialGradient(gx,gy,0,gx,gy,G.r);
+          rg.addColorStop(0,"rgba("+C+","+(opt.glow||0.05)+")"); rg.addColorStop(1,"rgba("+C+",0)");
+          ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(gx,gy,G.r,0,6.2832); ctx.fill(); }
+        for(var n0=0;n0<nodes.length;n0++){ if(nodes[n0].flash>0) nodes[n0].flash-=0.035; }
+        var R=opt.reach||175;
+        for(var e=0;e<edges.length;e++){ var Ae=nodes[edges[e][0]],Be=nodes[edges[e][1]];
+          var mx=(Ae.x+Be.x)/2,my=(Ae.y+Be.y)/2, md=Math.hypot(probe.x-mx,probe.y-my);
+          var al=(opt.line||0.055)*(1-edges[e][2]/LINK); if(md<R) al+=(opt.lineHot||0.18)*(1-md/R);
+          ctx.strokeStyle="rgba("+C+","+al.toFixed(3)+")"; ctx.lineWidth=1;
+          ctx.beginPath(); ctx.moveTo(Ae.x,Ae.y); ctx.lineTo(Be.x,Be.y); ctx.stroke(); }
+        for(var n=0;n<nodes.length;n++){ var N=nodes[n]; var md2=Math.hypot(probe.x-N.x,probe.y-N.y);
+          var near=md2<R?(1-md2/R):0, fl=Math.max(near,N.flash);
+          ctx.fillStyle="rgba("+C+","+((opt.dot||0.11)+fl*0.55).toFixed(3)+")";
+          ctx.beginPath(); ctx.arc(N.x,N.y,N.r+fl*1.6,0,6.2832); ctx.fill();
+          if(fl>0.15){ var rr=12+fl*16, hg=ctx.createRadialGradient(N.x,N.y,0,N.x,N.y,rr);
+            hg.addColorStop(0,"rgba("+A+","+(fl*0.42).toFixed(3)+")"); hg.addColorStop(1,"rgba("+A+",0)");
+            ctx.fillStyle=hg; ctx.beginPath(); ctx.arc(N.x,N.y,rr,0,6.2832); ctx.fill(); } }
+        for(var i=signals.length-1;i>=0;i--){ var s=signals[i]; s.p+=s.sp;
+          var sa=nodes[s.from],sb=nodes[s.to]; if(!sa||!sb){signals.splice(i,1);continue;}
+          var x=sa.x+(sb.x-sa.x)*s.p, y=sa.y+(sb.y-sa.y)*s.p;
+          var pg=ctx.createRadialGradient(x,y,0,x,y,7);
+          pg.addColorStop(0,"rgba(255,142,44,0.95)"); pg.addColorStop(.4,"rgba("+A+",0.55)"); pg.addColorStop(1,"rgba("+A+",0)");
+          ctx.fillStyle=pg; ctx.beginPath(); ctx.arc(x,y,7,0,6.2832); ctx.fill();
+          ctx.fillStyle="rgba(217,84,0,0.95)"; ctx.beginPath(); ctx.arc(x,y,1.6,0,6.2832); ctx.fill();
+          if(s.p>=1){ sb.flash=1; signals.splice(i,1);
+            if(s.gen<3 && Math.random()<0.72){ var nb=sb.nbr.filter(function(j){return j!==s.from;});
+              if(nb.length) signals.push({from:s.to,to:nb[(Math.random()*nb.length)|0],p:0,sp:s.sp,gen:s.gen+1}); } } }
+      }
+
+      build();
+      addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(build,180);});
+      /* solo dibuja si la sección está a la vista (ahorra batería) */
+      if(!opt.fixed && window.IntersectionObserver){
+        visible=false;
+        new IntersectionObserver(function(en){
+          visible=en[0].isIntersecting;
+          if(visible && Math.abs(canvas.getBoundingClientRect().height-h)>4) build();
+        },{rootMargin:"120px"}).observe(canvas);
+      }
       step();
+      return {
+        pointer:function(cx,cy){
+          if(opt.autoplay) return;
+          var r=canvas.getBoundingClientRect();
+          probe.x=opt.fixed?cx:cx-r.left; probe.y=opt.fixed?cy:cy-r.top;
+          var now=performance.now();
+          if(now-lastSpawn>110){ spawnFrom(probe.x,probe.y); lastSpawn=now; }
+        }
+      };
+    }
+
+    if(!reduce){
+      var redes=[];
+      /* fondo global sobre secciones blancas → nodos navy */
+      var g=crearRed(document.getElementById("neuralbg"), {
+        fixed:true, node:"12,52,82", autoplay:noHover,
+        maxn: noHover?60:140, dens: noHover?26000:17000, autorate:1700
+      });
+      if(g) redes.push(g);
+      /* una red propia dentro de cada sección navy → nodos claros */
+      var zonas=document.querySelectorAll(".section--navy, .trust--navy");
+      for(var z=0;z<zonas.length;z++){
+        var cv=document.createElement("canvas");
+        cv.className="neural-local"; cv.setAttribute("aria-hidden","true");
+        zonas[z].insertBefore(cv, zonas[z].firstChild);
+        var r=crearRed(cv, {
+          node:"173,203,227", accent:"255,140,60", autoplay:noHover,
+          dens: noHover?30000:20000, maxn: noHover?42:70, minn:16,
+          line:0.11, lineHot:0.30, dot:0.30, glow:0.09, maxsig:14, autorate:1900
+        });
+        if(r) redes.push(r);
+      }
+      /* el mouse activa; el touch NO (en touch ya se mueve solo) */
+      if(!noHover){
+        addEventListener("mousemove",function(e){
+          for(var i=0;i<redes.length;i++) redes[i].pointer(e.clientX,e.clientY);
+        },{passive:true});
+      }
     }
   }catch(err){ if(window.console) console.warn("neural bg:", err); }
 
