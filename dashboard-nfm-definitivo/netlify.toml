@@ -1,0 +1,32 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# La raíz del sitio sirve el dashboard directamente (sin /index.html).
+# Las funciones se mapean a /api/* gracias al `export const config` de cada .mjs.
+
+# ─────────────────────────────────────────────────────────────────────────
+# Variables de entorno. TODAS son opcionales: sin ninguna, el dashboard
+# funciona completo con tus CSV/XLSX (embudo, rankings, calendario, reporte,
+# objetivos, tendencias). Cada key prende un módulo extra.
+# Netlify las pide durante el "Deploy to Netlify".
+# ─────────────────────────────────────────────────────────────────────────
+[template.environment]
+  ANTHROPIC_API_KEY = "OPCIONAL — Prende la IA (insights profundos y chat). Sacala en console.anthropic.com → API Keys. Los insights sólo consumen cuando apretás el botón: navegar no gasta. Vacío = el dashboard usa el análisis automático sin IA."
+  YOUTUBE_API_KEY = "OPCIONAL y GRATIS — Prende Competidores de YouTube. console.cloud.google.com → habilitá 'YouTube Data API v3' → Credentials → API key."
+  APIFY_API_TOKEN = "OPCIONAL (pago por uso) — Prende Competidores de Instagram. apify.com → Settings → Integrations. El dashboard te muestra el costo estimado ANTES de cada búsqueda y lleva el saldo."
+  META_ACCESS_TOKEN = "OPCIONAL — Token System User de Meta (read-only). Prende Anuncios, orgánico de Instagram y Stories."
+  META_AD_ACCOUNT_ID = "OPCIONAL — Cuenta publicitaria de Meta (act_123...). Va junto con META_ACCESS_TOKEN. Para otras marcas: META_AD_ACCOUNT_ID_INSTITUTO, _HTC, _DOBLECLICK."
+  META_IG_USER_ID = "OPCIONAL — ID de la cuenta de Instagram para traer el orgánico sin CSV. Por marca: META_IG_USER_ID_INSTITUTO, _HTC, _DOBLECLICK."
+  META_API_VERSION = "OPCIONAL — Versión de la Graph API. Default v21.0."
+  KIT_API_SECRET = "OPCIONAL — Prende Email con Kit (ConvertKit). Kit → Settings → Advanced → API Secret."
+  DOPPLER_API_KEY = "OPCIONAL — Prende Email con Doppler. Va junto con DOPPLER_ACCOUNT."
+  DOPPLER_ACCOUNT = "OPCIONAL — Tu email de login de Doppler. Va junto con DOPPLER_API_KEY."
+  YT_OAUTH_CLIENT_ID = "OPCIONAL — Prende 'Mi YouTube' (analytics de tu propio canal). Requiere los tres YT_OAUTH_*. Instrucciones en HANDOFF.md §5."
+  YT_OAUTH_CLIENT_SECRET = "OPCIONAL — Va junto con YT_OAUTH_CLIENT_ID."
+  YT_OAUTH_REFRESH_TOKEN = "OPCIONAL — Va junto con YT_OAUTH_CLIENT_ID. Scope de solo lectura (yt-analytics.readonly)."
+  GEMINI_API_KEY = "OPCIONAL (pago por imagen) — Prende el Estudio visual (miniaturas y creatividades). aistudio.google.com."
+  NFM_DATA_TOKEN = "OPCIONAL — Contraseña para proteger la nube del dashboard. La inventás vos y la cargás también en ⚙ Configuración."
