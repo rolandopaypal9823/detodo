@@ -55,7 +55,7 @@ a{color:inherit}
 #neuralbg{position:fixed;inset:0;z-index:0;display:block;pointer-events:none}
 section,.trust,footer.foot{position:relative;z-index:2}
 #neural-mask{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(120% 88% at 50% 8%, rgba(255,255,255,0) 40%, rgba(255,255,255,.80) 100%)}
+  background:radial-gradient(120% 88% at 50% 8%, rgba(6,29,48,0) 40%, rgba(6,29,48,.82) 100%), radial-gradient(900px 480px at 72% 6%, rgba(255,102,2,.06), transparent 60%)}
 
 /* ---------- BARRA DE CARGA ---------- */
 #loadbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:70;pointer-events:none;opacity:1;transition:opacity .55s ease .25s}
@@ -2087,17 +2087,17 @@ window.addEventListener('DOMContentLoaded',()=>{ initVSL(); fillPhotos(); });
         for(var g=0;g<glows.length;g++){ var G=glows[g]; G.ph+=G.sp*0.02;
           var gx=G.x+Math.cos(G.ph)*40, gy=G.y+Math.sin(G.ph*1.3)*30;
           var rg=ctx.createRadialGradient(gx,gy,0,gx,gy,G.r);
-          rg.addColorStop(0,"rgba(12,52,82,0.05)"); rg.addColorStop(1,"rgba(12,52,82,0)");
+          rg.addColorStop(0,"rgba(173,203,227,0.05)"); rg.addColorStop(1,"rgba(173,203,227,0)");
           ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(gx,gy,G.r,0,6.2832); ctx.fill(); }
         for(var n0=0;n0<nodes.length;n0++){ if(nodes[n0].flash>0) nodes[n0].flash-=0.035; }
         for(var e=0;e<edges.length;e++){ var A=nodes[edges[e][0]],B=nodes[edges[e][1]];
           var mx=(A.x+B.x)/2,my=(A.y+B.y)/2, md=Math.hypot(mouse.x-mx,mouse.y-my);
           var al=0.055*(1-edges[e][2]/LINK); if(md<175) al+=0.18*(1-md/175);
-          ctx.strokeStyle="rgba(12,52,82,"+al.toFixed(3)+")"; ctx.lineWidth=1;
+          ctx.strokeStyle="rgba(173,203,227,"+al.toFixed(3)+")"; ctx.lineWidth=1;
           ctx.beginPath(); ctx.moveTo(A.x,A.y); ctx.lineTo(B.x,B.y); ctx.stroke(); }
         for(var n=0;n<nodes.length;n++){ var N=nodes[n]; var md2=Math.hypot(mouse.x-N.x,mouse.y-N.y);
           var near=md2<175?(1-md2/175):0, fl=Math.max(near,N.flash);
-          ctx.fillStyle="rgba(12,52,82,"+(0.11+fl*0.55).toFixed(3)+")";
+          ctx.fillStyle="rgba(173,203,227,"+(0.11+fl*0.55).toFixed(3)+")";
           ctx.beginPath(); ctx.arc(N.x,N.y,N.r+fl*1.6,0,6.2832); ctx.fill();
           if(fl>0.15){ var r=12+fl*16, hg=ctx.createRadialGradient(N.x,N.y,0,N.x,N.y,r);
             hg.addColorStop(0,"rgba(255,102,2,"+(fl*0.42).toFixed(3)+")"); hg.addColorStop(1,"rgba(255,102,2,0)");
@@ -2168,3 +2168,72 @@ window.addEventListener('DOMContentLoaded',()=>{ initVSL(); fillPhotos(); });
 </script>
 </body>
 </html>
+
+<!-- ═══ TEMA NAVY ELEGANTE (versión invertida) ═══ -->
+<style>
+/* fondo general con profundidad */
+body{background:linear-gradient(160deg,#0e3352 0%,#0c3452 45%,#061d30 100%) fixed;color:#e8eef5}
+/* textos fuera de tarjetas → claros */
+.hero h1{color:#f4f8fb}
+.h2{color:#f4f8fb}
+.sub,.lead,.lead-2{color:rgba(232,240,247,.78)}
+.hero .sub b,.sub b,.lead-2 b{color:#fff}
+.section--navy .lead-2 b,.section--navy p b{color:var(--nfm-blue)}
+.eyebrow{background:rgba(255,255,255,.05);border-color:rgba(255,102,2,.45);color:#ff9a4d;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.hl{color:var(--nfm-orange)}
+.mq-item{color:rgba(232,240,247,.55)}
+/* secciones tint → vidrio suave */
+.section.tint{background:rgba(255,255,255,.03);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+/* trust bar */
+.trust{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.stat .n{color:#fff}
+.stat .l{color:rgba(232,240,247,.6)}
+/* topbar y footer translúcidos navy */
+.topbar{background:rgba(8,34,56,.82);border-bottom-color:rgba(255,255,255,.1)}
+.topbar .brand__top{color:rgba(232,240,247,.65)}
+.topbar .brand__bottom{color:#fff}
+.foot{background:rgba(8,34,56,.7);border-top-color:rgba(255,255,255,.1)}
+.foot .brand__top{color:rgba(232,240,247,.65)}
+.foot .brand__bottom{color:#fff}
+.foot .links a{color:rgba(232,240,247,.55)}
+.foot small{color:rgba(232,240,247,.4)}
+/* logo: barras claras sobre navy */
+.brand__logo [fill="#0c3452"],.brand__logo [fill="#0C3452"]{fill:#dbe7f1}
+/* video bar */
+.video-bar .label{color:rgba(232,240,247,.6)}
+.fs-btn{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);color:#e8eef5}
+/* "para quién" (fw) quedan como tarjetas blancas: ya lo son */
+/* aval: letra legal más clara sobre tarjeta blanca (queda igual) */
+/* widget de casos: encabezados sobre fondo de página */
+.nfm-cases__title{color:#f4f8fb}
+.nfm-cases__subtitle{color:rgba(232,240,247,.72)}
+.nfm-cases__progress-label{color:rgba(232,240,247,.6)}
+.nfm-cases__result-intro h3{color:#f4f8fb}
+.nfm-cases__result-intro p{color:rgba(232,240,247,.72)}
+.nfm-cases__all-head h3{color:#f4f8fb}
+.nfm-cases__all-head p{color:rgba(232,240,247,.72)}
+.nfm-cases::before{background-image:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(255,255,255,.02) 30px,rgba(255,255,255,.02) 31px)}
+.nfm-cases__retake{color:rgba(232,240,247,.6);border-color:rgba(255,255,255,.25)}
+.nfm-cases__retake:hover{color:#fff;border-color:#fff;background:rgba(255,255,255,.06)}
+/* pilares / bcards / ic ya son tarjetas blancas: quedan */
+/* SECCIONES QUE ERAN NAVY → CLARAS */
+.section--navy{background:#eef3f8;box-shadow:none}
+.section--navy::before,.section--navy::after{display:none}
+.section--navy .h2,.section--navy h2{color:var(--nfm-blue)}
+.section--navy .lead-2,.section--navy p{color:var(--muted)}
+.section--navy .eyebrow{background:#fff;border-color:rgba(255,102,2,.3);color:var(--nfm-orange-text)}
+/* coaches de admisión sobre claro */
+.nfm-adm__title{color:var(--nfm-blue)}
+.nfm-adm__sub{color:var(--muted)}
+.nfm-adm__card{background:#fff;border-color:var(--hair);box-shadow:0 12px 32px rgba(12,52,82,.08)}
+.nfm-adm__card:hover{background:#fff}
+.nfm-adm__name{color:var(--nfm-blue)}
+.nfm-adm__bio{color:var(--muted)}
+.nfm-adm__role{color:var(--nfm-orange-text)}
+.nfm-adm__photo{border-color:#fff;box-shadow:0 6px 18px rgba(12,52,82,.18)}
+/* cierre claro */
+.apply.section--navy .st{color:var(--muted)}
+.apply.section--navy h2{color:var(--nfm-blue)}
+.apply.section--navy p{color:var(--muted)}
+.apply.section--navy p b{color:var(--nfm-blue)}
+</style>
