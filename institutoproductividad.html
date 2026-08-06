@@ -87,7 +87,8 @@ section,.trust,footer.foot{position:relative;z-index:2}
 .btn-ghost-blue:hover{border-color:var(--nfm-blue)}
 .btn-lg{font-size:19px;padding:20px 40px}
 .btn-sm{font-size:14px;padding:11px 20px;border-radius:10px}
-.btn .arrow{font-size:1.1em;transition:transform .2s var(--ease)}
+.topbar__cta .lbl-short{display:none}
+.btn .arrow{font-size:1.1em;flex:0 0 auto;transition:transform .2s var(--ease)}
 .btn:hover .arrow{transform:translateX(4px)}
 
 /* ---------- TOPBAR ---------- */
@@ -257,7 +258,7 @@ section,.trust,footer.foot{position:relative;z-index:2}
 .pill h3{font-weight:800;font-size:15px;color:var(--nfm-blue);margin-bottom:7px}
 .pill p{font-size:13px;color:var(--muted);line-height:1.5}
 /* ---------- EQUIPO (widget integrado) ---------- */
-.nfm-team{padding:8px 0 0}
+/* .nfm-team hereda el padding de .section para igualar al resto */
 .nfm-team__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:44px;text-align:left}
 .nfm-team__card{background:#fff;border-radius:16px;padding:32px 26px 28px;box-shadow:0 12px 34px rgba(12,52,82,.08);border:1px solid var(--hair);transition:transform .25s,box-shadow .25s;display:flex;flex-direction:column}
 .nfm-team__card:hover{transform:translateY(-4px);box-shadow:0 22px 48px rgba(12,52,82,.14)}
@@ -436,14 +437,17 @@ section,.trust,footer.foot{position:relative;z-index:2}
   .brand__bottom{font-size:14px}
 }
 @media(max-width:560px){
+  .btn-lg{font-size:16.5px;padding:17px 22px;gap:8px}
+  .apply .btn-lg,.nfm-cases__btn{width:100%;max-width:340px}
   .trust .wrap{gap:18px}
   .stat{flex:1 1 42%}
   .video-bar{flex-direction:column;gap:10px;align-items:flex-start}
   .topbar__cta .lbl-full{display:none}
+  .topbar__cta .lbl-short{display:inline}
 }
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001s!important;transition-duration:.001s!important}
-  #neuralbg{opacity:.85}
+  #neuralbg{opacity:.5}
   .fade-up{opacity:1;transform:none}
   .hero h1 .ltr{opacity:1;transform:none;filter:none}
 }
@@ -490,7 +494,7 @@ section,.trust,footer.foot{position:relative;z-index:2}
       <span class="brand__bottom">Productividad</span>
     </span>
   </a>
-  <a href="#" class="btn btn-primary btn-sm topbar__cta" onclick="agdOpen('topbar');return false"><span class="lbl-full">Aplicar ahora</span><span class="arrow">→</span></a>
+  <a href="#" class="btn btn-primary btn-sm topbar__cta" onclick="agdOpen('topbar');return false"><span class="lbl-full">Aplicar ahora</span><span class="lbl-short">Aplicar</span><span class="arrow">→</span></a>
 </header>
 
 <!-- HERO (video-first) -->
