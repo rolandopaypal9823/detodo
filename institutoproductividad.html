@@ -401,6 +401,14 @@ section,.trust,footer.foot{position:relative;z-index:2}
 .section--navy.apply p b{color:#fff}
 .section--navy.apply .st{color:#9fb6c8}
 .section--navy.apply .note{color:#6f8aa1}
+/* trust bar en navy elegante */
+.trust--navy{background:radial-gradient(120% 90% at 18% 10%, rgba(23,70,109,.55), transparent 55%),radial-gradient(90% 80% at 88% 104%, rgba(255,102,2,.06), transparent 60%),linear-gradient(180deg,#0e3352 0%,#0c3452 45%,#061d30 100%);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:none;-webkit-backdrop-filter:none}
+.trust--navy .stat .n{color:#fff}
+.trust--navy .stat .l{color:#9fb6c8}
+/* textos sueltos dentro de secciones navy nuevas */
+.section--navy .lead{color:#9fb6c8}
+.section--navy .feat-sep{color:#8ba2b6}
+
 
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:980px){
@@ -525,7 +533,7 @@ section,.trust,footer.foot{position:relative;z-index:2}
 </section>
 
 <!-- TRUST BAR -->
-<div class="trust">
+<div class="trust trust--navy">
   <div class="wrap">
     <div class="stat"><div class="n">+2.000</div><div class="l">Alumnos acompañados</div></div>
     <div class="stat"><div class="n">8.8<span class="u">/10</span></div><div class="l">Calidad del acompañamiento</div></div>
@@ -535,7 +543,7 @@ section,.trust,footer.foot{position:relative;z-index:2}
 </div>
 
 <!-- AVAL UNIVERSITARIO (3er widget · el diferencial arriba) -->
-<section class="section" id="aval">
+<section class="section section--navy" id="aval">
   <div class="wrap">
     <div class="center"><span class="eyebrow">El respaldo</span></div>
     <h2 class="h2 center">Lo que casi ningún programa te puede mostrar</h2>
@@ -565,7 +573,7 @@ section,.trust,footer.foot{position:relative;z-index:2}
 </section>
 
 <!-- QUÉ ES / PARA QUIÉN -->
-<section class="section" id="quees">
+<section class="section section--navy" id="quees">
   <div class="wrap">
     <div class="split">
       <div>
@@ -663,7 +671,7 @@ section,.trust,footer.foot{position:relative;z-index:2}
 </section>
 
 <!-- ENFOQUE INTEGRAL / PILARES -->
-<section class="section">
+<section class="section section--navy" id="metodo">
   <div class="wrap center">
     <div class="center"><span class="eyebrow">El método</span></div>
     <h2 class="h2">La productividad es el <span class="hl">auto completo</span>, no pisar más el acelerador.</h2>
