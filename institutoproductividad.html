@@ -221,6 +221,8 @@ section,.trust,footer.foot{position:relative;z-index:2}
 .ic .mk{font-family:'Montserrat';font-weight:900;font-size:19px;color:var(--nfm-orange);flex:0 0 auto;line-height:1;margin-top:2px}
 .ic h3{font-weight:800;font-size:16px;margin-bottom:6px;color:var(--nfm-blue)}
 .ic p{font-size:13.5px;color:var(--muted);line-height:1.5}
+.incl-grid--duo{grid-template-columns:repeat(2,1fr);max-width:760px;margin-left:auto;margin-right:auto;text-align:left}
+@media(max-width:640px){.incl-grid--duo{grid-template-columns:1fr;max-width:420px}}
 .incl-note{margin-top:34px;text-align:center;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mono-grey)}
 /* Recuadros de beneficio con foto real */
 .bcards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:26px;text-align:left}
@@ -676,7 +678,7 @@ section,.trust,footer.foot{position:relative;z-index:2}
     </div>
 
     <!-- Beneficios sin foto (se quedan como tarjetas de ícono) -->
-    <div class="incl-grid" style="grid-template-columns:repeat(2,1fr);max-width:760px;margin-left:auto;margin-right:auto;text-align:left">
+    <div class="incl-grid incl-grid--duo">
       <div class="ic"><span class="mk">05</span><div><h3>Equipo multidisciplinario</h3><p>Psicólogos, nutricionistas y coaches de alto rendimiento: un profesional por cada frente de tu vida y tu operación, no un solo referente para todo.</p></div></div>
       <div class="ic"><span class="mk">06</span><div><h3>Método y sistemas listos para usar</h3><p>Biblioteca de módulos accionables + Habit Tracker y Second Brain para sacarte la carga de la cabeza. Copiás, adaptás, aplicás.</p></div></div>
     </div>
