@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Instituto de Productividad · Nicolás Fernández Miranda</title>
-<meta name="description" content="Cumplís con todos menos con vos. La razón neurológica por la que tu cerebro ejecuta lo ajeno y archiva lo tuyo — y qué hace el Instituto de Productividad para cambiarlo. Aplicá a tu entrevista de admisión.">
+<meta name="description" content="No te falta método ni disciplina: te falta alguien esperando lo tuyo. La razón neurológica por la que tu cerebro ejecuta lo ajeno y archiva lo tuyo — y qué hace el Instituto de Productividad para cambiarlo. Aplicá a tu entrevista de admisión.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -103,7 +103,7 @@ a{color:inherit}
 .hero .eyebrow{margin-bottom:24px}
 .hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(32px,5.4vw,60px);line-height:1.04;letter-spacing:-.018em;color:var(--nfm-blue);max-width:17ch;margin:0 auto 20px;text-align:center;text-wrap:balance}
 .hero h1 .hl{color:var(--nfm-orange)}
-.hero h1 .shimmer{background:linear-gradient(100deg,#ff6602 18%,#ff8124 40%,#0c3452 50%,#ff8124 60%,#ff6602 82%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 5.5s linear infinite}
+.hero h1 .shimmer{background:linear-gradient(100deg,#ff6602 18%,#ff8124 40%,#ff9a4d 50%,#ff8124 60%,#ff6602 82%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 5.5s linear infinite}
 @keyframes shimmer{to{background-position:200% center}}
 .hero h1 .word{display:inline-block;white-space:nowrap}
 .hero h1 .ltr{display:inline-block;opacity:0;transform:translateY(15px);filter:blur(7px);transition:opacity .6s var(--ease),transform .6s var(--ease),filter .6s var(--ease)}
@@ -250,67 +250,11 @@ a{color:inherit}
 
 /* ---------- ENFOQUE INTEGRAL / PILARES ---------- */
 .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:44px}
-.pill{background:#fff;border:2px solid var(--nfm-blue-light);border-radius:12px;padding:22px 14px;text-align:center;transition:border-color .18s,transform .18s}
+.pill{background:#fff;border:2px solid var(--nfm-blue-light);border-radius:12px;padding:22px 18px;text-align:left;transition:border-color .18s,transform .18s}
 .pill:hover{border-color:var(--nfm-orange);transform:translateY(-3px)}
 .pill .mono{font-family:'JetBrains Mono';text-transform:uppercase;font-size:10px;letter-spacing:.16em;color:var(--nfm-orange-text);display:block;margin-bottom:8px}
-.pill h3{font-weight:800;font-size:15px;color:var(--nfm-blue)}
-/* ---------- ANIMACIÓN: el auto completo vs pisar el acelerador ---------- */
-.autos{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;margin:44px auto 10px}
-.auto{margin:0;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:16px 16px 15px;box-shadow:0 12px 32px rgba(12,52,82,.06);overflow:hidden}
-.auto--ok{border-color:rgba(255,102,2,.30)}
-.auto__cap{display:flex;justify-content:center;margin-bottom:10px}
-.auto__badge{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:6px 12px;border-radius:100px}
-.auto__badge--err{color:var(--mono-grey);background:#f1f4f6;border:1px solid var(--hair)}
-.auto__badge--ok{color:var(--nfm-orange-text);background:var(--nfm-orange-wash);border:1px solid rgba(255,102,2,.28)}
-.auto__stage{position:relative;height:132px;overflow:hidden;border-radius:12px;background:linear-gradient(180deg,#eaf2f8 0%,#f4f8fb 52%,#dfe8ef 62%,#c9d6e0 100%)}
-/* parallax de fondo */
-.auto__hills{position:absolute;left:0;bottom:34px;width:200%;height:44px;opacity:.5;
-  background:radial-gradient(closest-side,#c3d4e2 98%,transparent) 0 100%/90px 42px repeat-x,
-             radial-gradient(closest-side,#d6e2ec 98%,transparent) 55px 100%/130px 32px repeat-x}
-.auto--ok .auto__hills{animation:bgmove 6s linear infinite}
-.auto--error .auto__hills{animation:bgmove 60s linear infinite}
-@keyframes bgmove{to{transform:translateX(-180px)}}
-.auto__road{position:absolute;left:0;right:0;bottom:24px;height:4px;border-radius:2px;background:repeating-linear-gradient(90deg,#94a7b6 0 16px,transparent 16px 34px);opacity:.6}
-.auto--ok .auto__road{animation:roadmove .45s linear infinite}
-.auto--error .auto__road{animation:roadmove 4s linear infinite}
-@keyframes roadmove{to{background-position:-34px 0}}
-.auto__ground{position:absolute;left:0;right:0;bottom:0;height:26px;background:linear-gradient(180deg,#c9d6e0,#b9c8d4)}
-.auto__car{position:absolute;left:50%;bottom:14px;width:186px;transform:translateX(-50%);filter:drop-shadow(0 8px 10px rgba(12,52,82,.22))}
-.auto--error .auto__car{animation:carjudder .16s linear infinite}
-@keyframes carjudder{0%,100%{transform:translateX(-50%)}25%{transform:translate(calc(-50% - 1.6px),1px)}75%{transform:translate(calc(-50% + 1.6px),-1px)}}
-.auto--ok{--body-fill:url(#carOk);--accent-fill:#ff6602}
-.auto--error{--body-fill:url(#carErr);--accent-fill:#5f6b76}
-.auto__car .wheel-rot{transform-box:fill-box;transform-origin:center}
-.auto--ok .auto__car .wheel-rot{animation:spin 1s linear infinite}
-.auto--error .auto__car .wheel-rot{animation:spin .12s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-/* líneas de velocidad (solo el que avanza) */
-.auto__speed{position:absolute;right:8px;bottom:44px;width:56px;height:26px;opacity:0}
-.auto--ok .auto__speed{opacity:1}
-.auto__speed i{position:absolute;right:0;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(12,52,82,.34))}
-.auto__speed i:nth-child(1){top:2px;width:34px;animation:dash .6s linear infinite}
-.auto__speed i:nth-child(2){top:11px;width:50px;animation:dash .6s linear .2s infinite}
-.auto__speed i:nth-child(3){top:20px;width:26px;animation:dash .6s linear .4s infinite}
-@keyframes dash{0%{transform:translateX(14px);opacity:0}30%{opacity:1}100%{transform:translateX(-30px);opacity:0}}
-.auto__smoke{position:absolute;left:calc(50% - 92px);bottom:34px;width:18px;height:18px;pointer-events:none}
-.auto__smoke i{position:absolute;bottom:0;left:0;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(120,130,140,.62),rgba(120,130,140,.28))}
-.auto__smoke i:nth-child(1){animation:puff 1.1s ease-out infinite}
-.auto__smoke i:nth-child(2){animation:puff 1.1s ease-out .55s infinite}
-@keyframes puff{0%{opacity:.6;transform:translate(0,0) scale(.5)}100%{opacity:0;transform:translate(-22px,-30px) scale(1.8)}}
-.auto__heat{position:absolute;top:9px;left:50%;transform:translateX(-50%);z-index:3;font-family:'JetBrains Mono';font-size:9.5px;font-weight:700;letter-spacing:.08em;color:#c0392b;background:rgba(255,255,255,.9);border:1px solid rgba(192,57,43,.4);padding:3px 9px;border-radius:100px;animation:heatblink 1s steps(2) infinite}
-@keyframes heatblink{50%{opacity:.4}}
-.auto__dash{margin-top:12px;min-height:44px;display:flex;flex-direction:column;justify-content:center}
-.auto__pilars{display:flex;gap:5px;justify-content:center;flex-wrap:wrap}
-.auto__pilars span{font-family:'JetBrains Mono';font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--nfm-blue);background:var(--nfm-orange-wash);border:1px solid rgba(255,102,2,.22);padding:4px 8px;border-radius:100px;display:inline-flex;align-items:center;gap:5px}
-.auto__pilars span::before{content:"";width:6px;height:6px;border-radius:50%;background:#3fb950;box-shadow:0 0 0 2px rgba(63,185,80,.18)}
-.auto__result{text-align:center;font-family:'Montserrat';font-weight:700;font-size:13px}
-.auto__pilars + .auto__result{margin-top:9px}
-.auto--error .auto__result{color:var(--mono-grey)}
-.auto--ok .auto__result{color:var(--nfm-orange-text)}
-.auto__result b{color:var(--nfm-blue)}
-@media(max-width:640px){.autos{grid-template-columns:1fr;max-width:420px}}
-@media(prefers-reduced-motion:reduce){.auto__road,.auto__hills,.auto__car,.auto__car .wheel-rot,.auto__smoke i,.auto__heat,.auto__speed i{animation:none!important}.auto__smoke{display:none}}
-
+.pill h3{font-weight:800;font-size:15px;color:var(--nfm-blue);margin-bottom:7px}
+.pill p{font-size:13px;color:var(--muted);line-height:1.5}
 /* ---------- EQUIPO (widget integrado) ---------- */
 .nfm-team{padding:8px 0 0}
 .nfm-team__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:44px;text-align:left}
@@ -541,8 +485,8 @@ a{color:inherit}
 <section class="hero">
   <div class="wrap center">
     <span class="eyebrow fade-up d1">Alto rendimiento con base en neurociencia</span>
-    <h1 id="heroTitle" style="max-width:24ch;margin-left:auto;margin-right:auto">No te falta información. Te falta un método que trabaje <span class="shimmer">a favor de tu cerebro</span>.</h1>
-    <p class="sub fade-up d2" style="margin-left:auto;margin-right:auto">En el <b>Instituto de Productividad</b> no sumamos más apps, más cursos ni más fuerza de voluntad. Entendemos cómo funciona tu cerebro y le adaptamos las herramientas correctas —para que rendir deje de ser pelearte con vos mismo. <b>Neurociencia aplicada, no más disciplina.</b></p>
+    <h1 id="heroTitle" style="max-width:24ch;margin-left:auto;margin-right:auto">No te falta método ni disciplina. Te falta <span class="shimmer">alguien esperando lo tuyo</span>.</h1>
+    <p class="sub fade-up d2" style="margin-left:auto;margin-right:auto">En el <b>Instituto de Productividad</b> no sumamos más apps, más cursos ni más fuerza de voluntad. Tu cerebro no jerarquiza por importancia: jerarquiza por quién está esperando. Por eso ponemos un equipo del otro lado —y un sistema a tu medida— para que rendir deje de ser pelearte con vos mismo. <b>Neurociencia aplicada, no más disciplina.</b></p>
 
     <div class="video-shell fade-up d3" style="margin-top:32px">
       <div class="video-inner">
@@ -574,8 +518,8 @@ a{color:inherit}
 
     <div class="marquee fade-up d5" aria-hidden="true">
       <div class="marquee__row">
-        <div class="marquee__group"><span class="mq-item">Cumplís con todos menos con vos</span><span class="mq-item">Urgencia prestada</span><span class="mq-item">Un equipo del otro lado esperándote</span><span class="mq-item">Aval universitario</span><span class="mq-item">Mastermind presencial</span><span class="mq-item">Acompañamiento 1 a 1</span><span class="mq-item">Sin vendehumo</span></div>
-        <div class="marquee__group"><span class="mq-item">Cumplís con todos menos con vos</span><span class="mq-item">Urgencia prestada</span><span class="mq-item">Un equipo del otro lado esperándote</span><span class="mq-item">Aval universitario</span><span class="mq-item">Mastermind presencial</span><span class="mq-item">Acompañamiento 1 a 1</span><span class="mq-item">Sin vendehumo</span></div>
+        <div class="marquee__group"><span class="mq-item">Aval universitario</span><span class="mq-item">Mastermind presencial</span><span class="mq-item">Acompañamiento 1 a 1</span><span class="mq-item">Equipo multidisciplinario</span><span class="mq-item">Sin vendehumo</span><span class="mq-item">6 meses de proceso</span><span class="mq-item">+10 países</span></div>
+        <div class="marquee__group"><span class="mq-item">Aval universitario</span><span class="mq-item">Mastermind presencial</span><span class="mq-item">Acompañamiento 1 a 1</span><span class="mq-item">Equipo multidisciplinario</span><span class="mq-item">Sin vendehumo</span><span class="mq-item">6 meses de proceso</span><span class="mq-item">+10 países</span></div>
       </div>
     </div>
   </div>
@@ -627,7 +571,7 @@ a{color:inherit}
     <div class="split">
       <div>
         <div class="eyebrow">La razón real</div>
-        <h2 class="h2">No te falta método.<br>Te falta <span class="hl">alguien esperando lo tuyo</span>.</h2>
+        <h2 class="h2">Lo ajeno tiene a alguien esperándolo.<br><span class="hl">Lo tuyo, no.</span></h2>
         <p class="lead-2" style="margin-bottom:16px">Cumplís impecable con lo ajeno —los plazos de todo el mundo— pero lo tuyo lleva años en la misma lista. No es capacidad ni voluntad: tu cerebro no jerarquiza por importancia, jerarquiza por <b>quién está esperando</b>. Lo ajeno viene con alguien del otro lado; lo tuyo, no. A eso lo llamamos <b>urgencia prestada</b>.</p>
         <p class="lead-2">La salida no es un método mejor —eso ya lo tenés—. Es ponerle a lo tuyo la única variable que ya hace funcionar lo ajeno: alguien del otro lado esperándolo. Un entrenador no te enseña a hacer sentadillas; hace que el martes a las 7 haya alguien esperándote. <b>Eso es el Instituto.</b></p>
       </div>
@@ -716,7 +660,7 @@ a{color:inherit}
       <div class="ic"><span class="mk">05</span><div><h3>Equipo multidisciplinario</h3><p>Psicólogos, nutricionistas y coaches de alto rendimiento: un profesional por cada frente de tu vida y tu operación, no un solo referente para todo.</p></div></div>
       <div class="ic"><span class="mk">06</span><div><h3>Método y sistemas listos para usar</h3><p>Biblioteca de módulos accionables + Habit Tracker y Second Brain para sacarte la carga de la cabeza. Copiás, adaptás, aplicás.</p></div></div>
     </div>
-    <div class="incl-note">En la entrevista de admisión vemos juntos cómo aplicarlo a tu caso — sin compromiso</div>
+    <div class="incl-note">En la entrevista de admisión armamos juntos tu traje a medida — sin compromiso</div>
   </div>
 </section>
 
@@ -727,98 +671,12 @@ a{color:inherit}
     <h2 class="h2">La productividad es el <span class="hl">auto completo</span>, no pisar más el acelerador.</h2>
     <p class="lead-2">Service, aceite, gomas: rendir sostenido no es apretar más fuerte, es que todo el sistema funcione. Por eso el método toca las cinco áreas —no una técnica suelta.</p>
 
-    <div class="autos" aria-hidden="true">
-      <!-- defs compartidos -->
-      <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-        <linearGradient id="carOk" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#1b4f7a"/><stop offset=".45" stop-color="#0c3452"/><stop offset="1" stop-color="#061d30"/>
-        </linearGradient>
-        <linearGradient id="carErr" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#aab6c0"/><stop offset=".45" stop-color="#8b98a4"/><stop offset="1" stop-color="#6c7883"/>
-        </linearGradient>
-        <linearGradient id="glassG" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#eaf4fd"/><stop offset=".5" stop-color="#b9d6ee"/><stop offset="1" stop-color="#8fb8d8"/>
-        </linearGradient>
-        <linearGradient id="rimG" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#f2f5f7"/><stop offset="1" stop-color="#aab6c0"/>
-        </linearGradient>
-        <radialGradient id="headG"><stop offset="0" stop-color="#fff8e1"/><stop offset="1" stop-color="#ffd54a"/></radialGradient>
-        <g id="carShape">
-          <!-- sombra al piso -->
-          <ellipse cx="100" cy="74" rx="86" ry="5" fill="rgba(12,52,82,.20)"/>
-          <!-- carrocería -->
-          <path fill="var(--body-fill,#0c3452)" d="M8 62 L8 50 C8 43 13 39 22 37 L44 33 L62 17 C69 11 80 8 98 8 L126 8 C142 8 152 11 159 17 L176 32 L186 36 C192 39 194 44 194 50 L194 62 C194 65 192 66 189 66 L13 66 C10 66 8 65 8 62 Z"/>
-          <!-- brillo superior -->
-          <path d="M62 17 C69 11 80 8 98 8 L126 8 C142 8 152 11 159 17 L163 21 C150 15 138 13 118 13 L92 13 C76 13 68 15 60 19 Z" fill="rgba(255,255,255,.22)"/>
-          <!-- ventanas -->
-          <path d="M70 20 C76 15 85 13 99 13 L110 13 L110 32 L58 32 Z" fill="url(#glassG)"/>
-          <path d="M116 13 L125 13 C138 13 146 15 152 20 L164 32 L116 32 Z" fill="url(#glassG)"/>
-          <!-- línea de cintura naranja -->
-          <rect fill="var(--accent-fill,#ff6602)" x="10" y="45" width="182" height="3.5" rx="1.75"/>
-          <!-- manija -->
-          <rect x="96" y="40" width="14" height="3" rx="1.5" fill="rgba(255,255,255,.35)"/>
-          <!-- faro delantero + piloto trasero -->
-          <ellipse cx="188" cy="43" rx="7" ry="5" fill="url(#headG)"/>
-          <rect x="8" y="40" width="7" height="6" rx="2.5" fill="#d94a2a"/>
-          <!-- ruedas -->
-          <g>
-            <circle cx="56" cy="64" r="17" fill="#1c2733"/>
-            <circle cx="56" cy="64" r="16" fill="none" stroke="#0f1821" stroke-width="2"/>
-            <g class="wheel-rot">
-              <circle cx="56" cy="64" r="10.5" fill="url(#rimG)"/>
-              <circle cx="56" cy="64" r="3.4" fill="#7b8894"/>
-              <path d="M56 54v20M46 64h20M48.8 56.8l14.4 14.4M63.2 56.8L48.8 71.2" stroke="#8e9ba7" stroke-width="2.6" stroke-linecap="round"/>
-            </g>
-          </g>
-          <g>
-            <circle cx="150" cy="64" r="17" fill="#1c2733"/>
-            <circle cx="150" cy="64" r="16" fill="none" stroke="#0f1821" stroke-width="2"/>
-            <g class="wheel-rot">
-              <circle cx="150" cy="64" r="10.5" fill="url(#rimG)"/>
-              <circle cx="150" cy="64" r="3.4" fill="#7b8894"/>
-              <path d="M150 54v20M140 64h20M142.8 56.8l14.4 14.4M157.2 56.8l-14.4 14.4" stroke="#8e9ba7" stroke-width="2.6" stroke-linecap="round"/>
-            </g>
-          </g>
-        </g>
-      </defs></svg>
-
-      <figure class="auto auto--error">
-        <div class="auto__cap"><span class="auto__badge auto__badge--err">✗ Solo pisar el acelerador</span></div>
-        <div class="auto__stage">
-          <div class="auto__heat">🔥 Recalienta</div>
-          <div class="auto__hills"></div>
-          <div class="auto__ground"></div>
-          <div class="auto__road"></div>
-          <div class="auto__smoke"><i></i><i></i></div>
-          <svg class="auto__car" viewBox="0 0 202 82" width="186"><use href="#carShape"/></svg>
-        </div>
-        <div class="auto__dash">
-          <div class="auto__result">Mucho ruido. <b>Cero avance.</b></div>
-        </div>
-      </figure>
-
-      <figure class="auto auto--ok">
-        <div class="auto__cap"><span class="auto__badge auto__badge--ok">✓ El auto completo</span></div>
-        <div class="auto__stage">
-          <div class="auto__hills"></div>
-          <div class="auto__ground"></div>
-          <div class="auto__road"></div>
-          <div class="auto__speed"><i></i><i></i><i></i></div>
-          <svg class="auto__car" viewBox="0 0 202 82" width="186"><use href="#carShape"/></svg>
-        </div>
-        <div class="auto__dash">
-          <div class="auto__pilars"><span>Descanso</span><span>Alimentación</span><span>Movimiento</span><span>Foco</span><span>Mentalidad</span></div>
-          <div class="auto__result">Todo en verde. <b>Avanza parejo.</b></div>
-        </div>
-      </figure>
-    </div>
-
     <div class="pillars">
-      <div class="pill"><span class="mono">Pilar 01</span><h3>Descanso y energía</h3></div>
-      <div class="pill"><span class="mono">Pilar 02</span><h3>Alimentación</h3></div>
-      <div class="pill"><span class="mono">Pilar 03</span><h3>Movimiento</h3></div>
-      <div class="pill"><span class="mono">Pilar 04</span><h3>Foco y hábitos</h3></div>
-      <div class="pill"><span class="mono">Pilar 05</span><h3>Mentalidad</h3></div>
+      <div class="pill"><span class="mono">Pilar 01</span><h3>Descanso y energía</h3><p>La primera palanca: sin energía no hay sistema que se sostenga.</p></div>
+      <div class="pill"><span class="mono">Pilar 02</span><h3>Alimentación</h3><p>Comer para tener claridad mental, no para apagar la ansiedad.</p></div>
+      <div class="pill"><span class="mono">Pilar 03</span><h3>Movimiento</h3><p>Una rutina física que te devuelva energía en lugar de quitártela.</p></div>
+      <div class="pill"><span class="mono">Pilar 04</span><h3>Foco y hábitos</h3><p>Bloques de trabajo profundo y hábitos que no dependen de las ganas.</p></div>
+      <div class="pill"><span class="mono">Pilar 05</span><h3>Mentalidad</h3><p>Desarmar la autoexigencia que te tiene apagando incendios.</p></div>
     </div>
   </div>
 </section>
@@ -875,13 +733,13 @@ a{color:inherit}
           <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/MONTE.jpg" alt="Martín Monte" loading="lazy">
         </div>
         <h3 class="nfm-team__name">Martín Monte</h3>
-        <p class="nfm-team__role">Coach Neurociencia de Alto Rendimiento, liderazgo y gestión de equipos</p>
+        <p class="nfm-team__role">Coach de Alto Rendimiento · Liderazgo y equipos</p>
         <div class="nfm-team__divider"></div>
         <p class="nfm-team__bio">
-          Coach ontológico, ejecutivo y organizacional. Especializado en deporte de alto rendimiento. Máster en PNL y Neurocoach.
+          Coach ejecutivo y organizacional, especializado en deporte de alto rendimiento.
         </p>
         <p class="nfm-team__bio">
-          Te ayuda a diseñar una rutina física que te dé energía en lugar de quitártela — sin necesidad de correr un Ironman.
+          Te ayuda a liderar sin que todo dependa de vos —delegar, priorizar, decidir— y a diseñar una rutina física que te dé energía en lugar de quitártela. Sin necesidad de correr un Ironman.
         </p>
       </div>
 
@@ -894,7 +752,7 @@ a{color:inherit}
         <p class="nfm-team__role">Accountability Coach</p>
         <div class="nfm-team__divider"></div>
         <p class="nfm-team__bio">
-          Coach ontológica con enfoque sistémico, constructivista y biocéntrico. Especializada en Neurociencias Aplicadas, Competencias Directivas y Leyes Biológicas.
+          Coach ontológica con enfoque sistémico. Especializada en Neurociencias Aplicadas y Competencias Directivas.
         </p>
         <p class="nfm-team__bio">
           Te ayuda a cumplir lo que te propusiste, mantenerte enfocado y romper con los ciclos de autosabotaje.
@@ -910,12 +768,12 @@ a{color:inherit}
         <p class="nfm-team__role">Client Success Manager</p>
         <div class="nfm-team__divider"></div>
         <p class="nfm-team__bio">
-          Habla 7 idiomas, estudia un doctorado en Roma y acompaña a cada alumno durante todo el proceso para que la experiencia sea transformadora de verdad.
+          Es quien sigue tu proceso de punta a punta: si desaparecés una semana, es ella la que te va a buscar —sin culpa y sin sermón. Habla 7 idiomas y estudia un doctorado en Roma.
         </p>
         <ul class="nfm-team__list">
-          <li>Doctoranda en Teología (Univ. Gregoriana, Roma)</li>
           <li>Coaching ontológico (Axon)</li>
           <li>Profesora de Gestión del Tiempo</li>
+          <li>Acompaña alumnos en +10 países</li>
         </ul>
       </div>
 
@@ -1644,6 +1502,14 @@ a{color:inherit}
   ];
 
   const casos = [
+    { id:'celi', g:'F', youtubeId:'95H0-szcsMs',
+      intro:'Esto vivía Celi antes de empezar:',
+      nombre:'Celi', perfil:'Arquitecta, líder de 45 personas · San Diego, EEUU',
+      perfilTags:['lider','independiente'], dominante:'equilibrio',
+      puntoA:'Lideraba un equipo de 45 personas con un costo personal demasiado alto. Sin tiempo, sin equilibrio como madre y profesional.',
+      puntoB:'Recuperó el equilibrio sin dejar de rendir al mismo nivel. Lidera con claridad y tiempo de calidad con su familia.',
+      frase:'"El sistema correcto te permite rendir sin quemarte."' },
+
     { id:'cristian', g:'M', youtubeId:'7x_hvNVvc88',
       intro:'Hace un tiempo, esto le pasaba a Cristian:',
       nombre:'Cristian', perfil:'Bioquímico y empresario · Jujuy, Argentina',
@@ -1660,46 +1526,6 @@ a{color:inherit}
       puntoB:'Hoy entrena, lidera y en 6 meses logró lo que antes le parecían 2 años. Sin quemarse.',
       frase:'"El sistema correcto no te pide más esfuerzo — te pide más inteligencia."' },
 
-    { id:'jair', g:'M', youtubeId:'7F5YjFM-EJY',
-      intro:'Jair llegó sintiéndose así:',
-      nombre:'Jair', perfil:'Ingeniero en sistemas · Colombia',
-      perfilTags:['independiente','emprendedor'], dominante:'sueno',
-      puntoA:'Venía trabajando hábitos pero le faltaba estructura para el siguiente nivel. Sin acompañamiento.',
-      puntoB:'Hábitos sólidos, mejor sueño, acompañamiento real. Viajó desde Colombia al mastermind presencial.',
-      frase:'"No dudes tanto en hacer esa inversión en vos — vas a ver los resultados."' },
-
-    { id:'milton', g:'M', youtubeId:'xDpQB0t2RH8',
-      intro:'Milton reconoció esto cuando entró:',
-      nombre:'Milton', perfil:'Diseñador UX · Argentina',
-      perfilTags:['independiente','emprendedor'], dominante:'habitos',
-      puntoA:'Procrastinador crónico con el teléfono. Los proyectos se postergaban semana tras semana.',
-      puntoB:'Pasó de procrastinador a arrancador. Redujo el uso del teléfono. Los proyectos avanzan.',
-      frase:'"Cuando dejé de esperar las ganas para arrancar, todo cambió."' },
-
-    { id:'santi', g:'M', youtubeId:'zRGwIl_FXfk',
-      intro:'Santi llegó viviendo esto:',
-      nombre:'Santi', perfil:'Laboratorista en formación · Argentina',
-      perfilTags:['estudiante'], dominante:'energia',
-      puntoA:'Inacción y dopamina barata. Días gastados en estímulos de bajo valor.',
-      puntoB:'Dejó los hábitos de bajo valor. Pasó de inacción a foco y acción sostenida.',
-      frase:'"Invertir en el cerebro es la mejor inversión que vas a hacer."' },
-
-    { id:'sacha', g:'M', youtubeId:'lVhqgQ5cx04',
-      intro:'Sacha llegó sintiéndose así:',
-      nombre:'Sacha', perfil:'Estudiante · Hoy parte del equipo NFM',
-      perfilTags:['estudiante','emprendedor'], dominante:'mentalidad',
-      puntoA:'Conocimiento de neurociencia "en el aire", sin aplicar. Hábitos basados en fuerza de voluntad pura → se quemaba.',
-      puntoB:'Dejó malos hábitos. Aplica las herramientas con criterio. Pasó de alumno a parte del equipo del Instituto.',
-      frase:'"El poder de crecimiento está en el nivel de incertidumbre que podemos soportar."' },
-
-    { id:'celi', g:'F', youtubeId:'95H0-szcsMs',
-      intro:'Esto vivía Celi antes de empezar:',
-      nombre:'Celi', perfil:'Arquitecta, líder de 45 personas · San Diego, EEUU',
-      perfilTags:['lider','independiente'], dominante:'equilibrio',
-      puntoA:'Lideraba un equipo de 45 personas con un costo personal demasiado alto. Sin tiempo, sin equilibrio como madre y profesional.',
-      puntoB:'Recuperó el equilibrio sin dejar de rendir al mismo nivel. Lidera con claridad y tiempo de calidad con su familia.',
-      frase:'"El sistema correcto te permite rendir sin quemarte."' },
-
     { id:'romi', g:'F', youtubeId:'anq1RGIC7_Q',
       intro:'Romi reconoció esto cuando entró:',
       nombre:'Romi', perfil:'Publicista digital · Argentina',
@@ -1707,14 +1533,6 @@ a{color:inherit}
       puntoA:'De 7 a 16 hs trabajaba, después estudiaba. Las 24 hs no le alcanzaban. No entrenaba, no dormía bien.',
       puntoB:'Trabaja 4 hs en relación de dependencia, organiza el resto a su gusto. Entrena todos los días. Cuida descanso y vínculos.',
       frase:'"No cambié mi personalidad. Ordené mi estructura."' },
-
-    { id:'pierina', g:'F', youtubeId:'vgF6e9MptW4',
-      intro:'Pierina llegó con esto encima:',
-      nombre:'Pierina', perfil:'Doctoranda en Roma · Italia',
-      perfilTags:['estudiante','independiente'], dominante:'organizacion',
-      puntoA:'40 hs semanales de trabajo, 6 hs de sueño, agenda llena de cosas que no cumplía. Sin foco para lo importante.',
-      puntoB:'Rindió 5 exámenes de idioma para entrar al doctorado. Escribe su tesis en 4 hs lo que antes le llevaba 9.',
-      frase:'"Pasé de querer hacer todo y no poder nada, a hacer lo importante con claridad."' },
 
     { id:'natalia', g:'F', youtubeId:'CVo9A7ADvTs',
       intro:'Natalia llegó viviendo esto:',
@@ -1724,21 +1542,21 @@ a{color:inherit}
       puntoB:'Sueño reparador instalado como hábito. Emprendimiento activo. Claridad de prioridades.',
       frase:'"Cuando dormís bien, todo lo demás empieza a acomodarse solo."' },
 
-    { id:'orne', g:'F', youtubeId:'cTkEqvEXOiE',
-      intro:'Ornela entró sintiéndose así:',
-      nombre:'Ornela', perfil:'Estudiante y profesora particular · Argentina',
-      perfilTags:['estudiante'], dominante:'energia',
-      puntoA:'Quemada total. Demasiadas responsabilidades sin orden. Hábitos que intuía correctos pero no sostenía.',
-      puntoB:'Se organizó y planificó. Renunció al trabajo que la agotaba. Disfrutó el mastermind sin ansiedad social.',
-      frase:'"Confía y anímate que se viene lo mejor."' },
+    { id:'milton', g:'M', youtubeId:'xDpQB0t2RH8',
+      intro:'Milton reconoció esto cuando entró:',
+      nombre:'Milton', perfil:'Diseñador UX · Argentina',
+      perfilTags:['independiente','emprendedor'], dominante:'habitos',
+      puntoA:'Procrastinador crónico con el teléfono. Los proyectos se postergaban semana tras semana.',
+      puntoB:'Pasó de procrastinador a arrancador. Redujo el uso del teléfono. Los proyectos avanzan.',
+      frase:'"Cuando dejé de esperar las ganas para arrancar, todo cambió."' },
 
-    { id:'tati', g:'F', youtubeId:'wePT08l1BYM',
-      intro:'Tatiana llegó viviendo esto:',
-      nombre:'Tatiana', perfil:'Estudiante de lenguas + au pair en EEUU · Colombia',
-      perfilTags:['estudiante','emprendedor'], dominante:'mentalidad',
-      puntoA:'Estrés crónico, desánimo. Combinaba estudio, trabajo y voluntariado sin sistema. Sin claridad de carrera.',
-      puntoB:'Claridad de propósito, hábitos instalados, carrera retomada con dirección y menos estrés.',
-      frase:'"Cuando tenés claridad de hacia dónde vas, el esfuerzo empieza a valer la pena."' },
+    { id:'pierina', g:'F', youtubeId:'vgF6e9MptW4',
+      intro:'Pierina llegó con esto encima:',
+      nombre:'Pierina', perfil:'Doctoranda en Roma · Italia',
+      perfilTags:['estudiante','independiente'], dominante:'organizacion',
+      puntoA:'40 hs semanales de trabajo, 6 hs de sueño, agenda llena de cosas que no cumplía. Sin foco para lo importante.',
+      puntoB:'Rindió 5 exámenes de idioma para entrar al doctorado. Escribe su tesis en 4 hs lo que antes le llevaba 9.',
+      frase:'"Pasé de querer hacer todo y no poder nada, a hacer lo importante con claridad."' },
 
     { id:'pau', g:'F', youtubeId:'YoC-5YlvD7w',
       intro:'Pau llegó viviendo exactamente esto:',
@@ -1748,13 +1566,53 @@ a{color:inherit}
       puntoB:'Recuperó el equilibrio, aprendió a delegar y a proteger su foco. Trabaja con estructura y claridad.',
       frase:'"Cuando entendés cómo funciona tu cerebro, todo cambia."' },
 
+    { id:'sacha', g:'M', youtubeId:'lVhqgQ5cx04',
+      intro:'Sacha llegó sintiéndose así:',
+      nombre:'Sacha', perfil:'Estudiante · Hoy parte del equipo NFM',
+      perfilTags:['estudiante','emprendedor'], dominante:'mentalidad',
+      puntoA:'Conocimiento de neurociencia "en el aire", sin aplicar. Hábitos basados en fuerza de voluntad pura → se quemaba.',
+      puntoB:'Dejó malos hábitos. Aplica las herramientas con criterio. Pasó de alumno a parte del equipo del Instituto.',
+      frase:'"El poder de crecimiento está en el nivel de incertidumbre que podemos soportar."' },
+
+    { id:'jair', g:'M', youtubeId:'7F5YjFM-EJY',
+      intro:'Jair llegó sintiéndose así:',
+      nombre:'Jair', perfil:'Ingeniero en sistemas · Colombia',
+      perfilTags:['independiente','emprendedor'], dominante:'sueno',
+      puntoA:'Venía trabajando hábitos pero le faltaba estructura para el siguiente nivel. Sin acompañamiento.',
+      puntoB:'Hábitos sólidos, mejor sueño, acompañamiento real. Viajó desde Colombia al mastermind presencial.',
+      frase:'"No dudes tanto en hacer esa inversión en vos — vas a ver los resultados."' },
+
     { id:'anto', g:'F', youtubeId:'UHvxGkuGfI0',
       intro:'Anto reconoció esto cuando entró:',
       nombre:'Anto', perfil:'Técnica química y emprendedora · Argentina',
       perfilTags:['emprendedor','independiente'], dominante:'habitos',
       puntoA:'Procrastinación y creencias limitantes bloqueaban su acción. Múltiples proyectos sin ejecutar a nivel.',
       puntoB:'De creencias limitantes a acción concreta. Usa las herramientas con claridad para múltiples frentes.',
-      frase:'"Las herramientas no te cambian la vida — vos sí podés, cuando las usás."' }
+      frase:'"Las herramientas no te cambian la vida — vos sí podés, cuando las usás."' },
+
+    { id:'tati', g:'F', youtubeId:'wePT08l1BYM',
+      intro:'Tatiana llegó viviendo esto:',
+      nombre:'Tatiana', perfil:'Estudiante de lenguas + au pair en EEUU · Colombia',
+      perfilTags:['estudiante','emprendedor'], dominante:'mentalidad',
+      puntoA:'Estrés crónico, desánimo. Combinaba estudio, trabajo y voluntariado sin sistema. Sin claridad de carrera.',
+      puntoB:'Claridad de propósito, hábitos instalados, carrera retomada con dirección y menos estrés.',
+      frase:'"Cuando tenés claridad de hacia dónde vas, el esfuerzo empieza a valer la pena."' },
+
+    { id:'orne', g:'F', youtubeId:'cTkEqvEXOiE',
+      intro:'Ornela entró sintiéndose así:',
+      nombre:'Ornela', perfil:'Estudiante y profesora particular · Argentina',
+      perfilTags:['estudiante'], dominante:'energia',
+      puntoA:'Quemada total. Demasiadas responsabilidades sin orden. Hábitos que intuía correctos pero no sostenía.',
+      puntoB:'Se organizó y planificó. Renunció al trabajo que la agotaba. Disfrutó el mastermind sin ansiedad social.',
+      frase:'"Confía y anímate que se viene lo mejor."' },
+
+    { id:'santi', g:'M', youtubeId:'zRGwIl_FXfk',
+      intro:'Santi llegó viviendo esto:',
+      nombre:'Santi', perfil:'Laboratorista en formación · Argentina',
+      perfilTags:['estudiante'], dominante:'energia',
+      puntoA:'Inacción y dopamina barata. Días gastados en estímulos de bajo valor.',
+      puntoB:'Dejó los hábitos de bajo valor. Pasó de inacción a foco y acción sostenida.',
+      frase:'"Invertir en el cerebro es la mejor inversión que vas a hacer."' }
   ];
 
   let currentQ = 0;
@@ -1939,7 +1797,7 @@ a{color:inherit}
       <div class="st"><span class="b">2</span> Charlamos tu caso</div>
       <div class="st"><span class="b">3</span> Vemos si encajás</div>
     </div>
-    <a href="#" id="agendarBtn" class="btn btn-primary btn-lg" onclick="agdOpen('cierre');return false">Quiero hacer el cambio <span class="arrow">→</span></a>
+    <a href="#" id="agendarBtn" class="btn btn-primary btn-lg" onclick="agdOpen('cierre');return false">Elegir el día de mi entrevista <span class="arrow">→</span></a>
     <div class="note">Cupos limitados por camada · Entrevista sin costo</div>
   </div>
 </section>
