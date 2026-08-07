@@ -1127,7 +1127,9 @@ const state = {
      igSpend  = registro de cada búsqueda con su costo real
      aiUsage  = registro de llamadas a Claude (insights + chat) para ver el gasto */
   setup: null,
-  goal: {},
+  goal: {},                 // legado: el objetivo único de antes (se migra a goals)
+  goals: {},                // objetivos por cuenta: { 'marca|red': {...} }
+  goalCuenta: '',           // cuenta elegida en la vista de Objetivos
   folds: {},
   foldAll: true,
   igLimit: 20,
@@ -1167,12 +1169,17 @@ function loadState() {
       if (parsed.emailSnapshots) state.emailSnapshots = { kit: [], doppler: [], ...parsed.emailSnapshots };
       state.storyArchive = parsed.storyArchive || [];
       if (parsed.brand) state.brand = { ...state.brand, ...parsed.brand };
+      const logoGuardado = cargarLogo();
+      if (logoGuardado) state.brand.logo = logoGuardado;
+      else if (parsed.brand && parsed.brand.logo) { state.brand.logo = parsed.brand.logo; guardarLogo(parsed.brand.logo); } // migración
       if (parsed.dateFilter) state.dateFilter = parsed.dateFilter;
       state.hideCollabs = parsed.hideCollabs || false;
       state.promptExtra = parsed.promptExtra || '';
       // ── v1.0 ──
       if (parsed.setup && typeof parsed.setup === 'object') state.setup = parsed.setup;
       if (parsed.goal && typeof parsed.goal === 'object') state.goal = parsed.goal;
+      if (parsed.goals && typeof parsed.goals === 'object') state.goals = parsed.goals;
+      if (parsed.goalCuenta) state.goalCuenta = parsed.goalCuenta;
       if (parsed.folds && typeof parsed.folds === 'object') state.folds = parsed.folds;
       if (typeof parsed.foldAll === 'boolean') state.foldAll = parsed.foldAll;
       if (typeof parsed.igLimit === 'number') state.igLimit = parsed.igLimit;
@@ -1189,14 +1196,47 @@ function loadState() {
     }
   } catch (e) { console.error('Load error', e); }
 }
+/* El logo va en su PROPIA clave, no adentro del estado grande.
+   Motivo: el estado lleva todas tus piezas y puede llegar a los megas. Si al
+   guardarlo el navegador dice "no entra más", antes se perdía TODO el guardado
+   — incluido el logo que acababas de subir. Separado, el logo se guarda sí o
+   sí y sobrevive aunque la data no entre. */
+const LOGO_KEY = 'nfm_brand_logo';
+function guardarLogo(dataUrl) {
+  try {
+    if (dataUrl) localStorage.setItem(LOGO_KEY, dataUrl);
+    else localStorage.removeItem(LOGO_KEY);
+    return true;
+  } catch (e) {
+    showToast('No pude guardar el logo: ' + e.message + '. Probá con una imagen más chica.', 'error');
+    return false;
+  }
+}
+function cargarLogo() { try { return localStorage.getItem(LOGO_KEY) || ''; } catch { return ''; } }
+
 function saveState() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ files: state.files, competitors: state.competitors, competitorPosts: state.competitorPosts, ytChannels: state.ytChannels, igAccounts: state.igAccounts, ytData: state.ytData, igData: state.igData, igFormats: state.igFormats, context: state.context, radar: state.radar, hashtags: state.hashtags, accounts: state.accounts, emailProvider: state.emailProvider, emailSnapshots: state.emailSnapshots, storyArchive: state.storyArchive, brand: state.brand, dateFilter: state.dateFilter, hideCollabs: state.hideCollabs, promptExtra: state.promptExtra,
-      setup: state.setup, goal: state.goal, folds: state.folds, foldAll: state.foldAll,
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ files: state.files, competitors: state.competitors, competitorPosts: state.competitorPosts, ytChannels: state.ytChannels, igAccounts: state.igAccounts, ytData: state.ytData, igData: state.igData, igFormats: state.igFormats, context: state.context, radar: state.radar, hashtags: state.hashtags, accounts: state.accounts, emailProvider: state.emailProvider, emailSnapshots: state.emailSnapshots, storyArchive: state.storyArchive, brand: { ...state.brand, logo: '' }, dateFilter: state.dateFilter, hideCollabs: state.hideCollabs, promptExtra: state.promptExtra,
+      setup: state.setup, goal: state.goal, goals: state.goals, goalCuenta: state.goalCuenta, folds: state.folds, foldAll: state.foldAll,
       igLimit: state.igLimit, igRange: state.igRange, igTranscript: state.igTranscript,
       igSpend: state.igSpend, igTrPrice: state.igTrPrice, igCredit: state.igCredit, igCreditTs: state.igCreditTs, igSpendOpen: state.igSpendOpen,
       aiUsage: state.aiUsage, insightsGuardados: state.insightsGuardados, storyMetric: state.storyMetric }));
-  } catch (e) { showToast('Error guardando: ' + e.message, 'error'); }
+  } catch (e) {
+    /* Si el navegador se quedó sin espacio, antes se perdía el guardado entero
+       y en silencio (solo un toast). Reintentamos soltando lo que se puede
+       reconstruir: los análisis guardados y los scrapes de competidores. */
+    try {
+      const liviano = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...liviano,
+        files: state.files, brand: { ...state.brand, logo: '' }, setup: state.setup, goal: state.goal, goals: state.goals,
+        dateFilter: state.dateFilter, folds: state.folds, foldAll: state.foldAll,
+        hashtags: state.hashtags, accounts: state.accounts, context: state.context,
+        insightsGuardados: {}, ytData: {}, igData: {} }));
+      showToast('El navegador se quedó sin espacio: guardé tu data y solté los análisis de IA guardados y los scrapes de competidores.', 'error');
+    } catch (e2) {
+      showToast('No pude guardar: ' + e2.message + '. Exportá tu data (botón Exportar JSON) y borrá archivos viejos.', 'error');
+    }
+  }
 }
 
 function showToast(msg, type = '') {
@@ -5613,7 +5653,7 @@ async function cloudSave(logEntry) {
     const resp = await fetch(CLOUD.endpoint, {
       method: 'POST',
       headers: cloudHeaders(),
-      body: JSON.stringify({ files: state.files, prompts: { extra: state.promptExtra }, competitors: { igAccounts: state.igAccounts, igData: state.igData, ytChannels: state.ytChannels, ytData: state.ytData }, context: state.context, setup: state.setup, goal: state.goal, insights: state.insightsGuardados, _log: logEntry })
+      body: JSON.stringify({ files: state.files, prompts: { extra: state.promptExtra }, competitors: { igAccounts: state.igAccounts, igData: state.igData, ytChannels: state.ytChannels, ytData: state.ytData }, context: state.context, setup: state.setup, goal: state.goal, goals: state.goals, brand: state.brand, insights: state.insightsGuardados, _log: logEntry })
     });
     if (resp.status === 401) { setCloudStatus('error', 'token inválido (revisá ⚙)'); return; }
     if ([404, 501, 502, 503].includes(resp.status)) { setCloudStatus('off', 'sin nube (guardado local)'); return; }
@@ -5655,6 +5695,13 @@ async function cloudLoad() {
       closeSetupScreen();   // ya lo había hecho en otro dispositivo: no lo repetimos
     }
     if (d.goal && typeof d.goal === 'object' && !(state.goal && state.goal.calculado)) state.goal = d.goal;
+    if (d.goals && typeof d.goals === 'object') state.goals = { ...d.goals, ...state.goals };
+    // El logo de la nube solo si acá no hay: nunca pisamos el local.
+    if (d.brand && typeof d.brand === 'object') {
+      if (!state.brand.logo && d.brand.logo) { state.brand.logo = d.brand.logo; guardarLogo(d.brand.logo); }
+      if (d.brand.name && state.brand.name === 'NFM') state.brand.name = d.brand.name;
+      renderBrandArea();
+    }
     // Insights: fusionamos, nunca pisamos. Un analisis ya pagado no se pierde.
     if (d.insights && typeof d.insights === 'object') {
       state.insightsGuardados = { ...d.insights, ...state.insightsGuardados };
@@ -5787,10 +5834,17 @@ function openConfigModal() {
   const lf = document.getElementById('cfg-logo');
   if (lf) lf.addEventListener('change', e => {
     const file = e.target.files[0]; if (!file) return;
-    if (file.size > 600000) { showToast('Logo muy pesado (máx ~600KB)', 'error'); return; }
-    const r = new FileReader();
-    r.onload = ev => { _pendingBrandLogo = ev.target.result; const p = document.getElementById('cfg-logo-prev'); if (p) p.innerHTML = `<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`; };
-    r.readAsDataURL(file);
+    /* Antes se guardaba el archivo crudo en base64: una foto de 600KB se
+       convertía en ~800KB de texto que competía con toda tu data por la cuota
+       del navegador, y cuando no entraba se perdía el guardado entero — por eso
+       "subo el logo, recargo y no está". Ahora se redimensiona a 512px y se
+       comprime igual que en el setup: queda en decenas de KB. */
+    leerLogo(file, data => {
+      _pendingBrandLogo = data;
+      const p = document.getElementById('cfg-logo-prev');
+      if (p) p.innerHTML = `<img src="${data}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`;
+      showToast('Logo listo — tocá Guardar', 'success');
+    });
   });
 }
 function clearBrandLogo() {
@@ -5810,7 +5864,7 @@ function saveConfig() {
   state.setup.persona = persona;
   state.brand.name = document.getElementById('cfg-brand-name').value.trim() || state.brand.name;
   state.brand.subtitle = document.getElementById('cfg-brand-sub').value.trim();
-  if (_pendingBrandLogo !== undefined) { state.brand.logo = _pendingBrandLogo; _pendingBrandLogo = undefined; }
+  if (_pendingBrandLogo !== undefined) { state.brand.logo = _pendingBrandLogo; guardarLogo(_pendingBrandLogo); _pendingBrandLogo = undefined; }
   CLOUD.token = document.getElementById('cfg-token').value.trim();
   localStorage.setItem('nfm_token', CLOUD.token);
   saveState();
@@ -6512,10 +6566,16 @@ function renderSaludo() {
     const s = flowScore();
     if (s) stats.push(`<div class="greet-stat"><b style="color:${flowScoreLabel(s.total).col}">${s.total}/100</b><span>flowscore · ${flowScoreLabel(s.total).txt.toLowerCase()}</span></div>`);
 
-    const p = (state.goal && state.goal.calculado) ? goalProjection() : null;
+    /* El objetivo de la cuenta que estés mirando en Objetivos. Si tenés varios,
+       la portada muestra ese, y avisa cuántos más hay. */
+    const cuenta = goalCuentaActual();
+    const p = (cuenta && goalActual().calculado) ? goalProjection() : null;
     if (p && !p.sinData) {
-      stats.push(`<div class="greet-stat"><b>+${p.faltan.toLocaleString('es')}</b><span>te faltan para tu meta</span></div>`);
+      const red = GOAL_REDES[cuenta.network];
+      stats.push(`<div class="greet-stat"><b>+${p.faltan.toLocaleString('es')}</b><span>te faltan · ${escapeHtml(goalMarcaLabel(cuenta.marca))} en ${red.t}</span></div>`);
       stats.push(`<div class="greet-stat"><b>${p.porSemana.toFixed(1)}</b><span>piezas por semana para llegar</span></div>`);
+      const otros = Object.values(state.goals || {}).filter(x => x && x.calculado).length - 1;
+      if (otros > 0) stats.push(`<div class="greet-stat"><b>${otros}</b><span>${otros === 1 ? 'otro objetivo activo' : 'otros objetivos activos'}</span></div>`);
     }
     strip = `<div class="greet-strip">${stats.join('')}</div>`;
   }
@@ -6713,9 +6773,109 @@ function setFoldAll(v) {
    esas te faltan. Aritmética sobre datos propios: no usa IA ni gasta un peso.
 ───────────────────────────────────────────────────────────── */
 function goalDays(a, b) { return Math.round((new Date(b) - new Date(a)) / 86400000); }
+
+/* ── Objetivos por cuenta ───────────────────────────────────────────────────
+   Un objetivo por marca × red, no uno solo para todo. Los seguidores de
+   Instagram de Nico y los suscriptores de YouTube del Instituto son metas
+   distintas y se calculan con contenido distinto: mezclarlos daba un número
+   que no servía para ninguna de las dos. Cada objetivo se guarda con su clave
+   y viaja a la nube. */
+const GOAL_REDES = {
+  instagram: { t: 'Instagram', unidad: 'seguidores', unidadSing: 'seguidor' },
+  youtube:   { t: 'YouTube',   unidad: 'suscriptores', unidadSing: 'suscriptor' },
+  facebook:  { t: 'Facebook',  unidad: 'seguidores', unidadSing: 'seguidor' }
+};
+const GOAL_MARCA_LABEL = { nico: 'Nico Fernández', instituto: 'Instituto de Productividad', htc: 'Hackeá tu Cerebro', 'doble-click': 'Doble Click' };
+function goalMarcaLabel(m) {
+  if (m === 'all') return 'Todas las marcas';
+  if (GOAL_MARCA_LABEL[m]) return GOAL_MARCA_LABEL[m];
+  const a = (state.accounts || []).find(x => x.id === m);
+  return a ? a.name : m;
+}
+function goalKey(marca, network) { return `${marca}|${network}`; }
+/* Las cuentas que tienen contenido cargado con seguidores/suscriptores medidos,
+   más "Todas las marcas" por red, más las que ya tengan un objetivo guardado
+   (para que no desaparezcan del selector si filtrás la fecha). */
+function goalCuentas() {
+  const vistos = new Map();
+  const add = (marca, network, piezas) => {
+    if (!GOAL_REDES[network]) return;
+    const k = goalKey(marca, network);
+    const prev = vistos.get(k);
+    vistos.set(k, { k, marca, network, piezas: (prev ? prev.piezas : 0) + piezas });
+  };
+  const rows = getAllRows().filter(r => r.kind !== 'linkedin' && r.kind !== 'meta-stories' && (r.follows || 0) > 0);
+  const porMarca = {};
+  rows.forEach(r => { const kk = goalKey(r.marca, r.network); porMarca[kk] = (porMarca[kk] || 0) + 1; });
+  Object.entries(porMarca).forEach(([kk, n]) => { const [m, net] = kk.split('|'); add(m, net, n); });
+  // "Todas las marcas" por cada red que tenga data
+  const redes = new Set(rows.map(r => r.network).filter(n => GOAL_REDES[n]));
+  redes.forEach(net => add('all', net, rows.filter(r => r.network === net).length));
+  // Objetivos ya guardados aunque hoy no haya piezas en el rango
+  Object.keys(state.goals || {}).forEach(kk => {
+    const [m, net] = kk.split('|');
+    if (GOAL_REDES[net] && !vistos.has(kk)) add(m, net, 0);
+  });
+  return [...vistos.values()].sort((a, b) =>
+    (a.marca === 'all' ? -1 : b.marca === 'all' ? 1 : 0) || b.piezas - a.piezas);
+}
+function goalCuentaActual() {
+  const cuentas = goalCuentas();
+  if (!cuentas.length) return null;
+  const elegida = cuentas.find(c => c.k === state.goalCuenta);
+  return elegida || cuentas[0];
+}
+function setGoalCuenta(k) { state.goalCuenta = k; saveState(); render(); }
+// El objetivo de la cuenta activa. `state.goal` queda como lectura del legado.
+function goalActual() {
+  const c = goalCuentaActual();
+  if (!c) return state.goal || {};
+  state.goals = state.goals || {};
+  return state.goals[c.k] || {};
+}
+function setGoalActual(obj) {
+  const c = goalCuentaActual();
+  state.goals = state.goals || {};
+  if (c) state.goals[c.k] = obj; else state.goal = obj;
+  saveState();
+}
+/* El objetivo único de las versiones anteriores pasa a ser el de la primera
+   cuenta con data, para no perder lo que ya habías cargado. */
+function migrarObjetivoViejo() {
+  const g = state.goal;
+  if (!g || !g.calculado) return;
+  state.goals = state.goals || {};
+  if (Object.keys(state.goals).length) return;   // ya migrado
+  const c = goalCuentas()[0];
+  if (!c) return;
+  state.goals[c.k] = { ...g };
+  state.goalCuenta = c.k;
+  saveState();
+}
+
 function goalRows() {
-  // Sólo piezas orgánicas con seguidores medidos; las stories no traen follows.
-  return getAllRows().filter(r => r.kind !== 'linkedin' && (r.follows || 0) > 0);
+  // Sólo piezas con seguidores/suscriptores medidos, y sólo de la cuenta
+  // elegida: el cálculo de una marca nunca se mezcla con el de otra.
+  const c = goalCuentaActual();
+  return getAllRows().filter(r => {
+    if (r.kind === 'linkedin' || r.kind === 'meta-stories') return false;
+    if (!(r.follows || 0)) return false;
+    if (!c) return true;
+    if (r.network !== c.network) return false;
+    if (c.marca !== 'all' && r.marca !== c.marca) return false;
+    return true;
+  });
+}
+// Todas las piezas de la cuenta elegida (con o sin seguidores): para el ritmo.
+function goalRowsCuenta() {
+  const c = goalCuentaActual();
+  return getAllRows().filter(r => {
+    if (r.kind === 'linkedin' || r.kind === 'meta-stories') return false;
+    if (!c) return true;
+    if (r.network !== c.network) return false;
+    if (c.marca !== 'all' && r.marca !== c.marca) return false;
+    return true;
+  });
 }
 /* ── Escenarios de proyección ──────────────────────────────────────────────
    Proyectar con tus 10 mejores piezas asume que TODO lo que publiques de acá
@@ -6733,14 +6893,10 @@ const GOAL_ESCENARIOS = [
     nota: 'Asume que te sale del montón. Si el objetivo cierra igual acá, cierra seguro.' }
 ];
 function goalEscenario() {
-  const k = (state.goal || {}).escenario || 'optimista';
+  const k = goalActual().escenario || 'optimista';
   return GOAL_ESCENARIOS.find(e => e.k === k) || GOAL_ESCENARIOS[0];
 }
-function setGoalEscenario(k) {
-  state.goal = state.goal || {};
-  state.goal.escenario = k;
-  saveState(); render();
-}
+function setGoalEscenario(k) { setGoalActual({ ...goalActual(), escenario: k }); render(); }
 // Las piezas del tramo del ranking que pide el escenario.
 function goalTopPieces(esc) {
   const e = esc || goalEscenario();
@@ -6750,7 +6906,7 @@ function goalTopPieces(esc) {
 // Cuántas piezas con seguidores hay en total: define qué escenarios se pueden usar.
 function goalPiezasDisponibles() { return goalRows().length; }
 function goalProjection(esc) {
-  const g = state.goal || {};
+  const g = goalActual();
   const e = esc || goalEscenario();
   const desde = parseFloat(g.startValue), hasta = parseFloat(g.targetValue);
   if (!isFinite(desde) || !isFinite(hasta) || !g.startDate || !g.targetDate) return null;
@@ -6768,8 +6924,8 @@ function goalProjection(esc) {
   const semanas = Math.max(1, Math.round(diasRest / 7));
   const porSemana = piezas / semanas;
 
-  // Ritmo actual: cuántas piezas por semana venís publicando según la data cargada.
-  const conFecha = getAllRows().filter(r => r.publishTime && r.kind !== 'linkedin');
+  // Ritmo actual: piezas por semana en ESTA cuenta, no en todo el dashboard.
+  const conFecha = goalRowsCuenta().filter(r => r.publishTime);
   let ritmoActual = 0;
   if (conFecha.length > 1) {
     const ts = conFecha.map(r => new Date(r.publishTime).getTime()).filter(t => !isNaN(t));
@@ -6783,31 +6939,37 @@ function goalProjection(esc) {
 }
 // Seguidores de hoy = los del arranque + los que sumó el contenido desde esa fecha.
 function goalActualValue() {
-  const g = state.goal || {};
+  const g = goalActual();
   const desde = parseFloat(g.startValue) || 0;
   if (!g.startDate) return desde;
   const t0 = new Date(g.startDate).getTime();
-  const ganados = getAllRows()
-    .filter(r => r.kind !== 'linkedin' && r.publishTime && new Date(r.publishTime).getTime() >= t0)
+  // Solo lo que sumó el contenido de ESTA cuenta desde esa fecha.
+  const ganados = goalRowsCuenta()
+    .filter(r => r.publishTime && new Date(r.publishTime).getTime() >= t0)
     .reduce((s, r) => s + (r.follows || 0), 0);
   return desde + ganados;
 }
-function setGoalField(k, v) { state.goal = state.goal || {}; state.goal[k] = v; saveState(); }
+function setGoalField(k, v) { const g = { ...goalActual() }; g[k] = v; setGoalActual(g); }
 function goalCalcular() {
   ['startValue', 'startDate', 'targetValue', 'targetDate'].forEach(k => {
     const el = document.getElementById('goal-' + k);
     if (el) setGoalField(k, el.value);
   });
   if (!goalProjection()) { showToast('Completá los cuatro campos', 'error'); return; }
-  state.goal.calculado = true;
-  saveState(); cloudSave({ action: 'objetivo calculado' }); render();
+  setGoalActual({ ...goalActual(), calculado: true });
+  const c = goalCuentaActual();
+  cloudSave({ action: 'objetivo calculado', label: c ? goalMarcaLabel(c.marca) + ' · ' + GOAL_REDES[c.network].t : '' });
+  render();
 }
 function goalReset() {
-  if (!confirm('¿Borrar el objetivo? La data de tus piezas no se toca.')) return;
-  state.goal = {}; saveState(); render();
+  const c = goalCuentaActual();
+  const quien = c ? `${goalMarcaLabel(c.marca)} · ${GOAL_REDES[c.network].t}` : '';
+  if (!confirm(`¿Borrar el objetivo de ${quien}? Los de las otras cuentas y la data de tus piezas no se tocan.`)) return;
+  if (c) { delete (state.goals || {})[c.k]; } else { state.goal = {}; }
+  saveState(); cloudSave({ action: 'objetivo borrado', label: quien }); render();
 }
 function goalSugerirActual() {
-  const tot = getAllRows().reduce((s, r) => s + (r.follows || 0), 0);
+  const tot = goalRowsCuenta().reduce((s, r) => s + (r.follows || 0), 0);
   const el = document.getElementById('goal-startValue');
   if (el && tot > 0) {
     el.value = tot;
@@ -6844,13 +7006,46 @@ function goalVisual(p, g) {
     </div>`;
 }
 function renderObjetivos() {
-  const g = state.goal || {};
+  migrarObjetivoViejo();
+  const cuentas = goalCuentas();
+  const cuenta = goalCuentaActual();
+  const g = goalActual();
+  const red = cuenta ? GOAL_REDES[cuenta.network] : { t: '', unidad: 'seguidores' };
   const hoy = new Date().toISOString().slice(0, 10);
+
+  if (!cuentas.length) {
+    return `
+      ${renderTopbar('Objetivos', 'Poné a dónde querés llegar y te digo cuánto contenido hace falta')}
+      <div class="yt-why"><b>Esto no usa IA ni gasta un peso.</b> Mira tus piezas reales, ve cuáles te trajeron seguidores, y calcula con aritmética simple cuántas piezas como esas necesitás para llegar a tu meta.</div>
+      <div class="empty-state" style="padding:36px;">
+        <div class="empty-icon">📭</div>
+        <div class="empty-title">Todavía no hay ninguna cuenta con seguidores medidos</div>
+        <div class="empty-text">Subí un export de <strong>Instagram</strong> (con la columna de seguimientos) o de <strong>YouTube Studio</strong> (con suscriptores), o traé el orgánico de Meta. Cada cuenta que cargues va a poder tener su propio objetivo.</div>
+      </div>`;
+  }
+
+  /* Selector de cuenta: cada marca × red tiene su objetivo y sus cálculos. */
+  const selCuenta = `
+    <div class="section-label"><span class="arrow-mark"></span>De qué cuenta es el objetivo</div>
+    <div class="data-card">
+      <div class="filter-bar" style="flex-wrap:wrap;">
+        <span class="filter-label">Cuenta</span>
+        ${cuentas.map(c => {
+          const tieneObj = !!((state.goals || {})[c.k] || {}).calculado;
+          const on = cuenta && c.k === cuenta.k;
+          return `<button class="filter-chip ${on ? 'active' : ''}" onclick="setGoalCuenta('${c.k}')" title="${escapeHtml(goalMarcaLabel(c.marca) + ' · ' + GOAL_REDES[c.network].t + ' · ' + c.piezas + ' piezas con ' + GOAL_REDES[c.network].unidad)}">
+            ${tieneObj ? '🎯 ' : ''}${escapeHtml(goalMarcaLabel(c.marca))} · ${GOAL_REDES[c.network].t}</button>`;
+        }).join('')}
+      </div>
+      <div style="font-size:12px;color:var(--nfm-gris-mute);margin-top:10px;line-height:1.55;">
+        Cada cuenta tiene <b>su propio objetivo</b> y se calcula <b>solo con su contenido</b>: los ${red.unidad} de una marca nunca se mezclan con los de otra. El 🎯 marca las que ya tienen objetivo puesto.
+      </div>
+    </div>`;
   const form = `
-    <div class="section-label"><span class="arrow-mark"></span>Definí tu objetivo</div>
+    <div class="section-label"><span class="arrow-mark"></span>Definí tu objetivo · ${escapeHtml(goalMarcaLabel(cuenta.marca))} en ${red.t}</div>
     <div class="data-card">
       <div class="goal-form">
-        <label class="goal-f"><span>Hoy tengo</span>
+        <label class="goal-f"><span>Hoy tengo (${red.unidad})</span>
           <span style="display:flex;gap:6px;align-items:center;">
             <input id="goal-startValue" type="number" min="0" style="width:130px" placeholder="1200" value="${g.startValue || ''}">
             <button class="btn ghost small" onclick="goalSugerirActual()" title="Sugerir desde tu data cargada">↺</button>
@@ -6867,23 +7062,23 @@ function renderObjetivos() {
 
   if (!g.calculado) {
     return `
-      ${renderTopbar('Objetivos', 'Poné a dónde querés llegar y te digo cuánto contenido hace falta')}
-      ${porQue}${form}
+      ${renderTopbar('Objetivos', `${goalMarcaLabel(cuenta.marca)} · ${red.t} — todavía sin objetivo`)}
+      ${porQue}${selCuenta}${form}
       <div class="empty-state" style="padding:36px;">
         <div class="empty-icon">🎯</div>
-        <div class="empty-title">Definí tu meta arriba</div>
-        <div class="empty-text">Ejemplo: hoy tenés <strong>1.200</strong> seguidores y querés <strong>10.000</strong> para fin de año. Te digo cuántas piezas como tus mejores necesitás publicar, y a qué ritmo semanal.</div>
+        <div class="empty-title">Definí la meta de ${escapeHtml(goalMarcaLabel(cuenta.marca))} en ${red.t}</div>
+        <div class="empty-text">Ejemplo: hoy tenés <strong>1.200</strong> ${red.unidad} y querés <strong>10.000</strong> para fin de año. Te digo cuántas piezas como tus mejores necesitás publicar, y a qué ritmo semanal. Las otras cuentas llevan su objetivo aparte.</div>
       </div>`;
   }
 
   const p = goalProjection();
-  if (!p) return `${renderTopbar('Objetivos', '')}${porQue}${form}<div class="empty-state"><div class="empty-title">Faltan datos del objetivo</div></div>`;
+  if (!p) return `${renderTopbar('Objetivos', '')}${porQue}${selCuenta}${form}<div class="empty-state"><div class="empty-title">Faltan datos del objetivo</div></div>`;
   if (p.sinData) return `
-    ${renderTopbar('Objetivos', '')}${porQue}${form}
+    ${renderTopbar('Objetivos', `${goalMarcaLabel(cuenta.marca)} · ${red.t}`)}${porQue}${selCuenta}${form}
     <div class="empty-state" style="padding:36px;">
       <div class="empty-icon">📭</div>
-      <div class="empty-title">Todavía no hay piezas con seguidores ganados</div>
-      <div class="empty-text">Subí un export de Instagram o YouTube que incluya la columna de <strong>seguimientos</strong> (o traé el orgánico de Meta) para poder proyectar.</div>
+      <div class="empty-title">Esta cuenta todavía no tiene piezas con ${red.unidad} ganados</div>
+      <div class="empty-text">Subí un export de <strong>${escapeHtml(goalMarcaLabel(cuenta.marca))}</strong> en ${red.t} que traiga la columna de ${red.unidad} (o traé el orgánico de Meta) para poder proyectar.</div>
     </div>`;
 
   const ritmoTxt = p.ritmoActual > 0 ? p.ritmoActual.toFixed(1) + ' piezas/semana' : 'sin dato';
@@ -6901,13 +7096,13 @@ function renderObjetivos() {
   const chips = GOAL_ESCENARIOS.map(e => {
     const hay = disp > e.desde;
     const on = escActual.k === e.k;
-    const titulo = hay ? e.nota : `Necesitás al menos ${e.desde + 1} piezas con seguidores para usar este escenario. Tenés ${disp}.`;
+    const titulo = hay ? e.nota : `Necesitás al menos ${e.desde + 1} piezas con ${red.unidad} en esta cuenta para usar este escenario. Tenés ${disp}.`;
     return `<button class="filter-chip ${on ? 'active' : ''}" ${hay ? '' : 'disabled style="opacity:.4;cursor:not-allowed"'} onclick="${hay ? `setGoalEscenario('${e.k}')` : ''}" title="${escapeHtml(titulo)}">${e.t} · ${e.d}</button>`;
   }).join('');
 
   const comparacion = GOAL_ESCENARIOS.map(e => {
     if (disp <= e.desde) {
-      return `<div class="esc-col"><div class="esc-t">${e.t}</div><div class="esc-na">necesita ${e.desde + 1}+ piezas con seguidores</div></div>`;
+      return `<div class="esc-col"><div class="esc-t">${e.t}</div><div class="esc-na">esta cuenta necesita ${e.desde + 1}+ piezas con ${red.unidad}</div></div>`;
     }
     const q = goalProjection(e);
     if (!q || q.sinData) return '';
@@ -6915,7 +7110,7 @@ function renderObjetivos() {
     const semaforo = q.viable === null ? '' : q.viable ? '✅' : '⚠️';
     return `<div class="esc-col${on ? ' on' : ''}" onclick="setGoalEscenario('${e.k}')" title="${escapeHtml(e.nota)}">
       <div class="esc-t">${e.t}${on ? ' <span class="esc-badge">elegido</span>' : ''}</div>
-      <div class="esc-sub">${e.d} · promedian +${q.promTop.toFixed(0)} seguidores</div>
+      <div class="esc-sub">${e.d} · promedian +${q.promTop.toFixed(0)} ${red.unidad}</div>
       <div class="esc-n">${q.piezas.toLocaleString('es')}</div>
       <div class="esc-l">piezas para llegar</div>
       <div class="esc-r">${semaforo} <strong>${q.porSemana.toFixed(1)}</strong> por semana</div>
@@ -6945,32 +7140,32 @@ function renderObjetivos() {
         <div class="tbl-pieza-title">${escapeHtml(desc)}</div>
         ${d ? `<div class="tbl-pieza-meta">${d}</div>` : ''}
       </td>
-      <td><span class="tbl-num good">+${(r.follows || 0).toLocaleString('es')}</span><span class="tbl-num-sub">SEGUIDORES</span></td>
+      <td><span class="tbl-num good">+${(r.follows || 0).toLocaleString('es')}</span><span class="tbl-num-sub">${red.unidad.toUpperCase()}</span></td>
       <td><span class="tbl-num">${(r.views || 0).toLocaleString('es')}</span><span class="tbl-num-sub">VIEWS</span></td>
     </tr>`;
   }).join('');
 
   return `
-    ${renderTopbar('Objetivos', `Hoy ${p.actual.toLocaleString('es')} · faltan ${p.faltan.toLocaleString('es')} para llegar a ${(parseFloat(g.targetValue) || 0).toLocaleString('es')} en ${p.diasRest} días`)}
-    ${porQue}${form}
+    ${renderTopbar(`Objetivos · ${goalMarcaLabel(cuenta.marca)} en ${red.t}`, `Hoy ${p.actual.toLocaleString('es')} ${red.unidad} · faltan ${p.faltan.toLocaleString('es')} para llegar a ${(parseFloat(g.targetValue) || 0).toLocaleString('es')} en ${p.diasRest} días`)}
+    ${porQue}${selCuenta}${form}
     ${goalVisual(p, g)}
     ${bloqueEscenarios}
     <div class="section-label"><span class="arrow-mark"></span>Lo que hace falta · escenario ${escActual.t.toLowerCase()}</div>
     <div class="kpi-row">
-      ${renderKpi('Te faltan', '+' + p.faltan.toLocaleString('es'), 'seguidores', true)}
+      ${renderKpi('Te faltan', '+' + p.faltan.toLocaleString('es'), red.unidad, true)}
       ${renderKpi('Piezas necesarias', p.piezas.toLocaleString('es'), 'como ' + escActual.d)}
       ${renderKpi('Ritmo requerido', p.porSemana.toFixed(1), 'piezas por semana')}
       ${renderKpi('Tiempo', p.diasRest + ' días', p.semanas + ' semanas')}
     </div>
     <div class="section-label"><span class="arrow-mark"></span>¿Alcanza el tiempo?</div>
     <div class="data-card"><div class="insight-body" style="opacity:1;">${veredicto}</div></div>
-    <div class="section-label"><span class="arrow-mark"></span>Replicá estas ${p.top.length} piezas · promedian +${p.promTop.toFixed(0)} seguidores</div>
+    <div class="section-label"><span class="arrow-mark"></span>Replicá estas ${p.top.length} piezas · promedian +${p.promTop.toFixed(0)} ${red.unidad}</div>
     <div class="data-card">
       <div class="insight-body" style="opacity:1;margin-bottom:14px;">
-        <p>Son <strong>${escActual.d}</strong> por seguidores ganados. Si publicás <strong>${p.piezas.toLocaleString('es')}</strong> piezas con este mismo enfoque (mismo formato, mismo tipo de gancho), llegás a tu meta. Versionalas: mismo ángulo, tema nuevo.</p>
+        <p>Son <strong>${escActual.d}</strong> por ${red.unidad} ganados. Si publicás <strong>${p.piezas.toLocaleString('es')}</strong> piezas con este mismo enfoque (mismo formato, mismo tipo de gancho), llegás a tu meta. Versionalas: mismo ángulo, tema nuevo.</p>
       </div>
       <table class="tbl">
-        <thead><tr><th>Pieza · tocá para verla</th><th>Seguidores</th><th>Views</th></tr></thead>
+        <thead><tr><th>Pieza · tocá para verla</th><th>${red.t === 'YouTube' ? 'Suscriptores' : 'Seguidores'}</th><th>Views</th></tr></thead>
         <tbody>${filas}</tbody>
       </table>
     </div>`;
@@ -7557,7 +7752,7 @@ function setupFinish() {
     fecha: d.fecha, logro: d.logro, secciones: d.secciones, marcas: d.marcas, hechoEl: Date.now()
   };
   if (d.negocio) state.brand.name = d.negocio;
-  if (d.logo) state.brand.logo = d.logo;
+  if (d.logo) { state.brand.logo = d.logo; guardarLogo(d.logo); }
   // Si cargó los números, el objetivo queda listo: apenas suba data ve la proyección.
   if (d.seguidores && d.meta) {
     state.goal = Object.assign({}, state.goal, {

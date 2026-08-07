@@ -63,6 +63,10 @@ export default async (req) => {
       // que al re-deployar una versión nueva el dashboard siga siendo el tuyo.
       setup: body.setup && typeof body.setup === "object" ? body.setup : (prev.setup || null),
       goal: body.goal && typeof body.goal === "object" ? body.goal : (prev.goal || {}),
+      // Objetivos por cuenta (marca × red) y la marca con su logo: viajan con la
+      // data para que un re-deploy o entrar desde otra máquina no los pierda.
+      goals: body.goals && typeof body.goals === "object" ? body.goals : (prev.goals || {}),
+      brand: body.brand && typeof body.brand === "object" ? body.brand : (prev.brand || null),
       // Insights ya generados con la IA: se guardan para no volver a pagarlos.
       // Se fusionan con los que ya había, nunca se reemplazan de golpe.
       insights: body.insights && typeof body.insights === "object"

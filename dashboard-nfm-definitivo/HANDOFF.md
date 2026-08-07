@@ -29,10 +29,29 @@ Es la fusión de los dos dashboards que existían por separado:
 | **Control de gasto de IA** | Contador de insights y preguntas de chat con costo estimado, en ⚙ Configuración. |
 | **Insights que no se vuelven a pagar** | El análisis con Claude vivía sólo en memoria: recargabas y había que volver a generarlo. Ahora se guarda en el navegador y en la nube, con la fecha en que se hizo y un botón para rehacerlo. La clave lleva una huella de la data (cuántas piezas y hasta qué fecha llegan), así que se vuelve a pedir solo cuando subís algo nuevo — que es cuando el análisis viejo dejaría de valer. |
 | **Stories · lo que abrió conversación** | En stories las views dicen poco: van a gente que ya te sigue. Se agregó un ranking propio por **respuestas (DMs)**, **visitas al perfil** y **toques al sticker**, con la eficiencia de cada story (una respuesta cada cuántas vistas). Va antes del ranking por views. |
+| **Objetivos multi-cuenta** | Un objetivo por **marca × red**, no uno solo para todo: los seguidores de Instagram de Nico y los suscriptores de YouTube del Instituto son metas distintas y se calculan con contenido distinto. El selector lista las cuentas con data (más "Todas las marcas" por red), cada objetivo se guarda con su clave y viaja a la nube, y los textos cambian a *suscriptores* cuando la red es YouTube. El objetivo único de la versión anterior se migra solo. |
 | **Objetivos · tres escenarios** | Proyectar con tus 10 mejores asume que todo lo que publiques te va a salir como lo mejor que hiciste: es el techo, no el pronóstico. Ahora se elige entre **optimista** (top 1-10), **realista** (puestos 11-20) y **pesimista** (21-30), y los tres se ven juntos para tener el rango de una. |
 | **Escala de performance que escala** | La tira del embudo dibujaba una barra por pieza con ancho mínimo: con 381 piezas pedía 1.900px y se desbordaba de la tarjeta. Ahora agrupa arriba de 120 barras, y usa escala logarítmica cuando el mejor saca más de 50× al peor (si no, queda una raya plana que no dice nada). |
 | **Tendencias y Estudio visual, recuperados** | Las dos vistas estaban escritas y funcionando pero habían quedado sin entrada en el menú ni caso en el router. Vuelven a estar. |
 | **`netlify/functions/` (bien escrito)** | La carpeta se llamaba `netlify/fuctions` mientras el `netlify.toml` apuntaba a `netlify/functions`: **ninguna función se estaba deployando**. Corregido. |
+
+### El logo que se borraba
+
+Se subía el logo desde ⚙ Configuración, se recargaba y no estaba. Eran dos cosas
+sumadas, las dos arregladas:
+
+- El modal guardaba el **archivo crudo** en base64 (hasta 600KB de imagen → ~800KB
+  de texto), mientras el asistente de setup sí lo redimensionaba. Ahora los dos
+  usan `leerLogo()`: 512px y comprimido, decenas de KB.
+- El logo vivía **dentro del estado grande**, que lleva todas tus piezas y puede
+  llegar a los megas. Cuando el navegador decía "no entra más", se perdía el
+  guardado entero — incluido el logo recién subido, y en silencio. Ahora el logo
+  va en **su propia clave** (`nfm_brand_logo`), se guarda aunque la data no entre,
+  y además viaja a la nube. `saveState()` dejó de fallar en silencio: si no hay
+  espacio, reintenta soltando lo reconstruible (análisis guardados, scrapes de
+  competidores) y lo dice.
+
+*Verificado llenando `localStorage` con 4,6 MB de relleno: el logo y la data sobreviven.*
 
 ### Correcciones de legibilidad (tema oscuro)
 
