@@ -227,6 +227,24 @@ footer b{color:var(--panel-ink)}
   </table></div>
   <p class="hint">Fuente: tracker CRM del lanzamiento 30/06. Las 9 reservas quedan fuera del modelo: son señas, no ventas.</p>
 
+
+  <h3>De qué está hecho ese ticket promedio</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Producto</th><th class="n">Precio</th><th class="n">% de los cierres</th><th class="n">% de la facturación</th></tr></thead>
+    <tbody>
+      <tr class="acc"><td><b>Platinum</b></td><td class="n">$3.000</td><td class="n">21%</td><td class="n"><b>50%</b></td></tr>
+      <tr><td>Gold 6 meses</td><td class="n">$1.500</td><td class="n">39%</td><td class="n">45%</td></tr>
+      <tr><td>Comunidad Anual</td><td class="n">$199</td><td class="n">32%</td><td class="n">5%</td></tr>
+      <tr><td>Comunidad Mensual</td><td class="n">$29</td><td class="n">7%</td><td class="n">0,2%</td></tr>
+    </tbody>
+  </table></div>
+  <div class="clave"><div class="mono">Ojo con el promedio</div>
+    <p>Los $1.265 no son el precio de nada: son el promedio de una mezcla muy despareja.
+    <b>4 de cada 10 cierres son Comunidad</b> y aportan el <b>5% de la facturación</b>.
+    Eso es lo que arrastra el promedio desde los $1.500 y $3.000 reales hasta $1.265.</p>
+    <p>Por eso el reparto de producto no es un detalle contable: es la segunda palanca más grande
+    del modelo, y está en la sección 06.</p></div>
+
   <h3>Las tres cifras que hacen toda la ingeniería inversa</h3>
   <div class="stats">
     <div class="stat"><div class="mono">Cash por cierre</div><div class="v acc">$905</div><div class="s">$22.624 cobrados / 25 cierres</div></div>
@@ -419,11 +437,12 @@ footer b{color:var(--panel-ink)}
     <tbody>
       <tr class="acc"><td><b>Asistente → Agenda: 7,97% a 15,6%</b></td><td class="n"><b>$17.146</b></td><td class="n"><b>−$16.415</b></td><td>Es la tasa que el mismo equipo tuvo el 13/6. Setting sobre los asistentes, no sobre la lista fría.</td></tr>
       <tr><td>Asistente → Agenda: 7,97% a 12%</td><td class="n">$22.290</td><td class="n">−$11.271</td><td>Versión conservadora de lo mismo.</td></tr>
-      <tr><td>Ticket cobrado: $905 a $1.150</td><td class="n">$26.411</td><td class="n">−$7.150</td><td>Mix hacia Platinum. Un Platinum vale 15 Comunidades Anuales.</td></tr>
+      <tr class="acc"><td><b>Comunidad: 39% a 20% de los cierres</b></td><td class="n"><b>$26.296</b></td><td class="n"><b>−$7.265</b></td><td>Sostener arriba las llamadas que califican. El ticket sube a $1.615 y hacen falta 130 cierres en vez de 166.</td></tr>
+      <tr><td>Comunidad: 39% a 30% de los cierres</td><td class="n">$29.619</td><td class="n">−$3.942</td><td>Versión conservadora de lo mismo. Ticket $1.433, 146 cierres.</td></tr>
       <tr><td>Grupo → Clase: 20,8% a 25%</td><td class="n">$27.896</td><td class="n">−$5.665</td><td>Recordatorios, contenido previo, y avisar el día de la clase.</td></tr>
       <tr><td>Cierre sobre asistida: 32,1% a 38%</td><td class="n">$28.306</td><td class="n">−$5.255</td><td>Entrenamiento de closers sobre las llamadas de ticket alto.</td></tr>
       <tr><td>Asistencia a la llamada: 70,9% a 82%</td><td class="n">$29.022</td><td class="n">−$4.539</td><td>Confirmación por WhatsApp y llamada una hora antes.</td></tr>
-      <tr><td>Ticket cobrado: $905 a $1.000</td><td class="n">$30.372</td><td class="n">−$3.188</td><td>Mejor anticipo en el plan de pago, sin tocar el precio.</td></tr>
+      <tr><td>Anticipo de los planes en cuotas: 48% a 60%</td><td class="n">$30.372</td><td class="n">−$3.188</td><td>Sube el cash del mes sin tocar el precio ni el mix.</td></tr>
       <tr><td>Registro → Grupo: 86,6% a 93%</td><td class="n">$31.251</td><td class="n">−$2.310</td><td>Ya está muy alto. Queda poco para exprimir.</td></tr>
       <tr><td>CPL sube de $0,66 a $0,80</td><td class="n">$40.679</td><td class="n">+$7.119</td><td>El riesgo, no la palanca. Pasa solo por escalar volumen.</td></tr>
     </tbody>
@@ -443,33 +462,35 @@ footer b{color:var(--panel-ink)}
   todas por debajo de lo que el equipo ya demostró que puede hacer.</p>
 
   <div class="stats">
+    <div class="stat"><div class="mono">Comunidad</div><div class="v">20%</div><div class="s">de los cierres · hoy 39%</div></div>
     <div class="stat"><div class="mono">Asistente → Agenda</div><div class="v">12%</div><div class="s">hoy 7,97% · el 13/6 fue 15,6%</div></div>
     <div class="stat"><div class="mono">Asistencia a la llamada</div><div class="v">82%</div><div class="s">hoy 70,9%</div></div>
-    <div class="stat"><div class="mono">Cash por cierre</div><div class="v">$1.000</div><div class="s">hoy $905</div></div>
     <div class="stat"><div class="mono">Todo lo demás</div><div class="v">igual</div><div class="s">CPL, clase, grupo, cierre</div></div>
   </div>
 
   <div class="tw" style="margin-top:26px"><table>
     <thead><tr><th>Resultado</th><th class="n">Escenario base</th><th class="n">Escenario recomendado</th></tr></thead>
     <tbody>
-      <tr class="acc"><td><b>Pauta mensual</b></td><td class="n">$33.561</td><td class="n"><b>$17.444</b></td></tr>
-      <tr><td>Pauta por día</td><td class="n">$1.199</td><td class="n">$623</td></tr>
-      <tr><td>Registros por webinar</td><td class="n">12.712</td><td class="n">6.608</td></tr>
-      <tr><td>Asistentes a la clase por webinar</td><td class="n">2.288</td><td class="n">1.189</td></tr>
-      <tr><td>Agendas por webinar</td><td class="n">182</td><td class="n">143</td></tr>
-      <tr><td>Llamadas asistidas por webinar</td><td class="n">129</td><td class="n">117</td></tr>
-      <tr><td>Cierres por webinar</td><td class="n">41</td><td class="n">38</td></tr>
-      <tr><td>Con 6 closers y 5 días de llamadas</td><td class="n">4,3 reales / 6,1 horarios</td><td class="n">3,9 reales / 4,8 horarios</td></tr>
-      <tr class="tot"><td>ROAS sobre cash</td><td class="n">4,5x</td><td class="n">8,6x</td></tr>
+      <tr class="acc"><td><b>Pauta mensual</b></td><td class="n">$33.561</td><td class="n"><b>$15.103</b></td></tr>
+      <tr><td>Pauta por día</td><td class="n">$1.199</td><td class="n">$539</td></tr>
+      <tr><td>Cash por cierre</td><td class="n">$905</td><td class="n">$1.155</td></tr>
+      <tr><td>Cierres por mes</td><td class="n">166</td><td class="n">130</td></tr>
+      <tr><td>Registros por webinar</td><td class="n">12.712</td><td class="n">5.721</td></tr>
+      <tr><td>Asistentes a la clase por webinar</td><td class="n">2.288</td><td class="n">1.029</td></tr>
+      <tr><td>Agendas por webinar</td><td class="n">182</td><td class="n">124</td></tr>
+      <tr><td>Llamadas asistidas por webinar</td><td class="n">129</td><td class="n">101</td></tr>
+      <tr><td>Closers necesarios</td><td class="n">8</td><td class="n">6</td></tr>
+      <tr><td>Carga por closer y día</td><td class="n">3,2 llamadas / 4,6 horarios</td><td class="n">3,4 llamadas / 4,1 horarios</td></tr>
+      <tr class="tot"><td>ROAS sobre cash</td><td class="n">4,5x</td><td class="n">9,9x</td></tr>
     </tbody>
   </table></div>
 
   <div class="clave"><div class="mono">Lo que hay que leer dos veces</div>
-    <p>El escenario recomendado hace <b>$150.000</b> con <b>$17.444</b> de pauta. El escenario base necesita
-    <b>$22.374</b> para hacer $100.000.</p>
-    <p>Es decir: arreglando setting y confirmación de citas, <b>los $150.000 salen más baratos que los $100.000
-    de hoy</b>, y los 6 closers actuales quedan en 3,9 llamadas reales por día. Recién ahí conviene sumar
-    pauta, porque cada dólar extra rinde el doble.</p></div>
+    <p>El escenario recomendado hace <b>$150.000</b> con <b>$15.103</b> de pauta. El escenario base necesita
+    <b>$22.374</b> para hacer apenas $100.000.</p>
+    <p>Es decir: arreglando setting, confirmación de citas y reparto de producto, <b>los $150.000 salen más
+    baratos que los $100.000 de hoy</b>, se hacen con <b>los 6 closers actuales</b> y cada uno queda
+    en 3,4 llamadas por día. Recién ahí conviene sumar pauta, porque cada dólar extra rinde el doble.</p></div>
 </div></section>
 
 <!-- RIESGOS -->
@@ -504,6 +525,7 @@ footer b{color:var(--panel-ink)}
     <button class="pbtn" data-p="hoy">Hoy × 4</button>
     <button class="pbtn" data-p="p100">$100K</button>
     <button class="pbtn on" data-p="p150">$150K</button>
+    <button class="pbtn" data-p="mix">$150K con mix objetivo</button>
     <button class="pbtn" data-p="opt">$150K optimizado</button>
     <button class="pbtn" data-p="cancel">$150K con 50% de cancelación</button>
   </div>
@@ -585,7 +607,8 @@ var P={
   hoy:{c_meta:90500,c_web:4,c_cash:905,c_cpl:0.66,c_grupo:86.6,c_clase:20.78,c_ag:7.97,c_nos:29.09,c_cie:32.05,c_cl:6,c_dads:7,c_dcall:5,c_obj:5},
   p100:{c_meta:100000,c_web:4,c_cash:905,c_cpl:0.66,c_grupo:86.6,c_clase:20.78,c_ag:7.97,c_nos:29.09,c_cie:32.05,c_cl:6,c_dads:7,c_dcall:5,c_obj:5},
   p150:{c_meta:150000,c_web:4,c_cash:905,c_cpl:0.66,c_grupo:86.6,c_clase:20.78,c_ag:7.97,c_nos:29.09,c_cie:32.05,c_cl:6,c_dads:7,c_dcall:5,c_obj:5},
-  opt:{c_meta:150000,c_web:4,c_cash:1000,c_cpl:0.66,c_grupo:86.6,c_clase:20.78,c_ag:12,c_nos:18,c_cie:32.05,c_cl:6,c_dads:7,c_dcall:5,c_obj:5},
+  mix:{c_meta:150000,c_web:4,c_cash:1155,c_cpl:0.66,c_grupo:86.6,c_clase:20.78,c_ag:7.97,c_nos:29.09,c_cie:32.05,c_cl:6,c_dads:7,c_dcall:5,c_obj:5},
+  opt:{c_meta:150000,c_web:4,c_cash:1155,c_cpl:0.66,c_grupo:86.6,c_clase:20.78,c_ag:12,c_nos:18,c_cie:32.05,c_cl:6,c_dads:7,c_dcall:5,c_obj:5},
   cancel:{c_meta:150000,c_web:4,c_cash:905,c_cpl:0.66,c_grupo:86.6,c_clase:20.78,c_ag:7.97,c_nos:50,c_cie:32.05,c_cl:6,c_dads:7,c_dcall:5,c_obj:5}
 };
 var COBRANZA=0.7155;

@@ -36,7 +36,6 @@ body{margin:0;background:var(--ground);color:var(--ink);
 .wrap{max-width:980px;margin:0 auto;padding:0 28px}
 .mono{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.22em;font-size:10.5px;font-weight:500}
 p{text-wrap:pretty}
-.n{font-variant-numeric:tabular-nums}
 
 .hero{background:var(--panel);color:var(--panel-ink);padding:64px 0 52px}
 .hero .mono{color:var(--accent);margin-bottom:20px}
@@ -54,23 +53,21 @@ p{text-wrap:pretty}
 .hstat .v.acc{color:var(--accent)}
 .hstat .s{font-size:12px;color:var(--panel-muted);margin-top:5px}
 
-section{padding:58px 0;border-bottom:1px solid var(--rule);scroll-margin-top:20px}
+section{padding:56px 0;border-bottom:1px solid var(--rule)}
 section:last-of-type{border-bottom:0}
 .shead{display:flex;gap:18px;align-items:baseline;margin-bottom:10px}
 .snum{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.2em;padding-top:6px}
 h2{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(22px,3.2vw,31px);
   letter-spacing:-.02em;margin:0;line-height:1.15;text-wrap:balance}
-.dek{font-size:15.5px;color:var(--muted);max-width:68ch;margin:0 0 32px}
-h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;margin:38px 0 14px;letter-spacing:-.01em}
+.dek{font-size:15.5px;color:var(--muted);max-width:68ch;margin:0 0 30px}
+h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;margin:36px 0 14px;letter-spacing:-.01em}
 
-/* EL DIA */
-.dia{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);
-  border:1px solid var(--rule);margin:0 0 1px}
-.dcell{background:var(--ground);padding:34px 26px;text-align:left}
+.dia{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.dcell{background:var(--ground);padding:32px 26px}
 .dcell:last-child{background:var(--accent);color:var(--accent-ink)}
 .dcell .mono{color:var(--muted);margin-bottom:14px}
 .dcell:last-child .mono{color:var(--accent-ink);opacity:.85}
-.dcell .v{font-family:'Montserrat',sans-serif;font-weight:900;font-size:76px;line-height:.9;letter-spacing:-.04em}
+.dcell .v{font-family:'Montserrat',sans-serif;font-weight:900;font-size:72px;line-height:.9;letter-spacing:-.04em}
 .dcell .s{font-size:13.5px;color:var(--muted);margin-top:12px}
 .dcell:last-child .s{color:var(--accent-ink);opacity:.9}
 
@@ -101,6 +98,7 @@ tbody tr:nth-child(even){background:var(--zebra)}
 td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 tr.acc td{background:var(--accent-wash)}
 tr.acc td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
+tr.dim td{color:var(--muted)}
 .hint{font-size:12.5px;color:var(--muted);margin:10px 0 0}
 
 ul.k{list-style:none;padding:0;margin:0}
@@ -113,190 +111,194 @@ footer b{color:var(--panel-ink)}
 @media (max-width:720px){
   .dia{grid-template-columns:1fr}
   .dcell{padding:26px 22px}
-  .dcell .v{font-size:58px}
+  .dcell .v{font-size:56px}
 }
 </style>
 
 <div class="hero"><div class="wrap">
   <div class="mono">Instituto de Productividad · Equipo comercial</div>
   <div class="heroline"></div>
-  <h1>Un objetivo,<br>ocho closers,<br><em>$150.000</em> por mes</h1>
-  <p>Esto es lo que tiene que pasar todos los días para que el negocio cobre $150.000 en el mes,
-  y lo que gana cada uno cuando pasa.</p>
+  <h1>Tu objetivo no<br>es cerrar.<br>Es <em>cobrar</em>.</h1>
+  <p>El número que se mide es la plata que entra a la cuenta, no la cantidad de contratos firmados.
+  Esto es cuánto tiene que traer cada uno, con qué ritmo diario, y cuánto se gana con eso.</p>
   <div class="hstats">
-    <div class="hstat"><div class="mono">Cash del mes</div><div class="v acc">$150.000</div><div class="s">de ventas nuevas</div></div>
-    <div class="hstat"><div class="mono">Cierres</div><div class="v n">166</div><div class="s">41 por webinar</div></div>
-    <div class="hstat"><div class="mono">Agendas</div><div class="v n">729</div><div class="s">91 para cada closer</div></div>
-    <div class="hstat"><div class="mono">Closers</div><div class="v n">8</div><div class="s">21 cierres cada uno</div></div>
-    <div class="hstat"><div class="mono">Webinars</div><div class="v n">4</div><div class="s">uno por semana</div></div>
+    <div class="hstat"><div class="mono">Objetivo del negocio</div><div class="v acc">$150.000</div><div class="s">de cash por mes</div></div>
+    <div class="hstat"><div class="mono">Tu objetivo</div><div class="v acc">$25.000</div><div class="s">de cash por mes</div></div>
+    <div class="hstat"><div class="mono">Por día de llamadas</div><div class="v">$1.250</div><div class="s">20 días en el mes</div></div>
+    <div class="hstat"><div class="mono">Closers</div><div class="v">6</div><div class="s">uno por cada $25.000</div></div>
+    <div class="hstat"><div class="mono">Tu comisión</div><div class="v">$3.809</div><div class="s">por mes, en régimen</div></div>
   </div>
 </div></div>
 
-<!-- EL DIA -->
-<section id="dia"><div class="wrap">
-  <div class="shead"><span class="snum">01</span><h2>Tu día, en tres números</h2></div>
-  <p class="dek">No hay que acordarse de la planilla entera. Con estos tres alcanza: si los tres se cumplen
-  todos los días, el mes cierra solo.</p>
+<!-- 01 -->
+<section><div class="wrap">
+  <div class="shead"><span class="snum">01</span><h2>Por qué el objetivo es cash y no cierres</h2></div>
+  <p class="dek">Porque un cierre no dice nada por sí solo. Depende de qué vendiste y de cuánto pagaron.</p>
+
+  <div class="clave dark"><div class="mono">El problema de contar cierres</div>
+    <p>El mes pasado, <b>4 de cada 10 cierres fueron Comunidad</b> ($199 al año o $29 al mes)
+    y entre todos aportaron el <b>5% de la facturación</b>.</p>
+    <p>Un closer podía cerrar 20 llamadas y traer casi nada. Otro cerraba 8 y traía el triple.
+    <b>Los dos figuraban con "cierres".</b> Por eso ahora se mide la plata.</p></div>
+
+  <div class="stats">
+    <div class="stat"><div class="mono">Platinum</div><div class="v">$3.000</div><div class="s">21% de los cierres · 50% de la facturación</div></div>
+    <div class="stat"><div class="mono">Gold 6 meses</div><div class="v">$1.500</div><div class="s">39% de los cierres · 45% de la facturación</div></div>
+    <div class="stat"><div class="mono">Comunidad Anual</div><div class="v">$199</div><div class="s">32% de los cierres · 5% de la facturación</div></div>
+    <div class="stat"><div class="mono">Comunidad Mensual</div><div class="v">$29</div><div class="s">7% de los cierres · 0,2% de la facturación</div></div>
+  </div>
+  <p class="hint">Reparto real de los cierres del lanzamiento del 30/06.</p>
+</div></section>
+
+<!-- 02 -->
+<section><div class="wrap">
+  <div class="shead"><span class="snum">02</span><h2>Qué son $25.000, según lo que vendas</h2></div>
+  <p class="dek">El mismo objetivo, contado en ventas. Mirá la última columna antes de ofrecer Comunidad
+  para salvar una llamada.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Si vendieras solo esto</th><th class="n">Precio</th><th class="n">Ventas para tu objetivo</th><th class="n">Tu comisión por venta</th></tr></thead>
+    <tbody>
+      <tr class="acc"><td><b>Platinum</b></td><td class="n">$3.000</td><td class="n"><b>9</b></td><td class="n"><b>$360</b></td></tr>
+      <tr><td>Gold 6 meses</td><td class="n">$1.500</td><td class="n">17</td><td class="n">$180</td></tr>
+      <tr class="dim"><td>Comunidad Anual</td><td class="n">$199</td><td class="n">126</td><td class="n">$24</td></tr>
+      <tr class="dim"><td>Comunidad Mensual</td><td class="n">$29</td><td class="n">862</td><td class="n">$3,50</td></tr>
+    </tbody>
+  </table></div>
+  <p class="hint">Comisión mostrada al 12%, es decir cobrando en full. Ventas calculadas sobre pago completo.</p>
+
+  <div class="clave"><div class="mono">La cuenta que hay que tener en la cabeza</div>
+    <p><b>Un Platinum paga lo mismo que 15 Comunidades Anuales.</b> Y sale de una sola llamada,
+    no de quince.</p>
+    <p>En la vida real nadie vende un solo producto. Con el reparto que tenemos hoy,
+    los $25.000 son <b>28 cierres</b>. Con el reparto al que vamos, son <b>22</b>.
+    Es el mismo objetivo con seis llamadas cerradas menos.</p></div>
+</div></section>
+
+<!-- 03 -->
+<section><div class="wrap">
+  <div class="shead"><span class="snum">03</span><h2>Tu día, en tres números</h2></div>
+  <p class="dek">Con el reparto de producto al que vamos y 6 closers, el día se ve así.
+  Si los tres números se cumplen, el mes cierra solo.</p>
 
   <div class="dia">
     <div class="dcell"><div class="mono">Horarios que abrís</div><div class="v">5</div>
-      <div class="s">Es lo que hay que tener disponible en el calendario, porque 3 de cada 10 no aparecen.</div></div>
+      <div class="s">Hay que tenerlos disponibles: 3 de cada 10 agendas no aparecen.</div></div>
     <div class="dcell"><div class="mono">Llamadas que pasan</div><div class="v">3</div>
       <div class="s">Conversaciones reales, con oferta puesta sobre la mesa.</div></div>
     <div class="dcell"><div class="mono">Cierre</div><div class="v">1</div>
-      <div class="s">Uno por día. Cerrás 1 de cada 3 llamadas que se sientan.</div></div>
+      <div class="s">Uno por día, y que valga. Cerrás 1 de cada 3 que se sientan.</div></div>
   </div>
 
-  <div class="clave"><div class="mono">El mismo número, en otras escalas</div>
-    <p><b>Por semana de llamadas:</b> 23 horarios, 16 llamadas, 5 cierres, $4.525 de cash entrado.<br>
-    <b>Por mes:</b> 91 horarios, 65 llamadas, 21 cierres, $19.000 de cash.<br>
-    <b>Todo el equipo por mes:</b> 729 horarios, 517 llamadas, 166 cierres, $150.000.</p></div>
+  <div class="clave"><div class="mono">El mismo día, en otras escalas</div>
+    <p><b>Por semana de llamadas:</b> 24 horarios, 17 llamadas, 5 cierres, <b>$6.250 de cash</b>.<br>
+    <b>Por mes:</b> 95 horarios, 68 llamadas, 22 cierres, <b>$25.000 de cash</b>.<br>
+    <b>Todo el equipo por mes:</b> 571 horarios, 405 llamadas, 130 cierres, <b>$150.000</b>.</p></div>
 
-  <p class="hint">Los días de llamadas son 5 por ciclo, 20 en el mes. El resto del tiempo el equipo de ads
-  y setting está llenando la clase siguiente.</p>
+  <div class="clave dark"><div class="mono">Lo que pasa si el reparto de producto no mejora</div>
+    <p>Con el reparto de hoy, los mismos $150.000 necesitan <b>166 cierres en vez de 130</b>.
+    Para 6 closers eso son <b>6,1 horarios y 4,3 llamadas por día</b> en vez de 5 y 3.</p>
+    <p>Vender arriba no es solo para la empresa: <b>es lo que te descomprime la agenda</b>.</p></div>
 </div></section>
 
-<!-- EL EQUIPO -->
-<section id="equipo"><div class="wrap">
-  <div class="shead"><span class="snum">02</span><h2>Por qué somos ocho</h2></div>
-  <p class="dek">La cuenta no es cuántos cierres entran, es cuántas llamadas puede tomar bien una persona.
-  Con menos gente el objetivo igual sale, pero cada uno queda con la agenda apretada y la calidad de la llamada se cae.</p>
-
-  <div class="tw"><table>
-    <thead><tr><th>Closers</th><th class="n">Horarios/día</th><th class="n">Llamadas/día</th><th class="n">Cierres/mes</th><th class="n">Comisión en régimen</th></tr></thead>
-    <tbody>
-      <tr><td>6</td><td class="n">6,1</td><td class="n">4,3</td><td class="n">28</td><td class="n">$3.809</td></tr>
-      <tr><td>7</td><td class="n">5,2</td><td class="n">3,7</td><td class="n">24</td><td class="n">$3.265</td></tr>
-      <tr class="acc"><td><b>8</b></td><td class="n"><b>4,6</b></td><td class="n"><b>3,2</b></td><td class="n"><b>21</b></td><td class="n"><b>$2.857</b></td></tr>
-      <tr><td>9</td><td class="n">4,1</td><td class="n">2,9</td><td class="n">18</td><td class="n">$2.539</td></tr>
-    </tbody>
-  </table></div>
-
-  <div class="clave"><div class="mono">El intercambio, dicho de frente</div>
-    <p>Con 6 closers cada uno gana casi <b>$1.000 más por mes</b>, pero sostiene <b>6 horarios diarios</b>
-    en vez de 5 y toma 4,3 llamadas en vez de 3,2. Es la diferencia entre llegar preparado a cada llamada
-    y entrar en piloto automático.</p>
-    <p>Ocho es el punto donde el objetivo se cumple <b>sin que nadie tenga que hacer llamadas de más</b>.
-    Y es el número que deja lugar para sumar gente sin bajarle las llamadas a nadie.</p></div>
-</div></section>
-
-<!-- COMO SE PAGA -->
-<section id="comision"><div class="wrap">
-  <div class="shead"><span class="snum">03</span><h2>Cómo se paga</h2></div>
+<!-- 04 -->
+<section><div class="wrap">
+  <div class="shead"><span class="snum">04</span><h2>Cómo se paga</h2></div>
   <p class="dek">La comisión se calcula sobre <b>plata que entró</b>, no sobre contratos firmados.
-  Un contrato de $10.000 que todavía no pagó nada no paga comisión: el día que entra la cuota, entra tu parte.</p>
+  Un contrato que todavía no pagó nada no paga comisión: el día que entra la cuota, entra tu parte.</p>
 
   <div class="stats">
     <div class="stat"><div class="mono">Venta en cuotas</div><div class="v">10%</div><div class="s">de cada pago, a medida que entra</div></div>
     <div class="stat"><div class="mono">Paid in full</div><div class="v acc">12%</div><div class="s">de todo, en el momento</div></div>
   </div>
 
-  <h3>La misma venta de $1.265, de las dos formas</h3>
+  <h3>Lo que te deja cada venta</h3>
   <div class="tw"><table>
-    <thead><tr><th>Forma de pago</th><th class="n">Entra ahora</th><th class="n">Comisión ahora</th><th class="n">Comisión después</th><th class="n">Total tuyo</th></tr></thead>
+    <thead><tr><th>Producto</th><th class="n">Precio</th><th class="n">En full · 12%</th><th class="n">En cuotas · 10%</th><th class="n">Diferencia</th></tr></thead>
     <tbody>
-      <tr><td>En cuotas</td><td class="n">$610</td><td class="n">$61</td><td class="n">$65</td><td class="n">$126</td></tr>
-      <tr class="acc"><td><b>Paid in full</b></td><td class="n"><b>$1.265</b></td><td class="n"><b>$152</b></td><td class="n">—</td><td class="n"><b>$152</b></td></tr>
+      <tr class="acc"><td><b>Platinum</b></td><td class="n">$3.000</td><td class="n"><b>$360</b></td><td class="n">$300</td><td class="n">$60</td></tr>
+      <tr><td>Gold 6 meses</td><td class="n">$1.500</td><td class="n">$180</td><td class="n">$150</td><td class="n">$30</td></tr>
+      <tr class="dim"><td>Comunidad Anual</td><td class="n">$199</td><td class="n">$24</td><td class="n">$20</td><td class="n">$4</td></tr>
+      <tr class="dim"><td>Comunidad Mensual</td><td class="n">$29</td><td class="n">$3,50</td><td class="n">$2,90</td><td class="n">$0,60</td></tr>
     </tbody>
   </table></div>
-  <p class="hint">Cerrar en full paga <b>$26 más por venta</b> y te lo paga todo el mismo mes en lugar de repartido en cuatro.</p>
+  <p class="hint">Cerrar en full no solo paga más: te lo paga <b>todo el mismo mes</b> en vez de repartido
+  a lo largo del plan. Las cuotas son el plan B, no el punto de partida.</p>
 </div></section>
 
-<!-- BOLA DE NIEVE -->
-<section id="bola"><div class="wrap">
-  <div class="shead"><span class="snum">04</span><h2>La bola de nieve</h2></div>
-  <p class="dek">Todo lo que se cierra en cuotas deja una cola de cobros que se sigue pagando los meses siguientes.
-  Por eso el primer mes de un closer nunca es lo que ese closer gana: es el piso.</p>
-
-  <div class="clave dark"><div class="mono">Lo que pasa mes a mes</div>
-    <p>Cada mes que hacés <b>21 cierres</b> cobrás tu comisión de ese mes <b>y dejás sembrados $756 más</b>
-    en cuotas que se van a cobrar después. Al cuarto mes estás cobrando lo tuyo de este mes más las colas
-    de los tres anteriores, todas juntas.</p>
-    <p>El trabajo es el mismo todos los meses. <b>Lo que sube es lo que cobrás.</b></p></div>
+<!-- 05 -->
+<section><div class="wrap">
+  <div class="shead"><span class="snum">05</span><h2>La bola de nieve</h2></div>
+  <p class="dek">Todo lo que se cierra en cuotas deja una cola de cobros que se sigue pagando los meses
+  siguientes. Por eso el primer mes de un closer nunca es lo que ese closer gana: es el piso.</p>
 
   <div class="tw"><table>
-    <thead><tr><th>Mes haciendo 21 cierres</th><th class="n">De las ventas del mes</th><th class="n">De las colas anteriores</th><th class="n">Lo que cobrás</th></tr></thead>
+    <thead><tr><th>Mes trayendo $25.000</th><th class="n">De las ventas del mes</th><th class="n">De las colas anteriores</th><th class="n">Lo que cobrás</th></tr></thead>
     <tbody>
-      <tr><td>Mes 1</td><td class="n">$2.139</td><td class="n">$0</td><td class="n">$2.139</td></tr>
-      <tr><td>Mes 2</td><td class="n">$2.139</td><td class="n">$189</td><td class="n">$2.328</td></tr>
-      <tr><td>Mes 3</td><td class="n">$2.139</td><td class="n">$378</td><td class="n">$2.517</td></tr>
-      <tr><td>Mes 4</td><td class="n">$2.139</td><td class="n">$567</td><td class="n">$2.706</td></tr>
-      <tr class="acc"><td><b>Mes 5 en adelante</b></td><td class="n">$2.139</td><td class="n">$756</td><td class="n"><b>$2.895</b></td></tr>
-    </tbody>
-  </table></div>
-  <p class="hint">Asume que las cuotas se cobran en 4 meses y que se cobran todas. Cada cuota que se cae
-  se descuenta de la cola, así que hacer seguimiento de la cobranza es plata directa.</p>
-</div></section>
-
-<!-- ESCENARIOS -->
-<section id="escenarios"><div class="wrap">
-  <div class="shead"><span class="snum">05</span><h2>Cuánto se gana según cómo te vaya</h2></div>
-  <p class="dek">Todas las filas asumen la misma forma de pago que tenemos hoy. Lo único que cambia
-  es cuántos cierres hace la persona en el mes.</p>
-
-  <div class="tw"><table>
-    <thead><tr><th>Cierres en el mes</th><th class="n">Por día</th><th class="n">Cash que entra</th><th class="n">Comisión mes 1</th><th class="n">Cola sembrada</th><th class="n">Con la bola andando</th><th class="n">Al año</th></tr></thead>
-    <tbody>
-      <tr><td>10</td><td class="n">0,5</td><td class="n">$9.050</td><td class="n">$1.019</td><td class="n">$360</td><td class="n">$1.379</td><td class="n">$16.545</td></tr>
-      <tr><td>15</td><td class="n">0,75</td><td class="n">$13.574</td><td class="n">$1.528</td><td class="n">$540</td><td class="n">$2.068</td><td class="n">$24.817</td></tr>
-      <tr class="acc"><td><b>21 · el objetivo</b></td><td class="n"><b>1</b></td><td class="n"><b>$19.004</b></td><td class="n"><b>$2.139</b></td><td class="n">$756</td><td class="n"><b>$2.895</b></td><td class="n"><b>$34.744</b></td></tr>
-      <tr><td>28</td><td class="n">1,4</td><td class="n">$25.339</td><td class="n">$2.853</td><td class="n">$1.008</td><td class="n">$3.860</td><td class="n">$46.325</td></tr>
-      <tr><td>35</td><td class="n">1,75</td><td class="n">$31.674</td><td class="n">$3.566</td><td class="n">$1.260</td><td class="n">$4.826</td><td class="n">$57.906</td></tr>
+      <tr><td>Mes 1</td><td class="n">$2.814</td><td class="n">$0</td><td class="n">$2.814</td></tr>
+      <tr><td>Mes 2</td><td class="n">$2.814</td><td class="n">$249</td><td class="n">$3.063</td></tr>
+      <tr><td>Mes 3</td><td class="n">$2.814</td><td class="n">$498</td><td class="n">$3.312</td></tr>
+      <tr><td>Mes 4</td><td class="n">$2.814</td><td class="n">$746</td><td class="n">$3.560</td></tr>
+      <tr class="acc"><td><b>Mes 5 en adelante</b></td><td class="n">$2.814</td><td class="n">$994</td><td class="n"><b>$3.809</b></td></tr>
     </tbody>
   </table></div>
 
-  <div class="clave"><div class="mono">Leído al derecho</div>
-    <p>Pasar de <b>15 a 21 cierres</b> son <b>6 cierres más en todo el mes</b>, uno cada tres días de llamadas,
-    y son <b>$9.900 más por año</b> una vez que la bola está andando.</p>
-    <p>Pasar de 21 a 28 son <b>otros 7 en el mes</b> y <b>$11.600 más por año</b>.
-    El salto no está en trabajar el doble: está en no dejar caer las llamadas que ya están agendadas.</p></div>
+  <div class="clave"><div class="mono">Lo que hay que ver acá</div>
+    <p>El trabajo es el mismo todos los meses. <b>Lo que sube es lo que cobrás</b>, porque se te van
+    apilando las cuotas de los meses anteriores.</p>
+    <p>Y al revés: <b>cada cuota que se cae, te la descontás vos</b>. Hacer seguimiento de la cobranza
+    de tus propias ventas es plata directa a tu bolsillo, no una tarea de administración.</p></div>
+  <p class="hint">Asume que las cuotas se cobran en 4 meses y que se cobran todas.</p>
 </div></section>
 
-<!-- PALANCA -->
-<section id="full"><div class="wrap">
-  <div class="shead"><span class="snum">06</span><h2>La palanca que mueve todo: paid in full</h2></div>
-  <p class="dek">Hoy un poco menos de la mitad de las ventas se pagan completas. Subir eso no requiere
-  vender más: requiere pedirlo mejor en la misma llamada.</p>
+<!-- 06 -->
+<section><div class="wrap">
+  <div class="shead"><span class="snum">06</span><h2>Cuánto se gana según cuánto traigas</h2></div>
+  <p class="dek">La única variable es el cash que entra por tus ventas. No importa si son 10 ventas
+  grandes o 40 chicas: la comisión sale de la plata.</p>
 
   <div class="tw"><table>
-    <thead><tr><th>Ventas pagadas en full</th><th class="n">Cash por cierre</th><th class="n">Tu comisión mes 1</th><th class="n">Cierres que necesita el negocio</th></tr></thead>
+    <thead><tr><th>Cash que traés al mes</th><th class="n">Comisión mes 1</th><th class="n">Cola sembrada</th><th class="n">Con la bola andando</th><th class="n">Al año</th></tr></thead>
     <tbody>
-      <tr class="acc"><td><b>45% · hoy</b></td><td class="n">$905</td><td class="n">$2.139</td><td class="n">166</td></tr>
-      <tr><td>55%</td><td class="n">$970</td><td class="n">$2.330</td><td class="n">155</td></tr>
-      <tr><td>65%</td><td class="n">$1.036</td><td class="n">$2.521</td><td class="n">145</td></tr>
-      <tr><td>75%</td><td class="n">$1.101</td><td class="n">$2.711</td><td class="n">136</td></tr>
+      <tr><td>$12.500</td><td class="n">$1.407</td><td class="n">$497</td><td class="n">$1.904</td><td class="n">$22.853</td></tr>
+      <tr><td>$18.750</td><td class="n">$2.111</td><td class="n">$746</td><td class="n">$2.857</td><td class="n">$34.279</td></tr>
+      <tr class="acc"><td><b>$25.000 · el objetivo</b></td><td class="n"><b>$2.814</b></td><td class="n">$994</td><td class="n"><b>$3.809</b></td><td class="n"><b>$45.706</b></td></tr>
+      <tr><td>$32.000</td><td class="n">$3.603</td><td class="n">$1.273</td><td class="n">$4.875</td><td class="n">$58.503</td></tr>
+      <tr><td>$40.000</td><td class="n">$4.503</td><td class="n">$1.591</td><td class="n">$6.094</td><td class="n">$73.129</td></tr>
     </tbody>
   </table></div>
-  <p class="hint">Comisión calculada sobre 21 cierres por mes en todos los casos.</p>
 
-  <div class="clave dark"><div class="mono">Por qué esto le conviene a todos</div>
-    <p>Si el equipo pasa de <b>45% a 65% de ventas en full</b>, sin hacer una sola venta más:
-    cada closer cobra <b>$382 más por mes</b> desde el mes uno, y el negocio llega a los $150.000
-    con <b>21 cierres menos</b> en todo el equipo.</p>
-    <p>Es la única palanca donde ganar más vos significa que la empresa gaste menos en pauta.
-    Todo lo demás es tironear del mismo lado.</p></div>
+  <div class="clave"><div class="mono">Traducido a ventas</div>
+    <p>La diferencia entre <b>$25.000 y $32.000</b> son <b>$12.800 más por año</b>.
+    En ventas eso es apenas <b>2 Platinum más en el mes</b>, o 5 Gold.</p>
+    <p>No es trabajar el doble. Es no bajar a Comunidad las dos o tres llamadas del mes
+    que se podían sostener arriba.</p></div>
 </div></section>
 
-<!-- CIERRE -->
-<section id="cierre"><div class="wrap">
+<!-- 07 -->
+<section><div class="wrap">
   <div class="shead"><span class="snum">07</span><h2>Lo que hay que sostener</h2></div>
   <ul class="k">
-    <li><b>5 horarios abiertos por día.</b> No es negociable: si el calendario está cerrado, la agenda se va a otro.</li>
+    <li><b>5 horarios abiertos por día.</b> Si el calendario está cerrado, la agenda se va a otro.</li>
     <li><b>Confirmar todas las citas.</b> Hoy 3 de cada 10 no aparecen. Cada una que se recupera es una llamada que ya está paga.</li>
-    <li><b>Pedir el pago completo primero, siempre.</b> Las cuotas son el plan B, no el default.</li>
-    <li><b>Seguir la cobranza de lo tuyo.</b> Cada cuota que se cae te la descontás vos, no solo la empresa.</li>
-    <li><b>1 cierre por día.</b> Si el día termina sin cierre, la pregunta no es cuántas llamadas hubo: es cuál de las tres se dejó ir.</li>
+    <li><b>Pedir el pago completo primero, siempre.</b> Las cuotas son el plan B.</li>
+    <li><b>Comunidad no es el paracaídas de una llamada floja.</b> Si el lead califica para Gold o Platinum, se sostiene ahí. Bajar el producto para no perder la venta te cuesta $336 de comisión cada vez.</li>
+    <li><b>Seguir la cobranza de lo tuyo.</b> Cada cuota que se cae sale de tu comisión, no solo de la caja.</li>
+    <li><b>1 cierre por día, y que valga.</b> Si el día termina sin cierre, la pregunta no es cuántas llamadas hubo: es cuál de las tres se dejó ir.</li>
   </ul>
 
-  <div class="clave" style="margin-top:30px"><div class="mono">El equipo completo, en régimen</div>
-    <p>Ocho closers en objetivo hacen entrar <b>$209.658 por mes</b> contando las ventas nuevas
-    más las colas de los meses anteriores, y el equipo se lleva <b>$22.853 de comisión</b> por ese mes.</p></div>
+  <div class="clave" style="margin-top:28px"><div class="mono">Adónde llega esto</div>
+    <p>Seis closers en objetivo hacen entrar <b>$209.000 por mes</b> contando ventas nuevas más
+    las colas de meses anteriores, y el equipo se lleva <b>$22.850 de comisión</b>.</p>
+    <p>Y si además de mejorar el reparto sostienen el ritmo de 6 horarios diarios que hoy hace falta
+    para los $150.000, los mismos seis traen <b>$191.000 de cash por mes</b> sin una llamada extra.</p></div>
 </div></section>
 
 <footer><div class="wrap">
   <b>Objetivos del equipo de closers · Instituto de Productividad</b><br>
-  Base de cálculo: lanzamiento del 30/06 (110 agendas, 78 asistidas, 25 cierres, ticket firmado $1.265,
-  $905 de cash por cierre). Esquema de comisión: 10% sobre cobros de planes en cuotas, 12% sobre paid in full.<br>
-  Supuesto a validar con la administración: 45% de las ventas se pagan en full y las que van en cuotas
-  dejan 48% de anticipo. Si el reparto real es otro, cambian las comisiones, no el objetivo. Importes en USD.
+  Base: lanzamiento del 30/06 (110 agendas, 78 asistidas, 25 cierres, $22.624 cobrados) y reparto de producto
+  del mismo lanzamiento. Comisión: 10% sobre cobros de planes en cuotas, 12% sobre paid in full.<br>
+  El objetivo de $25.000 asume 6 closers y un reparto de producto con Comunidad en 20% de los cierres,
+  contra el 39% actual. Supuesto a validar con administración: 45% de las ventas se pagan en full y las de
+  cuotas dejan 48% de anticipo. Importes en USD.
 </div></footer>
