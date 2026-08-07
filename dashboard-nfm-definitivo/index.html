@@ -135,7 +135,12 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 .insight-title em { font-style: normal; color: var(--nfm-naranja); font-weight: 800; }
 .insight-body { font-size: 13.5px; line-height: 1.75; opacity: 0.9; max-width: 780px; margin-bottom: 16px; }
 .insight-body p { margin-bottom: 8px; }
-.insight-body strong { color: var(--nfm-blanco); font-weight: 700; }
+/* La tarjeta .insight va invertida (fondo claro, texto oscuro), así que ahí
+   el <strong> se pinta con el color de superficie. Fuera de ella —cuando el
+   mismo .insight-body se usa dentro de una .data-card oscura— ese color lo
+   volvía invisible: hereda el del contenedor. */
+.insight-body strong { font-weight: 700; }
+.insight .insight-body strong { color: var(--nfm-blanco); }
 .recos-label { font-family: var(--font-display); font-size: 10px; font-weight: 800; letter-spacing: 2px; opacity: 0.6; margin-bottom: 10px; }
 .reco { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; line-height: 1.5; margin-bottom: 7px; }
 .reco-num { font-family: var(--font-display); font-weight: 800; font-size: 12px; background: var(--nfm-naranja); color: var(--nfm-blanco); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
@@ -733,6 +738,44 @@ html, body { background: linear-gradient(180deg, #08243c 0%, #06192b 46%, #04111
 /* Scrim de modales sobre navy + glass */
 .modal-overlay { background: rgba(4,17,29,0.74); backdrop-filter: blur(5px); }
 
+/* ─────── COLORES QUE HABÍAN QUEDADO DEL TEMA CLARO ───────
+   Verdes, rojos, azules y violetas oscuros que sobre el fondo navy quedaban
+   casi invisibles. Se suben a la versión clara de cada uno, manteniendo el
+   mismo significado (verde = bien, rojo = problema, y el color de cada fase
+   del embudo). Los tints de fondo no cambian. */
+.cmp-d.up { color: var(--nfm-verde); }
+.cmp-d.down { color: var(--nfm-rojo); }
+.ad-alert { color: #ff9a92; border-color: rgba(255,97,87,0.55); background: rgba(255,97,87,0.10); }
+.cal-pieza.fmt-reel .cal-fmt { color: #b39bff; }
+.cal-pieza.fmt-carrusel .cal-fmt { color: #7fb0ff; }
+.cal-pieza.fmt-story .cal-fmt { color: #ffb057; }
+.cal-day-empty { opacity: 0.85; }
+.est-canvas-empty .ic { opacity: 0.75; }
+
+/* El tooltip del gráfico de crecimiento tenía `background: var(--nfm-azul)`
+   con texto blanco duro. Cuando el tema se invirtió, --nfm-azul pasó de ser
+   el navy a ser el color de TEXTO claro: quedaba blanco sobre casi blanco.
+   Va con superficie oscura explícita, como el resto de los flotantes. */
+.fg-tip { background: #0a2438; color: #eef4f9; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 10px 28px rgba(0,0,0,0.55); }
+.fg-tip b { color: var(--nfm-naranja); }
+.fg-tip span { color: var(--nfm-gris-text); }
+
+/* Chapita T1/T2: naranja sobre tinte naranja sobre sidebar oscuro. */
+.tier-badge { background: rgba(255,102,2,0.26); color: #ffc09a; }
+
+/* Pie del sidebar: al 40% era ilegible. */
+.sidebar-foot { color: rgba(255,255,255,0.72); }
+
+/* Los "→ ACCIONABLES" y el resto del bloque de recos viven adentro de la
+   tarjeta .insight, que va INVERTIDA (fondo claro). Ahí el naranja de marca
+   no contrasta: necesita su versión oscura. */
+.insight .recos-label { color: #8a3600; }
+
+/* La chapita de fase va con el color de la fase de fondo. Ahora que esos
+   colores son claros (para que se lean sobre el navy), el texto blanco encima
+   dejó de contrastar: va oscuro. */
+.fn-badge { color: #08243c; }
+
 /* ─────── Impresión / PDF para el cliente ─────── */
 @media print {
   :root { --nfm-azul:#0c3452; --nfm-azul-deep:#061f33; --nfm-azul-soft:#1a4a6e; --nfm-blanco:#ffffff; --nfm-crema:#ffffff; --nfm-gris-bg:#f5f7f9; --nfm-gris-line:#e3e8ec; --nfm-gris-text:#3a4a57; --nfm-gris-mute:#6b7a86; --nfm-naranja-tint:#fff1e6; }
@@ -945,8 +988,8 @@ html, body { background: linear-gradient(180deg, #08243c 0%, #06192b 46%, #04111
         <div class="nav-item sub" data-view="net-nico-ig"><span style="color:#e1306c">●</span> Instagram <span class="dot-empty"></span></div>
         <div class="nav-item sub" data-view="net-nico-stories"><span style="color:#f77737">●</span> Stories IG <span class="dot-empty"></span></div>
         <div class="nav-item sub" data-view="net-nico-yt"><span style="color:#ff0000">●</span> YouTube <span class="dot-empty"></span></div>
-        <div class="nav-item sub" data-view="net-nico-fb"><span style="color:#1877f2">●</span> Facebook <span class="dot-empty"></span></div>
-        <div class="nav-item sub" data-view="net-nico-li"><span style="color:#0a66c2">●</span> LinkedIn <span class="dot-empty"></span></div>
+        <div class="nav-item sub" data-view="net-nico-fb"><span style="color:#5b9dff">●</span> Facebook <span class="dot-empty"></span></div>
+        <div class="nav-item sub" data-view="net-nico-li"><span style="color:#5fa4e8">●</span> LinkedIn <span class="dot-empty"></span></div>
         <div class="nav-item sub" data-view="net-nico-tt"><span style="color:#fff">●</span> TikTok <span class="dot-empty"></span></div>
       </nav>
     </div>
@@ -958,8 +1001,8 @@ html, body { background: linear-gradient(180deg, #08243c 0%, #06192b 46%, #04111
         <div class="nav-item sub" data-view="net-inst-ig"><span style="color:#e1306c">●</span> Instagram <span class="dot-empty"></span></div>
         <div class="nav-item sub" data-view="net-inst-stories"><span style="color:#f77737">●</span> Stories IG <span class="dot-empty"></span></div>
         <div class="nav-item sub" data-view="net-inst-yt"><span style="color:#ff0000">●</span> YouTube <span class="dot-empty"></span></div>
-        <div class="nav-item sub" data-view="net-inst-fb"><span style="color:#1877f2">●</span> Facebook <span class="dot-empty"></span></div>
-        <div class="nav-item sub" data-view="net-inst-li"><span style="color:#0a66c2">●</span> LinkedIn <span class="dot-empty"></span></div>
+        <div class="nav-item sub" data-view="net-inst-fb"><span style="color:#5b9dff">●</span> Facebook <span class="dot-empty"></span></div>
+        <div class="nav-item sub" data-view="net-inst-li"><span style="color:#5fa4e8">●</span> LinkedIn <span class="dot-empty"></span></div>
       </nav>
     </div>
 
@@ -986,7 +1029,7 @@ html, body { background: linear-gradient(180deg, #08243c 0%, #06192b 46%, #04111
       <div id="cloud-status-dot" style="font-size:10px;letter-spacing:0.5px;color:var(--nfm-gris-mute);text-align:center;">○ Nube: sin sincronizar</div>
     </div>
     <div class="sidebar-foot" style="margin-top:14px;">
-      INSTITUTO DE<br>PRODUCTIVIDAD<br>· v0.5 ·
+      INSTITUTO DE<br>PRODUCTIVIDAD<br>· v1.0 ·
     </div>
   </aside>
 
@@ -3335,8 +3378,14 @@ function renderStoryArchive() {
     grid = `<div class="story-grid">${arch.slice(0, 60).map(s => {
       const when = s.timestamp ? new Date(s.timestamp).toLocaleString('es', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
       const isVid = (s.type || '').toUpperCase().includes('VIDEO');
-      const img = s.thumb || s.mediaUrl;
-      const inner = img ? `<img src="${img}" loading="lazy" alt="story">` : `<div class="story-noimg">sin imagen</div>`;
+      /* Si la imagen quedó guardada en la nube, la pedimos de ahí: el link que
+         da Meta vence a las pocas horas y la grilla se llenaba de rotas. Si es
+         una story vieja archivada antes de este cambio, cae al link original. */
+      const guardada = s.hasImage ? `/api/meta-stories?img=${encodeURIComponent(s.id)}` : '';
+      const respaldo = s.thumb || s.mediaUrl || '';
+      const img = guardada || respaldo;
+      const onErr = guardada && respaldo ? ` onerror="this.onerror=null;this.src='${escapeAttr(respaldo)}'"` : '';
+      const inner = img ? `<img src="${img}" loading="lazy" alt="story"${onErr}>` : `<div class="story-noimg">sin imagen</div>`;
       return `<a class="story-cell" ${s.permalink ? `href="${s.permalink}" target="_blank" rel="noopener"` : ''} title="${when}">${inner}${isVid ? '<span class="story-play">▶</span>' : ''}<span class="story-when">${when}</span></a>`;
     }).join('')}</div>`;
   } else {
@@ -3347,7 +3396,7 @@ function renderStoryArchive() {
       <div class="data-card-title">📸 Archivo visual de stories</div>
       <div class="data-card-sub">${arch.length} guardadas · se capturan mientras están activas (24h) · la tarea diaria archiva sola</div>
     </div><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;">${btn}${pullBtn}</div></div>
-    ${nfmWhy('<b>Por qué así.</b> Las stories son efímeras y no se pueden embeber como los reels. Esta captura usa la API de Meta (read-only) para guardar la miniatura de tus stories activas y armar un archivo histórico. Necesita el token de Meta en Netlify.')}
+    ${nfmWhy('<b>Por qué así.</b> Las stories son efímeras y no se pueden embeber como los reels. Esta captura usa la API de Meta (read-only) para traer tus stories activas y armar un archivo histórico. La imagen se <b>descarga y se guarda en tu nube</b>: los links que da Meta vienen firmados y vencen a las pocas horas, así que guardar solo el link dejaba el archivo lleno de imágenes rotas. La <b>tarea diaria</b> corre sola a las 9:00 UTC (~6:00 ART) y archiva todas las cuentas configuradas, aunque no abras el dashboard. Necesita el token de Meta en Netlify.')}
     ${err}
     ${grid}
   </div>`;
@@ -4815,13 +4864,15 @@ function seedCerebro() {
    EMBUDO TOF/MOF/BOF (multi-marca) + preview embebido del reel
 ═════════════════════════════════════════════════════════════ */
 const FUNNEL = {
-  tof: { stage: 'Top of funnel', name: 'Atención', icon: '👁', color: '#2563eb', metric: 'views', metricLabel: 'Views',
+  // Los colores son la versión clara de cada fase: sobre el fondo navy, los
+  // originales (#2563eb / #7c3aed / #16a34a) quedaban casi ilegibles.
+  tof: { stage: 'Top of funnel', name: 'Atención', icon: '👁', color: '#6ea8ff', metric: 'views', metricLabel: 'Views',
     short: 'Cuánta gente nueva llegó a ver el contenido.',
     why: 'Mide <b>alcance y reproducciones</b>: ganan las piezas que traen más ojos nuevos. Si querés crecer, mirá qué tienen en común las de arriba.' },
-  mof: { stage: 'Middle of funnel', name: 'Consideración', icon: '💬', color: '#7c3aed', metric: 'engRate', metricLabel: 'Eng rate',
+  mof: { stage: 'Middle of funnel', name: 'Consideración', icon: '💬', color: '#b39bff', metric: 'engRate', metricLabel: 'Eng rate',
     short: 'Qué tan involucrada queda la gente que ya te vio.',
     why: 'Mide <b>engagement real</b> (likes, comentarios, guardados y compartidos sobre el alcance). Ganan las que generan conversación, no views vacíos.' },
-  bof: { stage: 'Bottom of funnel', name: 'Conversión', icon: '🎯', color: '#16a34a', metric: 'follows', metricLabel: 'Seguidores',
+  bof: { stage: 'Bottom of funnel', name: 'Conversión', icon: '🎯', color: '#4ad07f', metric: 'follows', metricLabel: 'Seguidores',
     short: 'El tráfico más caliente: quién te respondió o te siguió.',
     why: 'Lo más cercano a <b>convertir</b>: las <b>respuestas a stories (DMs)</b> —alguien te escribió— y los <b>seguidores</b> que sumaron tus posteos. Una respuesta a una story es lo más cerca de una venta en esta data.' }
 };
@@ -5584,7 +5635,7 @@ function openConfigModal() {
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:4px 14px;margin-top:8px;">
           ${SECCIONES.map(s => `<label style="display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--nfm-gris-text);${s.fija ? 'opacity:.55;' : 'cursor:pointer;'}">
             <input type="checkbox" ${seccionActiva(s.k) ? 'checked' : ''} ${s.fija ? 'disabled' : ''} onchange="cfgToggleSec('${s.k}',this.checked)" style="accent-color:var(--nfm-naranja);">
-            ${s.icon} ${s.t}${s.fija ? ' <em style="font-style:normal;font-size:10px;opacity:.7;">(fija)</em>' : ''}</label>`).join('')}
+            ${s.icon} ${s.t}${s.fija ? ' <em style="font-style:normal;font-size:10px;color:#ffa86b;">(fija)</em>' : ''}</label>`).join('')}
         </div>
         <span class="form-label" style="display:block;margin-top:14px;">Marcas en el menú</span>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:4px 14px;margin-top:8px;">
@@ -6715,15 +6766,23 @@ function renderObjetivos() {
       ? `<p>✅ <strong>Es alcanzable.</strong> Necesitás <strong>${p.porSemana.toFixed(1)} piezas/semana</strong> y hoy venís publicando <strong>${ritmoTxt}</strong>. Está dentro de tu ritmo.</p>`
       : `<p>⚠️ <strong>Es exigente.</strong> Necesitás <strong>${p.porSemana.toFixed(1)} piezas/semana</strong> pero venís a <strong>${ritmoTxt}</strong>. Tres salidas: correr la fecha, bajar la meta, o subir el ritmo de publicación.</p>`;
 
+  // Cada fila abre la pieza en el mismo visor que el resto del dashboard
+  // (preview embebido de IG/YouTube + métricas + link).
   const filas = p.top.map((r, i) => {
     const d = r.publishTime ? new Date(r.publishTime).toLocaleDateString('es', { day: '2-digit', month: 'short', year: '2-digit' }) : '';
     const desc = (r.description || '').replace(/\s+/g, ' ').trim().slice(0, 90) || '(sin descripción)';
-    return `<tr>
-      <td><span class="tbl-num">#${i + 1}</span></td>
-      <td>${escapeHtml(desc)}${d ? `<div style="font-size:11px;color:var(--nfm-gris-mute);">${d}</div>` : ''}</td>
-      <td>${escapeHtml(r.formato || r.network || '')}</td>
-      <td><span class="tbl-num good">+${(r.follows || 0).toLocaleString('es')}</span></td>
-      <td><span class="tbl-num">${(r.views || 0).toLocaleString('es')}</span></td>
+    const k = pieceReg(r);
+    // El puesto va dentro de la celda de la pieza: la tabla alinea a la derecha
+    // todo lo que no sea la primera columna, así que una columna "#" aparte
+    // empujaba la descripción contra el margen derecho.
+    return `<tr class="pieza-row" onclick="showPiece('${k}')" title="Ver la pieza">
+      <td>
+        <div class="tbl-pieza-type"><span style="color:var(--nfm-naranja);">#${i + 1}</span> · ${escapeHtml(r.formato || r.type || r.network || '')} ${piezaBadges(r)}</div>
+        <div class="tbl-pieza-title">${escapeHtml(desc)}</div>
+        ${d ? `<div class="tbl-pieza-meta">${d}</div>` : ''}
+      </td>
+      <td><span class="tbl-num good">+${(r.follows || 0).toLocaleString('es')}</span><span class="tbl-num-sub">SEGUIDORES</span></td>
+      <td><span class="tbl-num">${(r.views || 0).toLocaleString('es')}</span><span class="tbl-num-sub">VIEWS</span></td>
     </tr>`;
   }).join('');
 
@@ -6746,7 +6805,7 @@ function renderObjetivos() {
         <p>Estas son las que <strong>más seguidores te trajeron</strong>. Si publicás <strong>${p.piezas.toLocaleString('es')}</strong> piezas con este mismo enfoque (mismo formato, mismo tipo de gancho), llegás a tu meta. Versionalas: mismo ángulo, tema nuevo.</p>
       </div>
       <table class="tbl">
-        <thead><tr><th>#</th><th>Pieza</th><th>Formato</th><th>Seguidores</th><th>Views</th></tr></thead>
+        <thead><tr><th>Pieza · tocá para verla</th><th>Seguidores</th><th>Views</th></tr></thead>
         <tbody>${filas}</tbody>
       </table>
     </div>`;
@@ -7245,7 +7304,11 @@ window.render = function () {
      sin entrada en el menú ni caso en el router — acá vuelven a estar. */
   const VISTAS_EXTRA = { objetivos: renderObjetivos, estudio: renderEstudio, tendencias: renderTendencias };
   const extra = VISTAS_EXTRA[state.currentView];
-  if (extra) { main.innerHTML = extra(); attachViewHandlers(); updateSidebarBadges(); }
+  if (extra) {
+    PIECE_REG = {};              // igual que el render original: registro limpio por vista
+    main.innerHTML = extra();
+    attachViewHandlers(); updateSidebarBadges();
+  }
   else _renderAntesDeFlow();
 
   // El saludo va sólo en la portada, arriba de todo.

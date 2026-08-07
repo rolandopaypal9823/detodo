@@ -30,10 +30,36 @@ Es la fusión de los dos dashboards que existían por separado:
 | **Tendencias y Estudio visual, recuperados** | Las dos vistas estaban escritas y funcionando pero habían quedado sin entrada en el menú ni caso en el router. Vuelven a estar. |
 | **`netlify/functions/` (bien escrito)** | La carpeta se llamaba `netlify/fuctions` mientras el `netlify.toml` apuntaba a `netlify/functions`: **ninguna función se estaba deployando**. Corregido. |
 
+### Correcciones de legibilidad (tema oscuro)
+
+Cuando el dashboard pasó a tema oscuro, el token `--nfm-azul` cambió de significado:
+antes era el navy de fondo, ahora es el color de **texto claro**. Varias reglas que
+lo usaban como fondo, o que tenían colores fijos del tema claro, quedaron ilegibles.
+Se corrigieron todas, verificadas con un auditor de contraste automático que recorre
+las 21 vistas, los modales, los 5 pasos del setup y los flotantes que sólo aparecen
+al pasar el mouse:
+
+- **Tooltip del gráfico de crecimiento** — `background: var(--nfm-azul)` con texto
+  blanco: blanco sobre casi blanco. Ahora va con superficie oscura explícita.
+- **`.insight-body strong`** — pintado con el color de superficie. Correcto dentro de
+  la tarjeta `.insight` (que va invertida), invisible cuando el mismo bloque se usa
+  dentro de una `.data-card` oscura. Ahora hereda, y sólo se invierte dentro de `.insight`.
+- **Colores del embudo** (`#2563eb` / `#7c3aed` / `#16a34a`), del calendario por formato,
+  y los verdes/rojos de comparación — todos eran versiones oscuras pensadas para fondo
+  blanco. Se subieron a su versión clara, manteniendo el significado.
+- Chapita de fase, chapita T1/T2, pie del sidebar, "→ ACCIONABLES" dentro de la tarjeta
+  clara, y los puntitos de Facebook y LinkedIn en el menú.
+
 ### Cambios en el backend
 
 - **`ig-competitor.mjs`** — la transcripción iba **siempre** en `true` aunque nadie la mirara (es la parte más lenta y cara del scrapeo); ahora la pide el dashboard. Se agregó el filtro por rango (`onlyPostsNewerThan`) y el `limit` que el front ya podía mandar pero no mandaba.
 - **`data.mjs`** — ahora guarda también `setup` y `goal`, para que al re-deployar una versión nueva el dashboard siga siendo el tuyo.
+- **`meta-stories.mjs` / `meta-stories-cron.mjs`** — el archivo de stories guardaba el
+  **link** que devuelve Meta, no la imagen. Esos links van firmados y vencen a las pocas
+  horas, así que el archivo histórico se llenaba de imágenes rotas. Ahora la imagen se
+  **descarga y se guarda en Netlify Blobs**, y se sirve desde `/api/meta-stories?img=<id>`
+  con caché permanente. Además el cron diario ahora recorre **todas** las cuentas de IG
+  configuradas (`META_IG_USER_ID` + las de cada marca), no sólo la de por defecto.
 
 ---
 
