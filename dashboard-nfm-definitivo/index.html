@@ -543,8 +543,10 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 .funnel-big small { font-size: 12px; font-weight: 600; color: var(--nfm-gris-mute); letter-spacing: 0; margin-left: 6px; }
 .funnel-why { font-size: 12px; color: var(--nfm-gris-text); line-height: 1.5; border-top: 1px dashed var(--nfm-gris-line); padding-top: 10px; }
 .funnel-go { font-family: var(--font-display); font-size: 11px; font-weight: 800; letter-spacing: 0.5px; color: var(--fc, var(--nfm-naranja)); text-transform: uppercase; margin-top: auto; }
-.perf { display: flex; align-items: flex-end; gap: 2px; height: 90px; padding: 8px 0; }
-.perf-tick { flex: 1; min-width: 3px; border-radius: 2px 2px 0 0; cursor: pointer; transition: opacity .12s; }
+/* overflow:hidden es la red de seguridad: pase lo que pase con la cantidad de
+   barras, la tira nunca puede volver a romper el ancho de la tarjeta. */
+.perf { display: flex; align-items: flex-end; gap: 2px; height: 90px; padding: 8px 0; overflow: hidden; }
+.perf-tick { flex: 1 1 0; min-width: 0; border-radius: 2px 2px 0 0; cursor: pointer; transition: opacity .12s; }
 .perf-tick:hover { opacity: 0.7; }
 .perf-tick.green { background: var(--nfm-verde, #2e9e5b); }
 .perf-tick.amber { background: var(--nfm-naranja); }
@@ -892,6 +894,27 @@ html, body { background: linear-gradient(180deg, #08243c 0%, #06192b 46%, #04111
   border-radius: 6px; padding: 8px 11px; font-family: var(--font-body); font-size: 13px; }
 .goal-f input:focus { outline: none; border-color: var(--nfm-naranja); }
 
+/* ─────── OBJETIVOS · los tres escenarios lado a lado ─────── */
+.esc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+.esc-col { background: var(--nfm-crema); border: 1.5px solid var(--nfm-gris-line); border-radius: 10px;
+  padding: 14px 16px 15px; cursor: pointer; transition: border-color .15s, transform .12s; }
+.esc-col:hover { border-color: var(--nfm-naranja); transform: translateY(-2px); }
+.esc-col.on { border-color: var(--nfm-naranja); background: var(--nfm-naranja-tint); }
+.esc-t { font-family: var(--font-display); font-size: 13px; font-weight: 800; color: var(--nfm-azul); display: flex; align-items: center; gap: 7px; }
+.esc-badge { font-family: var(--font-mono); font-size: 8.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  background: var(--nfm-naranja); color: #fff; padding: 2px 6px; border-radius: 4px; }
+.esc-sub { font-size: 11.5px; color: var(--nfm-gris-text); margin: 3px 0 10px; line-height: 1.45; }
+.esc-n { font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--nfm-azul); line-height: 1; }
+.esc-l { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--nfm-gris-mute); margin-top: 3px; }
+.esc-r { font-size: 12.5px; color: var(--nfm-gris-text); margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--nfm-gris-line); }
+.esc-r strong { color: var(--nfm-azul); }
+.esc-na { font-size: 12px; color: var(--nfm-gris-mute); margin-top: 8px; line-height: 1.5; }
+
+/* Pie del insight guardado: cuándo se generó y cómo rehacerlo. */
+.insight-saved { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  font-size: 11.5px; color: var(--nfm-gris-mute); margin: -18px 0 22px; padding: 8px 14px;
+  background: var(--nfm-gris-bg); border: 1px solid var(--nfm-gris-line); border-radius: 0 0 8px 8px; }
+
 /* ─────── PANEL DE GASTO (Apify / IA) ─────── */
 .spend { background: var(--nfm-blanco); border: 1px solid var(--nfm-gris-line); border-radius: 10px; margin-bottom: 18px; }
 .spend > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 14px 20px;
@@ -1115,7 +1138,12 @@ const state = {
   igCredit: 5,
   igCreditTs: 0,
   igSpendOpen: false,
-  aiUsage: []       // [{ ts, kind:'insight'|'chat', label }]
+  storyMetric: 'replies',   // qué mide el ranking de conversación en Stories
+  aiUsage: [],       // [{ ts, kind:'insight'|'chat', label }]
+  /* Insights ya generados, guardados por clave de scope+filtro+huella de data.
+     Antes vivían solo en memoria: recargabas la página y había que volver a
+     pagarlos. Ahora se guardan y se sincronizan con la nube. */
+  insightsGuardados: {}
 };
 
 function loadState() {
@@ -1156,6 +1184,8 @@ function loadState() {
       if (typeof parsed.igCreditTs === 'number') state.igCreditTs = parsed.igCreditTs;
       if (typeof parsed.igSpendOpen === 'boolean') state.igSpendOpen = parsed.igSpendOpen;
       if (Array.isArray(parsed.aiUsage)) state.aiUsage = parsed.aiUsage;
+      if (parsed.insightsGuardados && typeof parsed.insightsGuardados === 'object') state.insightsGuardados = parsed.insightsGuardados;
+      if (parsed.storyMetric) state.storyMetric = parsed.storyMetric;
     }
   } catch (e) { console.error('Load error', e); }
 }
@@ -1165,7 +1195,7 @@ function saveState() {
       setup: state.setup, goal: state.goal, folds: state.folds, foldAll: state.foldAll,
       igLimit: state.igLimit, igRange: state.igRange, igTranscript: state.igTranscript,
       igSpend: state.igSpend, igTrPrice: state.igTrPrice, igCredit: state.igCredit, igCreditTs: state.igCreditTs, igSpendOpen: state.igSpendOpen,
-      aiUsage: state.aiUsage }));
+      aiUsage: state.aiUsage, insightsGuardados: state.insightsGuardados, storyMetric: state.storyMetric }));
   } catch (e) { showToast('Error guardando: ' + e.message, 'error'); }
 }
 
@@ -2393,6 +2423,7 @@ function renderNetwork(marcaCode, netCode) {
     ${extraKPIs}
     ${(isFeed || isYT) ? renderFollowerGrowth(filteredRows, isYT ? 'suscriptores' : 'seguidores') : ''}
     ${renderInsightCard(insight, title)}
+    ${isStories ? renderStoriesConversacion(filteredRows) : ''}
     ${renderTopPiezas(filteredRows, isYT)}
     ${(isFeed || isFB || isYT) ? renderByType(filteredRows) : ''}
     ${filteredRows.length >= 4 ? renderByHour(filteredRows) : ''}
@@ -4948,23 +4979,59 @@ function renderEmbudoFase(phase, marcaBar, rows) {
     ${bottom.length ? `<div class="emb-list-title">⚠️ Peores ${bottom.length}</div>${bottom.map(rowHtml).join('')}` : ''}`;
 }
 
+/* Escala de performance: una barra por pieza, ordenadas de mejor a peor.
+   Con muchas piezas no entra una barra por pieza (a 3px cada una, 381 piezas
+   piden 1.900px y se desbordaba de la tarjeta), y además a esa altura una
+   barra suelta ya no se puede ni tocar. Arriba de MAX_BARRAS agrupamos: cada
+   barra pasa a ser un tramo de piezas consecutivas del ranking, con la altura
+   del promedio del tramo, y al tocarla se abre la mejor pieza de ese tramo.
+   Lo que se lee —la forma de la curva y dónde está el corte— no cambia. */
+const PERF_MAX_BARRAS = 120;
 function performanceStrip(rows, phase) {
   const c = FUNNEL[phase]; const key = c.metric;
   if (rows.length < 3) return '';
   const sorted = [...rows].sort((a, b) => (b[key] || 0) - (a[key] || 0));
   const max = (sorted[0][key] || 0) || 1; const n = sorted.length;
   const topCut = Math.ceil(n * 0.3), botCut = Math.ceil(n * 0.7);
-  const ticks = sorted.map((r, i) => {
-    const v = r[key] || 0; const h = Math.max(8, Math.round((v / max) * 100));
-    const cls = i < topCut ? 'green' : i >= botCut ? 'red' : 'amber';
-    const k = embReg(r);
-    const tip = (r.description || 'sin descripción').slice(0, 40).replace(/"/g, '') + ' — ' + (phase === 'mof' ? v.toFixed(1) + '%' : fmtN(v));
-    return `<div class="perf-tick ${cls}" style="height:${h}%" title="${escapeHtml(tip)}" onclick="showEmbudoPiece('${k}','${phase}')"></div>`;
-  }).join('');
-  return `<div class="data-card"><div class="data-card-head"><div><div class="data-card-title">Escala de performance · ${c.metricLabel}</div><div class="data-card-sub">${n} piezas · tocá cualquiera</div></div></div>
-    <div class="perf">${ticks}</div>
+  const fmtV = v => phase === 'mof' ? (v || 0).toFixed(1) + '%' : fmtN(Math.round(v || 0));
+
+  /* Escala. Con un reel de 8 millones de views y otros de 1, la escala lineal
+     aplasta todo: queda una raya plana con una púa al principio, que no dice
+     nada. Cuando el mejor saca más de 50× al peor pasamos a escala
+     logarítmica, y lo avisamos abajo para que nadie lea las alturas como si
+     fueran proporcionales. */
+  const min = sorted[n - 1][key] || 0;
+  const log = max > 0 && max / Math.max(min, 1) > 50;
+  const altura = v => {
+    const p = log ? Math.log1p(Math.max(0, v)) / Math.log1p(max) : (v / max);
+    return Math.max(6, Math.round(p * 100));
+  };
+
+  const porBarra = Math.ceil(n / PERF_MAX_BARRAS);   // 1 = una barra por pieza
+  const ticks = [];
+  for (let i = 0; i < n; i += porBarra) {
+    const tramo = sorted.slice(i, i + porBarra);
+    const prom = tramo.reduce((s, r) => s + (r[key] || 0), 0) / tramo.length;
+    const h = altura(prom);
+    const medio = i + Math.floor(tramo.length / 2);
+    const cls = medio < topCut ? 'green' : medio >= botCut ? 'red' : 'amber';
+    const k = embReg(tramo[0]);   // la mejor del tramo
+    const tip = porBarra === 1
+      ? (tramo[0].description || 'sin descripción').slice(0, 40).replace(/"/g, '') + ' — ' + fmtV(prom)
+      : `Puestos ${i + 1}-${i + tramo.length} · de ${fmtV(tramo[0][key])} a ${fmtV(tramo[tramo.length - 1][key])} · tocá para ver la mejor`;
+    ticks.push(`<div class="perf-tick ${cls}" style="height:${h}%" title="${escapeHtml(tip)}" onclick="showEmbudoPiece('${k}','${phase}')"></div>`);
+  }
+
+  const sub = porBarra === 1
+    ? `${n} piezas · tocá cualquiera`
+    : `${n} piezas · cada barra agrupa ${porBarra} · tocá para ver la mejor del tramo`;
+  const notaLog = log
+    ? `<span style="margin-left:auto;color:var(--nfm-gris-mute);">altura en escala logarítmica · tu mejor pieza saca ${Math.round(max / Math.max(min, 1))}× a la peor</span>`
+    : '';
+  return `<div class="data-card"><div class="data-card-head"><div><div class="data-card-title">Escala de performance · ${c.metricLabel}</div><div class="data-card-sub">${sub}</div></div></div>
+    <div class="perf">${ticks.join('')}</div>
     <div class="perf-ends"><span>← mejor</span><span>peor →</span></div>
-    <div class="perf-legend"><span><span class="sem-dot green"></span>Top 30%</span><span><span class="sem-dot amber"></span>Medio</span><span><span class="sem-dot red"></span>Peor 30%</span></div></div>`;
+    <div class="perf-legend"><span><span class="sem-dot green"></span>Top 30%</span><span><span class="sem-dot amber"></span>Medio</span><span><span class="sem-dot red"></span>Peor 30%</span>${notaLog}</div></div>`;
 }
 
 function embPieceReason(r, rows, phase) {
@@ -5546,7 +5613,7 @@ async function cloudSave(logEntry) {
     const resp = await fetch(CLOUD.endpoint, {
       method: 'POST',
       headers: cloudHeaders(),
-      body: JSON.stringify({ files: state.files, prompts: { extra: state.promptExtra }, competitors: { igAccounts: state.igAccounts, igData: state.igData, ytChannels: state.ytChannels, ytData: state.ytData }, context: state.context, setup: state.setup, goal: state.goal, _log: logEntry })
+      body: JSON.stringify({ files: state.files, prompts: { extra: state.promptExtra }, competitors: { igAccounts: state.igAccounts, igData: state.igData, ytChannels: state.ytChannels, ytData: state.ytData }, context: state.context, setup: state.setup, goal: state.goal, insights: state.insightsGuardados, _log: logEntry })
     });
     if (resp.status === 401) { setCloudStatus('error', 'token inválido (revisá ⚙)'); return; }
     if ([404, 501, 502, 503].includes(resp.status)) { setCloudStatus('off', 'sin nube (guardado local)'); return; }
@@ -5588,6 +5655,11 @@ async function cloudLoad() {
       closeSetupScreen();   // ya lo había hecho en otro dispositivo: no lo repetimos
     }
     if (d.goal && typeof d.goal === 'object' && !(state.goal && state.goal.calculado)) state.goal = d.goal;
+    // Insights: fusionamos, nunca pisamos. Un analisis ya pagado no se pierde.
+    if (d.insights && typeof d.insights === 'object') {
+      state.insightsGuardados = { ...d.insights, ...state.insightsGuardados };
+      hidratarInsights();
+    }
     fixLinkedInDates();
     saveState();
     setCloudStatus('ok', 'sincronizado ' + new Date().toLocaleTimeString('es'));
@@ -5663,7 +5735,11 @@ function openConfigModal() {
             <div class="spend-num"><div>Llamadas</div><div style="font-size:15px;">${A.nInsight} insights · ${A.nChat} preguntas</div></div>
           </div>
           <span class="form-help">Los insights y el chat sólo consumen cuando los pedís: navegar el dashboard no gasta nada. Estimado a ~$${AI_COST.insight.toFixed(3)} por insight y ~$${AI_COST.chat.toFixed(3)} por pregunta con prompt caching. El número real está en console.anthropic.com.</span>
-          <div style="margin-top:8px;"><button class="btn ghost small" type="button" onclick="aiUsageReset()">Reiniciar contador</button></div>`; })()}
+          <span class="form-help" style="margin-top:6px;">Hay <strong>${Object.keys(state.insightsGuardados || {}).length}</strong> análisis guardados: se muestran al recargar sin volver a pagarlos. Se vuelven a pedir solos cuando subís data nueva.</span>
+          <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn ghost small" type="button" onclick="aiUsageReset()">Reiniciar contador</button>
+            <button class="btn ghost small" type="button" onclick="borrarInsightsGuardados()">Borrar análisis guardados</button>
+          </div>`; })()}
       </div>
 
       <div class="form-group" style="margin-top:20px;">
@@ -5998,6 +6074,7 @@ async function loadAIInsight(elementId, opts) {
     if (data.error) throw new Error(data.message || data.error);
 
     CLAUDE.insightCache.set(cacheKey, data);
+    guardarInsight(cacheKey, data);   // sobrevive a la recarga: no se re-paga
     const el = document.getElementById(elementId);
     if (el) el.outerHTML = renderAIInsightCard(data, scopeLabel);
   } catch (err) {
@@ -6084,8 +6161,21 @@ function renderAILoadingCard(scopeLabel, elementId) {
 const pendingInsightLoads = [];
 
 // Clave de cache de un insight (scope + filtro temporal).
+/* La clave incluye una huella de la data (cuántas piezas y hasta qué fecha
+   llegan), no sólo el scope y el filtro. Así un insight guardado se sigue
+   usando mientras la data sea la misma, y se vuelve a pedir solo cuando
+   subiste algo nuevo — que es cuando el análisis viejo dejaría de valer. */
+function insightDataFingerprint() {
+  const rows = getAllRows();
+  let ultima = 0;
+  for (const r of rows) {
+    const t = r.publishTime ? new Date(r.publishTime).getTime() : 0;
+    if (t > ultima) ultima = t;
+  }
+  return `${rows.length}:${ultima ? new Date(ultima).toISOString().slice(0, 10) : '-'}`;
+}
 function insightCacheKey(scope, marca, network) {
-  return `${scope}|${marca || ''}|${network || ''}|${state.dateFilter.type}|${state.dateFilter.from || ''}|${state.dateFilter.to || ''}`;
+  return `${scope}|${marca || ''}|${network || ''}|${state.dateFilter.type}|${state.dateFilter.from || ''}|${state.dateFilter.to || ''}|${insightDataFingerprint()}`;
 }
 
 // Card del insight IA. NO se genera solo: muestra un botón que lo dispara (ahorra créditos).
@@ -6093,7 +6183,14 @@ function insightCacheKey(scope, marca, network) {
 function aiInsightPlaceholder(scope, marca, network, scopeLabel) {
   const key = insightCacheKey(scope, marca, network);
   if (CLAUDE.insightCache.has(key)) {
-    return renderAIInsightCard(CLAUDE.insightCache.get(key), scopeLabel);
+    // Guardado: se muestra sin volver a llamar a la API, con la fecha y la
+    // opción de rehacerlo si querés uno fresco.
+    const ts = typeof insightGuardadoTs === 'function' ? insightGuardadoTs(key) : 0;
+    const pie = ts
+      ? `<div class="insight-saved">💾 Guardado · generado ${insightHaceCuanto(ts)} · no vuelve a consumir créditos
+           <button class="btn ghost small" onclick="regenerarInsight('${scope}','${marca || ''}','${network || ''}','${escapeAttr(scopeLabel)}')" title="Pide un análisis nuevo a Claude (consume créditos)">↻ Rehacer</button></div>`
+      : '';
+    return renderAIInsightCard(CLAUDE.insightCache.get(key), scopeLabel) + pie;
   }
   const elementId = `ai-insight-${Math.random().toString(36).slice(2, 9)}`;
   CLAUDE.insightRequests[elementId] = { scope, marca, network, scopeLabel };
@@ -6620,11 +6717,41 @@ function goalRows() {
   // Sólo piezas orgánicas con seguidores medidos; las stories no traen follows.
   return getAllRows().filter(r => r.kind !== 'linkedin' && (r.follows || 0) > 0);
 }
-function goalTopPieces(n) {
-  return goalRows().sort((a, b) => (b.follows || 0) - (a.follows || 0)).slice(0, n || 10);
+/* ── Escenarios de proyección ──────────────────────────────────────────────
+   Proyectar con tus 10 mejores piezas asume que TODO lo que publiques de acá
+   en adelante te va a salir como lo mejor que hiciste en tu vida. Es el
+   supuesto más optimista posible y da el número más lindo (y el menos
+   probable). Los otros dos escenarios corren la ventana del ranking: proyectar
+   con los puestos 11-20 o 21-30 es preguntarse "¿y si me sale bien nomás?" y
+   "¿y si me sale del montón?". Mismo cálculo, supuesto más honesto. */
+const GOAL_ESCENARIOS = [
+  { k: 'optimista', t: 'Optimista',  desde: 0,  hasta: 10, d: 'tus 10 mejores piezas',
+    nota: 'Asume que cada pieza nueva te sale como las mejores que hiciste. Es el techo, no el pronóstico.' },
+  { k: 'realista',  t: 'Realista',   desde: 10, hasta: 20, d: 'los puestos 11 al 20',
+    nota: 'Asume que te sale bien, pero no tu mejor día. Suele ser el más parecido a lo que pasa.' },
+  { k: 'pesimista', t: 'Pesimista',  desde: 20, hasta: 30, d: 'los puestos 21 al 30',
+    nota: 'Asume que te sale del montón. Si el objetivo cierra igual acá, cierra seguro.' }
+];
+function goalEscenario() {
+  const k = (state.goal || {}).escenario || 'optimista';
+  return GOAL_ESCENARIOS.find(e => e.k === k) || GOAL_ESCENARIOS[0];
 }
-function goalProjection() {
+function setGoalEscenario(k) {
+  state.goal = state.goal || {};
+  state.goal.escenario = k;
+  saveState(); render();
+}
+// Las piezas del tramo del ranking que pide el escenario.
+function goalTopPieces(esc) {
+  const e = esc || goalEscenario();
+  const orden = goalRows().sort((a, b) => (b.follows || 0) - (a.follows || 0));
+  return orden.slice(e.desde, e.hasta);
+}
+// Cuántas piezas con seguidores hay en total: define qué escenarios se pueden usar.
+function goalPiezasDisponibles() { return goalRows().length; }
+function goalProjection(esc) {
   const g = state.goal || {};
+  const e = esc || goalEscenario();
   const desde = parseFloat(g.startValue), hasta = parseFloat(g.targetValue);
   if (!isFinite(desde) || !isFinite(hasta) || !g.startDate || !g.targetDate) return null;
   // Lo que falta se mide contra dónde estás HOY, no contra dónde arrancaste:
@@ -6633,8 +6760,8 @@ function goalProjection() {
   const faltan = Math.max(0, hasta - actual);
   const diasTotal = goalDays(g.startDate, g.targetDate);
   const diasRest = Math.max(0, goalDays(new Date().toISOString().slice(0, 10), g.targetDate));
-  const top = goalTopPieces(10);
-  if (!top.length) return { actual, faltan, diasTotal, diasRest, top: [], sinData: true };
+  const top = goalTopPieces(e);
+  if (!top.length) return { esc: e, actual, faltan, diasTotal, diasRest, top: [], sinData: true };
 
   const promTop = top.reduce((s, r) => s + (r.follows || 0), 0) / top.length;
   const piezas = promTop > 0 ? Math.ceil(faltan / promTop) : 0;
@@ -6651,7 +6778,7 @@ function goalProjection() {
       ritmoActual = conFecha.length / rangoSem;
     }
   }
-  return { actual, faltan, diasTotal, diasRest, top, promTop, piezas, semanas, porSemana, ritmoActual,
+  return { esc: e, actual, faltan, diasTotal, diasRest, top, promTop, piezas, semanas, porSemana, ritmoActual,
            viable: ritmoActual > 0 ? porSemana <= ritmoActual * 1.5 : null };
 }
 // Seguidores de hoy = los del arranque + los que sumó el contenido desde esa fecha.
@@ -6766,6 +6893,43 @@ function renderObjetivos() {
       ? `<p>✅ <strong>Es alcanzable.</strong> Necesitás <strong>${p.porSemana.toFixed(1)} piezas/semana</strong> y hoy venís publicando <strong>${ritmoTxt}</strong>. Está dentro de tu ritmo.</p>`
       : `<p>⚠️ <strong>Es exigente.</strong> Necesitás <strong>${p.porSemana.toFixed(1)} piezas/semana</strong> pero venís a <strong>${ritmoTxt}</strong>. Tres salidas: correr la fecha, bajar la meta, o subir el ritmo de publicación.</p>`;
 
+  /* ── Selector de escenario + los tres a la vez ──────────────────────────
+     El selector manda el resto de la vista, pero abajo se ven los tres
+     juntos: sirve más ver el rango completo que ir tocando botones. */
+  const disp = goalPiezasDisponibles();
+  const escActual = p.esc;
+  const chips = GOAL_ESCENARIOS.map(e => {
+    const hay = disp > e.desde;
+    const on = escActual.k === e.k;
+    const titulo = hay ? e.nota : `Necesitás al menos ${e.desde + 1} piezas con seguidores para usar este escenario. Tenés ${disp}.`;
+    return `<button class="filter-chip ${on ? 'active' : ''}" ${hay ? '' : 'disabled style="opacity:.4;cursor:not-allowed"'} onclick="${hay ? `setGoalEscenario('${e.k}')` : ''}" title="${escapeHtml(titulo)}">${e.t} · ${e.d}</button>`;
+  }).join('');
+
+  const comparacion = GOAL_ESCENARIOS.map(e => {
+    if (disp <= e.desde) {
+      return `<div class="esc-col"><div class="esc-t">${e.t}</div><div class="esc-na">necesita ${e.desde + 1}+ piezas con seguidores</div></div>`;
+    }
+    const q = goalProjection(e);
+    if (!q || q.sinData) return '';
+    const on = escActual.k === e.k;
+    const semaforo = q.viable === null ? '' : q.viable ? '✅' : '⚠️';
+    return `<div class="esc-col${on ? ' on' : ''}" onclick="setGoalEscenario('${e.k}')" title="${escapeHtml(e.nota)}">
+      <div class="esc-t">${e.t}${on ? ' <span class="esc-badge">elegido</span>' : ''}</div>
+      <div class="esc-sub">${e.d} · promedian +${q.promTop.toFixed(0)} seguidores</div>
+      <div class="esc-n">${q.piezas.toLocaleString('es')}</div>
+      <div class="esc-l">piezas para llegar</div>
+      <div class="esc-r">${semaforo} <strong>${q.porSemana.toFixed(1)}</strong> por semana</div>
+    </div>`;
+  }).join('');
+
+  const bloqueEscenarios = `
+    <div class="section-label"><span class="arrow-mark"></span>Con qué piezas proyectar</div>
+    <div class="data-card">
+      <div class="yt-why" style="margin-bottom:12px;"><b>Por qué importa.</b> Proyectar con tus 10 mejores asume que todo lo que publiques de acá en adelante te va a salir como lo mejor que hiciste en tu vida: es el techo, no el pronóstico. Corriendo la ventana del ranking hacia abajo el número se vuelve más honesto. <b>${escActual.nota}</b></div>
+      <div class="filter-bar" style="margin-bottom:14px;"><span class="filter-label">Escenario</span>${chips}</div>
+      <div class="esc-grid">${comparacion}</div>
+    </div>`;
+
   // Cada fila abre la pieza en el mismo visor que el resto del dashboard
   // (preview embebido de IG/YouTube + métricas + link).
   const filas = p.top.map((r, i) => {
@@ -6777,7 +6941,7 @@ function renderObjetivos() {
     // empujaba la descripción contra el margen derecho.
     return `<tr class="pieza-row" onclick="showPiece('${k}')" title="Ver la pieza">
       <td>
-        <div class="tbl-pieza-type"><span style="color:var(--nfm-naranja);">#${i + 1}</span> · ${escapeHtml(r.formato || r.type || r.network || '')} ${piezaBadges(r)}</div>
+        <div class="tbl-pieza-type"><span style="color:var(--nfm-naranja);">#${p.esc.desde + i + 1}</span> · ${escapeHtml(r.formato || r.type || r.network || '')} ${piezaBadges(r)}</div>
         <div class="tbl-pieza-title">${escapeHtml(desc)}</div>
         ${d ? `<div class="tbl-pieza-meta">${d}</div>` : ''}
       </td>
@@ -6790,10 +6954,11 @@ function renderObjetivos() {
     ${renderTopbar('Objetivos', `Hoy ${p.actual.toLocaleString('es')} · faltan ${p.faltan.toLocaleString('es')} para llegar a ${(parseFloat(g.targetValue) || 0).toLocaleString('es')} en ${p.diasRest} días`)}
     ${porQue}${form}
     ${goalVisual(p, g)}
-    <div class="section-label"><span class="arrow-mark"></span>Lo que hace falta</div>
+    ${bloqueEscenarios}
+    <div class="section-label"><span class="arrow-mark"></span>Lo que hace falta · escenario ${escActual.t.toLowerCase()}</div>
     <div class="kpi-row">
       ${renderKpi('Te faltan', '+' + p.faltan.toLocaleString('es'), 'seguidores', true)}
-      ${renderKpi('Piezas necesarias', p.piezas.toLocaleString('es'), 'como tus mejores')}
+      ${renderKpi('Piezas necesarias', p.piezas.toLocaleString('es'), 'como ' + escActual.d)}
       ${renderKpi('Ritmo requerido', p.porSemana.toFixed(1), 'piezas por semana')}
       ${renderKpi('Tiempo', p.diasRest + ' días', p.semanas + ' semanas')}
     </div>
@@ -6802,13 +6967,151 @@ function renderObjetivos() {
     <div class="section-label"><span class="arrow-mark"></span>Replicá estas ${p.top.length} piezas · promedian +${p.promTop.toFixed(0)} seguidores</div>
     <div class="data-card">
       <div class="insight-body" style="opacity:1;margin-bottom:14px;">
-        <p>Estas son las que <strong>más seguidores te trajeron</strong>. Si publicás <strong>${p.piezas.toLocaleString('es')}</strong> piezas con este mismo enfoque (mismo formato, mismo tipo de gancho), llegás a tu meta. Versionalas: mismo ángulo, tema nuevo.</p>
+        <p>Son <strong>${escActual.d}</strong> por seguidores ganados. Si publicás <strong>${p.piezas.toLocaleString('es')}</strong> piezas con este mismo enfoque (mismo formato, mismo tipo de gancho), llegás a tu meta. Versionalas: mismo ángulo, tema nuevo.</p>
       </div>
       <table class="tbl">
         <thead><tr><th>Pieza · tocá para verla</th><th>Seguidores</th><th>Views</th></tr></thead>
         <tbody>${filas}</tbody>
       </table>
     </div>`;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   3a · STORIES · lo que abrió conversación
+   En stories las views son lo de menos: van a gente que ya te sigue. Lo que
+   importa es qué story hizo que alguien te ESCRIBA (respuesta = DM = lo más
+   cerca de una venta en esta data) o que se fuera a mirar tu perfil. El
+   ranking por views deja eso escondido, así que va aparte y primero.
+───────────────────────────────────────────────────────────── */
+const STORY_METRICAS = [
+  { k: 'replies',       t: 'Respuestas',      sub: 'DMs', d: 'Alguien te escribió por esa story. Es el paso más cerca de una venta.' },
+  { k: 'profileVisits', t: 'Visitas al perfil', sub: 'PERFIL', d: 'Fueron a mirar quién sos. Intención alta, todavía sin conversación.' },
+  { k: 'stickerTaps',   t: 'Toques al sticker', sub: 'TOQUES', d: 'Tocaron la encuesta, el link o la pregunta que pusiste.' }
+];
+function setStoryMetric(k) { state.storyMetric = k; saveState(); render(); }
+function renderStoriesConversacion(rows) {
+  const conv = rows.filter(r => (r.replies || 0) + (r.profileVisits || 0) + (r.stickerTaps || 0) > 0);
+  if (!conv.length) {
+    return `
+      <div class="section-label"><span class="arrow-mark"></span>Lo que abrió conversación</div>
+      <div class="data-card"><div class="insight-body" style="opacity:1;">
+        <p>El export cargado no trae <strong>respuestas</strong>, <strong>visitas al perfil</strong> ni <strong>toques al sticker</strong>. Son las columnas que dicen si una story convirtió. Bajalas de Business Suite → Insights → Contenido → Stories, o traé el orgánico de Meta con el botón de arriba.</p>
+      </div></div>`;
+  }
+
+  const metrica = STORY_METRICAS.find(m => m.k === (state.storyMetric || 'replies')) || STORY_METRICAS[0];
+  const chips = STORY_METRICAS.map(m => {
+    const total = rows.reduce((s, r) => s + (r[m.k] || 0), 0);
+    return `<button class="filter-chip ${metrica.k === m.k ? 'active' : ''}" onclick="setStoryMetric('${m.k}')" title="${escapeHtml(m.d)}">${m.t} · ${fmtN(total)}</button>`;
+  }).join('');
+
+  const orden = [...rows].sort((a, b) => (b[metrica.k] || 0) - (a[metrica.k] || 0));
+  const top = orden.filter(r => (r[metrica.k] || 0) > 0).slice(0, 10);
+  const totalM = rows.reduce((s, r) => s + (r[metrica.k] || 0), 0);
+  const promedio = totalM / rows.length;
+
+  const filas = top.map((r, i) => {
+    const v = r[metrica.k] || 0;
+    const d = r.publishTime ? new Date(r.publishTime).toLocaleString('es', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
+    const desc = (r.description || '').replace(/\s+/g, ' ').trim().slice(0, 90) || '(sin texto)';
+    /* Cada cuántas views se ganó una respuesta: separa la story que convirtió
+       de la que simplemente la vio mucha gente. */
+    const cadaCuantas = v > 0 && (r.reach || r.views) ? Math.round((r.reach || r.views) / v) : 0;
+    const k = pieceReg(r);
+    return `<tr class="pieza-row" onclick="showPiece('${k}')" title="Ver la story">
+      <td>
+        <div class="tbl-pieza-type"><span style="color:var(--nfm-naranja);">#${i + 1}</span> · STORY</div>
+        <div class="tbl-pieza-title">${escapeHtml(desc)}</div>
+        ${d ? `<div class="tbl-pieza-meta">${d}</div>` : ''}
+      </td>
+      <td><span class="tbl-num good">${fmtN(v)}</span><span class="tbl-num-sub">${metrica.sub}</span></td>
+      <td><span class="tbl-num">${fmtN(r.reach || r.views || 0)}</span><span class="tbl-num-sub">ALCANCE</span></td>
+      <td><span class="tbl-num ${cadaCuantas && cadaCuantas < 500 ? 'good' : ''}">${cadaCuantas ? '1 / ' + fmtN(cadaCuantas) : '–'}</span><span class="tbl-num-sub">CADA X VISTAS</span></td>
+    </tr>`;
+  }).join('');
+
+  const mejor = top[0];
+  const lectura = mejor
+    ? `<p>Tu story con más <strong>${metrica.t.toLowerCase()}</strong> hizo <strong>${fmtN(mejor[metrica.k])}</strong>, contra un promedio de <strong>${promedio.toFixed(1)}</strong> por story. Mirá qué le pediste a la gente ahí y repetí ese pedido: en stories la conversación no viene sola, viene de un CTA.</p>`
+    : '';
+
+  return `
+    <div class="section-label"><span class="arrow-mark"></span>Lo que abrió conversación · ${metrica.t.toLowerCase()}</div>
+    <div class="data-card">
+      <div class="yt-why" style="margin-bottom:12px;"><b>Por qué esto y no las views.</b> Las stories van a gente que ya te sigue: el alcance dice poco. Lo que dice algo es <b>quién te escribió</b> por una story. ${escapeHtml(metrica.d)}</div>
+      <div class="filter-bar" style="margin-bottom:12px;"><span class="filter-label">Ordenar por</span>${chips}</div>
+      ${lectura ? `<div class="insight-body" style="opacity:1;margin-bottom:12px;">${lectura}</div>` : ''}
+      ${filas ? `<table class="tbl">
+        <thead><tr><th>Story · tocá para verla</th><th>${metrica.t}</th><th>Alcance</th><th>Eficiencia</th></tr></thead>
+        <tbody>${filas}</tbody></table>`
+      : `<div class="insight-body" style="opacity:1;"><p>Ninguna story registró ${metrica.t.toLowerCase()} en este rango.</p></div>`}
+    </div>`;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   3b · INSIGHTS QUE NO SE VUELVEN A PAGAR
+   El análisis con Claude vivía sólo en memoria: recargabas y había que
+   volver a generarlo (y a pagarlo). Ahora se guarda en el navegador y en la
+   nube, y se sigue usando mientras la data no cambie — la clave lleva una
+   huella de cuántas piezas hay y hasta qué fecha llegan.
+───────────────────────────────────────────────────────────── */
+const INSIGHTS_MAX = 40;
+function guardarInsight(clave, data) {
+  state.insightsGuardados = state.insightsGuardados || {};
+  state.insightsGuardados[clave] = { data, ts: Date.now() };
+  // Nos quedamos con los más recientes: el histórico no aporta y ocupa.
+  const claves = Object.keys(state.insightsGuardados);
+  if (claves.length > INSIGHTS_MAX) {
+    claves.sort((a, b) => (state.insightsGuardados[a].ts || 0) - (state.insightsGuardados[b].ts || 0))
+      .slice(0, claves.length - INSIGHTS_MAX)
+      .forEach(k => { delete state.insightsGuardados[k]; });
+  }
+  saveState();
+  cloudSave({ action: 'insight guardado' });
+}
+// Pasa lo guardado al cache en memoria que usan las vistas.
+function hidratarInsights() {
+  const g = state.insightsGuardados || {};
+  Object.keys(g).forEach(k => {
+    const e = g[k];
+    if (e && e.data && !CLAUDE.insightCache.has(k)) CLAUDE.insightCache.set(k, e.data);
+  });
+}
+function insightGuardadoTs(clave) {
+  const e = (state.insightsGuardados || {})[clave];
+  return e ? e.ts : 0;
+}
+function insightHaceCuanto(ts) {
+  if (!ts) return '';
+  const min = Math.floor((Date.now() - ts) / 60000);
+  if (min < 1) return 'recién';
+  if (min < 60) return 'hace ' + min + ' min';
+  const hs = Math.floor(min / 60);
+  if (hs < 24) return 'hace ' + hs + (hs === 1 ? ' hora' : ' horas');
+  const d = Math.floor(hs / 24);
+  return 'hace ' + d + (d === 1 ? ' día' : ' días');
+}
+// Forzar uno nuevo: borra el guardado de ese scope y vuelve a pedirlo.
+function regenerarInsight(scope, marca, network, scopeLabel) {
+  const clave = insightCacheKey(scope, marca || null, network || null);
+  CLAUDE.insightCache.delete(clave);
+  if (state.insightsGuardados) delete state.insightsGuardados[clave];
+  saveState();
+  const eid = `ai-insight-${Math.random().toString(36).slice(2, 9)}`;
+  CLAUDE.insightRequests[eid] = { scope, marca: marca || null, network: network || null, scopeLabel };
+  render();
+  // El botón vuelve a estar: lo disparamos solo, que es lo que la persona pidió.
+  setTimeout(() => {
+    const barra = document.querySelector('#main-content .insight-cta-bar');
+    if (barra) triggerInsight(barra.id);
+  }, 60);
+}
+function borrarInsightsGuardados() {
+  if (!confirm('¿Borrar los análisis de IA guardados? Los que quieras volver a ver hay que generarlos de nuevo (y se pagan otra vez).')) return;
+  state.insightsGuardados = {};
+  CLAUDE.insightCache.clear();
+  saveState(); showToast('Análisis guardados borrados', 'success');
+  closeConfig(); render();
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -7292,6 +7595,9 @@ function reabrirSetup() { closeConfig(); openSetup(true); }
    hace un primer render antes de llegar hasta acá.
 ───────────────────────────────────────────────────────────── */
 window.__v1Listo = true;
+
+// Los análisis ya pagados vuelven al cache antes del primer render.
+hidratarInsights();
 
 const _renderAntesDeFlow = window.render || render;
 window.render = function () {

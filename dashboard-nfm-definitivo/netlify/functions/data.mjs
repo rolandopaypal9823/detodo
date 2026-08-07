@@ -63,6 +63,11 @@ export default async (req) => {
       // que al re-deployar una versión nueva el dashboard siga siendo el tuyo.
       setup: body.setup && typeof body.setup === "object" ? body.setup : (prev.setup || null),
       goal: body.goal && typeof body.goal === "object" ? body.goal : (prev.goal || {}),
+      // Insights ya generados con la IA: se guardan para no volver a pagarlos.
+      // Se fusionan con los que ya había, nunca se reemplazan de golpe.
+      insights: body.insights && typeof body.insights === "object"
+        ? { ...(prev.insights || {}), ...body.insights }
+        : (prev.insights || {}),
       history,
       updatedAt: new Date().toISOString(),
     };
