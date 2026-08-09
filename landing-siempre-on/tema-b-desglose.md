@@ -6,25 +6,26 @@ entrevistas: se pueden usar tal cual, con nombre. **No inventar citas nuevas.**
 
 ---
 
-## 1. El título (corrección)
+## 1. El título
 
 | | |
 |---|---|
-| **Título de la clase** | **El que sostiene todo es el que no avanza** |
-| **Bajada** | *Escalá tu vida, no tu cansancio: por qué tu operación crece y lo tuyo sigue exactamente donde estaba.* |
+| **Título de la clase** | **Escalá tu vida, no tu cansancio** |
+| **Bajada** | *La razón neurológica por la que el que sostiene todo es el último en avanzar.* |
 | **Nombre del ángulo en la pauta** | Escalá tu vida, no tu cansancio |
 | **Frase-billboard** | la variable de ajuste sos vos |
 
-Estabas a mitad: *"Escalá tu vida, no tu cansancio"* **sí** es el ángulo B, pero quedó como **bajada**,
-no como título. El título de la clase es **"El que sostiene todo es el que no avanza"**.
+Título ancho arriba, filtro abajo. El trabajo del título es el show-up rate, no calificar: es Parte 9 del MD
+(*"el ancho arriba, la puntería abajo. Nunca al revés"*).
 
-**Por qué se movió.** Como título reclutaba Gold, no Platinum. El MD (Parte 1) es explícito: *"si la clase
-entra por salud y desborde personal, se llena de Gold. Si entra por 'tu operación te está comiendo y vos sos
-la variable de ajuste', se llena de Platinum"*. "Cansancio" es la puerta del cuerpo. Y le promete al Platinum
-algo que no quiere comprar: Diego, 56 — *"no me interesa estar inactivo a los 56 años, para nada"*.
+**Ojo con esto al comunicar:** "cansancio" entra por la puerta del cuerpo, que en el corpus es la puerta Gold.
+Todo lo que viene abajo del título tiene que empujar hacia el otro lado. Traducido a los mensajes del grupo:
 
-El nuevo título entra por la puerta del dueño **sin jerga de gestión** (que subiría el CPL), y es una frase
-distinta de la del 10, así el lead que ya vino no siente que le repiten la clase.
+- **Nunca prometas trabajar menos ni descansar más.** Rompe el perfil (Diego, 56: *"no me interesa estar
+  inactivo a los 56 años, para nada"*). "Escalá tu vida" no es bajar el ritmo: es dejar de ser el cuello de
+  botella.
+- **Hablá de operación, equipo, clientes y decisiones**, no de agotamiento.
+- El cansancio se nombra como **síntoma**, nunca como el problema. El problema es la jerarquía.
 
 ---
 

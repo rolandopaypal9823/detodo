@@ -18,39 +18,31 @@ agregó, sacó ni movió ninguna sección. Lo que cambia es el copy, y que ahora
 Bajada: *La razón neurológica por la que tu cerebro ejecuta lo ajeno y archiva lo tuyo.*
 Es el título que ya está decidido en el MD (Parte 2) y no se toca.
 
-### TEMA B · `El que sostiene todo es el que no avanza` (25 de agosto)
+### TEMA B · `Escalá tu vida, no tu cansancio` (25 de agosto)
 
-Bajada: *Escalá tu vida, no tu cansancio: por qué tu operación crece y lo tuyo sigue exactamente donde estaba.*
+Bajada: *La razón neurológica por la que el que sostiene todo es el último en avanzar.*
 
-**Por qué no dejé "Escalá tu vida, no tu cansancio" como título de la clase.** Me pediste que valide si atrae
-Platinum. Contra el MD, no: recluta Gold. Tres razones, todas del documento:
+**Decisión de Nico: título ancho arriba, filtro abajo.** El título tiene que ser fácil de decir y de
+recordar, y su trabajo es el show-up rate, no calificar. Es Parte 9 del MD: *"el ancho arriba, la puntería
+abajo. Nunca al revés"* — el filtro se corre hacia donde no cuesta plata (bajada, semilla, quiz de registro).
 
-1. **La puerta de entrada está del lado equivocado.** Parte 1: *"si la clase entra por salud y desborde
-   personal, se llena de Gold. Si entra por 'tu operación te está comiendo y vos sos la variable de ajuste',
-   se llena de Platinum"*. "Cansancio" es la puerta del cuerpo. En el corpus, los 4 de 4 Gold entran por el
-   cuerpo y la vida personal; los Platinum entran por el negocio y el equipo.
-2. **Le promete al Platinum algo que no quiere comprar.** Parte 1: *"NO quieren trabajar menos"* — Diego, 56:
-   *"no me interesa estar inactivo a los 56 años, para nada"*. "No tu cansancio" vende alivio. El Platinum no
-   paga US$3.000 por alivio: paga por dejar de ser el cuello de botella sin bajar la producción.
-3. **Es un título de beneficio, sin mecanismo.** Se puede creer entero y seguir de largo (falla el test binario
-   de Parte 2). "Cumplís con todos menos con vos" es espejo y obliga a preguntar *por qué*. El nuevo B
-   mantiene esa propiedad.
+**El riesgo conocido, y dónde se compensa.** Como título, "cansancio" entra por la puerta del cuerpo, que en
+el corpus es la puerta Gold (Parte 1: *"si la clase entra por salud y desborde personal, se llena de Gold"*).
+Por eso todo lo que viene abajo del título recluta Platinum de forma explícita:
 
-**Qué hice en cambio, sin tirar nada:**
+| Dónde | Qué hace el filtro |
+|---|---|
+| Bajada | *"el que sostiene todo es el último en avanzar"* → mueve el foco del cuerpo a la operación |
+| Semilla del hero | *"tu equipo, tus clientes, tu área: todo se mueve porque estás vos… la variable de ajuste siempre termina siendo la misma: vos"* |
+| Micro bajo el botón | *"No es para trabajar menos: es para dejar de ser el cuello de botella de tu propia vida"* → desactiva la promesa de alivio, que es lo que rompía el perfil (Diego, 56: *"no me interesa estar inactivo a los 56 años"*) |
+| Bajada del formulario | *"Para dueños, socios, gerentes y líderes que sostienen la operación de todos y hace años no mueven la propia"* |
+| Quiz de registro | *"¿Hay gente cuyo trabajo depende de tus decisiones? ¿Cuántas?"* ← el discriminador real |
 
-- `Escalá tu vida, no tu cansancio` **sigue siendo el nombre del ángulo B en la pauta** (los creativos ya
-  existen y así queda cargado en el doc de Estrategia Siempre-On, Regla 03) y **vive como bajada dentro de la
-  landing**. Nada de lo que ya está corriendo se rompe.
-- El **título de la clase** del 25 pasa a ser `El que sostiene todo es el que no avanza`, que:
-  - abre la puerta Platinum **sin jerga de gestión** → respeta Parte 9 (*"el ancho arriba, la puntería abajo"*:
-    la jerga sube el CPL y baja el registro);
-  - es una frase claramente distinta de la del 10, así el lead que ya vino no ve lo mismo dos veces;
-  - corre sobre el **mismo mecanismo** (urgencia prestada) → no hay que rehacer la clase, sólo rotar el marco;
-  - tiene respaldo textual real: Diego (*"la variable de ajuste se termina transformando en Diego"*),
-    Marcelo (*"un engranaje en mi vida, no el motor"*), Francisco (delegó el seguimiento de lo ajeno, no el de
-    lo suyo).
-- `La variable de ajuste sos vos` queda donde el MD lo dejó: **creativos para dueños y gerentes, no como
-  título**.
+**Si el mix de leads del 25 viene más Gold que el del 10**, la palanca no es cambiar el título: es endurecer
+la bajada y el quiz. El título se toca último.
+
+`La variable de ajuste sos vos` sigue donde el MD lo dejó: **creativos para dueños y gerentes, no como
+título**.
 
 Para septiembre (4 clases al mes) el par A/B alterna solo, semana a semana. Cuando quieras un tercer tema, se
 agrega un bloque `C` en `TEMAS` y se lo referencia en `CLASES`.
@@ -62,14 +54,14 @@ agrega un bloque `C` en `TEMAS` y se lo referencia en `CLASES`.
 | Fecha | Día | Hora | Tema | Título en pantalla | UTM de campaña |
 |---|---|---|---|---|---|
 | 2026-08-10 | lunes | 19:00 ART | A | Cumplís con todos menos con vos | `clase-ago10-cumplis-con-todos` |
-| 2026-08-25 | martes | 19:00 ART | B | El que sostiene todo es el que no avanza | `clase-ago25-sostenes-todo` |
+| 2026-08-25 | martes | 19:00 ART | B | Escalá tu vida, no tu cansancio | `clase-ago25-escala-tu-vida` |
 
 Para cambiarlas se toca **una sola línea** en `index.html`, bloque `CONFIG.CLASES`:
 
 ```js
 CLASES: [
   { fecha:'2026-08-10', tema:'A', utm:'clase-ago10-cumplis-con-todos' },
-  { fecha:'2026-08-25', tema:'B', utm:'clase-ago25-sostenes-todo'     }
+  { fecha:'2026-08-25', tema:'B', utm:'clase-ago25-escala-tu-vida'     }
 ],
 ```
 
