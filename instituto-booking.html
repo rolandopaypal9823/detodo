@@ -1986,18 +1986,48 @@ function agdCargarSurvey(){
     return;
   }
   agdLoaded=true;
-  var id=(url.split('/').pop()||'ghl-survey').split('?')[0];
   var sep=url.indexOf('?')<0?'?':'&';
   var full=url+sep+'utm_source='+encodeURIComponent(getUTM());
-  box.innerHTML='<iframe src="'+full+'" id="'+id+'" title="Aplicación al Instituto de Productividad" '+
+  /* sandbox SIN allow-top-navigation: el survey no puede llevarse la página entera
+     aunque tenga una redirección configurada en GHL. allow-popups deja que, si algo
+     necesita abrirse aparte, se abra en una pestaña nueva y no acá. */
+  box.innerHTML='<iframe id="agdFrame" src="'+full+'" title="Aplicación al Instituto de Productividad" '+
+                'sandbox="allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox" '+
                 'scrolling="no" style="border:none;width:100%;"></iframe>'+
                 '<a class="agd-alt" href="'+full+'" target="_blank" rel="noopener">Abrir en una pestaña →</a>';
-  if(!document.getElementById('ghl-embed-js')){
-    var sc=document.createElement('script');
-    sc.id='ghl-embed-js'; sc.src='https://link.msgsndr.com/js/form_embed.js'; sc.async=true;
-    document.head.appendChild(sc);
-  }
+  /* Nota: no cargamos form_embed.js a propósito. Ese script es justamente el que,
+     al enviarse el survey, hace window.location = link de redirección. El alto y el
+     paso al calendario los manejamos acá abajo. */
 }
+
+/* Mensajes del iframe de GHL: ajustamos el alto y, al enviarse, cargamos el
+   calendario DENTRO del mismo panel en vez de dejar que redirija la página. */
+var agdPaso2=false;
+window.addEventListener('message', function(ev){
+  if(!/leadconnectorhq|msgsndr|gohighlevel/i.test(ev.origin||'')) return;
+  var fr=document.getElementById('agdFrame'); if(!fr) return;
+  var d=ev.data, txt='';
+  try{ txt=(typeof d==='string')?d:JSON.stringify(d); }catch(e){ return; }
+  /* GHL manda a veces el objeto y a veces el JSON como texto */
+  if(typeof d==='string'){ try{ d=JSON.parse(d); }catch(e){ d={}; } }
+  if(!d || typeof d!=='object') d={};
+
+  /* alto automático (lo que hacía form_embed.js) */
+  var h=(d && (d.height||d.frameHeight)) || (txt.match(/"(?:height|frameHeight)"\s*:\s*"?(\d+)/)||[])[1];
+  if(h && +h>200){ fr.style.height=(+h)+'px'; fr.style.minHeight='0'; }
+
+  /* envío del survey → paso 2: el calendario, en el mismo panel */
+  if(agdPaso2) return;
+  if(!/submit|success|complete|redirect|thank/i.test(txt)) return;
+  var destino=(d && (d.url||d.redirect||d.redirectUrl||d.link)) || CONFIG.CALENDAR_URL;
+  if(!destino || String(destino).indexOf('http')!==0) return;
+  agdPaso2=true;
+  fr.removeAttribute('style');
+  fr.style.cssText='border:none;width:100%;min-height:660px';
+  fr.src=destino;
+  var t=document.querySelector('.agd-head h3');
+  if(t) t.textContent='Elegí el día y la hora de tu entrevista';
+}, false);
 
 /* Cualquier link a #aplicar abre el panel en vez de navegar */
 window.addEventListener('hashchange',function(){
@@ -2043,6 +2073,11 @@ const CONFIG = {
   // Al enviarlo, GHL sigue al calendario DENTRO del mismo iframe: la persona no se va
   // de la página y el video sigue sonando.
   SURVEY_URL: "https://api.leadconnectorhq.com/widget/survey/of5CdYfnDItzOsvtJ7lz",
+
+  // A dónde va la persona DESPUÉS de enviar el survey (tu calendario de GHL).
+  // Se carga dentro del mismo panel, no en una página nueva.
+  // Si lo dejás vacío, se usa el link de redirección que mande el propio survey.
+  CALENDAR_URL: "",
 
   // Video VSL. Pegá la URL de EMBED (YouTube: https://www.youtube.com/embed/XXXX ·
   // Vimeo: https://player.vimeo.com/video/XXXX · Loom: https://www.loom.com/embed/XXXX).
