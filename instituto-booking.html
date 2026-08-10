@@ -1,0 +1,2296 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instituto de Productividad · Mirá el video y aplicá</title>
+<meta name="description" content="No te falta información: te falta un método que trabaje a favor de tu cerebro. La razón neurológica por la que tu cerebro cumple con todo el mundo y deja tus objetivos para después — y qué hace el Instituto de Productividad para cambiarlo. Aplicá a tu entrevista de admisión.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================================
+   LANDING · INSTITUTO DE PRODUCTIVIDAD
+   Fondo blanco dominante + red neuronal sutil (adaptada a tema claro) +
+   tipografías Montserrat / Open Sans / JetBrains Mono con tratamiento
+   "avanzado" (shimmer, reveal por letra, eyebrows pill, marquee, glass).
+   El direccionamiento variable vive en el bloque CONFIG (ver <script>).
+   ========================================================================= */
+:root{
+  --nfm-blue:#0c3452;
+  --nfm-blue-dark:#061d30;
+  --nfm-blue-light:#e7edf2;
+  --nfm-orange:#ff6602;
+  --nfm-orange-hi:#ff8124;
+  --nfm-orange-text:#c04a00;   /* naranja legible (AA 4.5:1) para TEXTO chico sobre blanco */
+  --nfm-orange-wash:#fff7f2;
+  --nfm-white:#ffffff;
+  --ink:#0c3452;
+  --muted:#33536b;             /* texto secundario */
+  --mono-grey:#5c7286;
+  --mono-grey-soft:#6b8296;
+  --video-label:#9db6c9;
+  --hair:rgba(12,52,82,.10);
+  --hair-2:rgba(12,52,82,.16);
+  --glow:rgba(255,102,2,.30);
+  --radius:16px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  --maxw:1120px;
+  --drawer-w:460px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Open Sans',sans-serif;color:var(--ink);background:var(--nfm-white);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;position:relative}
+h1,h2,h3,.mont{font-family:'Montserrat',sans-serif}
+.mono{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.22em}
+p{text-wrap:pretty}
+img{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--nfm-orange);color:#fff}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.section{padding:88px 0;position:relative;scroll-margin-top:80px}
+.center{text-align:center}
+
+/* ---------- FONDO RED NEURONAL (tema claro) ---------- */
+#neuralbg{position:fixed;inset:0;z-index:0;display:block;pointer-events:none}
+section,.trust,footer.foot{position:relative;z-index:2}
+#neural-mask{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(120% 88% at 50% 8%, rgba(255,255,255,0) 40%, rgba(255,255,255,.80) 100%)}
+
+/* ---------- BARRA DE CARGA ---------- */
+#loadbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:70;pointer-events:none;opacity:1;transition:opacity .55s ease .25s}
+#loadbar.done{opacity:0}
+#loadbar .lf{height:100%;width:0;background:linear-gradient(90deg,var(--nfm-orange),var(--nfm-orange-hi));box-shadow:0 0 14px rgba(255,102,2,.55);position:relative;transition:width 1.1s cubic-bezier(.22,1,.36,1)}
+#loadbar .lf::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);transform:translateX(-100%);animation:lfsheen 1s linear infinite}
+@keyframes lfsheen{to{transform:translateX(100%)}}
+
+/* ---------- REVEAL ---------- */
+.fade-up{opacity:0;transform:translateY(24px);animation:fadeUpEnter .85s var(--ease) forwards}
+.d1{animation-delay:.05s}.d2{animation-delay:.14s}.d3{animation-delay:.23s}.d4{animation-delay:.32s}.d5{animation-delay:.41s}
+@keyframes fadeUpEnter{to{opacity:1;transform:none}}
+
+/* ---------- EYEBROW (pill) ---------- */
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.2em;font-size:11px;font-weight:500;color:var(--nfm-orange-text);background:var(--nfm-orange-wash);border:1px solid rgba(255,102,2,.22);padding:8px 15px;border-radius:100px;margin-bottom:20px}
+.eyebrow.on-blue{color:#ffd0ac;background:rgba(255,102,2,.14);border-color:rgba(255,255,255,.14)}
+
+/* ---------- TÍTULOS ---------- */
+.h2{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(28px,4.4vw,46px);line-height:1.06;letter-spacing:-.015em;margin-bottom:22px;color:var(--nfm-blue);text-wrap:balance}
+.h2 .hl{color:var(--nfm-orange)}
+.lead-2{font-size:clamp(17px,2.2vw,21px);color:var(--muted);max-width:780px;line-height:1.62}
+.center .lead-2{margin-left:auto;margin-right:auto}
+
+/* ---------- BOTONES ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;padding:18px 34px;border-radius:12px;border:none;cursor:pointer;text-decoration:none;overflow:hidden;transition:transform .16s var(--ease),box-shadow .16s,background .16s;line-height:1.1;text-align:center}
+.btn-primary{background:var(--nfm-orange);color:#fff;box-shadow:0 14px 36px rgba(255,102,2,.32)}
+.btn-primary:hover{transform:translateY(-2px);background:var(--nfm-orange-hi);box-shadow:0 20px 48px rgba(255,102,2,.42)}
+.btn-ghost-blue{background:transparent;color:var(--nfm-blue);border:2px solid rgba(12,52,82,.2)}
+.btn-ghost-blue:hover{border-color:var(--nfm-blue)}
+.btn-lg{font-size:19px;padding:20px 40px}
+.btn-sm{font-size:14px;padding:11px 20px;border-radius:10px}
+.topbar__cta .lbl-short{display:none}
+.btn .arrow{font-size:1.1em;flex:0 0 auto;transition:transform .2s var(--ease)}
+.btn:hover .arrow{transform:translateX(4px)}
+
+/* ---------- TOPBAR ---------- */
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 28px;border-bottom:1px solid var(--hair);background:rgba(255,255,255,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand__logo{height:42px;width:auto;display:block;flex:0 0 auto}
+.brand__wordmark{display:flex;flex-direction:column;line-height:1.06}
+.brand__top{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.brand__bottom{font-family:'Montserrat',sans-serif;font-weight:900;font-size:16px;letter-spacing:.01em;color:var(--nfm-blue);text-transform:uppercase}
+.topbar__cta{flex:0 0 auto}
+
+/* ---------- HERO ---------- */
+.hero{padding:64px 0 40px;position:relative}
+.hero .eyebrow{margin-bottom:24px}
+.hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(32px,5.4vw,60px);line-height:1.04;letter-spacing:-.018em;color:var(--nfm-blue);max-width:17ch;margin:0 auto 20px;text-align:center;text-wrap:balance}
+.hero h1 .hl{color:var(--nfm-orange)}
+.hero h1 .shimmer{background:linear-gradient(100deg,#ff6602 18%,#ff8124 40%,#ff9a4d 50%,#ff8124 60%,#ff6602 82%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 5.5s linear infinite}
+@keyframes shimmer{to{background-position:200% center}}
+.hero h1 .word{display:inline-block;white-space:nowrap}
+.hero h1 .ltr{display:inline-block;opacity:0;transform:translateY(15px);filter:blur(7px);transition:opacity .6s var(--ease),transform .6s var(--ease),filter .6s var(--ease)}
+.hero h1.lit .ltr{opacity:1;transform:none;filter:none}
+.hero .sub{font-size:clamp(16px,2.1vw,20px);color:var(--muted);max-width:680px;margin:0 auto;text-align:center;line-height:1.55}
+.hero .sub b{color:var(--nfm-blue);font-weight:800}
+/* ---------- HERO SPLIT (1er widget: copy + foto comunidad) ---------- */
+.hero-split{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero-copy{text-align:left}
+.hero-copy h1{text-align:left;max-width:none;margin:18px 0 18px}
+.hero-copy .sub{text-align:left;margin:0 0 28px;max-width:560px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:22px}
+.hero-trust{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.hero-trust b{color:var(--nfm-blue)}
+.hero-trust .hdot{color:var(--mono-grey-soft)}
+.hero-photo{position:relative;aspect-ratio:3/2;border-radius:20px;overflow:hidden;background:linear-gradient(150deg,#eef3f7,#dae5ee);border:1px solid var(--hair);box-shadow:0 30px 66px -22px rgba(12,52,82,.28);min-height:260px;display:flex;align-items:center;justify-content:center;margin:0}
+.hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-photo::before,.hero-photo::after{content:"";position:absolute;width:26px;height:26px;border:2.5px solid var(--nfm-orange);opacity:.8;z-index:2}
+.hero-photo::before{top:14px;left:14px;border-right:0;border-bottom:0;border-radius:9px 0 0 0}
+.hero-photo::after{bottom:14px;right:14px;border-left:0;border-top:0;border-radius:0 0 9px 0}
+@media(max-width:900px){
+  .hero-split{grid-template-columns:1fr;gap:26px}
+  .hero-copy{text-align:center}
+  .hero-copy h1{text-align:center;margin-left:auto;margin-right:auto}
+  .hero-copy .sub{text-align:center;margin-left:auto;margin-right:auto}
+  .hero-actions{justify-content:center}
+  .hero-trust{justify-content:center}
+  .hero-photo{aspect-ratio:3/2;min-height:200px}
+}
+
+/* ---------- MARQUEE ---------- */
+.marquee{margin:30px auto 0;max-width:960px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.marquee__row{display:flex;width:max-content;animation:marq 34s linear infinite}
+.marquee:hover .marquee__row{animation-play-state:paused}
+.marquee__group{display:flex}
+.mq-item{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mono-grey);white-space:nowrap;display:inline-flex;align-items:center;gap:18px;padding:0 18px}
+.mq-item::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--nfm-orange);opacity:.75}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ---------- VIDEO VSL (frame con acentos + glow) ---------- */
+.video-shell{position:relative;margin:40px auto 0;max-width:900px;border-radius:14px;padding:10px;background:linear-gradient(180deg,rgba(12,52,82,.05),rgba(12,52,82,.01));border:1px solid var(--hair-2);box-shadow:0 40px 90px -22px rgba(12,52,82,.34)}
+.video-shell::before{content:"";position:absolute;inset:-2px;border-radius:16px;background:radial-gradient(60% 60% at 50% 0%, var(--glow), transparent 70%);z-index:-1;filter:blur(18px);opacity:.85}
+.video-inner{position:relative;border-radius:11px;overflow:hidden;background:var(--nfm-blue-dark)}
+.video-frame{position:relative;width:100%;padding-top:56.25%}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.corner{position:absolute;width:18px;height:18px;border:2px solid var(--nfm-orange);opacity:.75;z-index:3}
+.corner.tl{top:4px;left:4px;border-right:0;border-bottom:0;border-radius:6px 0 0 0}
+.corner.tr{top:4px;right:4px;border-left:0;border-bottom:0;border-radius:0 6px 0 0}
+.corner.bl{bottom:4px;left:4px;border-right:0;border-top:0;border-radius:0 0 0 6px}
+.corner.br{bottom:4px;right:4px;border-left:0;border-top:0;border-radius:0 0 6px 0}
+.vsl-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:24px;cursor:pointer}
+.vsl-ph::before{content:"";position:absolute;inset:0;opacity:.5;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:26px 26px}
+.vsl-ph .play{width:78px;height:78px;border-radius:50%;background:var(--nfm-orange);display:flex;align-items:center;justify-content:center;margin-bottom:18px;box-shadow:0 16px 40px rgba(255,102,2,.5);position:relative;z-index:2}
+.vsl-ph .play::after{content:"";border-left:24px solid #fff;border-top:15px solid transparent;border-bottom:15px solid transparent;margin-left:6px}
+.vsl-ph .cap{font-family:'Montserrat';font-weight:700;font-size:20px;position:relative;z-index:2}
+.vsl-ph .ph-note{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:8px;position:relative;z-index:2}
+.video-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 8px 4px;gap:12px;flex-wrap:wrap}
+.video-bar .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mono-grey)}
+.fs-btn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;background:transparent;border:1.5px solid var(--hair-2);color:var(--nfm-blue);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:8px 14px;border-radius:8px;transition:all .18s ease}
+.fs-btn:hover{border-color:var(--nfm-orange);background:var(--nfm-orange);color:#fff}
+.fs-btn svg{width:14px;height:14px}
+.hero-cta{text-align:center;margin-top:36px}
+.hero-cta .note{margin-top:14px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mono-grey)}
+
+/* ---------- ESPEJO · "Seamos honestos" (secretos en la ducha) ---------- */
+.ducha{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:920px;margin:44px auto 0;text-align:left}
+.think{background:#fff;border:1px solid var(--hair);border-left:3px solid rgba(255,102,2,.55);border-radius:14px;padding:22px 24px 22px 26px;position:relative;box-shadow:0 12px 32px rgba(12,52,82,.06);transition:transform .18s var(--ease),box-shadow .18s}
+.think:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(12,52,82,.1)}
+.think p{font-size:15.5px;line-height:1.55;color:var(--nfm-blue);font-style:italic;margin:0}
+.ducha-close{max-width:70ch;margin:38px auto 0;text-align:center;font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(17px,2.2vw,21px);line-height:1.45;color:var(--nfm-blue)}
+.ducha-close em{color:var(--nfm-orange-text);font-style:normal}
+@media(max-width:640px){.ducha{grid-template-columns:1fr;gap:12px}.think{padding:18px 20px 18px 22px}}
+
+/* ---------- TRUST BAR ---------- */
+.trust{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:rgba(255,255,255,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.trust .wrap{display:flex;flex-wrap:wrap;justify-content:space-around;gap:24px;padding:34px 24px}
+.stat{text-align:center;flex:1 1 140px}
+.stat .n{font-family:'Montserrat';font-weight:900;font-size:clamp(28px,4vw,42px);color:var(--nfm-blue);line-height:1}
+.stat .n .u{color:var(--nfm-orange)}
+.stat .l{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+
+/* ---------- SECCIÓN "TINT" (glass azul suave) ---------- */
+.tint{background:rgba(231,237,242,.66);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+
+/* ---------- QUÉ ES / PARA QUIÉN ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.forwho{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:44px}
+.fw{background:#fff;border:2px solid var(--nfm-blue-light);border-radius:14px;padding:26px 24px;transition:border-color .18s,transform .18s}
+.fw:hover{border-color:var(--nfm-orange);transform:translateY(-3px)}
+.fw .mono{font-family:'JetBrains Mono';text-transform:uppercase;font-size:10px;letter-spacing:.2em;color:var(--nfm-orange-text);display:block;margin-bottom:12px}
+.fw h3{font-weight:800;font-size:18px;color:var(--nfm-blue);margin-bottom:8px}
+.fw p{font-size:14px;color:var(--muted)}
+
+/* ---------- QUÉ INCLUYE ---------- */
+/* Card destacada: AVAL UNIVERSITARIO (el diferencial, ocupa el mayor espacio) */
+.incl-feature{display:grid;grid-template-columns:1.12fr .88fr;margin:42px 0 30px;background:#fff;border:1px solid var(--hair);border-left:5px solid var(--nfm-orange);border-radius:18px;overflow:hidden;box-shadow:0 30px 66px -20px rgba(12,52,82,.24);text-align:left}
+.incl-feature__body{padding:44px 44px 46px}
+.feat-badge{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--nfm-orange-text);background:var(--nfm-orange-wash);border:1px solid rgba(255,102,2,.25);padding:7px 14px;border-radius:100px;margin-bottom:20px;font-weight:500}
+.feat-title{font-family:'Montserrat';font-weight:900;font-size:clamp(25px,3.5vw,38px);line-height:1.07;color:var(--nfm-blue);margin-bottom:16px;letter-spacing:-.015em}
+.feat-title .hl{color:var(--nfm-orange)}
+.feat-lead{font-size:clamp(16px,1.9vw,18px);color:var(--muted);margin-bottom:22px;line-height:1.6;max-width:54ch}
+.feat-lead b{color:var(--nfm-blue);font-weight:700}
+.feat-list{list-style:none;display:grid;gap:12px}
+.feat-list li{position:relative;padding-left:32px;font-size:15.5px;color:var(--nfm-blue);font-weight:600;line-height:1.4}
+.feat-list li::before{content:"✓";position:absolute;left:0;top:0;width:21px;height:21px;border-radius:50%;background:var(--nfm-orange);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1}
+.feat-legal{margin-top:20px;padding-top:14px;border-top:1px dashed var(--hair-2);font-size:11px;line-height:1.6;color:#5a6b7a}
+.incl-feature__photo{position:relative;min-height:300px;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,#eef3f7,#dae5ee);border-left:1px dashed var(--hair-2)}
+/* PHOTO SLOT reutilizable (espacio para completar con fotos) */
+.photo-slot{position:relative}
+.photo-slot__inner{text-align:center;padding:24px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.photo-slot__icon{width:52px;height:52px;border-radius:14px;background:rgba(12,52,82,.06);border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;color:var(--mono-grey)}
+.photo-slot__icon svg{width:26px;height:26px}
+.photo-slot__label{font-family:'JetBrains Mono';font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mono-grey);line-height:1.7}
+.photo-slot__label span{display:block;color:var(--mono-grey-soft);font-size:10px;margin-top:2px}
+
+.feat-sep{margin:34px auto 0;max-width:640px;font-family:'JetBrains Mono';font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mono-grey);text-align:center}
+
+/* Beneficios secundarios (más chicos) */
+.incl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
+.ic{background:#fff;border:1px solid var(--nfm-blue-light);border-radius:14px;padding:24px 22px;display:flex;gap:14px;align-items:flex-start;box-shadow:0 12px 32px rgba(12,52,82,.06);transition:transform .18s,box-shadow .18s}
+.ic:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(12,52,82,.1)}
+.ic .mk{font-family:'Montserrat';font-weight:900;font-size:19px;color:var(--nfm-orange);flex:0 0 auto;line-height:1;margin-top:2px}
+.ic h3{font-weight:800;font-size:16px;margin-bottom:6px;color:var(--nfm-blue)}
+.ic p{font-size:13.5px;color:var(--muted);line-height:1.5}
+.incl-grid--duo{grid-template-columns:repeat(2,1fr);max-width:760px;margin-left:auto;margin-right:auto;text-align:left}
+@media(max-width:640px){.incl-grid--duo{grid-template-columns:1fr;max-width:420px}}
+.incl-note{margin-top:34px;text-align:center;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mono-grey)}
+/* Recuadros de beneficio con foto real */
+.bcards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:26px;text-align:left}
+.bcard{background:#fff;border:1px solid var(--hair);border-radius:16px;overflow:hidden;box-shadow:0 12px 32px rgba(12,52,82,.06);display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s}
+.bcard:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(12,52,82,.1)}
+.bcard__ph{position:relative;aspect-ratio:4/3;background:linear-gradient(150deg,#eef3f7,#dae5ee);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.bcard__ph img{width:100%;height:100%;object-fit:cover}
+.bcard__body{padding:16px 18px 20px}
+.bcard__tag{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nfm-orange-text);font-weight:500}
+.bcard__body h3{font-weight:800;font-size:15px;color:var(--nfm-blue);margin:6px 0 6px}
+.bcard__body p{font-size:13px;color:var(--muted);line-height:1.5}
+.photo-slot--sm .photo-slot__inner{gap:9px;padding:16px}
+.photo-slot--sm .photo-slot__icon{width:40px;height:40px;border-radius:11px}
+.photo-slot--sm .photo-slot__icon svg{width:20px;height:20px}
+.photo-slot--sm .photo-slot__label{font-size:10px;letter-spacing:.1em}
+.photo-slot--sm .photo-slot__label span{font-size:9px}
+/* Collage de fotos reales dentro de un recuadro (1 a 4 fotos) */
+.photo-slot{overflow:hidden}
+.collage{position:absolute;inset:0;display:grid;gap:3px;background:#fff}
+.collage img{width:100%;height:100%;object-fit:cover;display:block}
+.collage--1{grid-template-columns:1fr}
+.collage--2{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
+.collage--3{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.collage--3 img:first-child{grid-row:1 / -1}
+.collage--4{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.photo-slot.is-filled{background:none}
+/* Encuadre fino por recuadro (ajustable) */
+[data-img="coach"] .collage img{object-position:center 38%}
+
+/* ---------- ENFOQUE INTEGRAL / PILARES ---------- */
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:44px}
+@media(min-width:620px) and (max-width:900px){
+  .pillars{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:619px){
+  .pillars{grid-template-columns:repeat(2,1fr)}
+}
+.pill{background:#fff;border:2px solid var(--nfm-blue-light);border-radius:12px;padding:22px 18px;text-align:left;transition:border-color .18s,transform .18s}
+.pill:hover{border-color:var(--nfm-orange);transform:translateY(-3px)}
+.pill .mono{font-family:'JetBrains Mono';text-transform:uppercase;font-size:10px;letter-spacing:.16em;color:var(--nfm-orange-text);display:block;margin-bottom:8px}
+.pill h3{font-weight:800;font-size:15px;color:var(--nfm-blue);margin-bottom:7px}
+.pill p{font-size:13px;color:var(--muted);line-height:1.5}
+/* ---------- EQUIPO (widget integrado) ---------- */
+/* .nfm-team hereda el padding de .section para igualar al resto */
+.nfm-team__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:44px;text-align:left}
+.nfm-team__card{background:#fff;border-radius:16px;padding:32px 26px 28px;box-shadow:0 12px 34px rgba(12,52,82,.08);border:1px solid var(--hair);transition:transform .25s,box-shadow .25s;display:flex;flex-direction:column}
+.nfm-team__card:hover{transform:translateY(-4px);box-shadow:0 22px 48px rgba(12,52,82,.14)}
+.nfm-team__photo{width:130px;height:130px;border-radius:50%;overflow:hidden;margin:0 auto 20px;position:relative;border:3px solid #fff;box-shadow:0 4px 16px rgba(12,52,82,.14)}
+.nfm-team__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.nfm-team__card:hover .nfm-team__photo{box-shadow:0 4px 16px rgba(12,52,82,.14),0 0 0 4px rgba(255,102,2,.16)}
+.nfm-team__name{font-family:'Montserrat',sans-serif;font-size:1.2rem;font-weight:800;color:var(--nfm-blue);text-align:center;margin:0 0 6px;line-height:1.25}
+.nfm-team__role{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:500;color:var(--nfm-orange-text);text-align:center;text-transform:uppercase;letter-spacing:.1em;margin:0 0 14px;line-height:1.5;min-height:2.2em}
+.nfm-team__divider{width:36px;height:2px;background:var(--nfm-orange);border-radius:2px;margin:0 auto 18px;opacity:.65}
+.nfm-team__bio{font-size:.9rem;color:var(--muted);line-height:1.55;margin:0 0 12px;text-align:left}
+.nfm-team__bio:last-child{margin-bottom:0}
+.nfm-team__list{list-style:none;padding:0;margin:0}
+.nfm-team__list li{position:relative;padding-left:16px;font-size:.85rem;color:var(--muted);line-height:1.5;margin-bottom:6px}
+.nfm-team__list li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--nfm-orange)}
+.nfm-team__bio em{color:var(--nfm-blue);font-style:italic}
+/* Coaches de admisión (dentro del equipo, tarjetas compactas) */
+.nfm-adm{margin-top:56px}
+.nfm-adm__eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--nfm-orange);display:block;margin-bottom:10px}
+.nfm-adm__title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(19px,2.6vw,25px);color:#fff;margin:0 0 8px}
+.nfm-adm__sub{font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.75);max-width:58ch;margin:0 auto 32px}
+.nfm-adm__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;text-align:center}
+.nfm-adm__card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:22px 13px 18px;transition:transform .2s,background .2s;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.nfm-adm__card:hover{transform:translateY(-3px);background:rgba(255,255,255,.09)}
+.nfm-adm__photo{width:82px;height:82px;border-radius:50%;overflow:hidden;margin:0 auto 12px;border:2px solid rgba(255,255,255,.85);box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.nfm-adm__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.nfm-adm__name{font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;color:#fff;margin:0 0 3px}
+.nfm-adm__role{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--nfm-orange);margin:0 0 9px}
+.nfm-adm__bio{font-size:12px;line-height:1.5;color:rgba(255,255,255,.72);margin:0}
+@media(max-width:960px){.nfm-adm__grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.nfm-adm__grid{grid-template-columns:repeat(2,1fr);gap:12px}}
+
+/* ---------- CASOS ---------- */
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:44px}
+.cs{background:#fff;border:1px solid var(--nfm-blue-light);border-radius:14px;overflow:hidden;box-shadow:0 18px 44px rgba(12,52,82,.09);display:flex;flex-direction:column}
+.cs-video{position:relative;aspect-ratio:16/9;background:var(--nfm-blue-dark);overflow:hidden}
+.cs-thumb{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;margin:0;cursor:pointer;background:var(--nfm-blue-dark);display:block}
+.cs-thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.94;transition:transform .35s var(--ease),opacity .2s}
+.cs-thumb:hover img{transform:scale(1.04);opacity:1}
+.cs-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;background:rgba(255,102,2,.95);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(255,102,2,.5);transition:transform .18s;pointer-events:none}
+.cs-thumb:hover .cs-play{transform:translate(-50%,-50%) scale(1.08)}
+.cs-play::after{content:"";border-left:19px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px}
+.cs-tag{position:absolute;top:12px;left:12px;z-index:2;font-family:'JetBrains Mono';font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(12,52,82,.72);backdrop-filter:blur(4px);padding:5px 10px;border-radius:100px;pointer-events:none}
+.cs-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.cs .body{padding:20px 22px 22px;flex:1;display:flex;flex-direction:column}
+.cs .who{font-weight:800;font-size:17px;color:var(--nfm-blue)}
+.cs .prof{font-size:13px;color:var(--muted);margin:4px 0 12px}
+.cs .ab{font-size:14px;color:var(--muted);margin-bottom:14px}
+.cs .ab b{color:var(--nfm-blue)}
+.cs .cs-quote{font-family:'Montserrat';font-weight:700;font-size:13.5px;color:var(--nfm-blue);line-height:1.4;margin-bottom:16px;padding-left:12px;border-left:3px solid var(--nfm-orange);flex:1}
+.cs a.watch{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--nfm-orange-text);text-decoration:none;font-weight:500;margin-top:auto}
+.mini-case .mc-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mini-case .mc-thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mini-case .mc-thumb .play{position:relative;z-index:2}
+.mini-case .mc-thumb{cursor:pointer}
+
+/* ---------- MINITEST ---------- */
+.mini-shell{max-width:680px;margin:44px auto 0;background:#fff;border:1px solid var(--hair);border-radius:18px;overflow:hidden;box-shadow:0 40px 100px rgba(12,52,82,.14)}
+.mini-progress{height:5px;background:var(--nfm-blue-light)}
+.mini-progress .bar{height:100%;width:0;background:var(--nfm-orange);transition:width .4s}
+.mini-inner{padding:40px 38px}
+.mini-step{display:none}.mini-step.active{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.mini-count{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--nfm-orange-text);margin-bottom:14px}
+.mini-q{font-family:'Montserrat';font-weight:800;font-size:clamp(19px,2.8vw,24px);color:var(--nfm-blue);margin-bottom:24px;line-height:1.2}
+.mini .opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--nfm-blue-light);border-radius:12px;padding:16px 20px;margin-bottom:11px;cursor:pointer;font-family:'Open Sans';font-size:16px;font-weight:600;color:var(--nfm-blue);transition:all .15s}
+.mini .opt:hover{border-color:var(--nfm-orange);background:var(--nfm-orange-wash);transform:translateX(3px)}
+.mini-intro{padding:46px 38px;text-align:center}
+.mini-intro h3{font-weight:900;font-size:clamp(22px,3.4vw,30px);color:var(--nfm-blue);margin-bottom:14px;line-height:1.1}
+.mini-intro p{color:var(--muted);font-size:16px;max-width:480px;margin:0 auto 26px}
+.mini-result{display:none;padding:44px 38px;text-align:center}
+.mini-result.active{display:block;animation:fade .35s ease}
+.mini-result .mono{font-family:'JetBrains Mono';text-transform:uppercase;font-size:11px;letter-spacing:.22em;color:var(--nfm-orange-text);margin-bottom:14px;display:block}
+.mini-result h3{font-weight:900;font-size:clamp(22px,3.4vw,30px);color:var(--nfm-blue);margin-bottom:10px;line-height:1.1}
+.mini-result .rlead{font-size:16px;color:var(--muted);max-width:500px;margin:0 auto 26px}
+.mini-result .rlead b{color:var(--nfm-blue)}
+.mini-case{border:2px solid var(--nfm-blue-light);border-radius:14px;overflow:hidden;max-width:520px;margin:0 auto 28px;text-align:left}
+.mini-case .mc-thumb{aspect-ratio:16/9;background:var(--nfm-blue-dark);position:relative;display:flex;align-items:center;justify-content:center}
+.mini-case .mc-thumb .play{width:52px;height:52px;border-radius:50%;background:rgba(255,102,2,.95);display:flex;align-items:center;justify-content:center}
+.mini-case .mc-thumb .play::after{content:"";border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
+.mini-case .mc-body{padding:20px 22px}
+.mini-case .mc-quote{font-family:'Montserrat';font-weight:700;font-size:17px;color:var(--nfm-blue);line-height:1.3;margin-bottom:10px}
+.mini-case .mc-who{font-size:13px;color:var(--muted)}
+.mini-case .mc-who a{color:var(--nfm-orange-text);font-weight:700;text-decoration:none}
+.mini-cta{max-width:440px;margin:0 auto}
+.mini-cta .btn{width:100%}
+/* ---------- CTA FINAL / AGENDAR ---------- */
+.apply{text-align:center}
+.apply h2{font-weight:900;font-size:clamp(28px,4.6vw,48px);line-height:1.04;margin-bottom:20px;max-width:800px;margin-left:auto;margin-right:auto;color:var(--nfm-blue)}
+.apply h2 .hl{color:var(--nfm-orange)}
+.apply p{font-size:19px;color:var(--muted);max-width:640px;margin:0 auto 20px}
+.apply .steps{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin:30px 0 34px}
+.apply .st{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.apply .st .b{width:26px;height:26px;border-radius:50%;background:var(--nfm-orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'Montserrat'}
+.apply .note{margin-top:16px;font-family:'JetBrains Mono';font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mono-grey)}
+
+/* ---------- FOOTER ---------- */
+.foot{background:rgba(255,255,255,.94);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-top:1px solid var(--hair);padding:46px 0;text-align:center}
+.foot .brand{display:inline-flex;align-items:center;justify-content:center;gap:12px;margin-bottom:18px;text-decoration:none}
+.foot .brand .brand__logo{height:36px}
+.foot .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.foot .links a{font-family:'JetBrains Mono';font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mono-grey);text-decoration:none}
+.foot .links a:hover{color:var(--nfm-orange-text)}
+.foot small{font-size:11px;font-family:'JetBrains Mono';letter-spacing:.14em;text-transform:uppercase;color:#546a7e}
+
+/* ---------- NAVY ELEGANTE (secciones ancla: equipo + cierre) ---------- */
+.section--navy{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(120% 90% at 18% 10%, rgba(23,70,109,.55), transparent 55%),radial-gradient(90% 80% at 88% 104%, rgba(255,102,2,.06), transparent 60%),linear-gradient(180deg,#0e3352 0%,#0c3452 45%,#061d30 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+.neural-local{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;pointer-events:none}
+.section--navy>*:not(.neural-local),.trust--navy>*:not(.neural-local){position:relative;z-index:1}
+.section--navy .eyebrow{color:#ffd0ac;background:rgba(255,102,2,.14);border-color:rgba(255,255,255,.16)}
+.section--navy .h2,.section--navy.apply h2{color:#fff}
+.section--navy .h2 .hl,.section--navy.apply h2 .hl{color:var(--nfm-orange)}
+.section--navy .lead-2{color:#9fb6c8}
+.section--navy .lead-2 b{color:#fff}
+.section--navy.apply p{color:#9fb6c8}
+.section--navy.apply p b{color:#fff}
+.section--navy.apply .st{color:#9fb6c8}
+.section--navy.apply .note{color:#6f8aa1}
+/* trust bar en navy elegante */
+.trust--navy{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(120% 90% at 18% 10%, rgba(23,70,109,.55), transparent 55%),radial-gradient(90% 80% at 88% 104%, rgba(255,102,2,.06), transparent 60%),linear-gradient(180deg,#0e3352 0%,#0c3452 45%,#061d30 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:none;-webkit-backdrop-filter:none}
+.trust--navy .wrap{padding:52px 24px}
+.trust--navy .stat .n{color:#fff}
+.trust--navy .stat .l{color:#9fb6c8}
+/* textos sueltos dentro de secciones navy nuevas */
+.section--navy .lead{color:#9fb6c8}
+.section--navy .feat-sep{color:#8ba2b6}
+
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:980px){
+  .incl-grid{grid-template-columns:repeat(2,1fr)}
+  .bcards{grid-template-columns:repeat(2,1fr)}
+  .nfm-team__grid{grid-template-columns:repeat(2,1fr);gap:20px}
+}
+@media(max-width:900px){
+  .section{padding:62px 0}
+  .split{grid-template-columns:1fr;gap:32px}
+  .incl-feature{grid-template-columns:1fr}
+  .incl-feature__photo{min-height:220px;border-left:0;border-top:1px dashed var(--hair-2)}
+  .incl-feature__body{padding:34px 28px 36px}
+  .mini-inner,.mini-intro,.mini-result{padding-left:24px;padding-right:24px}
+  .topbar{padding:12px 18px}
+}
+@media(max-width:640px){
+  .incl-grid{grid-template-columns:1fr}
+  .bcards{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}
+  .nfm-team__grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}
+  .brand__top{font-size:8.5px;letter-spacing:.22em}
+  .brand__bottom{font-size:14px}
+}
+@media(max-width:560px){
+  .btn-lg{font-size:16.5px;padding:17px 22px;gap:8px}
+  .apply .btn-lg,.nfm-cases__btn{width:100%;max-width:340px}
+  .trust .wrap{gap:18px}
+  .stat{flex:1 1 42%}
+  .video-bar{flex-direction:column;gap:10px;align-items:flex-start}
+  .topbar__cta .lbl-full{display:none}
+  .topbar__cta .lbl-short{display:inline}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001s!important;transition-duration:.001s!important}
+  #neuralbg{opacity:.5}
+  .fade-up{opacity:1;transform:none}
+  .hero h1 .ltr{opacity:1;transform:none;filter:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Barra de carga + fondo red neuronal -->
+<div id="loadbar" aria-hidden="true"><div class="lf"></div></div>
+<span id="top" aria-hidden="true"></span>
+<canvas id="neuralbg" aria-hidden="true"></canvas>
+<div id="neural-mask" aria-hidden="true"></div>
+
+<!-- ============================================================
+     LOGO (SVG vectorial, sin hosting) — bars + arrow + wordmark
+     Se usa por referencia con <use href="#ip-logo"> en header/footer.
+     Para reemplazarlo por el logo raster oficial: cambiá cada
+     <svg class="brand__logo">...</svg> por <img src="URL_DEL_LOGO">.
+     ============================================================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="ipNavy" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#17466d"/><stop offset="1" stop-color="#0c3452"/>
+    </linearGradient>
+    <linearGradient id="ipOrange" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff6602"/><stop offset="1" stop-color="#ff9440"/>
+    </linearGradient>
+  </defs>
+  <symbol id="ip-logo" viewBox="0 0 132 112">
+    <ellipse cx="65" cy="99" rx="53" ry="4.5" fill="#0c3452" opacity=".10"/>
+    <rect x="24" y="60" width="21" height="37" rx="4" fill="url(#ipNavy)"/>
+    <rect x="53" y="44" width="21" height="53" rx="4" fill="url(#ipNavy)"/>
+    <rect x="82" y="28" width="21" height="69" rx="4" fill="url(#ipNavy)"/>
+    <path d="M16 84 C 40 92, 52 68, 68 54 C 84 40, 100 28, 114 16" fill="none" stroke="url(#ipOrange)" stroke-width="9" stroke-linecap="round"/>
+    <path d="M114 16 L98 20 M114 16 L111 35" fill="none" stroke="url(#ipOrange)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<!-- TOPBAR (primer widget) -->
+<header class="topbar">
+  <a href="#top" class="brand">
+    <svg class="brand__logo" viewBox="0 0 132 112" role="img" aria-label="Instituto de Productividad"><use href="#ip-logo"/></svg>
+    <span class="brand__wordmark">
+      <span class="brand__top">Instituto de</span>
+      <span class="brand__bottom">Productividad</span>
+    </span>
+  </a>
+  <a href="#" class="btn btn-primary btn-sm topbar__cta" onclick="agdOpen('topbar');return false"><span class="lbl-full">Aplicar ahora</span><span class="lbl-short">Aplicar</span><span class="arrow">→</span></a>
+</header>
+
+<!-- HERO (video-first) -->
+<section class="hero">
+  <div class="wrap center">
+    <span class="eyebrow fade-up d1">Alto rendimiento con base en neurociencia</span>
+    <h1 id="heroTitle" style="max-width:24ch;margin-left:auto;margin-right:auto">No te falta información. Te falta un método que trabaje <span class="shimmer">a favor de tu cerebro</span>.</h1>
+    <p class="sub fade-up d2" style="margin-left:auto;margin-right:auto">En el <b>Instituto de Productividad</b> no sumamos más apps, más cursos ni más fuerza de voluntad. Entendemos cómo funciona tu cerebro y armamos un sistema a tu medida —para que rendir deje de ser pelearte con vos mismo. <b>Neurociencia aplicada, no más disciplina.</b></p>
+
+    <div class="video-shell fade-up d3" style="margin-top:32px">
+      <div class="video-inner">
+        <div class="video-frame" id="vslFrame">
+          <span class="corner tl"></span><span class="corner tr"></span>
+          <span class="corner bl"></span><span class="corner br"></span>
+          <div class="vsl-ph" id="vslPh" onclick="loadVSL()">
+            <div class="play"></div>
+            <div class="cap">Mirá qué es el Instituto</div>
+            <div class="ph-note">Video en proceso · CONFIG.VIDEO_EMBED_URL</div>
+          </div>
+        </div>
+      </div>
+      <div class="video-bar">
+        <button class="fs-btn" id="fsBtn" type="button" onclick="goFullscreen()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/>
+          </svg>
+          Pantalla completa
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-cta fade-up d4" id="aplicar">
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('hero');return false">Quiero hacer el cambio <span class="arrow">→</span></a>
+    </div>
+
+    <div class="marquee fade-up d5" aria-hidden="true">
+      <div class="marquee__row">
+        <div class="marquee__group"><span class="mq-item">Aval universitario</span><span class="mq-item">Mastermind presencial</span><span class="mq-item">Acompañamiento 1 a 1</span><span class="mq-item">Equipo multidisciplinario</span><span class="mq-item">Sin vendehumo</span><span class="mq-item">6 meses de proceso</span><span class="mq-item">+10 países</span></div>
+        <div class="marquee__group"><span class="mq-item">Aval universitario</span><span class="mq-item">Mastermind presencial</span><span class="mq-item">Acompañamiento 1 a 1</span><span class="mq-item">Equipo multidisciplinario</span><span class="mq-item">Sin vendehumo</span><span class="mq-item">6 meses de proceso</span><span class="mq-item">+10 países</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust trust--navy">
+  <div class="wrap">
+    <div class="stat"><div class="n">+2.000</div><div class="l">Alumnos acompañados</div></div>
+    <div class="stat"><div class="n">8.8<span class="u">/10</span></div><div class="l">Calidad del acompañamiento</div></div>
+    <div class="stat"><div class="n">6<span class="u"> meses</span></div><div class="l">De proceso, no una promesa mágica</div></div>
+    <div class="stat"><div class="n">+10<span class="u"> países</span></div><div class="l">Comunidad iberoamericana</div></div>
+  </div>
+</div>
+
+<!-- ESPEJO · Seamos honestos (secretos en la ducha) -->
+<section class="section" id="espejo">
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">Seamos honestos</span></div>
+    <h2 class="h2 center">Esto es lo que pensás cuando <span class="hl">nadie te escucha</span></h2>
+    <p class="lead-2 center" style="max-width:56ch;margin-left:auto;margin-right:auto">Y no se lo decís a nadie.</p>
+    <div class="ducha">
+      <div class="think"><p>Termino el día reventado y, si me preguntás en qué se me fue, no sé bien qué contestar.</p></div>
+      <div class="think"><p>Pongo cara de que tengo todo bajo control. Por dentro voy corriendo atrás de todo.</p></div>
+      <div class="think"><p>Arranqué mil cosas —cursos, apps, rutinas— y las dejé todas por la mitad. Otra vez yo.</p></div>
+      <div class="think"><p>Sé exactamente lo que tengo que hacer. Y no lo hago. Y eso es lo que más bronca me da.</p></div>
+      <div class="think"><p>Me da vergüenza admitir que, con todo lo que logré, mi día a día es un quilombo.</p></div>
+      <div class="think"><p>A veces, a las 3 de la mañana, pienso: ¿hasta cuándo voy a vivir así?</p></div>
+    </div>
+    <p class="ducha-close">Si te reconociste en más de una, no es falta de actitud ni de fuerza de voluntad. Es un cerebro funcionando en <em>modo supervivencia</em>. Y eso se entrena.</p>
+  </div>
+</section>
+
+<!-- AVAL UNIVERSITARIO (3er widget · el diferencial arriba) -->
+<section class="section section--navy" id="aval">
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">El respaldo</span></div>
+    <h2 class="h2 center">Lo que casi ningún programa te puede mostrar</h2>
+    <p class="lead-2 center" style="max-width:62ch;margin-left:auto;margin-right:auto">Antes de contarte nada más: esto es lo que separa al Instituto de "un curso más".</p>
+    <div class="incl-feature">
+      <div class="incl-feature__body">
+        <span class="feat-badge">★ El diferencial · Respaldo académico</span>
+        <h3 class="feat-title">Tu sistema, con <span class="hl">aval universitario</span></h3>
+        <p class="feat-lead">No es una constancia por asistir. La versión <b>Platinum</b> se certifica de forma conjunta con la <b>Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy (UNJu)</b>: un trayecto de 250 horas con evaluación y un trabajo final aplicado a tu propia vida o negocio. Se gana, no se regala — y por eso pesa distinto en tu CV, tu LinkedIn y frente a quien sea.</p>
+        <ul class="feat-list">
+          <li>Trayecto de 250 horas certificado por la Facultad, con evaluación y trabajo final</li>
+          <li>Certificado digital emitido y firmado por la Facultad, con mecanismo de verificación</li>
+          <li>Exclusivo de la versión Platinum · Certificación optativa</li>
+        </ul>
+        <p class="feat-legal">El certificado es emitido por la Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy en el marco de un programa de certificación conjunta con NFM Productivity S.A.S. La certificación universitaria es optativa, exige requisitos académicos de aprobación y no constituye título universitario de grado ni de posgrado, ni acredita equivalencias automáticas.</p>
+      </div>
+      <figure class="incl-feature__photo photo-slot" data-img="certificados" data-alt="Alumno del Instituto de Productividad con su certificado">
+        <div class="photo-slot__inner">
+          <div class="photo-slot__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          </div>
+          <div class="photo-slot__label">Recuadro 1 · Foto<span>Aval · alumnos con su certificado (hasta 4)</span></div>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- QUÉ ES / PARA QUIÉN -->
+<section class="section" id="quees">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <div class="eyebrow">La razón real</div>
+        <h2 class="h2">Cumplís con todo el mundo.<br>Tus objetivos <span class="hl">quedan para después</span>.</h2>
+        <p class="lead-2" style="margin-bottom:16px">Cumplís impecable con los plazos de todo el mundo, pero ese proyecto que es tuyo lleva años en la misma lista. No es capacidad ni voluntad: tu cerebro no jerarquiza por importancia, jerarquiza por <b>quién está esperando</b>. Lo que le debés a otro tiene fecha y cara; lo que te debés a vos, no. A eso lo llamamos <b>urgencia prestada</b>.</p>
+        <p class="lead-2">La salida no es más información —eso ya lo tenés—. Es entender cómo decide tu cerebro y darle la estructura que le falta: un sistema a tu medida y un equipo que sostiene el proceso con vos. Un entrenador no te enseña a hacer sentadillas: hace que el martes a las 7 estés entrenando. <b>Eso es el Instituto.</b></p>
+      </div>
+      <div>
+        <div class="eyebrow">Para quién es</div>
+        <div class="forwho" style="grid-template-columns:1fr;margin-top:0">
+          <div class="fw"><span class="mono">◆ Es para vos si…</span><h3>Hay gente cuyo trabajo depende de tus decisiones</h3><p>Sos dueño, socio, gerente o líder de equipo. Tenés una operación —o una empresa— que hoy depende de vos.</p></div>
+          <div class="fw"><span class="mono">◆ Es para vos si…</span><h3>Cumplís con todos, y tu proyecto no se mueve</h3><p>Sos impecable con los compromisos que tenés con otros, pero el objetivo que es tuyo lleva años en la misma lista. No te falta capacidad: te falta jerarquía.</p></div>
+          <div class="fw"><span class="mono">✗ No es para vos si…</span><h3>Buscás un truco para mañana o que otro lo haga por vos</h3><p>Esto es dar el paso vos —con un equipo atrás. Un proceso de 6 meses con trabajo real, no un atajo.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUÉ INCLUYE -->
+<section class="section section--navy" id="incluye">
+  <div class="wrap center">
+    <div class="center"><span class="eyebrow">Qué incluye</span></div>
+    <h2 class="h2">Qué incluyen los programas del <span class="hl">Instituto de Productividad</span></h2>
+    <p class="lead-2">Todo lo que ponemos del otro lado —dentro de nuestros procesos— para que esta vez tus objetivos sí avancen. Un profesional por cada frente, no un PDF y suerte.</p>
+
+    <!-- Beneficios con foto (recuadros 2 a 5) -->
+    <div class="bcards">
+
+      <div class="bcard">
+        <div class="bcard__ph photo-slot photo-slot--sm" data-img="coach" data-alt="Sesión de acompañamiento 1 a 1 del Instituto">
+          <div class="photo-slot__inner">
+            <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="photo-slot__label">Recuadro 2 · Foto<span>Acompañamiento 1 a 1</span></div>
+          </div>
+        </div>
+        <div class="bcard__body">
+          <span class="bcard__tag">01 · Incluido</span>
+          <h3>Tu coach dedicada, 1 a 1</h3>
+          <p>La persona del otro lado esperándote: te conoce, te sigue de cerca y no te deja aflojar. Lo que los alumnos valoran por encima de todo (8.8/10).</p>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bcard__ph photo-slot photo-slot--sm" data-img="modulos" data-alt="Plataforma del curso El ABC del Alto Rendimiento">
+          <div class="photo-slot__inner">
+            <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="photo-slot__label">Recuadro 3 · Foto<span>Método · plataforma del curso</span></div>
+          </div>
+        </div>
+        <div class="bcard__body">
+          <span class="bcard__tag">02 · Incluido</span>
+          <h3>Biblioteca de +20 módulos</h3>
+          <p>El método completo, ordenado y secuencial. Píldoras cortas y accionables, no teoría.</p>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bcard__ph photo-slot photo-slot--sm" data-img="llamadas" data-alt="Clase en vivo del Instituto de Productividad">
+          <div class="photo-slot__inner">
+            <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="photo-slot__label">Recuadro 4 · Foto<span>Clases / encuentros en vivo</span></div>
+          </div>
+        </div>
+        <div class="bcard__body">
+          <span class="bcard__tag">03 · Incluido</span>
+          <h3>Llamadas grupales en vivo</h3>
+          <p>Encuentros con Nico y el equipo para resolver tu caso real, y aprender de los compañeros.</p>
+        </div>
+      </div>
+
+      <div class="bcard">
+        <div class="bcard__ph photo-slot photo-slot--sm" data-img="comunidad" data-alt="Comunidad del Instituto de Productividad">
+          <div class="photo-slot__inner">
+            <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="photo-slot__label">Recuadro 5 · Foto<span>Comunidad / mastermind presencial</span></div>
+          </div>
+        </div>
+        <div class="bcard__body">
+          <span class="bcard__tag">04 · Incluido</span>
+          <h3>Comunidad + mastermind presencial</h3>
+          <p>Gente con tu carga y tu oficio, que no juzga y acompaña — incluido el mastermind presencial en Buenos Aires.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Beneficios sin foto (se quedan como tarjetas de ícono) -->
+    <div class="incl-grid incl-grid--duo">
+      <div class="ic"><span class="mk">05</span><div><h3>Equipo multidisciplinario</h3><p>Psicólogos, nutricionistas y coaches de alto rendimiento: un profesional por cada frente de tu vida y tu operación, no un solo referente para todo.</p></div></div>
+      <div class="ic"><span class="mk">06</span><div><h3>Método y sistemas listos para usar</h3><p>Biblioteca de módulos accionables + Habit Tracker y Second Brain para sacarte la carga de la cabeza. Copiás, adaptás, aplicás.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ENFOQUE INTEGRAL / PILARES -->
+<section class="section" id="metodo">
+  <div class="wrap center">
+    <div class="center"><span class="eyebrow">El método</span></div>
+    <h2 class="h2">La productividad es el <span class="hl">auto completo</span>, no pisar más el acelerador.</h2>
+    <p class="lead-2">Service, aceite, gomas: rendir sostenido no es apretar más fuerte, es que todo el sistema funcione. Por eso el método toca las cinco áreas —no una técnica suelta.</p>
+
+    <div class="pillars">
+      <div class="pill"><span class="mono">Pilar 01</span><h3>Descanso y energía</h3><p>La primera palanca: sin energía no hay sistema que se sostenga.</p></div>
+      <div class="pill"><span class="mono">Pilar 02</span><h3>Alimentación</h3><p>Comer para tener claridad mental, no para apagar la ansiedad.</p></div>
+      <div class="pill"><span class="mono">Pilar 03</span><h3>Movimiento</h3><p>Una rutina física que te devuelva energía en lugar de quitártela.</p></div>
+      <div class="pill"><span class="mono">Pilar 04</span><h3>Foco y hábitos</h3><p>Bloques de trabajo profundo y hábitos que no dependen de las ganas.</p></div>
+      <div class="pill"><span class="mono">Pilar 05</span><h3>Mentalidad</h3><p>Desarmar la autoexigencia que te tiene apagando incendios.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     EQUIPO QUE TE ACOMPAÑA (6 miembros) — widget integrado
+     ============================================================ -->
+<section class="section section--navy nfm-team" id="nfm-equipo">
+  <div class="wrap center">
+    <div class="center"><span class="eyebrow">El equipo</span></div>
+    <h2 class="h2">Este es el equipo que te va a estar <span class="hl">esperando del otro lado</span></h2>
+    <p class="lead-2">Acá tenés <b>un profesional por cada frente</b>: coach dedicada, psicólogos, nutricionistas y coaches de alto rendimiento. No es Nico solo: es un equipo que te ve, te sigue y no te deja aflojar. Con nombre y cara, incluso quien te va a atender en la primera charla.</p>
+
+    <div class="nfm-team__grid">
+
+      <!-- 1. NICOLÁS FERNÁNDEZ MIRANDA -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/nico-bio-card.jpg" alt="Nicolás Fernández Miranda" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Nicolás Fernández Miranda</h3>
+        <p class="nfm-team__role">Fundador del Instituto de Productividad</p>
+        <div class="nfm-team__divider"></div>
+        <ul class="nfm-team__list">
+          <li>Diplomaturas en Neurociencia aplicada</li>
+          <li>Máster en Neurociencia aplicada al rendimiento</li>
+          <li>Autor bestseller de <em>Hackea tu Cerebro</em></li>
+          <li>Conferencista TEDx</li>
+          <li>Consultor de más de 80 empresas</li>
+        </ul>
+      </div>
+
+      <!-- 2. AGUSTINA MONTE -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/03/MONTE.jpg" alt="Agustina Monte" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Agustina Monte</h3>
+        <p class="nfm-team__role">Coach Nutricional</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Especializada en salud intestinal y alimentación basada en plantas. Porque no se puede tener claridad mental si el sistema digestivo está inflamado.
+        </p>
+        <ul class="nfm-team__list">
+          <li>Microbiota (Posgrado España)</li>
+          <li>Patologías Digestivas (Inst. Conceptual)</li>
+          <li>Nutrición y rendimiento cognitivo</li>
+        </ul>
+      </div>
+
+      <!-- 3. MARTÍN MONTE -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/MONTE.jpg" alt="Martín Monte" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Martín Monte</h3>
+        <p class="nfm-team__role">Coach de Alto Rendimiento · Liderazgo y equipos</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Coach ejecutivo y organizacional, especializado en deporte de alto rendimiento.
+        </p>
+        <p class="nfm-team__bio">
+          Te ayuda a liderar sin que todo dependa de vos —delegar, priorizar, decidir— y a diseñar una rutina física que te dé energía en lugar de quitártela. Sin necesidad de correr un Ironman.
+        </p>
+      </div>
+
+      <!-- 4. AGOSTINA MAGRA -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/03/AGOS-AMGRA.jpg" alt="Agostina Magra" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Agostina Magra</h3>
+        <p class="nfm-team__role">Accountability Coach</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Coach ontológica con enfoque sistémico. Especializada en Neurociencias Aplicadas y Competencias Directivas.
+        </p>
+        <p class="nfm-team__bio">
+          Te ayuda a cumplir lo que te propusiste, mantenerte enfocado y romper con los ciclos de autosabotaje.
+        </p>
+      </div>
+
+      <!-- 5. PIERINA MONTE RISO -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/pierinaa.jpg" alt="Pierina Monte Riso" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Pierina Monte Riso</h3>
+        <p class="nfm-team__role">Client Success Manager</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Es quien sigue tu proceso de punta a punta: si desaparecés una semana, es ella la que te va a buscar —sin culpa y sin sermón. Habla 7 idiomas y estudia un doctorado en Roma.
+        </p>
+        <ul class="nfm-team__list">
+          <li>Coaching ontológico (Axon)</li>
+          <li>Profesora de Gestión del Tiempo</li>
+          <li>Acompaña alumnos en +10 países</li>
+        </ul>
+      </div>
+
+      <!-- 6. SOLEDAD FUNES -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/Captura-de-pantalla-2026-05-18-075350.png" alt="Soledad Funes" loading="lazy" style="object-position:center top;">
+        </div>
+        <h3 class="nfm-team__name">Soledad Funes</h3>
+        <p class="nfm-team__role">Lic. en Psicología · TDAH y Ansiedad</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Acompañamiento 1 a 1 en gestión emocional para profesionales que viven con la cabeza acelerada y no logran bajar las revoluciones.
+        </p>
+        <ul class="nfm-team__list">
+          <li>Gestión de TDA/H en adultos profesionales</li>
+          <li>Manejo de la ansiedad de alto rendimiento</li>
+          <li>Estrategias clínicas para gestión del estrés</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- COACHES DE ADMISIÓN -->
+    <div class="nfm-adm">
+      <span class="nfm-adm__eyebrow">◆ Tu primera conversación</span>
+      <h3 class="nfm-adm__title">Coaches de admisión</h3>
+      <p class="nfm-adm__sub">La entrevista la tenés con uno de ellos: escuchan dónde estás, a dónde querés llegar, y arman con vos el camino. Sin compromiso.</p>
+      <div class="nfm-adm__grid">
+        <div class="nfm-adm__card">
+          <div class="nfm-adm__photo"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-19-at-1.08.42-PM-1.jpg" alt="Valentín" loading="lazy"></div>
+          <h4 class="nfm-adm__name">Valentín</h4>
+          <p class="nfm-adm__role">Coach de admisión</p>
+          <p class="nfm-adm__bio">Te escucha y te ayuda a definir el mejor camino para tu caso.</p>
+        </div>
+        <div class="nfm-adm__card">
+          <div class="nfm-adm__photo"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-19-at-11.20.09-AM.jpeg" alt="Luciana" loading="lazy"></div>
+          <h4 class="nfm-adm__name">Luciana</h4>
+          <p class="nfm-adm__role">Coach de admisión</p>
+          <p class="nfm-adm__bio">Conoce tu caso en detalle y te muestra cómo avanzar.</p>
+        </div>
+        <div class="nfm-adm__card">
+          <div class="nfm-adm__photo"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-19-at-12.51.15-PM.jpeg" alt="Cristina" loading="lazy" style="object-position:center 10%"></div>
+          <h4 class="nfm-adm__name">Cristina</h4>
+          <p class="nfm-adm__role">Coach de admisión</p>
+          <p class="nfm-adm__bio">Entiende qué necesitás y cómo el Instituto puede ayudarte.</p>
+        </div>
+        <div class="nfm-adm__card">
+          <div class="nfm-adm__photo"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/06/image-1.png" alt="Paula" loading="lazy" style="object-position:center top"></div>
+          <h4 class="nfm-adm__name">Paula</h4>
+          <p class="nfm-adm__role">Coach de admisión</p>
+          <p class="nfm-adm__bio">Ve con vos tu situación y si el programa es para vos.</p>
+        </div>
+        <div class="nfm-adm__card">
+          <div class="nfm-adm__photo"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/06/image.png" alt="Matías" loading="lazy"></div>
+          <h4 class="nfm-adm__name">Matías</h4>
+          <p class="nfm-adm__role">Coach de admisión</p>
+          <p class="nfm-adm__bio">Te acompaña a encontrar el mejor camino para arrancar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     WIDGET — CASOS DE ÉXITO MATCH (Mini test → 3 casos)
+     Filtra por perfil + sexo/padre-madre + dolor
+     ═══════════════════════════════════════════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  .nfm-cases {
+    --navy:   #0C3452;
+    --navy2:  #091F33;
+    --orange: #FF6602;
+    --orange-light: rgba(255, 102, 2, 0.08);
+    --cream:  #FBF7F1;
+    --white:  #ffffff;
+    --text:   #2D3748;
+    --muted:  #6B7280;
+    --border: rgba(12, 52, 82, 0.10);
+
+    position: relative;
+    background: transparent;
+    color: var(--text);
+    padding: 88px 0 96px;
+    font-family: 'Open Sans', sans-serif;
+    overflow: hidden;
+  }
+
+  .nfm-cases::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,102,2,.025) 30px, rgba(255,102,2,.025) 31px),
+      repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(12,52,82,.015) 30px, rgba(12,52,82,.015) 31px);
+    pointer-events: none;
+  }
+
+  .nfm-cases__container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .nfm-cases__header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 48px;
+  }
+
+  .nfm-cases__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #b34a00;
+    margin-bottom: 18px;
+  }
+
+  .nfm-cases__eyebrow::before,
+  .nfm-cases__eyebrow::after {
+    content: '';
+    width: 50px;
+    height: 1px;
+    background: rgba(255, 102, 2, 0.35);
+  }
+
+  .nfm-cases__title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin: 0 0 18px;
+    color: var(--navy);
+  }
+
+  .nfm-cases__title span { color: var(--orange); }
+
+  .nfm-cases__subtitle {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .nfm-cases__quiz {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .nfm-cases__progress-wrap {
+    margin-bottom: 22px;
+  }
+
+  .nfm-cases__progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .nfm-cases__progress-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nfm-cases__progress-count {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #b34a00;
+  }
+
+  .nfm-cases__progress-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(12, 52, 82, 0.08);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .nfm-cases__progress-fill {
+    height: 100%;
+    background: var(--orange);
+    border-radius: 100px;
+    transition: width 0.4s ease;
+  }
+
+  .nfm-cases__q {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 30px 28px 26px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 14px rgba(12, 52, 82, 0.05);
+    animation: nfm-fadeUp 0.35s ease both;
+  }
+
+  .nfm-cases__q-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #b34a00;
+    margin-bottom: 12px;
+  }
+
+  .nfm-cases__q-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+    color: var(--navy);
+  }
+
+  .nfm-cases__options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nfm-cases__option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.18s;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--text);
+    text-align: left;
+    width: 100%;
+  }
+
+  .nfm-cases__option:hover {
+    border-color: rgba(255, 102, 2, 0.45);
+    background: var(--orange-light);
+  }
+
+  .nfm-cases__option.is-selected {
+    border-color: var(--orange);
+    background: var(--orange-light);
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .nfm-cases__letter {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1.5px solid rgba(12, 52, 82, 0.25);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 900;
+    color: var(--muted);
+    transition: all 0.18s;
+    margin-top: 1px;
+  }
+
+  .nfm-cases__option.is-selected .nfm-cases__letter {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: #fff;
+  }
+
+  .nfm-cases__nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .nfm-cases__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--orange);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(255, 102, 2, 0.28);
+  }
+
+  .nfm-cases__btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(255, 102, 2, 0.4);
+  }
+
+  .nfm-cases__btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  .nfm-cases__result {
+    display: none;
+  }
+
+  .nfm-cases__result.is-visible {
+    display: block;
+    animation: nfm-fadeUp 0.5s ease both;
+  }
+
+  .nfm-cases__result-intro {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .nfm-cases__result-intro h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+    color: var(--navy);
+  }
+
+  .nfm-cases__result-intro h3 span { color: var(--orange); }
+
+  .nfm-cases__result-intro p {
+    font-family: 'Open Sans', sans-serif;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .nfm-cases__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 36px;
+  }
+
+  .nfm-cases__card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 14px rgba(12, 52, 82, 0.06);
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  }
+
+  .nfm-cases__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(12, 52, 82, 0.12);
+    border-color: rgba(255, 102, 2, 0.35);
+  }
+
+  .nfm-cases__video:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+  .nfm-cases__video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--navy2);
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .nfm-cases__video img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+  }
+
+  .nfm-cases__video:hover img {
+    transform: scale(1.04);
+  }
+
+  .nfm-cases__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 42px;
+    background: rgba(0, 0, 0, 0.78);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    pointer-events: none;
+  }
+
+  .nfm-cases__video:hover .nfm-cases__play {
+    background: #cc0000;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .nfm-cases__play svg {
+    width: 22px;
+    height: 22px;
+    fill: #fff;
+  }
+
+  .nfm-cases__video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .nfm-cases__video--placeholder {
+    background: linear-gradient(135deg, var(--orange) 0%, #c84500 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+  }
+
+  .nfm-cases__video--placeholder .nfm-cases__placeholder-initial {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  .nfm-cases__card-header {
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nfm-cases__card-intro {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .nfm-cases__card-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 900;
+    margin: 0 0 4px;
+    color: var(--navy);
+  }
+
+  .nfm-cases__card-perfil {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.76rem;
+    color: #b34a00;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  .nfm-cases__card-body {
+    padding: 18px 22px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nfm-cases__beforeafter {
+    margin-bottom: 16px;
+  }
+
+  .nfm-cases__ba-block + .nfm-cases__ba-block {
+    margin-top: 12px;
+  }
+
+  .nfm-cases__ba-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #b34a00;
+    margin-bottom: 5px;
+  }
+
+  .nfm-cases__ba-text {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  .nfm-cases__quote {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--navy);
+    border-left: 3px solid var(--orange);
+    padding: 10px 14px;
+    background: var(--orange-light);
+    border-radius: 0 8px 8px 0;
+    line-height: 1.5;
+    margin: 0;
+    margin-top: auto;
+  }
+
+  .nfm-cases__cta-final {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+
+  .nfm-cases__retake-wrap {
+    text-align: center;
+  }
+
+  /* ── TODOS LOS CASOS ── */
+  .nfm-cases__all {
+    margin-top: 64px;
+    padding-top: 52px;
+    border-top: 1px solid var(--border);
+  }
+
+  .nfm-cases__all-head {
+    text-align: center;
+    margin-bottom: 34px;
+  }
+
+  .nfm-cases__all-head h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin: 0 0 10px;
+  }
+
+  .nfm-cases__all-head h3 span { color: var(--orange); }
+
+  .nfm-cases__all-head p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .nfm-cases__grid--all { margin-bottom: 0; }
+
+  .nfm-cases__grid--all .nfm-cases__card-header { border-bottom: none; padding-bottom: 4px; }
+  .nfm-cases__grid--all .nfm-cases__card-body { padding-top: 8px; }
+
+  .nfm-cases__retake {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid rgba(12, 52, 82, 0.18);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .nfm-cases__retake:hover {
+    color: var(--navy);
+    border-color: var(--navy);
+    background: rgba(12, 52, 82, 0.04);
+  }
+
+  @keyframes nfm-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 900px) {
+    .nfm-cases__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 32px;
+    }
+  }
+  @media (max-width: 620px) {
+    .nfm-cases__grid { grid-template-columns: 1fr; max-width: 480px; }
+  }
+
+  @media (max-width: 540px) {
+    .nfm-cases { padding: 64px 0 72px; }
+    .nfm-cases__q { padding: 24px 20px 22px; }
+    .nfm-cases__option { padding: 12px 14px; font-size: 0.88rem; }
+  }
+</style>
+
+<section class="nfm-cases" id="nfm-casos">
+  <div class="nfm-cases__container">
+
+    <div class="nfm-cases__header">
+      <div class="nfm-cases__eyebrow">Casos reales · Encontrá el tuyo</div>
+      <h2 class="nfm-cases__title">
+        Conocé a 3 personas que <span>tuvieron tu mismo punto de partida</span>
+      </h2>
+      <p class="nfm-cases__subtitle">
+        Respondé 3 preguntas rápidas y te muestro tres alumnos que se parecen a vos — mismo perfil, mismo dolor, mismo punto donde estás hoy. Y si preferís, más abajo están <b>todas</b> las entrevistas completas.
+      </p>
+    </div>
+
+    <div class="nfm-cases__quiz" id="nfm-cases-quiz">
+      <div class="nfm-cases__progress-wrap">
+        <div class="nfm-cases__progress-header">
+          <span class="nfm-cases__progress-label">Pregunta</span>
+          <span class="nfm-cases__progress-count" id="nfm-cases-count">1 / 3</span>
+        </div>
+        <div class="nfm-cases__progress-track">
+          <div class="nfm-cases__progress-fill" id="nfm-cases-fill" style="width:33.33%"></div>
+        </div>
+      </div>
+
+      <div id="nfm-cases-qbox"></div>
+
+      <div class="nfm-cases__nav">
+        <button class="nfm-cases__btn" id="nfm-cases-next" onclick="nfmCasesNext()" disabled>
+          Siguiente →
+        </button>
+      </div>
+    </div>
+
+    <div class="nfm-cases__result" id="nfm-cases-result">
+      <div class="nfm-cases__result-intro">
+        <h3>Estos 3 alumnos <span>arrancaron donde estás vos hoy</span></h3>
+        <p>Sus historias coinciden con tu perfil y el patrón que más te resuena. Mirá los videos para ver cómo lo transformaron.</p>
+      </div>
+
+      <div class="nfm-cases__grid" id="nfm-cases-grid"></div>
+
+      <div class="nfm-cases__cta-final">
+        <a class="nfm-cases__btn" href="#" onclick="agdOpen('casos');return false">Quiero hacer el cambio →</a>
+      </div>
+
+      <div class="nfm-cases__retake-wrap">
+        <button class="nfm-cases__retake" onclick="nfmCasesReset()">↻ Volver a hacer el test</button>
+      </div>
+    </div>
+
+    <!-- TODOS LOS CASOS (siempre visibles — transparencia total) -->
+    <div class="nfm-cases__all">
+      <div class="nfm-cases__all-head">
+        <h3>O miralos <span>todos</span></h3>
+        <p>Sin recortes ni selección: todas las entrevistas, con nombre, cara y oficio. Elegí la que quieras.</p>
+      </div>
+      <div class="nfm-cases__grid nfm-cases__grid--all" id="nfm-cases-allgrid"></div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function() {
+  const preguntas = [
+    {
+      id: 'perfil',
+      eyebrow: 'Tu vida profesional',
+      text: '¿Cuál es tu mundo profesional hoy?',
+      opciones: [
+        { letra:'A', texto:'Empresario/a o dueño/a de negocio', val:'empresario' },
+        { letra:'B', texto:'Líder o gerente de equipo', val:'lider' },
+        { letra:'C', texto:'Profesional independiente', val:'independiente' },
+        { letra:'D', texto:'Emprendedor/a lanzando algo nuevo', val:'emprendedor' },
+        { letra:'E', texto:'Estudiante o en formación', val:'estudiante' }
+      ]
+    },
+    {
+      id: 'genero',
+      eyebrow: 'Tu contexto personal',
+      text: 'Para personalizar tu resultado, ¿cuál te describe mejor?',
+      opciones: [
+        { letra:'A', texto:'Soy padre', val:{ g:'M', hijos:true } },
+        { letra:'B', texto:'Soy hombre, no tengo hijos', val:{ g:'M', hijos:false } },
+        { letra:'C', texto:'Soy madre', val:{ g:'F', hijos:true } },
+        { letra:'D', texto:'Soy mujer, no tengo hijos', val:{ g:'F', hijos:false } }
+      ]
+    },
+    {
+      id: 'dolor',
+      eyebrow: 'Tu mayor lucha hoy',
+      text: '¿Cuál de estas frases te golpea más?',
+      opciones: [
+        { letra:'A', texto:'Vivo cansado/a — al final del día no me queda nada para mí', val:'energia' },
+        { letra:'B', texto:'Empiezo hábitos pero no los logro sostener más de 2 semanas', val:'habitos' },
+        { letra:'C', texto:'Duermo poco y mal — eso me arruina el día siguiente', val:'sueno' },
+        { letra:'D', texto:'Vivo apagando incendios, sin poder priorizar lo importante', val:'organizacion' },
+        { letra:'E', texto:'Mi cabeza no para — pienso en el trabajo hasta cuando descanso', val:'mentalidad' },
+        { letra:'F', texto:'Sacrifico todo lo personal por lo laboral', val:'equilibrio' }
+      ]
+    }
+  ];
+
+  const casos = [
+    { id:'celi', g:'F', youtubeId:'95H0-szcsMs',
+      intro:'Esto vivía Celi antes de empezar:',
+      nombre:'Celi', perfil:'Arquitecta, líder de 45 personas · San Diego, EEUU',
+      perfilTags:['lider','independiente'], dominante:'equilibrio',
+      puntoA:'Lideraba un equipo de 45 personas con un costo personal demasiado alto. Sin tiempo, sin equilibrio como madre y profesional.',
+      puntoB:'Recuperó el equilibrio sin dejar de rendir al mismo nivel. Lidera con claridad y tiempo de calidad con su familia.',
+      frase:'"El sistema correcto te permite rendir sin quemarte."' },
+
+    { id:'cristian', g:'M', youtubeId:'7x_hvNVvc88',
+      intro:'Hace un tiempo, esto le pasaba a Cristian:',
+      nombre:'Cristian', perfil:'Bioquímico y empresario · Jujuy, Argentina',
+      perfilTags:['empresario','lider'], dominante:'organizacion',
+      puntoA:'Empresa en crecimiento pero sentía que la empresa lo manejaba a él. Alta irritabilidad, sin tiempo para sí mismo.',
+      puntoB:'Maneja todo a distancia. Tiene tiempo para su pareja y para sí mismo. Su pareja notó el cambio sin que él lo dijera.',
+      frase:'"Hiciste bien, vas bien, seguí. Esto es una carrera contra uno mismo."' },
+
+    { id:'andres', g:'M', youtubeId:'0o-tzNPybNk',
+      intro:'Esto le estaba pasando a Andrés:',
+      nombre:'Andrés', perfil:'Ingeniero agrónomo, líder de equipo · Argentina',
+      perfilTags:['lider','empresario'], dominante:'energia',
+      puntoA:'Crecía rápido pero con un costo emocional y físico altísimo. Quemado, disperso, sin equilibrio.',
+      puntoB:'Hoy entrena, lidera y en 6 meses logró lo que antes le parecían 2 años. Sin quemarse.',
+      frase:'"El sistema correcto no te pide más esfuerzo — te pide más inteligencia."' },
+
+    { id:'romi', g:'F', youtubeId:'anq1RGIC7_Q',
+      intro:'Romi reconoció esto cuando entró:',
+      nombre:'Romi', perfil:'Publicista digital · Argentina',
+      perfilTags:['emprendedor','independiente'], dominante:'habitos',
+      puntoA:'De 7 a 16 hs trabajaba, después estudiaba. Las 24 hs no le alcanzaban. No entrenaba, no dormía bien.',
+      puntoB:'Trabaja 4 hs en relación de dependencia, organiza el resto a su gusto. Entrena todos los días. Cuida descanso y vínculos.',
+      frase:'"No cambié mi personalidad. Ordené mi estructura."' },
+
+    { id:'natalia', g:'F', youtubeId:'CVo9A7ADvTs',
+      intro:'Natalia llegó viviendo esto:',
+      nombre:'Natalia', perfil:'Astrónoma e investigadora CONICET · Argentina',
+      perfilTags:['independiente','estudiante'], dominante:'sueno',
+      puntoA:'Agotamiento y desorden crónicos. No podía descansar bien. Su emprendimiento, paralizado.',
+      puntoB:'Sueño reparador instalado como hábito. Emprendimiento activo. Claridad de prioridades.',
+      frase:'"Cuando dormís bien, todo lo demás empieza a acomodarse solo."' },
+
+    { id:'milton', g:'M', youtubeId:'xDpQB0t2RH8',
+      intro:'Milton reconoció esto cuando entró:',
+      nombre:'Milton', perfil:'Diseñador UX · Argentina',
+      perfilTags:['independiente','emprendedor'], dominante:'habitos',
+      puntoA:'Procrastinador crónico con el teléfono. Los proyectos se postergaban semana tras semana.',
+      puntoB:'Pasó de procrastinador a arrancador. Redujo el uso del teléfono. Los proyectos avanzan.',
+      frase:'"Cuando dejé de esperar las ganas para arrancar, todo cambió."' },
+
+    { id:'pierina', g:'F', youtubeId:'vgF6e9MptW4',
+      intro:'Pierina llegó con esto encima:',
+      nombre:'Pierina', perfil:'Doctoranda en Roma · Italia',
+      perfilTags:['estudiante','independiente'], dominante:'organizacion',
+      puntoA:'40 hs semanales de trabajo, 6 hs de sueño, agenda llena de cosas que no cumplía. Sin foco para lo importante.',
+      puntoB:'Rindió 5 exámenes de idioma para entrar al doctorado. Escribe su tesis en 4 hs lo que antes le llevaba 9.',
+      frase:'"Pasé de querer hacer todo y no poder nada, a hacer lo importante con claridad."' },
+
+    { id:'pau', g:'F', youtubeId:'YoC-5YlvD7w',
+      intro:'Pau llegó viviendo exactamente esto:',
+      nombre:'Pau', perfil:'Arquitecta independiente · Argentina',
+      perfilTags:['independiente','emprendedor'], dominante:'equilibrio',
+      puntoA:'Caos y desborde. Sin poder delegar ni organizar su tiempo. El día la manejaba a ella.',
+      puntoB:'Recuperó el equilibrio, aprendió a delegar y a proteger su foco. Trabaja con estructura y claridad.',
+      frase:'"Cuando entendés cómo funciona tu cerebro, todo cambia."' },
+
+    { id:'sacha', g:'M', youtubeId:'lVhqgQ5cx04',
+      intro:'Sacha llegó sintiéndose así:',
+      nombre:'Sacha', perfil:'Estudiante · Hoy parte del equipo NFM',
+      perfilTags:['estudiante','emprendedor'], dominante:'mentalidad',
+      puntoA:'Conocimiento de neurociencia "en el aire", sin aplicar. Hábitos basados en fuerza de voluntad pura → se quemaba.',
+      puntoB:'Dejó malos hábitos. Aplica las herramientas con criterio. Pasó de alumno a parte del equipo del Instituto.',
+      frase:'"El poder de crecimiento está en el nivel de incertidumbre que podemos soportar."' },
+
+    { id:'jair', g:'M', youtubeId:'7F5YjFM-EJY',
+      intro:'Jair llegó sintiéndose así:',
+      nombre:'Jair', perfil:'Ingeniero en sistemas · Colombia',
+      perfilTags:['independiente','emprendedor'], dominante:'sueno',
+      puntoA:'Venía trabajando hábitos pero le faltaba estructura para el siguiente nivel. Sin acompañamiento.',
+      puntoB:'Hábitos sólidos, mejor sueño, acompañamiento real. Viajó desde Colombia al mastermind presencial.',
+      frase:'"No dudes tanto en hacer esa inversión en vos — vas a ver los resultados."' },
+
+    { id:'anto', g:'F', youtubeId:'UHvxGkuGfI0',
+      intro:'Anto reconoció esto cuando entró:',
+      nombre:'Anto', perfil:'Técnica química y emprendedora · Argentina',
+      perfilTags:['emprendedor','independiente'], dominante:'habitos',
+      puntoA:'Procrastinación y creencias limitantes bloqueaban su acción. Múltiples proyectos sin ejecutar a nivel.',
+      puntoB:'De creencias limitantes a acción concreta. Usa las herramientas con claridad para múltiples frentes.',
+      frase:'"Las herramientas no te cambian la vida — vos sí podés, cuando las usás."' },
+
+    { id:'tati', g:'F', youtubeId:'wePT08l1BYM',
+      intro:'Tatiana llegó viviendo esto:',
+      nombre:'Tatiana', perfil:'Estudiante de lenguas + au pair en EEUU · Colombia',
+      perfilTags:['estudiante','emprendedor'], dominante:'mentalidad',
+      puntoA:'Estrés crónico, desánimo. Combinaba estudio, trabajo y voluntariado sin sistema. Sin claridad de carrera.',
+      puntoB:'Claridad de propósito, hábitos instalados, carrera retomada con dirección y menos estrés.',
+      frase:'"Cuando tenés claridad de hacia dónde vas, el esfuerzo empieza a valer la pena."' },
+
+    { id:'orne', g:'F', youtubeId:'cTkEqvEXOiE',
+      intro:'Ornela entró sintiéndose así:',
+      nombre:'Ornela', perfil:'Estudiante y profesora particular · Argentina',
+      perfilTags:['estudiante'], dominante:'energia',
+      puntoA:'Quemada total. Demasiadas responsabilidades sin orden. Hábitos que intuía correctos pero no sostenía.',
+      puntoB:'Se organizó y planificó. Renunció al trabajo que la agotaba. Disfrutó el mastermind sin ansiedad social.',
+      frase:'"Confía y anímate que se viene lo mejor."' },
+
+    { id:'santi', g:'M', youtubeId:'zRGwIl_FXfk',
+      intro:'Santi llegó viviendo esto:',
+      nombre:'Santi', perfil:'Laboratorista en formación · Argentina',
+      perfilTags:['estudiante'], dominante:'energia',
+      puntoA:'Inacción y dopamina barata. Días gastados en estímulos de bajo valor.',
+      puntoB:'Dejó los hábitos de bajo valor. Pasó de inacción a foco y acción sostenida.',
+      frase:'"Invertir en el cerebro es la mejor inversión que vas a hacer."' }
+  ];
+
+  let currentQ = 0;
+  let respuestas = {};
+  let selectedIdx = null;
+
+  function render() {
+    const q = preguntas[currentQ];
+    const letters = ['A','B','C','D','E','F'];
+
+    document.getElementById('nfm-cases-qbox').innerHTML = `
+      <div class="nfm-cases__q">
+        <div class="nfm-cases__q-eyebrow">Pregunta ${currentQ+1} · ${q.eyebrow}</div>
+        <div class="nfm-cases__q-text">${q.text}</div>
+        <div class="nfm-cases__options">
+          ${q.opciones.map((op,i) => `
+            <button class="nfm-cases__option" onclick="nfmCasesSelect(this,${i})">
+              <div class="nfm-cases__letter">${letters[i]}</div>
+              <span>${op.texto}</span>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    selectedIdx = null;
+    document.getElementById('nfm-cases-next').disabled = true;
+    document.getElementById('nfm-cases-fill').style.width = ((currentQ+1)/preguntas.length*100)+'%';
+    document.getElementById('nfm-cases-count').textContent = `${currentQ+1} / ${preguntas.length}`;
+    document.getElementById('nfm-cases-next').textContent = currentQ === preguntas.length-1 ? 'Ver mis 3 casos →' : 'Siguiente →';
+  }
+
+  window.nfmCasesSelect = function(el, idx) {
+    document.querySelectorAll('#nfm-cases-qbox .nfm-cases__option').forEach(o => o.classList.remove('is-selected'));
+    el.classList.add('is-selected');
+    selectedIdx = idx;
+    document.getElementById('nfm-cases-next').disabled = false;
+  };
+
+  window.nfmCasesNext = function() {
+    if (selectedIdx === null) return;
+    respuestas[preguntas[currentQ].id] = preguntas[currentQ].opciones[selectedIdx].val;
+    if (currentQ < preguntas.length-1) {
+      currentQ++;
+      render();
+      document.getElementById('nfm-casos').scrollIntoView({behavior:'smooth', block:'start'});
+    } else {
+      mostrarResultado();
+    }
+  };
+
+  window.nfmCasesReset = function() {
+    currentQ = 0;
+    respuestas = {};
+    selectedIdx = null;
+    document.getElementById('nfm-cases-result').classList.remove('is-visible');
+    document.getElementById('nfm-cases-quiz').style.display = 'block';
+    render();
+    document.getElementById('nfm-casos').scrollIntoView({behavior:'smooth', block:'start'});
+  };
+
+  function matchTop3(genero, perfil, dolor) {
+    const pool = casos.filter(c => c.g === genero);
+    const scored = pool.map(c => {
+      let score = 0;
+      if (c.perfilTags.includes(perfil)) score += 10;
+      if (c.dominante === dolor) score += 8;
+      score += (parseInt(c.id.length, 10) % 3) * 0.1;
+      return { caso: c, score };
+    });
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, 3).map(s => s.caso);
+  }
+
+  window.nfmCasesPlayVideo = function(el) {
+    const id = el.dataset.ytid;
+    if (!id || id === 'PEGAR_ID_AQUI') return;
+    el.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" title="Caso de éxito" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  };
+
+  function renderVideo(caso) {
+    const id = caso.youtubeId;
+    const tieneId = id && id !== 'PEGAR_ID_AQUI';
+
+    if (tieneId) {
+      return `
+        <div class="nfm-cases__video" data-ytid="${id}" role="button" tabindex="0" aria-label="Reproducir el caso de ${caso.nombre}" onclick="nfmCasesPlayVideo(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();nfmCasesPlayVideo(this);}">
+          <img src="https://img.youtube.com/vi/${id}/hqdefault.jpg" alt="${caso.nombre}" loading="lazy">
+          <div class="nfm-cases__play">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+      `;
+    } else {
+      return `
+        <div class="nfm-cases__video nfm-cases__video--placeholder">
+          <span class="nfm-cases__placeholder-initial">${caso.nombre.charAt(0)}</span>
+        </div>
+      `;
+    }
+  }
+
+  function mostrarResultado() {
+    const genData = respuestas.genero || { g:'M', hijos:false };
+    const genero = genData.g;
+    const top3 = matchTop3(genero, respuestas.perfil, respuestas.dolor);
+
+    document.getElementById('nfm-cases-quiz').style.display = 'none';
+    const res = document.getElementById('nfm-cases-result');
+    res.classList.add('is-visible');
+
+    document.getElementById('nfm-cases-grid').innerHTML = top3.map(c => `
+      <div class="nfm-cases__card">
+        ${renderVideo(c)}
+        <div class="nfm-cases__card-header">
+          <div class="nfm-cases__card-intro">${c.intro}</div>
+          <div class="nfm-cases__card-name">${c.nombre}</div>
+          <div class="nfm-cases__card-perfil">${c.perfil}</div>
+        </div>
+        <div class="nfm-cases__card-body">
+          <div class="nfm-cases__beforeafter">
+            <div class="nfm-cases__ba-block">
+              <div class="nfm-cases__ba-label">Antes</div>
+              <div class="nfm-cases__ba-text">${c.puntoA}</div>
+            </div>
+            <div class="nfm-cases__ba-block">
+              <div class="nfm-cases__ba-label">Después</div>
+              <div class="nfm-cases__ba-text">${c.puntoB}</div>
+            </div>
+          </div>
+          <div class="nfm-cases__quote">${c.frase}</div>
+        </div>
+      </div>
+    `).join('');
+
+    document.getElementById('nfm-casos').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  function cardHTML(c){
+    return `
+      <div class="nfm-cases__card">
+        ${renderVideo(c)}
+        <div class="nfm-cases__card-header">
+          <div class="nfm-cases__card-intro">${c.intro}</div>
+          <div class="nfm-cases__card-name">${c.nombre}</div>
+          <div class="nfm-cases__card-perfil">${c.perfil}</div>
+        </div>
+        <div class="nfm-cases__card-body">
+          <div class="nfm-cases__beforeafter">
+            <div class="nfm-cases__ba-block">
+              <div class="nfm-cases__ba-label">Antes</div>
+              <div class="nfm-cases__ba-text">${c.puntoA}</div>
+            </div>
+            <div class="nfm-cases__ba-block">
+              <div class="nfm-cases__ba-label">Después</div>
+              <div class="nfm-cases__ba-text">${c.puntoB}</div>
+            </div>
+          </div>
+          <div class="nfm-cases__quote">${c.frase}</div>
+        </div>
+      </div>`;
+  }
+
+  function renderAll(){
+    var grid=document.getElementById('nfm-cases-allgrid');
+    if(grid) grid.innerHTML = casos.map(cardHTML).join('');
+  }
+
+  render();
+  renderAll();
+})();
+</script>
+
+<!-- CTA FINAL / AGENDAR -->
+<section class="section apply section--navy" id="agendar">
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">El siguiente paso</span></div>
+    <h2>¿Dónde vas a estar <span class="hl">en un año</span> si nada cambia?</h2>
+    <p>Si no hacés algo distinto, en uno, dos o tres años vas a seguir en el mismo lugar. Y eso se traduce en concreto: <b>potencial que sabés que podés dar y no estás dando</b>, oportunidades que pasan de largo, calidad de vida, ingresos, tiempo con tu familia, tu salud.</p><p>Todos pasamos por un punto de quiebre. <b>No tenemos por qué pasarlo solos.</b> Para eso está el Instituto de Productividad: para acompañarte en el proceso, con evidencia de cómo funciona tu cerebro y un método basado en neurociencia.</p>
+    <div class="steps">
+      <div class="st"><span class="b">1</span> Dejás tus datos</div>
+      <div class="st"><span class="b">2</span> Charlamos tu caso</div>
+      <div class="st"><span class="b">3</span> Vemos si encajás</div>
+    </div>
+    <a href="#" id="agendarBtn" class="btn btn-primary btn-lg" onclick="agdOpen('cierre');return false">Elegir el día de mi entrevista <span class="arrow">→</span></a>
+  </div>
+</section>
+
+<!-- ═══ PANEL DE APLICACIÓN · survey de GHL embebido (el video sigue sonando) ═══
+     · En desktop el panel entra por la derecha y empuja la página: el video queda a la vista
+       y se puede seguir usando (pausar, adelantar) porque el panel no bloquea la página.
+     · En mobile sube como hoja inferior; el audio del video sigue corriendo.
+     · Cierra SOLO con la X (ni clic afuera ni Escape) para que nadie lo cierre sin querer.
+     ══════════════════════════════════════════════════════════════════════════ -->
+<style>
+  .agd-drawer{position:fixed;inset:0;z-index:200;display:none;pointer-events:none}
+  .agd-drawer.open{display:block}
+  .agd-panel{position:absolute;top:0;right:0;height:100%;width:min(var(--drawer-w),100%);
+    background:#fff;border-left:1px solid var(--hair);box-shadow:-26px 0 80px rgba(6,29,48,.30);
+    display:flex;flex-direction:column;pointer-events:auto;
+    transform:translateX(100%);transition:transform .38s var(--ease)}
+  .agd-drawer.open .agd-panel{transform:none}
+  .agd-head{flex:0 0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;
+    padding:22px 22px 16px;border-bottom:1px solid var(--hair);background:#fff}
+  .agd-head h3{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(18px,2.4vw,21px);
+    color:var(--nfm-blue);line-height:1.22;margin:0}
+  .agd-mono{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--nfm-orange-text);font-weight:500;display:block;margin-bottom:9px}
+  .agd-x{flex:0 0 auto;width:36px;height:36px;border-radius:50%;border:1px solid var(--hair-2);background:#fff;
+    color:var(--mono-grey);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:all .15s}
+  .agd-x:hover{color:#fff;background:var(--nfm-blue);border-color:var(--nfm-blue)}
+  .agd-x:focus-visible{outline:3px solid var(--nfm-orange);outline-offset:2px}
+  .agd-body{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 14px 28px}
+  .agd-body iframe{width:100%;min-height:660px;border:0;display:block}
+  .agd-ph{min-height:340px;display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:28px;color:var(--muted);font-size:14px;background:#f4f6f8;border-radius:12px;margin-top:8px}
+  .agd-ph a{color:var(--nfm-orange-text);font-weight:700}
+  .agd-alt{display:block;text-align:center;margin-top:14px;font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mono-grey);text-decoration:none}
+  .agd-alt:hover{color:var(--nfm-orange-text)}
+
+  /* Desktop: el panel empuja la página para que el video no quede tapado */
+  @media(min-width:1080px){
+    body{transition:margin-right .4s var(--ease)}
+    body.agd-open{margin-right:var(--drawer-w)}
+  }
+  /* Mobile / tablet: hoja inferior con fondo que bloquea (pero NO cierra) */
+  @media(max-width:1079px){
+    .agd-drawer.open{pointer-events:auto;background:rgba(6,29,48,.58);
+      backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+    .agd-panel{top:auto;bottom:0;left:0;right:0;width:100%;height:88vh;max-height:88dvh;
+      border-left:0;border-top:1px solid var(--hair);border-radius:18px 18px 0 0;
+      box-shadow:0 -26px 80px rgba(6,29,48,.34);transform:translateY(100%)}
+    .agd-drawer.open .agd-panel{transform:none}
+    body.agd-lock{overflow:hidden}
+  }
+</style>
+
+<div class="agd-drawer" id="agdModal">
+  <aside class="agd-panel" role="dialog" aria-label="Aplicación al Instituto de Productividad">
+    <header class="agd-head">
+      <div>
+        <span class="agd-mono">◆ Aplicación</span>
+        <h3>Contanos tu caso y elegí el día de tu entrevista</h3>
+      </div>
+      <button class="agd-x" type="button" id="agdX" onclick="agdClose()" aria-label="Cerrar">✕</button>
+    </header>
+    <div class="agd-body" id="agdBody">
+      <div class="agd-ph">Cargando el formulario…</div>
+    </div>
+  </aside>
+</div>
+
+<script>
+/* ---------- Panel de aplicación: survey de GHL embebido (sin redirigir) ---------- */
+var agdLoaded=false, agdAbierto=false;
+
+function agdEsDesktop(){ return window.matchMedia('(min-width:1080px)').matches; }
+
+function agdOpen(origen){
+  if(agdAbierto) return;
+  agdAbierto=true;
+  document.getElementById('agdModal').classList.add('open');
+  document.body.classList.add('agd-open');
+  if(!agdEsDesktop()) document.body.classList.add('agd-lock');
+  agdCargarSurvey();
+  /* En desktop el video queda a la vista: solo movemos la página si se salió de pantalla */
+  if(agdEsDesktop()){
+    var v=document.getElementById('vslFrame');
+    if(v){
+      var r=v.getBoundingClientRect();
+      if(r.bottom < 120 || r.top > window.innerHeight - 120){
+        try{ v.scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){ v.scrollIntoView(); }
+      }
+    }
+  }
+  setTimeout(function(){ try{document.getElementById('agdX').focus();}catch(e){} },420);
+  /* las redes neuronales de cada sección se remiden con el ancho nuevo */
+  setTimeout(function(){ try{ window.dispatchEvent(new Event('resize')); }catch(e){} },460);
+  enviarASheets({tipo:'panel_abierto', origen:origen||'cta', fuente:getUTM(), url:location.href});
+}
+
+function agdClose(){
+  agdAbierto=false;
+  document.getElementById('agdModal').classList.remove('open');
+  document.body.classList.remove('agd-open');
+  document.body.classList.remove('agd-lock');
+  if(location.hash==='#aplicar'){
+    try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){}
+  }
+  setTimeout(function(){ try{ window.dispatchEvent(new Event('resize')); }catch(e){} },460);
+}
+
+function agdCargarSurvey(){
+  if(agdLoaded) return;
+  var box=document.getElementById('agdBody'); if(!box) return;
+  var url=CONFIG.SURVEY_URL;
+  if(!url){
+    box.innerHTML='<div class="agd-ph">Pegá el link del survey en <b>CONFIG.SURVEY_URL</b> para mostrarlo acá.</div>';
+    return;
+  }
+  agdLoaded=true;
+  var id=(url.split('/').pop()||'ghl-survey').split('?')[0];
+  var sep=url.indexOf('?')<0?'?':'&';
+  var full=url+sep+'utm_source='+encodeURIComponent(getUTM());
+  box.innerHTML='<iframe src="'+full+'" id="'+id+'" title="Aplicación al Instituto de Productividad" '+
+                'scrolling="no" style="border:none;width:100%;"></iframe>'+
+                '<a class="agd-alt" href="'+full+'" target="_blank" rel="noopener">Abrir en una pestaña →</a>';
+  if(!document.getElementById('ghl-embed-js')){
+    var sc=document.createElement('script');
+    sc.id='ghl-embed-js'; sc.src='https://link.msgsndr.com/js/form_embed.js'; sc.async=true;
+    document.head.appendChild(sc);
+  }
+}
+
+/* Cualquier link a #aplicar abre el panel en vez de navegar */
+window.addEventListener('hashchange',function(){
+  if(location.hash==='#aplicar') agdOpen('link');
+});
+document.addEventListener('click',function(e){
+  var a=e.target && e.target.closest ? e.target.closest('a[href="#aplicar"]') : null;
+  if(a){ e.preventDefault(); agdOpen('link'); }
+},true);
+window.addEventListener('DOMContentLoaded',function(){
+  if(location.hash==='#aplicar') setTimeout(function(){ agdOpen('deeplink'); },600);
+});
+/* Cierra SOLO con la X — sin clic afuera ni Escape, para evitar salidas por error */
+</script>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <a href="#top" class="brand">
+      <svg class="brand__logo" viewBox="0 0 132 112" role="img" aria-label="Instituto de Productividad"><use href="#ip-logo"/></svg>
+      <span class="brand__wordmark">
+        <span class="brand__top">Instituto de</span>
+        <span class="brand__bottom">Productividad</span>
+      </span>
+    </a>
+    <div class="links">
+      <a href="#incluye">Qué incluye</a>
+      <a href="#nfm-equipo">Equipo</a>
+      <a href="#aval">Aval universitario</a>
+      <a href="#espejo">Seamos honestos</a>
+      <a href="#agendar">Agendar entrevista</a>
+    </div>
+    <small>© Instituto de Productividad · Nicolás Fernández Miranda</small>
+  </div>
+</footer>
+
+<script>
+/* =========================================================================
+   ⚙️  CONFIG — EDITÁ SOLO ESTO
+   ========================================================================= */
+const CONFIG = {
+  // Survey de GoHighLevel que se abre EMBEBIDO en el panel lateral (nunca redirige).
+  // Al enviarlo, GHL sigue al calendario DENTRO del mismo iframe: la persona no se va
+  // de la página y el video sigue sonando.
+  SURVEY_URL: "https://api.leadconnectorhq.com/widget/survey/of5CdYfnDItzOsvtJ7lz",
+
+  // Video VSL. Pegá la URL de EMBED (YouTube: https://www.youtube.com/embed/XXXX ·
+  // Vimeo: https://player.vimeo.com/video/XXXX · Loom: https://www.loom.com/embed/XXXX).
+  // Mientras esté vacío, se muestra el placeholder con el botón de play.
+  VIDEO_EMBED_URL: "https://www.loom.com/embed/e6d553bf507a426db5b7d77f479a5f9f?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true",
+
+  // Base de datos (mismo endpoint que la landing madre para unificar leads).
+  SHEETS_ENDPOINT: "",
+
+  // Volver a la landing madre
+  LINK_MADRE: "landing-madre.html",
+};
+
+/* ===== FOTOS REALES DE LOS RECUADROS =====
+   Subí cada foto a tu WordPress (Medios) y pegá el link https entre comillas.
+   Podés poner VARIAS por recuadro y se arma un collage solo (hasta 4). */
+const IMG = {
+  // Recuadro 5 · Comunidad (foto grupal)
+  comunidad: [
+    "https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b6275ecb6db2520210e75.jpg"
+  ],
+  // Recuadro 3 · Biblioteca de módulos (screenshot del curso "El ABC del Alto Rendimiento")
+  modulos: [
+    "https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b62e2497cd89d2487dead.png"
+  ],
+  // Recuadro 2 · Coach 1 a 1 (una sola: la de los sofás)
+  coach: [
+    "https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b62e2cf81b06f057b50b2.png"
+  ],
+  // Recuadro 4 · Clases en vivo (mirando la videollamada grupal)
+  llamadas: [
+    "https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b6278f7a089644cf46063.jpg"
+  ],
+  // Recuadro 1 · Aval (alumnos con su certificado — hasta 4, se arma collage 2x2)
+  certificados: [
+    "https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b6277cdfcf0495677abe5.jpg",
+    "https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b6275f7a089644cf4601d.jpg",
+    "https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b6275cf81b06f057b46bf.jpg",
+    "https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b6275ecb6db2520210e7a.jpg"
+  ],
+};
+/* ===================== FIN DE LO QUE TENÉS QUE EDITAR ===================== */
+
+
+/* ---------- Testimonios / casos (click-to-play YouTube) ---------- */
+function ytId(url){ var m=String(url).match(/[?&]v=([^&]+)/); return m?m[1]:url; }
+function pausarVSL(){
+  /* corta el audio del VSL para que no se pise con el testimonio */
+  var vs=document.querySelectorAll('#vslFrame video');
+  for(var i=0;i<vs.length;i++){ try{ vs[i].pause(); }catch(e){} }
+}
+function playCase(btn,id){
+  pausarVSL();
+  var wrap=btn.parentNode;
+  wrap.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0" title="Entrevista" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+}
+
+/* ---------- VSL ---------- */
+function loadVSL(){
+  if(!CONFIG.VIDEO_EMBED_URL){ alert('El video se está subiendo. Pegá la URL en CONFIG.VIDEO_EMBED_URL para activarlo.'); return; }
+  const sep = CONFIG.VIDEO_EMBED_URL.includes('?') ? '&' : '?';
+  const f=document.getElementById('vslFrame');
+  f.innerHTML=`<iframe src="${CONFIG.VIDEO_EMBED_URL}${sep}autoplay=1" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+}
+function initVSL(){
+  if(CONFIG.VIDEO_EMBED_URL){
+    document.getElementById('vslFrame').innerHTML=`<iframe src="${CONFIG.VIDEO_EMBED_URL}" allow="fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  }
+}
+function goFullscreen(){
+  const frame=document.getElementById('vslFrame');
+  let el=frame.querySelector('iframe');
+  if(!el){ loadVSL(); el=frame.querySelector('iframe')||frame; }
+  const req=el.requestFullscreen||el.webkitRequestFullscreen||el.msRequestFullscreen;
+  if(req){ req.call(el); }
+}
+
+/* ---------- UTM / Sheets ---------- */
+function getUTM(){
+  const p=new URLSearchParams(location.search);
+  const s=p.get('utm_source'),m=p.get('utm_medium'),c=p.get('utm_campaign');
+  if(s||m||c) return [s||'',m||'',c||''].join(' / ');
+  return document.referrer||'directo';
+}
+function enviarASheets(data){
+  data.fecha=new Date().toISOString();
+  if(!CONFIG.SHEETS_ENDPOINT){ console.log('[NFM Instituto lead — configurá SHEETS_ENDPOINT]',data); return; }
+  fetch(CONFIG.SHEETS_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)}).catch(err=>console.warn(err));
+}
+
+/* ---------- Fotos reales en los recuadros (collage 1 a 4) ---------- */
+function fillPhotos(){
+  var slots=document.querySelectorAll('[data-img]');
+  for(var s=0;s<slots.length;s++){
+    var slot=slots[s], key=slot.getAttribute('data-img');
+    var arr=(typeof IMG!=='undefined' && IMG[key])?IMG[key]:[];
+    arr=arr.filter(function(u){ return u && u.indexOf('http')===0; });
+    if(!arr.length) continue;
+    var n=Math.min(arr.length,4);
+    var alt=slot.getAttribute('data-alt')||'Instituto de Productividad';
+    var html='<div class="collage collage--'+n+'">';
+    for(var i=0;i<n;i++){ html+='<img src="'+arr[i]+'" alt="'+alt+'" loading="lazy">'; }
+    html+='</div>';
+    slot.innerHTML=html;
+    slot.classList.add('is-filled');
+  }
+}
+
+/* ---------- init ---------- */
+window.addEventListener('DOMContentLoaded',()=>{ initVSL(); fillPhotos(); });
+</script>
+
+<!-- ==== DECORATIVO (aislado): red neuronal + barra de carga + título por letra ==== -->
+<script>
+(function(){
+  /* ----- Red neuronal: motor reutilizable (claro y oscuro) ----- */
+  try{
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    /* sin hover = touch: la red se mueve sola, no espera al mouse */
+    var noHover = !(window.matchMedia && window.matchMedia("(hover: hover)").matches);
+
+    function crearRed(canvas, opt){
+      if(!canvas) return null;
+      var ctx=canvas.getContext("2d");
+      var dpr=Math.min(window.devicePixelRatio||1, 2);
+      var C=opt.node, A=opt.accent||"255,102,2";
+      var LINK=opt.link||150, DENS=opt.dens||17000, MAXN=opt.maxn||140, MINN=opt.minn||24;
+      var rand=function(a,b){return Math.random()*(b-a)+a;};
+      var w=0,h=0,nodes=[],edges=[],signals=[],glows=[],rt,visible=true,raf=null;
+      var probe={x:-9999,y:-9999}, auto={x:0,y:0,tx:0,ty:0}, lastSpawn=0;
+
+      function build(){
+        var r=canvas.getBoundingClientRect();
+        w=Math.max(1,Math.round(opt.fixed?innerWidth:r.width));
+        h=Math.max(1,Math.round(opt.fixed?innerHeight:r.height));
+        canvas.width=w*dpr; canvas.height=h*dpr;
+        if(opt.fixed){ canvas.style.width=w+"px"; canvas.style.height=h+"px"; }
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+        var count=Math.max(MINN, Math.min(MAXN, Math.round(w*h/DENS)));
+        nodes=[];
+        for(var i=0;i<count;i++){var x=Math.random()*w,y=Math.random()*h;
+          nodes.push({x:x,y:y,bx:x,by:y,r:rand(1,2.1),flash:0,nbr:[]});}
+        edges=[];
+        for(var a=0;a<nodes.length;a++){for(var b=a+1;b<nodes.length;b++){
+          var dx=nodes[a].bx-nodes[b].bx,dy=nodes[a].by-nodes[b].by,d=Math.hypot(dx,dy);
+          if(d<LINK){edges.push([a,b,d]);nodes[a].nbr.push(b);nodes[b].nbr.push(a);}}}
+        glows=[];
+        for(var k=0;k<3;k++) glows.push({x:rand(.18,.82)*w,y:rand(.06,.6)*h,r:rand(300,480),ph:Math.random()*6.28,sp:rand(.05,.12)});
+        signals=[];
+        auto.x=auto.tx=w*0.5; auto.y=auto.ty=h*0.45;
+      }
+
+      function spawnFrom(mx,my){
+        if(!nodes.length || signals.length>(opt.maxsig||28)) return;
+        var best=-1,bd=1e9;
+        for(var i=0;i<nodes.length;i++){var d=Math.hypot(nodes[i].x-mx,nodes[i].y-my); if(d<bd){bd=d;best=i;}}
+        if(best<0 || bd>220) return;
+        var nb=nodes[best].nbr; if(!nb.length) return;
+        signals.push({from:best,to:nb[(Math.random()*nb.length)|0],p:0,sp:rand(.012,.024),gen:0});
+      }
+
+      function step(){
+        raf=requestAnimationFrame(step);
+        if(!visible) return;
+        /* modo autónomo: un foco que deambula lento y dispara solo */
+        if(opt.autoplay){
+          if(Math.hypot(auto.tx-auto.x,auto.ty-auto.y)<28){ auto.tx=rand(.1,.9)*w; auto.ty=rand(.1,.9)*h; }
+          auto.x+=(auto.tx-auto.x)*0.006; auto.y+=(auto.ty-auto.y)*0.006;
+          probe.x=auto.x; probe.y=auto.y;
+          var now=performance.now();
+          if(now-lastSpawn>(opt.autorate||1500)){ spawnFrom(probe.x,probe.y); lastSpawn=now; }
+        }
+        ctx.clearRect(0,0,w,h);
+        for(var g=0;g<glows.length;g++){ var G=glows[g]; G.ph+=G.sp*0.02;
+          var gx=G.x+Math.cos(G.ph)*40, gy=G.y+Math.sin(G.ph*1.3)*30;
+          var rg=ctx.createRadialGradient(gx,gy,0,gx,gy,G.r);
+          rg.addColorStop(0,"rgba("+C+","+(opt.glow||0.05)+")"); rg.addColorStop(1,"rgba("+C+",0)");
+          ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(gx,gy,G.r,0,6.2832); ctx.fill(); }
+        for(var n0=0;n0<nodes.length;n0++){ if(nodes[n0].flash>0) nodes[n0].flash-=0.035; }
+        var R=opt.reach||175;
+        for(var e=0;e<edges.length;e++){ var Ae=nodes[edges[e][0]],Be=nodes[edges[e][1]];
+          var mx=(Ae.x+Be.x)/2,my=(Ae.y+Be.y)/2, md=Math.hypot(probe.x-mx,probe.y-my);
+          var al=(opt.line||0.055)*(1-edges[e][2]/LINK); if(md<R) al+=(opt.lineHot||0.18)*(1-md/R);
+          ctx.strokeStyle="rgba("+C+","+al.toFixed(3)+")"; ctx.lineWidth=1;
+          ctx.beginPath(); ctx.moveTo(Ae.x,Ae.y); ctx.lineTo(Be.x,Be.y); ctx.stroke(); }
+        for(var n=0;n<nodes.length;n++){ var N=nodes[n]; var md2=Math.hypot(probe.x-N.x,probe.y-N.y);
+          var near=md2<R?(1-md2/R):0, fl=Math.max(near,N.flash);
+          ctx.fillStyle="rgba("+C+","+((opt.dot||0.11)+fl*0.55).toFixed(3)+")";
+          ctx.beginPath(); ctx.arc(N.x,N.y,N.r+fl*1.6,0,6.2832); ctx.fill();
+          if(fl>0.15){ var rr=12+fl*16, hg=ctx.createRadialGradient(N.x,N.y,0,N.x,N.y,rr);
+            hg.addColorStop(0,"rgba("+A+","+(fl*0.42).toFixed(3)+")"); hg.addColorStop(1,"rgba("+A+",0)");
+            ctx.fillStyle=hg; ctx.beginPath(); ctx.arc(N.x,N.y,rr,0,6.2832); ctx.fill(); } }
+        for(var i=signals.length-1;i>=0;i--){ var s=signals[i]; s.p+=s.sp;
+          var sa=nodes[s.from],sb=nodes[s.to]; if(!sa||!sb){signals.splice(i,1);continue;}
+          var x=sa.x+(sb.x-sa.x)*s.p, y=sa.y+(sb.y-sa.y)*s.p;
+          var pg=ctx.createRadialGradient(x,y,0,x,y,7);
+          pg.addColorStop(0,"rgba(255,142,44,0.95)"); pg.addColorStop(.4,"rgba("+A+",0.55)"); pg.addColorStop(1,"rgba("+A+",0)");
+          ctx.fillStyle=pg; ctx.beginPath(); ctx.arc(x,y,7,0,6.2832); ctx.fill();
+          ctx.fillStyle="rgba(217,84,0,0.95)"; ctx.beginPath(); ctx.arc(x,y,1.6,0,6.2832); ctx.fill();
+          if(s.p>=1){ sb.flash=1; signals.splice(i,1);
+            if(s.gen<3 && Math.random()<0.72){ var nb=sb.nbr.filter(function(j){return j!==s.from;});
+              if(nb.length) signals.push({from:s.to,to:nb[(Math.random()*nb.length)|0],p:0,sp:s.sp,gen:s.gen+1}); } } }
+      }
+
+      build();
+      addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(build,180);});
+      /* solo dibuja si la sección está a la vista (ahorra batería) */
+      if(!opt.fixed && window.IntersectionObserver){
+        visible=false;
+        new IntersectionObserver(function(en){
+          visible=en[0].isIntersecting;
+          if(visible && Math.abs(canvas.getBoundingClientRect().height-h)>4) build();
+        },{rootMargin:"120px"}).observe(canvas);
+      }
+      step();
+      return {
+        pointer:function(cx,cy){
+          if(opt.autoplay) return;
+          var r=canvas.getBoundingClientRect();
+          probe.x=opt.fixed?cx:cx-r.left; probe.y=opt.fixed?cy:cy-r.top;
+          var now=performance.now();
+          if(now-lastSpawn>110){ spawnFrom(probe.x,probe.y); lastSpawn=now; }
+        }
+      };
+    }
+
+    if(!reduce){
+      var redes=[];
+      /* fondo global sobre secciones blancas → nodos navy */
+      var g=crearRed(document.getElementById("neuralbg"), {
+        fixed:true, node:"12,52,82", autoplay:noHover,
+        maxn: noHover?60:140, dens: noHover?26000:17000, autorate:1700
+      });
+      if(g) redes.push(g);
+      /* una red propia dentro de cada sección navy → nodos claros */
+      var zonas=document.querySelectorAll(".section--navy, .trust--navy");
+      for(var z=0;z<zonas.length;z++){
+        var cv=document.createElement("canvas");
+        cv.className="neural-local"; cv.setAttribute("aria-hidden","true");
+        zonas[z].insertBefore(cv, zonas[z].firstChild);
+        var r=crearRed(cv, {
+          node:"173,203,227", accent:"255,140,60", autoplay:noHover,
+          dens: noHover?30000:20000, maxn: noHover?42:70, minn:16,
+          line:0.11, lineHot:0.30, dot:0.30, glow:0.09, maxsig:14, autorate:1900
+        });
+        if(r) redes.push(r);
+      }
+      /* el mouse activa; el touch NO (en touch ya se mueve solo) */
+      if(!noHover){
+        addEventListener("mousemove",function(e){
+          for(var i=0;i<redes.length;i++) redes[i].pointer(e.clientX,e.clientY);
+        },{passive:true});
+      }
+    }
+  }catch(err){ if(window.console) console.warn("neural bg:", err); }
+
+  /* ----- Barra de carga ----- */
+  try{
+    var bar=document.getElementById("loadbar");
+    if(bar){ var fill=bar.querySelector(".lf");
+      requestAnimationFrame(function(){requestAnimationFrame(function(){ if(fill) fill.style.width="100%"; });});
+      setTimeout(function(){bar.classList.add("done");},1300); }
+  }catch(err){ if(window.console) console.warn("loadbar:", err); }
+
+  /* ----- Título del hero letra por letra (palabras indivisibles, respeta <br>) ----- */
+  try{
+    var h1=document.getElementById("heroTitle");
+    var reduce2=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if(h1 && !reduce2){
+      var frag=document.createDocumentFragment(); var idx=0;
+      Array.prototype.slice.call(h1.childNodes).forEach(function(node){
+        if(node.nodeType===1 && node.tagName==="BR"){ frag.appendChild(document.createElement("br")); return; }
+        var isKey = node.nodeType===1 && node.classList && node.classList.contains("shimmer");
+        var tokens = node.textContent.split(/(\s+)/);
+        tokens.forEach(function(tok){
+          if(!tok) return;
+          if(/^\s+$/.test(tok)){ frag.appendChild(document.createTextNode(" ")); return; }
+          var word=document.createElement("span"); word.className="word";
+          for(var ci=0;ci<tok.length;ci++){
+            var sp=document.createElement("span");
+            sp.className="ltr"+(isKey?" shimmer":""); sp.textContent=tok[ci];
+            sp.style.transitionDelay=(idx*24)+"ms";
+            word.appendChild(sp); idx++;
+          }
+          frag.appendChild(word);
+        });
+      });
+      h1.textContent=""; h1.appendChild(frag);
+      requestAnimationFrame(function(){requestAnimationFrame(function(){h1.classList.add("lit");});});
+    } else if(h1){ h1.classList.add("lit"); }
+  }catch(err){ if(window.console) console.warn("hero type:", err); }
+})();
+</script>
+</body>
+</html>
