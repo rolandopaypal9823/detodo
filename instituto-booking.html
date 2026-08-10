@@ -1896,13 +1896,18 @@ section,.trust,footer.foot{position:relative;z-index:2}
     transition:all .15s}
   .agd-x:hover{color:#fff;background:var(--nfm-blue);border-color:var(--nfm-blue)}
   .agd-x:focus-visible{outline:3px solid var(--nfm-orange);outline-offset:2px}
-  .agd-body{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 14px 28px}
-  .agd-body iframe{width:100%;min-height:660px;border:0;display:block}
+  .agd-body{flex:1 1 auto;display:flex;flex-direction:column;overflow-y:auto;
+    -webkit-overflow-scrolling:touch;padding:8px 14px 10px}
+  /* el iframe ocupa todo el alto libre del panel y hace su propio scroll:
+     el botón de enviar siempre queda alcanzable, con o sin auto-alto de GHL */
+  .agd-body iframe{flex:1 1 auto;width:100%;min-height:460px;border:0;display:block}
   .agd-ph{min-height:340px;display:flex;align-items:center;justify-content:center;text-align:center;
     padding:28px;color:var(--muted);font-size:14px;background:#f4f6f8;border-radius:12px;margin-top:8px}
   .agd-ph a{color:var(--nfm-orange-text);font-weight:700}
-  .agd-alt{display:block;text-align:center;margin-top:14px;font-family:'JetBrains Mono',monospace;
+  /* respaldo: sólo se muestra si el formulario no llegó a cargar */
+  .agd-alt{display:none;flex:0 0 auto;text-align:center;margin-top:12px;font-family:'JetBrains Mono',monospace;
     font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mono-grey);text-decoration:none}
+  .agd-alt.is-on{display:block}
   .agd-alt:hover{color:var(--nfm-orange-text)}
 
   /* Desktop: el panel empuja la página para que el video no quede tapado */
@@ -1914,9 +1919,13 @@ section,.trust,footer.foot{position:relative;z-index:2}
   @media(max-width:1079px){
     .agd-drawer.open{pointer-events:auto;background:rgba(6,29,48,.58);
       backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
-    .agd-panel{top:auto;bottom:0;left:0;right:0;width:100%;height:88vh;max-height:88dvh;
+    .agd-panel{top:auto;bottom:0;left:0;right:0;width:100%;height:92vh;height:92dvh;
       border-left:0;border-top:1px solid var(--hair);border-radius:18px 18px 0 0;
       box-shadow:0 -26px 80px rgba(6,29,48,.34);transform:translateY(100%)}
+    .agd-head{padding:16px 16px 12px}
+    .agd-head h3{font-size:17px}
+    .agd-mono{margin-bottom:6px}
+    .agd-body{padding:6px 10px 8px}
     .agd-drawer.open .agd-panel{transform:none}
     body.agd-lock{overflow:hidden}
   }
@@ -1993,8 +2002,11 @@ function agdCargarSurvey(){
      necesita abrirse aparte, se abra en una pestaña nueva y no acá. */
   box.innerHTML='<iframe id="agdFrame" src="'+full+'" title="Aplicación al Instituto de Productividad" '+
                 'sandbox="allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox" '+
-                'scrolling="no" style="border:none;width:100%;"></iframe>'+
+                'scrolling="auto" style="border:none;width:100%;"></iframe>'+
                 '<a class="agd-alt" href="'+full+'" target="_blank" rel="noopener">Abrir en una pestaña →</a>';
+  var fr0=document.getElementById('agdFrame'), alt=box.querySelector('.agd-alt'), cargo=false;
+  if(fr0) fr0.addEventListener('load',function(){ cargo=true; });
+  setTimeout(function(){ if(!cargo && alt) alt.classList.add('is-on'); }, 7000);
   /* Nota: no cargamos form_embed.js a propósito. Ese script es justamente el que,
      al enviarse el survey, hace window.location = link de redirección. El alto y el
      paso al calendario los manejamos acá abajo. */
@@ -2014,7 +2026,13 @@ window.addEventListener('message', function(ev){
 
   /* alto automático (lo que hacía form_embed.js) */
   var h=(d && (d.height||d.frameHeight)) || (txt.match(/"(?:height|frameHeight)"\s*:\s*"?(\d+)/)||[])[1];
-  if(h && +h>200){ fr.style.height=(+h)+'px'; fr.style.minHeight='0'; }
+  if(h && +h>200){
+    /* si el survey es más alto que el panel, lo estiramos y scrollea el panel;
+       si entra, lo dejamos ocupando el alto libre (flex) */
+    var libre=fr.parentNode ? fr.parentNode.clientHeight : 0;
+    if(+h > libre){ fr.style.flex='0 0 auto'; fr.style.height=(+h)+'px'; }
+    else { fr.style.flex=''; fr.style.height=''; }
+  }
 
   /* envío del survey → paso 2: el calendario, en el mismo panel */
   if(agdPaso2) return;
@@ -2022,8 +2040,7 @@ window.addEventListener('message', function(ev){
   var destino=(d && (d.url||d.redirect||d.redirectUrl||d.link)) || CONFIG.CALENDAR_URL;
   if(!destino || String(destino).indexOf('http')!==0) return;
   agdPaso2=true;
-  fr.removeAttribute('style');
-  fr.style.cssText='border:none;width:100%;min-height:660px';
+  fr.style.flex=''; fr.style.height='';
   fr.src=destino;
   var t=document.querySelector('.agd-head h3');
   if(t) t.textContent='Elegí el día y la hora de tu entrevista';
