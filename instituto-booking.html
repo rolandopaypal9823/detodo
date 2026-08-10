@@ -2000,19 +2000,20 @@ function agdCargarSurvey(){
   var sep=url.indexOf('?')<0?'?':'&';
   var full=url+sep+'utm_source='+encodeURIComponent(getUTM());
 
-  if(agdEnPanel()){
-    /* MODO PANEL · sólo si cargaste CONFIG.CALENDAR_URL.
-       sandbox SIN allow-top-navigation: el survey no puede llevarse la página.
-       El paso al calendario lo damos nosotros, abajo, con el link de CONFIG. */
-    box.innerHTML='<iframe id="agdFrame" src="'+full+'" title="Aplicación al Instituto de Productividad" '+
-                  'sandbox="allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox" '+
+  if(CONFIG.REDIRECCION_EN_PANEL){
+    /* La redirección de GHL ocurre adentro del iframe: sea al calendario o a la
+       página de descalificado, la persona llega a donde el survey decidió, sin
+       salir de la landing. Sin sandbox (para no bloquear nada) y sin
+       form_embed.js (que es el que llevaría la página entera). El alto lo
+       resuelve el layout: el iframe ocupa todo el panel y scrollea solo. */
+    box.innerHTML='<iframe id="agdFrame" src="'+full+'" allow="payment" '+
+                  'title="Aplicación al Instituto de Productividad" '+
                   'scrolling="auto" style="border:none;width:100%;"></iframe>'+
                   '<a class="agd-alt" href="'+full+'" target="_blank" rel="noopener">Abrir en una pestaña →</a>';
   }else{
-    /* MODO CLÁSICO (por defecto) · el survey se comporta como siempre:
-       form_embed.js le da el alto automático y GHL hace su propia redirección
-       al calendario cuando se envía. Es el camino probado. */
-    box.innerHTML='<iframe id="agdFrame" class="agd-frame--auto" src="'+full+'" '+
+    /* MODO CLÁSICO (por defecto) · form_embed.js le da el alto automático y GHL
+       hace su propia redirección, respetando toda su lógica condicional. */
+    box.innerHTML='<iframe id="agdFrame" class="agd-frame--auto" src="'+full+'" allow="payment" '+
                   'title="Aplicación al Instituto de Productividad" '+
                   'scrolling="no" style="border:none;width:100%;"></iframe>'+
                   '<a class="agd-alt" href="'+full+'" target="_blank" rel="noopener">Abrir en una pestaña →</a>';
@@ -2023,48 +2024,28 @@ function agdCargarSurvey(){
     }
   }
 
+  /* respaldo: si el formulario no llegó a cargar, ofrecemos abrirlo en una pestaña */
   var fr0=document.getElementById('agdFrame'), alt=box.querySelector('.agd-alt'), cargo=false;
   if(fr0) fr0.addEventListener('load',function(){ cargo=true; });
   setTimeout(function(){ if(!cargo && alt) alt.classList.add('is-on'); }, 7000);
 }
 
-/* Mensajes del iframe de GHL: ajustamos el alto y, al enviarse, cargamos el
-   calendario DENTRO del mismo panel en vez de dejar que redirija la página. */
-var agdPaso2=false;
-function agdEnPanel(){
-  var c=CONFIG.CALENDAR_URL;
-  return !!(c && String(c).indexOf('http')===0);
-}
+/* En modo panel replicamos lo único útil de form_embed.js: el alto automático.
+   No interceptamos ni redirigimos nada — el destino lo decide siempre GHL. */
 window.addEventListener('message', function(ev){
-  if(!agdEnPanel()) return;   /* en modo clásico manda form_embed.js, no tocamos nada */
+  if(!CONFIG.REDIRECCION_EN_PANEL) return;
   if(!/leadconnectorhq|msgsndr|gohighlevel/i.test(ev.origin||'')) return;
   var fr=document.getElementById('agdFrame'); if(!fr) return;
   var d=ev.data, txt='';
   try{ txt=(typeof d==='string')?d:JSON.stringify(d); }catch(e){ return; }
-  /* GHL manda a veces el objeto y a veces el JSON como texto */
   if(typeof d==='string'){ try{ d=JSON.parse(d); }catch(e){ d={}; } }
   if(!d || typeof d!=='object') d={};
-
-  /* alto automático (lo que hacía form_embed.js) */
-  var h=(d && (d.height||d.frameHeight)) || (txt.match(/"(?:height|frameHeight)"\s*:\s*"?(\d+)/)||[])[1];
+  var h=(d.height||d.frameHeight) || (txt.match(/"(?:height|frameHeight)"\s*:\s*"?(\d+)/)||[])[1];
   if(h && +h>200){
-    /* si el survey es más alto que el panel, lo estiramos y scrollea el panel;
-       si entra, lo dejamos ocupando el alto libre (flex) */
     var libre=fr.parentNode ? fr.parentNode.clientHeight : 0;
     if(+h > libre){ fr.style.flex='0 0 auto'; fr.style.height=(+h)+'px'; }
     else { fr.style.flex=''; fr.style.height=''; }
   }
-
-  /* envío del survey → paso 2: el calendario, en el mismo panel */
-  if(agdPaso2) return;
-  if(!/submit|success|complete|redirect|thank/i.test(txt)) return;
-  var destino=CONFIG.CALENDAR_URL || (d && (d.url||d.redirect||d.redirectUrl||d.link));
-  if(!destino || String(destino).indexOf('http')!==0) return;
-  agdPaso2=true;
-  fr.style.flex=''; fr.style.height='';
-  fr.src=destino;
-  var t=document.querySelector('.agd-head h3');
-  if(t) t.textContent='Elegí el día y la hora de tu entrevista';
 }, false);
 
 /* Cualquier link a #aplicar abre el panel en vez de navegar */
@@ -2113,13 +2094,19 @@ const CONFIG = {
   SURVEY_URL: "https://api.leadconnectorhq.com/widget/survey/of5CdYfnDItzOsvtJ7lz",
 
   // ── Qué pasa al enviar el survey ────────────────────────────────────────
-  // VACÍO (por defecto)  → funciona como siempre: GHL hace su redirección al
-  //                        calendario. Es lo probado y seguro.
-  // CON EL LINK PEGADO   → el calendario se abre DENTRO del panel y la persona
-  //                        no sale de la página (el video sigue sonando).
-  //                        Pegá acá el link de tu calendario de GHL, ej:
-  //                        https://api.leadconnectorhq.com/widget/booking/XXXXXXXX
-  CALENDAR_URL: "",
+  // El survey de GHL decide solo a dónde va cada persona: los que califican al
+  // calendario, y los que la lógica condicional descalifica a su propia página.
+  // Nosotros NO tocamos ese destino nunca: lo respetamos tal cual.
+  //
+  // false (por defecto) → GHL redirige la página entera. La persona sale de la
+  //                       landing, pero llega siempre a donde corresponde.
+  //                       Es el camino probado.
+  // true                → la redirección ocurre DENTRO del panel: la persona no
+  //                       sale de la landing y el video sigue sonando.
+  //                       Requiere que las páginas de destino se dejen mostrar
+  //                       embebidas. Probalo en la página publicada antes de
+  //                       dejarlo prendido.
+  REDIRECCION_EN_PANEL: false,
 
   // Video VSL. Pegá la URL de EMBED (YouTube: https://www.youtube.com/embed/XXXX ·
   // Vimeo: https://player.vimeo.com/video/XXXX · Loom: https://www.loom.com/embed/XXXX).
