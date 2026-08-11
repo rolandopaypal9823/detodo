@@ -1,0 +1,1031 @@
+<title>Criterio de edición — Manual y Score · Instituto NFM</title>
+<style>
+  :root {
+    --ground: #EDEDF0;
+    --surface: #FFFFFF;
+    --surface-2: #F4F5F8;
+    --ink: #16181F;
+    --muted: #5B6070;
+    --line: #D5D7DE;
+    --line-soft: #E5E7EC;
+    --accent: #2E4B8F;
+    --accent-soft: #E2E7F4;
+    --energy: #9C7A05;
+    --energy-bg: #FAF0CE;
+    --bad: #A32E22;
+    --warn: #8A6100;
+    --good: #1E6647;
+    --bad-bg: #F7E3E0;
+    --warn-bg: #F8EED6;
+    --good-bg: #DEEEE6;
+    --shadow: 0 1px 2px rgba(22,24,31,.06), 0 10px 28px rgba(22,24,31,.06);
+
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Charter, Georgia, serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #101218; --surface: #181B23; --surface-2: #1D212A;
+      --ink: #E5E7EC; --muted: #929AAA; --line: #2A2E39; --line-soft: #212530;
+      --accent: #8AA6E6; --accent-soft: #1A2138;
+      --energy: #E5BE3F; --energy-bg: #2C2411;
+      --bad: #F08A7C; --warn: #DDA94E; --good: #62C49B;
+      --bad-bg: #2E1613; --warn-bg: #2B2110; --good-bg: #11271D;
+      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 28px rgba(0,0,0,.28);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #101218; --surface: #181B23; --surface-2: #1D212A;
+    --ink: #E5E7EC; --muted: #929AAA; --line: #2A2E39; --line-soft: #212530;
+    --accent: #8AA6E6; --accent-soft: #1A2138;
+    --energy: #E5BE3F; --energy-bg: #2C2411;
+    --bad: #F08A7C; --warn: #DDA94E; --good: #62C49B;
+    --bad-bg: #2E1613; --warn-bg: #2B2110; --good-bg: #11271D;
+    --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 28px rgba(0,0,0,.28);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1020px; margin: 0 auto; padding: 0 24px 110px; }
+
+  /* masthead */
+  header.mast { padding: 54px 0 0; }
+  .eyebrow { font-family: var(--mono); font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 18px; }
+  h1 { font-family: var(--serif); font-size: clamp(34px, 5.6vw, 54px); line-height: 1.04; letter-spacing: -.018em; font-weight: 600; margin: 0 0 16px; max-width: 17ch; text-wrap: balance; }
+  .standfirst { font-size: 19px; line-height: 1.5; color: var(--muted); max-width: 58ch; margin: 0 0 30px; }
+  .rule { height: 3px; background: var(--ink); margin: 0 0 44px; }
+
+  /* structure */
+  section { margin: 0 0 74px; }
+  h2 { font-family: var(--mono); font-size: 12.5px; letter-spacing: .13em; text-transform: uppercase; font-weight: 600; color: var(--accent); margin: 0 0 18px; padding: 0 0 12px; border-bottom: 1px solid var(--line); }
+  h3 { font-family: var(--serif); font-size: 30px; line-height: 1.15; letter-spacing: -.012em; font-weight: 600; margin: 0 0 14px; max-width: 24ch; text-wrap: balance; }
+  h4 { font-size: 17px; font-weight: 660; margin: 32px 0 9px; }
+  p { margin: 0 0 14px; max-width: 66ch; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; max-width: 66ch; }
+  li { margin: 0 0 7px; }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+  strong { font-weight: 660; }
+  code { font-family: var(--mono); font-size: .885em; background: var(--surface-2); border: 1px solid var(--line-soft); padding: 1px 5px; border-radius: 3px; }
+  .lead { font-size: 17.5px; color: var(--muted); max-width: 62ch; margin: 0 0 26px; }
+
+  /* diagnosis */
+  .diag { background: var(--surface); border: 1px solid var(--line); border-radius: 5px; box-shadow: var(--shadow); padding: 28px 30px; margin: 0 0 74px; }
+  .diag p { font-family: var(--serif); font-size: 21px; line-height: 1.42; max-width: 58ch; margin: 0 0 14px; }
+  .diag p:last-child { margin-bottom: 0; font-family: var(--sans); font-size: 16px; color: var(--muted); }
+  .diag b { font-weight: 600; }
+
+  /* schools */
+  .schools { display: grid; grid-template-columns: repeat(auto-fit, minmax(292px, 1fr)); gap: 16px; margin: 24px 0; }
+  .school { border: 1px solid var(--line); border-radius: 5px; background: var(--surface); overflow: hidden; }
+  .school-head { padding: 16px 20px 14px; border-bottom: 1px solid var(--line); }
+  .school-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; margin-bottom: 6px; display: block; }
+  .s-energy .school-tag { color: var(--energy); }
+  .s-auth .school-tag { color: var(--accent); }
+  .school-head h4 { margin: 0 0 4px; font-family: var(--serif); font-size: 21px; font-weight: 600; }
+  .school-who { font-size: 13.5px; color: var(--muted); }
+  .school-body { padding: 6px 20px 16px; }
+  .school-body dl { margin: 0; }
+  .school-body dt { font-family: var(--mono); font-size: 10px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin-top: 13px; }
+  .school-body dd { margin: 2px 0 0; font-size: 14px; line-height: 1.45; }
+
+  .position { background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 5px; padding: 22px 24px; margin: 26px 0; }
+  .position .label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .11em; text-transform: uppercase; color: var(--accent); font-weight: 600; display: block; margin-bottom: 8px; }
+  .position p { font-family: var(--serif); font-size: 20px; line-height: 1.45; margin: 0 0 10px; max-width: 56ch; }
+  .position p:last-child { font-family: var(--sans); font-size: 15px; color: var(--muted); margin: 0; }
+
+  /* anatomy timeline */
+  .anat { background: var(--surface); border: 1px solid var(--line); border-radius: 5px; box-shadow: var(--shadow); padding: 26px; margin: 26px 0; }
+  .anat-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: .11em; text-transform: uppercase; color: var(--muted); margin: 0 0 20px; }
+  .tl { display: flex; gap: 3px; margin-bottom: 4px; }
+  .tl-seg { border-radius: 3px; padding: 11px 12px; min-width: 0; color: #fff; display: flex; flex-direction: column; justify-content: space-between; min-height: 96px; }
+  .tl-seg .t { font-family: var(--mono); font-size: 10px; letter-spacing: .07em; opacity: .82; margin-bottom: 6px; }
+  .tl-seg .n { font-weight: 660; font-size: 14.5px; line-height: 1.2; margin-bottom: 4px; }
+  .tl-seg .d { font-size: 12px; line-height: 1.35; opacity: .88; }
+  .seg-1 { background: #8E2C1F; flex: 1.5 1 0; }
+  .seg-2 { background: #9C6A12; flex: 2 1 0; }
+  .seg-3 { background: #2E4B8F; flex: 5 1 0; }
+  .seg-4 { background: #1E6647; flex: 2 1 0; }
+  .seg-5 { background: #43485C; flex: 1 1 0; }
+  .tl-scale { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line-soft); }
+  .anat-foot { font-size: 13.5px; color: var(--muted); margin: 18px 0 0; padding-top: 16px; border-top: 1px solid var(--line-soft); max-width: 72ch; }
+
+  /* rules */
+  .rules { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin: 24px 0; }
+  .rule-card { background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 17px 19px; }
+  .rule-card h4 { margin: 0 0 10px; font-size: 15.5px; display: flex; align-items: center; gap: 9px; }
+  .rule-card h4 .ix { font-family: var(--mono); font-size: 10.5px; color: var(--muted); font-weight: 600; letter-spacing: .06em; }
+  .rule-card ul { margin: 0; padding-left: 17px; max-width: none; }
+  .rule-card li { font-size: 13.8px; line-height: 1.48; margin-bottom: 6px; }
+  .rule-card li b { font-family: var(--mono); font-size: 12.5px; font-weight: 600; }
+  .rule-card .never { margin-top: 10px; padding-top: 9px; border-top: 1px dashed var(--line); font-size: 13px; color: var(--bad); }
+  .rule-card .never b { font-weight: 660; }
+
+  /* tables */
+  .table-scroll { overflow-x: auto; margin: 24px 0; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+  th { text-align: left; font-family: var(--mono); font-size: 11px; letter-spacing: .09em; text-transform: uppercase; font-weight: 600; color: var(--muted); padding: 13px 16px; border-bottom: 1px solid var(--line); vertical-align: bottom; white-space: nowrap; }
+  td { padding: 13px 16px; border-bottom: 1px solid var(--line-soft); vertical-align: top; line-height: 1.48; }
+  tr:last-child td { border-bottom: none; }
+  td.who { font-weight: 640; white-space: nowrap; }
+  td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .pill { display: inline-block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; font-weight: 600; white-space: nowrap; }
+  .pill.bad { background: var(--bad-bg); color: var(--bad); }
+  .pill.warn { background: var(--warn-bg); color: var(--warn); }
+  .pill.good { background: var(--good-bg); color: var(--good); }
+
+  /* ===== SCORER ===== */
+  .scorer { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; box-shadow: var(--shadow); overflow: hidden; margin: 26px 0; }
+  .sc-head { padding: 20px 24px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .sc-head h4 { margin: 0; font-family: var(--serif); font-size: 22px; font-weight: 600; }
+  .sc-head p { margin: 4px 0 0; font-size: 14px; color: var(--muted); max-width: 52ch; }
+
+  .sc-auto { padding: 20px 24px; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+
+  .filerow { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+    background: var(--accent); color: #fff; border: none; border-radius: 4px;
+    padding: 9px 16px; cursor: pointer;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .btn[disabled] { opacity: .45; cursor: default; filter: none; }
+  .btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+  .filehint { font-size: 13px; color: var(--muted); }
+
+  .sc-analysis { margin-top: 18px; display: none; }
+  .sc-analysis.on { display: block; }
+
+  .an-layout { display: flex; gap: 22px; flex-wrap: wrap; align-items: flex-start; }
+  .an-video { flex: none; width: 178px; }
+  .an-video video { width: 100%; border-radius: 5px; display: block; background: #000; border: 1px solid var(--line); }
+  .an-metrics { flex: 1 1 320px; min-width: 280px; }
+
+  .metric { display: grid; grid-template-columns: 1fr auto; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line-soft); align-items: baseline; }
+  .metric:last-child { border-bottom: none; }
+  .metric .mk { font-size: 13.5px; }
+  .metric .mk small { display: block; color: var(--muted); font-size: 12px; line-height: 1.35; }
+  .metric .mv { font-family: var(--mono); font-size: 13px; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+  .metric .mv .flag { display: block; font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; margin-top: 2px; }
+  .flag.ok { color: var(--good); } .flag.mid { color: var(--warn); } .flag.no { color: var(--bad); }
+
+  .progress { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; margin: 14px 0 0; }
+  .progress i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .12s linear; }
+  .an-status { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+  .sens { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+  .sens input { flex: 1 1 140px; max-width: 200px; accent-color: var(--accent); }
+
+  /* rubric */
+  .sc-rubric { padding: 4px 0 0; }
+  .crit { display: grid; grid-template-columns: 1fr 224px; gap: 16px; padding: 15px 24px; border-bottom: 1px solid var(--line-soft); align-items: center; }
+  .crit-label .cn { font-weight: 640; font-size: 15px; }
+  .crit-label .cn .w { font-family: var(--mono); font-size: 11px; color: var(--muted); font-weight: 500; margin-left: 7px; }
+  .crit-label .cd { font-size: 13px; color: var(--muted); line-height: 1.45; margin-top: 3px; }
+  .scale { display: flex; gap: 4px; justify-content: flex-end; }
+  .scale button {
+    font-family: var(--mono); font-size: 13px; font-weight: 600;
+    width: 38px; height: 34px; border-radius: 4px; cursor: pointer;
+    background: var(--surface-2); color: var(--muted);
+    border: 1px solid var(--line);
+  }
+  .scale button:hover { border-color: var(--accent); color: var(--accent); }
+  .scale button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .kills { padding: 18px 24px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bad-bg); }
+  .kills h5 { margin: 0 0 4px; font-size: 14px; font-weight: 660; color: var(--bad); }
+  .kills p { font-size: 13px; color: var(--muted); margin: 0 0 12px; max-width: 60ch; }
+  .kill-item { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; font-size: 14px; }
+  .kill-item input { margin-top: 4px; accent-color: var(--bad); flex: none; }
+
+  .sc-result { padding: 24px; display: grid; grid-template-columns: 172px 1fr; gap: 26px; align-items: start; }
+  .score-box { text-align: center; }
+  .score-num { font-family: var(--mono); font-size: 62px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -.03em; }
+  .score-of { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .score-band { margin-top: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; padding: 6px 10px; border-radius: 3px; display: inline-block; }
+  .fixes h5 { margin: 0 0 10px; font-size: 14px; font-family: var(--mono); letter-spacing: .09em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .fixes ol { margin: 0; padding-left: 20px; max-width: none; }
+  .fixes li { font-size: 14.5px; margin-bottom: 9px; line-height: 1.45; }
+  .fixes li b { font-weight: 660; }
+  .fixes .none { font-size: 14.5px; color: var(--good); }
+
+  .sc-foot { padding: 16px 24px 22px; border-top: 1px solid var(--line-soft); display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+
+  /* callout */
+  .callout { background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: 0 4px 4px 0; padding: 17px 21px; margin: 24px 0; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout .label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .11em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 6px; font-weight: 600; }
+
+  .pipeline { display: grid; gap: 10px; margin: 24px 0; }
+  .pstep { display: grid; grid-template-columns: 40px 1fr; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 15px 18px; align-items: start; }
+  .pstep .pn { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--accent); padding-top: 2px; }
+  .pstep h4 { margin: 0 0 4px; font-size: 15.5px; }
+  .pstep p { margin: 0; font-size: 14px; color: var(--muted); max-width: none; }
+  .pstep p + p { margin-top: 6px; }
+  .pstep .tool-name { font-weight: 640; color: var(--ink); }
+
+  footer.notes { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--muted); }
+  footer.notes p { max-width: 78ch; }
+
+  @media (max-width: 720px) {
+    .crit { grid-template-columns: 1fr; gap: 10px; }
+    .scale { justify-content: flex-start; }
+    .sc-result { grid-template-columns: 1fr; gap: 20px; }
+    .tl { flex-direction: column; }
+    .tl-seg { min-height: 0; }
+    .tl-scale { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition-duration: .01ms !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">Instituto NFM · Manual de criterio de edición · Agosto 2026</p>
+  <h1>Qué hace que un clip esté pro</h1>
+  <p class="standfirst">Cómo editan las marcas que marcan el estándar, las reglas concretas para replicarlo, y un score de 0 a 100 para que el equipo deje de discutir por gusto y empiece a medir.</p>
+  <div class="rule"></div>
+</header>
+
+<div class="diag">
+  <p><b>El problema no es la herramienta ni la cámara.</b> Es que "está bueno" y "está flojo" hoy son opiniones, y una opinión no se puede enseñar, ni delegar, ni corregir. Sin un criterio escrito, cada editor edita con el suyo y el feed sale disparejo — que es exactamente lo que le rompe la autoridad a una cuenta.</p>
+  <p>Lo que sigue es ese criterio, puesto en números. Al final hay una herramienta donde cargás el clip y te devuelve el puntaje con qué arreglar primero.</p>
+</div>
+
+<section>
+  <h2>01 — Las dos escuelas</h2>
+  <h3>Todo el short-form de calidad sale de dos tradiciones opuestas</h3>
+  <p class="lead">Antes de copiar técnicas sueltas hay que entender que hay dos sistemas coherentes, con objetivos distintos. Mezclarlos al azar es lo que produce ese clip que "no se sabe bien qué es".</p>
+
+  <div class="schools">
+    <div class="school s-energy">
+      <div class="school-head">
+        <span class="school-tag">Escuela A</span>
+        <h4>Alta energía</h4>
+        <p class="school-who">Alex Hormozi · Tony Robbins · Iman Gadzhi</p>
+      </div>
+      <div class="school-body">
+        <dl>
+          <dt>Objetivo</dt><dd>Respuesta directa. Que actúes ahora.</dd>
+          <dt>Ritmo</dt><dd>Corte cada 1–3 s. Cero aire, cero muletillas.</dd>
+          <dt>Subtítulos</dt><dd>Palabra por palabra, amarillo o verde sobre negro, mayúsculas.</dd>
+          <dt>Zooms</dt><dd>Duros, sobre cada remate.</dd>
+          <dt>Sonido</dt><dd>Whooshes, risers, música de fondo constante.</dd>
+          <dt>Riesgo</dt><dd>En 2026 está saturado. Lee "vendedor", no "experto".</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="school s-auth">
+      <div class="school-head">
+        <span class="school-tag">Escuela B</span>
+        <h4>Autoridad</h4>
+        <p class="school-who">Andrew Huberman · Diary of a CEO · Lex Fridman</p>
+      </div>
+      <div class="school-body">
+        <dl>
+          <dt>Objetivo</dt><dd>Credibilidad. Que te creas lo que dice.</dd>
+          <dt>Ritmo</dt><dd>Corte cada 4–8 s, casi siempre multicámara.</dd>
+          <dt>Subtítulos</dt><dd>Limpios, tipografía sobria, sin gritar.</dd>
+          <dt>Zooms</dt><dd>Suaves o inexistentes. El movimiento lo dan las cámaras.</dd>
+          <dt>Sonido</dt><dd>Sin música o muy baja. Silencio como recurso.</dd>
+          <dt>Riesgo</dt><dd>Si el material no es fuerte, aburre. No perdona contenido flojo.</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <h4>El giro de 2026</h4>
+  <p>La escuela A se volvió ruido de fondo: la misma tipografía, los mismos colores y el mismo "whoosh" en todos lados. El movimiento actual —lo que se está llamando <strong>minimalismo dinámico</strong>— se queda con la mecánica que funciona (subtítulo palabra por palabra, cortes limpios, zooms) y tira la decoración (emojis, colores estridentes, efectos de sonido). Es, básicamente, la escuela B con el ritmo de la A.</p>
+
+  <div class="position">
+    <span class="label">Dónde se para NFM</span>
+    <p>Densidad de Hormozi en los primeros 5 segundos. Calma de Huberman en los 25 restantes.</p>
+    <p>El Instituto vende autoridad, no urgencia. El clip tiene que ganarse la atención con la misma agresividad que un anuncio, y después sostenerla con la sobriedad de alguien que sabe de lo que habla. Esa es la línea, y no se cruza para ningún lado.</p>
+  </div>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Referencia</th><th>Qué copiamos</th><th>Qué NO copiamos</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="who">Alex Hormozi</td>
+          <td>La densidad. Ni un segundo de aire muerto, ni una muletilla, ni un "eh". El primer frame es el gancho, no la introducción al gancho.</td>
+          <td>La estética. Amarillo fosforescente, mayúsculas gritadas, whooshes. Le baja el precio percibido al Instituto.</td>
+        </tr>
+        <tr>
+          <td class="who">Andrew Huberman</td>
+          <td>La legitimidad visual: encuadre estable, subtítulo sobrio, gráficos que explican de verdad, tono que no ruega atención.</td>
+          <td>El ritmo lento del arranque. Huberman puede darse el lujo; una cuenta en construcción no.</td>
+        </tr>
+        <tr>
+          <td class="who">Diary of a CEO</td>
+          <td>La consistencia total: mismo color grade, mismo encuadre, mismo estilo de caption en todos los clips. Se reconoce sin ver el logo.</td>
+          <td>La producción cinematográfica de tres cámaras con iluminación de set. No es nuestro presupuesto todavía.</td>
+        </tr>
+        <tr>
+          <td class="who">Tony Robbins</td>
+          <td>El uso del público: planos de reacción que prueban impacto sin que él tenga que afirmarlo.</td>
+          <td>La energía de estadio. En cámara cerrada lee como exageración.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>02 — Anatomía de un clip</h2>
+  <h3>Los cinco tramos, y qué tiene que pasar en cada uno</h3>
+  <p class="lead">Un clip no es un pedazo de clase. Es una pieza con estructura propia, que tiene que funcionar para alguien que nunca escuchó a Nico y que la está viendo sin sonido mientras hace otra cosa.</p>
+
+  <div class="anat">
+    <p class="anat-title">Estructura de referencia · clip de 30 a 45 segundos</p>
+    <div class="tl">
+      <div class="tl-seg seg-1">
+        <div><div class="t">0 – 1,5 s</div><div class="n">Gancho</div></div>
+        <div class="d">La frase más fuerte. Sola, sin preámbulo.</div>
+      </div>
+      <div class="tl-seg seg-2">
+        <div><div class="t">1,5 – 5 s</div><div class="n">Contexto</div></div>
+        <div class="d">Quién habla y de qué. Placa o una línea.</div>
+      </div>
+      <div class="tl-seg seg-3">
+        <div><div class="t">5 – 28 s</div><div class="n">Desarrollo</div></div>
+        <div class="d">El argumento. Un cambio visual cada 3–5 s.</div>
+      </div>
+      <div class="tl-seg seg-4">
+        <div><div class="t">28 – 38 s</div><div class="n">Payoff</div></div>
+        <div class="d">La respuesta que el gancho prometió.</div>
+      </div>
+      <div class="tl-seg seg-5">
+        <div><div class="t">38 – 42 s</div><div class="n">Cierre</div></div>
+        <div class="d">Remate seco. Nunca se apaga solo.</div>
+      </div>
+    </div>
+    <div class="tl-scale"><span>0 s</span><span>10 s</span><span>20 s</span><span>30 s</span><span>42 s</span></div>
+    <p class="anat-foot">La proporción importa más que los segundos exactos: el gancho es el 4 % del clip y decide el 100 % del resultado. Si el payoff llega después del segundo 40, la mayoría ya se fue.</p>
+  </div>
+
+  <h4>Las tres formas en que muere un clip</h4>
+  <ol>
+    <li><strong>Arranca en el envión, no en el golpe.</strong> El editor corta donde Nico empieza a hablar del tema, en vez de donde dice la frase que importa. Es el error número uno y el más fácil de corregir: buscá la mejor frase del segmento y empezá ahí, aunque sea del medio.</li>
+    <li><strong>Necesita contexto que no está.</strong> Si la primera frase incluye "esto que les decía", "el segundo punto" o "como vimos", el clip no está listo. Un momento que necesita la clase para entenderse no es un clip: es un recorte.</li>
+    <li><strong>No paga lo que prometió.</strong> El gancho plantea una pregunta y el clip termina sin responderla. Genera vistas y destruye confianza — el peor negocio posible para un Instituto.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>03 — El manual</h2>
+  <h3>Las reglas, con números</h3>
+  <p class="lead">Esto es lo que se le entrega a un editor nuevo. No son sugerencias: es el estándar. Todo lo que está acá se puede verificar mirando el clip.</p>
+
+  <div class="rules">
+    <div class="rule-card">
+      <h4><span class="ix">R1</span> Ritmo y cortes</h4>
+      <ul>
+        <li>Cambio visual cada <b>3–5 s</b>. Corte, zoom, gráfico o cambio de cámara: algo tiene que pasar.</li>
+        <li>Ningún tramo mayor a <b>6 s</b> sin cambio. Es donde se cae la retención.</li>
+        <li>Silencios y muletillas: <b>fuera todos</b>. Sin excepción.</li>
+        <li>Duración total <b>25–45 s</b>. Más corto no deja construir; más largo pierde el payoff.</li>
+      </ul>
+      <div class="never"><b>Nunca:</b> cortar a mitad de palabra ni dejar respiración al final.</div>
+    </div>
+
+    <div class="rule-card">
+      <h4><span class="ix">R2</span> Subtítulos</h4>
+      <ul>
+        <li><b>1 a 3 palabras</b> por pantalla, resaltado palabra por palabra.</li>
+        <li>Tipografía sans bold, <b>siempre la misma</b>. Sin mayúsculas gritadas.</li>
+        <li>Contraste real: trazo grueso o caja. Nunca sombra suave.</li>
+        <li>Posición fija en el <b>tercio central-bajo</b>, dentro de la zona segura.</li>
+        <li>Sincronía <b>0,1–0,3 s antes</b> del audio, nunca después.</li>
+      </ul>
+      <div class="never"><b>Nunca:</b> publicar sin leerlos. Un error de ortografía anula el clip.</div>
+    </div>
+
+    <div class="rule-card">
+      <h4><span class="ix">R3</span> Encuadre</h4>
+      <ul>
+        <li>Ojos en el <b>tercio superior</b>. Nunca centrados ni al borde.</li>
+        <li>Dos encuadres fijos alternados, no seguimiento automático.</li>
+        <li>Zoom máximo <b>115 %</b>, y solo sobre un remate.</li>
+        <li>Aire arriba de la cabeza: <b>mínimo</b>. Es el error más visible.</li>
+      </ul>
+      <div class="never"><b>Nunca:</b> reencuadre automático con tracking continuo. Flota y lee amateur.</div>
+    </div>
+
+    <div class="rule-card">
+      <h4><span class="ix">R4</span> Apoyo visual</h4>
+      <ul>
+        <li>B-roll solo si <b>explica</b>. Si es decorativo, sobra.</li>
+        <li>Máximo <b>2–3 s</b> por inserto: es puntuación, no escena.</li>
+        <li>Gráficos y números: si Nico dice un dato, el dato se muestra.</li>
+        <li>Máximo <b>1 inserto cada 8 s</b>. Más es distracción.</li>
+      </ul>
+      <div class="never"><b>Nunca:</b> stock genérico de gente en oficina. Baja la credibilidad al instante.</div>
+    </div>
+
+    <div class="rule-card">
+      <h4><span class="ix">R5</span> Sonido</h4>
+      <ul>
+        <li>Voz a <b>−14 LUFS</b>, pareja de punta a punta.</li>
+        <li>Música: <b>−22 a −26 dB</b> bajo la voz, o directamente sin música.</li>
+        <li>Efectos: <b>cero</b>. Ni whooshes ni risers.</li>
+        <li>Ruido de sala y clics de corte: limpiados.</li>
+      </ul>
+      <div class="never"><b>Nunca:</b> música que compita con la voz. Es lo que más lee a "contenido barato".</div>
+    </div>
+
+    <div class="rule-card">
+      <h4><span class="ix">R6</span> Consistencia</h4>
+      <ul>
+        <li>Mismo color grade en <b>todos</b> los clips.</li>
+        <li>Misma tipografía, mismo color de resalte, misma posición.</li>
+        <li>Sin logo permanente en pantalla. La identidad la da el estilo.</li>
+        <li>La plantilla se define <b>una vez</b> y no se toca.</li>
+      </ul>
+      <div class="never"><b>Nunca:</b> improvisar un estilo nuevo "porque este clip lo pide".</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="label">La regla que más pesa</span>
+    <p>Lo que hace que una marca se vea profesional no es ninguna técnica en particular: es la <strong>repetición idéntica</strong>. Diary of a CEO se reconoce sin ver el logo porque hace lo mismo todas las veces. Un equipo que aplica bien seis reglas fijas produce un feed más pro que uno que aplica veinte reglas distintas según el día.</p>
+  </div>
+</section>
+
+<section>
+  <h2>04 — El Score de Edición</h2>
+  <h3>Cargá el clip y puntualo</h3>
+  <p class="lead">Diez criterios ponderados sobre 100. La herramienta mide sola lo que se puede medir (duración, cadencia de cortes, zonas muertas, audio) y te pide criterio para el resto. Devuelve el puntaje y, sobre todo, qué arreglar primero.</p>
+
+  <div class="scorer">
+    <div class="sc-head">
+      <div>
+        <h4>Score de Edición NFM</h4>
+        <p>El video no sale de tu computadora: se procesa acá mismo, en el navegador.</p>
+      </div>
+      <button class="btn ghost" type="button" id="btn-reset">Empezar de nuevo</button>
+    </div>
+
+    <div class="sc-auto">
+      <div class="filerow">
+        <input type="file" id="file" accept="video/*" style="display:none">
+        <button class="btn" type="button" id="btn-file">Cargar clip</button>
+        <button class="btn ghost" type="button" id="btn-analyze" disabled>Analizar</button>
+        <span class="filehint" id="filehint">MP4 o MOV. Opcional: el puntaje manual funciona igual sin cargar nada.</span>
+      </div>
+
+      <div class="sc-analysis" id="analysis">
+        <div class="an-layout">
+          <div class="an-video">
+            <video id="vid" controls playsinline preload="metadata" muted></video>
+          </div>
+          <div class="an-metrics" id="metrics"></div>
+        </div>
+        <div class="progress" id="progwrap" style="display:none"><i id="prog"></i></div>
+        <p class="an-status" id="status"></p>
+        <div class="sens">
+          <label for="sens">Sensibilidad de detección de cortes</label>
+          <input type="range" id="sens" min="6" max="30" value="14" step="1">
+          <span id="sensval" style="font-family:var(--mono)">14</span>
+          <button class="btn ghost" type="button" id="btn-recount" style="padding:5px 11px;font-size:13px">Recontar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sc-rubric" id="rubric"></div>
+
+    <div class="kills">
+      <h5>Faltas eliminatorias</h5>
+      <p>Si alguna se cumple, el clip no se publica sin importar el puntaje.</p>
+      <label class="kill-item"><input type="checkbox" data-kill> <span>Hay un error de ortografía o un nombre mal escrito en los subtítulos</span></label>
+      <label class="kill-item"><input type="checkbox" data-kill> <span>Se ve una marca de agua de otra plataforma o interfaz de una app</span></label>
+      <label class="kill-item"><input type="checkbox" data-kill> <span>La primera frase no se entiende sin haber visto la clase</span></label>
+    </div>
+
+    <div class="sc-result">
+      <div class="score-box">
+        <div class="score-num" id="score">—</div>
+        <div class="score-of">sobre 100</div>
+        <div class="score-band" id="band" style="background:var(--surface-2);color:var(--muted)">Sin puntuar</div>
+      </div>
+      <div class="fixes">
+        <h5>Qué arreglar primero</h5>
+        <div id="fixes"><p class="none" style="color:var(--muted)">Puntuá los criterios y acá aparece la lista, ordenada por cuánto puntaje recuperás con cada arreglo.</p></div>
+      </div>
+    </div>
+
+    <div class="sc-foot">
+      <button class="btn ghost" type="button" id="btn-copy">Copiar informe</button>
+      <span class="filehint">Para pegarlo en el feedback al editor.</span>
+    </div>
+  </div>
+
+  <h4>Bandas de decisión</h4>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Puntaje</th><th>Significa</th><th>Qué se hace</th></tr></thead>
+      <tbody>
+        <tr><td class="num">90 – 100</td><td>Estándar de referencia</td><td>Va al feed del Instituto y sirve para collabs e intros.</td></tr>
+        <tr><td class="num">75 – 89</td><td>Publicable</td><td>Sale. Se anotan los puntos flojos para el próximo.</td></tr>
+        <tr><td class="num">60 – 74</td><td>Solo relleno</td><td>Sale en cuentas secundarias, nunca en el principal.</td></tr>
+        <tr><td class="num">&lt; 60</td><td>No publicable</td><td>Vuelve a edición o se descarta el momento.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>05 — Cómo se ejecuta con IA</h2>
+  <h3>La cadena, y qué hace cada herramienta</h3>
+  <p class="lead">Ninguna herramienta hace el clip entero bien. La forma de usarlas es asignarle a cada una la parte donde efectivamente es mejor que un humano apurado.</p>
+
+  <div class="pipeline">
+    <div class="pstep">
+      <div class="pn">01</div>
+      <div>
+        <h4>Encontrar el momento — <span class="tool-name">OpusClip</span></h4>
+        <p>Sube la clase recortada (solo los 15–20 min con material) y devuelve los segmentos candidatos con puntaje.</p>
+        <p><strong>Advertencia:</strong> usá sus timestamps, no sus cortes. La mayoría de sus clips arrancan en el envión y no en el gancho — corregir eso es trabajo humano y es el que más puntaje mueve.</p>
+      </div>
+    </div>
+    <div class="pstep">
+      <div class="pn">02</div>
+      <div>
+        <h4>Escribir el gancho y el contexto — <span class="tool-name">Claude</span></h4>
+        <p>Con la transcripción del segmento, pedile las tres frases que mejor funcionan como primera línea y la placa de contexto de una línea. Es donde la IA de texto rinde más que la IA de video.</p>
+      </div>
+    </div>
+    <div class="pstep">
+      <div class="pn">03</div>
+      <div>
+        <h4>Corte fino — <span class="tool-name">Descript</span> o <span class="tool-name">Premiere</span></h4>
+        <p>Editar por transcripción: se borran muletillas, silencios y repeticiones borrando texto. Es lo que resuelve la regla de densidad sin escuchar el clip veinte veces.</p>
+      </div>
+    </div>
+    <div class="pstep">
+      <div class="pn">04</div>
+      <div>
+        <h4>Terminación — <span class="tool-name">Submagic</span> con Brand Kit</h4>
+        <p>Subtítulos animados, auto-zoom sobre el hablante y b-roll contextual en una sola pasada, con la tipografía y los colores del Instituto cargados.</p>
+        <p><strong>Clave:</strong> hay que desarmar el preset por defecto — sin emojis, sin efectos de sonido, sin colores estridentes. La configuración de fábrica es escuela A; nosotros somos escuela B.</p>
+      </div>
+    </div>
+    <div class="pstep">
+      <div class="pn">05</div>
+      <div>
+        <h4>Control de calidad — <span class="tool-name">este Score</span></h4>
+        <p>Antes de publicar. Si da menos de 75, vuelve. Es el paso que convierte el criterio en proceso y saca a Nico de tener que revisar clip por clip.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="label">Lo primero que hay que hacer</span>
+    <p>Definir la plantilla de marca <strong>una sola vez</strong>: tipografía, color de resalte, tamaño, posición, animación, color grade. Media jornada de trabajo que después se aplica sola en cada clip. Es la inversión con mejor retorno de toda esta lista, porque la consistencia es lo que el ojo lee como profesional.</p>
+  </div>
+</section>
+
+<footer class="notes">
+  <p><strong>Sobre las referencias.</strong> El análisis de estilo de Hormozi, Huberman, Diary of a CEO y Tony Robbins está sintetizado a partir de análisis publicados de sus flujos de edición y de lo documentado sobre sus equipos, no de una medición cuadro por cuadro hecha acá — el entorno donde se armó este documento no tiene acceso a reproducir sus videos. Los rangos de la sección 03 son un estándar propuesto para NFM, coherente con esas referencias, no cifras medidas de sus canales. Están puestos para que se puedan discutir y ajustar con datos propios.</p>
+  <p><strong>Sobre el análisis automático.</strong> La detección de cortes compara cuadros consecutivos y marca un corte cuando el cambio supera el umbral: es fiable en material de cámara fija como una clase, y se confunde con movimientos de cámara bruscos o flashes. Por eso la sensibilidad es ajustable y el número se muestra como referencia, no como verdad. El análisis de audio puede fallar si el navegador no decodifica el códec del archivo; en ese caso el resto sigue funcionando.</p>
+  <p><strong>Complemento técnico.</strong> Este manual cubre criterio de edición. Los ajustes de exportación, resolución y subida están en el otro documento, el estándar de clipeo vertical.</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------- Rúbrica ----------
+  var CRITERIA = [
+    { id: "hook",  w: 12, n: "Gancho en el primer segundo",
+      d: "La primera frase se sostiene sola y da ganas de quedarse. Cero preámbulo." },
+    { id: "self",  w: 10, n: "Autocontenido",
+      d: "Se entiende entero sin haber visto la clase. Nadie necesita contexto externo." },
+    { id: "pay",   w: 12, n: "Payoff cumplido",
+      d: "Entrega la respuesta que el gancho prometió, y llega antes de que se vayan." },
+    { id: "close", w: 6,  n: "Cierre firme",
+      d: "Termina en un remate, no se apaga ni queda colgado a mitad de idea." },
+    { id: "dens",  w: 8,  n: "Densidad",
+      d: "Sin muletillas, silencios ni repeticiones. Cada segundo aporta algo." },
+    { id: "cut",   w: 10, n: "Cadencia de cortes",
+      d: "Un cambio visual cada 3 a 5 segundos, sin sentirse picado ni monótono." },
+    { id: "dead",  w: 8,  n: "Sin zonas muertas",
+      d: "Ningún tramo mayor a 6 segundos sin que pase nada en pantalla." },
+    { id: "aud",   w: 9,  n: "Audio",
+      d: "Voz pareja y limpia, música por debajo o ausente, sin clics ni ruido de sala." },
+    { id: "sub",   w: 13, n: "Subtítulos",
+      d: "Correctos, sincronizados, legibles, en posición fija y con la tipografía de marca." },
+    { id: "brand", w: 12, n: "Encuadre y marca",
+      d: "Ojos en el tercio superior, color y estilo idénticos al resto del feed." }
+  ];
+
+  var scores = {};
+  var rubricEl = document.getElementById("rubric");
+
+  CRITERIA.forEach(function (c) {
+    var row = document.createElement("div");
+    row.className = "crit";
+
+    var label = document.createElement("div");
+    label.className = "crit-label";
+    var cn = document.createElement("div");
+    cn.className = "cn";
+    cn.textContent = c.n;
+    var w = document.createElement("span");
+    w.className = "w";
+    w.textContent = c.w + " pts";
+    cn.appendChild(w);
+    var cd = document.createElement("div");
+    cd.className = "cd";
+    cd.textContent = c.d;
+    label.appendChild(cn);
+    label.appendChild(cd);
+
+    var scale = document.createElement("div");
+    scale.className = "scale";
+    scale.setAttribute("role", "group");
+    scale.setAttribute("aria-label", c.n);
+    for (var v = 0; v <= 5; v++) {
+      (function (val) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.textContent = val;
+        b.setAttribute("aria-pressed", "false");
+        b.setAttribute("aria-label", c.n + ": " + val + " de 5");
+        b.addEventListener("click", function () {
+          scores[c.id] = val;
+          Array.prototype.forEach.call(scale.children, function (sib, i) {
+            sib.setAttribute("aria-pressed", i === val ? "true" : "false");
+          });
+          recompute();
+        });
+        scale.appendChild(b);
+      })(v);
+    }
+
+    row.appendChild(label);
+    row.appendChild(scale);
+    rubricEl.appendChild(row);
+  });
+
+  // ---------- Cálculo ----------
+  var scoreEl = document.getElementById("score");
+  var bandEl = document.getElementById("band");
+  var fixesEl = document.getElementById("fixes");
+
+  function killed() {
+    return Array.prototype.some.call(document.querySelectorAll("[data-kill]"), function (k) { return k.checked; });
+  }
+
+  function recompute() {
+    var answered = CRITERIA.filter(function (c) { return typeof scores[c.id] === "number"; });
+    if (!answered.length) {
+      scoreEl.textContent = "—";
+      setBand("Sin puntuar", "var(--surface-2)", "var(--muted)");
+      fixesEl.innerHTML = '<p style="color:var(--muted);font-size:14.5px">Puntuá los criterios y acá aparece la lista, ordenada por cuánto puntaje recuperás con cada arreglo.</p>';
+      return;
+    }
+
+    var total = 0;
+    CRITERIA.forEach(function (c) {
+      var s = typeof scores[c.id] === "number" ? scores[c.id] : 0;
+      total += (s / 5) * c.w;
+    });
+    var pts = Math.round(total);
+    scoreEl.textContent = pts;
+
+    var isKilled = killed();
+    if (isKilled) setBand("No publicable · falta eliminatoria", "var(--bad-bg)", "var(--bad)");
+    else if (pts >= 90) setBand("Estándar de referencia", "var(--good-bg)", "var(--good)");
+    else if (pts >= 75) setBand("Publicable", "var(--good-bg)", "var(--good)");
+    else if (pts >= 60) setBand("Solo relleno", "var(--warn-bg)", "var(--warn)");
+    else setBand("No publicable", "var(--bad-bg)", "var(--bad)");
+
+    // Qué arreglar: mayor puntaje recuperable primero
+    var gaps = CRITERIA.map(function (c) {
+      var s = typeof scores[c.id] === "number" ? scores[c.id] : null;
+      if (s === null) return null;
+      return { n: c.n, gain: ((5 - s) / 5) * c.w, s: s };
+    }).filter(function (g) { return g && g.gain > 0.4; })
+      .sort(function (a, b) { return b.gain - a.gain; })
+      .slice(0, 4);
+
+    if (!gaps.length) {
+      fixesEl.innerHTML = '<p class="none">Nada pendiente. El clip cumple el estándar en todos los criterios puntuados.</p>';
+    } else {
+      var ol = document.createElement("ol");
+      gaps.forEach(function (g) {
+        var li = document.createElement("li");
+        var b = document.createElement("b");
+        b.textContent = g.n;
+        li.appendChild(b);
+        li.appendChild(document.createTextNode(" — está en " + g.s + "/5. Llevarlo a 5 recupera " + g.gain.toFixed(1) + " puntos."));
+        ol.appendChild(li);
+      });
+      fixesEl.innerHTML = "";
+      fixesEl.appendChild(ol);
+    }
+  }
+
+  function setBand(text, bg, fg) {
+    bandEl.textContent = text;
+    bandEl.style.background = bg;
+    bandEl.style.color = fg;
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll("[data-kill]"), function (k) {
+    k.addEventListener("change", recompute);
+  });
+
+  // ---------- Análisis automático ----------
+  var fileInput = document.getElementById("file");
+  var vid = document.getElementById("vid");
+  var metricsEl = document.getElementById("metrics");
+  var statusEl = document.getElementById("status");
+  var progWrap = document.getElementById("progwrap");
+  var progEl = document.getElementById("prog");
+  var analysisEl = document.getElementById("analysis");
+  var btnAnalyze = document.getElementById("btn-analyze");
+  var sens = document.getElementById("sens");
+  var sensval = document.getElementById("sensval");
+  var currentFile = null;
+  var diffSeries = null; // [{t, d}]
+
+  document.getElementById("btn-file").addEventListener("click", function () { fileInput.click(); });
+
+  fileInput.addEventListener("change", function () {
+    var f = fileInput.files && fileInput.files[0];
+    if (!f) return;
+    currentFile = f;
+    diffSeries = null;
+    analysisEl.classList.add("on");
+    metricsEl.innerHTML = "";
+    statusEl.textContent = "Cargando el archivo…";
+    try {
+      vid.src = URL.createObjectURL(f);
+    } catch (e) {
+      statusEl.textContent = "El visor no permite reproducir archivos locales. Usá igual la rúbrica manual de abajo.";
+      return;
+    }
+    vid.onloadedmetadata = function () {
+      btnAnalyze.disabled = false;
+      statusEl.textContent = "Listo. Apretá Analizar.";
+      showBasics();
+    };
+    vid.onerror = function () {
+      btnAnalyze.disabled = true;
+      statusEl.textContent = "No se pudo leer el video en este visor (puede ser el códec o una restricción del entorno). La rúbrica manual funciona igual.";
+    };
+  });
+
+  function m(key, sub, val, flagText, flagClass) {
+    var row = document.createElement("div");
+    row.className = "metric";
+    var k = document.createElement("div");
+    k.className = "mk";
+    k.textContent = key;
+    if (sub) { var s = document.createElement("small"); s.textContent = sub; k.appendChild(s); }
+    var v = document.createElement("div");
+    v.className = "mv";
+    v.textContent = val;
+    if (flagText) {
+      var f = document.createElement("span");
+      f.className = "flag " + flagClass;
+      f.textContent = flagText;
+      v.appendChild(f);
+    }
+    row.appendChild(k); row.appendChild(v);
+    metricsEl.appendChild(row);
+  }
+
+  function showBasics() {
+    metricsEl.innerHTML = "";
+    var d = vid.duration || 0;
+    var W = vid.videoWidth, H = vid.videoHeight;
+
+    var durFlag = (d >= 25 && d <= 45) ? ["en rango", "ok"]
+      : (d >= 15 && d <= 60) ? ["fuera del ideal 25–45 s", "mid"]
+      : ["fuera de rango", "no"];
+    m("Duración", "Estándar: 25 a 45 s", d.toFixed(1) + " s", durFlag[0], durFlag[1]);
+
+    var ratio = W && H ? (W / H) : 0;
+    var isVert = Math.abs(ratio - 9 / 16) < 0.02;
+    m("Formato", "Debe ser 9:16", W + "×" + H, isVert ? "vertical correcto" : "no es 9:16", isVert ? "ok" : "no");
+
+    var is1080 = (W >= 1080 && H >= 1920);
+    m("Resolución", "Mínimo 1080×1920", is1080 ? "cumple" : "por debajo", is1080 ? "ok" : "revisar", is1080 ? "ok" : "mid");
+  }
+
+  btnAnalyze.addEventListener("click", function () { runAnalysis(); });
+  document.getElementById("btn-recount").addEventListener("click", function () {
+    if (diffSeries) renderCuts();
+    else runAnalysis();
+  });
+  sens.addEventListener("input", function () {
+    sensval.textContent = sens.value;
+    if (diffSeries) renderCuts();
+  });
+
+  function seekTo(t) {
+    return new Promise(function (res) {
+      var done = false;
+      function ok() { if (done) return; done = true; vid.removeEventListener("seeked", ok); res(); }
+      vid.addEventListener("seeked", ok);
+      vid.currentTime = t;
+      setTimeout(ok, 400); // no colgarse si el navegador no dispara seeked
+    });
+  }
+
+  function runAnalysis() {
+    if (!vid.duration || !isFinite(vid.duration)) return;
+    btnAnalyze.disabled = true;
+    progWrap.style.display = "block";
+    statusEl.textContent = "Analizando cuadros…";
+
+    var STEP = 0.2;
+    var cw = 64, ch = Math.max(2, Math.round(64 * (vid.videoHeight / vid.videoWidth) || 114));
+    var cv = document.createElement("canvas");
+    cv.width = cw; cv.height = ch;
+    var cx = cv.getContext("2d", { willReadFrequently: true });
+    var prev = null;
+    var series = [];
+    var dur = vid.duration;
+    var wasMuted = vid.muted;
+    vid.muted = true;
+
+    (function step(t) {
+      if (t >= dur - 0.05) { finish(); return; }
+      seekTo(t).then(function () {
+        try {
+          cx.drawImage(vid, 0, 0, cw, ch);
+          var data = cx.getImageData(0, 0, cw, ch).data;
+          var luma = new Float32Array(cw * ch);
+          for (var i = 0, p = 0; i < data.length; i += 4, p++) {
+            luma[p] = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+          }
+          if (prev) {
+            var sum = 0;
+            for (var j = 0; j < luma.length; j++) sum += Math.abs(luma[j] - prev[j]);
+            series.push({ t: t, d: sum / luma.length });
+          }
+          prev = luma;
+        } catch (e) { /* frame no disponible: seguimos */ }
+        progEl.style.width = Math.min(100, (t / dur) * 100) + "%";
+        step(t + STEP);
+      });
+    })(0);
+
+    function finish() {
+      vid.muted = wasMuted;
+      vid.currentTime = 0;
+      progWrap.style.display = "none";
+      btnAnalyze.disabled = false;
+      diffSeries = series;
+      renderCuts();
+      analyzeAudio();
+    }
+  }
+
+  function renderCuts() {
+    if (!diffSeries) return;
+    showBasics();
+
+    var TH = parseFloat(sens.value);
+    var cuts = [];
+    for (var i = 0; i < diffSeries.length; i++) {
+      if (diffSeries[i].d > TH) {
+        // evitar contar dos veces el mismo corte
+        if (!cuts.length || diffSeries[i].t - cuts[cuts.length - 1] > 0.35) cuts.push(diffSeries[i].t);
+      }
+    }
+
+    var dur = vid.duration || 1;
+    var cadence = cuts.length ? dur / (cuts.length + 1) : dur;
+
+    var cFlag = (cadence >= 2.5 && cadence <= 5.5) ? ["en rango", "ok"]
+      : cadence < 2.5 ? ["muy picado", "mid"] : ["demasiado lento", "no"];
+    m("Cortes detectados", "Cambio visual cada 3–5 s", cuts.length + " · cada " + cadence.toFixed(1) + " s", cFlag[0], cFlag[1]);
+
+    // Tramo más largo sin corte
+    var marks = [0].concat(cuts, [dur]);
+    var longest = 0, longestAt = 0;
+    for (var k = 1; k < marks.length; k++) {
+      var gap = marks[k] - marks[k - 1];
+      if (gap > longest) { longest = gap; longestAt = marks[k - 1]; }
+    }
+    var lFlag = longest <= 6 ? ["ok", "ok"] : longest <= 9 ? ["revisar", "mid"] : ["zona muerta", "no"];
+    m("Tramo más largo sin cambio", longest > 6 ? "Empieza en el segundo " + longestAt.toFixed(1) : "Máximo permitido: 6 s",
+      longest.toFixed(1) + " s", lFlag[0], lFlag[1]);
+
+    statusEl.textContent = "Análisis de imagen listo. Ajustá la sensibilidad si el conteo de cortes no coincide con lo que ves.";
+  }
+
+  function analyzeAudio() {
+    if (!currentFile || !window.AudioContext) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      var ac = new AC();
+      ac.decodeAudioData(reader.result).then(function (buf) {
+        var ch = buf.getChannelData(0);
+        var sr = buf.sampleRate;
+        var win = Math.floor(sr * 0.05);
+        var rmsList = [], peak = 0;
+        for (var i = 0; i + win < ch.length; i += win) {
+          var s = 0;
+          for (var j = 0; j < win; j++) {
+            var v = ch[i + j];
+            s += v * v;
+            if (Math.abs(v) > peak) peak = Math.abs(v);
+          }
+          rmsList.push(Math.sqrt(s / win));
+        }
+        // Silencio inicial: primera ventana por encima de -45 dBFS
+        var thr = Math.pow(10, -45 / 20);
+        var firstIdx = 0;
+        for (var q = 0; q < rmsList.length; q++) { if (rmsList[q] > thr) { firstIdx = q; break; } }
+        var lead = firstIdx * 0.05;
+
+        var voiced = rmsList.filter(function (r) { return r > thr; });
+        var avg = voiced.length ? voiced.reduce(function (a, b) { return a + b; }, 0) / voiced.length : 0;
+        var avgDb = avg > 0 ? 20 * Math.log10(avg) : -99;
+        var peakDb = peak > 0 ? 20 * Math.log10(peak) : -99;
+
+        var leadFlag = lead <= 0.15 ? ["arranca en seco", "ok"] : lead <= 0.4 ? ["hay aire al inicio", "mid"] : ["mata el gancho", "no"];
+        m("Silencio antes de la primera palabra", "Debe ser prácticamente cero", lead.toFixed(2) + " s", leadFlag[0], leadFlag[1]);
+
+        var lvlFlag = (avgDb > -26 && avgDb < -12) ? ["nivel correcto", "ok"] : avgDb <= -26 ? ["voz baja", "no"] : ["voz muy alta", "mid"];
+        m("Nivel medio de voz", "Referencia: −20 a −14 dB", avgDb.toFixed(1) + " dB", lvlFlag[0], lvlFlag[1]);
+
+        var pkFlag = peakDb <= -1 ? ["sin riesgo de clip", "ok"] : ["satura", "no"];
+        m("Pico", "Máximo −1 dB", peakDb.toFixed(1) + " dB", pkFlag[0], pkFlag[1]);
+
+        ac.close();
+      }).catch(function () {
+        statusEl.textContent += " El navegador no pudo decodificar el audio de este archivo.";
+        ac.close();
+      });
+    };
+    reader.readAsArrayBuffer(currentFile);
+  }
+
+  // ---------- Informe / reset ----------
+  document.getElementById("btn-copy").addEventListener("click", function () {
+    var lines = ["SCORE DE EDICIÓN NFM", ""];
+    var total = 0;
+    CRITERIA.forEach(function (c) {
+      var s = typeof scores[c.id] === "number" ? scores[c.id] : null;
+      total += s === null ? 0 : (s / 5) * c.w;
+      lines.push("- " + c.n + ": " + (s === null ? "sin puntuar" : s + "/5") + "  (" + c.w + " pts)");
+    });
+    lines.push("");
+    lines.push("PUNTAJE: " + Math.round(total) + "/100 — " + bandEl.textContent);
+    if (killed()) lines.push("FALTA ELIMINATORIA: no se publica.");
+    lines.push("");
+    lines.push("QUÉ ARREGLAR PRIMERO:");
+    var ol = fixesEl.querySelector("ol");
+    if (ol) Array.prototype.forEach.call(ol.children, function (li, i) { lines.push((i + 1) + ". " + li.textContent); });
+    else lines.push("Nada pendiente.");
+
+    var txt = lines.join("\n");
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(txt).then(function () {
+        var b = document.getElementById("btn-copy");
+        var p = b.textContent; b.textContent = "Copiado";
+        setTimeout(function () { b.textContent = p; }, 1600);
+      });
+    }
+  });
+
+  document.getElementById("btn-reset").addEventListener("click", function () {
+    scores = {};
+    diffSeries = null;
+    currentFile = null;
+    Array.prototype.forEach.call(document.querySelectorAll(".scale button"), function (b) { b.setAttribute("aria-pressed", "false"); });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-kill]"), function (k) { k.checked = false; });
+    analysisEl.classList.remove("on");
+    metricsEl.innerHTML = "";
+    statusEl.textContent = "";
+    btnAnalyze.disabled = true;
+    try { vid.removeAttribute("src"); vid.load(); } catch (e) {}
+    recompute();
+  });
+
+  recompute();
+})();
+</script>
