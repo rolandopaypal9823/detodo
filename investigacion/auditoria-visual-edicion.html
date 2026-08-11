@@ -1,0 +1,820 @@
+<title>Auditoría visual de edición — Instituto NFM</title>
+<style>
+  :root {
+    --ground:#E9EAEC; --surface:#FFFFFF; --surface-2:#F3F4F6;
+    --ink:#15171A; --muted:#5A6069; --line:#D3D6DA; --line-soft:#E4E6E9;
+    --bad:#B0342A; --good:#1F6B45;
+    --bad-bg:#F8E4E1; --good-bg:#DFEEE6;
+    --shadow:0 1px 2px rgba(21,23,26,.06), 0 12px 30px rgba(21,23,26,.06);
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:#131519; --surface:#1B1E23; --surface-2:#22262C;
+      --ink:#E6E8EB; --muted:#939AA3; --line:#2E333A; --line-soft:#24282E;
+      --bad:#EE8B7E; --good:#66C795;
+      --bad-bg:#2E1614; --good-bg:#11271C;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#131519; --surface:#1B1E23; --surface-2:#22262C;
+    --ink:#E6E8EB; --muted:#939AA3; --line:#2E333A; --line-soft:#24282E;
+    --bad:#EE8B7E; --good:#66C795;
+    --bad-bg:#2E1614; --good-bg:#11271C;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px rgba(0,0,0,.3);
+  }
+
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--ground); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1020px; margin:0 auto; padding:0 24px 110px; }
+
+  header.mast { padding:56px 0 0; }
+  .eyebrow { font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 20px; }
+  h1 { font-size:clamp(33px,5.6vw,54px); line-height:1.02; letter-spacing:-.032em; font-weight:750; margin:0 0 16px; max-width:16ch; text-wrap:balance; }
+  .standfirst { font-size:19px; line-height:1.5; color:var(--muted); max-width:58ch; margin:0 0 32px; }
+  .hr { height:2px; background:var(--ink); margin:0 0 46px; }
+
+  section { margin:0 0 78px; }
+  h2 { font-family:var(--mono); font-size:12.5px; letter-spacing:.13em; text-transform:uppercase; font-weight:600; color:var(--muted); margin:0 0 18px; padding:0 0 12px; border-bottom:1px solid var(--line); }
+  h3 { font-size:28px; line-height:1.15; letter-spacing:-.022em; font-weight:700; margin:0 0 14px; max-width:25ch; text-wrap:balance; }
+  h4 { font-size:17px; font-weight:660; margin:30px 0 9px; }
+  p { margin:0 0 14px; max-width:66ch; }
+  ul,ol { margin:0 0 14px; padding-left:22px; max-width:66ch; }
+  li { margin:0 0 7px; }
+  a { color:var(--ink); text-underline-offset:2px; }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline:2px solid var(--ink); outline-offset:3px; border-radius:3px; }
+  strong { font-weight:660; }
+  code { font-family:var(--mono); font-size:.875em; background:var(--surface-2); border:1px solid var(--line-soft); padding:1px 5px; border-radius:3px; }
+  .lead { font-size:17.5px; color:var(--muted); max-width:62ch; margin:0 0 28px; }
+
+  .scope { background:var(--surface); border:1px solid var(--line); border-radius:6px; box-shadow:var(--shadow); padding:26px 30px; margin:0 0 76px; }
+  .scope .big { font-size:22px; line-height:1.36; font-weight:660; letter-spacing:-.014em; max-width:54ch; margin:0 0 14px; }
+  .scope p { color:var(--muted); font-size:15.5px; margin:0; }
+  .scope .out { margin-top:16px; padding-top:14px; border-top:1px solid var(--line-soft); font-family:var(--mono); font-size:12.5px; color:var(--muted); line-height:1.7; }
+  .scope .out b { color:var(--ink); font-weight:600; }
+
+  /* ---- tells ---- */
+  .tell { background:var(--surface); border:1px solid var(--line); border-radius:6px; box-shadow:var(--shadow); overflow:hidden; margin:0 0 20px; }
+  .tell-head { padding:18px 24px 16px; border-bottom:1px solid var(--line); }
+  .tell-n { font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:5px; }
+  .tell-head h4 { margin:0 0 5px; font-size:20px; letter-spacing:-.014em; }
+  .tell-head p { margin:0; font-size:14.5px; color:var(--muted); max-width:64ch; }
+  .tell-demo { display:grid; grid-template-columns:1fr 1fr; }
+  .side { padding:20px 24px 22px; }
+  .side + .side { border-left:1px solid var(--line-soft); }
+  .side-label { font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:700; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+  .side-label::before { content:""; width:9px; height:9px; border-radius:50%; }
+  .s-bad .side-label { color:var(--bad); } .s-bad .side-label::before { background:var(--bad); }
+  .s-good .side-label { color:var(--good); } .s-good .side-label::before { background:var(--good); }
+  .side-note { font-size:13px; color:var(--muted); margin:14px 0 0; line-height:1.45; }
+
+  /* track demo (easing / duration) */
+  .track { position:relative; height:38px; background:var(--surface-2); border:1px solid var(--line-soft); border-radius:4px; overflow:hidden; }
+  .track + .track { margin-top:9px; }
+  .dot { position:absolute; top:9px; left:6px; width:20px; height:20px; border-radius:3px; background:var(--ink); }
+  @keyframes slide { 0%,8% { transform:translateX(0);} 50%,58% { transform:translateX(calc(100% + 0px));} 100% { transform:translateX(0);} }
+  .track .dot { animation:slide 3.2s infinite; }
+  .lin .dot { animation-timing-function:linear; }
+  .eas .dot { animation-timing-function:cubic-bezier(.65,0,.35,1); }
+  .track-cap { font-family:var(--mono); font-size:10.5px; color:var(--muted); margin-bottom:5px; }
+
+  /* shot demo canvases */
+  .shots { display:flex; gap:8px; }
+  .shots canvas { width:100%; height:auto; display:block; border-radius:4px; background:#0e1114; border:1px solid var(--line-soft); }
+  .shotwrap { flex:1; min-width:0; }
+  .shotwrap .cap { font-family:var(--mono); font-size:10px; color:var(--muted); margin-top:5px; text-align:center; }
+
+  /* caption stability */
+  .phone { position:relative; width:100%; max-width:150px; aspect-ratio:9/16; margin:0 auto; border-radius:8px; overflow:hidden; background:linear-gradient(168deg,#33424b,#1a2126); border:1px solid var(--line-soft); }
+  .cap-box { position:absolute; left:8%; right:8%; background:rgba(0,0,0,.72); color:#fff; font-weight:800; font-size:11px; text-align:center; padding:5px 4px; border-radius:3px; }
+  @keyframes jitter {
+    0%,19% { bottom:26%; left:8%; right:8%; font-size:11px; }
+    20%,39% { bottom:31%; left:14%; right:4%; font-size:13px; }
+    40%,59% { bottom:23%; left:5%; right:12%; font-size:10px; }
+    60%,79% { bottom:29%; left:11%; right:7%; font-size:12.5px; }
+    80%,100% { bottom:25%; left:8%; right:9%; font-size:11px; }
+  }
+  @keyframes steady { 0%,100% { bottom:26%; } }
+  .jit .cap-box { animation:jitter 4s steps(1) infinite; }
+  .std .cap-box { bottom:26%; }
+
+  /* ---- rubric / scorer ---- */
+  .scorer { background:var(--surface); border:1px solid var(--line); border-radius:6px; box-shadow:var(--shadow); overflow:hidden; margin:26px 0; }
+  .sc-head { padding:20px 24px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+  .sc-head h4 { margin:0; font-size:21px; font-weight:700; letter-spacing:-.016em; }
+  .sc-head p { margin:4px 0 0; font-size:14px; color:var(--muted); max-width:54ch; }
+
+  .sc-auto { padding:20px 24px; border-bottom:1px solid var(--line); background:var(--surface-2); }
+  .filerow { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  .btn { font-family:var(--sans); font-size:14px; font-weight:600; background:var(--ink); color:var(--ground); border:none; border-radius:4px; padding:9px 16px; cursor:pointer; }
+  .btn:hover { opacity:.86; }
+  .btn[disabled] { opacity:.35; cursor:default; }
+  .btn.ghost { background:transparent; color:var(--ink); border:1px solid var(--line); }
+  .btn.ghost:hover { border-color:var(--ink); opacity:1; }
+  .btn.tiny { padding:5px 11px; font-size:12.5px; }
+  .filehint { font-size:13px; color:var(--muted); }
+
+  .an { margin-top:18px; display:none; }
+  .an.on { display:block; }
+  .an-layout { display:flex; gap:22px; flex-wrap:wrap; align-items:flex-start; }
+  .an-video { flex:none; width:150px; }
+  .an-video video { width:100%; border-radius:5px; display:block; background:#000; border:1px solid var(--line); }
+  .an-metrics { flex:1 1 340px; min-width:290px; }
+  .metric { display:grid; grid-template-columns:1fr auto; gap:12px; padding:9px 0; border-bottom:1px solid var(--line-soft); align-items:baseline; }
+  .metric:last-child { border-bottom:none; }
+  .mk { font-size:13.5px; }
+  .mk small { display:block; color:var(--muted); font-size:12px; line-height:1.35; }
+  .mv { font-family:var(--mono); font-size:13px; font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap; }
+  .mv .flag { display:block; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; margin-top:2px; }
+  .flag.ok { color:var(--good); } .flag.mid { color:var(--muted); } .flag.no { color:var(--bad); }
+  .progress { height:4px; background:var(--line); border-radius:2px; overflow:hidden; margin:14px 0 0; }
+  .progress i { display:block; height:100%; background:var(--ink); width:0; }
+  .an-status { font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:10px; }
+
+  /* strip of shot colors */
+  .strip { display:flex; height:34px; border-radius:4px; overflow:hidden; margin-top:12px; border:1px solid var(--line-soft); }
+  .strip i { flex:1; min-width:2px; }
+  .strip-cap { font-family:var(--mono); font-size:10.5px; color:var(--muted); margin-top:6px; }
+
+  .crit { display:grid; grid-template-columns:1fr 224px; gap:16px; padding:15px 24px; border-bottom:1px solid var(--line-soft); align-items:center; }
+  .cn { font-weight:640; font-size:15px; }
+  .cn .w { font-family:var(--mono); font-size:11px; color:var(--muted); font-weight:500; margin-left:7px; }
+  .cd { font-size:13px; color:var(--muted); line-height:1.45; margin-top:3px; }
+  .scale { display:flex; gap:4px; justify-content:flex-end; }
+  .scale button { font-family:var(--mono); font-size:13px; font-weight:600; width:38px; height:34px; border-radius:4px; cursor:pointer; background:var(--surface-2); color:var(--muted); border:1px solid var(--line); }
+  .scale button:hover { border-color:var(--ink); color:var(--ink); }
+  .scale button[aria-pressed="true"] { background:var(--ink); border-color:var(--ink); color:var(--ground); }
+
+  .kills { padding:18px 24px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--bad-bg); }
+  .kills h5 { margin:0 0 4px; font-size:14px; font-weight:660; color:var(--bad); }
+  .kills p { font-size:13px; color:var(--muted); margin:0 0 12px; max-width:62ch; }
+  .kill-item { display:flex; align-items:flex-start; gap:10px; padding:6px 0; font-size:14px; }
+  .kill-item input { margin-top:4px; accent-color:var(--bad); flex:none; }
+
+  .sc-result { padding:24px; display:grid; grid-template-columns:168px 1fr; gap:26px; align-items:start; }
+  .score-num { font-family:var(--mono); font-size:60px; font-weight:700; line-height:1; font-variant-numeric:tabular-nums; letter-spacing:-.035em; text-align:center; }
+  .score-of { font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:4px; text-align:center; }
+  .score-band { margin-top:12px; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; padding:6px 10px; border-radius:3px; display:block; text-align:center; }
+  .fixes h5 { margin:0 0 10px; font-size:13px; font-family:var(--mono); letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:600; }
+  .fixes ol { margin:0; padding-left:20px; max-width:none; }
+  .fixes li { font-size:14.5px; margin-bottom:9px; line-height:1.45; }
+  .sc-foot { padding:16px 24px 22px; border-top:1px solid var(--line-soft); display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+
+  .table-scroll { overflow-x:auto; margin:24px 0; border:1px solid var(--line); border-radius:5px; background:var(--surface); }
+  table { border-collapse:collapse; width:100%; font-size:14.5px; }
+  th { text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; font-weight:600; color:var(--muted); padding:13px 16px; border-bottom:1px solid var(--line); vertical-align:bottom; white-space:nowrap; }
+  td { padding:13px 16px; border-bottom:1px solid var(--line-soft); vertical-align:top; line-height:1.48; }
+  tr:last-child td { border-bottom:none; }
+  td.who { font-weight:640; white-space:nowrap; }
+  td.num { font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap; }
+
+  .callout { background:var(--surface-2); border-left:3px solid var(--ink); border-radius:0 4px 4px 0; padding:17px 21px; margin:24px 0; }
+  .callout p:last-child { margin-bottom:0; }
+  .callout .label { font-family:var(--mono); font-size:10.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px; font-weight:700; }
+
+  footer.notes { margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font-size:13.5px; color:var(--muted); }
+  footer.notes p { max-width:78ch; }
+
+  @media (max-width:760px) {
+    .tell-demo { grid-template-columns:1fr; }
+    .side + .side { border-left:none; border-top:1px solid var(--line-soft); }
+    .crit { grid-template-columns:1fr; gap:10px; }
+    .scale { justify-content:flex-start; }
+    .sc-result { grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .track .dot, .jit .cap-box { animation:none !important; }
+  }
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">Instituto NFM · Auditoría visual de edición · Agosto 2026</p>
+  <h1>Cómo se audita la mano del editor</h1>
+  <p class="standfirst">Los detalles visuales que separan una edición profesional de una amateur, demostrados en vivo, y una herramienta que los mide sobre tu archivo.</p>
+  <div class="hr"></div>
+</header>
+
+<div class="scope">
+  <p class="big">Esto no juzga qué se dice ni si el clip está bien elegido. Juzga la mano: el corte, el movimiento, el color, la tipografía y la limpieza.</p>
+  <p>Un clip puede tener el mejor contenido del mundo y verse barato. Lo que sigue mide exactamente eso, y nada más.</p>
+  <div class="out">
+    <b>Entra:</b> composición · continuidad entre planos · color · easing · duración de transiciones · tipografía · alineación · zonas seguras · estabilidad · limpieza técnica<br>
+    <b>No entra:</b> gancho · payoff · si el momento vale · guion · estrategia
+  </div>
+</div>
+
+<section>
+  <h2>01 — Los seis tells</h2>
+  <h3>Lo que delata a un editor amateur, aunque nadie sepa nombrarlo</h3>
+  <p class="lead">El espectador no identifica el error: siente que "algo está barato". Estos son los seis detalles que producen esa sensación, casi siempre. Cada uno está demostrado abajo — mirá los dos lados y vas a ver la diferencia sin que te la expliquen.</p>
+
+  <div class="tell">
+    <div class="tell-head">
+      <p class="tell-n">Tell 01 · el más importante</p>
+      <h4>Movimiento lineal</h4>
+      <p>Nada en el mundo físico arranca y frena de golpe a velocidad constante. Cuando un zoom, un texto o un gráfico se mueve linealmente, el ojo lo lee como mecánico. Es el error número uno y el más fácil de arreglar.</p>
+    </div>
+    <div class="tell-demo">
+      <div class="side s-bad">
+        <div class="side-label">Lineal</div>
+        <div class="track lin"><div class="dot"></div></div>
+        <p class="side-note">Velocidad constante. Arranca y frena de golpe. Se siente de software.</p>
+      </div>
+      <div class="side s-good">
+        <div class="side-label">Con easing</div>
+        <div class="track eas"><div class="dot"></div></div>
+        <p class="side-note">Acelera y desacelera. Se siente de mano. Es literalmente un clic en el editor.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tell">
+    <div class="tell-head">
+      <p class="tell-n">Tell 02</p>
+      <h4>Duración equivocada del movimiento</h4>
+      <p>Con el easing bien puesto, lo que queda es la duración. Muy corto se pierde y se siente nervioso; muy largo aburre y se siente pesado. La ventana útil para casi todo movimiento en formato corto está entre 250 y 400 ms.</p>
+    </div>
+    <div class="tell-demo">
+      <div class="side s-bad">
+        <div class="side-label">Fuera de rango</div>
+        <p class="track-cap">120 ms — nervioso</p>
+        <div class="track eas"><div class="dot" style="animation-duration:1.4s"></div></div>
+        <p class="track-cap" style="margin-top:12px">1000 ms — pesado</p>
+        <div class="track eas"><div class="dot" style="animation-duration:6s"></div></div>
+      </div>
+      <div class="side s-good">
+        <div class="side-label">En rango</div>
+        <p class="track-cap">320 ms</p>
+        <div class="track eas"><div class="dot" style="animation-duration:3.2s"></div></div>
+        <p class="side-note">Se percibe intencional: rápido pero legible. Esta es la duración que hay que fijar en el preset y no volver a tocar.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tell">
+    <div class="tell-head">
+      <p class="tell-n">Tell 03</p>
+      <h4>Jump cut: cortar entre dos planos casi iguales</h4>
+      <p>Si el tamaño de plano cambia poco, el corte se lee como un salto o un error de reproducción. La regla clásica es que entre dos planos consecutivos del mismo sujeto tiene que haber un cambio claro de tamaño — no un 8 %, sino un 40 % o más.</p>
+    </div>
+    <div class="tell-demo">
+      <div class="side s-bad">
+        <div class="side-label">Cambio del 8 %</div>
+        <div class="shots">
+          <div class="shotwrap"><canvas id="jc-a1" width="180" height="320"></canvas><p class="cap">Plano A</p></div>
+          <div class="shotwrap"><canvas id="jc-a2" width="180" height="320"></canvas><p class="cap">Plano B</p></div>
+        </div>
+        <p class="side-note">Salta. El ojo no lee un corte, lee un error.</p>
+      </div>
+      <div class="side s-good">
+        <div class="side-label">Cambio del 45 %</div>
+        <div class="shots">
+          <div class="shotwrap"><canvas id="jc-b1" width="180" height="320"></canvas><p class="cap">Plano A</p></div>
+          <div class="shotwrap"><canvas id="jc-b2" width="180" height="320"></canvas><p class="cap">Plano B</p></div>
+        </div>
+        <p class="side-note">Se lee como decisión. Mismo material, mismo corte, otra cosa.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tell">
+    <div class="tell-head">
+      <p class="tell-n">Tell 04</p>
+      <h4>Color que no coincide entre planos</h4>
+      <p>Cuando cada plano tiene su propia temperatura o exposición, el clip se siente armado con retazos. Es el tell más caro de arreglar después y el más barato de prevenir: un solo preset aplicado a toda la secuencia.</p>
+    </div>
+    <div class="tell-demo">
+      <div class="side s-bad">
+        <div class="side-label">Sin igualar</div>
+        <div class="shots">
+          <div class="shotwrap"><canvas id="cc-a1" width="180" height="320"></canvas></div>
+          <div class="shotwrap"><canvas id="cc-a2" width="180" height="320"></canvas></div>
+          <div class="shotwrap"><canvas id="cc-a3" width="180" height="320"></canvas></div>
+        </div>
+        <p class="side-note">Tres temperaturas y tres exposiciones distintas. Se nota aunque nadie sepa por qué.</p>
+      </div>
+      <div class="side s-good">
+        <div class="side-label">Igualado</div>
+        <div class="shots">
+          <div class="shotwrap"><canvas id="cc-b1" width="180" height="320"></canvas></div>
+          <div class="shotwrap"><canvas id="cc-b2" width="180" height="320"></canvas></div>
+          <div class="shotwrap"><canvas id="cc-b3" width="180" height="320"></canvas></div>
+        </div>
+        <p class="side-note">Mismo grade en los tres. Parece una pieza, no tres pedazos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tell">
+    <div class="tell-head">
+      <p class="tell-n">Tell 05</p>
+      <h4>El subtítulo que se mueve</h4>
+      <p>Si la caja de texto cambia de posición, de ancho o de tamaño entre una frase y la otra, el ojo tiene que reubicarla cada vez. Cansa sin que se sepa por qué. Es lo que hacen la mayoría de las herramientas automáticas si no se les fija la posición.</p>
+    </div>
+    <div class="tell-demo">
+      <div class="side s-bad">
+        <div class="side-label">Posición variable</div>
+        <div class="phone jit"><div class="cap-box">EL FOCO NO SE FUERZA</div></div>
+        <p class="side-note">Cambia de lugar y de tamaño en cada frase.</p>
+      </div>
+      <div class="side s-good">
+        <div class="side-label">Posición fija</div>
+        <div class="phone std"><div class="cap-box">EL FOCO NO SE FUERZA</div></div>
+        <p class="side-note">Misma línea de base siempre. El ojo se queda quieto y lee.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tell">
+    <div class="tell-head">
+      <p class="tell-n">Tell 06</p>
+      <h4>Transiciones de fábrica</h4>
+      <p>Cualquier transición que venga con nombre en el menú del editor — cubo, página, giro, glitch, zoom de plantilla — se reconoce al instante porque miles de personas usan exactamente la misma. En formato corto el estándar profesional es <strong>corte duro</strong>, y nada más. La excepción es un fundido en el arranque o el cierre.</p>
+    </div>
+    <div class="tell-demo">
+      <div class="side s-bad">
+        <div class="side-label">Del menú</div>
+        <p class="side-note" style="margin-top:0">Cube spin · page peel · glitch · zoom blur de plantilla · luma fade con destello. Todas dicen lo mismo: se editó con lo que venía puesto.</p>
+      </div>
+      <div class="side s-good">
+        <div class="side-label">Del oficio</div>
+        <p class="side-note" style="margin-top:0">Corte duro. Y cuando hace falta movimiento, un empuje de escala del 4 al 8 % con easing, hecho a mano. Se siente sin verse.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>02 — El analizador</h2>
+  <h3>Qué se puede medir sin opinar</h3>
+  <p class="lead">Cargá el clip y la herramienta lee los cuadros: detecta los cortes, mide cuánto cambia el plano en cada uno, compara el color entre planos y busca contenido en las zonas que tapa la interfaz. El archivo no sale de tu computadora.</p>
+
+  <div class="scorer">
+    <div class="sc-head">
+      <div>
+        <h4>Auditoría visual NFM</h4>
+        <p>Lo medible lo mide la herramienta. Lo que requiere ojo queda abajo, en la rúbrica.</p>
+      </div>
+      <button class="btn ghost" type="button" id="btn-reset">Empezar de nuevo</button>
+    </div>
+
+    <div class="sc-auto">
+      <div class="filerow">
+        <input type="file" id="file" accept="video/*" style="display:none">
+        <button class="btn" type="button" id="btn-file">Cargar clip</button>
+        <button class="btn ghost" type="button" id="btn-analyze" disabled>Analizar</button>
+        <span class="filehint" id="filehint">La rúbrica de abajo funciona igual sin cargar nada.</span>
+      </div>
+
+      <div class="an" id="an">
+        <div class="an-layout">
+          <div class="an-video"><video id="vid" controls playsinline preload="metadata" muted></video></div>
+          <div class="an-metrics" id="metrics"></div>
+        </div>
+        <div id="stripwrap"></div>
+        <div class="progress" id="progwrap" style="display:none"><i id="prog"></i></div>
+        <p class="an-status" id="status"></p>
+      </div>
+    </div>
+
+    <div id="rubric"></div>
+
+    <div class="kills">
+      <h5>Faltas eliminatorias visuales</h5>
+      <p>Si alguna se cumple, no se publica sin importar el puntaje.</p>
+      <label class="kill-item"><input type="checkbox" data-kill> <span>Hay algún movimiento con easing lineal (arranca y frena de golpe)</span></label>
+      <label class="kill-item"><input type="checkbox" data-kill> <span>Se usó una transición del menú del editor</span></label>
+      <label class="kill-item"><input type="checkbox" data-kill> <span>El subtítulo cambia de posición, ancho o tamaño dentro del clip</span></label>
+    </div>
+
+    <div class="sc-result">
+      <div>
+        <div class="score-num" id="score">—</div>
+        <div class="score-of">sobre 100</div>
+        <div class="score-band" id="band" style="background:var(--surface-2);color:var(--muted)">Sin puntuar</div>
+      </div>
+      <div class="fixes">
+        <h5>Qué arreglar primero</h5>
+        <div id="fixes"><p style="color:var(--muted);font-size:14.5px;margin:0">Puntuá los criterios y acá aparece la lista, ordenada por cuánto puntaje recuperás con cada arreglo.</p></div>
+      </div>
+    </div>
+
+    <div class="sc-foot">
+      <button class="btn ghost" type="button" id="btn-copy">Copiar informe</button>
+      <span class="filehint">Para pegárselo al editor.</span>
+    </div>
+  </div>
+
+  <h4>Bandas</h4>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Puntaje</th><th>Significa</th></tr></thead>
+      <tbody>
+        <tr><td class="num">90 – 100</td><td>Nivel de referencia. La mano no se nota, que es el objetivo.</td></tr>
+        <tr><td class="num">75 – 89</td><td>Publicable. Hay detalles, pero ninguno canta.</td></tr>
+        <tr><td class="num">60 – 74</td><td>Se nota que está editado. Solo cuentas secundarias.</td></tr>
+        <tr><td class="num">&lt; 60</td><td>Lee amateur. Vuelve a edición.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>03 — Referencia</h2>
+  <h3>Los números, para que no se discutan</h3>
+
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Elemento</th><th>Estándar</th><th>Cómo se verifica</th></tr></thead>
+      <tbody>
+        <tr><td class="who">Easing</td><td class="num">Ease in-out en todo</td><td>Ningún movimiento lineal. Ni uno.</td></tr>
+        <tr><td class="who">Duración de movimiento</td><td class="num">250 – 400 ms</td><td>Contar cuadros: 8 a 12 a 30 fps.</td></tr>
+        <tr><td class="who">Empuje de escala</td><td class="num">4 – 8 %</td><td>Si se ve el zoom, es demasiado.</td></tr>
+        <tr><td class="who">Cambio entre planos</td><td class="num">≥ 40 % de tamaño</td><td>Si dudás si saltó, saltó.</td></tr>
+        <tr><td class="who">Transiciones</td><td class="num">Solo corte duro</td><td>Fundido únicamente en entrada y salida.</td></tr>
+        <tr><td class="who">Familias tipográficas</td><td class="num">1</td><td>Dos pesos como máximo dentro de esa familia.</td></tr>
+        <tr><td class="who">Tamaños de texto</td><td class="num">3</td><td>Subtítulo, placa de dato, zócalo. Nada más.</td></tr>
+        <tr><td class="who">Márgenes</td><td class="num">Uno solo, repetido</td><td>Todo alineado al mismo margen lateral.</td></tr>
+        <tr><td class="who">Zona segura superior</td><td class="num">13 % · ~250 px</td><td>Nada visible ahí.</td></tr>
+        <tr><td class="who">Zona segura inferior</td><td class="num">22 % · ~420 px</td><td>Nada visible ahí.</td></tr>
+        <tr><td class="who">Contorno del subtítulo</td><td class="num">Trazo, no sombra</td><td>La sombra blanda se rompe con la compresión.</td></tr>
+        <tr><td class="who">Frames negros o flashes</td><td class="num">0</td><td>Revisar el primer y último cuadro.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <span class="label">Cómo usarlo con el equipo</span>
+    <p>La rúbrica no sirve si la aplica una sola persona. La forma que funciona es que <strong>el editor se autoaudite antes de entregar</strong> y pegue el informe junto al archivo. Quien revisa solo verifica que el puntaje sea honesto, en vez de armar la lista de cero. Cambia la discusión de "no me gusta" a "el criterio 4 está en 2".</p>
+  </div>
+</section>
+
+<footer class="notes">
+  <p><strong>Qué mide y qué no la herramienta.</strong> La detección de cortes compara cuadros consecutivos y es fiable en material de cámara fija; se confunde con movimientos bruscos o destellos. La comparación de color entre planos usa el promedio de cada plano, así que detecta desvíos de temperatura y exposición, no errores finos de piel. La detección de contenido en zona insegura busca concentración de bordes en las bandas superior e inferior: marca texto y gráficos, pero también puede marcar un fondo con mucho detalle. Todo lo que devuelve es un indicio para mirar, no un veredicto.</p>
+  <p><strong>Lo que no puede medir ninguna máquina.</strong> Si el easing está bien puesto, si la tipografía es la correcta, si la transición es de fábrica, si el encuadre respira. Eso está en la rúbrica manual, y por eso los tres criterios eliminatorios son manuales: son exactamente los que más pesan y los que ningún análisis automático detecta hoy.</p>
+  <p><strong>Documentos relacionados.</strong> El manual de criterio editorial con su score, el estándar técnico de exportación, la biblioteca de referencias y el informe de IA en edición están en la misma carpeta.</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ escenas de demostración ============ */
+  function head(ctx,W,H,scale,tint){
+    var g=ctx.createLinearGradient(0,0,W*0.4,H);
+    g.addColorStop(0,tint.bg1); g.addColorStop(1,tint.bg2);
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+
+    ctx.save();
+    ctx.translate(W/2,H*0.52);
+    ctx.scale(scale,scale);
+    ctx.translate(-W/2,-H*0.52);
+
+    var hx=W*0.5, hy=H*0.46, hr=W*0.22;
+    ctx.fillStyle="#1d3039";
+    ctx.beginPath(); ctx.ellipse(hx,H*1.06,W*0.5,H*0.3,0,Math.PI,0); ctx.fill();
+
+    ctx.fillStyle=tint.skin;
+    ctx.beginPath(); ctx.ellipse(hx,hy,hr,hr*1.2,0,0,Math.PI*2); ctx.fill();
+
+    ctx.fillStyle="#20262b";
+    ctx.beginPath(); ctx.ellipse(hx,hy-hr*0.55,hr*1.04,hr*0.7,0,Math.PI,0); ctx.fill();
+
+    ctx.fillStyle="#2b2320";
+    ctx.beginPath(); ctx.ellipse(hx-hr*0.36,hy-hr*0.06,hr*0.11,hr*0.07,0,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(hx+hr*0.36,hy-hr*0.06,hr*0.11,hr*0.07,0,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle="#8e5c4c"; ctx.lineWidth=Math.max(1,W*0.008);
+    ctx.beginPath(); ctx.arc(hx,hy+hr*0.36,hr*0.28,0.2*Math.PI,0.8*Math.PI); ctx.stroke();
+
+    ctx.restore();
+  }
+
+  var NEUTRAL={bg1:"#33454e",bg2:"#182027",skin:"#c9a184"};
+  function draw(id,scale,tint){
+    var c=document.getElementById(id); if(!c) return;
+    head(c.getContext("2d"),c.width,c.height,scale,tint||NEUTRAL);
+  }
+
+  // Tell 03 — jump cut
+  draw("jc-a1",1.00); draw("jc-a2",1.08);
+  draw("jc-b1",1.00); draw("jc-b2",1.45);
+
+  // Tell 04 — color
+  draw("cc-a1",1.0,{bg1:"#3f4a3a",bg2:"#20261c",skin:"#c7a97f"});   // verdoso
+  draw("cc-a2",1.0,{bg1:"#4a3f4e",bg2:"#2b2130",skin:"#d8a89a"});   // magenta, sobreexpuesto
+  draw("cc-a3",1.0,{bg1:"#28333f",bg2:"#111820",skin:"#a68468"});   // frío, subexpuesto
+  draw("cc-b1",1.0); draw("cc-b2",1.0); draw("cc-b3",1.0);
+
+  /* ============ rúbrica ============ */
+  var CRITERIA=[
+    {id:"comp", w:12, n:"Composición y aire",
+     d:"Ojos en el tercio superior, aire mínimo sobre la cabeza, mismo criterio de encuadre en todos los planos."},
+    {id:"cont", w:10, n:"Continuidad entre cortes",
+     d:"Ningún corte entre planos de tamaño parecido. Cada corte se lee como decisión."},
+    {id:"color", w:12, n:"Consistencia de color",
+     d:"Mismo grade, misma temperatura y misma exposición en todo el clip y contra el resto del feed."},
+    {id:"ease", w:12, n:"Easing del movimiento",
+     d:"Todo movimiento acelera y desacelera. Nada lineal, en ningún elemento."},
+    {id:"dur", w:8, n:"Duración de los movimientos",
+     d:"Entre 250 y 400 ms. Ni nervioso ni pesado, y siempre el mismo valor."},
+    {id:"type", w:12, n:"Tipografía",
+     d:"Una familia, hasta dos pesos, tres tamaños. Trazo en vez de sombra blanda."},
+    {id:"grid", w:8, n:"Alineación",
+     d:"Todos los elementos al mismo margen. Nada apoyado a ojo."},
+    {id:"safe", w:8, n:"Zonas seguras",
+     d:"Nada importante en el 13 % de arriba ni en el 22 % de abajo."},
+    {id:"stab", w:10, n:"Estabilidad",
+     d:"Sin jitter de reencuadre, sin elementos que floten, subtítulo clavado en su línea."},
+    {id:"clean", w:8, n:"Limpieza técnica",
+     d:"Sin frames negros, sin flashes, sin restos de interfaz, primer y último cuadro correctos."}
+  ];
+
+  var scores={}, rubricEl=document.getElementById("rubric");
+  CRITERIA.forEach(function(c){
+    var row=document.createElement("div"); row.className="crit";
+    var lab=document.createElement("div");
+    var cn=document.createElement("div"); cn.className="cn"; cn.textContent=c.n;
+    var w=document.createElement("span"); w.className="w"; w.textContent=c.w+" pts"; cn.appendChild(w);
+    var cd=document.createElement("div"); cd.className="cd"; cd.textContent=c.d;
+    lab.appendChild(cn); lab.appendChild(cd);
+    var scale=document.createElement("div"); scale.className="scale";
+    scale.setAttribute("role","group"); scale.setAttribute("aria-label",c.n);
+    for(var v=0;v<=5;v++){(function(val){
+      var b=document.createElement("button"); b.type="button"; b.textContent=val;
+      b.setAttribute("aria-pressed","false");
+      b.setAttribute("aria-label",c.n+": "+val+" de 5");
+      b.addEventListener("click",function(){
+        scores[c.id]=val;
+        Array.prototype.forEach.call(scale.children,function(s,i){ s.setAttribute("aria-pressed", i===val?"true":"false"); });
+        recompute();
+      });
+      scale.appendChild(b);
+    })(v);}
+    row.appendChild(lab); row.appendChild(scale); rubricEl.appendChild(row);
+  });
+
+  var scoreEl=document.getElementById("score"), bandEl=document.getElementById("band"), fixesEl=document.getElementById("fixes");
+  function killed(){ return Array.prototype.some.call(document.querySelectorAll("[data-kill]"),function(k){return k.checked;}); }
+  function setBand(t,bg,fg){ bandEl.textContent=t; bandEl.style.background=bg; bandEl.style.color=fg; }
+
+  function recompute(){
+    var answered=CRITERIA.filter(function(c){return typeof scores[c.id]==="number";});
+    if(!answered.length){
+      scoreEl.textContent="—"; setBand("Sin puntuar","var(--surface-2)","var(--muted)");
+      fixesEl.innerHTML='<p style="color:var(--muted);font-size:14.5px;margin:0">Puntuá los criterios y acá aparece la lista, ordenada por cuánto puntaje recuperás con cada arreglo.</p>';
+      return;
+    }
+    var total=0;
+    CRITERIA.forEach(function(c){ var s=typeof scores[c.id]==="number"?scores[c.id]:0; total+=(s/5)*c.w; });
+    var pts=Math.round(total); scoreEl.textContent=pts;
+
+    if(killed()) setBand("No publicable · falta eliminatoria","var(--bad-bg)","var(--bad)");
+    else if(pts>=90) setBand("Nivel de referencia","var(--good-bg)","var(--good)");
+    else if(pts>=75) setBand("Publicable","var(--good-bg)","var(--good)");
+    else if(pts>=60) setBand("Se nota editado","var(--surface-2)","var(--muted)");
+    else setBand("Lee amateur","var(--bad-bg)","var(--bad)");
+
+    var gaps=CRITERIA.map(function(c){
+      var s=typeof scores[c.id]==="number"?scores[c.id]:null;
+      return s===null?null:{n:c.n,gain:((5-s)/5)*c.w,s:s};
+    }).filter(function(g){return g&&g.gain>0.4;})
+      .sort(function(a,b){return b.gain-a.gain;}).slice(0,4);
+
+    if(!gaps.length){ fixesEl.innerHTML='<p style="color:var(--good);font-size:14.5px;margin:0">Nada pendiente en los criterios puntuados.</p>'; return; }
+    var ol=document.createElement("ol");
+    gaps.forEach(function(g){
+      var li=document.createElement("li");
+      var b=document.createElement("b"); b.textContent=g.n; li.appendChild(b);
+      li.appendChild(document.createTextNode(" — está en "+g.s+"/5. Llevarlo a 5 recupera "+g.gain.toFixed(1)+" puntos."));
+      ol.appendChild(li);
+    });
+    fixesEl.innerHTML=""; fixesEl.appendChild(ol);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-kill]"),function(k){ k.addEventListener("change",recompute); });
+
+  /* ============ analizador ============ */
+  var fileInput=document.getElementById("file"), vid=document.getElementById("vid"),
+      metricsEl=document.getElementById("metrics"), statusEl=document.getElementById("status"),
+      progWrap=document.getElementById("progwrap"), progEl=document.getElementById("prog"),
+      anEl=document.getElementById("an"), btnAnalyze=document.getElementById("btn-analyze"),
+      stripWrap=document.getElementById("stripwrap");
+
+  document.getElementById("btn-file").addEventListener("click",function(){ fileInput.click(); });
+
+  fileInput.addEventListener("change",function(){
+    var f=fileInput.files&&fileInput.files[0]; if(!f) return;
+    anEl.classList.add("on"); metricsEl.innerHTML=""; stripWrap.innerHTML="";
+    statusEl.textContent="Cargando…";
+    try { vid.src=URL.createObjectURL(f); }
+    catch(e){ statusEl.textContent="Este visor no permite reproducir archivos locales. Usá la rúbrica manual."; return; }
+    vid.onloadedmetadata=function(){ btnAnalyze.disabled=false; statusEl.textContent="Listo. Apretá Analizar."; basics(); };
+    vid.onerror=function(){ btnAnalyze.disabled=true; statusEl.textContent="No se pudo leer el video acá (códec o restricción del entorno). La rúbrica manual funciona igual."; };
+  });
+
+  function m(key,sub,val,flagText,flagClass){
+    var row=document.createElement("div"); row.className="metric";
+    var k=document.createElement("div"); k.className="mk"; k.textContent=key;
+    if(sub){ var s=document.createElement("small"); s.textContent=sub; k.appendChild(s); }
+    var v=document.createElement("div"); v.className="mv"; v.textContent=val;
+    if(flagText){ var fl=document.createElement("span"); fl.className="flag "+flagClass; fl.textContent=flagText; v.appendChild(fl); }
+    row.appendChild(k); row.appendChild(v); metricsEl.appendChild(row);
+  }
+
+  function basics(){
+    metricsEl.innerHTML="";
+    var W=vid.videoWidth,H=vid.videoHeight;
+    var vert=W&&H&&Math.abs(W/H-9/16)<0.02;
+    m("Formato","Debe ser 9:16",W+"×"+H,vert?"correcto":"no es 9:16",vert?"ok":"no");
+    m("Duración","",(vid.duration||0).toFixed(1)+" s","","mid");
+  }
+
+  function seekTo(t){
+    return new Promise(function(res){
+      var done=false;
+      function ok(){ if(done)return; done=true; vid.removeEventListener("seeked",ok); res(); }
+      vid.addEventListener("seeked",ok); vid.currentTime=t; setTimeout(ok,400);
+    });
+  }
+
+  btnAnalyze.addEventListener("click",function(){ run(); });
+
+  function run(){
+    if(!vid.duration||!isFinite(vid.duration)) return;
+    btnAnalyze.disabled=true; progWrap.style.display="block"; statusEl.textContent="Leyendo cuadros…";
+
+    var STEP=0.2, cw=64, ch=Math.max(2,Math.round(64*(vid.videoHeight/vid.videoWidth)||114));
+    var cv=document.createElement("canvas"); cv.width=cw; cv.height=ch;
+    var cx=cv.getContext("2d",{willReadFrequently:true});
+    var prev=null, frames=[], dur=vid.duration;
+
+    (function step(t){
+      if(t>=dur-0.05){ finish(); return; }
+      seekTo(t).then(function(){
+        try{
+          cx.drawImage(vid,0,0,cw,ch);
+          var d=cx.getImageData(0,0,cw,ch).data;
+          var luma=new Float32Array(cw*ch), r=0,g=0,b=0;
+          for(var i=0,p=0;i<d.length;i+=4,p++){
+            r+=d[i]; g+=d[i+1]; b+=d[i+2];
+            luma[p]=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];
+          }
+          var n=cw*ch;
+          var diff=null;
+          if(prev){ var s=0; for(var j=0;j<n;j++) s+=Math.abs(luma[j]-prev[j]); diff=s/n; }
+          // energía de bordes por banda vertical
+          var bands=edgeBands(luma,cw,ch);
+          frames.push({t:t,r:r/n,g:g/n,b:b/n,luma:mean(luma),diff:diff,bands:bands});
+          prev=luma;
+        }catch(e){}
+        progEl.style.width=Math.min(100,(t/dur)*100)+"%";
+        step(t+STEP);
+      });
+    })(0);
+
+    function finish(){
+      vid.currentTime=0; progWrap.style.display="none"; btnAnalyze.disabled=false;
+      report(frames,dur);
+    }
+  }
+
+  function mean(a){ var s=0; for(var i=0;i<a.length;i++) s+=a[i]; return s/a.length; }
+
+  // gradiente medio en banda superior (0–13%), central y inferior (78–100%)
+  function edgeBands(luma,w,h){
+    function band(y0,y1){
+      var s=0,c=0;
+      for(var y=y0;y<y1-1;y++) for(var x=0;x<w-1;x++){
+        var i=y*w+x;
+        s+=Math.abs(luma[i]-luma[i+1])+Math.abs(luma[i]-luma[i+w]); c++;
+      }
+      return c?s/c:0;
+    }
+    return {
+      top: band(0,Math.max(2,Math.round(h*0.13))),
+      mid: band(Math.round(h*0.13),Math.round(h*0.78)),
+      bot: band(Math.round(h*0.78),h)
+    };
+  }
+
+  function report(frames,dur){
+    basics();
+    if(frames.length<4){ statusEl.textContent="No se pudieron leer suficientes cuadros."; return; }
+
+    var TH=14;
+    // ---- cortes
+    var cuts=[];
+    frames.forEach(function(f){
+      if(f.diff!=null&&f.diff>TH){ if(!cuts.length||f.t-cuts[cuts.length-1].t>0.35) cuts.push({t:f.t,d:f.diff}); }
+    });
+    var cadence=cuts.length?dur/(cuts.length+1):dur;
+    var cf=(cadence>=2.5&&cadence<=5.5)?["en rango","ok"]:cadence<2.5?["muy picado","mid"]:["lento","no"];
+    m("Cortes","Cambio visual cada 3–5 s",cuts.length+" · cada "+cadence.toFixed(1)+" s",cf[0],cf[1]);
+
+    // ---- plano más largo
+    var marks=[0].concat(cuts.map(function(c){return c.t;}),[dur]), longest=0, at=0;
+    for(var k=1;k<marks.length;k++){ var gap=marks[k]-marks[k-1]; if(gap>longest){longest=gap;at=marks[k-1];} }
+    var lf=longest<=6?["ok","ok"]:longest<=9?["revisar","mid"]:["zona muerta","no"];
+    m("Plano más largo",longest>6?"Desde el segundo "+at.toFixed(1):"Máximo: 6 s",longest.toFixed(1)+" s",lf[0],lf[1]);
+
+    // ---- jump cuts: cortes de bajo contraste visual
+    var soft=cuts.filter(function(c){ return c.d<TH*1.7; });
+    var sf=soft.length===0?["ninguno","ok"]:soft.length<=1?["revisar 1","mid"]:["posibles jump cuts","no"];
+    m("Cortes de bajo contraste",soft.length?"Segundos: "+soft.slice(0,4).map(function(c){return c.t.toFixed(1);}).join(", "):"El plano cambia claramente en cada corte",
+      soft.length+" de "+cuts.length,sf[0],sf[1]);
+
+    // ---- color por plano
+    var shots=[]; var idx=0;
+    for(var s=0;s<marks.length-1;s++){
+      var seg=frames.filter(function(f){ return f.t>=marks[s]&&f.t<marks[s+1]; });
+      if(seg.length<2) continue;
+      shots.push({
+        r:mean(seg.map(function(f){return f.r;})),
+        g:mean(seg.map(function(f){return f.g;})),
+        b:mean(seg.map(function(f){return f.b;})),
+        l:mean(seg.map(function(f){return f.luma;}))
+      });
+    }
+    if(shots.length>=2){
+      var mr=med(shots.map(function(s){return s.r;})), mg=med(shots.map(function(s){return s.g;})), mb=med(shots.map(function(s){return s.b;}));
+      var maxDev=0;
+      shots.forEach(function(s){
+        var d=Math.sqrt(Math.pow(s.r-mr,2)+Math.pow(s.g-mg,2)+Math.pow(s.b-mb,2));
+        if(d>maxDev) maxDev=d;
+      });
+      var cdf=maxDev<14?["planos igualados","ok"]:maxDev<28?["desvío leve","mid"]:["planos sin igualar","no"];
+      m("Desvío de color entre planos","Distancia del plano más desviado al promedio",maxDev.toFixed(0),cdf[0],cdf[1]);
+
+      var lums=shots.map(function(s){return s.l;});
+      var spread=Math.max.apply(null,lums)-Math.min.apply(null,lums);
+      var ef=spread<25?["pareja","ok"]:spread<50?["revisar","mid"]:["dispareja","no"];
+      m("Diferencia de exposición","Entre el plano más claro y el más oscuro",spread.toFixed(0)+" niveles",ef[0],ef[1]);
+
+      // tira de color
+      var strip=document.createElement("div"); strip.className="strip";
+      shots.forEach(function(s){
+        var i=document.createElement("i");
+        i.style.background="rgb("+Math.round(s.r)+","+Math.round(s.g)+","+Math.round(s.b)+")";
+        strip.appendChild(i);
+      });
+      var cap=document.createElement("p"); cap.className="strip-cap";
+      cap.textContent="Color promedio de cada plano, en orden. Si la tira no se ve pareja, hay que igualar.";
+      stripWrap.innerHTML=""; stripWrap.appendChild(strip); stripWrap.appendChild(cap);
+    }
+
+    // ---- frames negros / flashes
+    var dark=frames.filter(function(f){return f.luma<8;}).length;
+    var blown=frames.filter(function(f){return f.luma>247;}).length;
+    var clean=(dark+blown)===0;
+    m("Cuadros negros o quemados","Deben ser cero",(dark+blown)+"",clean?"limpio":"revisar",clean?"ok":"no");
+
+    // ---- zonas seguras
+    var topR=mean(frames.map(function(f){return f.bands.top;}))/Math.max(0.001,mean(frames.map(function(f){return f.bands.mid;})));
+    var botR=mean(frames.map(function(f){return f.bands.bot;}))/Math.max(0.001,mean(frames.map(function(f){return f.bands.mid;})));
+    var zf=(topR<0.85&&botR<0.85)?["despejadas","ok"]:(topR<1.15&&botR<1.15)?["revisar","mid"]:["hay contenido","no"];
+    m("Zonas de interfaz","Detalle en las bandas superior e inferior vs el centro",
+      "sup "+topR.toFixed(2)+" · inf "+botR.toFixed(2),zf[0],zf[1]);
+
+    statusEl.textContent="Listo. Estos números son indicios para mirar, no veredictos: verificá lo que marque en rojo antes de decidir.";
+  }
+
+  function med(a){ var s=a.slice().sort(function(x,y){return x-y;}); return s[Math.floor(s.length/2)]; }
+
+  /* ============ informe / reset ============ */
+  document.getElementById("btn-copy").addEventListener("click",function(){
+    var lines=["AUDITORÍA VISUAL NFM",""], total=0;
+    CRITERIA.forEach(function(c){
+      var s=typeof scores[c.id]==="number"?scores[c.id]:null;
+      total+=s===null?0:(s/5)*c.w;
+      lines.push("- "+c.n+": "+(s===null?"sin puntuar":s+"/5")+"  ("+c.w+" pts)");
+    });
+    lines.push(""); lines.push("PUNTAJE: "+Math.round(total)+"/100 — "+bandEl.textContent);
+    if(killed()) lines.push("FALTA ELIMINATORIA: no se publica.");
+    lines.push(""); lines.push("QUÉ ARREGLAR PRIMERO:");
+    var ol=fixesEl.querySelector("ol");
+    if(ol) Array.prototype.forEach.call(ol.children,function(li,i){ lines.push((i+1)+". "+li.textContent); });
+    else lines.push("Nada pendiente.");
+    if(navigator.clipboard) navigator.clipboard.writeText(lines.join("\n")).then(function(){
+      var b=document.getElementById("btn-copy"), p=b.textContent;
+      b.textContent="Copiado"; setTimeout(function(){b.textContent=p;},1600);
+    });
+  });
+
+  document.getElementById("btn-reset").addEventListener("click",function(){
+    scores={};
+    Array.prototype.forEach.call(document.querySelectorAll(".scale button"),function(b){b.setAttribute("aria-pressed","false");});
+    Array.prototype.forEach.call(document.querySelectorAll("[data-kill]"),function(k){k.checked=false;});
+    anEl.classList.remove("on"); metricsEl.innerHTML=""; stripWrap.innerHTML=""; statusEl.textContent="";
+    btnAnalyze.disabled=true;
+    try{ vid.removeAttribute("src"); vid.load(); }catch(e){}
+    recompute();
+  });
+
+  recompute();
+})();
+</script>

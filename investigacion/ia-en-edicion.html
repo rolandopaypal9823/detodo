@@ -1,0 +1,500 @@
+<title>IA en edición de video — Cómo subir el escalón · Instituto NFM</title>
+<style>
+  :root {
+    --ground: #ECEAEF; --surface: #FFFFFF; --surface-2: #F5F3F8;
+    --ink: #17141C; --muted: #5D5768; --line: #D8D3DE; --line-soft: #E8E4EC;
+    --accent: #5B34B0; --accent-soft: #EAE2F7;
+    --bad: #A32E22; --warn: #8A5A00; --good: #1E6647;
+    --bad-bg: #F7E3E0; --warn-bg: #F8EDD8; --good-bg: #DEEEE6;
+    --shadow: 0 1px 2px rgba(23,20,28,.06), 0 12px 30px rgba(23,20,28,.07);
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:#121016; --surface:#1A171F; --surface-2:#211D28;
+      --ink:#E8E4EE; --muted:#968FA3; --line:#2E2937; --line-soft:#241F2C;
+      --accent:#B79BFF; --accent-soft:#221A38;
+      --bad:#F08A7C; --warn:#DDA455; --good:#62C49B;
+      --bad-bg:#2E1613; --warn-bg:#2B2010; --good-bg:#11271D;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 30px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#121016; --surface:#1A171F; --surface-2:#211D28;
+    --ink:#E8E4EE; --muted:#968FA3; --line:#2E2937; --line-soft:#241F2C;
+    --accent:#B79BFF; --accent-soft:#221A38;
+    --bad:#F08A7C; --warn:#DDA455; --good:#62C49B;
+    --bad-bg:#2E1613; --warn-bg:#2B2010; --good-bg:#11271D;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 30px rgba(0,0,0,.3);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--ground); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1000px; margin:0 auto; padding:0 24px 110px; }
+
+  header.mast { padding:56px 0 0; }
+  .eyebrow { font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 20px; }
+  h1 { font-size:clamp(34px,6vw,58px); line-height:1.0; letter-spacing:-.035em; font-weight:760; margin:0 0 18px; max-width:15ch; text-wrap:balance; }
+  .standfirst { font-size:19px; line-height:1.5; color:var(--muted); max-width:58ch; margin:0 0 32px; }
+  .stripe { display:grid; grid-template-columns:repeat(3,1fr); height:5px; margin:0 0 46px; border-radius:1px; overflow:hidden; }
+  .stripe i:nth-child(1){background:var(--line)} .stripe i:nth-child(2){background:var(--muted)} .stripe i:nth-child(3){background:var(--accent)}
+
+  section { margin:0 0 76px; }
+  h2 { font-family:var(--mono); font-size:12.5px; letter-spacing:.13em; text-transform:uppercase; font-weight:600; color:var(--accent); margin:0 0 18px; padding:0 0 12px; border-bottom:1px solid var(--line); }
+  h3 { font-size:29px; line-height:1.14; letter-spacing:-.022em; font-weight:700; margin:0 0 14px; max-width:24ch; text-wrap:balance; }
+  h4 { font-size:17px; font-weight:660; margin:32px 0 9px; }
+  p { margin:0 0 14px; max-width:66ch; }
+  ul, ol { margin:0 0 14px; padding-left:22px; max-width:66ch; }
+  li { margin:0 0 7px; }
+  a { color:var(--accent); text-underline-offset:2px; }
+  a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; border-radius:3px; }
+  strong { font-weight:660; }
+  code { font-family:var(--mono); font-size:.875em; background:var(--surface-2); border:1px solid var(--line-soft); padding:1px 5px; border-radius:3px; }
+  .lead { font-size:17.5px; color:var(--muted); max-width:62ch; margin:0 0 26px; }
+
+  /* verdict */
+  .verdict { background:var(--surface); border:1px solid var(--line); border-radius:6px; box-shadow:var(--shadow); padding:30px 32px; margin:0 0 76px; }
+  .verdict .big { font-size:24px; line-height:1.34; font-weight:660; letter-spacing:-.015em; max-width:52ch; margin:0 0 16px; }
+  .verdict .big em { font-style:normal; color:var(--accent); }
+  .verdict p { color:var(--muted); font-size:15.5px; margin:0 0 12px; }
+  .verdict p:last-child { margin-bottom:0; }
+
+  /* layer stack */
+  .stack { display:flex; flex-direction:column; gap:12px; margin:26px 0; }
+  .layer { background:var(--surface); border:1px solid var(--line); border-radius:6px; overflow:hidden; display:grid; grid-template-columns:66px 1fr; }
+  .layer.hero { border-color:var(--accent); border-width:1.5px; box-shadow:var(--shadow); }
+  .layer-n { background:var(--surface-2); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:19px; font-weight:700; color:var(--muted); border-right:1px solid var(--line); }
+  .layer.hero .layer-n { background:var(--accent); color:#fff; border-right-color:var(--accent); }
+  .layer-body { padding:17px 20px 18px; }
+  .layer-top { display:flex; align-items:baseline; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:6px; }
+  .layer-top h4 { margin:0; font-size:19px; letter-spacing:-.012em; }
+  .layer-tools { font-family:var(--mono); font-size:11.5px; color:var(--muted); }
+  .layer-body p { font-size:14.5px; margin:0 0 9px; max-width:none; }
+  .layer-body p:last-child { margin-bottom:0; }
+  .layer-verdict { font-size:13.5px; padding:8px 12px; border-radius:4px; margin-top:11px; display:inline-block; font-weight:600; }
+  .lv-low { background:var(--warn-bg); color:var(--warn); }
+  .lv-mid { background:var(--good-bg); color:var(--good); }
+  .lv-hi { background:var(--accent-soft); color:var(--accent); }
+
+  /* flow diagram */
+  .flow { background:var(--surface); border:1px solid var(--line); border-radius:6px; box-shadow:var(--shadow); padding:26px; margin:26px 0; }
+  .flow-title { font-family:var(--mono); font-size:11.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted); margin:0 0 22px; }
+  .flow-row { display:grid; grid-template-columns:1fr 118px 1fr; gap:0; align-items:center; }
+  .node { border:1px solid var(--line); border-radius:5px; padding:16px 18px; background:var(--surface-2); }
+  .node.claude { border-color:var(--accent); background:var(--accent-soft); }
+  .node h5 { margin:0 0 6px; font-size:15.5px; font-weight:680; }
+  .node ul { margin:0; padding-left:16px; max-width:none; }
+  .node li { font-size:13px; line-height:1.45; margin-bottom:4px; color:var(--muted); }
+  .conn { display:flex; flex-direction:column; align-items:center; gap:9px; padding:0 8px; }
+  .conn .arrow { font-family:var(--mono); font-size:11px; color:var(--muted); text-align:center; line-height:1.35; white-space:nowrap; }
+  .conn .protocol { font-family:var(--mono); font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); font-weight:700; padding:4px 9px; border:1px solid var(--accent); border-radius:3px; }
+  .flow-foot { font-size:13.5px; color:var(--muted); margin:22px 0 0; padding-top:16px; border-top:1px solid var(--line-soft); max-width:74ch; }
+
+  /* tables */
+  .table-scroll { overflow-x:auto; margin:24px 0; border:1px solid var(--line); border-radius:5px; background:var(--surface); }
+  table { border-collapse:collapse; width:100%; font-size:14.5px; }
+  th { text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; font-weight:600; color:var(--muted); padding:13px 16px; border-bottom:1px solid var(--line); vertical-align:bottom; white-space:nowrap; }
+  td { padding:13px 16px; border-bottom:1px solid var(--line-soft); vertical-align:top; line-height:1.48; }
+  tr:last-child td { border-bottom:none; }
+  td.who { font-weight:640; }
+  td.num { font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  td.stripe-c { border-left:4px solid transparent; }
+  td.stripe-c.s-good { border-left-color:var(--good); }
+  td.stripe-c.s-warn { border-left-color:var(--warn); }
+  td.stripe-c.s-bad { border-left-color:var(--bad); }
+
+  .pill { display:inline-block; font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; padding:3px 8px; border-radius:3px; font-weight:600; white-space:nowrap; }
+  .pill.bad { background:var(--bad-bg); color:var(--bad); }
+  .pill.warn { background:var(--warn-bg); color:var(--warn); }
+  .pill.good { background:var(--good-bg); color:var(--good); }
+  .pill.acc { background:var(--accent-soft); color:var(--accent); }
+
+  /* code */
+  .codeblock { position:relative; margin:20px 0; }
+  .codeblock pre { margin:0; padding:18px 20px; background:var(--surface-2); border:1px solid var(--line); border-radius:5px; overflow-x:auto; font-family:var(--mono); font-size:12.5px; line-height:1.62; }
+  .codeblock pre code { background:none; border:none; padding:0; font-size:inherit; white-space:pre; }
+  .codeblock .cap { font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin:0 0 8px; }
+
+  /* callout */
+  .callout { background:var(--accent-soft); border-left:3px solid var(--accent); border-radius:0 4px 4px 0; padding:17px 21px; margin:24px 0; }
+  .callout p:last-child { margin-bottom:0; }
+  .callout .label { font-family:var(--mono); font-size:10.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:6px; font-weight:700; }
+  .callout.warnbox { background:var(--warn-bg); border-left-color:var(--warn); }
+  .callout.warnbox .label { color:var(--warn); }
+
+  /* phases */
+  .phases { display:grid; gap:14px; margin:24px 0; }
+  .phase { background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:20px 22px; display:grid; grid-template-columns:1fr 168px; gap:20px; }
+  .phase-main h4 { margin:0 0 4px; font-size:18px; }
+  .phase-when { font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:9px; }
+  .phase-main ul { margin:0; padding-left:19px; max-width:none; }
+  .phase-main li { font-size:14px; line-height:1.5; margin-bottom:6px; }
+  .phase-cost { border-left:1px solid var(--line-soft); padding-left:20px; }
+  .phase-cost dt { font-family:var(--mono); font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-bottom:2px; }
+  .phase-cost dd { margin:0 0 12px; font-family:var(--mono); font-size:14px; font-variant-numeric:tabular-nums; }
+  .phase-cost dd:last-child { margin-bottom:0; }
+
+  footer.notes { margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font-size:13.5px; color:var(--muted); }
+  footer.notes p { max-width:78ch; }
+
+  @media (max-width:760px) {
+    .flow-row { grid-template-columns:1fr; }
+    .conn { flex-direction:row; padding:12px 0; }
+    .phase { grid-template-columns:1fr; }
+    .phase-cost { border-left:none; border-top:1px solid var(--line-soft); padding-left:0; padding-top:14px; display:flex; gap:24px; }
+    .layer { grid-template-columns:48px 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition-duration:.01ms !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">Instituto NFM · IA en edición de video · Agosto 2026</p>
+  <h1>Cómo subir el escalón</h1>
+  <p class="standfirst">Qué hace realmente la IA en edición hoy, cuál de las tres capas te sube el nivel de verdad, y cómo conectar Claude directo al editor para auditar y ejecutar.</p>
+  <div class="stripe" aria-hidden="true"><i></i><i></i><i></i></div>
+</header>
+
+<div class="verdict">
+  <p class="big">La IA que edita sola no te va a subir el escalón. La que <em>lee tu timeline y lo audita contra tu criterio</em>, sí.</p>
+  <p>Los editores-agente en la nube (OpusClip AI Producer, Eddie AI, Firefly) producen contenido correcto y reconocible: todos los que los usan salen parecidos. Sirven para volumen, no para nivel.</p>
+  <p>El salto está en una capa que casi nadie está usando: <strong>Claude conectado al editor por MCP</strong>. Lee la secuencia, cuenta los cortes reales, mide los niveles, la puntúa contra el estándar del Instituto y ejecuta el arreglo. La auditoría deja de ser una opinión mirando frames y pasa a ser una lectura de datos.</p>
+</div>
+
+<section>
+  <h2>01 — Las tres capas</h2>
+  <h3>Todo lo que se llama "IA para editar" es una de estas tres cosas</h3>
+  <p class="lead">Se confunden todo el tiempo, y por eso la gente prueba una herramienta, se decepciona, y concluye que "la IA todavía no edita bien". Están evaluando la capa equivocada.</p>
+
+  <div class="stack">
+
+    <div class="layer">
+      <div class="layer-n">1</div>
+      <div class="layer-body">
+        <div class="layer-top">
+          <h4>Editores-agente en la nube</h4>
+          <span class="layer-tools">OpusClip AI Producer · Eddie AI · Captions AI · Firefly Creative Agent</span>
+        </div>
+        <p>Subís el crudo, baja editado: cortes, subtítulos, b-roll, música y motion design en una pasada. Eddie AI trae unos doce modos según el tipo de pieza; Adobe dice haber bajado el tiempo de publicación de social de 6,2 horas a 83 minutos promedio.</p>
+        <p>El problema no es la calidad técnica, es que <strong>toman las decisiones editoriales por vos y siempre las toman igual</strong>. El resultado tiene un "look de agente" que se reconoce, igual que se reconocía el look de las plantillas de CapCut.</p>
+        <div class="layer-verdict lv-low">Sirve para volumen. No sube el techo.</div>
+      </div>
+    </div>
+
+    <div class="layer">
+      <div class="layer-n">2</div>
+      <div class="layer-body">
+        <div class="layer-top">
+          <h4>IA adentro del editor</h4>
+          <span class="layer-tools">Premiere · After Effects · DaVinci Resolve</span>
+        </div>
+        <p>Funciones puntuales que resuelven tareas que antes costaban horas: Object Mask para aislar y trackear un sujeto de un clic, Generative Extend para estirar un plano cuando falta material, Enhance Speech y Voice Isolation para rescatar audio de sala, Magic Mask en Resolve.</p>
+        <p>No deciden nada: <strong>asisten al editor en la tarea que él ya eligió hacer</strong>. Es donde está la mejora de calidad técnica más grande y más segura.</p>
+        <div class="layer-verdict lv-mid">Adoptar ya. Bajo riesgo, alto retorno.</div>
+      </div>
+    </div>
+
+    <div class="layer hero">
+      <div class="layer-n">3</div>
+      <div class="layer-body">
+        <div class="layer-top">
+          <h4>Claude manejando el editor</h4>
+          <span class="layer-tools">MCP · Premiere · Resolve · After Effects · Remotion</span>
+        </div>
+        <p>Existen servidores MCP que exponen el editor entero como herramientas: Claude importa material, lee la secuencia, mueve cortes, aplica efectos, ajusta keyframes y dispara el render. No es una demo: el de Premiere expone 280 herramientas y el de Resolve cubre 361 métodos de la API.</p>
+        <p>Y lo más importante para lo que necesitamos: <strong>Claude puede leer el timeline</strong>. No mira frames tratando de adivinar dónde hay un corte — se los pide al editor.</p>
+        <div class="layer-verdict lv-hi">Acá está el escalón.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>02 — La auditoría</h2>
+  <h3>Por qué leer el timeline cambia todo</h3>
+  <p class="lead">Hasta ahora, auditar una edición era mirarla y opinar. Con el editor conectado, la mitad de la rúbrica se vuelve medible y la otra mitad se vuelve verificable con contexto real.</p>
+
+  <div class="flow">
+    <p class="flow-title">Cómo se conecta</p>
+    <div class="flow-row">
+      <div class="node claude">
+        <h5>Claude</h5>
+        <ul>
+          <li>Tiene el manual de criterio NFM</li>
+          <li>Tiene la rúbrica de 10 criterios</li>
+          <li>Pide datos, no adivina</li>
+          <li>Devuelve timecodes concretos</li>
+        </ul>
+      </div>
+      <div class="conn">
+        <div class="arrow">pide estado →</div>
+        <div class="protocol">MCP</div>
+        <div class="arrow">← devuelve datos<br>ejecuta cambios</div>
+      </div>
+      <div class="node">
+        <h5>Premiere o Resolve</h5>
+        <ul>
+          <li>Corre en tu máquina</li>
+          <li>El material nunca se sube a la nube</li>
+          <li>Expone la secuencia como datos</li>
+          <li>Aplica los cambios que apruebes</li>
+        </ul>
+      </div>
+    </div>
+    <p class="flow-foot">Todo corre local. A diferencia de los agentes de la capa 1, el material de las clases —que incluye alumnos— nunca sale de la computadora. Para un Instituto esto no es un detalle técnico, es una condición.</p>
+  </div>
+
+  <h4>Qué pasa a ser medible</h4>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Criterio</th><th>Antes</th><th>Con el timeline conectado</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="stripe-c s-good who">Cadencia de cortes</td>
+          <td>Se estimaba comparando cuadros, con errores.</td>
+          <td>Se leen los puntos de corte exactos de la secuencia. Sin margen de error.</td>
+        </tr>
+        <tr>
+          <td class="stripe-c s-good who">Zonas muertas</td>
+          <td>Se miraba "a ojo".</td>
+          <td>Duración de cada clip. El tramo largo aparece con su timecode.</td>
+        </tr>
+        <tr>
+          <td class="stripe-c s-good who">Audio</td>
+          <td>Escuchar y opinar.</td>
+          <td>Niveles por pista, efectos aplicados, si hay normalización puesta.</td>
+        </tr>
+        <tr>
+          <td class="stripe-c s-good who">Densidad</td>
+          <td>Contar muletillas escuchando.</td>
+          <td>Detección de silencios sobre la secuencia y cuántos quedaron sin cortar.</td>
+        </tr>
+        <tr>
+          <td class="stripe-c s-warn who">Subtítulos</td>
+          <td>Leer cada frame.</td>
+          <td>Se lee el texto de la pista de captions y se corrige la ortografía sobre el dato, no sobre una imagen.</td>
+        </tr>
+        <tr>
+          <td class="stripe-c s-bad who">Gancho, payoff, autocontenido</td>
+          <td>Criterio humano.</td>
+          <td>Sigue siendo criterio humano. Claude lo evalúa sobre la transcripción, pero es juicio, no medición.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="codeblock">
+    <p class="cap">Cómo se ve el pedido, en la práctica</p>
+    <pre><code>Auditá la secuencia abierta contra el estándar NFM:
+
+1. Listá cada corte con su timecode y la duración del clip.
+2. Marcá todo tramo mayor a 6 s sin corte.
+3. Revisá el nivel de la pista de voz y si hay música por encima de -22 dB.
+4. Leé la pista de subtítulos y marcá errores de ortografía.
+5. Puntuá con la rúbrica de 10 criterios y dame los 4 arreglos
+   de mayor impacto, con timecode.
+
+No modifiques nada todavía.</code></pre>
+  </div>
+
+  <p>Y después, cuando el arreglo está claro, el mismo canal lo ejecuta: mover un corte, subir una pista, aplicar el preset de color de marca a toda la secuencia. Eso es lo que separa esta capa de un asistente que solo opina.</p>
+</section>
+
+<section>
+  <h2>03 — Los conectores</h2>
+  <h3>Qué existe hoy, verificado</h3>
+  <p class="lead">Estos son proyectos reales y abiertos, no anuncios. Los datos de abajo salen de sus repositorios, no de notas de prensa.</p>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Proyecto</th><th>Editor</th><th>Alcance</th><th>Requisitos</th><th>Madurez</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="who">DaVinci Resolve MCP<br><span style="font-family:var(--mono);font-size:11.5px;color:var(--muted)">samuelgursky</span></td>
+          <td>Resolve</td>
+          <td class="num">34 compuestas<br>353 granulares<br>361 métodos API</td>
+          <td>Python 3.10–3.12 · Resolve 18.5+ · Studio con scripting externo en "Local". La versión gratuita necesita un puente interno.</td>
+          <td class="num">2,1k ★ · MIT<br>338/361 probados</td>
+        </tr>
+        <tr>
+          <td class="who">Premiere Pro MCP<br><span style="font-family:var(--mono);font-size:11.5px;color:var(--muted)">leancoderkavy</span></td>
+          <td>Premiere</td>
+          <td class="num">280 herramientas<br>31 módulos</td>
+          <td>Node 20.19+ · Premiere 2020–2026 · puente CEP corriendo dentro de Premiere</td>
+          <td class="num">179 ★ · MIT<br>v1.9.2</td>
+        </tr>
+        <tr>
+          <td class="who">EditAssist</td>
+          <td>Resolve · Premiere · AE · Final Cut</td>
+          <td>Lee el corte, edita, aplica grades, dispara renders por orden en lenguaje natural</td>
+          <td>Corre en tu máquina</td>
+          <td class="num">Comercial</td>
+        </tr>
+        <tr>
+          <td class="who">Jumper</td>
+          <td>Premiere · Resolve · FCP · Avid</td>
+          <td>Tareas repetibles sobre el flujo del NLE</td>
+          <td>Corre en tu máquina</td>
+          <td class="num">Comercial</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout warnbox">
+    <span class="label">Lo que hay que saber antes de instalar</span>
+    <p><strong>Resolve.</strong> El scripting externo es una función de Resolve <strong>Studio</strong> (USD 295, pago único) — la versión gratuita está bloqueada por licencia de Blackmagic. El proyecto trae un puente que corre adentro de Resolve para sortearlo, pero es un rodeo: si esto se vuelve el flujo del equipo, hay que comprar Studio.</p>
+    <p><strong>Premiere.</strong> Las funciones de edición estructural se apoyan en QE DOM, una API no documentada de Adobe. El propio repositorio avisa que en Premiere 26.3 algunas operaciones se ignoran <em>silenciosamente</em>. Traducción: puede parecer que aplicó un cambio y no haberlo hecho. Hay que verificar los resultados, no confiar.</p>
+    <p><strong>Seguridad.</strong> Cualquier cliente que llegue al servidor MCP controla el editor. Se corre en local, sobre stdio, y la ejecución de scripts arbitrarios queda detrás de un permiso explícito.</p>
+  </div>
+
+  <div class="callout">
+    <span class="label">La cita más honesta que encontré</span>
+    <p>El repositorio del conector de Resolve dice explícitamente que <strong>no puede elegir la mejor toma, no puede cortar a música de forma confiable, no puede juzgar calidad editorial y no reemplaza a un editor.</strong> Es exactamente el límite correcto, y coincide con lo que veníamos diciendo: la máquina mide, la persona decide.</p>
+  </div>
+</section>
+
+<section>
+  <h2>04 — Animaciones</h2>
+  <h3>La pieza que falta: gráficos como código</h3>
+  <p class="lead">Las marcas que se ven caras no tienen mejores animadores. Tienen las mismas cinco animaciones, siempre idénticas. Ese es el truco, y es un problema de sistema, no de talento.</p>
+
+  <p><strong>Remotion</strong> es un framework para hacer video con React: las escenas son componentes, el tiempo se controla por número de cuadro, y se renderiza a MP4. Eso significa que una animación deja de ser un archivo que alguien hizo a mano en After Effects y pasa a ser un componente que se ejecuta igual todas las veces.</p>
+
+  <p>Para el Instituto, la biblioteca sería algo así:</p>
+
+  <div class="codeblock">
+    <p class="cap">Los componentes de marca de NFM</p>
+    <pre><code>&lt;IntroNFM titulo="Cómo se rompe el foco" modulo={4} /&gt;
+&lt;LowerThird nombre="Nicolás Fernández Miranda" rol="Instituto NFM" /&gt;
+&lt;DatoDuro numero="23" unidad="minutos" pie="para recuperar el foco" /&gt;
+&lt;CitaDestacada texto="El foco no se fuerza, se diseña" /&gt;
+&lt;CierreCollab cuenta="@institutonfm" /&gt;</code></pre>
+  </div>
+
+  <p>Cada uno se renderiza idéntico siempre, con la tipografía y los colores del manual. Cambiás el texto, no el diseño. Y Claude Code puede escribir componentes nuevos por descripción: pedís un lower third que entre desde la izquierda con el color de marca y sale el código.</p>
+
+  <h4>Cuándo conviene y cuándo no</h4>
+  <ul>
+    <li><strong>Conviene</strong> para lo repetible: intros, placas de dato, citas, cierres, lower thirds, gráficos de números. Todo lo que hoy alguien rehace a mano en cada video.</li>
+    <li><strong>No conviene</strong> para animación expresiva de una sola vez. Para eso está After Effects y una persona con criterio.</li>
+    <li><strong>Requiere</strong> alguien que sepa JavaScript, aunque sea poco. Con Claude Code el umbral baja mucho, pero no a cero: hay que poder correr el proyecto y revisar el resultado.</li>
+  </ul>
+
+  <div class="callout">
+    <span class="label">El retorno real</span>
+    <p>Una jornada de trabajo para dejar la biblioteca armada, y después cada video usa los mismos cinco componentes sin que nadie los rehaga. Es la misma tesis del manual de criterio: <strong>lo que el ojo lee como profesional es la repetición idéntica</strong>, y la forma más barata de garantizarla es que la haga una máquina.</p>
+  </div>
+</section>
+
+<section>
+  <h2>05 — B-roll generado</h2>
+  <h3>Dónde sí y dónde arruina la credibilidad</h3>
+
+  <p>La generación de video mejoró mucho: Veo 3.1 quedó como el más parejo en calidad general, con salida 4K, y los equipos de producción suelen combinar dos modelos —uno barato para relleno y continuidad, uno caro para el plano principal— en vez de casarse con uno.</p>
+
+  <p>Para el Instituto, la regla es la misma que ya está en el manual: <strong>el b-roll solo entra si explica algo</strong>. Un plano generado de una persona genérica trabajando es peor que no poner nada, porque suma la sospecha de "esto es IA" encima de la de "esto es relleno".</p>
+
+  <ul>
+    <li><strong>Sí:</strong> visualizar un mecanismo del cerebro, una metáfora concreta, una escena imposible de filmar. Ahí la generación resuelve algo real.</li>
+    <li><strong>No:</strong> gente en oficinas, manos escribiendo, atardeceres. Es stock genérico con un problema extra.</li>
+    <li><strong>Ojo con Sora:</strong> el producto dejó de estar disponible en abril de 2026 y su API tiene fecha de cierre. No es una base sobre la que construir un flujo.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>06 — Plan</h2>
+  <h3>En qué orden hacerlo</h3>
+  <p class="lead">Ninguna de estas fases depende de la siguiente. Se pueden parar en cualquier punto y lo hecho sigue sirviendo.</p>
+
+  <div class="phases">
+
+    <div class="phase">
+      <div class="phase-main">
+        <p class="phase-when">Fase 1 · Esta semana</p>
+        <h4>Capa 2, sin riesgo</h4>
+        <ul>
+          <li>Activar Enhance Speech o Voice Isolation en todo lo que venga de sala. Es la mejora de calidad más grande por menos esfuerzo.</li>
+          <li>Object Mask para los recortes de sujeto que hoy se hacen a mano.</li>
+          <li>Fijar el preset de color de marca y aplicarlo a todo.</li>
+        </ul>
+      </div>
+      <dl class="phase-cost">
+        <dt>Costo</dt><dd>Ya está pago</dd>
+        <dt>Esfuerzo</dt><dd>Bajo</dd>
+        <dt>Riesgo</dt><dd>Ninguno</dd>
+      </dl>
+    </div>
+
+    <div class="phase">
+      <div class="phase-main">
+        <p class="phase-when">Fase 2 · Este mes</p>
+        <h4>Conectar Claude al editor, en modo lectura</h4>
+        <ul>
+          <li>Instalar el MCP del editor que ya usa el equipo, en una máquina, con un editor.</li>
+          <li>Usarlo <strong>solo para auditar</strong> durante las primeras semanas: que lea y puntúe, que no toque nada.</li>
+          <li>Comparar su lectura contra el Score manual en diez clips para calibrar.</li>
+          <li>Recién después habilitar que ejecute cambios, y siempre con revisión.</li>
+        </ul>
+      </div>
+      <dl class="phase-cost">
+        <dt>Costo</dt><dd>USD 0–295</dd>
+        <dt>Esfuerzo</dt><dd>Medio</dd>
+        <dt>Riesgo</dt><dd>Bajo si es solo lectura</dd>
+      </dl>
+    </div>
+
+    <div class="phase">
+      <div class="phase-main">
+        <p class="phase-when">Fase 3 · Próximo trimestre</p>
+        <h4>Biblioteca de gráficos en código</h4>
+        <ul>
+          <li>Definir los cinco componentes de marca y construirlos una vez.</li>
+          <li>Dejar el render automatizado para que el editor solo cambie el texto.</li>
+          <li>Extender a placas de dato y citas, que hoy se rehacen en cada video.</li>
+        </ul>
+      </div>
+      <dl class="phase-cost">
+        <dt>Costo</dt><dd>USD 0 + tiempo</dd>
+        <dt>Esfuerzo</dt><dd>Alto al inicio</dd>
+        <dt>Riesgo</dt><dd>Requiere perfil técnico</dd>
+      </dl>
+    </div>
+
+  </div>
+
+  <h4>Lo que NO recomiendo</h4>
+  <p>Pasar la edición a un agente de la capa 1. Es tentador porque el resultado sale rápido y correcto, pero producen un estilo reconocible y compartido con miles de cuentas, y suben el material de las clases a servidores de terceros. Para una cuenta que está construyendo autoridad, parecerse a todos es exactamente el problema que se quiere resolver.</p>
+</section>
+
+<section>
+  <h2>07 — Costos</h2>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Ítem</th><th>Costo</th><th>Nota</th></tr></thead>
+      <tbody>
+        <tr><td class="who">MCP de Premiere o Resolve</td><td class="num">USD 0</td><td>Abiertos, licencia MIT.</td></tr>
+        <tr><td class="who">Resolve Studio</td><td class="num">USD 295 único</td><td>Solo si se va por Resolve. Habilita el scripting externo y el Smart Reframe.</td></tr>
+        <tr><td class="who">Adobe (Premiere + AE)</td><td class="num">Suscripción</td><td>Si ya se paga, la capa 2 no cuesta nada extra. Generative Extend consume créditos de Firefly.</td></tr>
+        <tr><td class="who">Remotion</td><td class="num">USD 0</td><td>Gratis para uso individual y equipos chicos; revisar su licencia según tamaño de empresa.</td></tr>
+        <tr><td class="who">Eddie AI</td><td class="num">USD 15/crédito<br>o ~167/mes anual</td><td>Capa 1. Solo si se quiere probar el enfoque de agente.</td></tr>
+        <tr><td class="who">OpusClip Pro</td><td class="num">USD 29/mes</td><td>Ya recomendado para clipeo. Su AI Producer es capa 1.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>El plan completo de las tres fases sale entre <strong>USD 0 y 295 de una vez</strong>, sobre lo que ya se paga. El costo real es tiempo de instalación y calibración, no licencias.</p>
+</section>
+
+<footer class="notes">
+  <p><strong>Qué está verificado y qué no.</strong> Los datos de los dos conectores MCP —cantidad de herramientas, requisitos, licencia, estrellas y advertencias— salen de leer sus repositorios en GitHub directamente, y son los más sólidos de este documento. Las cifras de Adobe, Eddie AI, los modelos de generación de video y las plataformas comerciales vienen de búsqueda y de notas de prensa: contrastadas entre sí, pero no verificadas en la fuente primaria. Los sitios de las herramientas y las plataformas de video estaban bloqueados desde el entorno donde se armó esto.</p>
+  <p><strong>Sobre los números de productividad.</strong> Las cifras de tipo "de 6,2 horas a 83 minutos" son de comunicación de producto del propio fabricante. Sirven como orden de magnitud, no como dato. Tomarlas con la desconfianza habitual.</p>
+  <p><strong>Antes de instalar nada.</strong> Estos conectores le dan a un modelo control sobre el editor y sobre archivos del proyecto. Conviene probarlos primero en un proyecto de descarte, con una copia del material, y mantenerlos en modo lectura hasta confiar en lo que devuelven.</p>
+  <p><strong>Documentos relacionados.</strong> El manual de criterio con el Score de Edición, el estándar técnico de exportación y la biblioteca de referencias están en la misma carpeta.</p>
+</footer>
+
+</div>
