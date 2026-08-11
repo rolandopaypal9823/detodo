@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biblioteca de referencias — Instituto NFM</title>
+<style>
+  :root {
+    --ground: #EDEDF0; --surface: #FFFFFF; --surface-2: #F4F5F8;
+    --ink: #16181F; --muted: #5B6070; --line: #D5D7DE; --line-soft: #E5E7EC;
+    --accent: #2E4B8F; --accent-soft: #E2E7F4;
+    --energy: #9C7A05; --energy-bg: #FAF0CE;
+    --bad: #A32E22; --good: #1E6647; --good-bg: #DEEEE6; --bad-bg: #F7E3E0;
+    --shadow: 0 1px 2px rgba(22,24,31,.06), 0 10px 28px rgba(22,24,31,.06);
+    --serif: "Iowan Old Style","Palatino Linotype",Palatino,Charter,Georgia,serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace,"SF Mono",SFMono-Regular,"Cascadia Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:#101218; --surface:#181B23; --surface-2:#1D212A;
+      --ink:#E5E7EC; --muted:#929AAA; --line:#2A2E39; --line-soft:#212530;
+      --accent:#8AA6E6; --accent-soft:#1A2138;
+      --energy:#E5BE3F; --energy-bg:#2C2411;
+      --bad:#F08A7C; --good:#62C49B; --good-bg:#11271D; --bad-bg:#2E1613;
+      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 28px rgba(0,0,0,.28);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--ground); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1120px; margin:0 auto; padding:0 24px 100px; }
+
+  header.mast { padding:52px 0 0; }
+  .eyebrow { font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 18px; }
+  h1 { font-family:var(--serif); font-size:clamp(32px,5vw,48px); line-height:1.05; letter-spacing:-.018em; font-weight:600; margin:0 0 14px; max-width:18ch; }
+  .standfirst { font-size:18.5px; color:var(--muted); max-width:60ch; margin:0 0 26px; }
+  .divider { height:3px; background:var(--ink); margin:0 0 40px; }
+
+  section { margin:0 0 66px; }
+  h2 { font-family:var(--mono); font-size:12.5px; letter-spacing:.13em; text-transform:uppercase; font-weight:600; color:var(--accent); margin:0 0 18px; padding:0 0 12px; border-bottom:1px solid var(--line); }
+  h3 { font-family:var(--serif); font-size:28px; line-height:1.15; font-weight:600; margin:0 0 12px; max-width:24ch; }
+  p { margin:0 0 14px; max-width:66ch; }
+  a { color:var(--accent); text-underline-offset:2px; }
+  .lead { font-size:17px; color:var(--muted); max-width:62ch; margin:0 0 26px; }
+
+  .notice { background:var(--energy-bg); border-left:3px solid var(--energy); border-radius:0 4px 4px 0; padding:16px 20px; margin:0 0 40px; }
+  .notice p { margin:0; font-size:14.5px; max-width:74ch; }
+  .notice b { font-weight:660; }
+
+  /* cuentas */
+  .accounts { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+  .acc { background:var(--surface); border:1px solid var(--line); border-radius:5px; padding:18px 20px; display:flex; flex-direction:column; }
+  .acc-tag { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; font-weight:600; margin-bottom:7px; }
+  .a-energy .acc-tag { color:var(--energy); }
+  .a-auth .acc-tag { color:var(--accent); }
+  .acc h4 { font-family:var(--serif); font-size:20px; font-weight:600; margin:0 0 3px; }
+  .acc .handle { font-family:var(--mono); font-size:12px; color:var(--muted); margin-bottom:12px; word-break:break-all; }
+  .acc .watch { font-size:13.5px; margin:0 0 12px; }
+  .acc .watch strong { display:block; font-size:11px; font-family:var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:5px; font-weight:600; }
+  .acc ul { margin:0; padding-left:17px; }
+  .acc li { font-size:13.5px; line-height:1.45; margin-bottom:5px; }
+  .acc .go { margin-top:auto; padding-top:12px; }
+  .acc .go a { font-size:14px; font-weight:600; }
+  .unver { font-size:11.5px; color:var(--muted); font-family:var(--mono); margin-top:6px; }
+
+  /* board */
+  .addbox { background:var(--surface); border:1px solid var(--line); border-radius:6px; box-shadow:var(--shadow); padding:22px 24px; margin:0 0 24px; }
+  .addrow { display:grid; grid-template-columns:1fr 190px auto; gap:12px; align-items:end; margin-bottom:12px; }
+  label { display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:5px; }
+  input[type=url], input[type=text], select, textarea {
+    width:100%; font-family:var(--sans); font-size:14.5px; color:var(--ink);
+    background:var(--surface-2); border:1px solid var(--line); border-radius:4px; padding:9px 11px;
+  }
+  textarea { resize:vertical; min-height:64px; line-height:1.5; }
+  .btn { font-family:var(--sans); font-size:14px; font-weight:600; background:var(--accent); color:#fff; border:none; border-radius:4px; padding:10px 18px; cursor:pointer; white-space:nowrap; }
+  .btn:hover { filter:brightness(1.08); }
+  .btn.ghost { background:transparent; color:var(--accent); border:1px solid var(--accent); }
+  .btn.tiny { padding:5px 10px; font-size:12.5px; }
+  .hint { font-size:13px; color:var(--muted); margin:0; }
+
+  .board { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:18px; margin-top:24px; }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:6px; overflow:hidden; display:flex; flex-direction:column; }
+  .card-embed { background:#000; position:relative; }
+  .card-embed iframe { display:block; width:100%; border:0; }
+  .card-embed .fallback { padding:24px; color:#ccc; font-size:14px; background:var(--surface-2); color:var(--muted); }
+  .card-embed blockquote { margin:0 !important; }
+  .card-body { padding:15px 17px; display:flex; flex-direction:column; gap:9px; flex:1; }
+  .card-top { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .badge { font-family:var(--mono); font-size:10px; letter-spacing:.09em; text-transform:uppercase; font-weight:600; padding:3px 8px; border-radius:3px; }
+  .badge.A { background:var(--energy-bg); color:var(--energy); }
+  .badge.B { background:var(--accent-soft); color:var(--accent); }
+  .card-note { font-size:14px; line-height:1.5; white-space:pre-wrap; }
+  .card-note:empty::before { content:"Sin notas."; color:var(--muted); font-style:italic; }
+  .card-src { font-family:var(--mono); font-size:11.5px; word-break:break-all; }
+  .card-acts { display:flex; gap:8px; margin-top:auto; padding-top:6px; }
+
+  .checklist { background:var(--surface-2); border:1px solid var(--line-soft); border-radius:4px; padding:11px 13px; }
+  .checklist strong { display:block; font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; font-weight:600; }
+  .checklist ol { margin:0; padding-left:17px; }
+  .checklist li { font-size:12.5px; line-height:1.45; margin-bottom:4px; color:var(--muted); }
+
+  .boardbar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:20px; padding-top:18px; border-top:1px solid var(--line); }
+  .empty { background:var(--surface); border:1px dashed var(--line); border-radius:6px; padding:38px 24px; text-align:center; color:var(--muted); font-size:15px; }
+
+  footer.notes { margin-top:76px; padding-top:24px; border-top:1px solid var(--line); font-size:13.5px; color:var(--muted); }
+  footer.notes p { max-width:78ch; }
+
+  @media (max-width:660px) { .addrow { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">Instituto NFM · Biblioteca de referencias · Agosto 2026</p>
+  <h1>Qué mirar de la competencia, y cómo mirarlo</h1>
+  <p class="standfirst">Las cuentas que marcan el estándar, con instrucciones de qué observar en cada una. Y un tablero para guardar los clips que encuentren, con las notas de qué robar de cada uno.</p>
+  <div class="divider"></div>
+</header>
+
+<div class="notice">
+  <p><b>Este archivo se abre en el navegador, no es una página online.</b> Guardalo y abrilo con doble clic. Los clips que agregues quedan guardados en este navegador (y se pueden exportar para pasárselos a otro). Los reproductores de YouTube, Instagram y TikTok cargan desde sus servidores, así que hace falta conexión.</p>
+</div>
+
+<section>
+  <h2>01 — Cuentas de referencia</h2>
+  <h3>Adónde ir, y qué buscar en cada una</h3>
+  <p class="lead">Mirar clips sin saber qué observar no enseña nada. Cada cuenta de abajo tiene tres cosas concretas para fijarse. La consigna para el equipo es mirar cinco clips por cuenta con esa lista al lado, no mirar por mirar.</p>
+
+  <div class="accounts">
+
+    <div class="acc a-energy">
+      <span class="acc-tag">Escuela A · Alta energía</span>
+      <h4>Alex Hormozi</h4>
+      <p class="handle">youtube.com/@AlexHormozi/shorts</p>
+      <div class="watch">
+        <strong>Qué mirar</strong>
+        <ul>
+          <li>Cronometrá cuánto tarda en decir algo con contenido. Casi siempre: cero segundos.</li>
+          <li>Contá los cortes en los primeros 10 segundos.</li>
+          <li>Fijate que casi nunca hay b-roll. Todo el ritmo lo hace el corte y el zoom.</li>
+        </ul>
+      </div>
+      <div class="go"><a href="https://www.youtube.com/@AlexHormozi/shorts" target="_blank" rel="noopener">Abrir sus Shorts →</a></div>
+    </div>
+
+    <div class="acc a-auth">
+      <span class="acc-tag">Escuela B · Autoridad</span>
+      <h4>Huberman Lab Clips</h4>
+      <p class="handle">youtube.com/@HubermanLabClips</p>
+      <div class="watch">
+        <strong>Qué mirar</strong>
+        <ul>
+          <li>El subtítulo: sobrio, en una sola posición, sin gritar. Es lo más copiable para NFM.</li>
+          <li>Cómo el cambio de cámara reemplaza al corte duro y baja la ansiedad del clip.</li>
+          <li>Cuándo aparece un gráfico: solo cuando dice un dato concreto.</li>
+        </ul>
+      </div>
+      <div class="go"><a href="https://www.youtube.com/@HubermanLabClips" target="_blank" rel="noopener">Abrir el canal →</a></div>
+    </div>
+
+    <div class="acc a-auth">
+      <span class="acc-tag">Escuela B · Autoridad</span>
+      <h4>The Diary of a CEO Clips</h4>
+      <p class="handle">youtube.com/@TheDiaryOfACEOClips</p>
+      <div class="watch">
+        <strong>Qué mirar</strong>
+        <ul>
+          <li>Poné diez clips seguidos: son idénticos en color, encuadre y tipografía. Esa es la lección.</li>
+          <li>El primer plano siempre es el del invitado diciendo algo fuerte, nunca el del host preguntando.</li>
+          <li>Cómo usan el silencio después de una frase importante.</li>
+        </ul>
+      </div>
+      <div class="go"><a href="https://www.youtube.com/@TheDiaryOfACEOClips" target="_blank" rel="noopener">Abrir el canal →</a></div>
+    </div>
+
+    <div class="acc a-auth">
+      <span class="acc-tag">Escuela B · Referencia madre</span>
+      <h4>Huberman Lab (canal principal)</h4>
+      <p class="handle">youtube.com/@hubermanlab</p>
+      <div class="watch">
+        <strong>Qué mirar</strong>
+        <ul>
+          <li>De dónde salen los clips: mirá un episodio largo y después su clip, para entender qué recortaron.</li>
+          <li>El encuadre base: ojos en el tercio superior, siempre.</li>
+          <li>Cómo explica un mecanismo sin apurarse — el modelo más cercano a lo que hace Nico.</li>
+        </ul>
+      </div>
+      <div class="go"><a href="https://www.youtube.com/@hubermanlab" target="_blank" rel="noopener">Abrir el canal →</a></div>
+    </div>
+
+    <div class="acc a-energy">
+      <span class="acc-tag">Escuela A · Escenario</span>
+      <h4>Tony Robbins</h4>
+      <p class="handle">Handle no verificado desde el entorno de investigación</p>
+      <div class="watch">
+        <strong>Qué mirar</strong>
+        <ul>
+          <li>Los planos de reacción del público: prueban impacto sin que él lo afirme.</li>
+          <li>Cómo la energía del escenario sobrevive (o no) al recorte vertical.</li>
+          <li>Qué pasa cuando la música sube demasiado: escuchá cuál se siente barato y cuál no.</li>
+        </ul>
+      </div>
+      <div class="go">
+        <a href="https://www.youtube.com/results?search_query=Tony+Robbins+shorts" target="_blank" rel="noopener">Buscar en YouTube →</a>
+        <p class="unver">Va a búsqueda, no a un handle inventado.</p>
+      </div>
+    </div>
+
+    <div class="acc a-auth">
+      <span class="acc-tag">Escuela B · Híbrido</span>
+      <h4>Modern Wisdom (Chris Williamson)</h4>
+      <p class="handle">Handle no verificado desde el entorno de investigación</p>
+      <div class="watch">
+        <strong>Qué mirar</strong>
+        <ul>
+          <li>Es el punto medio exacto entre las dos escuelas: producción alta con ritmo medio.</li>
+          <li>Cómo abre: casi siempre con la frase del invitado, no con la pregunta.</li>
+          <li>La placa de contexto de una línea al inicio. Copiable tal cual.</li>
+        </ul>
+      </div>
+      <div class="go">
+        <a href="https://www.youtube.com/results?search_query=Modern+Wisdom+clips+shorts" target="_blank" rel="noopener">Buscar en YouTube →</a>
+        <p class="unver">Va a búsqueda, no a un handle inventado.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2>02 — Tablero</h2>
+  <h3>Guardá los clips que encuentres</h3>
+  <p class="lead">Pegá el link de un Short, un Reel o un TikTok, marcá de qué escuela es y anotá qué le vas a robar. Se guarda en este navegador. Exportá el archivo para pasárselo al resto del equipo.</p>
+
+  <div class="addbox">
+    <div class="addrow">
+      <div>
+        <label for="url">Link del clip</label>
+        <input type="url" id="url" placeholder="https://www.youtube.com/shorts/… · instagram.com/reel/… · tiktok.com/@…/video/…">
+      </div>
+      <div>
+        <label for="school">Escuela</label>
+        <select id="school">
+          <option value="B">B — Autoridad</option>
+          <option value="A">A — Alta energía</option>
+        </select>
+      </div>
+      <div><button class="btn" type="button" id="add">Agregar</button></div>
+    </div>
+    <div>
+      <label for="note">Qué le robamos</label>
+      <textarea id="note" placeholder="Ej: la placa de contexto en el segundo 2. El corte a plano cerrado justo antes del remate. El tamaño del subtítulo."></textarea>
+    </div>
+    <p class="hint" id="hint" style="margin-top:10px"></p>
+  </div>
+
+  <div id="board" class="board"></div>
+
+  <div class="boardbar">
+    <button class="btn ghost" type="button" id="export">Exportar tablero</button>
+    <button class="btn ghost" type="button" id="importBtn">Importar</button>
+    <input type="file" id="importFile" accept="application/json" style="display:none">
+    <span class="hint" id="count"></span>
+  </div>
+</section>
+
+<footer class="notes">
+  <p><strong>Por qué no hay clips precargados.</strong> El entorno donde se armó este archivo tiene bloqueado el acceso a YouTube, Instagram y TikTok, así que no se pudo verificar ningún ID de video individual. Precargar links sin verificar habría dejado reproductores rotos o, peor, el video equivocado. Los enlaces a canales de la sección 01 sí aparecieron en resultados de búsqueda y son reales; los dos marcados como no verificados van a una búsqueda en vez de a un handle inventado.</p>
+  <p><strong>Cómo se llena.</strong> La idea es que el equipo lo cargue en una sesión: media hora mirando las cuentas de la sección 01, guardando los cinco o seis clips que mejor resuelven algo, con la nota de qué resuelven. Vale más un tablero de diez clips bien anotados que uno de cien sin notas.</p>
+  <p><strong>Documentos relacionados.</strong> El manual de criterio y el Score de Edición, y el estándar técnico de exportación, están en la misma carpeta.</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var KEY = "nfm-swipe-board-v1";
+  var board = document.getElementById("board");
+  var hint = document.getElementById("hint");
+  var countEl = document.getElementById("count");
+
+  var FOCUS = [
+    "¿Cuál es la primera frase, y se sostiene sola?",
+    "¿En qué segundo llega el payoff?",
+    "¿Cada cuánto cambia algo en pantalla?"
+  ];
+
+  function load() {
+    try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { return []; }
+  }
+  function save(items) {
+    try { localStorage.setItem(KEY, JSON.stringify(items)); }
+    catch (e) { hint.textContent = "No se pudo guardar en este navegador, pero podés exportar el tablero."; }
+  }
+
+  function parse(url) {
+    var yt = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+    if (yt) return { kind: "yt", id: yt[1] };
+    if (/instagram\.com\/(reel|reels|p|tv)\//.test(url)) return { kind: "ig" };
+    if (/tiktok\.com\//.test(url)) return { kind: "tt" };
+    return { kind: "link" };
+  }
+
+  function embedFor(item) {
+    var box = document.createElement("div");
+    box.className = "card-embed";
+    var p = parse(item.url);
+
+    if (p.kind === "yt") {
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube.com/embed/" + p.id;
+      f.height = 400;
+      f.allow = "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      f.allowFullscreen = true;
+      f.title = "Clip de referencia";
+      f.loading = "lazy";
+      box.appendChild(f);
+      return box;
+    }
+
+    if (p.kind === "ig") {
+      var bq = document.createElement("blockquote");
+      bq.className = "instagram-media";
+      bq.setAttribute("data-instgrm-permalink", item.url);
+      bq.setAttribute("data-instgrm-version", "14");
+      bq.style.width = "100%";
+      box.appendChild(bq);
+      loadScript("https://www.instagram.com/embed.js", function () {
+        if (window.instgrm && window.instgrm.Embeds) window.instgrm.Embeds.process();
+      }, true);
+      return box;
+    }
+
+    if (p.kind === "tt") {
+      var tb = document.createElement("blockquote");
+      tb.className = "tiktok-embed";
+      tb.setAttribute("cite", item.url);
+      tb.style.maxWidth = "100%";
+      var sec = document.createElement("section");
+      var a = document.createElement("a");
+      a.href = item.url; a.textContent = "Ver en TikTok";
+      sec.appendChild(a);
+      tb.appendChild(sec);
+      box.appendChild(tb);
+      loadScript("https://www.tiktok.com/embed.js", null, true);
+      return box;
+    }
+
+    var fb = document.createElement("div");
+    fb.className = "fallback";
+    var link = document.createElement("a");
+    link.href = item.url; link.target = "_blank"; link.rel = "noopener";
+    link.textContent = "Abrir el clip en una pestaña nueva";
+    fb.appendChild(link);
+    box.appendChild(fb);
+    return box;
+  }
+
+  var loaded = {};
+  function loadScript(src, cb, force) {
+    if (loaded[src] && !force) { if (cb) cb(); return; }
+    var s = document.createElement("script");
+    s.src = src; s.async = true;
+    s.onload = function () { loaded[src] = true; if (cb) cb(); };
+    s.onerror = function () { hint.textContent = "No se pudo cargar el reproductor de esa plataforma. Revisá la conexión."; };
+    document.body.appendChild(s);
+  }
+
+  function render() {
+    var items = load();
+    board.innerHTML = "";
+    countEl.textContent = items.length ? items.length + " clip" + (items.length === 1 ? "" : "s") + " guardado" + (items.length === 1 ? "" : "s") : "";
+
+    if (!items.length) {
+      var e = document.createElement("div");
+      e.className = "empty";
+      e.textContent = "Todavía no hay clips. Pegá un link arriba para empezar el tablero.";
+      e.style.gridColumn = "1 / -1";
+      board.appendChild(e);
+      return;
+    }
+
+    items.forEach(function (item, idx) {
+      var card = document.createElement("div");
+      card.className = "card";
+      card.appendChild(embedFor(item));
+
+      var body = document.createElement("div");
+      body.className = "card-body";
+
+      var top = document.createElement("div");
+      top.className = "card-top";
+      var badge = document.createElement("span");
+      badge.className = "badge " + item.school;
+      badge.textContent = item.school === "A" ? "Escuela A" : "Escuela B";
+      var src = document.createElement("a");
+      src.className = "card-src";
+      src.href = item.url; src.target = "_blank"; src.rel = "noopener";
+      src.textContent = "ver original";
+      top.appendChild(badge); top.appendChild(src);
+      body.appendChild(top);
+
+      var note = document.createElement("div");
+      note.className = "card-note";
+      note.textContent = item.note || "";
+      body.appendChild(note);
+
+      var cl = document.createElement("div");
+      cl.className = "checklist";
+      var st = document.createElement("strong");
+      st.textContent = "Al mirarlo, respondé";
+      cl.appendChild(st);
+      var ol = document.createElement("ol");
+      FOCUS.forEach(function (q) {
+        var li = document.createElement("li");
+        li.textContent = q;
+        ol.appendChild(li);
+      });
+      cl.appendChild(ol);
+      body.appendChild(cl);
+
+      var acts = document.createElement("div");
+      acts.className = "card-acts";
+      var del = document.createElement("button");
+      del.className = "btn ghost tiny";
+      del.type = "button";
+      del.textContent = "Quitar";
+      del.addEventListener("click", function () {
+        var list = load();
+        list.splice(idx, 1);
+        save(list);
+        render();
+      });
+      acts.appendChild(del);
+      body.appendChild(acts);
+
+      card.appendChild(body);
+      board.appendChild(card);
+    });
+  }
+
+  document.getElementById("add").addEventListener("click", function () {
+    var url = document.getElementById("url").value.trim();
+    var note = document.getElementById("note").value.trim();
+    var school = document.getElementById("school").value;
+    if (!url) { hint.textContent = "Falta el link."; return; }
+    if (!/^https?:\/\//i.test(url)) { hint.textContent = "El link tiene que empezar con http:// o https://"; return; }
+    var items = load();
+    items.unshift({ url: url, note: note, school: school });
+    save(items);
+    document.getElementById("url").value = "";
+    document.getElementById("note").value = "";
+    hint.textContent = parse(url).kind === "link"
+      ? "Guardado. Esa plataforma no tiene reproductor embebible, así que queda como enlace."
+      : "Guardado.";
+    render();
+  });
+
+  document.getElementById("export").addEventListener("click", function () {
+    var blob = new Blob([JSON.stringify(load(), null, 2)], { type: "application/json" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "tablero-referencias-nfm.json";
+    a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+  });
+
+  document.getElementById("importBtn").addEventListener("click", function () {
+    document.getElementById("importFile").click();
+  });
+  document.getElementById("importFile").addEventListener("change", function (e) {
+    var f = e.target.files && e.target.files[0];
+    if (!f) return;
+    var r = new FileReader();
+    r.onload = function () {
+      try {
+        var incoming = JSON.parse(r.result);
+        if (!Array.isArray(incoming)) throw new Error("formato");
+        var current = load();
+        var seen = {};
+        var merged = incoming.concat(current).filter(function (it) {
+          if (!it || !it.url || seen[it.url]) return false;
+          seen[it.url] = true;
+          return true;
+        });
+        save(merged);
+        render();
+        hint.textContent = "Tablero importado.";
+      } catch (err) {
+        hint.textContent = "Ese archivo no es un tablero válido.";
+      }
+    };
+    r.readAsText(f);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
