@@ -118,7 +118,10 @@ h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;margin:30p
 
 /* SERIE HISTORICA */
 .serie{display:grid;grid-template-columns:repeat(8,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:6px}
-.sv{background:var(--ground);padding:11px 6px;text-align:center}
+.sv{background:var(--ground);padding:11px 5px;text-align:center;border:0;width:100%;cursor:pointer;font-family:'Open Sans',sans-serif;display:block}
+.sv:hover{background:var(--fill)}
+.sv:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.sv .q{font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;color:var(--muted);margin-top:3px;font-variant-numeric:tabular-nums}
 .sv .k{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
 .sv .n{font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;font-variant-numeric:tabular-nums}
 .sv .b{height:4px;margin-top:6px}
@@ -203,8 +206,10 @@ footer b{color:var(--panel-ink)}
     (inversión, asistentes, cierres, cash) aplicando los porcentajes reportados. Donde hay dato directo
     del tracker, el reconstruido coincide con un margen del <b>0,1%</b>: el 30/6 da 7.661 registros contra
     7.670 reales y 6.635 en grupo contra 6.642.</p>
-    <p><b>Agendas a closer</b> no es lo mismo que <b>agendas de la masterclass</b>: la diferencia son
-    las de setters, API y reagendas. En abril hubo 279 agendas a closer contra 201 salidas de la clase.</p></div>
+    <p><b>Las agendas que ves son el total</b>: clase + setters + API + reagendas, que es como está
+    calculado el porcentaje en el estudio. El 30/6, de 109 agendas, 79 salieron de la clase, 20 de setters
+    y 10 de la API. Ese desglose falta en el resto de los lanzamientos y es el dato que más ordenaría
+    la palanca #1.</p></div>
 </div></section>
 
 <!-- COMPARATIVA -->
@@ -229,12 +234,13 @@ footer b{color:var(--panel-ink)}
     gente ese mes, o es el único ciclo en el que la atribución estuvo bien puesta. Vale la pena saber cuál
     de las dos, porque cambia el CPL real de todos los meses.</p></div>
 
-  <div class="clave"><div class="mono">2 · El setting aporta cada vez menos agendas propias</div>
-    <p>En marzo y abril, entre el <b>28% y el 31%</b> de las agendas que llegaron al closer no salieron
-    de la clase: las trajeron setters, API o reagendas. En el 13/6, el 30/6 y el 21/7 esa diferencia
-    es prácticamente <b>cero</b>.</p>
-    <p>Todo lo que llega al closer hoy depende de que la clase convierta. Si la clase falla, no hay
-    segunda fuente.</p></div>
+  <div class="clave"><div class="mono">2 · En cuatro lanzamientos los porcentajes no cierran entre sí</div>
+    <p>Si se multiplica asistentes por Clase→Agenda se obtiene un número de agendas; si se llega por el lado
+    comercial (cierres ÷ cierre sobre asistida ÷ agenda sobre llamada) se obtiene otro. En <b>FEB, 13/6, 30/6
+    y 21/7 coinciden</b> con menos de 3% de diferencia. En <b>marzo dan 115 contra 167 (+45%)</b> y en
+    <b>abril 201 contra 279 (+39%)</b>.</p>
+    <p>Eso significa que en esos meses alguno de los tres porcentajes reportados está mal cargado.
+    Antes de comparar marzo y abril contra el resto hay que resolver cuál.</p></div>
 
   <div class="clave"><div class="mono">3 · El costo se multiplica hacia abajo del embudo</div>
     <p>El lead cuesta prácticamente lo mismo que en febrero ($0,46 contra $0,58), pero
@@ -266,21 +272,21 @@ footer b{color:var(--panel-ink)}
 
 <script>
 var L=[
- {k:"FEB",n:"Febrero",inv:2469,reg:6256,pago:5367,noatr:889,gru:5556,asi:1500,agmc:236,agcl:242,llam:146,ofer:131,ci:56,cash:37163,fact:62107,
+ {k:"FEB",n:"Febrero",inv:2469,reg:6256,pago:5367,noatr:889,gru:5556,asi:1500,agtot:236,agcl:242,llam:146,ofer:131,ci:56,cash:37163,fact:62107,
   cpl:0.46,rg:88.8,gc:27.0,ca:15.7,al:60.3,of:89.7,cas:38.4,cxc:626,cob:72.9},
- {k:"MAR",n:"Marzo",inv:3021,reg:6330,pago:5035,noatr:1295,gru:5134,asi:1150,agmc:115,agcl:167,llam:113,ofer:91,ci:37,cash:15676,fact:45583,
+ {k:"MAR",n:"Marzo",inv:3021,reg:6330,pago:5035,noatr:1295,gru:5134,asi:1150,agtot:115,agcl:167,llam:113,ofer:91,ci:37,cash:15676,fact:45583,
   cpl:0.60,rg:81.1,gc:22.4,ca:10.0,al:67.7,of:80.5,cas:32.7,cxc:389,cob:45.1},
- {k:"ABR",n:"Abril",inv:2629,reg:8619,pago:7511,noatr:1108,gru:6490,asi:1350,agmc:201,agcl:279,llam:150,ofer:128,ci:50,cash:32787,fact:70503,
+ {k:"ABR",n:"Abril",inv:2629,reg:8619,pago:7511,noatr:1108,gru:6490,asi:1350,agtot:201,agcl:279,llam:150,ofer:128,ci:50,cash:32787,fact:70503,
   cpl:0.35,rg:75.3,gc:20.8,ca:14.9,al:53.8,of:85.3,cas:33.3,cxc:611,cob:58.4},
- {k:"2/5",n:"2 de mayo",inv:3456,reg:6043,pago:5158,noatr:885,gru:4152,asi:1150,agmc:196,agcl:216,llam:123,ofer:101,ci:36,cash:13273,fact:40721,
+ {k:"2/5",n:"2 de mayo",inv:3456,reg:6043,pago:5158,noatr:885,gru:4152,asi:1150,agtot:196,agcl:216,llam:123,ofer:101,ci:36,cash:13273,fact:40721,
   cpl:0.67,rg:68.7,gc:27.7,ca:17.0,al:56.9,of:82.1,cas:29.3,cxc:339,cob:38.8},
- {k:"23/5",n:"23 de mayo",inv:5039,reg:7361,pago:6544,noatr:817,gru:5602,asi:1350,agmc:194,agcl:183,llam:105,ofer:30,ci:22,cash:18668,fact:38825,
+ {k:"23/5",n:"23 de mayo",inv:5039,reg:7361,pago:6544,noatr:817,gru:5602,asi:1350,agtot:194,agcl:183,llam:105,ofer:30,ci:22,cash:18668,fact:38825,
   cpl:0.77,rg:76.1,gc:24.1,ca:14.4,al:57.4,of:null,cas:21.0,cxc:777,cob:60.3},
- {k:"13/6",n:"13 de junio",inv:5005,reg:5899,pago:5561,noatr:338,gru:4902,asi:1000,agmc:157,agcl:156,llam:102,ofer:83,ci:27,cash:24393,fact:49623,
+ {k:"13/6",n:"13 de junio",inv:5005,reg:5899,pago:5561,noatr:338,gru:4902,asi:1000,agtot:157,agcl:156,llam:102,ofer:83,ci:27,cash:24393,fact:49623,
   cpl:0.90,rg:83.1,gc:20.4,ca:15.7,al:65.4,of:81.4,cas:26.5,cxc:842,cob:66.1},
- {k:"30/6",n:"30 de junio",inv:5030,reg:7661,pago:7621,noatr:40,gru:6635,asi:1380,agmc:109,agcl:110,llam:78,ofer:73,ci:25,cash:23565,fact:43821,
+ {k:"30/6",desg:"70 de la clase 1 + 9 de la clase 2 + 20 de setters + 10 por API",n:"30 de junio",inv:5030,reg:7661,pago:7621,noatr:40,gru:6635,asi:1380,agtot:109,agcl:110,llam:78,ofer:73,ci:25,cash:23565,fact:43821,
   cpl:0.66,rg:86.6,gc:20.8,ca:7.9,al:70.9,of:93.6,cas:32.1,cxc:905,cob:71.5},
- {k:"21/7",n:"21 de julio",inv:5068,reg:9966,pago:8738,noatr:1228,gru:8172,asi:2280,agmc:237,agcl:238,llam:141,ofer:null,ci:35,cash:20895,fact:44147,
+ {k:"21/7",desg:"unas 120 de la clase (5,3% de los asistentes); el resto de setters y API",n:"21 de julio",inv:5068,reg:9966,pago:8738,noatr:1228,gru:8172,asi:2280,agtot:237,agcl:238,llam:141,ofer:null,ci:35,cash:20895,fact:44147,
   cpl:0.58,rg:82.0,gc:27.9,ca:10.4,al:59.2,of:null,cas:24.8,cxc:558,cob:47.5}
 ];
 
@@ -306,10 +312,10 @@ var S=[
   prop:["Sostener 25% o más: ahorra $5.665 al mes de pauta.","Medir registros únicos, no registros: con 4 webinars hay duplicados.","A/B de día de clase antes de septiembre."],
   ask:"¿Qué día y horario se está usando hoy? ¿Se probó otro? ¿Cuántas personas de la base se repiten entre clases?"},
 
- {id:"agenda",num:"04",name:"Clase → Agenda",sub:"El cuello de botella · palanca #1",
-  metric:"ca",unit:"%",lower:false,green:14,red:10,qty:"agmc",qtyLab:"agendas de la clase",cv:function(l){return "$"+f(l.inv/l.agcl,1)},cl:"por agenda a closer",
+ {id:"agenda",num:"04",name:"Clase → Agenda",sub:"Agendas totales sobre asistentes · palanca #1",
+  metric:"ca",unit:"%",lower:false,green:14,red:10,qty:"agtot",qtyLab:"agendas totales",cv:function(l){return "$"+f(l.inv/l.agtot,1)},cl:"por agenda",
   hoy:["CTA en la clase: QR + link a entrevista de admisión.","Setters con bases priorizadas P0 a P5.","Recordatorios de setters."],
-  vars:["El QR y el pitch no capturan la sala en el momento.","Capacidad de setting: 20 agendas el 30/6 contra 85 el 23/5.","Clases cada vez más largas: 88' en mayo, 115' el 21/7.","Fricción de Calendly."],
+  vars:["Este porcentaje mezcla agendas de la clase con las de setters y API: no mide solo la clase.","El QR y el pitch no capturan la sala en el momento.","Capacidad de setting: 20 agendas el 30/6 contra 85 el 23/5.","Clases cada vez más largas: 88' en mayo, 115' el 21/7.","Fricción de Calendly."],
   prop:["Volver al 15,6% del 13/6: los mismos $150K con la mitad de pauta ($17.146 contra $33.561).","Setting sobre asistentes y hot leads, no sobre lista fría.","Hito de 100 agendas de setting por ciclo."],
   ask:"¿Cuántos setters hay activos y cuántas agendas hizo cada uno el último ciclo? ¿El QR se muestra una vez o varias? ¿En qué minuto de la clase aparece el CTA?"},
 
@@ -342,7 +348,7 @@ var S=[
   ask:"¿Hay hoy alguna acción sistematizada sobre la cobranza de cuotas? ¿Quién sigue las reservas sin completar? ¿Cuál es el anticipo mínimo que se acepta hoy?"}
 ];
 
-var cur=7;
+var cur=7, abiertos={};
 function f(x,d){return (x==null||isNaN(x))?"—":Number(x).toLocaleString('es-AR',{minimumFractionDigits:d,maximumFractionDigits:d})}
 function estado(s,v){
   if(v==null) return "na";
@@ -376,9 +382,10 @@ function pintarStages(){
   document.getElementById('stages').innerHTML=S.map(function(s){
     var v=l[s.metric], st=estado(s,v), q=l[s.qty];
     var serie=L.map(function(x,i){
-      var vv=x[s.metric], e=estado(s,vv);
-      return '<div class="sv '+e+(i===cur?' cur':'')+'"><div class="k">'+x.k+'</div><div class="n">'+
-        (vv==null?"s/d":(s.unit==="$"?"$"+f(vv,2):f(vv,1)))+'</div><div class="b"></div></div>';
+      var vv=x[s.metric], e=estado(s,vv), qq=x[s.qty];
+      return '<button class="sv '+e+(i===cur?' cur':'')+'" data-go="'+i+'" title="Ver '+x.n+'"><div class="k">'+x.k+'</div><div class="n">'+
+        (vv==null?"s/d":(s.unit==="$"?"$"+f(vv,2):f(vv,1)))+'</div><div class="q">'+
+        (qq==null?"s/d":f(qq,0))+'</div><div class="b"></div></button>';
     }).join('');
     var piso=s.lower
       ? "Piso saludable: verde hasta $"+f(s.green,2)+" · rojo por encima de $"+f(s.red,2)
@@ -395,7 +402,9 @@ function pintarStages(){
       '<div class="detail">'+
         '<div class="mono" style="color:var(--muted);margin-top:18px">Serie de los 8 lanzamientos</div>'+
         '<div class="serie">'+serie+'</div>'+
-        '<div class="piso">'+piso+'. Costo de esta etapa en '+l.n+': <b>'+s.cv(l)+' '+s.cl+'</b>.</div>'+
+        '<div class="piso">'+piso+'. Costo de esta etapa en '+l.n+': <b>'+s.cv(l)+' '+s.cl+'</b>.'+
+          (s.id==="agenda"&&l.desg? ' Desglose de las '+f(l.agtot,0)+' agendas de '+l.n+': <b>'+l.desg+'</b>.' : '')+
+          (s.id==="agenda"&&!l.desg? ' <b>Falta el desglose</b> de cuántas salieron de la clase y cuántas de setters.' : '')+'</div>'+
         '<div class="dgrid">'+
           '<div class="dblock"><div class="mono">Qué puede estar frenándola</div><ul>'+s.vars.map(li).join('')+'</ul></div>'+
           '<div class="dblock"><div class="mono">Propuestas del estudio</div><ul>'+s.prop.map(li).join('')+'</ul></div>'+
@@ -413,10 +422,26 @@ function pintarStages(){
         '</div>'+
       '</div></div>';
   }).join('');
+  S.forEach(function(s){
+    if(abiertos[s.id]){
+      var st=document.getElementById('st-'+s.id);
+      st.classList.add('open'); st.querySelector('.strow').setAttribute('aria-expanded','true');
+    }
+  });
   document.querySelectorAll('.strow').forEach(function(b){
     b.addEventListener('click',function(){
       var st=b.parentElement, open=st.classList.toggle('open');
+      abiertos[b.dataset.s]=open;
       b.setAttribute('aria-expanded',open?'true':'false');
+    });
+  });
+  document.querySelectorAll('.sv[data-go]').forEach(function(b){
+    b.addEventListener('click',function(e){
+      e.stopPropagation();
+      var y=b.getBoundingClientRect().top;
+      cur=+b.dataset.go; render();
+      var nb=document.querySelector('.sv[data-go="'+cur+'"]');
+      if(nb) window.scrollBy(0, nb.getBoundingClientRect().top - y);
     });
   });
   cargarNotas();
@@ -428,7 +453,7 @@ function pintarTabla(){
     ["Inversión","inv","$",0,null],["Registros totales","reg","",0,null],["De los que la pauta explica","pago","",0,null],
     ["CPL","cpl","$",2,"cpl"],["Registro → Grupo","rg","%",1,"rg"],["Personas en grupo","gru","",0,null],
     ["Grupo → Clase","gc","%",1,"gc"],["Asistentes","asi","",0,null],
-    ["Clase → Agenda","ca","%",1,"ca"],["Agendas a closer","agcl","",0,null],
+    ["Clase → Agenda","ca","%",1,"ca"],["Agendas totales","agtot","",0,null],
     ["Agenda → Llamada","al","%",1,"al"],["Llamadas asistidas","llam","",0,null],
     ["Oferta sobre asistida","of","%",1,"of"],["Cierre sobre asistida","cas","%",1,"cas"],
     ["Cierres","ci","",0,null],["Cash por cierre","cxc","$",0,null],
