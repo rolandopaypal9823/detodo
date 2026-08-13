@@ -265,7 +265,7 @@ footer b{color:var(--panel-ink)}
       <tr class="acc"><td><b>13/6</b></td><td><b>Procrastinación</b></td><td class="n">1.000</td><td class="n"><b>41,2%</b></td><td class="n">106'</td><td class="n">15,7%</td><td class="n">$24.393</td><td class="n"><b>$24,39</b></td></tr>
       <tr><td>30/6</td><td>Escalá tu vida</td><td class="n">1.380</td><td class="n">36,5%</td><td class="n">103'</td><td class="n">7,9%</td><td class="n">$23.565</td><td class="n">$17,08</td></tr>
       <tr><td>21/7</td><td>No te falta disciplina</td><td class="n">2.280</td><td class="n">33,9%</td><td class="n">115'</td><td class="n">10,4%</td><td class="n">$20.895</td><td class="n">$9,16</td></tr>
-      <tr><td>10/8</td><td>Cumplís con todos menos con vos</td><td class="n">1.750</td><td class="n">37,4%</td><td class="n">93'</td><td class="n">s/d</td><td class="n">$8.815 <span style="color:var(--muted)">parcial</span></td><td class="n">$5,04 <span style="color:var(--muted)">parcial</span></td></tr>
+      <tr><td>10/8</td><td>Cumplís con todos menos con vos</td><td class="n">1.750</td><td class="n">37,4%</td><td class="n">93'</td><td class="n">7,0%</td><td class="n">$8.815 <span style="color:var(--muted)">parcial</span></td><td class="n">$5,04 <span style="color:var(--muted)">parcial</span></td></tr>
     </tbody>
   </table></div>
   <p class="hint">10/8: asistentes por pico simultáneo, todavía sin tracker. Retención al CTA 89,5%, la mejor del ciclo.</p>
@@ -350,15 +350,16 @@ var L=[
   cpl:0.66,rg:86.6,gc:20.8,ca:7.9,al:70.9,of:93.6,cas:32.1,cxc:905,cob:71.5,eng:36.5,dur:103,con:2739},
  {k:"21/7",desg:"unas 120 de la clase (5,3% de los asistentes); el resto de setters y API",n:"21 de julio",inv:5068,reg:9966,pago:8738,noatr:1228,gru:8172,asi:2280,agtot:237,agcl:238,llam:141,ofer:null,ci:35,cash:20895,fact:44147,
   cpl:0.58,rg:82.0,gc:27.9,ca:10.4,al:59.2,of:null,cas:24.8,cxc:558,cob:47.5,eng:33.9,dur:115,con:5084},
- {k:"10/8",n:"10 de agosto",curso:true,parcial:["cob"],
-  inv:4904,reg:10238,pago:9750,noatr:488,gru:8315,asi:1750,agtot:null,agcl:null,llam:null,ofer:null,ci:null,
-  cash:8815,fact:17495,cpl:0.50,rg:81.2,gc:21.0,ca:null,al:null,of:null,cas:null,cxc:null,cob:41.8,
+ {k:"10/8",n:"10 de agosto",curso:true,parcial:["al","cas","cob"],
+  desg:"105 de la clase (86%) + 17 de setters (14%); las 17 de setter siguen todas sin tomar",
+  inv:4904,reg:10238,pago:9750,noatr:488,gru:8315,asi:1750,agtot:122,agcl:122,llam:31,ofer:28,ci:10,
+  cash:8815,fact:17495,cpl:0.50,rg:81.2,gc:21.0,ca:7.0,al:47.7,of:90.3,cas:32.3,cxc:732,cob:41.8,
   eng:37.4,dur:93,con:3569,cta:89.5,
-  aviso:"Datos al corte. El bloque comercial cuenta <b>solo las agendas directas de la clase</b> (fuente Entrevista de Admisión) y quedan <b>unas 50 agendas sin concretar</b>. Además hay <b>6 reservas: 3 ya se efectuaron y 3 siguen abiertas por $5.900</b>. Asistentes por pico simultáneo, todavía sin tracker.",
+  aviso:"Datos al corte del 13/8. De las <b>122 agendas, 57 todavía no se resolvieron</b>, así que asistencia, cierre y cobranza son provisionales y no llevan semáforo. Hay además <b>3 reservas abiertas por $5.900</b>. Asistentes por pico simultáneo, todavía sin tracker.<br><br><b>Mix de producto de los 10 cierres:</b> 4 Gold, 2 Platinum, 3 Comunidad Anual, 1 sin cargar. La Comunidad vuelve a ser un tercio de los cierres y menos del 5% de la facturación.<br><br><b>Nota de fuentes:</b> los conteos salen del CSV de llamadas agendadas; el cash y la facturación, del dashboard de Airtable. El CSV suma $4.648 abonados contra $7.315 del dashboard, probablemente por distinto momento de corte. Se usa el dashboard.",
   proj:[
-   {n:"Conservador",d:"tasas del 21/7: 59,2% de asistencia, 24,8% de cierre, $558 por cierre",ci:7,ca:4096,re:1967,tot:14878,roas:3.0,pa:8.50},
-   {n:"Base",d:"promedio de 30/6 y 21/7: 65% de asistencia, 28,5% de cierre, $730 por cierre",ci:9,ca:6762,re:2950,tot:18527,roas:3.8,pa:10.59},
-   {n:"Optimista",d:"tasas del 30/6: 70,9% de asistencia, 32,1% de cierre, $905 por cierre",ci:11,ca:10298,re:5900,tot:25013,roas:5.1,pa:14.29}
+   {n:"Conservador",d:"sigue la asistencia propia del 10/8 (47,7%), cierre 32,3%, $732 por cierre",ci:9,ca:6415,re:1967,tot:17196,roas:3.5,pa:9.83},
+   {n:"Base",d:"asistencia recuperada a 60%, cierre 32,3%, $732 por cierre",ci:11,ca:8070,re:2950,tot:19835,roas:4.0,pa:11.33},
+   {n:"Optimista",d:"asistencia 70,9% como el 30/6, cierre 32,3%, $732 por cierre",ci:13,ca:9536,re:5900,tot:24251,roas:4.9,pa:13.86}
   ]}
 ];
 
@@ -459,9 +460,9 @@ function pintarSummary(){
   var ah='';
   if(l.aviso) ah+='<div class="clave" style="margin:0 0 1px"><div class="mono">Lanzamiento en curso</div><p>'+l.aviso+'</p></div>';
   if(l.proj){
-    ah+='<h3 style="margin:26px 0 6px">Adónde llega cuando se concreten las 50 agendas</h3>'+
-        '<p class="dek" style="margin-bottom:14px">Las 50 agendas abiertas pasadas por las tasas de asistencia, cierre y cash por venta de los ciclos anteriores, más las 3 reservas todavía sin cobrar.</p>'+
-        '<div class="tw"><table><thead><tr><th>Escenario</th><th class="n">Cierres de las 50</th>'+
+    ah+='<h3 style="margin:26px 0 6px">Adónde llega cuando se concreten las 57 agendas</h3>'+
+        '<p class="dek" style="margin-bottom:14px">Las 57 agendas abiertas pasadas por las tasas de asistencia, cierre y cash por venta de los ciclos anteriores, más las 3 reservas todavía sin cobrar.</p>'+
+        '<div class="tw"><table><thead><tr><th>Escenario</th><th class="n">Cierres de las 57</th>'+
         '<th class="n">Cash de esas agendas</th><th class="n">Reservas</th><th class="n">Cash total del 10/8</th>'+
         '<th class="n">ROAS</th><th class="n">Cash por asistente</th></tr></thead><tbody>'+
       l.proj.map(function(x,i){
@@ -471,13 +472,14 @@ function pintarSummary(){
           '<td class="n">'+(i===1?'<b>$'+f(x.tot,0)+'</b>':'$'+f(x.tot,0))+'</td>'+
           '<td class="n">'+f(x.roas,1)+'x</td><td class="n">$'+f(x.pa,2)+'</td></tr>';
       }).join('')+'</tbody></table></div>'+
-      '<p class="hint">Hoy van $8.815 de cash ($7.315 de cierres + $1.500 de señas) y $17.495 de facturación firmada. '+
-      'Cierres estimados al corte: unos 14, calculados sobre el ticket promedio histórico de $1.265, porque el conteo exacto todavía no está cargado.</p>'+
+      '<p class="hint">Hoy van <b>10 cierres</b>, $8.815 de cash ($7.315 de cierres + $1.500 de señas) y $17.495 de facturación firmada. '+
+      'Ticket promedio firmado: <b>$1.749</b>, un 38% por encima del histórico de $1.265.</p>'+
       '<div class="clave dark" style="margin-top:22px"><div class="mono">Cómo leerlo contra la serie</div>'+
-      '<p>En el escenario base el 10/8 termina en <b>$18.527</b> y <b>$10,59 por asistente</b>: por debajo del 21/7 en plata total ($20.895) '+
-      'pero por encima en valor por asistente ($9,16), con una sala <b>23% más chica</b> y más enganchada.</p>'+
-      '<p>Ojo con esto: la correlación entre engagement y cash por asistente que da +0,86 con cinco casos predecía más cerca de $17 para un 37,4% de engagement. '+
-      'Si el 10/8 cierra en $10,59, <b>esa correlación se debilita</b> y refuerza que el problema no está en la clase sino de la agenda para abajo.</p></div>';
+      '<p>En el escenario base el 10/8 termina en <b>$19.835</b> con <b>21 cierres</b> y <b>$11,33 por asistente</b>: apenas por debajo del 21/7 en plata total ($20.895) '+
+      'pero por encima en valor por asistente ($9,16), con una sala <b>23% más chica</b> y <b>$164 menos de pauta</b>.</p>'+
+      '<p>Lo que sostiene el resultado es el <b>ticket</b>, no el embudo: $1.749 firmados por cierre contra $1.265 histórico. '+
+      'La conversión de la clase a agenda fue la <b>peor de los nueve lanzamientos</b> (7,0%) y la asistencia a la llamada va en 47,7%. '+
+      'Con las tasas del 30/6 sobre estas mismas 122 agendas habrían salido unos 28 cierres en vez de los 21 proyectados.</p></div>';
   }
   av.innerHTML=ah;
 }
