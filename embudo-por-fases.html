@@ -506,7 +506,7 @@ var S=[
   ask:"¿Cuántos closers hay activos y cuál es la conversión de cada uno? ¿Cuánto tarda hoy el seguimiento de un no-cierre? ¿Se está pre-encuadrando precio antes de la llamada?"},
 
  {id:"cash",num:"08",name:"Cierre → Cash cobrado",sub:"Cuánto de lo firmado entra en el mes",
-  metric:"cob",unit:"%",lower:false,green:65,red:50,qty:"cash",qtyLab:"cash del mes",cv:function(l){return "$"+f(l.cxc,0)},cl:"cash por cierre",
+  metric:"cob",unit:"%",lower:false,green:65,red:50,qty:"cash",qtyLab:"cash del mes",cv:function(l){return "$"+f(l.fact,0)},cl:"facturación firmada",
   hoy:[],
   vars:["Anticipos bajos en los planes de pago.","Mix de producto: 4 de cada 10 cierres son Comunidad y aportan el 5% de la facturación.","Reservas que no se completan."],
   prop:["Subir el anticipo sin tocar el precio: de $905 a $1.000 por cierre ahorra $3.188 al mes.","Correr el mix a Platinum y Gold: de $905 a $1.150 ahorra $7.150 al mes.","Comisionar sobre cash cobrado, no sobre contrato firmado."],
@@ -544,6 +544,8 @@ function pintarSummary(){
    tile("Inversión",ec(l.inv,"$"),false)+
    tile("Cierres",ec(l.ci),false)+
    tile("Cash del mes",ec(l.cash,"$"),true)+
+   tile("Facturación",ec(l.fact,"$")+(l.curso?"*":""),false)+
+   tile("Cobrado de lo firmado",(l.cash==null||l.fact==null)?"en curso":f(l.cob,1)+"%"+(l.curso?"*":""),false)+
    tile("Asistentes",ec(l.asi)+(l.curso?" (pico)":""),false)+
    tile("Engagement alto",l.eng==null?"s/d":f(l.eng,1)+"%",false)+
    tile("ROAS sobre cash",(l.cash==null||l.inv==null)?"en curso":f(l.cash/l.inv,1)+"x"+(l.curso?"*":""),true);
@@ -638,6 +640,7 @@ function pintarStages(){
         '<div class="seriewrap"><div class="serie">'+serie+'</div></div>'+
         '<div class="piso">'+(l.parcial&&l.parcial.indexOf(s.metric)>=0?'<b>Dato parcial: esta etapa todavía no cerró, el semáforo no se aplica.</b> ':'')+piso+'. Costo de esta etapa en '+l.n+': <b>'+(costo(s,l)==="s/d"?"todavía sin dato":costo(s,l)+' '+s.cl)+'</b>.'+
           '</div>'+ (s.id==="agenda"? desgloseHTML(l) : '')+
+        (s.id==="cash"? '<p class="piso">De <b>$'+f(l.fact,0)+'</b> firmados entraron <b>$'+f(l.cash,0)+'</b> en el mes ('+f(l.cob,1)+'%). Quedaron <b>$'+f((l.fact||0)-(l.cash||0),0)+'</b> por cobrar en cuotas. Cash por cierre: <b>$'+f(l.cxc,0)+'</b>.</p>' : '')+
         '<div class="dgrid">'+
           '<div class="dblock"><div class="mono">Qué puede estar frenándola</div><ul>'+s.vars.map(li).join('')+'</ul></div>'+
           '<div class="dblock"><div class="mono">Propuestas del estudio</div><ul>'+s.prop.map(li).join('')+'</ul></div>'+
