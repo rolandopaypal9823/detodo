@@ -392,6 +392,7 @@ footer b{color:var(--panel-ink)}
     <div><label for="k_ca">% Asistente → Agenda</label><input type="number" id="k_ca" value="7.0" step="0.1"></div>
     <div><label for="k_al">% Agenda → Llamada</label><input type="number" id="k_al" value="47.7" step="0.1"></div>
     <div><label for="k_cas">% Cierre sobre asistida</label><input type="number" id="k_cas" value="32.3" step="0.1"></div>
+    <div><label for="k_tic">Ticket promedio firmado (USD)</label><input type="number" id="k_tic" value="1749" step="10"></div>
     <div><label for="k_cxc">Cash por cierre (USD)</label><input type="number" id="k_cxc" value="732" step="10"></div>
   </div></div>
 
@@ -751,13 +752,13 @@ function render(){pintarPicker();pintarSummary();pintarStages()}
 render(); pintarTabla();
 
 /* CALCULADORA */
-var KF=['k_inv','k_web','k_cpl','k_rg','k_gc','k_ca','k_al','k_cas','k_cxc'];
+var KF=['k_inv','k_web','k_cpl','k_rg','k_gc','k_ca','k_al','k_cas','k_tic','k_cxc'];
 var KP={
- hoy:  {k_inv:4904,k_web:4,k_cpl:0.50,k_rg:81.2,k_gc:21.0,k_ca:7.0, k_al:47.7,k_cas:32.3,k_cxc:732},
- paso: {k_inv:4904,k_web:4,k_cpl:0.50,k_rg:85.0,k_gc:24.0,k_ca:10.0,k_al:60.0,k_cas:32.3,k_cxc:850},
- verde:{k_inv:4904,k_web:4,k_cpl:0.50,k_rg:85.0,k_gc:25.0,k_ca:14.0,k_al:65.0,k_cas:32.0,k_cxc:905},
- j30:  {k_inv:5030,k_web:4,k_cpl:0.66,k_rg:86.6,k_gc:20.8,k_ca:7.9, k_al:70.9,k_cas:32.1,k_cxc:905},
- j13:  {k_inv:5005,k_web:4,k_cpl:0.90,k_rg:83.1,k_gc:20.4,k_ca:15.7,k_al:65.4,k_cas:26.5,k_cxc:842}
+ hoy:  {k_inv:4904,k_web:4,k_cpl:0.50,k_rg:81.2,k_gc:21.0,k_ca:7.0, k_al:47.7,k_cas:32.3,k_tic:1749,k_cxc:732},
+ paso: {k_inv:4904,k_web:4,k_cpl:0.50,k_rg:85.0,k_gc:24.0,k_ca:10.0,k_al:60.0,k_cas:32.3,k_tic:1545,k_cxc:850},
+ verde:{k_inv:4904,k_web:4,k_cpl:0.50,k_rg:85.0,k_gc:25.0,k_ca:14.0,k_al:65.0,k_cas:32.0,k_tic:1392,k_cxc:905},
+ j30:  {k_inv:5030,k_web:4,k_cpl:0.66,k_rg:86.6,k_gc:20.8,k_ca:7.9, k_al:70.9,k_cas:32.1,k_tic:1265,k_cxc:905},
+ j13:  {k_inv:5005,k_web:4,k_cpl:0.90,k_rg:83.1,k_gc:20.4,k_ca:15.7,k_al:65.4,k_cas:26.5,k_tic:1275,k_cxc:842}
 };
 var MIO=K+'calc_mio';
 function kv(i){var x=parseFloat(document.getElementById(i).value);return isNaN(x)?0:x}
@@ -777,18 +778,23 @@ function kcalc(){
   var reg = cpl>0 ? inv/cpl : 0;
   var gru = reg*kv('k_rg')/100, cla = gru*kv('k_gc')/100, ag = cla*kv('k_ca')/100;
   var lla = ag*kv('k_al')/100, ci = lla*kv('k_cas')/100, cash = ci*kv('k_cxc');
+  var fact = ci*kv('k_tic'), factM = fact*web, cob = fact>0 ? cash/fact*100 : 0;
   var cashM=cash*web, invM=inv*web;
   document.getElementById('ow').innerHTML=
     row('Registros',f(reg,0))+row('Personas en grupo',f(gru,0))+row('Asistentes a la clase',f(cla,0))+
     row('Agendas',f(ag,0))+row('Llamadas asistidas',f(lla,0))+row('Cierres',f(ci,1))+
     row('Costo por agenda', ag>0?'$'+f(inv/ag,1):'—')+row('Costo por cierre', ci>0?'$'+f(inv/ci,0):'—')+
     row('Cash por asistente', cla>0?'$'+f(cash/cla,2):'—')+
+    row('Facturación firmada','$'+f(fact,0))+
+    row('Cobrado de lo firmado', fact>0?f(cob,1)+'%':'—')+
     row('Cash del webinar','$'+f(cash,0),true);
   document.getElementById('om').innerHTML=
     row('Registros',f(reg*web,0))+row('Personas en grupo',f(gru*web,0))+row('Asistentes',f(cla*web,0))+
     row('Agendas',f(ag*web,0))+row('Llamadas asistidas',f(lla*web,0))+row('Cierres',f(ci*web,0))+
     row('Inversión del mes','$'+f(invM,0))+row('ROAS sobre cash', invM>0?f(cashM/invM,1)+'x':'—')+
     row('Agendas por día de llamadas', f(ag*web/20,1))+
+    row('Facturación del mes','$'+f(factM,0))+
+    row('Por cobrar en cuotas','$'+f(factM-cashM,0))+
     row('Cash del mes','$'+f(cashM,0),true);
   var v=document.getElementById('veredicto');
   if(!(cashM>0)){
