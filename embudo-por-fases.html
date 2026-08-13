@@ -117,7 +117,7 @@ h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;margin:30p
 .dblock li::marker{color:var(--muted)}
 
 /* SERIE HISTORICA */
-.serie{display:grid;grid-template-columns:repeat(8,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:6px}
+.serie{display:grid;grid-template-columns:repeat(9,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:6px}
 .sv{background:var(--ground);padding:11px 5px;text-align:center;border:0;width:100%;cursor:pointer;font-family:'Open Sans',sans-serif;display:block}
 .sv:hover{background:var(--fill)}
 .sv:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
@@ -279,15 +279,17 @@ var L=[
  {k:"ABR",n:"Abril",inv:2629,reg:8619,pago:7511,noatr:1108,gru:6490,asi:1350,agtot:201,agcl:279,llam:150,ofer:128,ci:50,cash:32787,fact:70503,
   cpl:0.35,rg:75.3,gc:20.8,ca:14.9,al:53.8,of:85.3,cas:33.3,cxc:611,cob:58.4},
  {k:"2/5",n:"2 de mayo",inv:3456,reg:6043,pago:5158,noatr:885,gru:4152,asi:1150,agtot:196,agcl:216,llam:123,ofer:101,ci:36,cash:13273,fact:40721,
-  cpl:0.67,rg:68.7,gc:27.7,ca:17.0,al:56.9,of:82.1,cas:29.3,cxc:339,cob:38.8},
+  cpl:0.67,rg:68.7,gc:27.7,ca:17.0,al:56.9,of:82.1,cas:29.3,cxc:339,cob:38.8,eng:31.9,dur:88,con:2488},
  {k:"23/5",n:"23 de mayo",inv:5039,reg:7361,pago:6544,noatr:817,gru:5602,asi:1350,agtot:194,agcl:183,llam:105,ofer:30,ci:22,cash:18668,fact:38825,
-  cpl:0.77,rg:76.1,gc:24.1,ca:14.4,al:57.4,of:null,cas:21.0,cxc:777,cob:60.3},
+  cpl:0.77,rg:76.1,gc:24.1,ca:14.4,al:57.4,of:null,cas:21.0,cxc:777,cob:60.3,eng:31.2,dur:95,con:2925},
  {k:"13/6",n:"13 de junio",inv:5005,reg:5899,pago:5561,noatr:338,gru:4902,asi:1000,agtot:157,agcl:156,llam:102,ofer:83,ci:27,cash:24393,fact:49623,
-  cpl:0.90,rg:83.1,gc:20.4,ca:15.7,al:65.4,of:81.4,cas:26.5,cxc:842,cob:66.1},
+  cpl:0.90,rg:83.1,gc:20.4,ca:15.7,al:65.4,of:81.4,cas:26.5,cxc:842,cob:66.1,eng:41.2,dur:106,con:1872},
  {k:"30/6",desg:"70 de la clase 1 + 9 de la clase 2 + 20 de setters + 10 por API",n:"30 de junio",inv:5030,reg:7661,pago:7621,noatr:40,gru:6635,asi:1380,agtot:109,agcl:110,llam:78,ofer:73,ci:25,cash:23565,fact:43821,
-  cpl:0.66,rg:86.6,gc:20.8,ca:7.9,al:70.9,of:93.6,cas:32.1,cxc:905,cob:71.5},
+  cpl:0.66,rg:86.6,gc:20.8,ca:7.9,al:70.9,of:93.6,cas:32.1,cxc:905,cob:71.5,eng:36.5,dur:103,con:2739},
  {k:"21/7",desg:"unas 120 de la clase (5,3% de los asistentes); el resto de setters y API",n:"21 de julio",inv:5068,reg:9966,pago:8738,noatr:1228,gru:8172,asi:2280,agtot:237,agcl:238,llam:141,ofer:null,ci:35,cash:20895,fact:44147,
-  cpl:0.58,rg:82.0,gc:27.9,ca:10.4,al:59.2,of:null,cas:24.8,cxc:558,cob:47.5}
+  cpl:0.58,rg:82.0,gc:27.9,ca:10.4,al:59.2,of:null,cas:24.8,cxc:558,cob:47.5,eng:33.9,dur:115,con:5084},
+ {k:"10/8",n:"10 de agosto",curso:true,inv:null,reg:null,pago:null,noatr:null,gru:null,asi:1750,agtot:null,agcl:null,llam:null,ofer:null,ci:null,cash:null,fact:null,
+  cpl:null,rg:null,gc:null,ca:null,al:null,of:null,cas:null,cxc:null,cob:null,eng:37.4,dur:93,con:3569,cta:89.5}
 ];
 
 var S=[
@@ -316,6 +318,7 @@ var S=[
   metric:"ca",unit:"%",lower:false,green:14,red:10,qty:"agtot",qtyLab:"agendas totales",cv:function(l){return "$"+f(l.inv/l.agtot,1)},cl:"por agenda",
   hoy:["CTA en la clase: QR + link a entrevista de admisión.","Setters con bases priorizadas P0 a P5.","Recordatorios de setters."],
   vars:["Este porcentaje mezcla agendas de la clase con las de setters y API: no mide solo la clase.","El QR y el pitch no capturan la sala en el momento.","Capacidad de setting: 20 agendas el 30/6 contra 85 el 23/5.","Clases cada vez más largas: 88' en mayo, 115' el 21/7.","Fricción de Calendly."],
+  nota:"El estudio sugiere que el engagement de la clase compra agendas. Con los 5 lanzamientos que tienen reporte, la correlación es prácticamente nula (r = −0,09): el 30/6 tuvo 36,5% de engagement alto y la peor agenda de la serie (7,9%). El 10/8 tuvo 37,4% de engagement y 89,5% de retención al CTA, la mejor del ciclo, pero eso todavía no dice cuántas agendas trajo.",
   prop:["Volver al 15,6% del 13/6: los mismos $150K con la mitad de pauta ($17.146 contra $33.561).","Setting sobre asistentes y hot leads, no sobre lista fría.","Hito de 100 agendas de setting por ciclo."],
   ask:"¿Cuántos setters hay activos y cuántas agendas hizo cada uno el último ciclo? ¿El QR se muestra una vez o varias? ¿En qué minuto de la clase aparece el CTA?"},
 
@@ -359,7 +362,7 @@ function fmtv(s,v){ if(v==null) return "s/d"; return s.unit==="$" ? "$"+f(v,2) :
 
 function pintarPicker(){
   document.getElementById('picker').innerHTML=L.map(function(l,i){
-    return '<button class="chip'+(i===cur?' on':'')+'" data-i="'+i+'">'+l.k+'<span>$'+f(l.cash/1000,1)+'k</span></button>';
+    return '<button class="chip'+(i===cur?' on':'')+'" data-i="'+i+'">'+l.k+'<span>'+(l.cash==null?'en curso':'$'+f(l.cash/1000,1)+'k')+'</span></button>';
   }).join('');
   document.querySelectorAll('.chip').forEach(function(b){
     b.addEventListener('click',function(){cur=+b.dataset.i;render()});
@@ -367,13 +370,15 @@ function pintarPicker(){
 }
 function pintarSummary(){
   var l=L[cur];
+  var ec=function(v,pre,suf){return v==null?"en curso":(pre||"")+f(v,0)+(suf||"")};
   document.getElementById('summary').innerHTML=
    tile("Lanzamiento",l.n,false)+
-   tile("Inversión","$"+f(l.inv,0),false)+
-   tile("Cierres",f(l.ci,0),false)+
-   tile("Cash del mes","$"+f(l.cash,0),true)+
-   tile("Facturación","$"+f(l.fact,0),false)+
-   tile("ROAS sobre cash",f(l.cash/l.inv,1)+"x",true);
+   tile("Inversión",ec(l.inv,"$"),false)+
+   tile("Cierres",ec(l.ci),false)+
+   tile("Cash del mes",ec(l.cash,"$"),true)+
+   tile("Asistentes",ec(l.asi)+(l.curso?" (pico)":""),false)+
+   tile("Engagement alto",l.eng==null?"s/d":f(l.eng,1)+"%",false)+
+   tile("ROAS sobre cash",(l.cash==null||l.inv==null)?"en curso":f(l.cash/l.inv,1)+"x",true);
 }
 function tile(lab,val,acc){return '<div class="sc"><div class="mono">'+lab+'</div><div class="v'+(acc?' acc':'')+'">'+val+'</div></div>'}
 
@@ -395,20 +400,21 @@ function pintarStages(){
         '<div class="stnum">'+s.num+'</div>'+
         '<div><div class="stname">'+s.name+'</div><div class="stsub">'+s.sub+'</div></div>'+
         '<div class="stqty"><div class="q">'+(q==null?"s/d":f(q,0))+'</div><div class="c">'+s.qtyLab+'</div></div>'+
-        '<div class="stcost"><div class="cv">'+s.cv(l)+'</div><div class="cl">'+s.cl+'</div></div>'+
+        '<div class="stcost"><div class="cv">'+(l.inv==null?"s/d":s.cv(l))+'</div><div class="cl">'+s.cl+'</div></div>'+
         '<div class="pill '+st+'">'+fmtv(s,v)+'</div>'+
         '<div class="chev">+</div>'+
       '</button>'+
       '<div class="detail">'+
-        '<div class="mono" style="color:var(--muted);margin-top:18px">Serie de los 8 lanzamientos</div>'+
+        '<div class="mono" style="color:var(--muted);margin-top:18px">Serie de los 9 lanzamientos</div>'+
         '<div class="serie">'+serie+'</div>'+
-        '<div class="piso">'+piso+'. Costo de esta etapa en '+l.n+': <b>'+s.cv(l)+' '+s.cl+'</b>.'+
+        '<div class="piso">'+piso+'. Costo de esta etapa en '+l.n+': <b>'+(l.inv==null?"todavía sin inversión cargada":s.cv(l)+' '+s.cl)+'</b>.'+
           (s.id==="agenda"&&l.desg? ' Desglose de las '+f(l.agtot,0)+' agendas de '+l.n+': <b>'+l.desg+'</b>.' : '')+
           (s.id==="agenda"&&!l.desg? ' <b>Falta el desglose</b> de cuántas salieron de la clase y cuántas de setters.' : '')+'</div>'+
         '<div class="dgrid">'+
           '<div class="dblock"><div class="mono">Qué puede estar frenándola</div><ul>'+s.vars.map(li).join('')+'</ul></div>'+
           '<div class="dblock"><div class="mono">Propuestas del estudio</div><ul>'+s.prop.map(li).join('')+'</ul></div>'+
         '</div>'+
+        (s.nota? '<div class="clave" style="margin-top:22px"><div class="mono">Sobre el engagement</div><p>'+s.nota+'</p></div>':'')+
         (s.hoy.length? '<div class="dblock" style="margin-top:22px"><div class="mono">Registrado en el estudio como acción actual</div><ul>'+s.hoy.map(li).join('')+'</ul></div>'
                      : '<div class="dblock" style="margin-top:22px"><div class="mono">Acción actual</div><ul><li style="color:var(--muted)">Sin acción documentada para esta etapa.</li></ul></div>')+
         '<div class="notes">'+
