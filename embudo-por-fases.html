@@ -147,6 +147,36 @@ textarea::placeholder{color:var(--muted);opacity:.8}
   color:var(--ok);opacity:0;transition:opacity .25s}
 .saved.on{opacity:1}
 
+
+/* CALCULADORA */
+.presets{display:flex;flex-wrap:wrap;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:1px}
+.pbtn{flex:1 1 auto;background:var(--ground);border:0;padding:13px 14px;cursor:pointer;color:var(--muted);
+  font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.13em;min-width:120px}
+.pbtn:hover{color:var(--ink);background:var(--fill)}
+.pbtn.on{background:var(--accent);color:var(--accent-ink)}
+.pbtn:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.cgroup{background:var(--fill);padding:22px 24px;margin-bottom:1px}
+.cgroup>.mono{color:var(--accent);margin-bottom:16px}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px}
+.cgrid>div{display:flex;flex-direction:column}
+.cgrid label{flex:1 0 auto;font-family:'JetBrains Mono',monospace;font-size:9.5px;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--muted);margin-bottom:6px;line-height:1.4}
+.cgrid input{width:100%;border:1px solid var(--rule);background:var(--ground);padding:10px 12px;font-size:15px;
+  font-family:'Montserrat',sans-serif;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.cgrid input:focus{outline:2px solid var(--accent);outline-offset:-2px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px}
+@media(max-width:760px){.cols{grid-template-columns:1fr}}
+.colh{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px}
+.orow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px solid var(--rule)}
+.orow:last-child{border-bottom:0}
+.orow .l{font-size:13.5px;color:var(--muted)}
+.orow .v{font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.orow.big .v{font-size:25px;font-weight:900;color:var(--accent)}
+.orow.big .l{color:var(--ink);font-weight:600;font-size:14.5px}
+.meta150{margin-top:20px;padding:18px 22px;background:var(--panel);color:var(--panel-soft);font-size:15px;line-height:1.5}
+.meta150 b{color:var(--panel-ink)}
+
 /* TABLA */
 .tw{overflow-x:auto;border:1px solid var(--rule)}
 table{width:100%;border-collapse:collapse;font-size:13px}
@@ -310,9 +340,45 @@ footer b{color:var(--panel-ink)}
     lo comercial repite el 21/7, no produce los $150K.</p></div>
 </div></section>
 
+<!-- CALCULADORA -->
+<section id="calculadora"><div class="wrap">
+  <div class="shead"><span class="snum">05</span><h2>Calculadora de proyección</h2></div>
+  <p class="dek">Va en el sentido del embudo: ponés la pauta de un webinar y las tasas de cada fase,
+  y devuelve el resultado de ese webinar y del mes completo. Arranca con las tasas reales del 10/8.</p>
+
+  <div class="presets">
+    <button class="pbtn on" data-p="hoy">Hoy · 10/8</button>
+    <button class="pbtn" data-p="paso">Un paso mejor en cada fase</button>
+    <button class="pbtn" data-p="verde">Todos los pisos en verde</button>
+    <button class="pbtn" data-p="j30">Como el 30/6</button>
+    <button class="pbtn" data-p="j13">Como el 13/6</button>
+  </div>
+
+  <div class="cgroup"><div class="mono">Pauta y ritmo</div><div class="cgrid">
+    <div><label for="k_inv">Inversión por webinar (USD)</label><input type="number" id="k_inv" value="4904" step="100"></div>
+    <div><label for="k_web">Webinars por mes</label><input type="number" id="k_web" value="4" step="1" min="1"></div>
+    <div><label for="k_cpl">CPL (USD)</label><input type="number" id="k_cpl" value="0.50" step="0.01"></div>
+  </div></div>
+
+  <div class="cgroup"><div class="mono">Tasas del embudo</div><div class="cgrid">
+    <div><label for="k_rg">% Registro → Grupo</label><input type="number" id="k_rg" value="81.2" step="0.1"></div>
+    <div><label for="k_gc">% Grupo → Clase</label><input type="number" id="k_gc" value="21.0" step="0.1"></div>
+    <div><label for="k_ca">% Asistente → Agenda</label><input type="number" id="k_ca" value="7.0" step="0.1"></div>
+    <div><label for="k_al">% Agenda → Llamada</label><input type="number" id="k_al" value="47.7" step="0.1"></div>
+    <div><label for="k_cas">% Cierre sobre asistida</label><input type="number" id="k_cas" value="32.3" step="0.1"></div>
+    <div><label for="k_cxc">Cash por cierre (USD)</label><input type="number" id="k_cxc" value="732" step="10"></div>
+  </div></div>
+
+  <div class="cols">
+    <div><div class="colh">Por webinar</div><div id="ow"></div></div>
+    <div><div class="colh">Por mes</div><div id="om"></div></div>
+  </div>
+  <div class="meta150" id="veredicto"></div>
+</div></section>
+
 <!-- NOTAS -->
 <section id="notas"><div class="wrap">
-  <div class="shead"><span class="snum">05</span><h2>Tus notas</h2></div>
+  <div class="shead"><span class="snum">06</span><h2>Tus notas</h2></div>
   <p class="dek">Todo lo que escribiste en las fases se guarda en este navegador.
   Exportalo cuando quieras pasarlo al equipo o traerlo de vuelta acá.</p>
   <div class="tools">
@@ -621,4 +687,57 @@ document.getElementById('borrar').addEventListener('click',function(){
 
 function render(){pintarPicker();pintarSummary();pintarStages()}
 render(); pintarTabla();
+
+/* CALCULADORA */
+var KF=['k_inv','k_web','k_cpl','k_rg','k_gc','k_ca','k_al','k_cas','k_cxc'];
+var KP={
+ hoy:  {k_inv:4904,k_web:4,k_cpl:0.50,k_rg:81.2,k_gc:21.0,k_ca:7.0, k_al:47.7,k_cas:32.3,k_cxc:732},
+ paso: {k_inv:4904,k_web:4,k_cpl:0.50,k_rg:85.0,k_gc:24.0,k_ca:10.0,k_al:60.0,k_cas:32.3,k_cxc:850},
+ verde:{k_inv:4904,k_web:4,k_cpl:0.50,k_rg:85.0,k_gc:25.0,k_ca:14.0,k_al:65.0,k_cas:32.0,k_cxc:905},
+ j30:  {k_inv:5030,k_web:4,k_cpl:0.66,k_rg:86.6,k_gc:20.8,k_ca:7.9, k_al:70.9,k_cas:32.1,k_cxc:905},
+ j13:  {k_inv:5005,k_web:4,k_cpl:0.90,k_rg:83.1,k_gc:20.4,k_ca:15.7,k_al:65.4,k_cas:26.5,k_cxc:842}
+};
+function kv(i){var x=parseFloat(document.getElementById(i).value);return isNaN(x)?0:x}
+function row(l,v,big){return '<div class="orow'+(big?' big':'')+'"><span class="l">'+l+'</span><span class="v">'+v+'</span></div>'}
+function kcalc(){
+  var inv=kv('k_inv'), web=Math.max(1,kv('k_web')), cpl=kv('k_cpl');
+  var reg = cpl>0 ? inv/cpl : 0;
+  var gru = reg*kv('k_rg')/100, cla = gru*kv('k_gc')/100, ag = cla*kv('k_ca')/100;
+  var lla = ag*kv('k_al')/100, ci = lla*kv('k_cas')/100, cash = ci*kv('k_cxc');
+  var cashM=cash*web, invM=inv*web;
+  document.getElementById('ow').innerHTML=
+    row('Registros',f(reg,0))+row('Personas en grupo',f(gru,0))+row('Asistentes a la clase',f(cla,0))+
+    row('Agendas',f(ag,0))+row('Llamadas asistidas',f(lla,0))+row('Cierres',f(ci,1))+
+    row('Costo por agenda', ag>0?'$'+f(inv/ag,1):'—')+row('Costo por cierre', ci>0?'$'+f(inv/ci,0):'—')+
+    row('Cash por asistente', cla>0?'$'+f(cash/cla,2):'—')+
+    row('Cash del webinar','$'+f(cash,0),true);
+  document.getElementById('om').innerHTML=
+    row('Registros',f(reg*web,0))+row('Personas en grupo',f(gru*web,0))+row('Asistentes',f(cla*web,0))+
+    row('Agendas',f(ag*web,0))+row('Llamadas asistidas',f(lla*web,0))+row('Cierres',f(ci*web,0))+
+    row('Inversión del mes','$'+f(invM,0))+row('ROAS sobre cash', invM>0?f(cashM/invM,1)+'x':'—')+
+    row('Agendas por día de llamadas', f(ag*web/20,1))+
+    row('Cash del mes','$'+f(cashM,0),true);
+  var d=150000-cashM, v=document.getElementById('veredicto');
+  if(cashM>=150000){
+    v.innerHTML='Con estos números el mes cierra en <b>$'+f(cashM,0)+'</b>: <b>$'+f(cashM-150000,0)+
+      ' por encima</b> de la meta de $150.000, con <b>$'+f(invM,0)+'</b> de pauta y <b>'+f(ci*web,0)+' cierres</b>.';
+  } else {
+    var falta = kv('k_cxc')>0 ? d/kv('k_cxc') : 0;
+    var invNec = cashM>0 ? invM*150000/cashM : 0;
+    v.innerHTML='Con estos números el mes cierra en <b>$'+f(cashM,0)+'</b>. Faltan <b>$'+f(d,0)+
+      '</b> para los $150.000, o sea <b>'+f(falta,0)+' cierres más</b>. Manteniendo estas tasas haría falta llegar a <b>$'+
+      f(invNec,0)+'</b> de pauta mensual, contra los $'+f(invM,0)+' de ahora.';
+  }
+}
+KF.forEach(function(i){document.getElementById(i).addEventListener('input',kcalc)});
+document.querySelectorAll('.pbtn').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.pbtn').forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on');
+    var s=KP[b.dataset.p]; KF.forEach(function(i){document.getElementById(i).value=s[i]});
+    kcalc();
+  });
+});
+kcalc();
+
 </script>
