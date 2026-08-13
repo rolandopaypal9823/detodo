@@ -288,6 +288,15 @@ footer b{color:var(--panel-ink)}
     está en la conversión de la mitad para abajo.</p></div>
 </div></section>
 
+  <div class="clave dark"><div class="mono">4 · La clase agenda siempre lo mismo, sin importar cuánta gente haya</div>
+    <p>Entre el lanzamiento más chico (1.000 asistentes) y el más grande (2.280), la sala se multiplicó por
+    <b>2,3</b>. Las agendas que genera la clase se quedaron entre <b>79 y 150</b> siempre, con un promedio de 115.
+    La correlación entre asistentes y agendas de la clase es <b>r = −0,25</b>.</p>
+    <p>El porcentaje Clase→Agenda que el estudio marca como palanca #1 viene cayendo, pero no porque la clase
+    convierta peor: <b>el numerador está topeado y el denominador crece</b>. Toda la pauta adicional se está
+    convirtiendo en gente que mira la clase y no agenda.</p>
+    <p>Mientras ese techo siga ahí, <b>subir pauta no puede llegar a los $150K</b>. El detalle está en la fase 04.</p></div>
+
 <!-- TEMATICA -->
 <section id="tematica"><div class="wrap">
   <div class="shead"><span class="snum">04</span><h2>Temática, engagement y escala</h2></div>
@@ -431,7 +440,7 @@ var L=[
   cpl:0.90,rg:83.1,gc:20.4,ca:15.7,al:65.4,of:81.4,cas:26.5,cxc:842,cob:66.1,eng:41.2,dur:106,con:1872},
  {k:"30/6",agT:109,agCl:79,agSe:20,agApi:10,n:"30 de junio",inv:5030,reg:7661,pago:7621,noatr:40,gru:6635,asi:1380,agtot:109,agcl:110,llam:78,ofer:73,ci:25,cash:23565,fact:43821,
   cpl:0.66,rg:86.6,gc:20.8,ca:7.9,al:70.9,of:93.6,cas:32.1,cxc:905,cob:71.5,eng:36.5,dur:103,con:2739},
- {k:"21/7",agT:238,agCl:106,agSe:null,agApi:null,n:"21 de julio",inv:5068,reg:9966,pago:8738,noatr:1228,gru:8172,asi:2280,agtot:237,agcl:238,llam:141,ofer:null,ci:35,cash:20895,fact:44147,
+ {k:"21/7",agT:238,agCl:106,agSe:132,agApi:0,n:"21 de julio",inv:5068,reg:9966,pago:8738,noatr:1228,gru:8172,asi:2280,agtot:237,agcl:238,llam:141,ofer:null,ci:35,cash:20895,fact:44147,
   cpl:0.58,rg:82.0,gc:27.9,ca:10.4,al:59.2,of:null,cas:24.8,cxc:558,cob:47.5,eng:33.9,dur:115,con:5084},
  {k:"10/8",agT:122,agCl:100,agSe:22,agApi:0,n:"10 de agosto",curso:true,parcial:["al","cas","cob"],
   inv:4904,reg:10238,pago:9750,noatr:488,gru:8315,asi:1750,agtot:122,agcl:122,llam:31,ofer:28,ci:10,
@@ -588,13 +597,19 @@ function desgloseHTML(cur){
    '<div class="tw"><table><thead><tr><th>Lanzamiento</th><th class="n">Asistentes</th><th class="n">De la clase</th>'+
    '<th class="n">De setters</th><th class="n">Por API</th><th class="n">Total</th><th class="n">Total / asist.</th>'+
    '<th class="n">Clase / asist.</th></tr></thead><tbody>'+r+'</tbody></table></div>'+
-   '<div class="clave dark" style="margin-top:20px"><div class="mono">Se cayeron las tres fuentes a la vez</div>'+
-   '<p><b>La clase sola</b> venía entre 10% y 11,5% de febrero a junio (11,1% en abril, 11,5% el 2/5, 11,2% el 13/6). '+
-   'En los últimos tres lanzamientos está en <b>5,7% · 4,6% · 5,7%</b>: la mitad.</p>'+
-   '<p><b>Los setters</b> hacían entre 45 y 108 agendas propias por ciclo. En el 30/6 hicieron <b>20</b> y en el 10/8 <b>22</b>.</p>'+
-   '<p><b>La API</b> aportaba 55 agendas en abril y 30 el 2/5. En los últimos dos ciclos aportó <b>10 y 0</b>.</p>'+
-   '<p>Por eso el total pasó de <b>272 agendas con 1.350 asistentes</b> en abril a <b>122 con 1.750</b> el 10/8. '+
-   'Ninguna de las tres alcanza por separado.</p></div>';
+   '<div class="clave dark" style="margin-top:20px"><div class="mono">La clase tiene un techo, y no se mueve</div>'+
+   '<p>Ordenados por tamaño de sala, los <b>agendas que genera la clase</b> son: 1.000 asistentes → 112 · '+
+   '1.150 → 132 · 1.350 → 150 · 1.500 → 128 · <b>1.750 → 100</b> · <b>2.280 → 106</b>.</p>'+
+   '<p>La sala varió <b>2,3 veces</b> entre el lanzamiento más chico y el más grande, y las agendas de la clase '+
+   'se quedaron siempre entre <b>79 y 150, con un promedio de 115</b>. La correlación entre asistentes y agendas '+
+   'de la clase es <b>r = −0,25</b>: no existe.</p>'+
+   '<p>Eso quiere decir que el porcentaje Clase→Agenda no bajó porque la clase convierta peor. Bajó porque '+
+   '<b>el numerador está clavado y el denominador creció</b>. Si el 21/7 hubiera convertido como abril, sus 2.280 '+
+   'asistentes habrían dado <b>253 agendas de clase</b>. Dio 106.</p>'+
+   '<p><b>Comprar más asistentes no compra más agendas.</b> Hay algo que topea la clase alrededor de 115: '+
+   'cuántos horarios se abren en el calendario, cuánta gente procesa el pico del CTA, o la fricción del propio '+
+   'formulario. Es lo primero que hay que medir, porque mientras ese techo esté ahí, toda la pauta extra se '+
+   'convierte en asistentes que no agendan.</p></div>';
 }
 function pintarStages(){
   var l=L[cur];
