@@ -199,6 +199,7 @@ footer b{color:var(--panel-ink)}
 
   <div class="picker" id="picker"></div>
   <div class="summary" id="summary"></div>
+  <div id="aviso"></div>
   <div id="stages"></div>
 
   <div class="clave" style="margin-top:30px"><div class="mono">Cómo leer las cantidades</div>
@@ -264,7 +265,7 @@ footer b{color:var(--panel-ink)}
       <tr class="acc"><td><b>13/6</b></td><td><b>Procrastinación</b></td><td class="n">1.000</td><td class="n"><b>41,2%</b></td><td class="n">106'</td><td class="n">15,7%</td><td class="n">$24.393</td><td class="n"><b>$24,39</b></td></tr>
       <tr><td>30/6</td><td>Escalá tu vida</td><td class="n">1.380</td><td class="n">36,5%</td><td class="n">103'</td><td class="n">7,9%</td><td class="n">$23.565</td><td class="n">$17,08</td></tr>
       <tr><td>21/7</td><td>No te falta disciplina</td><td class="n">2.280</td><td class="n">33,9%</td><td class="n">115'</td><td class="n">10,4%</td><td class="n">$20.895</td><td class="n">$9,16</td></tr>
-      <tr><td>10/8</td><td>Cumplís con todos menos con vos</td><td class="n">1.750</td><td class="n">37,4%</td><td class="n">93'</td><td class="n">en curso</td><td class="n">en curso</td><td class="n">en curso</td></tr>
+      <tr><td>10/8</td><td>Cumplís con todos menos con vos</td><td class="n">1.750</td><td class="n">37,4%</td><td class="n">93'</td><td class="n">s/d</td><td class="n">$8.815 <span style="color:var(--muted)">parcial</span></td><td class="n">$5,04 <span style="color:var(--muted)">parcial</span></td></tr>
     </tbody>
   </table></div>
   <p class="hint">10/8: asistentes por pico simultáneo, todavía sin tracker. Retención al CTA 89,5%, la mejor del ciclo.</p>
@@ -326,7 +327,7 @@ footer b{color:var(--panel-ink)}
 
 <footer><div class="wrap">
   <b>Embudo por fases · Estudio maestro de lanzamientos</b><br>
-  Ocho lanzamientos entre febrero y julio de 2026: $31.717 de inversión, 288 cierres, $186.420 de cash.
+  Nueve lanzamientos entre febrero y agosto de 2026. Febrero a julio cerrados: $31.717 de inversión, 288 cierres, $186.420 de cash. El 10/8 está en curso.
   Cash siempre del momento del lanzamiento, sin cuotas posteriores; señas de reservas incluidas en el cash del mes.<br>
   Pisos saludables tomados del estudio maestro. Volúmenes por etapa reconstruidos desde los trackers.
 </div></footer>
@@ -349,8 +350,11 @@ var L=[
   cpl:0.66,rg:86.6,gc:20.8,ca:7.9,al:70.9,of:93.6,cas:32.1,cxc:905,cob:71.5,eng:36.5,dur:103,con:2739},
  {k:"21/7",desg:"unas 120 de la clase (5,3% de los asistentes); el resto de setters y API",n:"21 de julio",inv:5068,reg:9966,pago:8738,noatr:1228,gru:8172,asi:2280,agtot:237,agcl:238,llam:141,ofer:null,ci:35,cash:20895,fact:44147,
   cpl:0.58,rg:82.0,gc:27.9,ca:10.4,al:59.2,of:null,cas:24.8,cxc:558,cob:47.5,eng:33.9,dur:115,con:5084},
- {k:"10/8",n:"10 de agosto",curso:true,inv:null,reg:null,pago:null,noatr:null,gru:null,asi:1750,agtot:null,agcl:null,llam:null,ofer:null,ci:null,cash:null,fact:null,
-  cpl:null,rg:null,gc:null,ca:null,al:null,of:null,cas:null,cxc:null,cob:null,eng:37.4,dur:93,con:3569,cta:89.5}
+ {k:"10/8",n:"10 de agosto",curso:true,parcial:["cob"],
+  inv:4904,reg:10238,pago:9750,noatr:488,gru:8315,asi:1750,agtot:null,agcl:null,llam:null,ofer:null,ci:null,
+  cash:8815,fact:17495,cpl:0.50,rg:81.2,gc:21.0,ca:null,al:null,of:null,cas:null,cxc:null,cob:41.8,
+  eng:37.4,dur:93,con:3569,cta:89.5,
+  aviso:"Datos al corte. El bloque comercial cuenta <b>solo las agendas directas de la clase</b> (fuente Entrevista de Admisión) y quedan <b>unas 50 agendas sin concretar</b>, así que cash y facturación van a subir. Asistentes por pico simultáneo, todavía sin tracker."}
 ];
 
 var S=[
@@ -413,11 +417,17 @@ var S=[
 ];
 
 var cur=7, abiertos={};
-function f(x,d){return (x==null||isNaN(x))?"—":Number(x).toLocaleString('es-AR',{minimumFractionDigits:d,maximumFractionDigits:d})}
-function estado(s,v){
+function f(x,d){return (x==null||!isFinite(x))?"—":Number(x).toLocaleString('es-AR',{minimumFractionDigits:d,maximumFractionDigits:d})}
+function estado(s,v,l){
   if(v==null) return "na";
+  if(l&&l.parcial&&l.parcial.indexOf(s.metric)>=0) return "na";
   if(s.lower) return v<=s.green?"ok":(v>s.red?"bad":"warn");
   return v>=s.green?"ok":(v<s.red?"bad":"warn");
+}
+function costo(s,l){
+  if(l.inv==null) return "s/d";
+  var out=s.cv(l);
+  return /[—∞]|NaN|Infinity/.test(out) ? "s/d" : out;
 }
 function fmtv(s,v){ if(v==null) return "s/d"; return s.unit==="$" ? "$"+f(v,2) : f(v,1)+"%"; }
 
@@ -439,16 +449,19 @@ function pintarSummary(){
    tile("Cash del mes",ec(l.cash,"$"),true)+
    tile("Asistentes",ec(l.asi)+(l.curso?" (pico)":""),false)+
    tile("Engagement alto",l.eng==null?"s/d":f(l.eng,1)+"%",false)+
-   tile("ROAS sobre cash",(l.cash==null||l.inv==null)?"en curso":f(l.cash/l.inv,1)+"x",true);
+   tile("ROAS sobre cash",(l.cash==null||l.inv==null)?"en curso":f(l.cash/l.inv,1)+"x"+(l.curso?"*":""),true);
+  var av=document.getElementById('aviso');
+  if(l.aviso){av.innerHTML='<div class="clave" style="margin:0 0 30px"><div class="mono">Lanzamiento en curso</div><p>'+l.aviso+'</p></div>';}
+  else{av.innerHTML='';}
 }
 function tile(lab,val,acc){return '<div class="sc"><div class="mono">'+lab+'</div><div class="v'+(acc?' acc':'')+'">'+val+'</div></div>'}
 
 function pintarStages(){
   var l=L[cur];
   document.getElementById('stages').innerHTML=S.map(function(s){
-    var v=l[s.metric], st=estado(s,v), q=l[s.qty];
+    var v=l[s.metric], st=estado(s,v,l), q=l[s.qty];
     var serie=L.map(function(x,i){
-      var vv=x[s.metric], e=estado(s,vv), qq=x[s.qty];
+      var vv=x[s.metric], e=estado(s,vv,x), qq=x[s.qty];
       return '<button class="sv '+e+(i===cur?' cur':'')+'" data-go="'+i+'" title="Ver '+x.n+'"><div class="k">'+x.k+'</div><div class="n">'+
         (vv==null?"s/d":(s.unit==="$"?"$"+f(vv,2):f(vv,1)))+'</div><div class="q">'+
         (qq==null?"s/d":f(qq,0))+'</div><div class="b"></div></button>';
@@ -461,14 +474,14 @@ function pintarStages(){
         '<div class="stnum">'+s.num+'</div>'+
         '<div><div class="stname">'+s.name+'</div><div class="stsub">'+s.sub+'</div></div>'+
         '<div class="stqty"><div class="q">'+(q==null?"s/d":f(q,0))+'</div><div class="c">'+s.qtyLab+'</div></div>'+
-        '<div class="stcost"><div class="cv">'+(l.inv==null?"s/d":s.cv(l))+'</div><div class="cl">'+s.cl+'</div></div>'+
+        '<div class="stcost"><div class="cv">'+costo(s,l)+'</div><div class="cl">'+s.cl+'</div></div>'+
         '<div class="pill '+st+'">'+fmtv(s,v)+'</div>'+
         '<div class="chev">+</div>'+
       '</button>'+
       '<div class="detail">'+
         '<div class="mono" style="color:var(--muted);margin-top:18px">Serie de los 9 lanzamientos</div>'+
         '<div class="serie">'+serie+'</div>'+
-        '<div class="piso">'+piso+'. Costo de esta etapa en '+l.n+': <b>'+(l.inv==null?"todavía sin inversión cargada":s.cv(l)+' '+s.cl)+'</b>.'+
+        '<div class="piso">'+(l.parcial&&l.parcial.indexOf(s.metric)>=0?'<b>Dato parcial: esta etapa todavía no cerró, el semáforo no se aplica.</b> ':'')+piso+'. Costo de esta etapa en '+l.n+': <b>'+(costo(s,l)==="s/d"?"todavía sin dato":costo(s,l)+' '+s.cl)+'</b>.'+
           (s.id==="agenda"&&l.desg? ' Desglose de las '+f(l.agtot,0)+' agendas de '+l.n+': <b>'+l.desg+'</b>.' : '')+
           (s.id==="agenda"&&!l.desg? ' <b>Falta el desglose</b> de cuántas salieron de la clase y cuántas de setters.' : '')+'</div>'+
         '<div class="dgrid">'+
@@ -531,7 +544,7 @@ function pintarTabla(){
   rows.forEach(function(r){
     h+='<tr><td class="lab">'+r[0]+'</td>'+L.map(function(l){
       var v=l[r[1]], cls="n";
-      if(r[4]&&byId[r[4]]) cls+=" "+estado(byId[r[4]],v);
+      if(r[4]&&byId[r[4]]) cls+=" "+estado(byId[r[4]],v,l);
       var txt = v==null?"s/d":(r[2]==="$"?"$"+f(v,r[3]):(r[2]==="%"?f(v,r[3])+"%":f(v,r[3])));
       return '<td class="'+cls+'">'+txt+'</td>';
     }).join('')+'</tr>';
