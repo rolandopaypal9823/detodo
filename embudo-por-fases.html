@@ -354,7 +354,12 @@ var L=[
   inv:4904,reg:10238,pago:9750,noatr:488,gru:8315,asi:1750,agtot:null,agcl:null,llam:null,ofer:null,ci:null,
   cash:8815,fact:17495,cpl:0.50,rg:81.2,gc:21.0,ca:null,al:null,of:null,cas:null,cxc:null,cob:41.8,
   eng:37.4,dur:93,con:3569,cta:89.5,
-  aviso:"Datos al corte. El bloque comercial cuenta <b>solo las agendas directas de la clase</b> (fuente Entrevista de Admisión) y quedan <b>unas 50 agendas sin concretar</b>, así que cash y facturación van a subir. Asistentes por pico simultáneo, todavía sin tracker."}
+  aviso:"Datos al corte. El bloque comercial cuenta <b>solo las agendas directas de la clase</b> (fuente Entrevista de Admisión) y quedan <b>unas 50 agendas sin concretar</b>. Además hay <b>6 reservas: 3 ya se efectuaron y 3 siguen abiertas por $5.900</b>. Asistentes por pico simultáneo, todavía sin tracker.",
+  proj:[
+   {n:"Conservador",d:"tasas del 21/7: 59,2% de asistencia, 24,8% de cierre, $558 por cierre",ci:7,ca:4096,re:1967,tot:14878,roas:3.0,pa:8.50},
+   {n:"Base",d:"promedio de 30/6 y 21/7: 65% de asistencia, 28,5% de cierre, $730 por cierre",ci:9,ca:6762,re:2950,tot:18527,roas:3.8,pa:10.59},
+   {n:"Optimista",d:"tasas del 30/6: 70,9% de asistencia, 32,1% de cierre, $905 por cierre",ci:11,ca:10298,re:5900,tot:25013,roas:5.1,pa:14.29}
+  ]}
 ];
 
 var S=[
@@ -451,8 +456,30 @@ function pintarSummary(){
    tile("Engagement alto",l.eng==null?"s/d":f(l.eng,1)+"%",false)+
    tile("ROAS sobre cash",(l.cash==null||l.inv==null)?"en curso":f(l.cash/l.inv,1)+"x"+(l.curso?"*":""),true);
   var av=document.getElementById('aviso');
-  if(l.aviso){av.innerHTML='<div class="clave" style="margin:0 0 30px"><div class="mono">Lanzamiento en curso</div><p>'+l.aviso+'</p></div>';}
-  else{av.innerHTML='';}
+  var ah='';
+  if(l.aviso) ah+='<div class="clave" style="margin:0 0 1px"><div class="mono">Lanzamiento en curso</div><p>'+l.aviso+'</p></div>';
+  if(l.proj){
+    ah+='<h3 style="margin:26px 0 6px">Adónde llega cuando se concreten las 50 agendas</h3>'+
+        '<p class="dek" style="margin-bottom:14px">Las 50 agendas abiertas pasadas por las tasas de asistencia, cierre y cash por venta de los ciclos anteriores, más las 3 reservas todavía sin cobrar.</p>'+
+        '<div class="tw"><table><thead><tr><th>Escenario</th><th class="n">Cierres de las 50</th>'+
+        '<th class="n">Cash de esas agendas</th><th class="n">Reservas</th><th class="n">Cash total del 10/8</th>'+
+        '<th class="n">ROAS</th><th class="n">Cash por asistente</th></tr></thead><tbody>'+
+      l.proj.map(function(x,i){
+        return '<tr'+(i===1?' class="acc"':'')+'><td'+(i===1?'><b>'+x.n+'</b>':'>'+x.n)+
+          '<div style="font-size:11.5px;color:var(--muted);margin-top:3px">'+x.d+'</div></td>'+
+          '<td class="n">'+f(x.ci,0)+'</td><td class="n">$'+f(x.ca,0)+'</td><td class="n">$'+f(x.re,0)+'</td>'+
+          '<td class="n">'+(i===1?'<b>$'+f(x.tot,0)+'</b>':'$'+f(x.tot,0))+'</td>'+
+          '<td class="n">'+f(x.roas,1)+'x</td><td class="n">$'+f(x.pa,2)+'</td></tr>';
+      }).join('')+'</tbody></table></div>'+
+      '<p class="hint">Hoy van $8.815 de cash ($7.315 de cierres + $1.500 de señas) y $17.495 de facturación firmada. '+
+      'Cierres estimados al corte: unos 14, calculados sobre el ticket promedio histórico de $1.265, porque el conteo exacto todavía no está cargado.</p>'+
+      '<div class="clave dark" style="margin-top:22px"><div class="mono">Cómo leerlo contra la serie</div>'+
+      '<p>En el escenario base el 10/8 termina en <b>$18.527</b> y <b>$10,59 por asistente</b>: por debajo del 21/7 en plata total ($20.895) '+
+      'pero por encima en valor por asistente ($9,16), con una sala <b>23% más chica</b> y más enganchada.</p>'+
+      '<p>Ojo con esto: la correlación entre engagement y cash por asistente que da +0,86 con cinco casos predecía más cerca de $17 para un 37,4% de engagement. '+
+      'Si el 10/8 cierra en $10,59, <b>esa correlación se debilita</b> y refuerza que el problema no está en la clase sino de la agenda para abajo.</p></div>';
+  }
+  av.innerHTML=ah;
 }
 function tile(lab,val,acc){return '<div class="sc"><div class="mono">'+lab+'</div><div class="v'+(acc?' acc':'')+'">'+val+'</div></div>'}
 
