@@ -421,7 +421,7 @@ var L=[
   cpl:0.46,rg:88.8,gc:27.0,ca:15.7,al:60.3,of:89.7,cas:38.4,cxc:626,cob:72.9},
  {k:"MAR",agT:165,agCl:115,agSe:45,agApi:null,n:"Marzo",inv:3021,reg:6330,pago:5035,noatr:1295,gru:5134,asi:1150,agtot:115,agcl:167,llam:113,ofer:91,ci:37,cash:15676,fact:45583,
   cpl:0.60,rg:81.1,gc:22.4,ca:10.0,al:67.7,of:80.5,cas:32.7,cxc:389,cob:45.1},
- {k:"ABR",agT:201,agCl:null,agSe:null,agApi:null,n:"Abril",inv:2629,reg:8619,pago:7511,noatr:1108,gru:6490,asi:1350,agtot:201,agcl:279,llam:150,ofer:128,ci:50,cash:32787,fact:70503,
+ {k:"ABR",agT:272,agCl:150,agSe:67,agApi:55,n:"Abril",inv:2629,reg:8619,pago:7511,noatr:1108,gru:6490,asi:1350,agtot:201,agcl:279,llam:150,ofer:128,ci:50,cash:32787,fact:70503,
   cpl:0.35,rg:75.3,gc:20.8,ca:14.9,al:53.8,of:85.3,cas:33.3,cxc:611,cob:58.4},
  {k:"2/5",agT:207,agCl:132,agSe:45,agApi:30,n:"2 de mayo",inv:3456,reg:6043,pago:5158,noatr:885,gru:4152,asi:1150,agtot:196,agcl:216,llam:123,ofer:101,ci:36,cash:13273,fact:40721,
   cpl:0.67,rg:68.7,gc:27.7,ca:17.0,al:56.9,of:82.1,cas:29.3,cxc:339,cob:38.8,eng:31.9,dur:88,con:2488},
@@ -582,19 +582,19 @@ function desgloseHTML(cur){
   return '<h3 style="margin:26px 0 10px">De dónde sale cada agenda</h3>'+
    '<p class="hint" style="margin:0 0 12px">El porcentaje del semáforo usa las agendas <b>totales</b>, que es como lo calcula el estudio. '+
    'La última columna aísla lo que produce la clase por sí sola, que es la métrica que hay que mover.<br>'+
-   'Totales tomados del tracker de cada lanzamiento; en ABR y 13/6 no hay tracker a mano y el total es el derivado. '+
-   '<b>Ojo con marzo:</b> el estudio le carga 10,0% porque ahí midió solo las agendas de la clase; sobre el total son 14,3%, '+
-   'que es la base con la que se mide el resto.</p>'+
+   'Totales tomados del tracker de cada lanzamiento. '+
+   '<b>Ojo con marzo y abril:</b> el estudio les carga 10,0% y 14,9% porque toma el campo "setters + primer clase" del tracker, '+
+   'que deja afuera la segunda clase y la API. Sobre el total real son <b>14,3% y 20,1%</b>.</p>'+
    '<div class="tw"><table><thead><tr><th>Lanzamiento</th><th class="n">Asistentes</th><th class="n">De la clase</th>'+
    '<th class="n">De setters</th><th class="n">Por API</th><th class="n">Total</th><th class="n">Total / asist.</th>'+
    '<th class="n">Clase / asist.</th></tr></thead><tbody>'+r+'</tbody></table></div>'+
-   '<div class="clave dark" style="margin-top:20px"><div class="mono">Se cayeron las dos fuentes a la vez</div>'+
-   '<p><b>La clase sola</b> venía en 11,5% el 2/5 y 11,2% el 13/6. En los últimos tres lanzamientos está en '+
-   '<b>5,7% · 4,6% · 5,7%</b>: la mitad.</p>'+
-   '<p><b>Los setters</b> hacían 45 agendas propias por ciclo de forma estable, y 85 el 23/5. En el 30/6 hicieron '+
-   '<b>20</b> y en el 10/8 <b>22</b>.</p>'+
-   '<p>Por eso el total pasó de <b>207 agendas con 1.150 asistentes</b> el 2/5 a <b>122 con 1.750</b> el 10/8. '+
-   'No alcanza con arreglar una sola de las dos.</p></div>';
+   '<div class="clave dark" style="margin-top:20px"><div class="mono">Se cayeron las tres fuentes a la vez</div>'+
+   '<p><b>La clase sola</b> venía entre 10% y 11,5% de febrero a junio (11,1% en abril, 11,5% el 2/5, 11,2% el 13/6). '+
+   'En los últimos tres lanzamientos está en <b>5,7% · 4,6% · 5,7%</b>: la mitad.</p>'+
+   '<p><b>Los setters</b> hacían entre 45 y 108 agendas propias por ciclo. En el 30/6 hicieron <b>20</b> y en el 10/8 <b>22</b>.</p>'+
+   '<p><b>La API</b> aportaba 55 agendas en abril y 30 el 2/5. En los últimos dos ciclos aportó <b>10 y 0</b>.</p>'+
+   '<p>Por eso el total pasó de <b>272 agendas con 1.350 asistentes</b> en abril a <b>122 con 1.750</b> el 10/8. '+
+   'Ninguna de las tres alcanza por separado.</p></div>';
 }
 function pintarStages(){
   var l=L[cur];
