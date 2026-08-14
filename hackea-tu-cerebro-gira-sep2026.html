@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <style>
+   html, body, [class^="c-"], [class*=" c-"] {
+  margin: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.hero { margin-top: 0 !important; }
+html, body { overflow-x: hidden !important; }
+.hero, .marquee, section, footer {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+}
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hackea Tu Cerebro — Nico Fernández Miranda en vivo · Gira Septiembre 2026</title>
+<meta name="description" content="La neurociencia aplicada al rendimiento cotidiano. Nico Fernández Miranda en vivo: CABA, San Rafael, Mendoza, San Juan y clase online en vivo. Gira Septiembre 2026.">
+<meta property="og:title" content="Hackea Tu Cerebro — en vivo · Gira Septiembre 2026">
+<meta property="og:description" content="Una noche para entender cómo funciona tu cerebro y usarlo a tu favor. 4 ciudades + clase online en vivo. Elegí tu función.">
+<meta property="og:image" content="assets/og-flyer.jpg">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nfm-blue:#0c3452;
+  --nfm-blue-dark:#061d30;
+  --nfm-blue-light:#e7edf2;
+  --nfm-orange:#ff6602;
+  --nfm-white:#ffffff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans',sans-serif;color:var(--nfm-blue);background:var(--nfm-white);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+strong{font-weight:700}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.mono{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.22em;font-size:12px;font-weight:500}
+h1,h2,h3{font-family:'Montserrat',sans-serif;line-height:1.08}
+section{padding:88px 0}
+.o{color:var(--nfm-orange)}
+/* ---------- CTA ---------- */
+.btn{display:inline-block;background:var(--nfm-orange);color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;letter-spacing:.02em;padding:18px 44px;border-radius:10px;text-decoration:none;border:none;cursor:pointer;box-shadow:0 12px 32px rgba(255,102,2,.35);transition:transform .15s ease,box-shadow .15s ease;text-align:center}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(255,102,2,.45)}
+.btn-note{margin-top:12px;font-size:13.5px;opacity:.75}
+/* ---------- HERO ---------- */
+.hero{background:var(--nfm-blue-dark);color:#fff;padding:0;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;min-height:600px;padding:80px 24px 64px;position:relative;z-index:1}
+.hero .mono{color:rgba(255,255,255,.65)}
+.hero h1{font-size:clamp(52px,7.5vw,92px);font-weight:900;text-transform:uppercase;margin:20px 0 14px}
+.hero-sub{font-family:'Montserrat',sans-serif;font-weight:600;font-size:clamp(17px,2.2vw,22px);color:var(--nfm-blue-light);margin-bottom:30px;max-width:540px}
+.hero-sub strong{color:#fff}
+.hero-cta-row{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.hero-photo{position:relative}
+.hero-img{aspect-ratio:3/4;max-width:400px;width:100%;margin-left:auto;object-fit:cover;border-radius:12px;box-shadow:0 40px 100px rgba(0,0,0,.45)}
+.show-img{aspect-ratio:4/3;width:100%;object-fit:cover;border-radius:12px;box-shadow:0 40px 100px rgba(0,0,0,.45)}
+.stage-pill{display:inline-flex;align-items:center;gap:12px;background:rgba(255,102,2,.12);border:1.5px solid var(--nfm-orange);border-radius:100px;padding:9px 20px;margin-bottom:26px}
+.stage-pill .mono{color:var(--nfm-orange);font-weight:700}
+/* countdown */
+.count{display:flex;gap:14px;margin-top:26px}
+.count div{text-align:center;min-width:64px;background:rgba(231,237,242,.07);border-radius:10px;padding:12px 8px}
+.count b{display:block;font-family:'Montserrat',sans-serif;font-weight:900;font-size:30px;color:#fff}
+.count span{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.count-label{margin-top:12px;font-size:13px;color:rgba(255,255,255,.6)}
+/* ---------- MARQUEE ---------- */
+.marquee{display:flex;overflow:hidden;background:var(--nfm-orange);padding:13px 0;user-select:none}
+.marquee .track{flex-shrink:0;display:flex;align-items:center;animation:mq 55s linear infinite;will-change:transform}
+.marquee .track span{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.2em;font-size:12px;font-weight:700;color:var(--nfm-blue-dark);white-space:nowrap;padding:0 18px}
+.marquee .track i{font-style:normal;color:rgba(6,29,48,.5);font-size:11px}
+@keyframes mq{to{transform:translateX(-100%)}}
+@media (prefers-reduced-motion: reduce){.marquee .track{animation:none}}
+/* ---------- SECTION HEADERS ---------- */
+.sec-label{color:var(--nfm-orange);font-weight:700;margin-bottom:16px;display:block}
+h2{font-size:clamp(30px,4vw,44px);font-weight:800;margin-bottom:22px;max-width:760px}
+.lead{font-size:clamp(17px,2vw,20px);max-width:680px}
+/* ---------- CARDS CON IMAGEN (dolores / beneficios) ---------- */
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:44px 0 36px}
+.card{border:2.5px solid var(--nfm-blue);border-radius:12px;overflow:hidden;background:#fff}
+.card .card-img{aspect-ratio:16/10;border-radius:0;border:none;border-bottom:1.5px dashed rgba(12,52,82,.3);background:var(--nfm-blue-light);color:rgba(12,52,82,.5)}
+.card img.card-img{width:100%;object-fit:cover;border-bottom:none}
+.card p{font-size:16px;padding:22px 22px 26px}
+.card p strong{color:var(--nfm-orange)}
+.cards3.benefit .card{border-color:transparent;box-shadow:0 24px 60px rgba(12,52,82,.10)}
+.cards3.benefit .card p strong{color:var(--nfm-blue);background:linear-gradient(transparent 62%, rgba(255,102,2,.28) 62%)}
+.punch{font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(20px,2.6vw,26px);max-width:720px}
+.punch strong{color:var(--nfm-orange)}
+/* ---------- SHOW ---------- */
+.show{background:var(--nfm-blue-dark);color:#fff}
+.show h2{color:#fff}
+.show .lead{color:rgba(255,255,255,.85)}
+.show-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:center}
+.show-stat{display:flex;align-items:center;gap:14px;margin-top:34px;border-top:1.5px solid rgba(231,237,242,.15);padding-top:26px}
+.show-stat b{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(38px,5vw,56px);color:var(--nfm-orange);line-height:1}
+.show-stat span{font-size:15px;color:rgba(255,255,255,.75);max-width:220px}
+.show .btn{margin-top:36px}
+/* ---------- FUNCIONES ---------- */
+.tickets{background:var(--nfm-blue-light)}
+.funciones{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:48px 0 12px}
+.funcion{border:2px solid rgba(12,52,82,.25);border-radius:12px;padding:30px 26px;position:relative;background:#fff;display:flex;flex-direction:column;gap:6px}
+.funcion .mono{display:block;color:var(--nfm-orange);font-weight:700;margin-bottom:10px}
+.funcion h3{font-size:24px;font-weight:800;margin-bottom:4px}
+.funcion .venue{font-size:15px;color:rgba(12,52,82,.75);margin-bottom:18px}
+.funcion .btn{margin-top:auto;padding:14px 20px;font-size:15px;box-shadow:0 8px 22px rgba(255,102,2,.28)}
+.funcion .btn.soon{background:transparent;color:rgba(12,52,82,.45);border:2px solid rgba(12,52,82,.25);box-shadow:none;cursor:default;pointer-events:none}
+.funcion.online{background:var(--nfm-blue-dark);border-color:var(--nfm-blue-dark)}
+.funcion.online h3{color:#fff}
+.funcion.online .venue{color:rgba(255,255,255,.7)}
+.funcion-badge{position:absolute;top:-14px;left:24px;background:var(--nfm-orange);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.18em;padding:6px 14px;border-radius:100px}
+.tickets-note{font-size:13.5px;opacity:.6;text-align:center;margin-top:24px}
+/* ---------- CASOS DE ÉXITO ---------- */
+.proof-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:44px 0 52px}
+.pstat{text-align:center;padding:30px 18px;border:2.5px solid var(--nfm-blue);border-radius:12px}
+.pstat b{display:block;font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(34px,4.4vw,48px);color:var(--nfm-orange);line-height:1;margin-bottom:10px}
+.pstat span{font-size:14.5px}
+.logos-label{margin-bottom:26px;color:rgba(12,52,82,.55)}
+.logo-marquee{display:flex;overflow:hidden;user-select:none;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.logo-marquee .track{flex-shrink:0;display:flex;align-items:center;animation:mq 30s linear infinite;will-change:transform}
+.logo-marquee .track span{font-family:'Montserrat',sans-serif;font-weight:800;font-size:21px;letter-spacing:.02em;color:rgba(12,52,82,.5);white-space:nowrap;padding:0 34px;text-transform:uppercase}
+.logo-marquee .track span img{height:32px;width:auto;max-width:170px;display:inline-block;vertical-align:middle;opacity:.65;filter:grayscale(1);object-fit:contain}
+@media (prefers-reduced-motion: reduce){.logo-marquee .track{animation:none}}
+/* ---------- FAQ ---------- */
+.faq-item{border-bottom:1.5px solid var(--nfm-blue-light)}
+.faq-item summary{font-family:'Montserrat',sans-serif;font-weight:700;font-size:17px;padding:20px 0;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq-item summary::after{content:'+';font-weight:400;font-size:26px;color:var(--nfm-orange);flex-shrink:0}
+.faq-item[open] summary::after{content:'–'}
+.faq-item p{padding:0 0 22px;max-width:680px;font-size:16px}
+/* ---------- FINAL ---------- */
+.final{background:var(--nfm-blue-dark);color:#fff;text-align:center}
+.final .mono{color:rgba(255,255,255,.6)}
+.final h2{color:#fff;margin:18px auto 30px;max-width:760px}
+footer{background:var(--nfm-blue-dark);color:rgba(255,255,255,.45);padding:34px 0;font-size:13px;border-top:1px solid rgba(231,237,242,.1)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+/* ---------- STICKY MOBILE BAR ---------- */
+.sticky-bar{position:fixed;bottom:0;left:0;right:0;background:var(--nfm-blue-dark);border-top:2px solid var(--nfm-orange);padding:12px 16px;display:none;align-items:center;justify-content:space-between;gap:12px;z-index:60}
+.sticky-bar .p{color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px;line-height:1.15}
+.sticky-bar .p small{display:block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;color:var(--nfm-orange);font-weight:700;text-transform:uppercase}
+.sticky-bar .btn{padding:12px 22px;font-size:14px;box-shadow:none}
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:900px){
+  section{padding:64px 0}
+  .hero-grid{grid-template-columns:1fr;min-height:0;padding:64px 24px 52px;gap:36px}
+  .hero-img{margin:0 auto;max-width:320px;aspect-ratio:4/5}
+  .cards3,.funciones,.proof-stats{grid-template-columns:1fr}
+  .cards3{gap:14px;margin:36px 0 30px}
+  .funciones{gap:14px;margin:32px 0 8px}
+  .proof-stats{gap:14px;margin:36px 0 40px}
+  .show-grid{grid-template-columns:1fr;gap:32px}
+  .sticky-bar{display:flex;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+  body{padding-bottom:calc(74px + env(safe-area-inset-bottom))}
+}
+@media(max-width:520px){
+  body{font-size:15.5px}
+  .wrap{padding:0 18px}
+  section{padding:46px 0}
+  h2{font-size:25px;margin-bottom:16px}
+  .lead{font-size:15.5px}
+  .sec-label{margin-bottom:12px}
+  .hero-grid{padding:40px 18px 34px;gap:26px}
+  .hero .mono{font-size:10px;letter-spacing:.16em;line-height:1.9}
+  .hero h1{font-size:14vw;margin:12px 0 10px}
+  .hero-sub{font-size:16px;margin-bottom:22px}
+  .hero-img{max-width:250px;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+  .stage-pill{margin-bottom:18px;padding:8px 16px}
+  .stage-pill .mono{font-size:11px}
+  .btn{display:block;width:100%;padding:16px 20px;font-size:16px}
+  .sticky-bar .btn{width:auto}
+  .hero-cta-row{align-items:stretch;width:100%}
+  .btn-note{font-size:12.5px}
+  .count{gap:10px;margin-top:20px}
+  .count div{min-width:56px;padding:9px 6px}
+  .count b{font-size:24px}
+  .count-label{font-size:12px}
+  .card .card-img{aspect-ratio:16/9}
+  .card p{font-size:14.5px;padding:16px 16px 20px}
+  .funcion{padding:20px 18px}
+  .funcion .mono{font-size:10.5px;letter-spacing:.16em;margin-bottom:8px}
+  .funcion h3{font-size:20px}
+  .funcion .venue{font-size:13.5px;margin-bottom:14px}
+  .funcion .btn{padding:13px 16px;font-size:14.5px}
+  .funcion-badge{font-size:9.5px;padding:5px 12px;top:-12px}
+  .tickets-note{font-size:12px;margin-top:18px}
+  .show .btn{margin-top:28px}
+  .faq-item summary{font-size:15px;padding:15px 0}
+  .faq-item p{font-size:14.5px;padding:0 0 18px}
+  footer .wrap{flex-direction:column;gap:6px}
+  .marquee{padding:10px 0}
+  .marquee .track span{font-size:10px;letter-spacing:.14em;padding:0 11px}
+  .logo-marquee .track span{padding:0 18px}
+  .logo-marquee .track span img{height:24px;max-width:120px}
+  .punch{font-size:18px}
+  .show-stat{gap:12px;padding-top:18px;margin-top:24px}
+  .show-stat b{font-size:34px}
+  .show-stat span{font-size:13.5px}
+  .pstat{padding:20px 14px}
+  .pstat b{font-size:30px;margin-bottom:8px}
+  .pstat span{font-size:13.5px}
+  .proof-stats{margin:28px 0 32px}
+  .logos-label{margin-bottom:18px}
+  .final h2{margin:14px auto 24px}
+  .sticky-bar .p{font-size:15px}
+}
+</style>
+</head>
+<body>
+<!-- ============ 1. HERO: OFERTA / PROMESA / TRANSFORMACIÓN ============ -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="mono">GIRA SEPTIEMBRE 2026 · 4 CIUDADES + CLASE ONLINE EN VIVO</span>
+      <h1>Hackea tu <span class="o">cerebro</span></h1>
+      <p class="hero-sub">Una noche en vivo para entender cómo funciona tu cerebro y <strong>empezar a usarlo a tu favor</strong>.</p>
+      <div class="stage-pill">
+        <span class="mono" id="stage-name">PREVENTA</span>
+      </div>
+      <div class="hero-cta-row">
+        <a class="btn" href="#funciones">ELEGIR MI FUNCIÓN</a>
+        <span class="btn-note" id="stage-note"></span>
+      </div>
+      <div class="count" id="count">
+        <div><b id="cm">15</b><span>min</span></div>
+        <div><b id="cs">00</b><span>seg</span></div>
+      </div>
+      <p class="count-label" id="count-label">Te reservamos el descuento de preventa por:</p>
+    </div>
+    <div class="hero-photo">
+      <img class="hero-img" src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/IMG_9766_1.jpg?v=1773009489&width=1000" alt="Nico Fernández Miranda en escena" loading="eager">
+    </div>
+  </div>
+</header>
+<div class="marquee" aria-hidden="true"><div class="track js-mtrack"></div><div class="track js-mtrack"></div></div>
+<!-- ============ 2. DOLORES ============ -->
+<section>
+  <div class="wrap">
+    <span class="mono sec-label">¿Te suena?</span>
+    <h2>Tu día te maneja a vos</h2>
+    <div class="cards3">
+      <div class="card">
+        <img class="card-img" src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/Imagen_generada_1_28.png?v=1783790460&width=900" alt="Con el teléfono en la mano mientras la familia comparte la mesa" loading="lazy">
+        <p>Estás con las personas que más querés, pero <strong>tu cabeza está en el teléfono</strong>. Presente de cuerpo, ausente de verdad.</p>
+      </div>
+      <div class="card">
+        <img class="card-img" src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/Imagen_generada_1_27.png?v=1783790247&width=900" alt="Agotado a media tarde frente al escritorio" loading="lazy">
+        <p>A las tres de la tarde <strong>el cerebro no te da más</strong>. Café número tres, y todavía queda medio día.</p>
+      </div>
+      <div class="card">
+        <img class="card-img" src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/Imagen_generada_1_25.png?v=1783789337&width=900" alt="Con el teléfono en la cara a la madrugada" loading="lazy">
+        <p>Dijiste "hoy me acuesto temprano" y a la 1 AM <strong>seguís con el teléfono en la cara</strong>.</p>
+      </div>
+    </div>
+    <p class="punch"><strong>No es falta de voluntad.</strong> Vivimos en un mundo hiperconectado y nadie te dio las herramientas para manejarlo.</p>
+  </div>
+</section>
+<!-- ============ 3. BENEFICIOS ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <span class="mono sec-label">Lo que te llevás</span>
+    <h2>Salís del teatro con el manual</h2>
+    <div class="cards3 benefit">
+      <div class="card">
+        <img class="card-img" src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/Imagen_generada_1_29.png?v=1783792206&width=900" alt="Trabajando con foco total" loading="lazy">
+        <p><strong>Foco a demanda.</strong> Entendé qué enciende y apaga tu atención, para arrancar sin pelearte con vos.</p>
+      </div>
+      <div class="card">
+        <img class="card-img" src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/Imagen_generada_1_33.png?v=1783977658&width=900" alt="Con energía durante todo el día" loading="lazy">
+        <p><strong>Energía que dura el día entero.</strong> Sueño, descanso y estrés manejados con ciencia, no con café.</p>
+      </div>
+      <div class="card">
+        <img class="card-img" src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/Imagen_generada_1_31.png?v=1783792182&width=900" alt="Hábitos que se sostienen en el tiempo" loading="lazy">
+        <p><strong>Hábitos que se sostienen solos</strong>, sin depender de la motivación del lunes.</p>
+      </div>
+    </div>
+    <p class="punch">Y además, <strong>te vas a reír</strong>. Porque cuando te reís, el conocimiento se consolida.</p>
+  </div>
+</section>
+<div class="marquee" aria-hidden="true"><div class="track js-mtrack"></div><div class="track js-mtrack"></div></div>
+<!-- ============ 4. PRESENTACIÓN DEL PRODUCTO ============ -->
+<section class="show" id="show">
+  <div class="wrap">
+    <div class="show-grid">
+      <div>
+        <span class="mono sec-label">Gira Septiembre 2026</span>
+        <h2>Hackea Tu Cerebro, en vivo</h2>
+        <p class="lead">Se llama igual que el libro, pero esto es otra cosa: Nico en escena, desarmando el algoritmo de tu cerebro (dopamina, foco, hábitos, sueño) con neurociencia y mucho humor. <strong>Te vas a reír</strong> y te vas a llevar herramientas para aplicar desde el día siguiente. Nada de monólogo aburrido.</p>
+        <div class="show-stat">
+          <b>+15.000</b>
+          <span>personas ya lo vieron exponer en vivo</span>
+        </div>
+        <a class="btn" href="#funciones">QUIERO ESTAR ESA NOCHE</a>
+      </div>
+      <img class="show-img" src="https://cdn.shopify.com/s/files/1/0968/8865/1849/files/IMG_3913_Original.jpg?v=1778944516&width=1000" alt="Nico Fernández Miranda exponiendo en vivo" loading="lazy">
+    </div>
+  </div>
+</section>
+<!-- ============ 5. FUNCIONES DISPONIBLES ============ -->
+<section class="tickets" id="funciones">
+  <div class="wrap">
+    <span class="mono sec-label">Funciones disponibles</span>
+    <h2>Elegí tu función y asegurá tu lugar</h2>
+    <p class="lead">Cuatro ciudades y una clase online en vivo. Cada botón te lleva <strong>directo a la compra</strong> en la ticketera oficial de esa función.</p>
+    <div class="funciones">
+      <div class="funcion">
+        <span class="mono">VIE 11 SEP · 20:30</span>
+        <h3>Buenos Aires</h3>
+        <p class="venue">ND Teatro · Paraguay 918, CABA</p>
+        <a class="btn js-buy" href="https://www.plateanet.com/obra/34841?obra=NICOLAS+FERNANDEZ+MIRANDA+PRESENTA+HACKEA+TU+CEREBRO&paso=inicio&utm_source=landing&utm_medium=cta&utm_campaign=htc-gira-sep2026" target="_blank" rel="noopener">COMPRAR ENTRADA</a>
+      </div>
+      <div class="funcion">
+        <span class="mono">VIE 18 SEP</span>
+        <h3>San Rafael</h3>
+        <p class="venue">Mendoza · Sala a confirmar</p>
+        <a class="btn js-buy" href="https://www.entradaweb.com.ar/evento/7950d7fa/step/1?utm_source=landing&utm_medium=cta&utm_campaign=htc-gira-sep2026" target="_blank" rel="noopener">COMPRAR ENTRADA</a>
+      </div>
+      <div class="funcion">
+        <span class="mono">SÁB 19 SEP · 20:30</span>
+        <h3>Mendoza</h3>
+        <p class="venue">El Círculo Teatro · O. V. Andrade 510, Ciudad de Mendoza</p>
+        <a class="btn js-buy" href="https://www.entradaweb.com.ar/evento/e3c65648/step/1?utm_source=landing&utm_medium=cta&utm_campaign=htc-gira-sep2026" target="_blank" rel="noopener">COMPRAR ENTRADA</a>
+      </div>
+      <div class="funcion">
+        <span class="mono">DOM 20 SEP · 20:30</span>
+        <h3>San Juan</h3>
+        <p class="venue">Auditorio Museo Franklin Rawson · Av. Lib. San Martín 862, San Juan</p>
+        <a class="btn js-buy" href="https://www.entradaweb.com.ar/evento/49305f4e/step/1?utm_source=landing&utm_medium=cta&utm_campaign=htc-gira-sep2026" target="_blank" rel="noopener">COMPRAR ENTRADA</a>
+      </div>
+      <div class="funcion online">
+        <span class="mono">DESDE DONDE ESTÉS</span>
+        <h3>Clase online en vivo</h3>
+        <p class="venue">Si no llegás a ninguna ciudad, sumate a la clase en vivo por internet.</p>
+        <a class="btn js-buy" href="https://mba.nicolasfernandezmiranda.com/webinar?utm_content=bienvenida" target="_blank" rel="noopener">QUIERO SUMARME</a>
+      </div>
+    </div>
+    <p class="tickets-note">La compra se hace de forma segura en la ticketera oficial de cada función: Plateanet en Buenos Aires y Entradaweb en San Rafael, Mendoza y San Juan.</p>
+  </div>
+</section>
+<!-- ============ 6. CASOS DE ÉXITO ============ -->
+<section>
+  <div class="wrap">
+    <span class="mono sec-label">Formato consolidado</span>
+    <h2>Un formato probado frente a miles de personas</h2>
+    <div class="proof-stats">
+      <div class="pstat"><b>+15.000</b><span>personas capacitadas en charlas y eventos en vivo</span></div>
+      <div class="pstat"><b>Bestseller</b><span>"Hackea tu cerebro" (Ediciones Lea), el libro que origina el show</span></div>
+      <div class="pstat"><b>+1M</b><span>de seguidores en redes sociales</span></div>
+    </div>
+    <p class="mono logos-label">EMPRESAS QUE CONFIARON EN NICO</p>
+  </div>
+  <div class="logo-marquee" aria-label="Empresas que confiaron en Nico">
+    <div class="track js-ltrack"></div>
+    <div class="track js-ltrack"></div>
+  </div>
+</section>
+<!-- ============ 7. FAQ ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <span class="mono sec-label">Dudas típicas</span>
+    <h2>Preguntas frecuentes</h2>
+    <details class="faq-item"><summary>¿Cuánto dura el show?</summary><p>Aproximadamente 90 minutos.</p></details>
+    <details class="faq-item"><summary>¿Es una charla técnica?</summary><p>No. Es un show en vivo, dinámico, divertido y práctico, donde Nico, experto y máster en neurociencia, explica conceptos difíciles de forma simple para que los puedas aplicar en tu día a día y mejorar tu productividad, pasando un buen momento.</p></details>
+    <details class="faq-item"><summary>¿Necesito haber leído el libro?</summary><p>No. El show se llama igual que el libro, "Hackea tu cerebro", y se basa en él, pero lo profundiza todavía más. Si no lo leíste, entrás sin saber nada de neurociencia y salís entendiendo cómo funciona tu cerebro. Y si lo leíste, vas a ver capas del algoritmo que en el papel no entraban.</p></details>
+    <details class="faq-item"><summary>¿Puedo comprar en la puerta del teatro?</summary><p>Si quedan entradas, sí, pero a precio full. Las preventas con descuento son únicamente online, por la ticketera oficial de cada función.</p></details>
+    <details class="faq-item"><summary>¿Qué medios de pago aceptan?</summary><p>Los que ofrece la ticketera de cada función (Plateanet o Entradaweb): te recomendamos revisarlos en su página al momento de comprar.</p></details>
+    <details class="faq-item"><summary>¿Cómo funciona la clase online en vivo?</summary><p>Es 100% online y en vivo: te anotás con el botón de la sección de funciones y te llega toda la información para conectarte desde donde estés.</p></details>
+    <details class="faq-item"><summary>¿Pueden ir menores?</summary><p>Sí, es apto para todo público.</p></details>
+  </div>
+</section>
+<!-- ============ CTA FINAL ============ -->
+<section class="final">
+  <div class="wrap">
+    <span class="mono">GIRA SEP 2026 · CABA · SAN RAFAEL · MENDOZA · SAN JUAN · ONLINE</span>
+    <h2>Tu cerebro es tu activo más valioso. Invertí en él con una noche de aprendizaje y diversión.</h2>
+    <a class="btn" href="#funciones">ELEGIR MI FUNCIÓN</a>
+    <p class="btn-note" id="final-note" style="opacity:.6;margin-top:14px"></p>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <span>©️ 2026 Nico Fernández Miranda · Hackea Tu Cerebro</span>
+    <span>[@INSTAGRAM] · [EMAIL DE CONTACTO]</span>
+  </div>
+</footer>
+<!-- ============ STICKY MOBILE ============ -->
+<div class="sticky-bar">
+  <div class="p"><small id="sticky-stage">PREVENTA</small><span id="sticky-timer">15:00</span></div>
+  <a class="btn" href="#funciones">VER FUNCIONES</a>
+</div>
+<script>
+/* ============================================================
+   CONFIG — landing madre de la gira.
+   Las etapas de preventa son las mismas para todas las funciones.
+   ============================================================ */
+const CFG = {
+  pixelId: "",                                // [PIXEL_ID de Meta]
+  etapas: [
+    { id:"pre1", nombre:"1ª PREVENTA", off:0.25, desde:"2026-07-05T00:00:00-03:00", hasta:"2026-08-01T23:59:59-03:00" },
+    { id:"pre2", nombre:"2ª PREVENTA", off:0.20, desde:"2026-08-02T00:00:00-03:00", hasta:"2026-08-20T23:59:59-03:00" },
+    { id:"full", nombre:"PRECIO FULL", off:0,    desde:"2026-08-21T00:00:00-03:00", hasta:"2026-09-20T23:59:00-03:00" }
+  ]
+};
+/* ============================================================ */
+function currentStage(){
+  const now = Date.now();
+  for (const e of CFG.etapas){
+    if (now <= new Date(e.hasta).getTime()) return e;
+  }
+  return CFG.etapas[CFG.etapas.length-1];
+}
+function render(){
+  const st = currentStage();
+  const offTxt = st.off ? Math.round(st.off*100) + "% OFF" : "";
+  document.getElementById("stage-name").textContent = st.nombre + (offTxt ? " · " + offTxt : "");
+  document.getElementById("stage-note").textContent = st.off
+    ? "El descuento de preventa aplica en todas las funciones de la gira."
+    : "Entradas a la venta en la ticketera oficial de cada función.";
+  document.getElementById("final-note").textContent = st.off
+    ? st.nombre + " · " + offTxt + " vigente"
+    : "Últimas semanas de venta";
+  document.getElementById("sticky-stage").textContent = st.nombre + (offTxt ? " · " + offTxt : "");
+  // marquees
+  const items = ["11 SEP · CABA", "18 SEP · SAN RAFAEL", "19 SEP · MENDOZA", "20 SEP · SAN JUAN", "CLASE ONLINE EN VIVO"];
+  if (offTxt) items.push(offTxt);
+  const chunk = items.map(t => `<span>${t} <i>✦</i></span>`).join("");
+  document.querySelectorAll(".js-mtrack").forEach(el => el.innerHTML = chunk.repeat(6));
+  // logos de empresas: imagen con fallback automático (se quita si no carga)
+  const logos = [
+    { n:"TED",        u:"https://cdn.worldvectorlogo.com/logos/ted-2.svg" },
+    { n:"Mercado Pago", u:"https://commons.wikimedia.org/wiki/Special:FilePath/Mercado_Pago.svg" },
+    { n:"Endeavor",   u:"https://cdn.worldvectorlogo.com/logos/endeavor.svg" },
+    { n:"Samsung",    u:"https://cdn.worldvectorlogo.com/logos/samsung-8.svg" },
+    { n:"Microsoft",  u:"https://cdn.worldvectorlogo.com/logos/microsoft-6.svg" },
+    { n:"Renault",    u:"https://cdn.worldvectorlogo.com/logos/renault-7.svg" },
+    { n:"YPF",        u:"https://cdn.worldvectorlogo.com/logos/ypf.svg" },
+    { n:"Natura",     u:"https://cdn.worldvectorlogo.com/logos/natura.svg" },
+    { n:"Hotmart",    u:"https://commons.wikimedia.org/wiki/Special:FilePath/Hotmart_logo.svg" },
+    { n:"Coderhouse", u:"https://res.cloudinary.com/hdsqazxtw/image/upload/v1559681445/logo_coderhouse_3_bllxal.png" },
+    { n:"Yale Alumni", u:"https://cdn.worldvectorlogo.com/logos/yale.svg" },
+    { n:"Campus Party", u:"https://argentina.campus-party.org/wp-content/uploads/2024/10/CP_AR_-01.png" },
+    { n:"Universidad Siglo 21", u:"https://contenidos.21.edu.ar/landings/re3/typs/nuevas-carreras/assets/img/logo.png" },
+    { n:"CRS Argentina", u:"https://crsargentina.com.ar/img/logo1.png" },
+    { n:"Evenpro", u:"https://www.evenpro.com.ar/wp-content/uploads/2024/09/EvenPro_Gris-1.png" },
+    { n:"El Dorado", u:"https://commons.wikimedia.org/wiki/Special:FilePath/ElDorado_International_Airport_logo.svg", f:"grayscale(1) brightness(.55) contrast(1.3)" },
+    { n:"TGR", u:"https://static.tokkobroker.com/tfw_images/5425_TGR%20Gesti%C3%B3n%20Inmobiliaria/Dise%C3%B1o%20sin%20t%C3%ADtulo.jpg" }
+  ];
+  const lchunk = logos.map(l => `<span><img src="${l.u}" alt="${l.n}"${l.f ? ` style="filter:${l.f}"` : ""} onerror="this.parentElement.remove()"></span>`).join("");
+  document.querySelectorAll(".js-ltrack").forEach(el => el.innerHTML = lchunk);
+}
+render();
+/* ---------- Timer de reserva: 15 minutos por visitante ---------- */
+const RESERVA_MIN = 15;
+let t0 = parseInt(localStorage.getItem("htc_gira_t0") || "0", 10);
+if (!t0){ t0 = Date.now(); localStorage.setItem("htc_gira_t0", String(t0)); }
+const deadline = t0 + RESERVA_MIN * 60 * 1000;
+const elM = document.getElementById("cm"), elS = document.getElementById("cs"),
+      elSticky = document.getElementById("sticky-timer"),
+      elLabel = document.getElementById("count-label"),
+      elCount = document.getElementById("count");
+window._cd = setInterval(()=>{
+  const d = deadline - Date.now();
+  if (d <= 0){
+    clearInterval(window._cd);
+    elCount.style.display = "none";
+    elLabel.style.display = "none";
+    if (elSticky) elSticky.textContent = "";
+    return;
+  }
+  const s = Math.floor(d/1000);
+  const mm = String(Math.floor(s/60)).padStart(2,"0"), ss = String(s%60).padStart(2,"0");
+  elM.textContent = mm; elS.textContent = ss;
+  if (elSticky) elSticky.textContent = mm + ":" + ss;
+}, 250);
+/* ---------- Meta Pixel (solo si hay ID) ---------- */
+if (CFG.pixelId){
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', CFG.pixelId); fbq('track','PageView');
+}
+document.querySelectorAll(".js-buy").forEach(a => a.addEventListener("click", ()=>{
+  if (window.fbq) fbq('track','InitiateCheckout');
+}));
+</script>
+</body>
+</html>
