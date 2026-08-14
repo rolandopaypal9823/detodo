@@ -25,13 +25,22 @@ body{font-family:'Open Sans',sans-serif;background:#0c3452;color:#fff;min-height
 
 <div class="demo">
   <h1>Hackea tu <span style="color:#ff6602">cerebro</span></h1>
-  <p>Esto es una demo mínima para probar el selector. Tu landing real va acá.</p>
-
-  <!-- ▼▼ ASÍ SE ACTIVA: cualquier botón o link con data-comprar abre el selector ▼▼ -->
-  <button class="cta" data-comprar>CONSEGUIR MI EJEMPLAR</button>
-
-  <small>Podés poner data-comprar en todos los CTA de la página.</small>
+  <p>Demo que imita a Circle: el botón de abajo lo inyecta un script medio segundo
+     después de cargar, no tiene data-comprar y trae su propio handler.
+     El selector igual lo agarra.</p>
+  <div id="circle-fake"></div>
+  <small>En tu landing real no tenés que tocar el botón: lo detecta por el texto.</small>
 </div>
+<script>
+  /* simulacro de Circle: botón renderizado tarde + handler propio */
+  setTimeout(() => {
+    const b = document.createElement("a");
+    b.className = "cta"; b.href = "https://ss7cqv-rz.myshopify.com/products/hackea-tu-cerebro";
+    b.textContent = "CONSEGUIR MI EJEMPLAR";
+    b.addEventListener("click", () => console.log("handler propio de Circle (no debería navegar)"));
+    document.getElementById("circle-fake").appendChild(b);
+  }, 500);
+</script>
 
 
 <!-- ============================================================
@@ -40,6 +49,7 @@ body{font-family:'Open Sans',sans-serif;background:#0c3452;color:#fff;min-height
      ============================================================ -->
 <style>
 /* ---------- SELECTOR DE COMPRA ---------- */
+.sel-back,.sel-back *{box-sizing:border-box}   /* Circle no siempre lo trae */
 .sel-back{
   position:fixed;inset:0;z-index:9000;display:none;
   background:rgba(4,16,26,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
@@ -87,32 +97,32 @@ body{font-family:'Open Sans',sans-serif;background:#0c3452;color:#fff;min-height
 .sel-opt .flag{font-size:26px;display:block;margin-bottom:10px}
 /* packs */
 .sel-packs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
-.pack{
+.sel-pack{
   position:relative;display:flex;flex-direction:column;border-radius:14px;padding:26px 22px 24px;
   background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.15);
 }
-.pack.best{border:2px solid #ff6602;background:rgba(255,102,2,.07);box-shadow:0 20px 50px rgba(255,102,2,.13)}
-.pack .tag{
+.sel-pack.best{border:2px solid #ff6602;background:rgba(255,102,2,.07);box-shadow:0 20px 50px rgba(255,102,2,.13)}
+.sel-pack .tag{
   position:absolute;top:-12px;left:20px;background:#ff6602;color:#fff;font-family:'JetBrains Mono',monospace;
   font-size:9.5px;font-weight:700;letter-spacing:.15em;padding:6px 12px;border-radius:100px;
 }
-.pack h3{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800;margin-bottom:5px}
-.pack .for{font-size:13.5px;color:rgba(255,255,255,.6);margin-bottom:16px;min-height:38px;line-height:1.4}
-.pack ul{list-style:none;flex:1;margin-bottom:18px}
-.pack li{font-size:14.5px;padding:8px 0 8px 24px;position:relative;color:#e7edf2;border-bottom:1px solid rgba(255,255,255,.07)}
-.pack li:last-child{border-bottom:none}
-.pack li::before{content:'✓';position:absolute;left:0;color:#ff6602;font-weight:700}
-.pack .prices{display:flex;align-items:baseline;gap:9px;margin-bottom:15px}
-.pack .prices b{font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px}
-.pack .prices s{color:rgba(255,255,255,.4);font-size:15px}
-.pack .go{
+.sel-pack h3{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800;margin-bottom:5px}
+.sel-pack .for{font-size:13.5px;color:rgba(255,255,255,.6);margin-bottom:16px;min-height:38px;line-height:1.4}
+.sel-pack ul{list-style:none;flex:1;margin-bottom:18px}
+.sel-pack li{font-size:14.5px;padding:8px 0 8px 24px;position:relative;color:#e7edf2;border-bottom:1px solid rgba(255,255,255,.07)}
+.sel-pack li:last-child{border-bottom:none}
+.sel-pack li::before{content:'✓';position:absolute;left:0;color:#ff6602;font-weight:700}
+.sel-pack .prices{display:flex;align-items:baseline;gap:9px;margin-bottom:15px}
+.sel-pack .prices b{font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px}
+.sel-pack .prices s{color:rgba(255,255,255,.4);font-size:15px}
+.sel-pack .sel-go{
   display:block;text-align:center;text-decoration:none;background:#ff6602;color:#fff;
   font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;padding:14px 18px;border-radius:10px;
   box-shadow:0 10px 26px rgba(255,102,2,.3);transition:transform .15s;
 }
-.pack .go:hover{transform:translateY(-2px)}
-.pack.alt .go{background:transparent;border:1.5px solid rgba(255,255,255,.3);box-shadow:none}
-.pack.alt .go:hover{border-color:#fff;background:rgba(255,255,255,.05)}
+.sel-pack .sel-go:hover{transform:translateY(-2px)}
+.sel-pack.alt .sel-go{background:transparent;border:1.5px solid rgba(255,255,255,.3);box-shadow:none}
+.sel-pack.alt .sel-go:hover{border-color:#fff;background:rgba(255,255,255,.05)}
 .sel-foot{
   display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
   margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);
@@ -128,7 +138,7 @@ body{font-family:'Open Sans',sans-serif;background:#0c3452;color:#fff;min-height
   .sel-box{max-width:none;min-height:100%;border-radius:0;border:none;padding:64px 20px 34px}
   .sel-opts,.sel-packs{grid-template-columns:1fr}
   .sel-opt{padding:18px 17px}
-  .pack .for{min-height:0}
+  .sel-pack .for{min-height:0}
   .sel-note{text-align:left}
 }
 </style>
@@ -209,6 +219,8 @@ body{font-family:'Open Sans',sans-serif;background:#0c3452;color:#fff;min-height
 
 <script>
 (function(){
+if (window.__selectorCompraNFM) return;   // Circle puede ejecutar el snippet más de una vez
+window.__selectorCompraNFM = true;
 /* ============================================================
    CONFIG — variantes reales de la tienda ss7cqv-rz.myshopify.com
    El cart permalink de Shopify acepta varios productos:
@@ -280,10 +292,33 @@ function pintarPacks(tipo){
   paso("step-packs");
 }
 
-/* abrir desde cualquier CTA de la landing */
-document.querySelectorAll("[data-comprar]").forEach(el => {
-  el.addEventListener("click", e => { e.preventDefault(); abrir(); });
-});
+/* ============================================================
+   DISPARADORES — así funciona dentro de Circle.
+   Circle arma los botones después de cargar la página y les pone sus
+   propios handlers, así que no alcanza con buscarlos una sola vez:
+   escuchamos TODOS los clics del documento en fase de captura.
+
+   Se dispara si el botón/link cumple cualquiera de estas tres:
+     · tiene el atributo data-comprar   (si algún día podés editar el HTML)
+     · su texto contiene alguna frase de TEXTOS
+     · su href contiene algo de HREFS   (por si el botón ya apunta a la tienda)
+   ============================================================ */
+const TEXTOS = ["conseguir mi ejemplar", "quiero mi ejemplar", "comprar el libro", "conseguir el libro"];
+const HREFS  = ["myshopify.com", "/cart/", "/checkout", "/products/hackea"];
+
+document.addEventListener("click", e => {
+  const el = e.target.closest && e.target.closest("a,button,[role='button']");
+  if (!el || back.contains(el)) return;                    // ignoramos los clics de adentro del selector
+  const txt  = (el.textContent || "").trim().toLowerCase();
+  const href = (el.getAttribute("href") || "").toLowerCase();
+  const esCompra = el.hasAttribute("data-comprar")
+    || TEXTOS.some(t => txt.includes(t))
+    || HREFS.some(h => href.includes(h));
+  if (!esCompra) return;
+  e.preventDefault();
+  e.stopPropagation();                                     // le ganamos al handler de Circle
+  abrir();
+}, true);
 
 /* paso 1 */
 document.querySelectorAll("[data-pais]").forEach(b => {
@@ -315,7 +350,7 @@ back.addEventListener("click", e => { if (e.target === back) cerrar(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && back.classList.contains("on")) cerrar(); });
 
 /* pixel: cada clic a un pack es un InitiateCheckout */
-document.querySelectorAll(".pack .go").forEach(a => {
+document.querySelectorAll(".sel-pack .sel-go").forEach(a => {
   a.addEventListener("click", () => { if (window.fbq) fbq("track", "InitiateCheckout"); });
 });
 })();
