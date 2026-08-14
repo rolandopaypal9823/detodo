@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Conseguir mi ejemplar — demo del selector de compra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== estilos de la demo (NO copiar: es solo para probar el módulo) ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Open Sans',sans-serif;background:#0c3452;color:#fff;min-height:100vh;
+     display:grid;place-items:center;padding:40px 20px;text-align:center}
+.demo h1{font-family:'Montserrat',sans-serif;font-size:clamp(30px,6vw,52px);font-weight:900;
+     text-transform:uppercase;margin-bottom:14px}
+.demo p{color:#e7edf2;margin-bottom:30px;max-width:460px;margin-inline:auto}
+.demo .cta{display:inline-block;background:#ff6602;color:#fff;font-family:'Montserrat',sans-serif;
+     font-weight:800;font-size:17px;padding:18px 44px;border-radius:10px;border:none;cursor:pointer;
+     box-shadow:0 12px 32px rgba(255,102,2,.35)}
+.demo small{display:block;margin-top:26px;color:rgba(255,255,255,.45);font-size:13px}
+</style>
+</head>
+<body>
+
+<div class="demo">
+  <h1>Hackea tu <span style="color:#ff6602">cerebro</span></h1>
+  <p>Esto es una demo mínima para probar el selector. Tu landing real va acá.</p>
+
+  <!-- ▼▼ ASÍ SE ACTIVA: cualquier botón o link con data-comprar abre el selector ▼▼ -->
+  <button class="cta" data-comprar>CONSEGUIR MI EJEMPLAR</button>
+
+  <small>Podés poner data-comprar en todos los CTA de la página.</small>
+</div>
+
+
+<!-- ============================================================
+     ▼▼▼ INICIO DEL MÓDULO — ESTO ES LO QUE SE PEGA EN LA LANDING ▼▼▼
+     Pegar todo este bloque justo antes de </body>
+     ============================================================ -->
+<style>
+/* ---------- SELECTOR DE COMPRA ---------- */
+.sel-back{
+  position:fixed;inset:0;z-index:9000;display:none;
+  background:rgba(4,16,26,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  padding:24px;overflow-y:auto;
+}
+.sel-back.on{display:flex;align-items:center;justify-content:center}
+.sel-box{
+  position:relative;width:100%;max-width:720px;border-radius:16px;padding:38px 34px 34px;color:#fff;
+  font-family:'Open Sans',sans-serif;text-align:left;line-height:1.55;/* no heredamos estilos de la landing */
+  background:
+    radial-gradient(120% 90% at 18% 8%, rgba(23,70,109,.75), transparent 58%),
+    linear-gradient(180deg,#0e3352 0%,#0c3452 45%,#061d30 100%);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.09), 0 40px 100px rgba(0,0,0,.5);
+  animation:selIn .32s cubic-bezier(.2,.7,.3,1) both;
+}
+@keyframes selIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.sel-box{animation:none}}
+.sel-x{
+  position:absolute;top:14px;right:16px;width:38px;height:38px;border-radius:50%;border:none;
+  background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);font-size:22px;line-height:1;cursor:pointer;
+}
+.sel-x:hover{background:rgba(255,255,255,.14);color:#fff}
+.sel-step{display:none}
+.sel-step.on{display:block}
+.sel-eyebrow{
+  font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.2em;font-size:10.5px;
+  font-weight:700;color:#ff6602;display:block;margin-bottom:12px;
+}
+.sel-box h2{
+  font-family:'Montserrat',sans-serif;font-size:clamp(23px,3.4vw,31px);font-weight:800;
+  line-height:1.15;margin-bottom:8px;
+}
+.sel-sub{color:#e7edf2;font-size:16px;margin-bottom:26px;max-width:520px}
+/* opciones grandes */
+.sel-opts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sel-opt{
+  display:block;width:100%;text-align:left;cursor:pointer;color:#fff;font-family:'Open Sans',sans-serif;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.15);border-radius:13px;
+  padding:22px 20px;transition:border-color .15s,background .15s,transform .12s;
+}
+.sel-opt:hover{border-color:rgba(255,102,2,.65);background:rgba(255,102,2,.08);transform:translateY(-2px)}
+.sel-opt b{display:block;font-family:'Montserrat',sans-serif;font-weight:800;font-size:18.5px;margin-bottom:5px}
+.sel-opt span{display:block;font-size:14.5px;color:rgba(255,255,255,.65);line-height:1.45}
+.sel-opt .flag{font-size:26px;display:block;margin-bottom:10px}
+/* packs */
+.sel-packs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+.pack{
+  position:relative;display:flex;flex-direction:column;border-radius:14px;padding:26px 22px 24px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.15);
+}
+.pack.best{border:2px solid #ff6602;background:rgba(255,102,2,.07);box-shadow:0 20px 50px rgba(255,102,2,.13)}
+.pack .tag{
+  position:absolute;top:-12px;left:20px;background:#ff6602;color:#fff;font-family:'JetBrains Mono',monospace;
+  font-size:9.5px;font-weight:700;letter-spacing:.15em;padding:6px 12px;border-radius:100px;
+}
+.pack h3{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800;margin-bottom:5px}
+.pack .for{font-size:13.5px;color:rgba(255,255,255,.6);margin-bottom:16px;min-height:38px;line-height:1.4}
+.pack ul{list-style:none;flex:1;margin-bottom:18px}
+.pack li{font-size:14.5px;padding:8px 0 8px 24px;position:relative;color:#e7edf2;border-bottom:1px solid rgba(255,255,255,.07)}
+.pack li:last-child{border-bottom:none}
+.pack li::before{content:'✓';position:absolute;left:0;color:#ff6602;font-weight:700}
+.pack .prices{display:flex;align-items:baseline;gap:9px;margin-bottom:15px}
+.pack .prices b{font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px}
+.pack .prices s{color:rgba(255,255,255,.4);font-size:15px}
+.pack .go{
+  display:block;text-align:center;text-decoration:none;background:#ff6602;color:#fff;
+  font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;padding:14px 18px;border-radius:10px;
+  box-shadow:0 10px 26px rgba(255,102,2,.3);transition:transform .15s;
+}
+.pack .go:hover{transform:translateY(-2px)}
+.pack.alt .go{background:transparent;border:1.5px solid rgba(255,255,255,.3);box-shadow:none}
+.pack.alt .go:hover{border-color:#fff;background:rgba(255,255,255,.05)}
+.sel-foot{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);
+}
+.sel-back-btn{background:none;border:none;color:rgba(255,255,255,.5);font-family:'Open Sans',sans-serif;
+  font-size:14.5px;cursor:pointer;padding:6px 0}
+.sel-back-btn:hover{color:#fff}
+.sel-note{font-size:13px;color:rgba(255,255,255,.5);text-align:right;flex:1;min-width:200px}
+.sel-note b{color:rgba(255,255,255,.8)}
+@media(max-width:660px){
+  .sel-back{padding:0;align-items:stretch}
+  .sel-back.on{display:block}
+  .sel-box{max-width:none;min-height:100%;border-radius:0;border:none;padding:64px 20px 34px}
+  .sel-opts,.sel-packs{grid-template-columns:1fr}
+  .sel-opt{padding:18px 17px}
+  .pack .for{min-height:0}
+  .sel-note{text-align:left}
+}
+</style>
+
+<div class="sel-back" id="selBack" role="dialog" aria-modal="true" aria-labelledby="selTitle">
+  <div class="sel-box">
+    <button class="sel-x" id="selX" aria-label="Cerrar">×</button>
+
+    <!-- PASO 1 — país -->
+    <div class="sel-step on" id="step-pais">
+      <span class="sel-eyebrow">Paso 1 de 2</span>
+      <h2 id="selTitle">¿Desde dónde lo pedís?</h2>
+      <p class="sel-sub">Te lo pregunto porque el libro en papel lo despachamos solo dentro de Argentina.</p>
+      <div class="sel-opts">
+        <button class="sel-opt" data-pais="ar">
+          <span class="flag">🇦🇷</span>
+          <b>Estoy en Argentina</b>
+          <span>Podés elegir el libro en papel o la versión digital.</span>
+        </button>
+        <button class="sel-opt" data-pais="ex">
+          <span class="flag">🌎</span>
+          <b>Estoy en otro país</b>
+          <span>Versión digital, la recibís por mail en el momento.</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- PASO 2 — formato (solo Argentina) -->
+    <div class="sel-step" id="step-formato">
+      <span class="sel-eyebrow">Paso 2 de 2</span>
+      <h2>¿En papel o digital?</h2>
+      <p class="sel-sub">Las dos versiones tienen el mismo contenido. Cambia cuándo lo tenés en la mano.</p>
+      <div class="sel-opts">
+        <button class="sel-opt" data-formato="fisico">
+          <b>El libro en papel</b>
+          <span>Te lo enviamos a tu casa, a todo el país.</span>
+        </button>
+        <button class="sel-opt" data-formato="ebook">
+          <b>La versión digital</b>
+          <span>Te llega al mail apenas termina el pago. Sin espera.</span>
+        </button>
+      </div>
+      <div class="sel-foot">
+        <button class="sel-back-btn" data-volver="step-pais">← Volver</button>
+      </div>
+    </div>
+
+    <!-- PASO 3 — packs -->
+    <div class="sel-step" id="step-packs">
+      <span class="sel-eyebrow" id="pk-eyebrow">Último paso</span>
+      <h2>Elegí con qué te lo llevás</h2>
+      <p class="sel-sub" id="pk-sub">El libro te explica cómo funciona tu cerebro. Estos dos caminos te dan además con qué aplicarlo.</p>
+      <div class="sel-packs">
+        <div class="pack best" id="pk1">
+          <span class="tag">EL MÁS ELEGIDO</span>
+          <h3>Hackea tu Concentración</h3>
+          <p class="for">Para sacarte de encima lo que te está robando la atención.</p>
+          <ul id="pk1-items"></ul>
+          <div class="prices"><b id="pk1-precio"></b><s id="pk1-tachado"></s></div>
+          <a class="go" id="pk1-go" href="#">LO QUIERO ASÍ</a>
+        </div>
+        <div class="pack alt" id="pk2">
+          <h3>Hackea tu Productividad</h3>
+          <p class="for">Todo lo anterior + el sistema completo para reconstruir el día.</p>
+          <ul id="pk2-items"></ul>
+          <div class="prices"><b id="pk2-precio"></b><s id="pk2-tachado"></s></div>
+          <a class="go" id="pk2-go" href="#">QUIERO EL SISTEMA COMPLETO</a>
+        </div>
+      </div>
+      <div class="sel-foot">
+        <button class="sel-back-btn" id="pk-volver">← Volver</button>
+        <p class="sel-note" id="pk-nota"></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+/* ============================================================
+   CONFIG — variantes reales de la tienda ss7cqv-rz.myshopify.com
+   El cart permalink de Shopify acepta varios productos:
+   /cart/VARIANTE:CANTIDAD,VARIANTE:CANTIDAD
+   ============================================================ */
+const TIENDA = "https://ss7cqv-rz.myshopify.com";
+const V = {
+  fisico: "55485264199753",  // Hackea tu Cerebro (papel)      $39.999  · envío solo AR · stock real
+  ebook:  "55792577445961",  // Hackea tu Cerebro (Ebook)      $23.360
+  detox:  "55742214930505",  // Desintoxicación Digital        $47.000 → $23.500 (50% automático activo)
+  abc:    "55862099312713"   // ABC del Alto Rendimiento       $35.000
+};
+const UTM = "utm_source=landing&utm_medium=selector&utm_campaign=conseguir-mi-ejemplar";
+const link = (vars, tag) => `${TIENDA}/cart/${vars.map(v => v + ":1").join(",")}?${UTM}&utm_content=${tag}`;
+
+/* OJO CON LOS PRECIOS
+   Los de abajo son los totales REALES que hoy muestra el checkout (suma de
+   productos con el 50% del detox ya aplicado). Si creás el descuento automático
+   del combo, cambiá "precio" por el nuevo total y "tachado" por la suma vieja. */
+const PACKS = {
+  fisico: {
+    nota: "Envío a todo el país. El libro sale de nuestro depósito en 24/48 h.",
+    p1: { items:["Hackea tu Cerebro — libro en papel","Desintoxicación Digital + 6 bonos","Envío a domicilio"],
+          precio:"$63.499", tachado:"$86.999", url: link([V.fisico, V.detox], "fisico-concentracion") },
+    p2: { items:["Hackea tu Cerebro — libro en papel","Desintoxicación Digital + 6 bonos","ABC del Alto Rendimiento — 6 módulos","Envío a domicilio"],
+          precio:"$98.499", tachado:"$121.999", url: link([V.fisico, V.detox, V.abc], "fisico-productividad") }
+  },
+  ebook: {
+    nota: "Todo digital: te llega al mail apenas termina el pago.",
+    p1: { items:["Hackea tu Cerebro — ebook completo","Desintoxicación Digital + 6 bonos","Acceso inmediato por mail"],
+          precio:"$46.860", tachado:"$70.360", url: link([V.ebook, V.detox], "ebook-concentracion") },
+    p2: { items:["Hackea tu Cerebro — ebook completo","Desintoxicación Digital + 6 bonos","ABC del Alto Rendimiento — 6 módulos","Acceso inmediato por mail"],
+          precio:"$81.860", tachado:"$105.360", url: link([V.ebook, V.detox, V.abc], "ebook-productividad") }
+  }
+};
+
+/* ---------- mecánica ---------- */
+const back = document.getElementById("selBack");
+const $ = id => document.getElementById(id);
+let vieneDe = "step-pais";
+
+function abrir(){
+  back.classList.add("on");
+  document.body.style.overflow = "hidden";
+  paso("step-pais");
+}
+function cerrar(){
+  back.classList.remove("on");
+  document.body.style.overflow = "";
+}
+function paso(id){
+  document.querySelectorAll(".sel-step").forEach(s => s.classList.remove("on"));
+  $(id).classList.add("on");
+  back.scrollTop = 0;
+}
+function pintarPacks(tipo){
+  const d = PACKS[tipo];
+  const li = arr => arr.map(t => `<li>${t}</li>`).join("");
+  $("pk1-items").innerHTML = li(d.p1.items);
+  $("pk2-items").innerHTML = li(d.p2.items);
+  $("pk1-precio").textContent = d.p1.precio;  $("pk1-tachado").textContent = d.p1.tachado;
+  $("pk2-precio").textContent = d.p2.precio;  $("pk2-tachado").textContent = d.p2.tachado;
+  $("pk1-go").href = d.p1.url;                $("pk2-go").href = d.p2.url;
+  $("pk-nota").innerHTML = d.nota;
+  $("pk-eyebrow").textContent = tipo === "fisico" ? "Libro en papel · último paso" : "Versión digital · último paso";
+  $("pk-sub").textContent = tipo === "fisico"
+    ? "El libro te explica cómo funciona tu cerebro. Estos dos caminos te dan además con qué aplicarlo."
+    : "El ebook te explica cómo funciona tu cerebro. Estos dos caminos te dan además con qué aplicarlo.";
+  paso("step-packs");
+}
+
+/* abrir desde cualquier CTA de la landing */
+document.querySelectorAll("[data-comprar]").forEach(el => {
+  el.addEventListener("click", e => { e.preventDefault(); abrir(); });
+});
+
+/* paso 1 */
+document.querySelectorAll("[data-pais]").forEach(b => {
+  b.addEventListener("click", () => {
+    if (b.dataset.pais === "ar"){
+      vieneDe = "step-formato";
+      paso("step-formato");
+    } else {
+      vieneDe = "step-pais";       // afuera no hay elección de formato: es digital sí o sí
+      pintarPacks("ebook");
+    }
+  });
+});
+
+/* paso 2 */
+document.querySelectorAll("[data-formato]").forEach(b => {
+  b.addEventListener("click", () => pintarPacks(b.dataset.formato));
+});
+
+/* volver */
+document.querySelectorAll("[data-volver]").forEach(b => {
+  b.addEventListener("click", () => paso(b.dataset.volver));
+});
+$("pk-volver").addEventListener("click", () => paso(vieneDe));
+
+/* cerrar */
+$("selX").addEventListener("click", cerrar);
+back.addEventListener("click", e => { if (e.target === back) cerrar(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && back.classList.contains("on")) cerrar(); });
+
+/* pixel: cada clic a un pack es un InitiateCheckout */
+document.querySelectorAll(".pack .go").forEach(a => {
+  a.addEventListener("click", () => { if (window.fbq) fbq("track", "InitiateCheckout"); });
+});
+})();
+</script>
+<!-- ============================================================
+     ▲▲▲ FIN DEL MÓDULO ▲▲▲
+     ============================================================ -->
+
+</body>
+</html>
