@@ -141,6 +141,69 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .sticky-bar .p{color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px;line-height:1.15}
 .sticky-bar .p small{display:block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;color:var(--nfm-orange);font-weight:700;text-transform:uppercase}
 .sticky-bar .btn{padding:12px 22px;font-size:14px;box-shadow:none}
+/* ============================================================
+   AZUL ELEGANTE — capas sobre el navy (efecto "espejo")
+   ============================================================ */
+.navy-elegante{
+  position:relative;
+  background:
+    radial-gradient(120% 90% at 18% 12%, rgba(23,70,109,.6), transparent 55%),
+    radial-gradient(90% 80% at 88% 106%, rgba(255,102,2,.07), transparent 60%),
+    linear-gradient(180deg, #0e3352 0%, #0c3452 45%, #061d30 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+/* variantes: mueven el glow para que las secciones no se repitan */
+.navy-elegante--b{
+  background:
+    radial-gradient(110% 85% at 82% 8%, rgba(23,70,109,.55), transparent 55%),
+    radial-gradient(80% 70% at 10% 104%, rgba(255,102,2,.06), transparent 60%),
+    linear-gradient(180deg, #061d30 0%, #0c3452 50%, #08243a 100%);
+}
+.navy-elegante--c{
+  background:
+    radial-gradient(90% 100% at 50% -10%, rgba(23,70,109,.55), transparent 58%),
+    radial-gradient(70% 80% at 50% 110%, rgba(255,102,2,.09), transparent 60%),
+    linear-gradient(180deg, #0a2b46 0%, #071f33 60%, #061d30 100%);
+}
+.navy-elegante--foot{
+  background:linear-gradient(180deg, #061d30 0%, #04141f 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+}
+/* capa neural + viñeta radial */
+.neural-layer{
+  position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.85;
+  mask-image:radial-gradient(78% 68% at 50% 42%, #000 20%, transparent 80%);
+  -webkit-mask-image:radial-gradient(78% 68% at 50% 42%, #000 20%, transparent 80%);
+}
+.hero-photo{z-index:1}
+/* paneles glass */
+.glass{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.stage-pill{background:rgba(255,102,2,.10);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.count div{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+}
+/* imágenes con filo de luz (espejo) */
+.hero-img,.show-img{box-shadow:0 40px 100px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.10)}
+/* tarjeta online: mismo tratamiento en la sección clara */
+.funcion.online{
+  background:
+    radial-gradient(120% 90% at 20% 0%, rgba(23,70,109,.6), transparent 60%),
+    linear-gradient(180deg, #0e3352 0%, #061d30 100%);
+  border-color:rgba(255,255,255,.14);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 24px 60px rgba(6,29,48,.22);
+}
+/* barra sticky mobile */
+.sticky-bar{
+  background:linear-gradient(180deg, rgba(10,43,70,.92) 0%, rgba(6,29,48,.96) 100%);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:900px){
   section{padding:64px 0}
@@ -209,13 +272,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 </head>
 <body>
 <!-- ============ 1. HERO: OFERTA / PROMESA / TRANSFORMACIÓN ============ -->
-<header class="hero">
+<header class="hero navy-elegante">
+  <canvas class="neural-layer" id="neural" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
     <div>
       <span class="mono">GIRA SEPTIEMBRE 2026 · 4 CIUDADES + CLASE ONLINE EN VIVO</span>
       <h1>Hackea tu <span class="o">cerebro</span></h1>
       <p class="hero-sub">Una noche en vivo para entender cómo funciona tu cerebro y <strong>empezar a usarlo a tu favor</strong>.</p>
-      <div class="stage-pill">
+      <div class="stage-pill glass">
         <span class="mono" id="stage-name">PREVENTA</span>
       </div>
       <div class="hero-cta-row">
@@ -280,7 +344,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 </section>
 <div class="marquee" aria-hidden="true"><div class="track js-mtrack"></div><div class="track js-mtrack"></div></div>
 <!-- ============ 4. PRESENTACIÓN DEL PRODUCTO ============ -->
-<section class="show" id="show">
+<section class="show navy-elegante navy-elegante--b" id="show">
   <div class="wrap">
     <div class="show-grid">
       <div>
@@ -370,7 +434,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </div>
 </section>
 <!-- ============ CTA FINAL ============ -->
-<section class="final">
+<section class="final navy-elegante navy-elegante--c">
   <div class="wrap">
     <span class="mono">GIRA SEP 2026 · CABA · SAN RAFAEL · MENDOZA · SAN JUAN · ONLINE</span>
     <h2>Tu cerebro es tu activo más valioso. Invertí en él con una noche de aprendizaje y diversión.</h2>
@@ -378,7 +442,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <p class="btn-note" id="final-note" style="opacity:.6;margin-top:14px"></p>
   </div>
 </section>
-<footer>
+<footer class="navy-elegante navy-elegante--foot">
   <div class="wrap">
     <span>©️ 2026 Nico Fernández Miranda · Hackea Tu Cerebro</span>
     <span>[@INSTAGRAM] · [EMAIL DE CONTACTO]</span>
@@ -473,6 +537,69 @@ window._cd = setInterval(()=>{
   elM.textContent = mm; elS.textContent = ss;
   if (elSticky) elSticky.textContent = mm + ":" + ss;
 }, 250);
+/* ---------- Capa neural del hero (azul elegante) ---------- */
+(function(){
+  const cv = document.getElementById("neural");
+  if (!cv || !cv.getContext) return;
+  const ctx = cv.getContext("2d");
+  const host = cv.parentElement;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const LINK = 150;
+  let w = 0, h = 0, nodes = [], raf = 0;
+  function build(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = host.offsetWidth; h = host.offsetHeight;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    cv.style.width = w + "px"; cv.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const total = Math.round(Math.min(90, Math.max(28, w / 17)));
+    nodes = Array.from({length: total}, (_, i) => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - .5) * .22,
+      vy: (Math.random() - .5) * .22,
+      r: Math.random() * 1.5 + .9,
+      naranja: i % 7 === 0
+    }));
+  }
+  function frame(){
+    ctx.clearRect(0, 0, w, h);
+    for (const p of nodes){
+      if (!reduce){ p.x += p.vx; p.y += p.vy; }
+      if (p.x < -20) p.x = w + 20; else if (p.x > w + 20) p.x = -20;
+      if (p.y < -20) p.y = h + 20; else if (p.y > h + 20) p.y = -20;
+    }
+    ctx.lineWidth = 1;
+    for (let i = 0; i < nodes.length; i++){
+      for (let j = i + 1; j < nodes.length; j++){
+        const a = nodes[i], b = nodes[j];
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < LINK){
+          ctx.strokeStyle = "rgba(150,196,228," + ((1 - d / LINK) * .26).toFixed(3) + ")";
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+    }
+    for (const p of nodes){
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.naranja ? "rgba(255,102,2,.75)" : "rgba(183,214,236,.6)";
+      ctx.fill();
+    }
+  }
+  function loop(){ frame(); raf = requestAnimationFrame(loop); }
+  function start(){ cancelAnimationFrame(raf); reduce ? frame() : loop(); }
+  build(); start();
+  let lastW = w, lastH = h;
+  addEventListener("resize", () => {
+    // en mobile la barra del navegador dispara resize al scrollear: ignoramos los saltos chicos
+    if (host.offsetWidth === lastW && Math.abs(host.offsetHeight - lastH) < 120) return;
+    lastW = host.offsetWidth; lastH = host.offsetHeight;
+    build(); start();
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) cancelAnimationFrame(raf); else start();
+  });
+})();
 /* ---------- Meta Pixel (solo si hay ID) ---------- */
 if (CFG.pixelId){
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
