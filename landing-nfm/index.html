@@ -348,54 +348,6 @@ footer .brand small{color:rgba(255,255,255,.5)}
   .pc-media{aspect-ratio:16/12}
   .pc-body{padding:22px 22px 26px}
 }
-
-/* ===================== NOTIFICACIÓN iPhone + CHAT NICO (injertado) ===================== */
-.nc-push{position:fixed;top:14px;left:50%;transform:translate(-50%,-160%);z-index:96;width:min(400px,calc(100vw - 24px));background:rgba(255,255,255,.94);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(12,52,82,.08);border-radius:22px;box-shadow:0 18px 50px rgba(12,52,82,.22);padding:13px 16px;display:flex;gap:12px;align-items:center;cursor:pointer;transition:transform .55s var(--ease)}
-.nc-push.show{transform:translate(-50%,0)}
-.nc-av{width:42px;height:42px;border-radius:12px;background:var(--ink);color:#fff;font-weight:700;font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex:none;font-family:'Montserrat',sans-serif;overflow:hidden}
-.nc-av img{width:100%;height:100%;object-fit:cover}
-.nc-tx{flex:1;min-width:0}
-.nc-tx .h{display:flex;justify-content:space-between;gap:8px;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
-.nc-tx b{display:block;font-size:.92rem;color:var(--ink);margin-top:1px}
-.nc-tx small{font-size:.85rem;color:var(--body);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.nc-chat{position:fixed;right:18px;bottom:88px;z-index:96;width:min(380px,calc(100vw - 24px));max-height:min(560px,72vh);background:var(--canvas);border:1px solid var(--hairline);border-radius:24px;box-shadow:var(--shadow-elevated);display:none;flex-direction:column;overflow:hidden}
-.nc-chat.open{display:flex;animation:ncpop .4s var(--ease)}
-@keyframes ncpop{from{transform:scale(.92);opacity:0}to{transform:none;opacity:1}}
-@media(max-width:560px){.nc-chat{right:0;left:0;bottom:0;width:100%;border-radius:24px 24px 0 0;max-height:80vh}}
-.nc-head{display:flex;align-items:center;gap:11px;padding:14px 16px;background:var(--ink);color:#fff}
-.nc-head .av{width:38px;height:38px;border-radius:50%;background:#fff;color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none;overflow:hidden}
-.nc-head .av img{width:100%;height:100%;object-fit:cover}
-.nc-head b{font-size:.98rem;color:#fff}
-.nc-head small{display:block;font-size:.72rem;opacity:.9;color:#fff}
-.nc-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#8FF0A6;box-shadow:0 0 0 2px rgba(143,240,166,.35);margin-right:6px;vertical-align:middle}
-.nc-head button{margin-left:auto;background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:4px 8px;line-height:1}
-.nc-body{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:10px;background:var(--surface-soft)}
-.nc-msg{max-width:86%;padding:11px 15px;border-radius:18px;font-size:.92rem;line-height:1.5;animation:ncmsgin .35s var(--ease)}
-@keyframes ncmsgin{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
-.nc-msg.nico{background:var(--canvas);border:1px solid var(--hairline);color:var(--body);border-bottom-left-radius:6px;align-self:flex-start}
-.nc-msg.nico b{color:var(--ink)}
-.nc-msg.me{background:var(--orange);color:#fff;border-bottom-right-radius:6px;align-self:flex-end}
-.nc-msg.me b{color:#fff}
-.nc-typing{align-self:flex-start;background:var(--canvas);border:1px solid var(--hairline);border-radius:18px;border-bottom-left-radius:6px;padding:13px 16px;display:flex;gap:5px}
-.nc-typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:nctp 1.2s infinite}
-.nc-typing i:nth-child(2){animation-delay:.18s}.nc-typing i:nth-child(3){animation-delay:.36s}
-@keyframes nctp{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-3px)}}
-.nc-opts{padding:12px 14px;border-top:1px solid var(--hairline);display:flex;flex-wrap:wrap;gap:8px;background:var(--canvas)}
-.nc-opts button{background:var(--orange-soft);border:1px solid rgba(255,102,2,.35);color:var(--orange-hover);border-radius:999px;padding:10px 18px;font-family:'Open Sans',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s}
-.nc-opts button:hover{background:var(--orange);color:#fff}
-@keyframes ncPageShake{0%,100%{transform:translate3d(0,0,0)}15%{transform:translate3d(-7px,2px,0)}30%{transform:translate3d(7px,-2px,0)}45%{transform:translate3d(-5px,1px,0)}60%{transform:translate3d(5px,-1px,0)}75%{transform:translate3d(-3px,1px,0)}90%{transform:translate3d(3px,0,0)}}
-body.nc-shake{animation:ncPageShake .5s cubic-bezier(.36,.07,.19,.97)}
-/* Redondito flotante para reabrir el chat (launcher) */
-.nc-launch{position:fixed;right:18px;bottom:18px;z-index:96;width:62px;height:62px;border-radius:50%;border:none;cursor:pointer;padding:0;background:var(--ink);box-shadow:0 12px 30px rgba(12,52,82,.4);display:none;align-items:center;justify-content:center;transition:transform .2s var(--ease)}
-.nc-launch.show{display:flex;animation:ncpop .4s var(--ease)}
-.nc-launch:hover{transform:scale(1.07)}
-.nc-launch::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 0 rgba(255,102,2,.45);animation:ncPulse 2.8s infinite}
-@keyframes ncPulse{0%{box-shadow:0 0 0 0 rgba(255,102,2,.4)}70%{box-shadow:0 0 0 14px rgba(255,102,2,0)}100%{box-shadow:0 0 0 0 rgba(255,102,2,0)}}
-.nc-launch-face{width:100%;height:100%;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.3rem;background:var(--ink)}
-.nc-launch-face img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.nc-launch-badge{position:absolute;top:-3px;right:-3px;width:22px;height:22px;border-radius:50%;background:var(--orange);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:.64rem;z-index:1}
-@media(prefers-reduced-motion:reduce){body.nc-shake{animation:none}.nc-push{transition:none}.nc-launch::after{animation:none}}
-
 </style>
 </head>
 <body>
@@ -820,8 +772,68 @@ body.nc-shake{animation:ncPageShake .5s cubic-bezier(.36,.07,.19,.97)}
 (function(){
   "use strict";
 
-  /* 1) CHECKOUT SHOPIFY — pegá tu link; los botones de COMPRA quedan apuntados */
-  var CHECKOUT_URL = "https://ss7cqv-rz.myshopify.com/cart/55742214930505:1";  // checkout Shopify (Mercado Pago)
+  /* 1) SHOPIFY — NO usar /cart/VARIANT:1 con properties porque Shopify lo rechaza.
+     Usamos /cart/add?id=VARIANT_ID&quantity=1&properties[...] y redirigimos al checkout. */
+  var SHOPIFY_ADD_TO_CART_URL = "https://ss7cqv-rz.myshopify.com/cart/add";
+  var SHOPIFY_VARIANT_ID = "55742214930505";
+
+  var TRACKING_KEYS = [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_content",
+    "utm_term",
+    "campaign_id",
+    "adset_id",
+    "ad_id",
+    "fbclid"
+  ];
+
+  function guardarTracking(){
+    var params = new URLSearchParams(window.location.search);
+    var data = {};
+
+    TRACKING_KEYS.forEach(function(key){
+      var value = params.get(key);
+      if(value){ data[key] = value; }
+    });
+
+    if(Object.keys(data).length > 0){
+      try{ sessionStorage.setItem("nfm_tracking", JSON.stringify(data)); }catch(e){}
+    }
+  }
+
+  function obtenerTracking(){
+    try{ return JSON.parse(sessionStorage.getItem("nfm_tracking") || "{}"); }
+    catch(e){ return {}; }
+  }
+
+  function armarCheckoutUrl(){
+    var finalUrl = new URL(SHOPIFY_ADD_TO_CART_URL);
+    var tracking = obtenerTracking();
+
+    finalUrl.searchParams.set("id", SHOPIFY_VARIANT_ID);
+    finalUrl.searchParams.set("quantity", "1");
+
+    TRACKING_KEYS.forEach(function(key){
+      if(!tracking[key]){ return; }
+
+      /* 1) UTM normal para navegación / analytics */
+      finalUrl.searchParams.set(key, tracking[key]);
+
+      /* 2) Line item property para que Shopify lo guarde dentro del producto del pedido */
+      finalUrl.searchParams.set("properties[_" + key + "]", tracking[key]);
+    });
+
+    /* Después de agregar al carrito, manda directo al checkout */
+    finalUrl.searchParams.set("return_to", "/checkout");
+
+    return finalUrl.toString();
+  }
+
+  guardarTracking();
+
+  var CHECKOUT_URL = armarCheckoutUrl();
   document.querySelectorAll('[data-cta]').forEach(function(a){ a.setAttribute('href', CHECKOUT_URL); a.setAttribute('rel','noopener'); });
   var offer = document.querySelector('#oferta');
   var offerSeen = false;
@@ -1101,6 +1113,236 @@ body.nc-shake{animation:ncPageShake .5s cubic-bezier(.36,.07,.19,.97)}
   }
 
   document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+
+<!-- ============================================================
+     UPSELL PRE-CHECKOUT — se abre al tocar cualquier CTA de compra.
+     Si suma un producto → checkout con los 2. Si no → checkout normal.
+============================================================ -->
+<style>
+.ups-back{position:fixed;inset:0;z-index:9000;display:none;background:rgba(4,16,26,.74);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:24px;overflow-y:auto}
+.ups-back.on{display:flex;align-items:center;justify-content:center}
+.ups-box{position:relative;width:100%;max-width:760px;border-radius:16px;padding:38px 34px 30px;color:#fff;font-family:'Open Sans',sans-serif;text-align:left;line-height:1.55;
+  background:radial-gradient(120% 90% at 18% 8%,rgba(23,70,109,.75),transparent 58%),linear-gradient(180deg,#0e3352 0%,#0c3452 45%,#061d30 100%);
+  border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 40px 100px rgba(0,0,0,.5);animation:upsIn .32s cubic-bezier(.2,.7,.3,1) both}
+@keyframes upsIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+.ups-x{position:absolute;top:14px;right:16px;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);font-size:22px;line-height:1;cursor:pointer}
+.ups-x:hover{background:rgba(255,255,255,.14);color:#fff}
+.ups-eyebrow{font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:.18em;font-size:10.5px;font-weight:700;color:#ff8a3d;display:block;margin-bottom:12px}
+.ups-box h2{font-family:'Montserrat',sans-serif;font-size:clamp(22px,3.4vw,30px);font-weight:800;line-height:1.15;margin-bottom:8px;color:#fff;letter-spacing:-.02em}
+.ups-sub{color:#cfdbe5;font-size:15.5px;margin-bottom:24px;max-width:560px}
+.ups-sub b{color:#fff}
+.ups-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ups-card{position:relative;display:flex;flex-direction:column;border-radius:14px;padding:26px 22px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.15)}
+.ups-card.best{border:2px solid #ff6602;background:rgba(255,102,2,.07);box-shadow:0 20px 50px rgba(255,102,2,.13)}
+.ups-card .tag{position:absolute;top:-12px;left:20px;background:#ff6602;color:#fff;font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:800;letter-spacing:.14em;padding:6px 12px;border-radius:100px}
+.ups-card h3{font-family:'Montserrat',sans-serif;font-size:19px;font-weight:800;margin-bottom:6px;color:#fff}
+.ups-card .for{font-size:13.5px;color:rgba(255,255,255,.62);margin-bottom:15px;min-height:40px;line-height:1.45}
+.ups-card ul{list-style:none;flex:1;margin:0 0 16px;padding:0}
+.ups-card li{font-size:14px;padding:7px 0 7px 23px;position:relative;color:#e7edf2;border-bottom:1px solid rgba(255,255,255,.07)}
+.ups-card li:last-child{border-bottom:none}
+.ups-card li::before{content:'✓';position:absolute;left:0;color:#ff6602;font-weight:700}
+.ups-price{display:flex;align-items:baseline;gap:8px;margin-bottom:5px}
+.ups-price b{font-family:'Montserrat',sans-serif;font-weight:900;font-size:25px;color:#fff}
+.ups-price span{font-size:13px;color:rgba(255,255,255,.55)}
+.ups-total{font-size:12.5px;color:rgba(255,255,255,.55);margin-bottom:15px}
+.ups-total b{color:#ff8a3d;font-weight:700}
+.ups-go{display:block;text-align:center;text-decoration:none;background:#ff6602;color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:14.5px;padding:14px 16px;border-radius:10px;box-shadow:0 10px 26px rgba(255,102,2,.3);transition:transform .15s;cursor:pointer;border:none;width:100%}
+.ups-go:hover{transform:translateY(-2px)}
+.ups-card.alt .ups-go{background:transparent;border:1.5px solid rgba(255,255,255,.3);box-shadow:none}
+.ups-card.alt .ups-go:hover{border-color:#fff;background:rgba(255,255,255,.05)}
+.ups-foot{margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.ups-no{background:none;border:none;color:rgba(255,255,255,.55);font-family:'Open Sans',sans-serif;font-size:14px;cursor:pointer;padding:6px 0;text-decoration:underline}
+.ups-no:hover{color:#fff}
+.ups-note{font-size:12.5px;color:rgba(255,255,255,.5);text-align:right;flex:1;min-width:190px}
+@media(max-width:660px){
+  .ups-back{padding:0;align-items:stretch}
+  .ups-back.on{display:block}
+  .ups-box{max-width:none;min-height:100%;border-radius:0;border:none;padding:60px 20px 30px}
+  .ups-cards{grid-template-columns:1fr;gap:22px}
+  .ups-card .for{min-height:0}
+  .ups-note{text-align:left}
+}
+
+/* ===================== NOTIFICACIÓN iPhone + CHAT NICO (injertado) ===================== */
+.nc-push{position:fixed;top:14px;left:50%;transform:translate(-50%,-160%);z-index:96;width:min(400px,calc(100vw - 24px));background:rgba(255,255,255,.94);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(12,52,82,.08);border-radius:22px;box-shadow:0 18px 50px rgba(12,52,82,.22);padding:13px 16px;display:flex;gap:12px;align-items:center;cursor:pointer;transition:transform .55s var(--ease)}
+.nc-push.show{transform:translate(-50%,0)}
+.nc-av{width:42px;height:42px;border-radius:12px;background:var(--ink);color:#fff;font-weight:700;font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex:none;font-family:'Montserrat',sans-serif;overflow:hidden}
+.nc-av img{width:100%;height:100%;object-fit:cover}
+.nc-tx{flex:1;min-width:0}
+.nc-tx .h{display:flex;justify-content:space-between;gap:8px;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.nc-tx b{display:block;font-size:.92rem;color:var(--ink);margin-top:1px}
+.nc-tx small{font-size:.85rem;color:var(--body);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nc-chat{position:fixed;right:18px;bottom:88px;z-index:96;width:min(380px,calc(100vw - 24px));max-height:min(560px,72vh);background:var(--canvas);border:1px solid var(--hairline);border-radius:24px;box-shadow:var(--shadow-elevated);display:none;flex-direction:column;overflow:hidden}
+.nc-chat.open{display:flex;animation:ncpop .4s var(--ease)}
+@keyframes ncpop{from{transform:scale(.92);opacity:0}to{transform:none;opacity:1}}
+@media(max-width:560px){.nc-chat{right:0;left:0;bottom:0;width:100%;border-radius:24px 24px 0 0;max-height:80vh}}
+.nc-head{display:flex;align-items:center;gap:11px;padding:14px 16px;background:var(--ink);color:#fff}
+.nc-head .av{width:38px;height:38px;border-radius:50%;background:#fff;color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none;overflow:hidden}
+.nc-head .av img{width:100%;height:100%;object-fit:cover}
+.nc-head b{font-size:.98rem;color:#fff}
+.nc-head small{display:block;font-size:.72rem;opacity:.9;color:#fff}
+.nc-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#8FF0A6;box-shadow:0 0 0 2px rgba(143,240,166,.35);margin-right:6px;vertical-align:middle}
+.nc-head button{margin-left:auto;background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:4px 8px;line-height:1}
+.nc-body{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:10px;background:var(--surface-soft)}
+.nc-msg{max-width:86%;padding:11px 15px;border-radius:18px;font-size:.92rem;line-height:1.5;animation:ncmsgin .35s var(--ease)}
+@keyframes ncmsgin{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+.nc-msg.nico{background:var(--canvas);border:1px solid var(--hairline);color:var(--body);border-bottom-left-radius:6px;align-self:flex-start}
+.nc-msg.nico b{color:var(--ink)}
+.nc-msg.me{background:var(--orange);color:#fff;border-bottom-right-radius:6px;align-self:flex-end}
+.nc-msg.me b{color:#fff}
+.nc-typing{align-self:flex-start;background:var(--canvas);border:1px solid var(--hairline);border-radius:18px;border-bottom-left-radius:6px;padding:13px 16px;display:flex;gap:5px}
+.nc-typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:nctp 1.2s infinite}
+.nc-typing i:nth-child(2){animation-delay:.18s}.nc-typing i:nth-child(3){animation-delay:.36s}
+@keyframes nctp{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+.nc-opts{padding:12px 14px;border-top:1px solid var(--hairline);display:flex;flex-wrap:wrap;gap:8px;background:var(--canvas)}
+.nc-opts button{background:var(--orange-soft);border:1px solid rgba(255,102,2,.35);color:var(--orange-hover);border-radius:999px;padding:10px 18px;font-family:'Open Sans',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s}
+.nc-opts button:hover{background:var(--orange);color:#fff}
+@keyframes ncPageShake{0%,100%{transform:translate3d(0,0,0)}15%{transform:translate3d(-7px,2px,0)}30%{transform:translate3d(7px,-2px,0)}45%{transform:translate3d(-5px,1px,0)}60%{transform:translate3d(5px,-1px,0)}75%{transform:translate3d(-3px,1px,0)}90%{transform:translate3d(3px,0,0)}}
+body.nc-shake{animation:ncPageShake .5s cubic-bezier(.36,.07,.19,.97)}
+/* Redondito flotante para reabrir el chat (launcher) */
+.nc-launch{position:fixed;right:18px;bottom:18px;z-index:96;width:62px;height:62px;border-radius:50%;border:none;cursor:pointer;padding:0;background:var(--ink);box-shadow:0 12px 30px rgba(12,52,82,.4);display:none;align-items:center;justify-content:center;transition:transform .2s var(--ease)}
+.nc-launch.show{display:flex;animation:ncpop .4s var(--ease)}
+.nc-launch:hover{transform:scale(1.07)}
+.nc-launch::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 0 rgba(255,102,2,.45);animation:ncPulse 2.8s infinite}
+@keyframes ncPulse{0%{box-shadow:0 0 0 0 rgba(255,102,2,.4)}70%{box-shadow:0 0 0 14px rgba(255,102,2,0)}100%{box-shadow:0 0 0 0 rgba(255,102,2,0)}}
+.nc-launch-face{width:100%;height:100%;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.3rem;background:var(--ink)}
+.nc-launch-face img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.nc-launch-badge{position:absolute;top:-3px;right:-3px;width:22px;height:22px;border-radius:50%;background:var(--orange);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:.64rem;z-index:1}
+@media(prefers-reduced-motion:reduce){body.nc-shake{animation:none}.nc-push{transition:none}.nc-launch::after{animation:none}}
+
+</style>
+
+<div class="ups-back" id="upsBack" role="dialog" aria-modal="true" aria-labelledby="upsTitle">
+  <div class="ups-box">
+    <button class="ups-x" id="upsX" aria-label="Cerrar">&times;</button>
+    <span class="ups-eyebrow">Un paso antes de pagar</span>
+    <h2 id="upsTitle">Vas a recuperar 2 horas por día. ¿Y después qué hacés con ellas?</h2>
+    <p class="ups-sub">Ya tenés <b>Desintoxicación Digital</b> en el carrito. Esto es lo que más se lleva la gente junto con él — y entra en <b>el mismo pago</b>, sin volver a cargar la tarjeta.</p>
+
+    <div class="ups-cards">
+      <article class="ups-card best">
+        <span class="tag">EL MÁS ELEGIDO</span>
+        <h3>ABC del Alto Rendimiento</h3>
+        <p class="for">Sacarte el celular de encima es el principio. Esto es lo que hacés con el tiempo que recuperás.</p>
+        <ul>
+          <li>6 módulos en video, paso a paso</li>
+          <li>Foco, hábitos, sueño y energía</li>
+          <li>El sistema completo, no tips sueltos</li>
+          <li>Acceso inmediato y de por vida</li>
+        </ul>
+        <div class="ups-price"><b id="ups-abc-p">+$35.000</b><span>al mismo pago</span></div>
+        <p class="ups-total">Total de tu pedido: <b id="ups-abc-t">$58.500</b></p>
+        <button class="ups-go" data-ups-add="abc">SUMARLO A MI PEDIDO</button>
+      </article>
+
+      <article class="ups-card alt">
+        <h3>Hackea tu Cerebro <span style="font-weight:600;font-size:.8em;opacity:.7">(ebook)</span></h3>
+        <p class="for">El bestseller de Nico. Toda la ciencia que hay detrás del método, en un solo libro.</p>
+        <ul>
+          <li>El libro completo en digital</li>
+          <li>Aprender, memoria, foco y energía</li>
+          <li>Lo leés hoy mismo</li>
+          <li>Te llega al mail al instante</li>
+        </ul>
+        <div class="ups-price"><b id="ups-htc-p">+$23.360</b><span>al mismo pago</span></div>
+        <p class="ups-total">Total de tu pedido: <b id="ups-htc-t">$46.860</b></p>
+        <button class="ups-go" data-ups-add="htc">AGREGARLO</button>
+      </article>
+    </div>
+
+    <div class="ups-foot">
+      <button class="ups-no" data-ups-skip>No, sigo solo con Desintoxicación Digital →</button>
+      <p class="ups-note">Pago seguro · Todo te llega por correo al instante</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  /* ═══════════ CONFIG (editá acá si cambian precios o variantes) ═══════════ */
+  var TIENDA = "https://ss7cqv-rz.myshopify.com";
+  var V = {
+    detox: "55742214930505",   /* Desintoxicación Digital — $47.000 con 50% automático → $23.500 */
+    abc:   "55862099312713",   /* ABC del Alto Rendimiento — $35.000 */
+    htc:   "55792577445961"    /* Hackea tu Cerebro (ebook) — $23.360 */
+  };
+  /* Textos de precio del popup. Si cambia un precio en Shopify, actualizá acá. */
+  var PRECIOS = {
+    abc: { suma:"+$35.000", total:"$58.500" },   /* 23.500 + 35.000 */
+    htc: { suma:"+$23.360", total:"$46.860" }    /* 23.500 + 23.360 */
+  };
+  /* ════════════════════════════════════════════════════════════════════════ */
+
+  var TRACKING_KEYS = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term","campaign_id","adset_id","ad_id","fbclid"];
+  function tracking(){ try{ return JSON.parse(sessionStorage.getItem("nfm_tracking")||"{}"); }catch(e){ return {}; } }
+
+  /* Cart permalink de Shopify con varios productos → va directo al checkout */
+  function comboUrl(vars, pack){
+    var url = TIENDA + "/cart/" + vars.map(function(v){ return v + ":1"; }).join(",");
+    var t = tracking(), qs = [];
+    TRACKING_KEYS.forEach(function(k){ if(t[k]) qs.push(k + "=" + encodeURIComponent(t[k])); });
+    qs.push("pack=" + encodeURIComponent(pack));
+    return url + "?" + qs.join("&");
+  }
+
+  var back = document.getElementById("upsBack");
+  if(!back) return;
+  var abierto = false, hrefSolo = "";
+
+  /* pinta los precios configurados */
+  function texto(id, v){ var el = document.getElementById(id); if(el) el.textContent = v; }
+  texto("ups-abc-p", PRECIOS.abc.suma); texto("ups-abc-t", PRECIOS.abc.total);
+  texto("ups-htc-p", PRECIOS.htc.suma); texto("ups-htc-t", PRECIOS.htc.total);
+
+  function abrir(hrefOriginal){
+    hrefSolo = hrefOriginal || hrefSolo;
+    abierto = true;
+    back.classList.add("on");
+    document.body.style.overflow = "hidden";
+  }
+  function cerrar(){
+    abierto = false;
+    back.classList.remove("on");
+    document.body.style.overflow = "";
+  }
+  function irA(url){
+    if(window.fbq){ try{ fbq("track","InitiateCheckout"); }catch(e){} }
+    window.location.href = url;
+  }
+
+  /* Interceptamos TODOS los CTA de compra: en vez de ir al checkout, abren el popup.
+     - [data-cta]        → botones de la oferta y del cierre final
+     - [data-arm].armed  → nav y sticky, una vez que ya vieron la oferta */
+  document.addEventListener("click", function(e){
+    var a = e.target.closest ? e.target.closest("[data-cta], [data-arm]") : null;
+    if(!a) return;
+    if(a.hasAttribute("data-arm") && !a.classList.contains("armed")) return;  /* todavía baja a la oferta */
+    var href = a.getAttribute("href") || "";
+    if(!href || href.charAt(0) === "#") return;                               /* aún no apunta al checkout */
+    e.preventDefault();
+    abrir(href);
+  }, true);
+
+  /* sumar un producto → checkout con los 2 */
+  back.querySelectorAll("[data-ups-add]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var cual = b.getAttribute("data-ups-add");
+      irA(comboUrl([V.detox, V[cual]], "detox-" + cual));
+    });
+  });
+
+  /* seguir solo con el detox → checkout de siempre */
+  back.querySelectorAll("[data-ups-skip]").forEach(function(b){
+    b.addEventListener("click", function(){ irA(hrefSolo || (TIENDA + "/cart/" + V.detox + ":1")); });
+  });
+
+  /* cerrar (X, clic afuera, Escape) → se queda en la página, no compra */
+  document.getElementById("upsX").addEventListener("click", cerrar);
+  back.addEventListener("click", function(e){ if(e.target === back) cerrar(); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape" && abierto) cerrar(); });
 })();
 </script>
 
