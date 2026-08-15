@@ -117,8 +117,9 @@ clase viaja también en `utm_term`, que GHL captura nativo sin configurar nada. 
 - Crear los 3 campos personalizados del punto 3 (opcional pero recomendado).
 - **Sumar al form la pregunta discriminante del MD (Parte 9): *"¿Hay gente cuyo trabajo depende de tus
   decisiones? ¿Cuántas?"***. Es lo que separa Platinum de Gold antes de agendar, y es gratis ponerlo acá.
-- El evento `Lead` está **apagado** en la landing (`TRACKEAR_LEAD_EN_PAGINA: false`) porque asumo que ya lo
-  dispara GHL. Si no lo dispara, poné `true` y la landing lo manda al enviarse el form.
+- **Ningún evento de conversión se dispara por código.** Ni en la landing ni en la página de gracias.
+  El único evento del pixel es `PageView`. La conversión (`Lead` / `CompleteRegistration`) la manda
+  GoHighLevel por la **API de Conversiones**, filtrada por la respuesta del form. Ver sección 9.
 
 ---
 
@@ -256,3 +257,44 @@ tango) — no lidera, pero al menos suena corporativo.
 - **Riesgo de creativo único.** Del doc de estrategia: un solo creativo trajo el 45% de los leads. La landing
   ahora aguanta dos ángulos, pero si la pauta sigue dependiendo de un anuncio, el cuello de botella se corre
   para arriba. Con dos títulos definidos ya hay material para dos familias de ganchos.
+
+---
+
+## 9. Trackeo de Meta: por qué el código NO dispara conversiones
+
+**Regla:** el pixel en las páginas dispara **sólo `PageView`**. Toda conversión sale de GoHighLevel por
+la **API de Conversiones (CAPI)**.
+
+### El problema que esto resuelve
+
+Había un `fbq('track','Lead')` en la página de gracias, y al mismo tiempo GHL mandaba `Lead` por CAPI
+para los leads que no son estudiantes. **El pixel y la CAPI no se deduplican solas**: Meta sólo une dos
+eventos si comparten el mismo `event_id` y `event_name`. Sin ese `event_id` compartido, los suma.
+
+Resultado observado: **4.000 leads reales → ~6.000 en Meta**. La cuenta cierra:
+
+```
+Pixel Lead (todos los que ven la página de gracias)   ≈ 4.000
+CAPI Lead  (sólo los que NO son estudiantes)          ≈ 2.000
+                                                      ────────
+Meta reportaba                                        ≈ 6.000
+```
+
+Y el pixel infla todavía un poco más, porque dispara en **cada carga** de la página de gracias: un
+refresh, un "volver atrás" o alguien que llega directo al link contaban como registro nuevo.
+
+### Cómo quedó
+
+| Página | Eventos del pixel | Conversión |
+|---|---|---|
+| Landing de registro | `PageView` | — |
+| Página de gracias | `PageView` | la manda GHL por CAPI |
+
+Se eliminó también el interruptor `TRACKEAR_LEAD_EN_PAGINA` de la landing, que estaba apagado pero
+permitía volver a romper esto con un `true`.
+
+### Si algún día se quiere volver a tener el evento por pixel
+
+No alcanza con agregar el `fbq`. Habría que mandar **el mismo `event_id`** desde el pixel y desde la
+CAPI para que Meta los una. Mientras GHL no exponga ese `event_id`, la única opción segura es la de
+ahora: **uno solo de los dos lados, nunca los dos**.

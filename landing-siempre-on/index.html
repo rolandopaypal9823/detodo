@@ -896,10 +896,11 @@ var CONFIG = {
      sacá utm_term de la URL del anuncio y usá adset_id={{adset.id}} en su lugar. */
   CLASE_EN_UTM_TERM: false,
 
-  /* — Trackeo — */
-  TRACKEAR_LEAD_EN_PAGINA: false  // ⚠️ DEJALO EN FALSE. El evento Lead lo dispara la thank you page,
-                                  // que es donde se confirma el registro de verdad. Si prendés esto,
-                                  // Meta cuenta el Lead dos veces por cada registro.
+  /* — Trackeo —
+     Esta landing NO dispara ningún evento de conversión por código, a propósito.
+     La conversión (Lead / CompleteRegistration) la manda GoHighLevel por la API de
+     Conversiones. Si además la disparara el pixel, Meta contaría dos veces el mismo
+     registro: el pixel y la CAPI no se deduplican solas si no comparten event_id. */
 };
 
 
@@ -1322,23 +1323,6 @@ if(TEST_SIGUIENTE && claseSalteada){
     window.sessionStorage.setItem('nfm_clase_fecha', isoDe(clase.ts));
   }catch(err){}
 })();
-
-/* ─── Lead opcional al enviarse el form (apagado por defecto) ─── */
-if(CONFIG.TRACKEAR_LEAD_EN_PAGINA){
-  (function(){
-    var yaDisparo = false;
-    window.addEventListener('message', function(ev){
-      if(yaDisparo) return;
-      if(!ev.origin || ev.origin.indexOf('leadconnectorhq') === -1) return;
-      var d = '';
-      try{ d = (typeof ev.data === 'string') ? ev.data : JSON.stringify(ev.data); }catch(err){ return; }
-      if(/resize|height/i.test(d)) return;
-      if(!/submit|success|thank/i.test(d)) return;
-      yaDisparo = true;
-      if(window.fbq) window.fbq('track','Lead',{content_name:clase.utm});
-    }, false);
-  })();
-}
 
 /* ─── CONTADOR ─── */
 (function(){
