@@ -1,0 +1,547 @@
+<title>Flujo de clipeo con máxima calidad — Informe final · Instituto NFM</title>
+<style>
+  :root {
+    --ground:#ECEEEF; --surface:#FFFFFF; --surface-2:#F4F6F7;
+    --ink:#14181B; --muted:#59636A; --line:#D3D9DC; --line-soft:#E4E8EA;
+    --accent:#0E6E7E; --accent-soft:#DDEDF0;
+    --bad:#A8241D; --warn:#8A5800; --good:#1C6640;
+    --bad-bg:#F7E2E0; --warn-bg:#F7EBD6; --good-bg:#DFEFE6;
+    --shadow:0 1px 2px rgba(20,24,27,.06), 0 10px 28px rgba(20,24,27,.06);
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:#0F1416; --surface:#161D20; --surface-2:#1B2429;
+      --ink:#E4E9EB; --muted:#909CA2; --line:#273237; --line-soft:#1F292E;
+      --accent:#46B9CD; --accent-soft:#12313A;
+      --bad:#F0867E; --warn:#DFA847; --good:#6CC793;
+      --bad-bg:#2D1614; --warn-bg:#2B2010; --good-bg:#12261B;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#0F1416; --surface:#161D20; --surface-2:#1B2429;
+    --ink:#E4E9EB; --muted:#909CA2; --line:#273237; --line-soft:#1F292E;
+    --accent:#46B9CD; --accent-soft:#12313A;
+    --bad:#F0867E; --warn:#DFA847; --good:#6CC793;
+    --bad-bg:#2D1614; --warn-bg:#2B2010; --good-bg:#12261B;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.25);
+  }
+
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--ground); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:990px; margin:0 auto; padding:0 24px 110px; }
+
+  header.mast { padding:54px 0 0; }
+  .eyebrow { font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 18px; }
+  h1 { font-size:clamp(31px,5.2vw,48px); line-height:1.04; letter-spacing:-.028em; font-weight:740; margin:0 0 16px; max-width:19ch; text-wrap:balance; }
+  .standfirst { font-size:18.5px; line-height:1.5; color:var(--muted); max-width:60ch; margin:0 0 30px; }
+  .bars { display:grid; grid-template-columns:repeat(7,1fr); height:6px; margin:0 0 46px; border-radius:1px; overflow:hidden; }
+  .bars i:nth-child(1){background:#b9bcbd} .bars i:nth-child(2){background:#c2b03a} .bars i:nth-child(3){background:#3fa3ad}
+  .bars i:nth-child(4){background:#4a9455} .bars i:nth-child(5){background:#a5498c} .bars i:nth-child(6){background:#b2453d} .bars i:nth-child(7){background:#3f5a9c}
+
+  p { margin:0 0 14px; max-width:66ch; }
+  ul,ol { margin:0 0 14px; padding-left:22px; max-width:66ch; }
+  li { margin:0 0 7px; }
+  a { color:var(--accent); text-underline-offset:2px; }
+  a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; border-radius:3px; }
+  strong { font-weight:660; }
+  code { font-family:var(--mono); font-size:.875em; background:var(--surface-2); border:1px solid var(--line-soft); padding:1px 5px; border-radius:3px; }
+  h4 { font-size:16.5px; font-weight:660; margin:26px 0 8px; }
+
+  /* ENTREGABLE destacado */
+  .deliverable { background:var(--surface); border:2px solid var(--accent); border-radius:6px; box-shadow:var(--shadow); overflow:hidden; margin:0 0 64px; }
+  .del-head { background:var(--accent); color:#fff; padding:14px 26px; font-family:var(--mono); font-size:11.5px; letter-spacing:.13em; text-transform:uppercase; font-weight:700; }
+  .del-body { padding:26px; }
+  .del-row { display:grid; grid-template-columns:126px 1fr; gap:20px; padding:14px 0; border-bottom:1px solid var(--line-soft); align-items:start; }
+  .del-row:last-child { border-bottom:none; padding-bottom:0; }
+  .del-k { font-family:var(--mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); padding-top:5px; }
+  .del-v { margin:0; max-width:none; }
+  .del-v .lead-line { font-size:19px; font-weight:660; letter-spacing:-.012em; line-height:1.35; margin-bottom:6px; }
+  .del-v .sub { font-size:14.5px; color:var(--muted); margin:0; }
+  .presetline { font-family:var(--mono); font-size:13.5px; line-height:1.75; background:var(--surface-2); border:1px solid var(--line-soft); border-radius:4px; padding:13px 15px; }
+
+  /* bloques de respuesta al brief */
+  .qa { margin:0 0 58px; }
+  .brief { background:var(--surface-2); border-left:3px solid var(--muted); border-radius:0 4px 4px 0; padding:14px 18px; margin:0 0 20px; }
+  .brief .tag { font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted); font-weight:700; display:block; margin-bottom:5px; }
+  .brief p { margin:0; font-size:15.5px; font-style:italic; color:var(--ink); max-width:none; }
+
+  .qnum { font-family:var(--mono); font-size:12.5px; letter-spacing:.13em; text-transform:uppercase; font-weight:600; color:var(--accent); margin:0 0 16px; padding:0 0 11px; border-bottom:1px solid var(--line); }
+
+  .short { background:var(--accent-soft); border-radius:5px; padding:17px 20px; margin:0 0 20px; }
+  .short .tag { font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); font-weight:700; display:block; margin-bottom:6px; }
+  .short p { margin:0; font-size:17px; line-height:1.45; font-weight:600; letter-spacing:-.008em; max-width:58ch; }
+  .short p + p { margin-top:9px; font-weight:400; font-size:15px; color:var(--muted); }
+
+  .deep { display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:12px; letter-spacing:.05em; text-transform:uppercase; font-weight:600; margin-top:6px; }
+
+  .table-scroll { overflow-x:auto; margin:20px 0; border:1px solid var(--line); border-radius:5px; background:var(--surface); }
+  table { border-collapse:collapse; width:100%; font-size:14.5px; }
+  th { text-align:left; font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:600; color:var(--muted); padding:12px 15px; border-bottom:1px solid var(--line); vertical-align:bottom; white-space:nowrap; }
+  td { padding:12px 15px; border-bottom:1px solid var(--line-soft); vertical-align:top; line-height:1.46; }
+  tr:last-child td { border-bottom:none; }
+  td.who { font-weight:640; white-space:nowrap; }
+  td.num { font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tr.pick td { background:var(--accent-soft); }
+  td.st { border-left:4px solid transparent; }
+  td.st.s-bad { border-left-color:var(--bad); }
+  td.st.s-warn { border-left-color:var(--warn); }
+  td.st.s-good { border-left-color:var(--good); }
+
+  .pill { display:inline-block; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; border-radius:3px; font-weight:600; white-space:nowrap; }
+  .pill.bad { background:var(--bad-bg); color:var(--bad); }
+  .pill.warn { background:var(--warn-bg); color:var(--warn); }
+  .pill.good { background:var(--good-bg); color:var(--good); }
+
+  .callout { background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:0 5px 5px 0; padding:16px 20px; margin:20px 0; }
+  .callout p:last-child { margin-bottom:0; }
+  .callout .label { font-family:var(--mono); font-size:10.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:6px; font-weight:700; }
+  .callout.warnbox { border-left-color:var(--warn); }
+  .callout.warnbox .label { color:var(--warn); }
+
+  /* acciones */
+  .actions { counter-reset:ac; list-style:none; padding:0; max-width:none; background:var(--surface); border:1px solid var(--line); border-radius:5px; box-shadow:var(--shadow); }
+  .actions li { counter-increment:ac; position:relative; padding:16px 20px 16px 60px; border-bottom:1px solid var(--line-soft); margin:0; }
+  .actions li:last-child { border-bottom:none; }
+  .actions li::before { content:counter(ac); position:absolute; left:20px; top:16px; width:26px; height:26px; border-radius:50%; background:var(--accent); color:#fff; font-family:var(--mono); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .actions b { display:block; font-size:15.5px; font-weight:660; margin-bottom:2px; }
+  .actions span { font-size:14px; color:var(--muted); }
+  .actions .who { font-family:var(--mono); font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-left:8px; }
+
+  /* índice de documentos */
+  .docs { display:grid; grid-template-columns:repeat(auto-fill,minmax(268px,1fr)); gap:12px; margin:20px 0; }
+  .doc { background:var(--surface); border:1px solid var(--line); border-radius:5px; padding:16px 18px; display:flex; flex-direction:column; gap:6px; }
+  .doc .dn { font-weight:660; font-size:15.5px; letter-spacing:-.01em; }
+  .doc .dd { font-size:13.5px; color:var(--muted); line-height:1.45; flex:1; }
+  .doc .dl { font-family:var(--mono); font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; font-weight:600; }
+
+  footer.notes { margin-top:76px; padding-top:24px; border-top:1px solid var(--line); font-size:13.5px; color:var(--muted); }
+  footer.notes p { max-width:78ch; }
+
+  @media (max-width:640px) {
+    .del-row { grid-template-columns:1fr; gap:4px; }
+  }
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">Instituto NFM · Informe final · Agosto 2026</p>
+  <h1>Flujo de clipeo con máxima calidad de salida</h1>
+  <p class="standfirst">Respuesta punto por punto al brief, con la recomendación de herramienta y el preset de exportación listos para adoptar como estándar del equipo.</p>
+  <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</header>
+
+<div class="deliverable">
+  <div class="del-head">El entregable</div>
+  <div class="del-body">
+    <div class="del-row">
+      <div class="del-k">Herramienta</div>
+      <div class="del-v">
+        <p class="lead-line">OpusClip Pro para detectar + DaVinci Resolve para renderizar</p>
+        <p class="sub">USD 29/mes en total. Resolve es gratis. OpusClip encuentra los momentos y aporta los <em>timestamps</em>; el clip final se corta y se renderiza en Resolve. Para el contenido de relleno se puede usar la salida de OpusClip tal cual.</p>
+      </div>
+    </div>
+    <div class="del-row">
+      <div class="del-k">Preset</div>
+      <div class="del-v">
+        <div class="presetline">
+          <strong>NFM-Vertical-1080</strong><br>
+          MP4 · 1080×1920 · H.264 High L4.2 · 8 bit yuv420p<br>
+          VBR 2 pasadas 16 Mbps (máx 20, buffer 32)<br>
+          fps igual al del original · GOP cerrado 2 s<br>
+          Rec.709, rango limitado · escalado Lanczos<br>
+          AAC-LC 48 kHz estéreo 320 kbps · −14 LUFS, pico −1 dBTP<br>
+          <code>+faststart</code>, sin metadatos
+        </div>
+        <p class="sub" style="margin-top:9px">Única excepción: para YouTube Shorts, 2160×3840 a 40 Mbps si el master es 4K real.</p>
+      </div>
+    </div>
+    <div class="del-row">
+      <div class="del-k">Condición</div>
+      <div class="del-v">
+        <p class="lead-line" style="font-size:17px">Grabar las clases en 4K. Sin eso, nada de lo anterior importa.</p>
+        <p class="sub">Es el único cambio que sube el techo de calidad. Está explicado en el punto 3.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 1 ============ -->
+<div class="qa">
+  <p class="qnum">Punto 1 de 5</p>
+  <div class="brief">
+    <span class="tag">Del brief</span>
+    <p>Herramientas de clipping (automáticas y manuales): comparativa de calidad real de exportación, no solo features.</p>
+  </div>
+
+  <div class="short">
+    <span class="tag">Respuesta corta</span>
+    <p>No se puede comparar la calidad de exportación con información pública: ninguna herramienta de la categoría publica su bitrate de salida.</p>
+    <p>Todas anuncian resolución —1080p, 4K— porque es un número de marketing. Ninguna dice cuántos Mbps entrega, ni el perfil de códec, ni si reescala. Así que la elección se hace por los ejes que sí se pueden verificar, y la calidad de salida se mide.</p>
+  </div>
+
+  <p>Lo segundo que apareció al mapear la categoría es que <strong>las comparativas que circulan mezclan herramientas que no hacen lo mismo</strong>. Hay cuatro familias:</p>
+
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Familia</th><th>Qué hace</th><th>Quiénes</th></tr></thead>
+      <tbody>
+        <tr><td class="who">Detectores</td><td>Le das 90 minutos y encuentra los momentos que valen</td><td>OpusClip · Vizard · Klap · Choppity · 2Short · Munch · Quso · Spikes</td></tr>
+        <tr><td class="who">Terminadores</td><td>Ya elegiste el clip, lo dejan lindo</td><td>Submagic · Captions · CapCut · Veed</td></tr>
+        <tr><td class="who">Grabador + clipper</td><td>Graban la sesión en alta calidad y encima clipean</td><td>Riverside · Descript</td></tr>
+        <tr><td class="who">Editores</td><td>Control total de la codificación</td><td>DaVinci Resolve · Premiere Pro</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Comparar OpusClip con Submagic es comparar un buscador con una imprenta. Nuestro flujo necesita <strong>una de la familia 1 más una de la 4</strong>.</p>
+
+  <h4>Los tres ejes que sí se pueden comparar</h4>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Eje</th><th>Gana</th><th>Detalle</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="who">Criterio de selección</td>
+          <td><span class="pill good">OpusClip</span></td>
+          <td>Sigue siendo la referencia de la categoría, y es lo más difícil de reemplazar con trabajo humano barato. Vizard y Choppity un escalón abajo.</td>
+        </tr>
+        <tr>
+          <td class="who">Minutos por dólar</td>
+          <td><span class="pill good">Vizard</span></td>
+          <td>600 minutos contra 300 de OpusClip Pro por precio similar. Los créditos se cuentan en minutos <em>subidos</em>, no en clips generados.</td>
+        </tr>
+        <tr>
+          <td class="who">Control de la salida</td>
+          <td><span class="pill good">Resolve / Premiere</span></td>
+          <td>Total. Todas las herramientas en la nube: <strong>ninguno</strong>. CapCut deja tocar bitrate y fps; Descript, parcial.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <span class="label">Cómo cerrar el dato que falta</span>
+    <p>Armé un <strong>comparador</strong> que mide lo que ninguna publica: cargás dos o más exportaciones del mismo clip y devuelve resolución real, bitrate real, <strong>nitidez medida</strong> y rango de luma. Dos archivos que dicen "1080×1920" pueden dar nitidez muy distinta: el más bajo fue reescalado desde menos píxeles. Media jornada de trabajo y el eje queda cerrado con datos propios.</p>
+  </div>
+
+  <p class="deep">→ <a href="https://claude.ai/code/artifact/d700f329-c6b7-439b-9300-3b299b18f631">Comparativa completa y comparador</a></p>
+</div>
+
+<!-- ============ 2 ============ -->
+<div class="qa">
+  <p class="qnum">Punto 2 de 5</p>
+  <div class="brief">
+    <span class="tag">Del brief</span>
+    <p>Ajustes de exportación: resolución, bitrate, códec, framerate y formato óptimo para IG Reels / YouTube Shorts / TikTok, y cómo evitar la recompresión que baja calidad al subir.</p>
+  </div>
+
+  <div class="short">
+    <span class="tag">Respuesta corta</span>
+    <p>Un solo preset sirve para las tres plataformas, porque las tres entregan H.264 a 1080×1920.</p>
+    <p>Es el <code>NFM-Vertical-1080</code> del recuadro de arriba. La recompresión de la plataforma no se puede evitar; lo que sí se evita es la recompresión <em>extra</em>, que es la que de verdad hace daño.</p>
+  </div>
+
+  <h4>Las tres reglas que evitan la recompresión evitable</h4>
+  <ol>
+    <li><strong>Entregar exactamente 1080×1920.</strong> Si el archivo mide otra cosa, la plataforma reescala antes de comprimir y perdés dos veces: en el reescalado y en la codificación.</li>
+    <li><strong>Subir desde escritorio.</strong> Las apps de Instagram y TikTok re-codifican el video en el teléfono antes de mandarlo. Es una generación entera de pérdida por usar el canal equivocado. Instagram desde <code>instagram.com</code> o Meta Business Suite; TikTok desde <code>tiktok.com</code>; Shorts desde YouTube Studio.</li>
+    <li><strong>Bitrate suficiente, no máximo.</strong> 16 Mbps. Arriba de ~20 dejás de ganar calidad visible y solo hacés el archivo más pesado.</li>
+  </ol>
+
+  <p>Si hay que subir desde el celular: en Instagram, Configuración → Uso de datos y calidad multimedia → <em>Subir con la máxima calidad</em> (no viene activado). En TikTok, al publicar: Más opciones → <em>Permitir subidas de alta calidad</em> (se desactiva sola en cada post).</p>
+
+  <div class="callout warnbox">
+    <span class="label">Un mito que conviene desactivar en el equipo</span>
+    <p>Circula que subir con bitrate alto "hace que te compriman más fuerte". <strong>No es así.</strong> El transcoder de cada plataforma apunta a un bitrate de salida fijo sin importar lo que le des. Lo único cierto es que pasado cierto punto no ganás nada.</p>
+  </div>
+
+  <h4>Excepción: YouTube Shorts</h4>
+  <p>YouTube reserva sus códecs modernos y los bitrates de entrega más altos para los uploads de gama 4K. Para Shorts conviene entregar <strong>2160×3840 a 40 Mbps</strong>, pero solo si el master es 4K real: subir un 1080 escalado a 4K únicamente agranda el archivo.</p>
+
+  <p class="deep">→ <a href="https://claude.ai/code/artifact/e4d48111-e4ed-4b93-8e6e-65223d30b434">Ficha completa del preset y comandos de verificación</a></p>
+</div>
+
+<!-- ============ 3 ============ -->
+<div class="qa">
+  <p class="qnum">Punto 3 de 5</p>
+  <div class="brief">
+    <span class="tag">Del brief</span>
+    <p>Flujo de trabajo desde el material original (grabación / stream / clase) hasta el clip final: qué se pierde en cada paso y cómo minimizarlo.</p>
+  </div>
+
+  <div class="short">
+    <span class="tag">Respuesta corta</span>
+    <p>El 90 % de la calidad se decide en el primer paso. Si la clase se graba en 1080p, el recorte vertical sale de 607 píxeles de ancho y hay que estirarlo un 78 %.</p>
+    <p>Al cortar 9:16 de un video horizontal, el ancho que queda es <code>alto × 9/16</code>. De 1080 de alto salen 607 px. De 2160 salen 1215 px. Para entregar 1080×1920 sin estirar nada hace falta grabar en 4K. Ninguna IA inventa esos píxeles.</p>
+  </div>
+
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Paso</th><th>Qué se pierde</th><th>Cómo se minimiza</th><th>Impacto</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="st s-bad who">1. Captura</td>
+          <td>Si se graba 1080p, el techo ya quedó fijado. Nada río abajo lo recupera.</td>
+          <td>OBS: base y salida 3840×2160, NVENC H.264, CQP 16–18 o CBR 60–80 Mbps, contenedor MKV.</td>
+          <td><span class="pill bad">Crítico</span></td>
+        </tr>
+        <tr>
+          <td class="st s-bad who">2. Fuente</td>
+          <td>La grabación en la nube de Zoom sale a 720p con bitrate bajísimo. Es el peor material posible y es el que se usa por defecto.</td>
+          <td>Nunca clipear desde la nube de Zoom. Grabar local con OBS, o grabar la cámara aparte aunque la clase se dé por Zoom: <em>transmitís comprimido, grabás limpio</em>.</td>
+          <td><span class="pill bad">Crítico</span></td>
+        </tr>
+        <tr>
+          <td class="st s-good who">3. Traslado</td>
+          <td>Nada, con el canal correcto.</td>
+          <td>Drive, Dropbox y WeTransfer no recomprimen. WhatsApp y Telegram destruyen el archivo: prohibidos para material fuente.</td>
+          <td><span class="pill good">Nulo</span></td>
+        </tr>
+        <tr>
+          <td class="st s-warn who">4. Recorte vertical</td>
+          <td>Entre 56 % y 70 % de la imagen. Inevitable por definición del formato.</td>
+          <td>Que salga de una fuente 4K. Recorte estático antes que seguimiento automático.</td>
+          <td><span class="pill warn">Alto pero acotado</span></td>
+        </tr>
+        <tr>
+          <td class="st s-bad who">5. Renders intermedios</td>
+          <td>Una generación por cada exportar → reimportar. El clásico: cortar en una herramienta, exportar, subir a otra para subtítulos, exportar de nuevo.</td>
+          <td>Todo en el mismo proyecto y <strong>un solo render final</strong>. Si hace falta un intermedio, ProRes 422 o DNxHR, nunca H.264.</td>
+          <td><span class="pill bad">Alto y evitable</span></td>
+        </tr>
+        <tr>
+          <td class="st s-warn who">6. Subida</td>
+          <td>Las apps re-codifican en el teléfono.</td>
+          <td>Escritorio siempre que se pueda.</td>
+          <td><span class="pill warn">Medio · evitable</span></td>
+        </tr>
+        <tr>
+          <td class="st s-good who">7. Plataforma</td>
+          <td>Recodificación a un bitrate de entrega muy inferior. No se puede evitar.</td>
+          <td>Entregarle exactamente 1080×1920 y con bitrate alto, para que reciba material limpio.</td>
+          <td><span class="pill good">Inevitable</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><strong>Un flujo descuidado acumula seis codificaciones; uno bien armado, tres</strong> — y una de esas tres es la de la plataforma. La diferencia no es hacer menos pasos: es que el corte, los subtítulos, la música y el color pasen en un solo proyecto y salgan en un solo render.</p>
+
+  <h4>Si no se puede grabar en 4K todavía</h4>
+  <ul>
+    <li><strong>Un celular grabando 4K vertical en paralelo.</strong> Lo más barato y el mejor resultado, porque no hay recorte.</li>
+    <li><strong>Componer pensando en el 9:16:</strong> hablante a un costado, aire del otro lado.</li>
+    <li><strong>Formato con marco:</strong> el 16:9 completo arriba y relleno abajo. Usa el ancho nativo sin estirar nada.</li>
+  </ul>
+
+  <p class="deep">→ <a href="https://claude.ai/code/artifact/e4d48111-e4ed-4b93-8e6e-65223d30b434">Demo interactiva de la pérdida por recorte</a></p>
+</div>
+
+<!-- ============ 4 ============ -->
+<div class="qa">
+  <p class="qnum">Punto 4 de 5</p>
+  <div class="brief">
+    <span class="tag">Del brief</span>
+    <p>Subtitulado, encuadre vertical y reencuadre automático sin degradar la imagen.</p>
+  </div>
+
+  <div class="short">
+    <span class="tag">Respuesta corta</span>
+    <p>Los subtítulos se queman en el render final, nunca en un segundo pase. El reencuadre se hace estático, no con seguimiento automático.</p>
+    <p>Son las dos decisiones que más degradan sin que nadie se dé cuenta: un render extra por los subtítulos, y un tracking que flota y lee amateur.</p>
+  </div>
+
+  <h4>Subtitulado</h4>
+  <ul>
+    <li><strong>Casi todas las herramientas corren Whisper por debajo</strong>, así que la diferencia de precisión entre ellas es menor de lo que dice el marketing. Para español rioplatense, Whisper large-v3 (Submagic, Descript) y la transcripción de Premiere están claramente arriba de CapCut, que falla con acentos y muletillas.</li>
+    <li><strong>Siempre revisar a mano.</strong> Ninguna acierta nombres propios ni jerga del programa. Un subtítulo mal escrito le baja más autoridad al Instituto que un clip un poco blando.</li>
+    <li><strong>Quemarlos en el render final.</strong> Es el error de calidad más común del flujo.</li>
+    <li><strong>Trazo grueso o caja sólida</strong>, nunca sombra suave: el texto fino se rompe en artefactos al comprimir.</li>
+    <li><strong>Posición fija</strong> en el tercio central-bajo. Nada en los 250 px de arriba ni en los 420 px de abajo.</li>
+  </ul>
+
+  <h4>Encuadre y reencuadre</h4>
+  <ul>
+    <li><strong>Recorte estático para una clase.</strong> Un hablante que no se mueve mucho no necesita seguimiento, y el reencuadre automático corrige constantemente: el ojo lo lee como amateur aunque no sepa por qué.</li>
+    <li><strong>Si el hablante se desplaza, cortes duros</strong> entre dos o tres encuadres fijos. Lee como decisión de edición.</li>
+    <li><strong>Nunca escalar por encima del 100 %.</strong> Si hay que agrandar para llenar el cuadro, el problema es la captura.</li>
+    <li><strong>Ojos en el tercio superior</strong>, aire mínimo sobre la cabeza. El exceso de aire es el error de encuadre más visible.</li>
+  </ul>
+
+  <div class="callout warnbox">
+    <span class="label">Dato a tener en cuenta al presupuestar</span>
+    <p>El <em>Smart Reframe</em> automático de Resolve es exclusivo de <strong>Resolve Studio</strong> (USD 295, pago único). La versión gratuita reencuadra a mano con keyframes — que para este flujo es lo que conviene igual, así que no es un gasto necesario.</p>
+  </div>
+
+  <p class="deep">→ <a href="https://claude.ai/code/artifact/3a6ccb8e-f307-498a-b83f-3c690be0fc39">Auditoría visual: los seis tells y el analizador</a></p>
+</div>
+
+<!-- ============ 5 ============ -->
+<div class="qa">
+  <p class="qnum">Punto 5 de 5</p>
+  <div class="brief">
+    <span class="tag">Del brief</span>
+    <p>Costos de las herramientas y cuál conviene para nuestro volumen.</p>
+  </div>
+
+  <div class="short">
+    <span class="tag">Respuesta corta</span>
+    <p>USD 29 al mes: OpusClip Pro. Resolve es gratis. Y hay un truco que multiplica por cinco lo que rinde el plan.</p>
+    <p>Los créditos se cuentan en <strong>minutos subidos</strong>, no en clips generados. Cortando la clase a mano y subiendo solo los 15–20 minutos con material, cualquier plan rinde cuatro o cinco veces más — y encima mejora la detección, porque le sacás el ruido.</p>
+  </div>
+
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Volumen mensual</th><th>Herramienta</th><th>Costo</th><th>Por qué</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Hasta ~2 clases</td><td class="who">OpusClip Starter + Resolve</td><td class="num">USD 15</td>
+          <td>150 minutos alcanzan. Se paga el mejor criterio de selección, que es lo escaso.</td>
+        </tr>
+        <tr class="pick">
+          <td>3 a 6 clases <span class="pill good">nuestro caso</span></td><td class="who">OpusClip Pro + Resolve</td><td class="num">USD 29</td>
+          <td>300 minutos y 2 asientos. Con el recorte previo alcanza de sobra.</td>
+        </tr>
+        <tr>
+          <td>Más de 6 clases o multicuenta</td><td class="who">Vizard + Resolve</td><td class="num">~USD 15–29</td>
+          <td>600 minutos. Cuando el cuello de botella son los minutos, la mejor detección deja de compensar.</td>
+        </tr>
+        <tr>
+          <td>Si se rehace la grabación</td><td class="who">Riverside + Resolve</td><td class="num">USD 29</td>
+          <td>Graba local en alta calidad de los dos lados. Ataca el problema de la resolución en el origen.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout warnbox">
+    <span class="label">Nota para Argentina</span>
+    <p>Sobre las suscripciones en dólares se suman impuestos y percepciones que pueden agregar bastante al precio de lista. Tomar el plan <strong>anual</strong> en vez de mensual reduce la cantidad de operaciones gravadas. Conviene contratar anual recién después de probar un mes.</p>
+  </div>
+</div>
+
+<!-- ============ conexión ============ -->
+<div class="qa">
+  <p class="qnum">Se conecta con</p>
+  <div class="brief">
+    <span class="tag">Del brief</span>
+    <p>Mejora de autoridad del IG del Instituto (clipeo + intros en collab).</p>
+  </div>
+
+  <div class="short">
+    <span class="tag">Respuesta corta</span>
+    <p>La autoridad no la da la calidad de un clip. La da que todos los clips se vean iguales.</p>
+    <p>Diary of a CEO se reconoce sin ver el logo porque hace exactamente lo mismo todas las veces. Un equipo que aplica bien seis reglas fijas produce un feed más profesional que uno que aplica veinte reglas distintas según el día.</p>
+  </div>
+
+  <p>Eso cambia dónde conviene poner el esfuerzo. La consecuencia práctica es un sistema de <strong>dos carriles</strong> que salen del mismo master 4K:</p>
+
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Carril</th><th>Qué contenido</th><th>Flujo</th><th>Costo por clip</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="who">A — Pilar</td>
+          <td>Feed del Instituto, intros de collab, todo lo que tenga pauta detrás. ~20 % del volumen.</td>
+          <td>OpusClip solo para marcar los momentos → Resolve para recorte, subtítulos, color y render único</td>
+          <td class="num">≈ 25 min de editor</td>
+        </tr>
+        <tr>
+          <td class="who">B — Volumen</td>
+          <td>Relleno diario, multicuenta, pruebas de ángulo. ~80 %.</td>
+          <td>OpusClip de punta a punta con plantilla de marca → revisión de subtítulos a mano</td>
+          <td class="num">≈ 4 min de editor</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Sobre las intros en collab, específicamente</h4>
+  <p>Una intro de collab es el peor lugar posible para improvisar el diseño: es la pieza que ve gente que no te conoce, al lado de una marca que sí conocen. Lo que hay que resolver <strong>una sola vez</strong> es la plantilla — tipografía, color de resalte, tamaño, posición, animación, color grade — y no tocarla nunca más. Media jornada de trabajo que después se aplica sola en cada pieza.</p>
+
+  <div class="callout">
+    <span class="label">Dónde pararse estéticamente</span>
+    <p>Hay dos escuelas de edición en formato corto: la de <strong>alta energía</strong> (Hormozi: amarillo fosforescente, mayúsculas, whooshes) y la de <strong>autoridad</strong> (Huberman, Diary of a CEO: sobria, sin gritar). El Instituto vende autoridad, no urgencia. La línea, en una frase que el equipo puede recordar: <strong>densidad de Hormozi en los primeros 5 segundos, calma de Huberman en los 25 restantes.</strong></p>
+    <p style="margin-top:9px">Importa también porque el estilo de alta energía se saturó en 2026 y hoy se lee como vendedor, no como experto — que es exactamente lo contrario de lo que necesita el IG del Instituto.</p>
+  </div>
+
+  <p class="deep">→ <a href="https://claude.ai/code/artifact/6ddbba65-2365-49e4-9146-284065778afa">Manual de criterio editorial y Score</a></p>
+</div>
+
+<!-- ============ acciones ============ -->
+<div class="qa">
+  <p class="qnum">Próximos pasos</p>
+  <h4 style="margin-top:0">En orden, y con responsable</h4>
+
+  <ol class="actions">
+    <li>
+      <b>Pasar la captura de las clases a 4K <span class="who">producción</span></b>
+      <span>OBS a 3840×2160, y dejar de usar la grabación en la nube de Zoom. Vale más que todo lo demás junto.</span>
+    </li>
+    <li>
+      <b>Contratar OpusClip Pro por un mes <span class="who">administración</span></b>
+      <span>USD 29. Mensual primero; anual solo después de comprobar que sirve.</span>
+    </li>
+    <li>
+      <b>Definir la plantilla de marca <span class="who">diseño</span></b>
+      <span>Tipografía, color de resalte, tamaño, posición, animación y color grade. Una vez, y no se toca.</span>
+    </li>
+    <li>
+      <b>Correr la prueba de exportación <span class="who">edición</span></b>
+      <span>Mismo clip por OpusClip, Vizard y Resolve, medido con el comparador. Media jornada y cierra el único eje que no tiene dato público.</span>
+    </li>
+    <li>
+      <b>Adoptar el Score antes de publicar <span class="who">edición</span></b>
+      <span>El editor se autoaudita y pega el informe junto al archivo. Cambia la discusión de "no me gusta" a "el criterio 4 está en 2".</span>
+    </li>
+  </ol>
+</div>
+
+<!-- ============ documentos ============ -->
+<div class="qa">
+  <p class="qnum">Documentos producidos</p>
+  <div class="docs">
+    <div class="doc">
+      <span class="dn">Estándar técnico</span>
+      <span class="dd">El preset completo, la aritmética del recorte con demo en vivo, la cadena de pérdida y los comandos de verificación.</span>
+      <a class="dl" href="https://claude.ai/code/artifact/e4d48111-e4ed-4b93-8e6e-65223d30b434">Abrir →</a>
+    </div>
+    <div class="doc">
+      <span class="dn">Comparativa de herramientas</span>
+      <span class="dd">Las cuatro familias, 14 herramientas comparadas, y el comparador que mide la calidad de exportación real.</span>
+      <a class="dl" href="https://claude.ai/code/artifact/d700f329-c6b7-439b-9300-3b299b18f631">Abrir →</a>
+    </div>
+    <div class="doc">
+      <span class="dn">Criterio editorial</span>
+      <span class="dd">Las dos escuelas, la anatomía de un clip, las seis reglas con números y el score de edición.</span>
+      <a class="dl" href="https://claude.ai/code/artifact/6ddbba65-2365-49e4-9146-284065778afa">Abrir →</a>
+    </div>
+    <div class="doc">
+      <span class="dn">Auditoría visual</span>
+      <span class="dd">Los seis tells del editor amateur demostrados en vivo y el analizador en dos modos que autocompleta la rúbrica.</span>
+      <a class="dl" href="https://claude.ai/code/artifact/3a6ccb8e-f307-498a-b83f-3c690be0fc39">Abrir →</a>
+    </div>
+    <div class="doc">
+      <span class="dn">IA en edición</span>
+      <span class="dd">Las tres capas de IA en edición y cómo conectar Claude al timeline de Premiere o Resolve por MCP.</span>
+      <a class="dl" href="https://claude.ai/code/artifact/3a5ab05d-6049-4761-8f5f-ea43b39407a2">Abrir →</a>
+    </div>
+    <div class="doc">
+      <span class="dn">Biblioteca de referencias</span>
+      <span class="dd">Cuentas de referencia con qué mirar en cada una, y tablero para guardar clips de competidores. Archivo local.</span>
+      <span class="dl" style="color:var(--muted)">biblioteca-referencias.html</span>
+    </div>
+  </div>
+</div>
+
+<footer class="notes">
+  <p><strong>Qué está verificado y qué no.</strong> La aritmética del recorte, los parámetros de códec y los comandos de <code>ffmpeg</code> son verificables de forma independiente. Los datos de los conectores MCP salen de leer sus repositorios directamente. En cambio, <strong>los precios y las specs de plataforma vienen de fuentes secundarias contrastadas entre sí, no de la fuente primaria</strong>: el entorno donde se armó esta investigación tenía bloqueado el acceso a los sitios de las herramientas y a los centros de ayuda de Meta, TikTok y Google. Verificar precios antes de contratar.</p>
+  <p><strong>Sobre las comparativas publicadas.</strong> Buena parte de los rankings que aparecen buscando "mejor herramienta de clipeo" están publicados por competidores de las herramientas que rankean, o generados para posicionar en buscadores. Por eso este informe separa lo verificable de la opinión agregada, y por eso el eje de calidad de exportación se resuelve midiendo en vez de leyendo.</p>
+  <p><strong>La suposición que conviene confirmar.</strong> La recomendación de plan asume un volumen de 3 a 6 clases por mes de material fuente. Si el volumen real es otro, la tabla del punto 5 tiene la alternativa; el resto del informe no cambia.</p>
+</footer>
+
+</div>
