@@ -54,6 +54,21 @@
   .deliverable { background:var(--surface); border:2px solid var(--accent); border-radius:6px; box-shadow:var(--shadow); overflow:hidden; margin:0 0 64px; }
   .del-head { background:var(--accent); color:#fff; padding:14px 26px; font-family:var(--mono); font-size:11.5px; letter-spacing:.13em; text-transform:uppercase; font-weight:700; }
   .del-body { padding:26px; }
+  .variant { background:var(--surface); border:1px solid var(--line); border-radius:6px; box-shadow:var(--shadow); overflow:hidden; margin:0 0 64px; }
+  .var-head { background:var(--surface-2); border-bottom:1px solid var(--line); padding:14px 26px; display:flex; justify-content:space-between; align-items:baseline; gap:14px; flex-wrap:wrap; }
+  .var-head .t { font-family:var(--mono); font-size:11.5px; letter-spacing:.13em; text-transform:uppercase; font-weight:700; color:var(--muted); }
+  .var-head .c { font-family:var(--mono); font-size:12.5px; color:var(--muted); }
+  .var-body { padding:24px 26px 26px; }
+  .var-body > p:first-child { font-size:18.5px; font-weight:660; letter-spacing:-.012em; line-height:1.38; margin-bottom:14px; max-width:56ch; }
+  .tradeoff { display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line-soft); border-radius:5px; overflow:hidden; margin:18px 0; }
+  .tradeoff > div { padding:15px 18px; }
+  .tradeoff > div + div { border-left:1px solid var(--line-soft); }
+  .tradeoff h5 { margin:0 0 9px; font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:700; }
+  .tradeoff .gain h5 { color:var(--good); }
+  .tradeoff .lose h5 { color:var(--warn); }
+  .tradeoff ul { margin:0; padding-left:17px; max-width:none; }
+  .tradeoff li { font-size:13.8px; line-height:1.45; margin-bottom:6px; }
+  @media (max-width:640px){ .tradeoff { grid-template-columns:1fr; } .tradeoff > div + div { border-left:none; border-top:1px solid var(--line-soft); } }
   .del-row { display:grid; grid-template-columns:126px 1fr; gap:20px; padding:14px 0; border-bottom:1px solid var(--line-soft); align-items:start; }
   .del-row:last-child { border-bottom:none; padding-bottom:0; }
   .del-k { font-family:var(--mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); padding-top:5px; }
@@ -165,6 +180,55 @@
         <p class="lead-line" style="font-size:17px">Grabar las clases en 4K. Sin eso, nada de lo anterior importa.</p>
         <p class="sub">Es el único cambio que sube el techo de calidad. Está explicado en el punto 3.</p>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="variant">
+  <div class="var-head">
+    <span class="t">Variante · flujo full IA, sin abrir un editor</span>
+    <span class="c">~USD 31/mes en anual</span>
+  </div>
+  <div class="var-body">
+    <p>Si el objetivo es que el clip salga terminado sin que nadie edite, la herramienta no es OpusClip: es <strong>Submagic con el add-on Magic Clips</strong>.</p>
+
+    <p>Submagic incorporó clipeo de videos largos: le pasás la clase entera o directamente una URL de YouTube y devuelve 20 o más clips terminados, con subtítulos, b-roll, auto-zoom y quita de silencios. Lo que lo vuelve la mejor opción de este carril no es la detección —ahí está un escalón abajo de OpusClip— sino el <strong>Brand Kit</strong>: cargás la tipografía, los colores y el logo del Instituto una vez y se aplican solos en todos los clips.</p>
+
+    <p>Eso importa porque coincide exactamente con la tesis del punto de autoridad: <strong>lo que se lee como profesional es la repetición idéntica</strong>, no que un clip esté perfecto. Un sistema que aplica la identidad sin que nadie decida nada es la forma más barata de garantizarla.</p>
+
+    <div class="tradeoff">
+      <div class="gain">
+        <h5>Qué se gana</h5>
+        <ul>
+          <li>Brand Kit real: tipografía, colores y logo aplicados automáticamente.</li>
+          <li>Los mejores subtítulos animados de la categoría.</li>
+          <li><strong>El límite se cuenta en videos, no en minutos:</strong> 10 videos largos por mes. Se sube la clase de 90 minutos entera, sin el recorte previo que exige OpusClip.</li>
+          <li>Cero pasos manuales entre herramientas y una sola codificación en la nube.</li>
+        </ul>
+      </div>
+      <div class="lose">
+        <h5>Qué se cede</h5>
+        <ul>
+          <li>Criterio de selección: elige peor qué momento vale.</li>
+          <li>Tope duro de 10 videos largos mensuales, no ampliable con el plan.</li>
+          <li>El add-on se paga aparte del plan base.</li>
+          <li>Techo de calidad visual en torno a <strong>75 sobre 100</strong> en la rúbrica de auditoría.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="font-size:14.5px;color:var(--muted);max-width:70ch">La pérdida de detección se compensa sola: si devuelve 20 clips y alguien mira y elige 4, el criterio lo termina poniendo una persona — que es mejor que el de cualquier herramienta. Son cinco minutos.</p>
+
+    <h4 style="margin-top:22px">Las tres cosas que igual hay que hacer</h4>
+    <ol>
+      <li><strong>Desarmar el preset por defecto.</strong> Viene configurado en escuela de alta energía: emojis, amarillo fosforescente, efectos de sonido. Media hora una sola vez, y define todo el resultado.</li>
+      <li><strong>Grabar en 4K.</strong> No cambia nada: si la fuente es 1080p, el clip sale blando y ninguna herramienta lo arregla.</li>
+      <li><strong>Corregir dónde arranca el clip.</strong> Igual que OpusClip, empieza en el envión y no en el gancho la mayoría de las veces. Arrastrar el punto de inicio son 30 segundos y no es editar, es recortar. Es el trabajo manual con mejor retorno de todo el flujo.</li>
+    </ol>
+
+    <div class="callout warnbox" style="margin-bottom:0">
+      <span class="label">Cómo conviven las dos rutas</span>
+      <p>No son excluyentes ni compiten: son los dos carriles del sistema. <strong>Full IA con Submagic para el carril de volumen</strong> (el 80 %), y <strong>OpusClip más Resolve para el carril pilar</strong> (feed del Instituto, intros de collab, todo lo que lleve pauta). Si hay que empezar por uno solo, empezá por el de volumen: es el que sostiene la frecuencia, y la frecuencia con identidad constante es lo que construye autoridad.</p>
     </div>
   </div>
 </div>
@@ -414,6 +478,10 @@
           <td>Si se rehace la grabación</td><td class="who">Riverside + Resolve</td><td class="num">USD 29</td>
           <td>Graba local en alta calidad de los dos lados. Ataca el problema de la resolución en el origen.</td>
         </tr>
+        <tr>
+          <td>Si se va full IA <span class="pill warn">variante</span></td><td class="who">Submagic + Magic Clips</td><td class="num">~USD 31<br>anual</td>
+          <td>Plan base más el add-on de clipeo. Brand Kit y los mejores subtítulos, tope de 10 videos largos por mes. Ver la variante al inicio del informe.</td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -542,6 +610,7 @@
   <p><strong>Qué está verificado y qué no.</strong> La aritmética del recorte, los parámetros de códec y los comandos de <code>ffmpeg</code> son verificables de forma independiente. Los datos de los conectores MCP salen de leer sus repositorios directamente. En cambio, <strong>los precios y las specs de plataforma vienen de fuentes secundarias contrastadas entre sí, no de la fuente primaria</strong>: el entorno donde se armó esta investigación tenía bloqueado el acceso a los sitios de las herramientas y a los centros de ayuda de Meta, TikTok y Google. Verificar precios antes de contratar.</p>
   <p><strong>Sobre las comparativas publicadas.</strong> Buena parte de los rankings que aparecen buscando "mejor herramienta de clipeo" están publicados por competidores de las herramientas que rankean, o generados para posicionar en buscadores. Por eso este informe separa lo verificable de la opinión agregada, y por eso el eje de calidad de exportación se resuelve midiendo en vez de leyendo.</p>
   <p><strong>La suposición que conviene confirmar.</strong> La recomendación de plan asume un volumen de 3 a 6 clases por mes de material fuente. Si el volumen real es otro, la tabla del punto 5 tiene la alternativa; el resto del informe no cambia.</p>
+  <p><strong>Sobre la variante full IA.</strong> El precio del add-on Magic Clips y el tope de 10 videos largos mensuales salen de búsqueda, no de la fuente primaria. Es exactamente el tipo de estructura —plan base más add-on con límite propio— que las herramientas cambian seguido, así que hay que confirmarla en el sitio antes de contratar. Si el tope cambió o el add-on se integró al plan base, la comparación de costo contra OpusClip se mueve.</p>
 </footer>
 
 </div>
