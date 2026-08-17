@@ -1,0 +1,584 @@
+<title>Comparativa de herramientas de clipeo — Instituto NFM</title>
+<style>
+  :root {
+    --ground:#ECEEEF; --surface:#FFFFFF; --surface-2:#F4F6F7;
+    --ink:#14181B; --muted:#59636A; --line:#D3D9DC; --line-soft:#E4E8EA;
+    --accent:#0E6E7E; --accent-soft:#DDEDF0;
+    --bad:#A8241D; --warn:#8A5800; --good:#1C6640;
+    --bad-bg:#F7E2E0; --warn-bg:#F7EBD6; --good-bg:#DFEFE6;
+    --shadow:0 1px 2px rgba(20,24,27,.06), 0 10px 28px rgba(20,24,27,.06);
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:#0F1416; --surface:#161D20; --surface-2:#1B2429;
+      --ink:#E4E9EB; --muted:#909CA2; --line:#273237; --line-soft:#1F292E;
+      --accent:#46B9CD; --accent-soft:#12313A;
+      --bad:#F0867E; --warn:#DFA847; --good:#6CC793;
+      --bad-bg:#2D1614; --warn-bg:#2B2010; --good-bg:#12261B;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#0F1416; --surface:#161D20; --surface-2:#1B2429;
+    --ink:#E4E9EB; --muted:#909CA2; --line:#273237; --line-soft:#1F292E;
+    --accent:#46B9CD; --accent-soft:#12313A;
+    --bad:#F0867E; --warn:#DFA847; --good:#6CC793;
+    --bad-bg:#2D1614; --warn-bg:#2B2010; --good-bg:#12261B;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.25);
+  }
+
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--ground); color:var(--ink); font-family:var(--sans); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1040px; margin:0 auto; padding:0 24px 110px; }
+
+  header.mast { padding:54px 0 0; }
+  .eyebrow { font-family:var(--mono); font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 18px; }
+  h1 { font-size:clamp(31px,5.2vw,48px); line-height:1.05; letter-spacing:-.026em; font-weight:730; margin:0 0 16px; max-width:19ch; text-wrap:balance; }
+  .standfirst { font-size:18.5px; line-height:1.5; color:var(--muted); max-width:60ch; margin:0 0 28px; }
+  .bars { display:grid; grid-template-columns:repeat(7,1fr); height:6px; margin:0 0 44px; border-radius:1px; overflow:hidden; }
+  .bars i:nth-child(1){background:#b9bcbd} .bars i:nth-child(2){background:#c2b03a} .bars i:nth-child(3){background:#3fa3ad}
+  .bars i:nth-child(4){background:#4a9455} .bars i:nth-child(5){background:#a5498c} .bars i:nth-child(6){background:#b2453d} .bars i:nth-child(7){background:#3f5a9c}
+
+  section { margin:0 0 72px; }
+  h2 { font-family:var(--mono); font-size:12.5px; letter-spacing:.13em; text-transform:uppercase; font-weight:600; color:var(--accent); margin:0 0 18px; padding:0 0 12px; border-bottom:1px solid var(--line); }
+  h3 { font-size:27px; line-height:1.16; letter-spacing:-.02em; font-weight:700; margin:0 0 13px; max-width:26ch; text-wrap:balance; }
+  h4 { font-size:17px; font-weight:660; margin:30px 0 9px; }
+  p { margin:0 0 14px; max-width:66ch; }
+  ul,ol { margin:0 0 14px; padding-left:22px; max-width:66ch; }
+  li { margin:0 0 7px; }
+  a { color:var(--accent); text-underline-offset:2px; }
+  a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline-offset:3px; border-radius:3px; }
+  strong { font-weight:660; }
+  code { font-family:var(--mono); font-size:.875em; background:var(--surface-2); border:1px solid var(--line-soft); padding:1px 5px; border-radius:3px; }
+  .lead { font-size:17.5px; color:var(--muted); max-width:62ch; margin:0 0 26px; }
+
+  .answer { background:var(--surface); border:1px solid var(--line); border-radius:6px; box-shadow:var(--shadow); padding:28px 32px; margin:0 0 72px; }
+  .answer .q { font-family:var(--mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0 0 12px; }
+  .answer .big { font-size:23px; line-height:1.38; font-weight:660; letter-spacing:-.014em; max-width:54ch; margin:0 0 16px; }
+  .answer .big em { font-style:normal; color:var(--accent); }
+  .answer p { color:var(--muted); font-size:15.5px; margin:0 0 12px; }
+  .answer p:last-child { margin-bottom:0; }
+
+  /* familias */
+  .fams { display:grid; grid-template-columns:repeat(auto-fit,minmax(232px,1fr)); gap:14px; margin:24px 0; }
+  .fam { background:var(--surface); border:1px solid var(--line); border-radius:5px; padding:17px 19px; }
+  .fam-n { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:700; margin-bottom:7px; }
+  .fam h4 { margin:0 0 6px; font-size:17px; }
+  .fam p { font-size:13.5px; color:var(--muted); margin:0 0 10px; max-width:none; line-height:1.45; }
+  .fam .who { font-family:var(--mono); font-size:12px; line-height:1.6; }
+
+  /* tables */
+  .table-scroll { overflow-x:auto; margin:24px 0; border:1px solid var(--line); border-radius:5px; background:var(--surface); }
+  table { border-collapse:collapse; width:100%; font-size:14px; }
+  th { text-align:left; font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:600; color:var(--muted); padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:bottom; white-space:nowrap; }
+  td { padding:12px 14px; border-bottom:1px solid var(--line-soft); vertical-align:top; line-height:1.45; }
+  tr:last-child td { border-bottom:none; }
+  td.who { font-weight:640; white-space:nowrap; }
+  td.num { font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tr.pick td { background:var(--accent-soft); }
+  tr.pick td.who { box-shadow:inset 3px 0 0 var(--accent); }
+
+  .pill { display:inline-block; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; border-radius:3px; font-weight:600; white-space:nowrap; }
+  .pill.bad { background:var(--bad-bg); color:var(--bad); }
+  .pill.warn { background:var(--warn-bg); color:var(--warn); }
+  .pill.good { background:var(--good-bg); color:var(--good); }
+  .pill.acc { background:var(--accent-soft); color:var(--accent); }
+
+  /* ranking bars */
+  .rank { background:var(--surface); border:1px solid var(--line); border-radius:5px; padding:20px 22px; margin:0 0 14px; }
+  .rank h4 { margin:0 0 3px; font-size:16.5px; }
+  .rank .sub { font-size:13.5px; color:var(--muted); margin:0 0 16px; }
+  .rrow { display:grid; grid-template-columns:112px 1fr; gap:14px; align-items:center; margin-bottom:8px; }
+  .rname { font-family:var(--mono); font-size:12.5px; text-align:right; }
+  .rbar { height:26px; background:var(--surface-2); border-radius:3px; overflow:hidden; position:relative; }
+  .rfill { height:100%; background:var(--accent); display:flex; align-items:center; padding-left:9px; color:#fff; font-family:var(--mono); font-size:11.5px; white-space:nowrap; }
+  .rfill.dim { background:var(--muted); }
+  .rnote { font-size:12.5px; color:var(--muted); margin:12px 0 0; padding-top:10px; border-top:1px solid var(--line-soft); }
+
+  /* comparador */
+  .tool { background:var(--surface); border:1px solid var(--line); border-radius:6px; box-shadow:var(--shadow); overflow:hidden; margin:26px 0; }
+  .tool-head { padding:20px 24px; border-bottom:1px solid var(--line); }
+  .tool-head h4 { margin:0 0 4px; font-size:21px; font-weight:700; letter-spacing:-.016em; }
+  .tool-head p { margin:0; font-size:14px; color:var(--muted); max-width:60ch; }
+  .tool-body { padding:20px 24px 24px; }
+  .btn { font-family:var(--sans); font-size:14px; font-weight:600; background:var(--accent); color:#fff; border:none; border-radius:4px; padding:9px 16px; cursor:pointer; }
+  .btn:hover { filter:brightness(1.08); }
+  .btn[disabled] { opacity:.4; cursor:default; filter:none; }
+  .btn.ghost { background:transparent; color:var(--accent); border:1px solid var(--accent); }
+  .filerow { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:6px; }
+  .filehint { font-size:13px; color:var(--muted); }
+  .progress { height:4px; background:var(--line); border-radius:2px; overflow:hidden; margin:16px 0 0; }
+  .progress i { display:block; height:100%; background:var(--accent); width:0; }
+  .cstatus { font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:10px; }
+  #results { margin-top:18px; }
+  .win { font-family:var(--mono); font-size:10px; letter-spacing:.07em; text-transform:uppercase; font-weight:700; color:var(--good); }
+
+  .callout { background:var(--accent-soft); border-left:3px solid var(--accent); border-radius:0 4px 4px 0; padding:17px 21px; margin:24px 0; }
+  .callout p:last-child { margin-bottom:0; }
+  .callout .label { font-family:var(--mono); font-size:10.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:6px; font-weight:700; }
+  .callout.warnbox { background:var(--warn-bg); border-left-color:var(--warn); }
+  .callout.warnbox .label { color:var(--warn); }
+
+  .protocol { counter-reset:step; list-style:none; padding:0; max-width:none; }
+  .protocol li { counter-increment:step; position:relative; padding:14px 0 14px 46px; border-bottom:1px solid var(--line-soft); margin:0; font-size:14.5px; }
+  .protocol li:last-child { border-bottom:none; }
+  .protocol li::before { content:counter(step); position:absolute; left:0; top:14px; width:28px; height:28px; border-radius:50%; background:var(--accent-soft); color:var(--accent); font-family:var(--mono); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .protocol li b { font-weight:660; }
+
+  footer.notes { margin-top:78px; padding-top:24px; border-top:1px solid var(--line); font-size:13.5px; color:var(--muted); }
+  footer.notes p { max-width:78ch; }
+
+  @media (max-width:700px) { .rrow { grid-template-columns:84px 1fr; gap:9px; } .rname { font-size:11px; } }
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">Instituto NFM · Comparativa de herramientas de clipeo · Agosto 2026</p>
+  <h1>¿OpusClip es la mejor?</h1>
+  <p class="standfirst">El mapa completo de la categoría, comparada en los ejes que importan, y qué hacer con el dato que ninguna publica: cuánta calidad te entrega realmente al exportar.</p>
+  <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</header>
+
+<div class="answer">
+  <p class="q">Respuesta directa</p>
+  <p class="big">No hay una mejor. OpusClip gana en <em>una</em> cosa —elegir qué momento vale— y esa sigue siendo la más difícil de reemplazar.</p>
+  <p>Pero pierde en dos ejes que para el Instituto pesan mucho: <strong>precio por minuto de material</strong> (Vizard da el doble por dólar) y <strong>terminación visual</strong> (Submagic y Klap están arriba).</p>
+  <p>La pregunta "cuál es la mejor" no tiene respuesta porque estas herramientas no hacen todas lo mismo. Hay cuatro familias distintas y la mitad de las comparativas que circulan mezclan peras con manzanas.</p>
+</div>
+
+<section>
+  <h2>01 — El mapa</h2>
+  <h3>Cuatro familias, no una categoría</h3>
+  <p class="lead">Antes de comparar precios hay que saber qué hace cada una. Comparar OpusClip con Submagic es como comparar un buscador con una imprenta: resuelven pasos distintos del mismo trabajo.</p>
+
+  <div class="fams">
+    <div class="fam">
+      <p class="fam-n">Familia 1</p>
+      <h4>Detectores</h4>
+      <p>Le das una clase de 90 minutos y encuentran los momentos que valen. El trabajo difícil.</p>
+      <p class="who">OpusClip · Vizard · Klap<br>Choppity · 2Short · Munch<br>Quso · Spikes Studio</p>
+    </div>
+    <div class="fam">
+      <p class="fam-n">Familia 2</p>
+      <h4>Terminadores</h4>
+      <p>Vos ya elegiste el clip; ellas lo dejan lindo. Subtítulos, zooms, b-roll.</p>
+      <p class="who">Submagic · Captions<br>CapCut · Veed</p>
+    </div>
+    <div class="fam">
+      <p class="fam-n">Familia 3</p>
+      <h4>Grabador + clipper</h4>
+      <p>Graban la sesión en alta calidad y encima clipean. Resuelven el origen, no solo el corte.</p>
+      <p class="who">Riverside · Descript</p>
+    </div>
+    <div class="fam">
+      <p class="fam-n">Familia 4</p>
+      <h4>Editores de verdad</h4>
+      <p>Control total. Sin IA que decida, con IA que asiste.</p>
+      <p class="who">DaVinci Resolve<br>Premiere Pro</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="label">El error de encuadre más común</span>
+    <p>Buscar "la mejor herramienta de clipeo" lleva a comparar una familia 1 contra una familia 2 y concluir cualquier cosa. Para el Instituto el flujo necesita <strong>una de la familia 1 (o 3) + una de la 4</strong>. La familia 2 es opcional y se puede reemplazar con una plantilla bien hecha.</p>
+  </div>
+</section>
+
+<section>
+  <h2>02 — La comparativa</h2>
+  <h3>Familia 1: los detectores</h3>
+  <p class="lead">Ordenados por lo que le sirve al Instituto. La columna que más pesa es la de créditos, porque las clases son largas y ahí es donde se acaba el plan.</p>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Herramienta</th><th>Desde</th><th>Qué te dan</th><th>Export</th><th>Español</th><th>Fuerte en</th><th>Flojo en</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="pick">
+          <td class="who">OpusClip</td>
+          <td class="num">USD 15<br>Pro 29</td>
+          <td class="num">150 min<br>Pro 300 min</td>
+          <td class="num">4K</td>
+          <td><span class="pill good">20+ idiomas</span></td>
+          <td>Criterio de selección. ClipAnything deja pedir en castellano qué buscar.</td>
+          <td>Caro por minuto. Traduce solo al inglés.</td>
+        </tr>
+        <tr class="pick">
+          <td class="who">Vizard</td>
+          <td class="num">~USD 15–29</td>
+          <td class="num">600 min</td>
+          <td class="num">4K</td>
+          <td><span class="pill good">~25 transcr.</span></td>
+          <td>El doble de minutos por dólar. Mejor relación para clases largas.</td>
+          <td>Detección un escalón por debajo de OpusClip.</td>
+        </tr>
+        <tr>
+          <td class="who">Klap</td>
+          <td class="num">~USD 29</td>
+          <td class="num">Por plan</td>
+          <td class="num">4K</td>
+          <td><span class="pill warn">s/d</span></td>
+          <td>Recortes limpios y salida más de marca.</td>
+          <td>Menos volumen de clips. Se pisa con lo que hace Resolve.</td>
+        </tr>
+        <tr>
+          <td class="who">Choppity</td>
+          <td class="num">USD 20</td>
+          <td class="num">Por plan</td>
+          <td class="num">s/d</td>
+          <td><span class="pill warn">s/d</span></td>
+          <td>Flujo por transcripción. Pensada para podcast: busca remates y frases citables.</td>
+          <td>Marca chica. Menos rodaje que las tres de arriba.</td>
+        </tr>
+        <tr>
+          <td class="who">Quso <span style="font-weight:400;color:var(--muted)">(ex Vidyo.ai)</span></td>
+          <td class="num">USD 29</td>
+          <td class="num">Por plan</td>
+          <td class="num">s/d</td>
+          <td><span class="pill warn">s/d</span></td>
+          <td>Orientada a equipos de marketing y webinars.</td>
+          <td>Perfil corporativo, no de creador.</td>
+        </tr>
+        <tr>
+          <td class="who">Spikes Studio</td>
+          <td class="num">USD 14</td>
+          <td class="num">Por plan</td>
+          <td class="num">s/d</td>
+          <td><span class="pill warn">s/d</span></td>
+          <td>Barata. Clipea y programa en el mismo lugar.</td>
+          <td>Terminación por debajo del resto.</td>
+        </tr>
+        <tr>
+          <td class="who">Munch</td>
+          <td class="num">~USD 49</td>
+          <td class="num">Por plan</td>
+          <td class="num">s/d</td>
+          <td><span class="pill warn">s/d</span></td>
+          <td>Trae analítica y distribución además del clipeo.</td>
+          <td>La más cara de la familia sin ganar en lo que importa.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="margin-top:44px">Familias 2, 3 y 4</h3>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Herramienta</th><th>Familia</th><th>Desde</th><th>Para qué sirve acá</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="who">Submagic</td><td>Terminador</td><td class="num">USD 19</td>
+          <td>Lo mejor en subtítulos animados. Brand Kit con tu tipografía y colores. En una pasada: captions, saca silencios, b-roll contextual, auto-zoom.</td>
+        </tr>
+        <tr>
+          <td class="who">Captions</td><td>Terminador</td><td class="num">Por plan</td>
+          <td>Alternativa directa a Submagic. Vale probar las dos con el mismo clip.</td>
+        </tr>
+        <tr>
+          <td class="who">CapCut</td><td>Terminador</td><td class="num">Gratis</td>
+          <td>Exporta 4K y deja tocar bitrate. Sin gestión de color y con subtítulos flojos en acentos.</td>
+        </tr>
+        <tr>
+          <td class="who">Riverside</td><td>Grabador</td><td class="num">USD 29</td>
+          <td><strong>La más interesante que no estábamos mirando:</strong> graba local en alta calidad a los dos lados y encima clipea. Ataca el problema en el origen.</td>
+        </tr>
+        <tr>
+          <td class="who">Descript</td><td>Grabador + editor</td><td class="num">~USD 24</td>
+          <td>Editar borrando texto. Lo mejor para sacar muletillas y silencios de una clase larga.</td>
+        </tr>
+        <tr class="pick">
+          <td class="who">DaVinci Resolve</td><td>Editor</td><td class="num">Gratis</td>
+          <td>Control total de escalado, color, bitrate y audio. Donde se consigue la calidad máxima real.</td>
+        </tr>
+        <tr>
+          <td class="who">Premiere Pro</td><td>Editor</td><td class="num">Suscripción</td>
+          <td>Equivalente, con Auto Reframe y transcripción en español muy buena. Vale si ya se paga.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:13px;color:var(--muted)"><code>s/d</code> = sin dato publicado o no verificable desde acá.</p>
+</section>
+
+<section>
+  <h2>03 — Los tres ejes</h2>
+  <h3>Dónde gana cada una, en concreto</h3>
+
+  <div class="rank">
+    <h4>Criterio de selección</h4>
+    <p class="sub">Qué tan bien encuentra el momento que realmente vale. Es lo más difícil y lo que menos se puede reemplazar con trabajo humano barato.</p>
+    <div class="rrow"><div class="rname">OpusClip</div><div class="rbar"><div class="rfill" style="width:100%">referencia de la categoría</div></div></div>
+    <div class="rrow"><div class="rname">Vizard</div><div class="rbar"><div class="rfill dim" style="width:82%">un escalón abajo</div></div></div>
+    <div class="rrow"><div class="rname">Choppity</div><div class="rbar"><div class="rfill dim" style="width:78%">fuerte en podcast</div></div></div>
+    <div class="rrow"><div class="rname">Klap</div><div class="rbar"><div class="rfill dim" style="width:70%">menos clips, mejor hechos</div></div></div>
+    <div class="rrow"><div class="rname">Submagic</div><div class="rbar"><div class="rfill dim" style="width:28%">no es lo suyo</div></div></div>
+    <p class="rnote">Ordenamiento basado en reseñas y comparativas agregadas, no en una prueba propia. Es el eje más subjetivo de los tres y el que más conviene verificar con material del Instituto.</p>
+  </div>
+
+  <div class="rank">
+    <h4>Minutos de material por dólar</h4>
+    <p class="sub">El eje decisivo para nosotros. Los créditos se cuentan en minutos <strong>subidos</strong>, no en clips generados: una clase de 90 minutos consume 90 créditos.</p>
+    <div class="rrow"><div class="rname">Vizard</div><div class="rbar"><div class="rfill" style="width:100%">600 min · ~20 min por dólar</div></div></div>
+    <div class="rrow"><div class="rname">OpusClip Starter</div><div class="rbar"><div class="rfill dim" style="width:50%">150 min · 10 min por dólar</div></div></div>
+    <div class="rrow"><div class="rname">OpusClip Pro</div><div class="rbar"><div class="rfill dim" style="width:52%">300 min · ~10 min por dólar</div></div></div>
+    <p class="rnote">Con OpusClip Pro hacés tres clases de 90 minutos por mes y se acabó el plan. Con Vizard, seis o siete. Esto se arregla cortando la clase a mano antes de subirla — ver abajo.</p>
+  </div>
+
+  <div class="rank">
+    <h4>Control sobre la salida</h4>
+    <p class="sub">Cuánto podés decidir vos sobre cómo se codifica el archivo final. Determina el techo de calidad.</p>
+    <div class="rrow"><div class="rname">Resolve / Premiere</div><div class="rbar"><div class="rfill" style="width:100%">total</div></div></div>
+    <div class="rrow"><div class="rname">CapCut</div><div class="rbar"><div class="rfill dim" style="width:45%">bitrate y fps</div></div></div>
+    <div class="rrow"><div class="rname">Descript</div><div class="rbar"><div class="rfill dim" style="width:35%">parcial</div></div></div>
+    <div class="rrow"><div class="rname">Todas las de nube</div><div class="rbar"><div class="rfill dim" style="width:6%">ninguno</div></div></div>
+    <p class="rnote">Este es el eje que el brief pedía comparar y donde la categoría entera es opaca. Sigue abajo.</p>
+  </div>
+</section>
+
+<section>
+  <h2>04 — El punto ciego</h2>
+  <h3>Ninguna publica cuánta calidad te entrega</h3>
+  <p class="lead">El brief pedía "comparativa de calidad real de exportación, no solo features". Después de buscarlo en serio, el hallazgo es que ese dato no existe públicamente para ninguna herramienta de la categoría.</p>
+
+  <p>Todas anuncian la <strong>resolución</strong> —1080p, 4K— porque es un número de marketing. Ninguna publica el <strong>bitrate</strong>, que es lo que determina si ese 4K tiene información adentro o es un archivo grande con una imagen blanda. Tampoco el perfil de códec, ni si reescalan, ni el rango de color.</p>
+
+  <p>Y eso importa por algo concreto: <strong>un clip exportado a "1080p" desde una fuente de 1080p horizontal en realidad contiene 607 píxeles de ancho estirados.</strong> El archivo dice 1080. La imagen no lo es. Ninguna herramienta te avisa de eso.</p>
+
+  <div class="callout warnbox">
+    <span class="label">Lo que esto significa para la decisión</span>
+    <p>No se puede elegir herramienta por calidad de exportación con la información disponible. Se elige por los otros ejes —criterio, precio, idioma— y la calidad de salida se <strong>verifica midiendo</strong>. Es media jornada de trabajo y se hace una sola vez.</p>
+  </div>
+
+  <h4>El protocolo</h4>
+  <ol class="protocol">
+    <li><b>Un solo master.</b> Elegí un fragmento de 30 segundos de una clase grabada en 4K, con cara, texto en pantalla y algo de movimiento.</li>
+    <li><b>Mismo clip por cada herramienta.</b> Subí exactamente ese fragmento a OpusClip, Vizard y la tercera que quieras probar. Exportá al máximo que permita cada una.</li>
+    <li><b>Sumá el control.</b> Hacé el mismo corte en Resolve con el preset NFM-Vertical-1080. Es la línea de referencia.</li>
+    <li><b>Medí, no mires.</b> Pasá los cuatro archivos por el comparador de abajo. Te da resolución real, bitrate real y nitidez medida.</li>
+    <li><b>Después mirá.</b> Con los números al lado, comparalos en un teléfono. Los números te dicen dónde mirar.</li>
+    <li><b>Decidí una vez.</b> Anotá el resultado y no vuelvas a discutirlo por seis meses.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>05 — El comparador</h2>
+  <h3>Medí las exportaciones vos mismo</h3>
+  <p class="lead">Cargá dos o más archivos del <strong>mismo</strong> contenido, exportados por herramientas distintas. Mide lo que ninguna publica. Los archivos no salen de tu computadora.</p>
+
+  <div class="tool">
+    <div class="tool-head">
+      <h4>Comparador de exportaciones</h4>
+      <p>Resolución real, bitrate real, nitidez medida y rango de luma. Todo en el navegador.</p>
+    </div>
+    <div class="tool-body">
+      <div class="filerow">
+        <input type="file" id="files" accept="video/*" multiple style="display:none">
+        <button class="btn" type="button" id="btn-files">Cargar archivos</button>
+        <button class="btn ghost" type="button" id="btn-clear">Limpiar</button>
+        <span class="filehint" id="fhint">Dos o más exportaciones del mismo clip.</span>
+      </div>
+      <div class="progress" id="pwrap" style="display:none"><i id="pbar"></i></div>
+      <p class="cstatus" id="cstatus"></p>
+      <div id="results"></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="label">Cómo leer la nitidez</span>
+    <p>Es energía de alta frecuencia medida a resolución nativa. Dos archivos que dicen "1080×1920" pueden dar valores muy distintos: el más bajo fue reescalado desde menos píxeles o comprimido más fuerte. <strong>Solo tiene sentido comparar archivos del mismo contenido</strong> — si los clips son distintos, el número no significa nada.</p>
+  </div>
+</section>
+
+<section>
+  <h2>06 — Veredicto</h2>
+  <h3>Qué contratamos</h3>
+
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Volumen mensual de material</th><th>Herramienta</th><th>Costo</th><th>Por qué</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Hasta ~2 clases</td>
+          <td class="who">OpusClip Starter + Resolve</td>
+          <td class="num">USD 15</td>
+          <td>150 minutos alcanzan. Se paga el mejor criterio de selección, que es lo escaso.</td>
+        </tr>
+        <tr class="pick">
+          <td>3 a 6 clases <span class="pill acc">nuestro caso probable</span></td>
+          <td class="who">OpusClip Pro + Resolve</td>
+          <td class="num">USD 29</td>
+          <td>300 minutos y 2 asientos. Recortando la clase antes de subirla, rinde el doble.</td>
+        </tr>
+        <tr>
+          <td>Más de 6 clases o multicuenta</td>
+          <td class="who">Vizard + Resolve</td>
+          <td class="num">~USD 15–29</td>
+          <td>600 minutos. Cuando el cuello de botella son los minutos, la mejor detección deja de compensar.</td>
+        </tr>
+        <tr>
+          <td>Si además se rehace la grabación</td>
+          <td class="who">Riverside + Resolve</td>
+          <td class="num">USD 29</td>
+          <td>Resuelve el origen: graba local en alta calidad a los dos lados. Ataca el problema donde nace.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <span class="label">El truco que cambia la ecuación de precio</span>
+    <p>Los créditos se cuentan en minutos subidos. <strong>Cortá la clase a mano y subí solo los 15–20 minutos que tienen material.</strong> Multiplica por cuatro o cinco el rendimiento de cualquier plan y además mejora la detección, porque le sacás el ruido. Con eso, OpusClip Pro alcanza para el volumen de casi cualquier escenario y la ventaja de precio de Vizard deja de importar.</p>
+  </div>
+
+  <h4>Lo que no cambia, elijas la que elijas</h4>
+  <ul>
+    <li><strong>El render final va en Resolve.</strong> Ninguna herramienta de nube te deja controlar la codificación, y ahí está el techo de calidad.</li>
+    <li><strong>La fuente tiene que ser 4K.</strong> Es lo único que sube el techo de verdad. Ninguna IA inventa píxeles.</li>
+    <li><strong>El preset es <code>NFM-Vertical-1080</code></strong> — está en el estándar técnico, junto con los comandos de verificación.</li>
+  </ul>
+</section>
+
+<footer class="notes">
+  <p><strong>Qué está verificado y qué no.</strong> Los precios y las capacidades de esta comparativa vienen de búsqueda y de comparativas publicadas, contrastadas entre sí. Los sitios de las herramientas están bloqueados desde el entorno donde se armó este documento, así que <strong>no se pudo confirmar ningún precio en la fuente primaria</strong>: verificalos antes de contratar. Los planes de OpusClip y Vizard cambiaron varias veces en el último año.</p>
+  <p><strong>Sobre las comparativas que circulan.</strong> Buena parte de los rankings que aparecen buscando "mejor herramienta de clipeo" están publicados por competidores de las herramientas que rankean, o generados para posicionar en buscadores. Es la razón por la que este documento separa lo que se puede verificar de lo que es opinión agregada, y por la que el eje de calidad de exportación se resuelve midiendo en vez de leyendo.</p>
+  <p><strong>Sobre el comparador.</strong> El bitrate se calcula del tamaño del archivo sobre su duración, así que incluye el audio: sirve para comparar entre sí, no como cifra absoluta de video. La nitidez es energía de gradiente a resolución nativa sobre un recorte central, promediada en varios cuadros. Ambas medidas son válidas solo entre archivos del mismo contenido.</p>
+  <p><strong>Documentos relacionados.</strong> El estándar técnico con el preset de exportación y el flujo completo, el manual de criterio editorial, la auditoría visual y la biblioteca de referencias están en la misma carpeta.</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var input=document.getElementById("files"),
+      results=document.getElementById("results"),
+      pwrap=document.getElementById("pwrap"), pbar=document.getElementById("pbar"),
+      cstatus=document.getElementById("cstatus"), fhint=document.getElementById("fhint");
+  var rows=[];
+
+  document.getElementById("btn-files").addEventListener("click",function(){ input.click(); });
+  document.getElementById("btn-clear").addEventListener("click",function(){
+    rows=[]; results.innerHTML=""; cstatus.textContent=""; input.value="";
+    fhint.textContent="Dos o más exportaciones del mismo clip.";
+  });
+
+  input.addEventListener("change",function(){
+    var fs=Array.prototype.slice.call(input.files||[]);
+    if(!fs.length) return;
+    cstatus.textContent="Analizando "+fs.length+" archivo"+(fs.length===1?"":"s")+"…";
+    pwrap.style.display="block"; pbar.style.width="0%";
+    var done=0;
+    (function next(i){
+      if(i>=fs.length){
+        pwrap.style.display="none";
+        cstatus.textContent="Listo. Comparación válida solo si todos son el mismo contenido.";
+        render(); return;
+      }
+      analyze(fs[i]).then(function(r){
+        if(r) rows.push(r);
+        done++; pbar.style.width=(done/fs.length*100)+"%";
+        render(); next(i+1);
+      }).catch(function(){ done++; next(i+1); });
+    })(0);
+  });
+
+  function analyze(file){
+    return new Promise(function(resolve){
+      var v=document.createElement("video");
+      v.preload="metadata"; v.muted=true; v.playsInline=true;
+      var url;
+      try { url=URL.createObjectURL(file); } catch(e){ resolve(null); return; }
+      v.src=url;
+
+      v.onerror=function(){ resolve({name:file.name,error:true}); };
+      v.onloadedmetadata=function(){
+        var W=v.videoWidth,H=v.videoHeight,dur=v.duration||0;
+        var mbps=dur>0?(file.size*8)/dur/1e6:0;
+
+        // nitidez: gradiente medio sobre recorte central a resolución nativa
+        var side=Math.min(512,W,H);
+        var cv=document.createElement("canvas"); cv.width=side; cv.height=side;
+        var cx=cv.getContext("2d",{willReadFrequently:true});
+        var sx=Math.max(0,Math.floor((W-side)/2)), sy=Math.max(0,Math.floor((H-side)/2));
+        var samples=[], lumaMin=255, lumaMax=0;
+        var times=[dur*0.25,dur*0.5,dur*0.75].filter(function(t){return isFinite(t)&&t>0;});
+        if(!times.length) times=[0.1];
+
+        (function step(k){
+          if(k>=times.length){
+            URL.revokeObjectURL(url);
+            var sharp=samples.length?samples.reduce(function(a,b){return a+b;},0)/samples.length:0;
+            resolve({name:file.name,W:W,H:H,dur:dur,size:file.size,mbps:mbps,sharp:sharp,lmin:lumaMin,lmax:lumaMax});
+            return;
+          }
+          var done=false;
+          function onSeek(){
+            if(done) return; done=true; v.removeEventListener("seeked",onSeek);
+            try{
+              cx.drawImage(v,sx,sy,side,side,0,0,side,side);
+              var d=cx.getImageData(0,0,side,side).data;
+              var lum=new Float32Array(side*side);
+              for(var i=0,p=0;i<d.length;i+=4,p++){
+                var L=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];
+                lum[p]=L;
+                if(L<lumaMin) lumaMin=L;
+                if(L>lumaMax) lumaMax=L;
+              }
+              var s=0,c=0;
+              for(var y=0;y<side-1;y++) for(var x=0;x<side-1;x++){
+                var idx=y*side+x;
+                s+=Math.abs(lum[idx]-lum[idx+1])+Math.abs(lum[idx]-lum[idx+side]); c++;
+              }
+              if(c) samples.push(s/c);
+            }catch(e){}
+            step(k+1);
+          }
+          v.addEventListener("seeked",onSeek);
+          v.currentTime=times[k];
+          setTimeout(onSeek,500);
+        })(0);
+      };
+    });
+  }
+
+  function render(){
+    if(!rows.length){ results.innerHTML=""; return; }
+    var maxSharp=Math.max.apply(null,rows.map(function(r){return r.sharp||0;}));
+    var maxBr=Math.max.apply(null,rows.map(function(r){return r.mbps||0;}));
+
+    var html='<div class="table-scroll" style="margin-top:6px"><table><thead><tr>'+
+      '<th>Archivo</th><th>Resolución</th><th>Bitrate</th><th>Nitidez medida</th><th>Rango de luma</th><th>Peso</th>'+
+      '</tr></thead><tbody>';
+
+    rows.forEach(function(r){
+      if(r.error){
+        html+='<tr><td class="who">'+esc(r.name)+'</td><td colspan="5" style="color:var(--bad)">No se pudo leer (códec no soportado por el navegador).</td></tr>';
+        return;
+      }
+      var vert=Math.abs(r.W/r.H-9/16)<0.02;
+      var isTop=(r.sharp>=maxSharp*0.995);
+      var brTop=(r.mbps>=maxBr*0.995);
+      var range=(r.lmax-r.lmin);
+      var rangeNote=r.lmin>18?"negros elevados":(r.lmax<238?"blancos bajos":"completo");
+      html+='<tr'+(isTop?' class="pick"':'')+'>'+
+        '<td class="who">'+esc(r.name)+'</td>'+
+        '<td class="num">'+r.W+'×'+r.H+'<br><span style="font-size:11px;color:var(--muted)">'+(vert?'9:16':'no es 9:16')+'</span></td>'+
+        '<td class="num">'+r.mbps.toFixed(1)+' Mbps'+(brTop?'<br><span class="win">más alto</span>':'')+'</td>'+
+        '<td class="num">'+r.sharp.toFixed(2)+(isTop?'<br><span class="win">más nítido</span>':'<br><span style="font-size:11px;color:var(--muted)">'+Math.round(r.sharp/maxSharp*100)+'% del mejor</span>')+'</td>'+
+        '<td class="num">'+Math.round(r.lmin)+'–'+Math.round(r.lmax)+'<br><span style="font-size:11px;color:var(--muted)">'+rangeNote+'</span></td>'+
+        '<td class="num">'+(r.size/1e6).toFixed(1)+' MB<br><span style="font-size:11px;color:var(--muted)">'+r.dur.toFixed(1)+' s</span></td>'+
+        '</tr>';
+    });
+    html+='</tbody></table></div>';
+    results.innerHTML=html;
+  }
+
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+})();
+</script>
