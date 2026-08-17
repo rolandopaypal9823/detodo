@@ -119,8 +119,43 @@
   .an { margin-top:18px; display:none; }
   .an.on { display:block; }
   .an-layout { display:flex; gap:22px; flex-wrap:wrap; align-items:flex-start; }
-  .an-video { flex:none; width:150px; }
-  .an-video video { width:100%; border-radius:5px; display:block; background:#000; border:1px solid var(--line); }
+  .an-video { flex:none; width:186px; }
+  .vshell { position:relative; border-radius:5px; overflow:hidden; border:1px solid var(--line); background:#000; }
+  .vshell video { width:100%; display:block; background:#000; }
+  .ovl { position:absolute; left:0; right:0; pointer-events:none; }
+  .ovl.top { top:0; height:13%; background:rgba(176,52,42,.34); border-bottom:1px dashed rgba(255,255,255,.7); }
+  .ovl.bot { bottom:0; height:22%; background:rgba(176,52,42,.34); border-top:1px dashed rgba(255,255,255,.7); }
+  .ovl.third { top:33.3%; height:0; border-top:1px dashed rgba(255,255,255,.42); }
+  .ovl-tag { position:absolute; right:4px; font-family:var(--mono); font-size:8px; letter-spacing:.06em; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.9); }
+  .ovl-tag.t { top:2px; } .ovl-tag.b { bottom:2px; }
+  .ovl-toggle { display:flex; align-items:center; gap:7px; margin-top:9px; font-size:12.5px; color:var(--muted); }
+  .ovl-toggle input { accent-color:var(--bad); }
+
+  .worst { margin-top:18px; padding-top:18px; border-top:1px solid var(--line-soft); }
+  .worst h5 { margin:0 0 3px; font-size:14px; font-weight:660; }
+  .worst p { font-size:13px; color:var(--muted); margin:0 0 12px; max-width:62ch; }
+  .worst-row { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
+  .worst canvas { width:186px; height:auto; display:block; border-radius:5px; border:1px solid var(--line); background:#000; }
+  .worst-note { flex:1 1 260px; min-width:240px; font-size:13.5px; line-height:1.5; }
+
+  .activity { margin-top:18px; padding-top:18px; border-top:1px solid var(--line-soft); }
+  .activity h5 { margin:0 0 3px; font-size:14px; font-weight:660; }
+  .activity p { font-size:13px; color:var(--muted); margin:0 0 12px; max-width:66ch; }
+  .actbar { position:relative; height:56px; background:var(--surface-2); border:1px solid var(--line-soft); border-radius:4px; overflow:hidden; display:flex; align-items:flex-end; gap:1px; padding:0 1px; }
+  .actbar i { flex:1; background:var(--ink); min-width:1px; opacity:.72; }
+  .actbar i.dead { background:var(--bad); opacity:1; }
+  .actscale { display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--muted); margin-top:5px; }
+  .actlegend { font-size:12.5px; color:var(--muted); margin-top:9px; }
+  .actlegend b { color:var(--bad); font-weight:660; }
+
+  .autobadge { font-family:var(--mono); font-size:9px; letter-spacing:.07em; text-transform:uppercase; font-weight:700; padding:2px 6px; border-radius:3px; margin-left:8px; vertical-align:1px; }
+  .autobadge.auto { background:var(--good-bg); color:var(--good); }
+  .autobadge.eye { background:var(--surface-2); color:var(--muted); }
+  .crit.filled { background:var(--good-bg); }
+  .measured-note { font-size:12px; color:var(--good); margin-top:4px; font-family:var(--mono); }
+  .split { display:flex; gap:16px; flex-wrap:wrap; padding:14px 24px; background:var(--surface-2); border-bottom:1px solid var(--line); font-size:13px; color:var(--muted); }
+  .split span { display:flex; align-items:center; gap:7px; }
+  .split i { width:10px; height:10px; border-radius:2px; display:block; }
   .an-metrics { flex:1 1 340px; min-width:290px; }
   .metric { display:grid; grid-template-columns:1fr auto; gap:12px; padding:9px 0; border-bottom:1px solid var(--line-soft); align-items:baseline; }
   .metric:last-child { border-bottom:none; }
@@ -355,7 +390,7 @@
 <section>
   <h2>02 — El analizador</h2>
   <h3>Qué se puede medir sin opinar</h3>
-  <p class="lead">Cargá el clip y la herramienta lee los cuadros: detecta los cortes, mide cuánto cambia el plano en cada uno, compara el color entre planos y busca contenido en las zonas que tapa la interfaz. El archivo no sale de tu computadora.</p>
+  <p class="lead">Cargá el clip y la herramienta lee los cuadros: superpone las zonas seguras sobre el video, detecta los cortes, compara el color entre planos, mide si el subtítulo se queda quieto y busca los tramos donde no pasa nada. <strong>Después completa sola 52 de los 100 puntos.</strong> Los otros 48 los tenés que poner vos, y son justo los que más definen el nivel. El archivo no sale de tu computadora.</p>
 
   <div class="scorer">
     <div class="sc-head">
@@ -376,9 +411,35 @@
 
       <div class="an" id="an">
         <div class="an-layout">
-          <div class="an-video"><video id="vid" controls playsinline preload="metadata" muted></video></div>
+          <div class="an-video">
+            <div class="vshell" id="vshell">
+              <video id="vid" controls playsinline preload="metadata" muted></video>
+              <div class="ovl top"><span class="ovl-tag t">ZONA UI 13%</span></div>
+              <div class="ovl third"></div>
+              <div class="ovl bot"><span class="ovl-tag b">ZONA UI 22%</span></div>
+            </div>
+            <label class="ovl-toggle"><input type="checkbox" id="ovlToggle" checked> Mostrar zonas seguras</label>
+          </div>
           <div class="an-metrics" id="metrics"></div>
         </div>
+
+        <div class="worst" id="worstBlock" style="display:none">
+          <h5>El peor cuadro</h5>
+          <p>El momento con más contenido metido en las bandas que tapa la interfaz. Si ves texto o gráficos dentro del rojo, ahí está el problema.</p>
+          <div class="worst-row">
+            <canvas id="worstCv" width="186" height="331"></canvas>
+            <div class="worst-note" id="worstNote"></div>
+          </div>
+        </div>
+
+        <div class="activity" id="actBlock" style="display:none">
+          <h5>Actividad visual</h5>
+          <p>Cuánto cambia la pantalla a lo largo del clip. Las barras rojas son tramos donde no pasa nada — es ahí donde se cae la retención.</p>
+          <div class="actbar" id="actbar"></div>
+          <div class="actscale"><span>0 s</span><span id="actMid"></span><span id="actEnd"></span></div>
+          <p class="actlegend" id="actLegend"></p>
+        </div>
+
         <div id="stripwrap"></div>
         <div class="progress" id="progwrap" style="display:none"><i id="prog"></i></div>
         <p class="an-status" id="status"></p>
@@ -392,6 +453,10 @@
       </div>
     </div>
 
+    <div class="split">
+      <span><i style="background:var(--good)"></i> <strong style="color:var(--ink)">Se mide solo</strong> — se completa al analizar (52 pts)</span>
+      <span><i style="background:var(--muted)"></i> <strong style="color:var(--ink)">A ojo</strong> — lo tenés que puntuar vos (48 pts)</span>
+    </div>
     <div id="rubric"></div>
 
     <div class="kills">
@@ -524,51 +589,70 @@
 
   /* ============ rúbrica ============ */
   var CRITERIA=[
-    {id:"comp", w:12, n:"Composición y aire",
+    {id:"comp", w:12, auto:false, n:"Composición y aire",
      d:"Ojos en el tercio superior, aire mínimo sobre la cabeza, mismo criterio de encuadre en todos los planos."},
-    {id:"cont", w:10, n:"Continuidad entre cortes",
+    {id:"cont", w:10, auto:true, n:"Continuidad entre cortes",
      d:"Ningún corte entre planos de tamaño parecido. Cada corte se lee como decisión."},
-    {id:"color", w:12, n:"Consistencia de color",
+    {id:"color", w:12, auto:true, n:"Consistencia de color",
      d:"Mismo grade, misma temperatura y misma exposición en todo el clip y contra el resto del feed."},
-    {id:"ease", w:12, n:"Easing del movimiento",
+    {id:"ease", w:12, auto:false, n:"Easing del movimiento",
      d:"Todo movimiento acelera y desacelera. Nada lineal, en ningún elemento."},
-    {id:"dur", w:8, n:"Duración de los movimientos",
+    {id:"dur", w:6, auto:false, n:"Duración de los movimientos",
      d:"Entre 250 y 400 ms. Ni nervioso ni pesado, y siempre el mismo valor."},
-    {id:"type", w:12, n:"Tipografía",
+    {id:"type", w:12, auto:false, n:"Tipografía",
      d:"Una familia, hasta dos pesos, tres tamaños. Trazo en vez de sombra blanda."},
-    {id:"grid", w:8, n:"Alineación",
+    {id:"grid", w:6, auto:false, n:"Alineación",
      d:"Todos los elementos al mismo margen. Nada apoyado a ojo."},
-    {id:"safe", w:8, n:"Zonas seguras",
+    {id:"safe", w:8, auto:true, n:"Zonas seguras",
      d:"Nada importante en el 13 % de arriba ni en el 22 % de abajo."},
-    {id:"stab", w:10, n:"Estabilidad",
+    {id:"stab", w:10, auto:true, n:"Estabilidad",
      d:"Sin jitter de reencuadre, sin elementos que floten, subtítulo clavado en su línea."},
-    {id:"clean", w:8, n:"Limpieza técnica",
-     d:"Sin frames negros, sin flashes, sin restos de interfaz, primer y último cuadro correctos."}
+    {id:"ritmo", w:6, auto:true, n:"Ritmo visual",
+     d:"Sin tramos largos en los que no pasa nada en pantalla."},
+    {id:"clean", w:6, auto:true, n:"Limpieza técnica",
+     d:"Sin cuadros negros, sin flashes, sin restos de interfaz."}
   ];
 
-  var scores={}, rubricEl=document.getElementById("rubric");
+  var scores={}, why={}, rows={}, rubricEl=document.getElementById("rubric");
   CRITERIA.forEach(function(c){
     var row=document.createElement("div"); row.className="crit";
     var lab=document.createElement("div");
     var cn=document.createElement("div"); cn.className="cn"; cn.textContent=c.n;
     var w=document.createElement("span"); w.className="w"; w.textContent=c.w+" pts"; cn.appendChild(w);
+    var bd=document.createElement("span");
+    bd.className="autobadge "+(c.auto?"auto":"eye");
+    bd.textContent=c.auto?"se mide solo":"a ojo";
+    cn.appendChild(bd);
     var cd=document.createElement("div"); cd.className="cd"; cd.textContent=c.d;
-    lab.appendChild(cn); lab.appendChild(cd);
+    var note=document.createElement("div"); note.className="measured-note"; note.style.display="none";
+    lab.appendChild(cn); lab.appendChild(cd); lab.appendChild(note);
     var scale=document.createElement("div"); scale.className="scale";
     scale.setAttribute("role","group"); scale.setAttribute("aria-label",c.n);
     for(var v=0;v<=5;v++){(function(val){
       var b=document.createElement("button"); b.type="button"; b.textContent=val;
       b.setAttribute("aria-pressed","false");
       b.setAttribute("aria-label",c.n+": "+val+" de 5");
-      b.addEventListener("click",function(){
-        scores[c.id]=val;
-        Array.prototype.forEach.call(scale.children,function(s,i){ s.setAttribute("aria-pressed", i===val?"true":"false"); });
-        recompute();
-      });
+      b.addEventListener("click",function(){ setScore(c.id,val,null); });
       scale.appendChild(b);
     })(v);}
     row.appendChild(lab); row.appendChild(scale); rubricEl.appendChild(row);
+    rows[c.id]={row:row,scale:scale,note:note};
   });
+
+  function setScore(id,val,reason){
+    scores[id]=val;
+    var r=rows[id]; if(!r) return;
+    Array.prototype.forEach.call(r.scale.children,function(s,i){ s.setAttribute("aria-pressed", i===val?"true":"false"); });
+    if(reason){ why[id]=reason; r.note.textContent="Medido: "+reason; r.note.style.display="block"; r.row.classList.add("filled"); }
+    else { delete why[id]; r.note.style.display="none"; r.row.classList.remove("filled"); }
+    recompute();
+  }
+
+  // convierte una medición en nota de 0 a 5 según umbrales de mejor a peor
+  function grade(value, thresholds){
+    for(var i=0;i<thresholds.length;i++){ if(value<=thresholds[i]) return 5-i; }
+    return 0;
+  }
 
   var scoreEl=document.getElementById("score"), bandEl=document.getElementById("band"), fixesEl=document.getElementById("fixes");
   function killed(){ return Array.prototype.some.call(document.querySelectorAll("[data-kill]"),function(k){return k.checked;}); }
@@ -593,7 +677,7 @@
 
     var gaps=CRITERIA.map(function(c){
       var s=typeof scores[c.id]==="number"?scores[c.id]:null;
-      return s===null?null:{n:c.n,gain:((5-s)/5)*c.w,s:s};
+      return s===null?null:{id:c.id,n:c.n,gain:((5-s)/5)*c.w,s:s};
     }).filter(function(g){return g&&g.gain>0.4;})
       .sort(function(a,b){return b.gain-a.gain;}).slice(0,4);
 
@@ -603,6 +687,12 @@
       var li=document.createElement("li");
       var b=document.createElement("b"); b.textContent=g.n; li.appendChild(b);
       li.appendChild(document.createTextNode(" — está en "+g.s+"/5. Llevarlo a 5 recupera "+g.gain.toFixed(1)+" puntos."));
+      if(why[g.id]){
+        var sm=document.createElement("span");
+        sm.style.cssText="display:block;color:var(--muted);font-size:13px;margin-top:2px";
+        sm.textContent="Medido: "+why[g.id];
+        li.appendChild(sm);
+      }
       ol.appendChild(li);
     });
     fixesEl.innerHTML=""; fixesEl.appendChild(ol);
@@ -721,10 +811,20 @@
       }
       return c?s/c:0;
     }
+    // fila con más energía de bordes en la mitad inferior: es donde vive el subtítulo
+    var y0=Math.round(h*0.50), y1=Math.round(h*0.96), bestRow=-1, bestE=0;
+    for(var y=y0;y<y1-1;y++){
+      var s=0;
+      for(var x=0;x<w-1;x++){ var i=y*w+x; s+=Math.abs(luma[i]-luma[i+1]); }
+      s/=w;
+      if(s>bestE){ bestE=s; bestRow=y; }
+    }
     return {
       top: band(0,Math.max(2,Math.round(h*0.13))),
       mid: band(Math.round(h*0.13),Math.round(h*0.78)),
-      bot: band(Math.round(h*0.78),h)
+      bot: band(Math.round(h*0.78),h),
+      capRow: bestRow/h,
+      capE: bestE
     };
   }
 
@@ -733,6 +833,7 @@
     if(frames.length<4){ statusEl.textContent="No se pudieron leer suficientes cuadros."; return; }
 
     var TH=parseFloat(sens.value)||14;
+    var maxDevGlobal=null;
     // ---- cortes
     var cuts=[];
     frames.forEach(function(f){
@@ -773,6 +874,7 @@
         var d=Math.sqrt(Math.pow(s.r-mr,2)+Math.pow(s.g-mg,2)+Math.pow(s.b-mb,2));
         if(d>maxDev) maxDev=d;
       });
+      maxDevGlobal=maxDev;
       var cdf=maxDev<14?["planos igualados","ok"]:maxDev<28?["desvío leve","mid"]:["planos sin igualar","no"];
       m("Desvío de color entre planos","Distancia del plano más desviado al promedio",maxDev.toFixed(0),cdf[0],cdf[1]);
 
@@ -806,10 +908,62 @@
     m("Zonas de interfaz","Detalle en las bandas superior e inferior vs el centro",
       "sup "+topR.toFixed(2)+" · inf "+botR.toFixed(2),zf[0],zf[1]);
 
-    // ---- aviso de sobredetección
+    /* ============ autocompletado de la rúbrica ============ */
     var perSec=cuts.length/Math.max(1,dur);
     var softRatio=cuts.length?soft.length/cuts.length:0;
-    if(perSec>0.55 || (cuts.length>10 && softRatio>0.7)){
+    var overDetect=(perSec>0.55 || (cuts.length>10 && softRatio>0.7));
+
+    // Color — desvío entre planos
+    if(typeof maxDevGlobal==="number"){
+      setScore("color", grade(maxDevGlobal,[8,14,22,32,45]),
+        "desvío de "+maxDevGlobal.toFixed(0)+" entre planos");
+    }
+
+    // Zonas seguras — energía de bordes en las bandas vs el centro
+    var worstBand=Math.max(topR,botR);
+    setScore("safe", grade(worstBand,[0.62,0.80,0.98,1.15,1.35]),
+      "bandas al "+worstBand.toFixed(2)+" del centro");
+
+    // Estabilidad — cuánto se mueve la fila del subtítulo
+    var capFrames=frames.filter(function(f){ return f.bands.capE>7; });
+    if(capFrames.length>=6){
+      var capRows=capFrames.map(function(f){ return f.bands.capRow; });
+      var mu=capRows.reduce(function(a,b){return a+b;},0)/capRows.length;
+      var sd=Math.sqrt(capRows.reduce(function(a,b){return a+Math.pow(b-mu,2);},0)/capRows.length);
+      setScore("stab", grade(sd,[0.012,0.025,0.045,0.075,0.11]),
+        "el subtítulo se mueve ±"+(sd*100).toFixed(1)+"% de la altura");
+    }
+
+    // Ritmo visual — tramo más largo sin que cambie nada
+    var deadRun=0, curRun=0, deadAt=0, runStart=0;
+    frames.forEach(function(f){
+      if(f.diff!=null && f.diff<1.6){ if(curRun===0) runStart=f.t; curRun+=0.2; if(curRun>deadRun){deadRun=curRun; deadAt=runStart;} }
+      else curRun=0;
+    });
+    setScore("ritmo", grade(deadRun,[2,4,6,8,11]),
+      deadRun<1 ? "sin tramos quietos" : deadRun.toFixed(1)+" s sin cambios desde el segundo "+deadAt.toFixed(1));
+
+    // Limpieza técnica — cuadros negros o quemados
+    setScore("clean", grade(dark+blown,[0,1,3,6,10]),
+      (dark+blown)===0 ? "ningún cuadro negro ni quemado" : (dark+blown)+" cuadros fuera de rango");
+
+    // Continuidad — solo si el conteo de cortes es plausible
+    if(!overDetect && cuts.length>=2){
+      setScore("cont", grade(softRatio,[0.05,0.15,0.3,0.5,0.7]),
+        Math.round(softRatio*100)+"% de los cortes son de bajo contraste");
+    }
+
+    /* ============ el peor cuadro ============ */
+    var worst=frames.slice().sort(function(a,b){
+      return (b.bands.top+b.bands.bot)-(a.bands.top+a.bands.bot);
+    })[0];
+    if(worst) drawWorst(worst.t, worstBand);
+
+    /* ============ tira de actividad ============ */
+    drawActivity(frames,dur,deadRun,deadAt);
+
+    // ---- aviso de sobredetección
+    if(overDetect){
       sensWarn.style.display="block";
       sensWarn.textContent="Está contando "+cuts.length+" cortes en "+dur.toFixed(0)+" s y "+
         Math.round(softRatio*100)+"% salen de bajo contraste. Es el patrón típico de sobredetección: "+
@@ -824,13 +978,83 @@
 
   function med(a){ var s=a.slice().sort(function(x,y){return x-y;}); return s[Math.floor(s.length/2)]; }
 
+  // Extrae el cuadro con más contenido en las bandas de interfaz y lo dibuja con el overlay encima.
+  function drawWorst(t, bandRatio){
+    var cv=document.getElementById("worstCv"), block=document.getElementById("worstBlock"),
+        note=document.getElementById("worstNote");
+    if(!cv) return;
+    var W=cv.width, H=Math.round(W*(vid.videoHeight/vid.videoWidth)||W*16/9);
+    cv.height=H;
+    var cx=cv.getContext("2d");
+    var back=vid.currentTime, done=false;
+    function paint(){
+      if(done) return; done=true; vid.removeEventListener("seeked",paint);
+      try{ cx.drawImage(vid,0,0,W,H); }catch(e){}
+      // bandas
+      cx.fillStyle="rgba(176,52,42,.34)";
+      cx.fillRect(0,0,W,H*0.13);
+      cx.fillRect(0,H*0.78,W,H*0.22);
+      cx.strokeStyle="rgba(255,255,255,.75)"; cx.lineWidth=1; cx.setLineDash([4,3]);
+      cx.beginPath(); cx.moveTo(0,H*0.13); cx.lineTo(W,H*0.13); cx.stroke();
+      cx.beginPath(); cx.moveTo(0,H*0.78); cx.lineTo(W,H*0.78); cx.stroke();
+      cx.setLineDash([]);
+      cx.fillStyle="#fff"; cx.font="700 9px ui-monospace, monospace";
+      cx.fillText("ZONA UI",6,H*0.13-5);
+      cx.fillText("ZONA UI",6,H*0.78+13);
+      cx.fillText("s "+t.toFixed(1),6,H-7);
+      block.style.display="block";
+      note.innerHTML = bandRatio<0.80
+        ? "Las bandas están limpias: el detalle que hay ahí es menor que en el centro. Verificá igual a ojo que no haya texto tapado."
+        : "Hay concentración de detalle dentro del rojo en el segundo "+t.toFixed(1)+". Mirá si es texto o un gráfico: si lo es, la interfaz de la app lo va a tapar. Si es solo fondo con textura, ignoralo.";
+      vid.currentTime=back;
+    }
+    vid.addEventListener("seeked",paint);
+    vid.currentTime=t;
+    setTimeout(paint,500);
+  }
+
+  // Tira de actividad visual: barras por tramo, rojas donde no pasa nada.
+  function drawActivity(frames,dur,deadRun,deadAt){
+    var bar=document.getElementById("actbar"), block=document.getElementById("actBlock");
+    if(!bar) return;
+    bar.innerHTML="";
+    var N=Math.min(90,Math.max(20,Math.floor(frames.length/2)));
+    var per=Math.ceil(frames.length/N);
+    var buckets=[];
+    for(var i=0;i<frames.length;i+=per){
+      var slice=frames.slice(i,i+per).filter(function(f){return f.diff!=null;});
+      if(!slice.length) continue;
+      var avg=slice.reduce(function(a,f){return a+f.diff;},0)/slice.length;
+      buckets.push({v:avg,t:slice[0].t});
+    }
+    if(!buckets.length) return;
+    var mx=Math.max.apply(null,buckets.map(function(b){return b.v;}))||1;
+    buckets.forEach(function(b){
+      var el=document.createElement("i");
+      var hpct=Math.max(4,Math.min(100,(b.v/mx)*100));
+      el.style.height=hpct+"%";
+      if(b.v<1.6) el.className="dead";
+      el.title="s "+b.t.toFixed(1);
+      bar.appendChild(el);
+    });
+    document.getElementById("actMid").textContent=(dur/2).toFixed(0)+" s";
+    document.getElementById("actEnd").textContent=dur.toFixed(0)+" s";
+    var deadCount=buckets.filter(function(b){return b.v<1.6;}).length;
+    var pct=Math.round(deadCount/buckets.length*100);
+    document.getElementById("actLegend").innerHTML = deadCount===0
+      ? "Sin tramos muertos: siempre pasa algo en pantalla."
+      : "<b>"+pct+"% del clip</b> son tramos donde la pantalla casi no cambia. El más largo dura "+deadRun.toFixed(1)+" s y empieza en el segundo "+deadAt.toFixed(1)+".";
+    block.style.display="block";
+  }
+
   /* ============ informe / reset ============ */
   document.getElementById("btn-copy").addEventListener("click",function(){
     var lines=["AUDITORÍA VISUAL NFM",""], total=0;
     CRITERIA.forEach(function(c){
       var s=typeof scores[c.id]==="number"?scores[c.id]:null;
       total+=s===null?0:(s/5)*c.w;
-      lines.push("- "+c.n+": "+(s===null?"sin puntuar":s+"/5")+"  ("+c.w+" pts)");
+      lines.push("- "+c.n+": "+(s===null?"sin puntuar":s+"/5")+"  ("+c.w+" pts)"+
+        (why[c.id]?"  [medido: "+why[c.id]+"]":""));
     });
     lines.push(""); lines.push("PUNTAJE: "+Math.round(total)+"/100 — "+bandEl.textContent);
     if(killed()) lines.push("FALTA ELIMINATORIA: no se publica.");
@@ -844,11 +1068,22 @@
     });
   });
 
+  document.getElementById("ovlToggle").addEventListener("change",function(){
+    var on=this.checked;
+    Array.prototype.forEach.call(document.querySelectorAll("#vshell .ovl"),function(o){
+      o.style.display=on?"block":"none";
+    });
+  });
+
   document.getElementById("btn-reset").addEventListener("click",function(){
-    scores={};
+    scores={}; why={};
     Array.prototype.forEach.call(document.querySelectorAll(".scale button"),function(b){b.setAttribute("aria-pressed","false");});
+    Array.prototype.forEach.call(document.querySelectorAll(".crit"),function(r){r.classList.remove("filled");});
+    Array.prototype.forEach.call(document.querySelectorAll(".measured-note"),function(n){n.style.display="none";});
     Array.prototype.forEach.call(document.querySelectorAll("[data-kill]"),function(k){k.checked=false;});
     anEl.classList.remove("on"); metricsEl.innerHTML=""; stripWrap.innerHTML=""; statusEl.textContent="";
+    document.getElementById("worstBlock").style.display="none";
+    document.getElementById("actBlock").style.display="none";
     btnAnalyze.disabled=true; lastFrames=null; sensRow.style.display="none"; sensWarn.style.display="none";
     try{ vid.removeAttribute("src"); vid.load(); }catch(e){}
     recompute();
