@@ -13,16 +13,14 @@
     :root:not([data-theme="light"]) {
       --ground:#131519; --surface:#1B1E23; --surface-2:#22262C;
       --ink:#E6E8EB; --muted:#939AA3; --line:#2E333A; --line-soft:#24282E;
-      --bad:#EE8B7E; --good:#66C795;
-      --bad-bg:#2E1614; --good-bg:#11271C;
+      --bad:#EE8B7E; --good:#66C795; --bad-bg:#2E1614; --good-bg:#11271C;
       --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px rgba(0,0,0,.3);
     }
   }
   :root[data-theme="dark"] {
     --ground:#131519; --surface:#1B1E23; --surface-2:#22262C;
     --ink:#E6E8EB; --muted:#939AA3; --line:#2E333A; --line-soft:#24282E;
-    --bad:#EE8B7E; --good:#66C795;
-    --bad-bg:#2E1614; --good-bg:#11271C;
+    --bad:#EE8B7E; --good:#66C795; --bad-bg:#2E1614; --good-bg:#11271C;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px rgba(0,0,0,.3);
   }
 
@@ -44,7 +42,7 @@
   ul,ol { margin:0 0 14px; padding-left:22px; max-width:66ch; }
   li { margin:0 0 7px; }
   a { color:var(--ink); text-underline-offset:2px; }
-  a:focus-visible, button:focus-visible, input:focus-visible { outline:2px solid var(--ink); outline-offset:3px; border-radius:3px; }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline:2px solid var(--ink); outline-offset:3px; border-radius:3px; }
   strong { font-weight:660; }
   code { font-family:var(--mono); font-size:.875em; background:var(--surface-2); border:1px solid var(--line-soft); padding:1px 5px; border-radius:3px; }
   .lead { font-size:17.5px; color:var(--muted); max-width:62ch; margin:0 0 28px; }
@@ -55,7 +53,7 @@
   .scope .out { margin-top:16px; padding-top:14px; border-top:1px solid var(--line-soft); font-family:var(--mono); font-size:12.5px; color:var(--muted); line-height:1.7; }
   .scope .out b { color:var(--ink); font-weight:600; }
 
-  /* ---- tells ---- */
+  /* tells */
   .tell { background:var(--surface); border:1px solid var(--line); border-radius:6px; box-shadow:var(--shadow); overflow:hidden; margin:0 0 20px; }
   .tell-head { padding:18px 24px 16px; border-bottom:1px solid var(--line); }
   .tell-n { font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:5px; }
@@ -70,7 +68,6 @@
   .s-good .side-label { color:var(--good); } .s-good .side-label::before { background:var(--good); }
   .side-note { font-size:13px; color:var(--muted); margin:14px 0 0; line-height:1.45; }
 
-  /* track demo (easing / duration) */
   .track { position:relative; height:38px; background:var(--surface-2); border:1px solid var(--line-soft); border-radius:4px; overflow:hidden; }
   .track + .track { margin-top:9px; }
   .dot { position:absolute; top:9px; left:6px; width:20px; height:20px; border-radius:3px; background:var(--ink); }
@@ -80,13 +77,11 @@
   .eas .dot { animation-timing-function:cubic-bezier(.65,0,.35,1); }
   .track-cap { font-family:var(--mono); font-size:10.5px; color:var(--muted); margin-bottom:5px; }
 
-  /* shot demo canvases */
   .shots { display:flex; gap:8px; }
   .shots canvas { width:100%; height:auto; display:block; border-radius:4px; background:#0e1114; border:1px solid var(--line-soft); }
   .shotwrap { flex:1; min-width:0; }
   .shotwrap .cap { font-family:var(--mono); font-size:10px; color:var(--muted); margin-top:5px; text-align:center; }
 
-  /* caption stability */
   .phone { position:relative; width:100%; max-width:150px; aspect-ratio:9/16; margin:0 auto; border-radius:8px; overflow:hidden; background:linear-gradient(168deg,#33424b,#1a2126); border:1px solid var(--line-soft); }
   .cap-box { position:absolute; left:8%; right:8%; background:rgba(0,0,0,.72); color:#fff; font-weight:800; font-size:11px; text-align:center; padding:5px 4px; border-radius:3px; }
   @keyframes jitter {
@@ -96,15 +91,19 @@
     60%,79% { bottom:29%; left:11%; right:7%; font-size:12.5px; }
     80%,100% { bottom:25%; left:8%; right:9%; font-size:11px; }
   }
-  @keyframes steady { 0%,100% { bottom:26%; } }
   .jit .cap-box { animation:jitter 4s steps(1) infinite; }
   .std .cap-box { bottom:26%; }
 
-  /* ---- rubric / scorer ---- */
+  /* scorer */
   .scorer { background:var(--surface); border:1px solid var(--line); border-radius:6px; box-shadow:var(--shadow); overflow:hidden; margin:26px 0; }
   .sc-head { padding:20px 24px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
   .sc-head h4 { margin:0; font-size:21px; font-weight:700; letter-spacing:-.016em; }
   .sc-head p { margin:4px 0 0; font-size:14px; color:var(--muted); max-width:54ch; }
+
+  .modebar { display:flex; gap:0; padding:0 24px; border-bottom:1px solid var(--line); background:var(--surface-2); }
+  .modebar button { flex:1; background:none; border:none; border-bottom:3px solid transparent; padding:15px 10px; cursor:pointer; font-family:var(--sans); font-size:15px; font-weight:640; color:var(--muted); text-align:left; }
+  .modebar button span { display:block; font-weight:400; font-size:12.5px; margin-top:2px; }
+  .modebar button[aria-selected="true"] { color:var(--ink); border-bottom-color:var(--ink); }
 
   .sc-auto { padding:20px 24px; border-bottom:1px solid var(--line); background:var(--surface-2); }
   .filerow { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
@@ -130,33 +129,10 @@
   .ovl-tag.t { top:2px; } .ovl-tag.b { bottom:2px; }
   .ovl-toggle { display:flex; align-items:center; gap:7px; margin-top:9px; font-size:12.5px; color:var(--muted); }
   .ovl-toggle input { accent-color:var(--bad); }
-
-  .worst { margin-top:18px; padding-top:18px; border-top:1px solid var(--line-soft); }
-  .worst h5 { margin:0 0 3px; font-size:14px; font-weight:660; }
-  .worst p { font-size:13px; color:var(--muted); margin:0 0 12px; max-width:62ch; }
-  .worst-row { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
-  .worst canvas { width:186px; height:auto; display:block; border-radius:5px; border:1px solid var(--line); background:#000; }
-  .worst-note { flex:1 1 260px; min-width:240px; font-size:13.5px; line-height:1.5; }
-
-  .activity { margin-top:18px; padding-top:18px; border-top:1px solid var(--line-soft); }
-  .activity h5 { margin:0 0 3px; font-size:14px; font-weight:660; }
-  .activity p { font-size:13px; color:var(--muted); margin:0 0 12px; max-width:66ch; }
-  .actbar { position:relative; height:56px; background:var(--surface-2); border:1px solid var(--line-soft); border-radius:4px; overflow:hidden; display:flex; align-items:flex-end; gap:1px; padding:0 1px; }
-  .actbar i { flex:1; background:var(--ink); min-width:1px; opacity:.72; }
-  .actbar i.dead { background:var(--bad); opacity:1; }
-  .actscale { display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--muted); margin-top:5px; }
-  .actlegend { font-size:12.5px; color:var(--muted); margin-top:9px; }
-  .actlegend b { color:var(--bad); font-weight:660; }
-
-  .autobadge { font-family:var(--mono); font-size:9px; letter-spacing:.07em; text-transform:uppercase; font-weight:700; padding:2px 6px; border-radius:3px; margin-left:8px; vertical-align:1px; }
-  .autobadge.auto { background:var(--good-bg); color:var(--good); }
-  .autobadge.eye { background:var(--surface-2); color:var(--muted); }
-  .crit.filled { background:var(--good-bg); }
-  .measured-note { font-size:12px; color:var(--good); margin-top:4px; font-family:var(--mono); }
-  .split { display:flex; gap:16px; flex-wrap:wrap; padding:14px 24px; background:var(--surface-2); border-bottom:1px solid var(--line); font-size:13px; color:var(--muted); }
-  .split span { display:flex; align-items:center; gap:7px; }
-  .split i { width:10px; height:10px; border-radius:2px; display:block; }
   .an-metrics { flex:1 1 340px; min-width:290px; }
+
+  .mgroup { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:700; margin:16px 0 2px; padding-top:12px; border-top:1px solid var(--line); }
+  .mgroup:first-child { margin-top:0; padding-top:0; border-top:none; }
   .metric { display:grid; grid-template-columns:1fr auto; gap:12px; padding:9px 0; border-bottom:1px solid var(--line-soft); align-items:baseline; }
   .metric:last-child { border-bottom:none; }
   .mk { font-size:13.5px; }
@@ -164,6 +140,7 @@
   .mv { font-family:var(--mono); font-size:13px; font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap; }
   .mv .flag { display:block; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; margin-top:2px; }
   .flag.ok { color:var(--good); } .flag.mid { color:var(--muted); } .flag.no { color:var(--bad); }
+
   .progress { height:4px; background:var(--line); border-radius:2px; overflow:hidden; margin:14px 0 0; }
   .progress i { display:block; height:100%; background:var(--ink); width:0; }
   .an-status { font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:10px; }
@@ -172,19 +149,45 @@
   .sens .sv { font-family:var(--mono); font-variant-numeric:tabular-nums; min-width:22px; }
   .sens .warn-note { flex-basis:100%; font-size:12.5px; color:var(--bad); margin:0; }
 
-  /* strip of shot colors */
-  .strip { display:flex; height:34px; border-radius:4px; overflow:hidden; margin-top:12px; border:1px solid var(--line-soft); }
+  .panel { margin-top:18px; padding-top:18px; border-top:1px solid var(--line-soft); }
+  .panel h5 { margin:0 0 3px; font-size:14px; font-weight:660; }
+  .panel > p { font-size:13px; color:var(--muted); margin:0 0 12px; max-width:66ch; }
+  .worst-row { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
+  .worst-row canvas { width:186px; height:auto; display:block; border-radius:5px; border:1px solid var(--line); background:#000; }
+  .worst-note { flex:1 1 260px; min-width:240px; font-size:13.5px; line-height:1.5; }
+
+  .actbar { position:relative; height:56px; background:var(--surface-2); border:1px solid var(--line-soft); border-radius:4px; overflow:hidden; display:flex; align-items:flex-end; gap:1px; padding:0 1px; }
+  .actbar i { flex:1; background:var(--ink); min-width:1px; opacity:.72; }
+  .actbar i.dead { background:var(--bad); opacity:1; }
+  .actbar i.zoom { background:var(--good); opacity:1; }
+  .actscale { display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--muted); margin-top:5px; }
+  .actlegend { font-size:12.5px; color:var(--muted); margin-top:9px; }
+  .actlegend b { color:var(--bad); font-weight:660; }
+  .actkey { display:flex; gap:16px; flex-wrap:wrap; font-size:12px; color:var(--muted); margin-top:8px; }
+  .actkey span { display:flex; align-items:center; gap:6px; }
+  .actkey i { width:10px; height:10px; border-radius:2px; display:block; }
+
+  .strip { display:flex; height:34px; border-radius:4px; overflow:hidden; margin-top:6px; border:1px solid var(--line-soft); }
   .strip i { flex:1; min-width:2px; }
   .strip-cap { font-family:var(--mono); font-size:10.5px; color:var(--muted); margin-top:6px; }
 
   .crit { display:grid; grid-template-columns:1fr 224px; gap:16px; padding:15px 24px; border-bottom:1px solid var(--line-soft); align-items:center; }
+  .crit.filled { background:var(--good-bg); }
   .cn { font-weight:640; font-size:15px; }
   .cn .w { font-family:var(--mono); font-size:11px; color:var(--muted); font-weight:500; margin-left:7px; }
   .cd { font-size:13px; color:var(--muted); line-height:1.45; margin-top:3px; }
+  .autobadge { font-family:var(--mono); font-size:9px; letter-spacing:.07em; text-transform:uppercase; font-weight:700; padding:2px 6px; border-radius:3px; margin-left:8px; vertical-align:1px; }
+  .autobadge.auto { background:var(--good-bg); color:var(--good); }
+  .autobadge.eye { background:var(--surface-2); color:var(--muted); }
+  .measured-note { font-size:12px; color:var(--good); margin-top:4px; font-family:var(--mono); }
   .scale { display:flex; gap:4px; justify-content:flex-end; }
   .scale button { font-family:var(--mono); font-size:13px; font-weight:600; width:38px; height:34px; border-radius:4px; cursor:pointer; background:var(--surface-2); color:var(--muted); border:1px solid var(--line); }
   .scale button:hover { border-color:var(--ink); color:var(--ink); }
   .scale button[aria-pressed="true"] { background:var(--ink); border-color:var(--ink); color:var(--ground); }
+
+  .split { display:flex; gap:16px; flex-wrap:wrap; padding:14px 24px; background:var(--surface-2); border-bottom:1px solid var(--line); font-size:13px; color:var(--muted); }
+  .split span { display:flex; align-items:center; gap:7px; }
+  .split i { width:10px; height:10px; border-radius:2px; display:block; }
 
   .kills { padding:18px 24px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--bad-bg); }
   .kills h5 { margin:0 0 4px; font-size:14px; font-weight:660; color:var(--bad); }
@@ -222,10 +225,9 @@
     .crit { grid-template-columns:1fr; gap:10px; }
     .scale { justify-content:flex-start; }
     .sc-result { grid-template-columns:1fr; }
+    .modebar { flex-direction:column; }
   }
-  @media (prefers-reduced-motion: reduce) {
-    .track .dot, .jit .cap-box { animation:none !important; }
-  }
+  @media (prefers-reduced-motion: reduce) { .track .dot, .jit .cap-box { animation:none !important; } }
 </style>
 
 <div class="wrap">
@@ -239,9 +241,9 @@
 
 <div class="scope">
   <p class="big">Esto no juzga qué se dice ni si el clip está bien elegido. Juzga la mano: el corte, el movimiento, el color, la tipografía y la limpieza.</p>
-  <p>Un clip puede tener el mejor contenido del mundo y verse barato. Lo que sigue mide exactamente eso, y nada más.</p>
+  <p>Un video puede tener el mejor contenido del mundo y verse barato. Lo que sigue mide exactamente eso, y nada más.</p>
   <div class="out">
-    <b>Entra:</b> composición · continuidad entre planos · color · easing · duración de transiciones · tipografía · alineación · zonas seguras · estabilidad · limpieza técnica<br>
+    <b>Entra:</b> composición · continuidad · color y viveza · zoom y su curva · música · b-roll · zonas seguras · estabilidad · ritmo · limpieza<br>
     <b>No entra:</b> gancho · payoff · si el momento vale · guion · estrategia
   </div>
 </div>
@@ -249,7 +251,7 @@
 <section>
   <h2>01 — Los seis tells</h2>
   <h3>Lo que delata a un editor amateur, aunque nadie sepa nombrarlo</h3>
-  <p class="lead">El espectador no identifica el error: siente que "algo está barato". Estos son los seis detalles que producen esa sensación, casi siempre. Cada uno está demostrado abajo — mirá los dos lados y vas a ver la diferencia sin que te la expliquen.</p>
+  <p class="lead">El espectador no identifica el error: siente que "algo está barato". Estos son los seis detalles que producen esa sensación. Cada uno está demostrado abajo — mirá los dos lados y vas a ver la diferencia sin que te la expliquen.</p>
 
   <div class="tell">
     <div class="tell-head">
@@ -275,7 +277,7 @@
     <div class="tell-head">
       <p class="tell-n">Tell 02</p>
       <h4>Duración equivocada del movimiento</h4>
-      <p>Con el easing bien puesto, lo que queda es la duración. Muy corto se pierde y se siente nervioso; muy largo aburre y se siente pesado. La ventana útil para casi todo movimiento en formato corto está entre 250 y 400 ms.</p>
+      <p>Con el easing bien puesto, lo que queda es la duración. Muy corto se pierde y se siente nervioso; muy largo aburre y se siente pesado. La ventana útil para casi todo movimiento está entre 250 y 400 ms.</p>
     </div>
     <div class="tell-demo">
       <div class="side s-bad">
@@ -298,7 +300,7 @@
     <div class="tell-head">
       <p class="tell-n">Tell 03</p>
       <h4>Jump cut: cortar entre dos planos casi iguales</h4>
-      <p>Si el tamaño de plano cambia poco, el corte se lee como un salto o un error de reproducción. La regla clásica es que entre dos planos consecutivos del mismo sujeto tiene que haber un cambio claro de tamaño — no un 8 %, sino un 40 % o más.</p>
+      <p>Si el tamaño de plano cambia poco, el corte se lee como un salto o un error de reproducción. Entre dos planos consecutivos del mismo sujeto tiene que haber un cambio claro de tamaño — no un 8 %, sino un 40 % o más.</p>
     </div>
     <div class="tell-demo">
       <div class="side s-bad">
@@ -324,7 +326,7 @@
     <div class="tell-head">
       <p class="tell-n">Tell 04</p>
       <h4>Color que no coincide entre planos</h4>
-      <p>Cuando cada plano tiene su propia temperatura o exposición, el clip se siente armado con retazos. Es el tell más caro de arreglar después y el más barato de prevenir: un solo preset aplicado a toda la secuencia.</p>
+      <p>Cuando cada plano tiene su propia temperatura o exposición, el video se siente armado con retazos. Es el tell más caro de arreglar después y el más barato de prevenir: un solo preset aplicado a toda la secuencia.</p>
     </div>
     <div class="tell-demo">
       <div class="side s-bad">
@@ -352,7 +354,7 @@
     <div class="tell-head">
       <p class="tell-n">Tell 05</p>
       <h4>El subtítulo que se mueve</h4>
-      <p>Si la caja de texto cambia de posición, de ancho o de tamaño entre una frase y la otra, el ojo tiene que reubicarla cada vez. Cansa sin que se sepa por qué. Es lo que hacen la mayoría de las herramientas automáticas si no se les fija la posición.</p>
+      <p>Si la caja de texto cambia de posición, de ancho o de tamaño entre una frase y la otra, el ojo tiene que reubicarla cada vez. Cansa sin que se sepa por qué.</p>
     </div>
     <div class="tell-demo">
       <div class="side s-bad">
@@ -372,12 +374,12 @@
     <div class="tell-head">
       <p class="tell-n">Tell 06</p>
       <h4>Transiciones de fábrica</h4>
-      <p>Cualquier transición que venga con nombre en el menú del editor — cubo, página, giro, glitch, zoom de plantilla — se reconoce al instante porque miles de personas usan exactamente la misma. En formato corto el estándar profesional es <strong>corte duro</strong>, y nada más. La excepción es un fundido en el arranque o el cierre.</p>
+      <p>Cualquier transición que venga con nombre en el menú del editor —cubo, página, giro, glitch— se reconoce al instante porque miles de personas usan exactamente la misma. En formato corto el estándar profesional es <strong>corte duro</strong>. La excepción es un fundido en el arranque o el cierre.</p>
     </div>
     <div class="tell-demo">
       <div class="side s-bad">
         <div class="side-label">Del menú</div>
-        <p class="side-note" style="margin-top:0">Cube spin · page peel · glitch · zoom blur de plantilla · luma fade con destello. Todas dicen lo mismo: se editó con lo que venía puesto.</p>
+        <p class="side-note" style="margin-top:0">Cube spin · page peel · glitch · zoom blur de plantilla. Todas dicen lo mismo: se editó con lo que venía puesto.</p>
       </div>
       <div class="side s-good">
         <div class="side-label">Del oficio</div>
@@ -389,24 +391,31 @@
 
 <section>
   <h2>02 — El analizador</h2>
-  <h3>Qué se puede medir sin opinar</h3>
-  <p class="lead">Cargá el clip y la herramienta lee los cuadros: superpone las zonas seguras sobre el video, detecta los cortes, compara el color entre planos, mide si el subtítulo se queda quieto y busca los tramos donde no pasa nada. <strong>Después completa sola 52 de los 100 puntos.</strong> Los otros 48 los tenés que poner vos, y son justo los que más definen el nivel. El archivo no sale de tu computadora.</p>
+  <h3>Dos modos, porque un reel y un video largo no se juzgan igual</h3>
+  <p class="lead">Elegí el modo, cargá el archivo y la herramienta mide: detecta los zoom y estima si su curva tiene easing o es lineal, mide saturación y contraste, detecta si hay cama musical y a qué nivel, estima cuánto b-roll hay, superpone las zonas seguras y encuentra los tramos donde no pasa nada. <strong>Después completa sola la mayor parte de la rúbrica.</strong> El archivo no sale de tu computadora.</p>
 
   <div class="scorer">
     <div class="sc-head">
       <div>
         <h4>Auditoría visual NFM</h4>
-        <p>Lo medible lo mide la herramienta. Lo que requiere ojo queda abajo, en la rúbrica.</p>
+        <p>Lo medible lo mide la herramienta. Lo que requiere ojo queda marcado.</p>
       </div>
       <button class="btn ghost" type="button" id="btn-reset">Empezar de nuevo</button>
+    </div>
+
+    <div class="modebar" role="tablist">
+      <button type="button" id="mode-reel" role="tab" aria-selected="true">Clip vertical
+        <span>Reel, Short, TikTok · 9:16 · 25–45 s</span></button>
+      <button type="button" id="mode-largo" role="tab" aria-selected="false">Video largo
+        <span>YouTube, VSL, clase · 16:9 · minutos</span></button>
     </div>
 
     <div class="sc-auto">
       <div class="filerow">
         <input type="file" id="file" accept="video/*" style="display:none">
-        <button class="btn" type="button" id="btn-file">Cargar clip</button>
+        <button class="btn" type="button" id="btn-file">Cargar video</button>
         <button class="btn ghost" type="button" id="btn-analyze" disabled>Analizar</button>
-        <span class="filehint" id="filehint">La rúbrica de abajo funciona igual sin cargar nada.</span>
+        <span class="filehint" id="filehint">La rúbrica funciona igual sin cargar nada.</span>
       </div>
 
       <div class="an" id="an">
@@ -423,7 +432,7 @@
           <div class="an-metrics" id="metrics"></div>
         </div>
 
-        <div class="worst" id="worstBlock" style="display:none">
+        <div class="panel" id="worstBlock" style="display:none">
           <h5>El peor cuadro</h5>
           <p>El momento con más contenido metido en las bandas que tapa la interfaz. Si ves texto o gráficos dentro del rojo, ahí está el problema.</p>
           <div class="worst-row">
@@ -432,15 +441,25 @@
           </div>
         </div>
 
-        <div class="activity" id="actBlock" style="display:none">
-          <h5>Actividad visual</h5>
-          <p>Cuánto cambia la pantalla a lo largo del clip. Las barras rojas son tramos donde no pasa nada — es ahí donde se cae la retención.</p>
+        <div class="panel" id="actBlock" style="display:none">
+          <h5>Actividad visual y zoom</h5>
+          <p>Cuánto cambia la pantalla a lo largo del video. Rojo: tramos donde no pasa nada. Verde: tramos con movimiento de cámara o zoom.</p>
           <div class="actbar" id="actbar"></div>
           <div class="actscale"><span>0 s</span><span id="actMid"></span><span id="actEnd"></span></div>
+          <div class="actkey">
+            <span><i style="background:var(--ink);opacity:.72"></i> actividad normal</span>
+            <span><i style="background:var(--good)"></i> zoom o movimiento</span>
+            <span><i style="background:var(--bad)"></i> tramo muerto</span>
+          </div>
           <p class="actlegend" id="actLegend"></p>
         </div>
 
-        <div id="stripwrap"></div>
+        <div class="panel" id="stripBlock" style="display:none">
+          <h5>Color por plano</h5>
+          <p>Color promedio de cada plano, en orden. Si la tira no se ve pareja, hay que igualar.</p>
+          <div id="stripwrap"></div>
+        </div>
+
         <div class="progress" id="progwrap" style="display:none"><i id="prog"></i></div>
         <p class="an-status" id="status"></p>
         <div class="sens" id="sensrow" style="display:none">
@@ -454,17 +473,17 @@
     </div>
 
     <div class="split">
-      <span><i style="background:var(--good)"></i> <strong style="color:var(--ink)">Se mide solo</strong> — se completa al analizar (52 pts)</span>
-      <span><i style="background:var(--muted)"></i> <strong style="color:var(--ink)">A ojo</strong> — lo tenés que puntuar vos (48 pts)</span>
+      <span><i style="background:var(--good)"></i> <strong style="color:var(--ink)">Se mide solo</strong> — se completa al analizar</span>
+      <span><i style="background:var(--muted)"></i> <strong style="color:var(--ink)">A ojo</strong> — lo puntuás vos</span>
     </div>
     <div id="rubric"></div>
 
     <div class="kills">
-      <h5>Faltas eliminatorias visuales</h5>
+      <h5>Faltas eliminatorias</h5>
       <p>Si alguna se cumple, no se publica sin importar el puntaje.</p>
-      <label class="kill-item"><input type="checkbox" data-kill> <span>Hay algún movimiento con easing lineal (arranca y frena de golpe)</span></label>
       <label class="kill-item"><input type="checkbox" data-kill> <span>Se usó una transición del menú del editor</span></label>
-      <label class="kill-item"><input type="checkbox" data-kill> <span>El subtítulo cambia de posición, ancho o tamaño dentro del clip</span></label>
+      <label class="kill-item"><input type="checkbox" data-kill> <span>Hay un error de ortografía en un texto en pantalla</span></label>
+      <label class="kill-item"><input type="checkbox" data-kill> <span>Se ve marca de agua de otra plataforma o interfaz de una app</span></label>
     </div>
 
     <div class="sc-result">
@@ -505,34 +524,36 @@
 
   <div class="table-scroll">
     <table>
-      <thead><tr><th>Elemento</th><th>Estándar</th><th>Cómo se verifica</th></tr></thead>
+      <thead><tr><th>Elemento</th><th>Clip vertical</th><th>Video largo</th></tr></thead>
       <tbody>
-        <tr><td class="who">Easing</td><td class="num">Ease in-out en todo</td><td>Ningún movimiento lineal. Ni uno.</td></tr>
-        <tr><td class="who">Duración de movimiento</td><td class="num">250 – 400 ms</td><td>Contar cuadros: 8 a 12 a 30 fps.</td></tr>
-        <tr><td class="who">Empuje de escala</td><td class="num">4 – 8 %</td><td>Si se ve el zoom, es demasiado.</td></tr>
-        <tr><td class="who">Cambio entre planos</td><td class="num">≥ 40 % de tamaño</td><td>Si dudás si saltó, saltó.</td></tr>
-        <tr><td class="who">Transiciones</td><td class="num">Solo corte duro</td><td>Fundido únicamente en entrada y salida.</td></tr>
-        <tr><td class="who">Familias tipográficas</td><td class="num">1</td><td>Dos pesos como máximo dentro de esa familia.</td></tr>
-        <tr><td class="who">Tamaños de texto</td><td class="num">3</td><td>Subtítulo, placa de dato, zócalo. Nada más.</td></tr>
-        <tr><td class="who">Márgenes</td><td class="num">Uno solo, repetido</td><td>Todo alineado al mismo margen lateral.</td></tr>
-        <tr><td class="who">Zona segura superior</td><td class="num">13 % · ~250 px</td><td>Nada visible ahí.</td></tr>
-        <tr><td class="who">Zona segura inferior</td><td class="num">22 % · ~420 px</td><td>Nada visible ahí.</td></tr>
-        <tr><td class="who">Contorno del subtítulo</td><td class="num">Trazo, no sombra</td><td>La sombra blanda se rompe con la compresión.</td></tr>
-        <tr><td class="who">Frames negros o flashes</td><td class="num">0</td><td>Revisar el primer y último cuadro.</td></tr>
+        <tr><td class="who">Easing</td><td class="num">Ease in-out en todo</td><td class="num">Ease in-out en todo</td></tr>
+        <tr><td class="who">Duración de movimiento</td><td class="num">250 – 400 ms</td><td class="num">400 – 800 ms</td></tr>
+        <tr><td class="who">Empuje de escala</td><td class="num">4 – 8 %</td><td class="num">4 – 10 %</td></tr>
+        <tr><td class="who">Un zoom cada</td><td class="num">6 – 12 s</td><td class="num">8 – 15 s</td></tr>
+        <tr><td class="who">Cambio visual cada</td><td class="num">3 – 5 s</td><td class="num">4 – 8 s</td></tr>
+        <tr><td class="who">Cambio entre planos</td><td class="num">≥ 40 % de tamaño</td><td class="num">≥ 40 % de tamaño</td></tr>
+        <tr><td class="who">Transiciones</td><td class="num">Solo corte duro</td><td class="num">Solo corte duro</td></tr>
+        <tr><td class="who">Música bajo la voz</td><td class="num">−22 a −26 dB</td><td class="num">−18 a −24 dB</td></tr>
+        <tr><td class="who">B-roll</td><td class="num">Máx. 1 cada 8 s</td><td class="num">15 – 30 % del tiempo</td></tr>
+        <tr><td class="who">Familias tipográficas</td><td class="num">1</td><td class="num">1</td></tr>
+        <tr><td class="who">Zona segura sup./inf.</td><td class="num">13 % · 22 %</td><td class="num">No aplica igual</td></tr>
+        <tr><td class="who">Cuadros negros o flashes</td><td class="num">0</td><td class="num">0</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="callout">
     <span class="label">Cómo usarlo con el equipo</span>
-    <p>La rúbrica no sirve si la aplica una sola persona. La forma que funciona es que <strong>el editor se autoaudite antes de entregar</strong> y pegue el informe junto al archivo. Quien revisa solo verifica que el puntaje sea honesto, en vez de armar la lista de cero. Cambia la discusión de "no me gusta" a "el criterio 4 está en 2".</p>
+    <p>La rúbrica no sirve si la aplica una sola persona. La forma que funciona es que <strong>el editor se autoaudite antes de entregar</strong> y pegue el informe junto al archivo. Quien revisa solo verifica que el puntaje sea honesto, en vez de armar la lista de cero. Cambia la discusión de "no me gusta" a "el zoom está en 2".</p>
   </div>
 </section>
 
 <footer class="notes">
-  <p><strong>Qué mide y qué no la herramienta.</strong> La detección de cortes compara cuadros consecutivos y es fiable en material de cámara fija; se confunde con movimientos bruscos o destellos. La comparación de color entre planos usa el promedio de cada plano, así que detecta desvíos de temperatura y exposición, no errores finos de piel. La detección de contenido en zona insegura busca concentración de bordes en las bandas superior e inferior: marca texto y gráficos, pero también puede marcar un fondo con mucho detalle. Todo lo que devuelve es un indicio para mirar, no un veredicto.</p>
-  <p><strong>Lo que no puede medir ninguna máquina.</strong> Si el easing está bien puesto, si la tipografía es la correcta, si la transición es de fábrica, si el encuadre respira. Eso está en la rúbrica manual, y por eso los tres criterios eliminatorios son manuales: son exactamente los que más pesan y los que ningún análisis automático detecta hoy.</p>
-  <p><strong>Documentos relacionados.</strong> El manual de criterio editorial con su score, el estándar técnico de exportación, la biblioteca de referencias y el informe de IA en edición están en la misma carpeta.</p>
+  <p><strong>Cómo detecta el zoom.</strong> Compara cada cuadro con el anterior probándolo a varias escalas: si el error baja al escalar, hubo un cambio de escala y su magnitud da la velocidad. Es fiable con cámara fija y se confunde con travellings o con movimiento fuerte del sujeto. La curva de easing se estima con el perfil de velocidad dentro de cada zoom: constante es lineal, con pico en el medio tiene easing. Solo se puede medir en zooms de más de un segundo — los más rápidos quedan sin evaluar y se avisa.</p>
+  <p><strong>Cómo detecta la música.</strong> Compara el nivel de audio en los huecos entre frases contra el nivel de la voz. Si en los huecos hay silencio real, no hay cama musical; si hay señal, mide cuántos decibeles por debajo de la voz está. No distingue música de ruido ambiente fuerte.</p>
+  <p><strong>Cómo estima el b-roll.</strong> Agrupa los planos por su firma de color y toma el grupo dominante como "el plano principal". Lo que se aleja de ese grupo se cuenta como material de apoyo. Es una estimación: un cambio de encuadre muy marcado del mismo plano también puede contarse.</p>
+  <p><strong>Lo que sigue sin poder medir.</strong> Composición, tipografía, alineación y si una transición salió del menú del editor. Están marcados "a ojo" y son eliminatorios o de peso alto justamente porque ninguna medición los alcanza. El siguiente escalón para eso es leer el timeline del editor por MCP, no analizar píxeles.</p>
+  <p><strong>Rendimiento.</strong> En videos largos el muestreo se espacia automáticamente para no tardar una eternidad, así que la resolución temporal baja: los números son igual de válidos como tendencia, menos precisos al segundo exacto. El análisis de audio se saltea en archivos de más de 300 MB.</p>
 </footer>
 
 </div>
@@ -541,120 +562,115 @@
 (function(){
   "use strict";
 
-  /* ============ escenas de demostración ============ */
+  /* ================= escenas de demostración ================= */
   function head(ctx,W,H,scale,tint){
     var g=ctx.createLinearGradient(0,0,W*0.4,H);
     g.addColorStop(0,tint.bg1); g.addColorStop(1,tint.bg2);
     ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-
-    ctx.save();
-    ctx.translate(W/2,H*0.52);
-    ctx.scale(scale,scale);
-    ctx.translate(-W/2,-H*0.52);
-
+    ctx.save(); ctx.translate(W/2,H*0.52); ctx.scale(scale,scale); ctx.translate(-W/2,-H*0.52);
     var hx=W*0.5, hy=H*0.46, hr=W*0.22;
     ctx.fillStyle="#1d3039";
     ctx.beginPath(); ctx.ellipse(hx,H*1.06,W*0.5,H*0.3,0,Math.PI,0); ctx.fill();
-
     ctx.fillStyle=tint.skin;
     ctx.beginPath(); ctx.ellipse(hx,hy,hr,hr*1.2,0,0,Math.PI*2); ctx.fill();
-
     ctx.fillStyle="#20262b";
     ctx.beginPath(); ctx.ellipse(hx,hy-hr*0.55,hr*1.04,hr*0.7,0,Math.PI,0); ctx.fill();
-
     ctx.fillStyle="#2b2320";
     ctx.beginPath(); ctx.ellipse(hx-hr*0.36,hy-hr*0.06,hr*0.11,hr*0.07,0,0,Math.PI*2); ctx.fill();
     ctx.beginPath(); ctx.ellipse(hx+hr*0.36,hy-hr*0.06,hr*0.11,hr*0.07,0,0,Math.PI*2); ctx.fill();
     ctx.strokeStyle="#8e5c4c"; ctx.lineWidth=Math.max(1,W*0.008);
     ctx.beginPath(); ctx.arc(hx,hy+hr*0.36,hr*0.28,0.2*Math.PI,0.8*Math.PI); ctx.stroke();
-
     ctx.restore();
   }
-
   var NEUTRAL={bg1:"#33454e",bg2:"#182027",skin:"#c9a184"};
-  function draw(id,scale,tint){
-    var c=document.getElementById(id); if(!c) return;
-    head(c.getContext("2d"),c.width,c.height,scale,tint||NEUTRAL);
-  }
-
-  // Tell 03 — jump cut
-  draw("jc-a1",1.00); draw("jc-a2",1.08);
-  draw("jc-b1",1.00); draw("jc-b2",1.45);
-
-  // Tell 04 — color
-  draw("cc-a1",1.0,{bg1:"#3f4a3a",bg2:"#20261c",skin:"#c7a97f"});   // verdoso
-  draw("cc-a2",1.0,{bg1:"#4a3f4e",bg2:"#2b2130",skin:"#d8a89a"});   // magenta, sobreexpuesto
-  draw("cc-a3",1.0,{bg1:"#28333f",bg2:"#111820",skin:"#a68468"});   // frío, subexpuesto
+  function draw(id,scale,tint){ var c=document.getElementById(id); if(c) head(c.getContext("2d"),c.width,c.height,scale,tint||NEUTRAL); }
+  draw("jc-a1",1.00); draw("jc-a2",1.08); draw("jc-b1",1.00); draw("jc-b2",1.45);
+  draw("cc-a1",1.0,{bg1:"#3f4a3a",bg2:"#20261c",skin:"#c7a97f"});
+  draw("cc-a2",1.0,{bg1:"#4a3f4e",bg2:"#2b2130",skin:"#d8a89a"});
+  draw("cc-a3",1.0,{bg1:"#28333f",bg2:"#111820",skin:"#a68468"});
   draw("cc-b1",1.0); draw("cc-b2",1.0); draw("cc-b3",1.0);
 
-  /* ============ rúbrica ============ */
-  var CRITERIA=[
-    {id:"comp", w:12, auto:false, n:"Composición y aire",
-     d:"Ojos en el tercio superior, aire mínimo sobre la cabeza, mismo criterio de encuadre en todos los planos."},
-    {id:"cont", w:10, auto:true, n:"Continuidad entre cortes",
-     d:"Ningún corte entre planos de tamaño parecido. Cada corte se lee como decisión."},
-    {id:"color", w:12, auto:true, n:"Consistencia de color",
-     d:"Mismo grade, misma temperatura y misma exposición en todo el clip y contra el resto del feed."},
-    {id:"ease", w:12, auto:false, n:"Easing del movimiento",
-     d:"Todo movimiento acelera y desacelera. Nada lineal, en ningún elemento."},
-    {id:"dur", w:6, auto:false, n:"Duración de los movimientos",
-     d:"Entre 250 y 400 ms. Ni nervioso ni pesado, y siempre el mismo valor."},
-    {id:"type", w:12, auto:false, n:"Tipografía",
-     d:"Una familia, hasta dos pesos, tres tamaños. Trazo en vez de sombra blanda."},
-    {id:"grid", w:6, auto:false, n:"Alineación",
-     d:"Todos los elementos al mismo margen. Nada apoyado a ojo."},
-    {id:"safe", w:8, auto:true, n:"Zonas seguras",
-     d:"Nada importante en el 13 % de arriba ni en el 22 % de abajo."},
-    {id:"stab", w:10, auto:true, n:"Estabilidad",
-     d:"Sin jitter de reencuadre, sin elementos que floten, subtítulo clavado en su línea."},
-    {id:"ritmo", w:6, auto:true, n:"Ritmo visual",
-     d:"Sin tramos largos en los que no pasa nada en pantalla."},
-    {id:"clean", w:6, auto:true, n:"Limpieza técnica",
-     d:"Sin cuadros negros, sin flashes, sin restos de interfaz."}
-  ];
+  /* ================= rúbricas por modo ================= */
+  var SETS={
+    reel:[
+      {id:"comp",  w:10, auto:false, n:"Composición y aire", d:"Ojos en el tercio superior, aire mínimo sobre la cabeza, mismo criterio en todos los planos."},
+      {id:"cont",  w:8,  auto:true,  n:"Continuidad entre cortes", d:"Ningún corte entre planos de tamaño parecido."},
+      {id:"color", w:10, auto:true,  n:"Consistencia de color", d:"Mismo grade, temperatura y exposición en todo el clip."},
+      {id:"vivid", w:5,  auto:true,  n:"Viveza de imagen", d:"Saturación y contraste suficientes. Que no se vea plano."},
+      {id:"zoom",  w:8,  auto:true,  n:"Presencia de zoom", d:"Movimiento de escala cada 6 a 12 segundos. Ni estático ni mareado."},
+      {id:"ease",  w:12, auto:true,  n:"Easing del movimiento", d:"Todo movimiento acelera y desacelera. Nada lineal."},
+      {id:"type",  w:10, auto:false, n:"Tipografía", d:"Una familia, hasta dos pesos, tres tamaños. Trazo en vez de sombra blanda."},
+      {id:"grid",  w:6,  auto:false, n:"Alineación", d:"Todos los elementos al mismo margen."},
+      {id:"safe",  w:8,  auto:true,  n:"Zonas seguras", d:"Nada importante en el 13 % de arriba ni en el 22 % de abajo."},
+      {id:"stab",  w:10, auto:true,  n:"Estabilidad", d:"Sin jitter, subtítulo clavado en su línea."},
+      {id:"ritmo", w:8,  auto:true,  n:"Ritmo visual", d:"Sin tramos largos en los que no pasa nada."},
+      {id:"clean", w:5,  auto:true,  n:"Limpieza técnica", d:"Sin cuadros negros, sin flashes."}
+    ],
+    largo:[
+      {id:"comp",  w:10, auto:false, n:"Composición y aire", d:"Ojos en el tercio superior, encuadre estable y consistente."},
+      {id:"color", w:10, auto:true,  n:"Consistencia de color", d:"Mismo grade entre todos los planos del video."},
+      {id:"vivid", w:12, auto:true,  n:"Viveza de imagen", d:"Saturación y contraste suficientes. Es lo que se siente como 'plano'."},
+      {id:"zoom",  w:14, auto:true,  n:"Zoom y dinamismo", d:"Movimiento de escala cada 8 a 15 segundos, a velocidad que se perciba."},
+      {id:"ease",  w:12, auto:true,  n:"Curva del movimiento", d:"Los zoom aceleran y desaceleran. Nada de velocidad constante."},
+      {id:"broll", w:12, auto:true,  n:"Apoyo visual", d:"Entre 15 y 30 % del tiempo con material distinto al plano principal."},
+      {id:"music", w:12, auto:true,  n:"Cama musical", d:"Música presente, entre 18 y 24 dB por debajo de la voz."},
+      {id:"ritmo", w:8,  auto:true,  n:"Ritmo visual", d:"Sin tramos largos en los que no pasa nada."},
+      {id:"type",  w:6,  auto:false, n:"Tipografía", d:"Una familia coherente con la marca. Sin fuentes bruscas."},
+      {id:"clean", w:4,  auto:true,  n:"Limpieza técnica", d:"Sin cuadros negros, sin flashes."}
+    ]
+  };
 
-  var scores={}, why={}, rows={}, rubricEl=document.getElementById("rubric");
-  CRITERIA.forEach(function(c){
-    var row=document.createElement("div"); row.className="crit";
-    var lab=document.createElement("div");
-    var cn=document.createElement("div"); cn.className="cn"; cn.textContent=c.n;
-    var w=document.createElement("span"); w.className="w"; w.textContent=c.w+" pts"; cn.appendChild(w);
-    var bd=document.createElement("span");
-    bd.className="autobadge "+(c.auto?"auto":"eye");
-    bd.textContent=c.auto?"se mide solo":"a ojo";
-    cn.appendChild(bd);
-    var cd=document.createElement("div"); cd.className="cd"; cd.textContent=c.d;
-    var note=document.createElement("div"); note.className="measured-note"; note.style.display="none";
-    lab.appendChild(cn); lab.appendChild(cd); lab.appendChild(note);
-    var scale=document.createElement("div"); scale.className="scale";
-    scale.setAttribute("role","group"); scale.setAttribute("aria-label",c.n);
-    for(var v=0;v<=5;v++){(function(val){
-      var b=document.createElement("button"); b.type="button"; b.textContent=val;
-      b.setAttribute("aria-pressed","false");
-      b.setAttribute("aria-label",c.n+": "+val+" de 5");
-      b.addEventListener("click",function(){ setScore(c.id,val,null); });
-      scale.appendChild(b);
-    })(v);}
-    row.appendChild(lab); row.appendChild(scale); rubricEl.appendChild(row);
-    rows[c.id]={row:row,scale:scale,note:note};
-  });
+  var MODE="reel", CRITERIA=SETS.reel;
+  var scores={}, why={}, rows={};
+  var rubricEl=document.getElementById("rubric");
+  var scoreEl=document.getElementById("score"), bandEl=document.getElementById("band"), fixesEl=document.getElementById("fixes");
+
+  function buildRubric(){
+    rubricEl.innerHTML=""; rows={};
+    CRITERIA.forEach(function(c){
+      var row=document.createElement("div"); row.className="crit";
+      var lab=document.createElement("div");
+      var cn=document.createElement("div"); cn.className="cn"; cn.textContent=c.n;
+      var w=document.createElement("span"); w.className="w"; w.textContent=c.w+" pts"; cn.appendChild(w);
+      var bd=document.createElement("span"); bd.className="autobadge "+(c.auto?"auto":"eye");
+      bd.textContent=c.auto?"se mide solo":"a ojo"; cn.appendChild(bd);
+      var cd=document.createElement("div"); cd.className="cd"; cd.textContent=c.d;
+      var note=document.createElement("div"); note.className="measured-note"; note.style.display="none";
+      lab.appendChild(cn); lab.appendChild(cd); lab.appendChild(note);
+      var scale=document.createElement("div"); scale.className="scale";
+      scale.setAttribute("role","group"); scale.setAttribute("aria-label",c.n);
+      for(var v=0;v<=5;v++){(function(val){
+        var b=document.createElement("button"); b.type="button"; b.textContent=val;
+        b.setAttribute("aria-pressed","false"); b.setAttribute("aria-label",c.n+": "+val+" de 5");
+        b.addEventListener("click",function(){ setScore(c.id,val,null); });
+        scale.appendChild(b);
+      })(v);}
+      row.appendChild(lab); row.appendChild(scale); rubricEl.appendChild(row);
+      rows[c.id]={row:row,scale:scale,note:note};
+    });
+  }
 
   function setScore(id,val,reason){
+    if(!rows[id]) return;
     scores[id]=val;
-    var r=rows[id]; if(!r) return;
+    var r=rows[id];
     Array.prototype.forEach.call(r.scale.children,function(s,i){ s.setAttribute("aria-pressed", i===val?"true":"false"); });
     if(reason){ why[id]=reason; r.note.textContent="Medido: "+reason; r.note.style.display="block"; r.row.classList.add("filled"); }
     else { delete why[id]; r.note.style.display="none"; r.row.classList.remove("filled"); }
     recompute();
   }
 
-  // convierte una medición en nota de 0 a 5 según umbrales de mejor a peor
-  function grade(value, thresholds){
+  function grade(value,thresholds){
     for(var i=0;i<thresholds.length;i++){ if(value<=thresholds[i]) return 5-i; }
     return 0;
   }
+  // para métricas donde el ideal está en el medio de un rango
+  function gradeBand(v,lo,hi,tol){
+    if(v>=lo&&v<=hi) return 5;
+    var d=v<lo?(lo-v):(v-hi);
+    return grade(d/tol,[0.25,0.6,1.0,1.6,2.4]);
+  }
 
-  var scoreEl=document.getElementById("score"), bandEl=document.getElementById("band"), fixesEl=document.getElementById("fixes");
   function killed(){ return Array.prototype.some.call(document.querySelectorAll("[data-kill]"),function(k){return k.checked;}); }
   function setBand(t,bg,fg){ bandEl.textContent=t; bandEl.style.background=bg; bandEl.style.color=fg; }
 
@@ -668,7 +684,6 @@
     var total=0;
     CRITERIA.forEach(function(c){ var s=typeof scores[c.id]==="number"?scores[c.id]:0; total+=(s/5)*c.w; });
     var pts=Math.round(total); scoreEl.textContent=pts;
-
     if(killed()) setBand("No publicable · falta eliminatoria","var(--bad-bg)","var(--bad)");
     else if(pts>=90) setBand("Nivel de referencia","var(--good-bg)","var(--good)");
     else if(pts>=75) setBand("Publicable","var(--good-bg)","var(--good)");
@@ -678,8 +693,7 @@
     var gaps=CRITERIA.map(function(c){
       var s=typeof scores[c.id]==="number"?scores[c.id]:null;
       return s===null?null:{id:c.id,n:c.n,gain:((5-s)/5)*c.w,s:s};
-    }).filter(function(g){return g&&g.gain>0.4;})
-      .sort(function(a,b){return b.gain-a.gain;}).slice(0,4);
+    }).filter(function(g){return g&&g.gain>0.4;}).sort(function(a,b){return b.gain-a.gain;}).slice(0,4);
 
     if(!gaps.length){ fixesEl.innerHTML='<p style="color:var(--good);font-size:14.5px;margin:0">Nada pendiente en los criterios puntuados.</p>'; return; }
     var ol=document.createElement("ol");
@@ -697,9 +711,25 @@
     });
     fixesEl.innerHTML=""; fixesEl.appendChild(ol);
   }
+
   Array.prototype.forEach.call(document.querySelectorAll("[data-kill]"),function(k){ k.addEventListener("change",recompute); });
 
-  /* ============ analizador ============ */
+  /* ================= modo ================= */
+  var btnReel=document.getElementById("mode-reel"), btnLargo=document.getElementById("mode-largo");
+  function setMode(mo){
+    MODE=mo; CRITERIA=SETS[mo]; scores={}; why={};
+    btnReel.setAttribute("aria-selected", mo==="reel"?"true":"false");
+    btnLargo.setAttribute("aria-selected", mo==="largo"?"true":"false");
+    document.getElementById("vshell").querySelectorAll(".ovl").forEach(function(o){
+      o.style.display=(mo==="reel"&&document.getElementById("ovlToggle").checked)?"block":"none";
+    });
+    buildRubric(); recompute();
+    if(lastData) reportAll(lastData);
+  }
+  btnReel.addEventListener("click",function(){ setMode("reel"); });
+  btnLargo.addEventListener("click",function(){ setMode("largo"); });
+
+  /* ================= análisis ================= */
   var fileInput=document.getElementById("file"), vid=document.getElementById("vid"),
       metricsEl=document.getElementById("metrics"), statusEl=document.getElementById("status"),
       progWrap=document.getElementById("progwrap"), progEl=document.getElementById("prog"),
@@ -707,25 +737,35 @@
       stripWrap=document.getElementById("stripwrap"),
       sensRow=document.getElementById("sensrow"), sens=document.getElementById("sens"),
       sensVal=document.getElementById("sensval"), sensWarn=document.getElementById("sensWarn");
-  var lastFrames=null, lastDur=0;
+  var currentFile=null, lastData=null;
 
   sens.addEventListener("input",function(){ sensVal.textContent=sens.value; });
-  document.getElementById("btn-recount").addEventListener("click",function(){
-    if(lastFrames) report(lastFrames,lastDur);
-  });
-
+  document.getElementById("btn-recount").addEventListener("click",function(){ if(lastData) reportAll(lastData); });
   document.getElementById("btn-file").addEventListener("click",function(){ fileInput.click(); });
+  document.getElementById("ovlToggle").addEventListener("change",function(){
+    var on=this.checked&&MODE==="reel";
+    document.getElementById("vshell").querySelectorAll(".ovl").forEach(function(o){ o.style.display=on?"block":"none"; });
+  });
 
   fileInput.addEventListener("change",function(){
     var f=fileInput.files&&fileInput.files[0]; if(!f) return;
+    currentFile=f; lastData=null;
     anEl.classList.add("on"); metricsEl.innerHTML=""; stripWrap.innerHTML="";
     statusEl.textContent="Cargando…";
     try { vid.src=URL.createObjectURL(f); }
     catch(e){ statusEl.textContent="Este visor no permite reproducir archivos locales. Usá la rúbrica manual."; return; }
-    vid.onloadedmetadata=function(){ btnAnalyze.disabled=false; statusEl.textContent="Listo. Apretá Analizar."; basics(); };
+    vid.onloadedmetadata=function(){
+      btnAnalyze.disabled=false;
+      var step=sampleStep(vid.duration);
+      statusEl.textContent="Listo. "+Math.round(vid.duration/step)+" muestras a "+step.toFixed(2)+" s. Apretá Analizar.";
+      basics();
+    };
     vid.onerror=function(){ btnAnalyze.disabled=true; statusEl.textContent="No se pudo leer el video acá (códec o restricción del entorno). La rúbrica manual funciona igual."; };
   });
 
+  function sampleStep(dur){ return Math.min(1.0, Math.max(0.2, dur/900)); }
+
+  function mg(title){ var h=document.createElement("p"); h.className="mgroup"; h.textContent=title; metricsEl.appendChild(h); }
   function m(key,sub,val,flagText,flagClass){
     var row=document.createElement("div"); row.className="metric";
     var k=document.createElement("div"); k.className="mk"; k.textContent=key;
@@ -737,22 +777,34 @@
 
   function basics(){
     metricsEl.innerHTML="";
+    mg("Archivo");
     var W=vid.videoWidth,H=vid.videoHeight;
-    var vert=W&&H&&Math.abs(W/H-9/16)<0.02;
-    m("Proporción","Debe ser 9:16",(vert?"9:16":"no es 9:16"),vert?"correcta":"corregir",vert?"ok":"no");
-    var full=(W>=1080&&H>=1920);
-    var half=(W>=720&&H>=1280);
-    m("Resolución","Mínimo 1080×1920",W+"×"+H,
-      full?"cumple":half?"por debajo del estándar":"muy por debajo",
-      full?"ok":half?"mid":"no");
-    m("Duración","",(vid.duration||0).toFixed(1)+" s","","mid");
+    var ratio=W/H;
+    if(MODE==="reel"){
+      var vert=Math.abs(ratio-9/16)<0.02;
+      m("Proporción","Debe ser 9:16",vert?"9:16":ratio.toFixed(2)+":1",vert?"correcta":"corregir",vert?"ok":"no");
+      var full=(W>=1080&&H>=1920), half=(W>=720&&H>=1280);
+      m("Resolución","Mínimo 1080×1920",W+"×"+H,full?"cumple":half?"por debajo del estándar":"muy por debajo",full?"ok":half?"mid":"no");
+    } else {
+      var horiz=Math.abs(ratio-16/9)<0.03;
+      m("Proporción","Debe ser 16:9",horiz?"16:9":ratio.toFixed(2)+":1",horiz?"correcta":"revisar",horiz?"ok":"mid");
+      var fullL=(W>=1920&&H>=1080);
+      m("Resolución","Mínimo 1920×1080",W+"×"+H,fullL?"cumple":"por debajo",fullL?"ok":"no");
+    }
+    m("Duración","",fmtDur(vid.duration||0),"","mid");
+  }
+
+  function fmtDur(s){
+    if(s<60) return s.toFixed(1)+" s";
+    var mn=Math.floor(s/60), sc=Math.round(s%60);
+    return mn+" min "+sc+" s";
   }
 
   function seekTo(t){
     return new Promise(function(res){
       var done=false;
       function ok(){ if(done)return; done=true; vid.removeEventListener("seeked",ok); res(); }
-      vid.addEventListener("seeked",ok); vid.currentTime=t; setTimeout(ok,400);
+      vid.addEventListener("seeked",ok); vid.currentTime=t; setTimeout(ok,600);
     });
   }
 
@@ -760,12 +812,14 @@
 
   function run(){
     if(!vid.duration||!isFinite(vid.duration)) return;
-    btnAnalyze.disabled=true; progWrap.style.display="block"; statusEl.textContent="Leyendo cuadros…";
+    btnAnalyze.disabled=true; progWrap.style.display="block";
+    statusEl.textContent="Leyendo cuadros…";
 
-    var STEP=0.2, cw=64, ch=Math.max(2,Math.round(64*(vid.videoHeight/vid.videoWidth)||114));
+    var dur=vid.duration, STEP=sampleStep(dur);
+    var cw=64, ch=Math.max(2,Math.round(64*(vid.videoHeight/vid.videoWidth))||36);
     var cv=document.createElement("canvas"); cv.width=cw; cv.height=ch;
     var cx=cv.getContext("2d",{willReadFrequently:true});
-    var prev=null, frames=[], dur=vid.duration;
+    var prev=null, frames=[];
 
     (function step(t){
       if(t>=dur-0.05){ finish(); return; }
@@ -773,18 +827,30 @@
         try{
           cx.drawImage(vid,0,0,cw,ch);
           var d=cx.getImageData(0,0,cw,ch).data;
-          var luma=new Float32Array(cw*ch), r=0,g=0,b=0;
+          var lum=new Float32Array(cw*ch);
+          var r=0,g=0,b=0,sat=0;
           for(var i=0,p=0;i<d.length;i+=4,p++){
-            r+=d[i]; g+=d[i+1]; b+=d[i+2];
-            luma[p]=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];
+            var R=d[i],G=d[i+1],B=d[i+2];
+            r+=R; g+=G; b+=B;
+            var mx=Math.max(R,G,B), mn=Math.min(R,G,B);
+            sat+=(mx-mn);
+            lum[p]=0.299*R+0.587*G+0.114*B;
           }
           var n=cw*ch;
-          var diff=null;
-          if(prev){ var s=0; for(var j=0;j<n;j++) s+=Math.abs(luma[j]-prev[j]); diff=s/n; }
-          // energía de bordes por banda vertical
-          var bands=edgeBands(luma,cw,ch);
-          frames.push({t:t,r:r/n,g:g/n,b:b/n,luma:mean(luma),diff:diff,bands:bands});
-          prev=luma;
+          var sorted=Array.prototype.slice.call(lum).sort(function(a,b){return a-b;});
+          var p10=sorted[Math.floor(n*0.10)], p90=sorted[Math.floor(n*0.90)];
+          var diff=null, zoom=0;
+          if(prev){
+            var s=0; for(var j=0;j<n;j++) s+=Math.abs(lum[j]-prev[j]);
+            diff=s/n;
+            zoom=estimateZoom(prev,lum,cw,ch);
+          }
+          frames.push({
+            t:t, r:r/n, g:g/n, b:b/n, luma:meanArr(lum),
+            sat:sat/n, p10:p10, p90:p90,
+            diff:diff, zoom:zoom, bands:edgeBands(lum,cw,ch)
+          });
+          prev=lum;
         }catch(e){}
         progEl.style.width=Math.min(100,(t/dur)*100)+"%";
         step(t+STEP);
@@ -793,268 +859,403 @@
 
     function finish(){
       vid.currentTime=0; progWrap.style.display="none"; btnAnalyze.disabled=false;
-      lastFrames=frames; lastDur=dur;
       sensRow.style.display="flex";
-      report(frames,dur);
+      statusEl.textContent="Cuadros listos. Analizando audio…";
+      analyzeAudio(function(audio){
+        lastData={frames:frames,dur:dur,step:STEP,audio:audio};
+        reportAll(lastData);
+      });
     }
   }
 
-  function mean(a){ var s=0; for(var i=0;i<a.length;i++) s+=a[i]; return s/a.length; }
+  function meanArr(a){ var s=0; for(var i=0;i<a.length;i++) s+=a[i]; return s/a.length; }
 
-  // gradiente medio en banda superior (0–13%), central y inferior (78–100%)
+  // Estima el cambio de escala entre dos cuadros probando varias escalas
+  // alrededor del centro y quedándose con la que minimiza el error.
+  function estimateZoom(prev,cur,w,h){
+    var scales=[0.98,0.988,0.994,1.0,1.006,1.012,1.02];
+    var cxp=w/2, cyp=h/2, best=1.0, bestErr=Infinity, errAt1=Infinity;
+    for(var k=0;k<scales.length;k++){
+      var s=scales[k], sum=0, cnt=0;
+      for(var y=2;y<h-2;y+=2){
+        for(var x=2;x<w-2;x+=2){
+          var px=cxp+(x-cxp)/s, py=cyp+(y-cyp)/s;
+          if(px<0||px>=w-1||py<0||py>=h-1) continue;
+          sum+=Math.abs(cur[y*w+x]-prev[(py|0)*w+(px|0)]); cnt++;
+        }
+      }
+      if(!cnt) continue;
+      var err=sum/cnt;
+      if(s===1.0) errAt1=err;
+      if(err<bestErr){ bestErr=err; best=s; }
+    }
+    // sólo cuenta como zoom si escalar mejora el ajuste de forma clara
+    if(best===1.0 || bestErr>errAt1*0.93) return 0;
+    return best-1;
+  }
+
   function edgeBands(luma,w,h){
     function band(y0,y1){
       var s=0,c=0;
       for(var y=y0;y<y1-1;y++) for(var x=0;x<w-1;x++){
-        var i=y*w+x;
-        s+=Math.abs(luma[i]-luma[i+1])+Math.abs(luma[i]-luma[i+w]); c++;
+        var i=y*w+x; s+=Math.abs(luma[i]-luma[i+1])+Math.abs(luma[i]-luma[i+w]); c++;
       }
       return c?s/c:0;
     }
-    // fila con más energía de bordes en la mitad inferior: es donde vive el subtítulo
     var y0=Math.round(h*0.50), y1=Math.round(h*0.96), bestRow=-1, bestE=0;
     for(var y=y0;y<y1-1;y++){
       var s=0;
       for(var x=0;x<w-1;x++){ var i=y*w+x; s+=Math.abs(luma[i]-luma[i+1]); }
-      s/=w;
-      if(s>bestE){ bestE=s; bestRow=y; }
+      s/=w; if(s>bestE){ bestE=s; bestRow=y; }
     }
     return {
       top: band(0,Math.max(2,Math.round(h*0.13))),
       mid: band(Math.round(h*0.13),Math.round(h*0.78)),
       bot: band(Math.round(h*0.78),h),
-      capRow: bestRow/h,
-      capE: bestE
+      capRow: bestRow/h, capE: bestE
     };
   }
 
-  function report(frames,dur){
+  /* ---------- audio: presencia y nivel de la cama musical ---------- */
+  function analyzeAudio(cb){
+    if(!currentFile || currentFile.size>300e6 || !(window.OfflineAudioContext||window.webkitOfflineAudioContext)){
+      cb(null); return;
+    }
+    var reader=new FileReader();
+    reader.onerror=function(){ cb(null); };
+    reader.onload=function(){
+      try{
+        var OAC=window.OfflineAudioContext||window.webkitOfflineAudioContext;
+        var ctx=new OAC(1,8000,8000); // mono 8 kHz: alcanza y no come memoria
+        ctx.decodeAudioData(reader.result).then(function(buf){
+          var ch=buf.getChannelData(0), sr=buf.sampleRate;
+          var win=Math.floor(sr*0.05), rms=[];
+          for(var i=0;i+win<ch.length;i+=win){
+            var s=0; for(var j=0;j<win;j++){ var v=ch[i+j]; s+=v*v; }
+            rms.push(Math.sqrt(s/win));
+          }
+          if(rms.length<20){ cb(null); return; }
+          var sorted=rms.slice().sort(function(a,b){return a-b;});
+          var floor=sorted[Math.floor(sorted.length*0.10)];
+          var speech=sorted[Math.floor(sorted.length*0.80)];
+          var db=function(x){ return x>0?20*Math.log10(x):-99; };
+          cb({ floorDb:db(floor), speechDb:db(speech), gap:db(speech)-db(floor) });
+        }).catch(function(){ cb(null); });
+      }catch(e){ cb(null); }
+    };
+    reader.readAsArrayBuffer(currentFile);
+  }
+
+  /* ================= informe ================= */
+  function reportAll(data){
+    var frames=data.frames, dur=data.dur, STEP=data.step, audio=data.audio;
     basics();
     if(frames.length<4){ statusEl.textContent="No se pudieron leer suficientes cuadros."; return; }
 
     var TH=parseFloat(sens.value)||14;
-    var maxDevGlobal=null;
-    // ---- cortes
+
+    /* --- cortes --- */
     var cuts=[];
     frames.forEach(function(f){
       if(f.diff!=null&&f.diff>TH){ if(!cuts.length||f.t-cuts[cuts.length-1].t>0.35) cuts.push({t:f.t,d:f.diff}); }
     });
     var cadence=cuts.length?dur/(cuts.length+1):dur;
-    var cf=(cadence>=2.5&&cadence<=5.5)?["en rango","ok"]:cadence<2.5?["muy picado","mid"]:["lento","no"];
-    m("Cortes","Cambio visual cada 3–5 s",cuts.length+" · cada "+cadence.toFixed(1)+" s",cf[0],cf[1]);
+    var soft=cuts.filter(function(c){ return c.d<TH*1.7; });
+    var softRatio=cuts.length?soft.length/cuts.length:0;
+    var perSec=cuts.length/Math.max(1,dur);
+    var overDetect=(perSec>0.55||(cuts.length>10&&softRatio>0.7));
 
-    // ---- plano más largo
+    mg("Ritmo y cortes");
+    var cLo=MODE==="reel"?2.5:3.5, cHi=MODE==="reel"?5.5:8.5;
+    var cf=(cadence>=cLo&&cadence<=cHi)?["en rango","ok"]:cadence<cLo?["muy picado","mid"]:["lento","no"];
+    m("Cortes","Cambio visual cada "+(MODE==="reel"?"3–5":"4–8")+" s",cuts.length+" · cada "+cadence.toFixed(1)+" s",cf[0],cf[1]);
+
     var marks=[0].concat(cuts.map(function(c){return c.t;}),[dur]), longest=0, at=0;
     for(var k=1;k<marks.length;k++){ var gap=marks[k]-marks[k-1]; if(gap>longest){longest=gap;at=marks[k-1];} }
-    var lf=longest<=6?["ok","ok"]:longest<=9?["revisar","mid"]:["zona muerta","no"];
-    m("Plano más largo",longest>6?"Desde el segundo "+at.toFixed(1):"Máximo: 6 s",longest.toFixed(1)+" s",lf[0],lf[1]);
+    var maxPlano=MODE==="reel"?6:10;
+    m("Plano más largo","Máximo "+maxPlano+" s",longest.toFixed(1)+" s",longest<=maxPlano?"ok":"revisar",longest<=maxPlano?"ok":"no");
 
-    // ---- jump cuts: cortes de bajo contraste visual
-    var soft=cuts.filter(function(c){ return c.d<TH*1.7; });
-    var sf=soft.length===0?["ninguno","ok"]:soft.length<=1?["revisar 1","mid"]:["posibles jump cuts","no"];
-    m("Cortes de bajo contraste",soft.length?"Segundos: "+soft.slice(0,4).map(function(c){return c.t.toFixed(1);}).join(", "):"El plano cambia claramente en cada corte",
-      soft.length+" de "+cuts.length,sf[0],sf[1]);
+    if(MODE==="reel"){
+      var sf=soft.length===0?["ninguno","ok"]:soft.length<=1?["revisar 1","mid"]:["posibles jump cuts","no"];
+      m("Cortes de bajo contraste",soft.length?"Segundos: "+soft.slice(0,4).map(function(c){return c.t.toFixed(1);}).join(", "):"El plano cambia en cada corte",
+        soft.length+" de "+cuts.length,sf[0],sf[1]);
+    }
 
-    // ---- color por plano
-    var shots=[]; var idx=0;
-    for(var s=0;s<marks.length-1;s++){
-      var seg=frames.filter(function(f){ return f.t>=marks[s]&&f.t<marks[s+1]; });
+    /* --- zoom --- */
+    var zTh=0.0015;
+    var zFrames=frames.filter(function(f){ return Math.abs(f.zoom)>zTh; });
+    var zPct=zFrames.length/Math.max(1,frames.length-1);
+    // eventos contiguos
+    var events=[], cur=null;
+    frames.forEach(function(f){
+      if(Math.abs(f.zoom)>zTh){
+        if(!cur) cur={t0:f.t,rates:[]};
+        cur.rates.push(Math.abs(f.zoom)/STEP); // fracción por segundo
+      } else if(cur){
+        cur.t1=f.t; if(cur.rates.length>=1) events.push(cur); cur=null;
+      }
+    });
+    if(cur){ cur.t1=dur; events.push(cur); }
+
+    mg("Zoom y movimiento");
+    var everySec = events.length? dur/events.length : Infinity;
+    var zLo=MODE==="reel"?6:8, zHi=MODE==="reel"?12:15;
+    if(events.length===0){
+      m("Zoom detectado","Debería haber uno cada "+zLo+"–"+zHi+" s","ninguno","video estático","no");
+      setScore("zoom",0,"no se detectó ningún movimiento de escala");
+    } else {
+      var inRange=(everySec>=zLo&&everySec<=zHi);
+      m("Zoom detectado","Uno cada "+zLo+"–"+zHi+" s",events.length+" · cada "+everySec.toFixed(1)+" s",
+        inRange?"en rango":everySec>zHi?"muy espaciados":"demasiados",inRange?"ok":"no");
+
+      var avgRate=events.reduce(function(a,e){ return a+Math.max.apply(null,e.rates); },0)/events.length;
+      var pctPerSec=avgRate*100;
+      var rateOk=(pctPerSec>=3&&pctPerSec<=16);
+      m("Velocidad del zoom","Entre 3 y 16 % por segundo",pctPerSec.toFixed(1)+" %/s",
+        rateOk?"se percibe":pctPerSec<3?"demasiado lento":"brusco",rateOk?"ok":"no");
+
+      var freqScore=gradeBand(everySec,zLo,zHi,6);
+      var rateScore=gradeBand(pctPerSec,3,16,5);
+      setScore("zoom",Math.round((freqScore+rateScore)/2),
+        events.length+" zooms, uno cada "+everySec.toFixed(1)+" s a "+pctPerSec.toFixed(1)+" %/s");
+
+      /* --- easing: perfil de velocidad dentro de cada zoom --- */
+      var usable=events.filter(function(e){ return e.rates.length>=4; });
+      if(usable.length){
+        var idx=usable.map(function(e){
+          var mx=Math.max.apply(null,e.rates);
+          var edges=(e.rates[0]+e.rates[e.rates.length-1])/2;
+          return mx>0?(mx-edges)/mx:0;   // 0 = velocidad constante, alto = con curva
+        });
+        var meanIdx=idx.reduce(function(a,b){return a+b;},0)/idx.length;
+        var easeOk=meanIdx>=0.35;
+        m("Curva del zoom","Debe acelerar y desacelerar",(meanIdx*100).toFixed(0)+" % de curva",
+          easeOk?"con easing":meanIdx>0.18?"easing débil":"lineal",easeOk?"ok":meanIdx>0.18?"mid":"no");
+        setScore("ease",grade(1-meanIdx,[0.5,0.62,0.75,0.85,0.93]),
+          (meanIdx*100).toFixed(0)+"% de curva en "+usable.length+" zoom"+(usable.length===1?"":"s")+" medibles");
+      } else {
+        m("Curva del zoom","Necesita zooms de más de "+(STEP*4).toFixed(1)+" s","no medible","puntualo a ojo","mid");
+      }
+    }
+
+    /* --- viveza: saturación y contraste --- */
+    var avgSat=frames.reduce(function(a,f){return a+f.sat;},0)/frames.length;
+    var avgContrast=frames.reduce(function(a,f){return a+(f.p90-f.p10);},0)/frames.length;
+    mg("Color");
+    var satOk=avgSat>=42;
+    m("Saturación media","Referencia: 45 o más",avgSat.toFixed(0),
+      satOk?"con vida":avgSat>32?"algo plano":"muy plano",satOk?"ok":avgSat>32?"mid":"no");
+    var conOk=avgContrast>=110;
+    m("Contraste","Recorrido del 10 % al 90 % de luma",avgContrast.toFixed(0),
+      conOk?"correcto":avgContrast>85?"bajo":"muy bajo",conOk?"ok":avgContrast>85?"mid":"no");
+    setScore("vivid",Math.round((grade(60-Math.min(60,avgSat),[15,24,33,42,50])+grade(150-Math.min(150,avgContrast),[40,60,80,100,120]))/2),
+      "saturación "+avgSat.toFixed(0)+", contraste "+avgContrast.toFixed(0));
+
+    /* --- color entre planos + b-roll --- */
+    var shots=[];
+    for(var s2=0;s2<marks.length-1;s2++){
+      var seg=frames.filter(function(f){ return f.t>=marks[s2]&&f.t<marks[s2+1]; });
       if(seg.length<2) continue;
       shots.push({
-        r:mean(seg.map(function(f){return f.r;})),
-        g:mean(seg.map(function(f){return f.g;})),
-        b:mean(seg.map(function(f){return f.b;})),
-        l:mean(seg.map(function(f){return f.luma;}))
+        r:avg(seg,"r"), g:avg(seg,"g"), b:avg(seg,"b"), l:avg(seg,"luma"),
+        dur:marks[s2+1]-marks[s2]
       });
     }
+    function avg(arr,key){ return arr.reduce(function(a,f){return a+f[key];},0)/arr.length; }
+
     if(shots.length>=2){
-      var mr=med(shots.map(function(s){return s.r;})), mg=med(shots.map(function(s){return s.g;})), mb=med(shots.map(function(s){return s.b;}));
+      var mr=med(shots.map(function(s){return s.r;})), mgn=med(shots.map(function(s){return s.g;})), mb=med(shots.map(function(s){return s.b;}));
       var maxDev=0;
       shots.forEach(function(s){
-        var d=Math.sqrt(Math.pow(s.r-mr,2)+Math.pow(s.g-mg,2)+Math.pow(s.b-mb,2));
+        var d=Math.sqrt(Math.pow(s.r-mr,2)+Math.pow(s.g-mgn,2)+Math.pow(s.b-mb,2));
         if(d>maxDev) maxDev=d;
       });
-      maxDevGlobal=maxDev;
-      var cdf=maxDev<14?["planos igualados","ok"]:maxDev<28?["desvío leve","mid"]:["planos sin igualar","no"];
-      m("Desvío de color entre planos","Distancia del plano más desviado al promedio",maxDev.toFixed(0),cdf[0],cdf[1]);
+      m("Desvío de color entre planos","Distancia del plano más desviado",maxDev.toFixed(0),
+        maxDev<14?"planos igualados":maxDev<28?"desvío leve":"sin igualar",maxDev<14?"ok":maxDev<28?"mid":"no");
+      setScore("color",grade(maxDev,[8,14,22,32,45]),"desvío de "+maxDev.toFixed(0)+" entre planos");
 
       var lums=shots.map(function(s){return s.l;});
-      var spread=Math.max.apply(null,lums)-Math.min.apply(null,lums);
-      var ef=spread<25?["pareja","ok"]:spread<50?["revisar","mid"]:["dispareja","no"];
-      m("Diferencia de exposición","Entre el plano más claro y el más oscuro",spread.toFixed(0)+" niveles",ef[0],ef[1]);
+      m("Diferencia de exposición","Entre el plano más claro y el más oscuro",
+        (Math.max.apply(null,lums)-Math.min.apply(null,lums)).toFixed(0)+" niveles","","mid");
 
-      // tira de color
+      // b-roll: planos que se alejan del grupo dominante
+      var totalDur=shots.reduce(function(a,s){return a+s.dur;},0);
+      var brollDur=0;
+      shots.forEach(function(s){
+        var d=Math.sqrt(Math.pow(s.r-mr,2)+Math.pow(s.g-mgn,2)+Math.pow(s.b-mb,2));
+        if(d>26) brollDur+=s.dur;
+      });
+      var brollPct=totalDur>0?brollDur/totalDur*100:0;
+      if(MODE==="largo"){
+        mg("Apoyo visual");
+        var bOk=(brollPct>=15&&brollPct<=32);
+        m("Material distinto al plano principal","Referencia: 15–30 % del tiempo",brollPct.toFixed(0)+" %",
+          bOk?"en rango":brollPct<15?"falta b-roll":"demasiado",bOk?"ok":"no");
+        setScore("broll",gradeBand(brollPct,15,30,10),brollPct.toFixed(0)+"% del tiempo en planos distintos");
+      }
+
       var strip=document.createElement("div"); strip.className="strip";
       shots.forEach(function(s){
         var i=document.createElement("i");
         i.style.background="rgb("+Math.round(s.r)+","+Math.round(s.g)+","+Math.round(s.b)+")";
         strip.appendChild(i);
       });
-      var cap=document.createElement("p"); cap.className="strip-cap";
-      cap.textContent="Color promedio de cada plano, en orden. Si la tira no se ve pareja, hay que igualar.";
-      stripWrap.innerHTML=""; stripWrap.appendChild(strip); stripWrap.appendChild(cap);
+      stripWrap.innerHTML=""; stripWrap.appendChild(strip);
+      document.getElementById("stripBlock").style.display="block";
     }
 
-    // ---- frames negros / flashes
-    var dark=frames.filter(function(f){return f.luma<8;}).length;
-    var blown=frames.filter(function(f){return f.luma>247;}).length;
-    var clean=(dark+blown)===0;
-    m("Cuadros negros o quemados","Deben ser cero",(dark+blown)+"",clean?"limpio":"revisar",clean?"ok":"no");
-
-    // ---- zonas seguras
-    var topR=mean(frames.map(function(f){return f.bands.top;}))/Math.max(0.001,mean(frames.map(function(f){return f.bands.mid;})));
-    var botR=mean(frames.map(function(f){return f.bands.bot;}))/Math.max(0.001,mean(frames.map(function(f){return f.bands.mid;})));
-    var zf=(topR<0.85&&botR<0.85)?["despejadas","ok"]:(topR<1.15&&botR<1.15)?["revisar","mid"]:["hay contenido","no"];
-    m("Zonas de interfaz","Detalle en las bandas superior e inferior vs el centro",
-      "sup "+topR.toFixed(2)+" · inf "+botR.toFixed(2),zf[0],zf[1]);
-
-    /* ============ autocompletado de la rúbrica ============ */
-    var perSec=cuts.length/Math.max(1,dur);
-    var softRatio=cuts.length?soft.length/cuts.length:0;
-    var overDetect=(perSec>0.55 || (cuts.length>10 && softRatio>0.7));
-
-    // Color — desvío entre planos
-    if(typeof maxDevGlobal==="number"){
-      setScore("color", grade(maxDevGlobal,[8,14,22,32,45]),
-        "desvío de "+maxDevGlobal.toFixed(0)+" entre planos");
+    /* --- audio / música --- */
+    if(MODE==="largo"){
+      mg("Audio");
+      if(!audio){
+        m("Cama musical","No se pudo analizar el audio","sin dato","puntualo a ojo","mid");
+      } else if(audio.floorDb<-52 || audio.gap>34){
+        m("Cama musical","Los huecos entre frases están en silencio","no hay música","el video queda plano","no");
+        setScore("music",0,"no se detecta música: los huecos entre frases están en silencio");
+      } else {
+        var gapOk=(audio.gap>=16&&audio.gap<=26);
+        m("Música bajo la voz","Referencia: 18 a 24 dB por debajo",audio.gap.toFixed(1)+" dB",
+          gapOk?"nivel correcto":audio.gap<16?"tapa la voz":"casi no se oye",gapOk?"ok":"no");
+        setScore("music",gradeBand(audio.gap,17,25,7),"música a "+audio.gap.toFixed(1)+" dB bajo la voz");
+      }
     }
 
-    // Zonas seguras — energía de bordes en las bandas vs el centro
+    /* --- zonas seguras (solo vertical) --- */
+    var topR=meanOf(frames,function(f){return f.bands.top;})/Math.max(0.001,meanOf(frames,function(f){return f.bands.mid;}));
+    var botR=meanOf(frames,function(f){return f.bands.bot;})/Math.max(0.001,meanOf(frames,function(f){return f.bands.mid;}));
     var worstBand=Math.max(topR,botR);
-    setScore("safe", grade(worstBand,[0.62,0.80,0.98,1.15,1.35]),
-      "bandas al "+worstBand.toFixed(2)+" del centro");
+    if(MODE==="reel"){
+      mg("Encuadre");
+      m("Zonas de interfaz","Detalle en las bandas vs el centro","sup "+topR.toFixed(2)+" · inf "+botR.toFixed(2),
+        worstBand<0.85?"despejadas":worstBand<1.15?"revisar":"hay contenido",worstBand<0.85?"ok":worstBand<1.15?"mid":"no");
+      setScore("safe",grade(worstBand,[0.62,0.80,0.98,1.15,1.35]),"bandas al "+worstBand.toFixed(2)+" del centro");
 
-    // Estabilidad — cuánto se mueve la fila del subtítulo
-    var capFrames=frames.filter(function(f){ return f.bands.capE>7; });
-    if(capFrames.length>=6){
-      var capRows=capFrames.map(function(f){ return f.bands.capRow; });
-      var mu=capRows.reduce(function(a,b){return a+b;},0)/capRows.length;
-      var sd=Math.sqrt(capRows.reduce(function(a,b){return a+Math.pow(b-mu,2);},0)/capRows.length);
-      setScore("stab", grade(sd,[0.012,0.025,0.045,0.075,0.11]),
-        "el subtítulo se mueve ±"+(sd*100).toFixed(1)+"% de la altura");
+      var capFrames=frames.filter(function(f){ return f.bands.capE>7; });
+      if(capFrames.length>=6){
+        var capRows=capFrames.map(function(f){ return f.bands.capRow; });
+        var mu=capRows.reduce(function(a,b){return a+b;},0)/capRows.length;
+        var sd=Math.sqrt(capRows.reduce(function(a,b){return a+Math.pow(b-mu,2);},0)/capRows.length);
+        m("Estabilidad del subtítulo","Debería quedarse en la misma línea","±"+(sd*100).toFixed(1)+" %",
+          sd<0.025?"clavado":sd<0.06?"se mueve":"salta",sd<0.025?"ok":sd<0.06?"mid":"no");
+        setScore("stab",grade(sd,[0.012,0.025,0.045,0.075,0.11]),"el subtítulo se mueve ±"+(sd*100).toFixed(1)+"% de la altura");
+      }
     }
 
-    // Ritmo visual — tramo más largo sin que cambie nada
-    var deadRun=0, curRun=0, deadAt=0, runStart=0;
+    /* --- ritmo y limpieza --- */
+    var deadTh=1.6, deadRun=0, curRun=0, deadAt=0, runStart=0;
     frames.forEach(function(f){
-      if(f.diff!=null && f.diff<1.6){ if(curRun===0) runStart=f.t; curRun+=0.2; if(curRun>deadRun){deadRun=curRun; deadAt=runStart;} }
+      if(f.diff!=null&&f.diff<deadTh){ if(curRun===0) runStart=f.t; curRun+=STEP; if(curRun>deadRun){deadRun=curRun; deadAt=runStart;} }
       else curRun=0;
     });
-    setScore("ritmo", grade(deadRun,[2,4,6,8,11]),
-      deadRun<1 ? "sin tramos quietos" : deadRun.toFixed(1)+" s sin cambios desde el segundo "+deadAt.toFixed(1));
+    mg("Limpieza");
+    var maxDead=MODE==="reel"?6:9;
+    m("Tramo sin cambios","Máximo "+maxDead+" s",deadRun.toFixed(1)+" s",
+      deadRun<=maxDead?"ok":"zona muerta",deadRun<=maxDead?"ok":"no");
+    setScore("ritmo",grade(deadRun,[maxDead*0.35,maxDead*0.65,maxDead,maxDead*1.4,maxDead*2]),
+      deadRun<1?"sin tramos quietos":deadRun.toFixed(1)+" s sin cambios desde el segundo "+deadAt.toFixed(1));
 
-    // Limpieza técnica — cuadros negros o quemados
-    setScore("clean", grade(dark+blown,[0,1,3,6,10]),
-      (dark+blown)===0 ? "ningún cuadro negro ni quemado" : (dark+blown)+" cuadros fuera de rango");
+    var dark=frames.filter(function(f){return f.luma<8;}).length;
+    var blown=frames.filter(function(f){return f.luma>247;}).length;
+    m("Cuadros negros o quemados","Deben ser cero",(dark+blown)+"",(dark+blown)===0?"limpio":"revisar",(dark+blown)===0?"ok":"no");
+    setScore("clean",grade(dark+blown,[0,1,3,6,10]),(dark+blown)===0?"ningún cuadro fuera de rango":(dark+blown)+" cuadros fuera de rango");
 
-    // Continuidad — solo si el conteo de cortes es plausible
-    if(!overDetect && cuts.length>=2){
-      setScore("cont", grade(softRatio,[0.05,0.15,0.3,0.5,0.7]),
-        Math.round(softRatio*100)+"% de los cortes son de bajo contraste");
+    if(MODE==="reel"&&!overDetect&&cuts.length>=2){
+      setScore("cont",grade(softRatio,[0.05,0.15,0.3,0.5,0.7]),Math.round(softRatio*100)+"% de los cortes son de bajo contraste");
     }
 
-    /* ============ el peor cuadro ============ */
-    var worst=frames.slice().sort(function(a,b){
-      return (b.bands.top+b.bands.bot)-(a.bands.top+a.bands.bot);
-    })[0];
-    if(worst) drawWorst(worst.t, worstBand);
+    /* --- paneles --- */
+    if(MODE==="reel"){
+      var worst=frames.slice().sort(function(a,b){ return (b.bands.top+b.bands.bot)-(a.bands.top+a.bands.bot); })[0];
+      if(worst) drawWorst(worst.t,worstBand);
+    } else {
+      document.getElementById("worstBlock").style.display="none";
+    }
+    drawActivity(frames,dur,deadRun,deadAt,deadTh,zTh);
 
-    /* ============ tira de actividad ============ */
-    drawActivity(frames,dur,deadRun,deadAt);
-
-    // ---- aviso de sobredetección
     if(overDetect){
       sensWarn.style.display="block";
-      sensWarn.textContent="Está contando "+cuts.length+" cortes en "+dur.toFixed(0)+" s y "+
-        Math.round(softRatio*100)+"% salen de bajo contraste. Es el patrón típico de sobredetección: "+
-        "el clip probablemente tiene subtítulos animados, auto-zoom o b-roll en movimiento, y el detector "+
-        "los está leyendo como cortes. Subí la sensibilidad y recontá hasta que el número se parezca a los cortes que ves.";
-    } else {
-      sensWarn.style.display="none";
-    }
+      sensWarn.textContent="Está contando "+cuts.length+" cortes en "+dur.toFixed(0)+" s y "+Math.round(softRatio*100)+
+        "% salen de bajo contraste. Es el patrón típico de sobredetección: el video probablemente tiene subtítulos animados, "+
+        "auto-zoom o b-roll en movimiento y el detector los lee como cortes. Subí la sensibilidad y recontá.";
+    } else sensWarn.style.display="none";
 
     statusEl.textContent="Listo. Estos números son indicios para mirar, no veredictos: verificá lo que marque en rojo antes de decidir.";
   }
 
+  function meanOf(arr,fn){ return arr.reduce(function(a,f){return a+fn(f);},0)/arr.length; }
   function med(a){ var s=a.slice().sort(function(x,y){return x-y;}); return s[Math.floor(s.length/2)]; }
 
-  // Extrae el cuadro con más contenido en las bandas de interfaz y lo dibuja con el overlay encima.
-  function drawWorst(t, bandRatio){
-    var cv=document.getElementById("worstCv"), block=document.getElementById("worstBlock"),
-        note=document.getElementById("worstNote");
+  function drawWorst(t,bandRatio){
+    var cv=document.getElementById("worstCv"), block=document.getElementById("worstBlock"), note=document.getElementById("worstNote");
     if(!cv) return;
-    var W=cv.width, H=Math.round(W*(vid.videoHeight/vid.videoWidth)||W*16/9);
+    var W=cv.width, H=Math.round(W*(vid.videoHeight/vid.videoWidth))||331;
     cv.height=H;
-    var cx=cv.getContext("2d");
-    var back=vid.currentTime, done=false;
+    var cx=cv.getContext("2d"), back=vid.currentTime, done=false;
     function paint(){
       if(done) return; done=true; vid.removeEventListener("seeked",paint);
       try{ cx.drawImage(vid,0,0,W,H); }catch(e){}
-      // bandas
       cx.fillStyle="rgba(176,52,42,.34)";
-      cx.fillRect(0,0,W,H*0.13);
-      cx.fillRect(0,H*0.78,W,H*0.22);
+      cx.fillRect(0,0,W,H*0.13); cx.fillRect(0,H*0.78,W,H*0.22);
       cx.strokeStyle="rgba(255,255,255,.75)"; cx.lineWidth=1; cx.setLineDash([4,3]);
       cx.beginPath(); cx.moveTo(0,H*0.13); cx.lineTo(W,H*0.13); cx.stroke();
       cx.beginPath(); cx.moveTo(0,H*0.78); cx.lineTo(W,H*0.78); cx.stroke();
       cx.setLineDash([]);
       cx.fillStyle="#fff"; cx.font="700 9px ui-monospace, monospace";
-      cx.fillText("ZONA UI",6,H*0.13-5);
-      cx.fillText("ZONA UI",6,H*0.78+13);
+      cx.fillText("ZONA UI",6,H*0.13-5); cx.fillText("ZONA UI",6,H*0.78+13);
       cx.fillText("s "+t.toFixed(1),6,H-7);
       block.style.display="block";
-      note.innerHTML = bandRatio<0.80
+      note.textContent = bandRatio<0.80
         ? "Las bandas están limpias: el detalle que hay ahí es menor que en el centro. Verificá igual a ojo que no haya texto tapado."
-        : "Hay concentración de detalle dentro del rojo en el segundo "+t.toFixed(1)+". Mirá si es texto o un gráfico: si lo es, la interfaz de la app lo va a tapar. Si es solo fondo con textura, ignoralo.";
+        : "Hay concentración de detalle dentro del rojo en el segundo "+t.toFixed(1)+". Mirá si es texto o un gráfico: si lo es, la interfaz lo va a tapar. Si es fondo con textura, ignoralo.";
       vid.currentTime=back;
     }
-    vid.addEventListener("seeked",paint);
-    vid.currentTime=t;
-    setTimeout(paint,500);
+    vid.addEventListener("seeked",paint); vid.currentTime=t; setTimeout(paint,600);
   }
 
-  // Tira de actividad visual: barras por tramo, rojas donde no pasa nada.
-  function drawActivity(frames,dur,deadRun,deadAt){
+  function drawActivity(frames,dur,deadRun,deadAt,deadTh,zTh){
     var bar=document.getElementById("actbar"), block=document.getElementById("actBlock");
     if(!bar) return;
     bar.innerHTML="";
-    var N=Math.min(90,Math.max(20,Math.floor(frames.length/2)));
-    var per=Math.ceil(frames.length/N);
-    var buckets=[];
+    var N=Math.min(110,Math.max(20,Math.floor(frames.length/2)));
+    var per=Math.ceil(frames.length/N), buckets=[];
     for(var i=0;i<frames.length;i+=per){
       var slice=frames.slice(i,i+per).filter(function(f){return f.diff!=null;});
       if(!slice.length) continue;
-      var avg=slice.reduce(function(a,f){return a+f.diff;},0)/slice.length;
-      buckets.push({v:avg,t:slice[0].t});
+      buckets.push({
+        v:slice.reduce(function(a,f){return a+f.diff;},0)/slice.length,
+        z:slice.some(function(f){ return Math.abs(f.zoom)>zTh; }),
+        t:slice[0].t
+      });
     }
     if(!buckets.length) return;
     var mx=Math.max.apply(null,buckets.map(function(b){return b.v;}))||1;
     buckets.forEach(function(b){
       var el=document.createElement("i");
-      var hpct=Math.max(4,Math.min(100,(b.v/mx)*100));
-      el.style.height=hpct+"%";
-      if(b.v<1.6) el.className="dead";
+      el.style.height=Math.max(4,Math.min(100,(b.v/mx)*100))+"%";
+      if(b.v<deadTh) el.className="dead";
+      else if(b.z) el.className="zoom";
       el.title="s "+b.t.toFixed(1);
       bar.appendChild(el);
     });
-    document.getElementById("actMid").textContent=(dur/2).toFixed(0)+" s";
-    document.getElementById("actEnd").textContent=dur.toFixed(0)+" s";
-    var deadCount=buckets.filter(function(b){return b.v<1.6;}).length;
+    document.getElementById("actMid").textContent=fmtDur(dur/2);
+    document.getElementById("actEnd").textContent=fmtDur(dur);
+    var deadCount=buckets.filter(function(b){return b.v<deadTh;}).length;
+    var zoomCount=buckets.filter(function(b){return b.z;}).length;
     var pct=Math.round(deadCount/buckets.length*100);
-    document.getElementById("actLegend").innerHTML = deadCount===0
-      ? "Sin tramos muertos: siempre pasa algo en pantalla."
-      : "<b>"+pct+"% del clip</b> son tramos donde la pantalla casi no cambia. El más largo dura "+deadRun.toFixed(1)+" s y empieza en el segundo "+deadAt.toFixed(1)+".";
+    var zpct=Math.round(zoomCount/buckets.length*100);
+    document.getElementById("actLegend").innerHTML =
+      (deadCount===0?"Sin tramos muertos. ":"<b>"+pct+"% del video</b> son tramos donde la pantalla casi no cambia; el más largo dura "+deadRun.toFixed(1)+" s desde el segundo "+deadAt.toFixed(1)+". ")+
+      "Hay movimiento de escala en el "+zpct+"% del video.";
     block.style.display="block";
   }
 
-  /* ============ informe / reset ============ */
+  /* ================= informe / reset ================= */
   document.getElementById("btn-copy").addEventListener("click",function(){
-    var lines=["AUDITORÍA VISUAL NFM",""], total=0;
+    var lines=["AUDITORÍA VISUAL NFM — modo "+(MODE==="reel"?"clip vertical":"video largo"),""], total=0;
     CRITERIA.forEach(function(c){
       var s=typeof scores[c.id]==="number"?scores[c.id]:null;
       total+=s===null?0:(s/5)*c.w;
-      lines.push("- "+c.n+": "+(s===null?"sin puntuar":s+"/5")+"  ("+c.w+" pts)"+
-        (why[c.id]?"  [medido: "+why[c.id]+"]":""));
+      lines.push("- "+c.n+": "+(s===null?"sin puntuar":s+"/5")+"  ("+c.w+" pts)"+(why[c.id]?"  [medido: "+why[c.id]+"]":""));
     });
     lines.push(""); lines.push("PUNTAJE: "+Math.round(total)+"/100 — "+bandEl.textContent);
     if(killed()) lines.push("FALTA ELIMINATORIA: no se publica.");
@@ -1068,27 +1269,20 @@
     });
   });
 
-  document.getElementById("ovlToggle").addEventListener("change",function(){
-    var on=this.checked;
-    Array.prototype.forEach.call(document.querySelectorAll("#vshell .ovl"),function(o){
-      o.style.display=on?"block":"none";
-    });
-  });
-
   document.getElementById("btn-reset").addEventListener("click",function(){
-    scores={}; why={};
-    Array.prototype.forEach.call(document.querySelectorAll(".scale button"),function(b){b.setAttribute("aria-pressed","false");});
-    Array.prototype.forEach.call(document.querySelectorAll(".crit"),function(r){r.classList.remove("filled");});
-    Array.prototype.forEach.call(document.querySelectorAll(".measured-note"),function(n){n.style.display="none";});
+    scores={}; why={}; lastData=null; currentFile=null;
+    buildRubric();
     Array.prototype.forEach.call(document.querySelectorAll("[data-kill]"),function(k){k.checked=false;});
     anEl.classList.remove("on"); metricsEl.innerHTML=""; stripWrap.innerHTML=""; statusEl.textContent="";
     document.getElementById("worstBlock").style.display="none";
     document.getElementById("actBlock").style.display="none";
-    btnAnalyze.disabled=true; lastFrames=null; sensRow.style.display="none"; sensWarn.style.display="none";
+    document.getElementById("stripBlock").style.display="none";
+    btnAnalyze.disabled=true; sensRow.style.display="none"; sensWarn.style.display="none";
     try{ vid.removeAttribute("src"); vid.load(); }catch(e){}
     recompute();
   });
 
+  buildRubric();
   recompute();
 })();
 </script>
