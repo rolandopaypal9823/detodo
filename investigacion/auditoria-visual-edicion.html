@@ -132,6 +132,10 @@
   .progress { height:4px; background:var(--line); border-radius:2px; overflow:hidden; margin:14px 0 0; }
   .progress i { display:block; height:100%; background:var(--ink); width:0; }
   .an-status { font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:10px; }
+  .sens { display:flex; align-items:center; gap:10px; margin-top:14px; padding-top:14px; border-top:1px solid var(--line-soft); font-size:13px; color:var(--muted); flex-wrap:wrap; }
+  .sens input[type=range] { flex:1 1 150px; max-width:220px; accent-color:var(--ink); }
+  .sens .sv { font-family:var(--mono); font-variant-numeric:tabular-nums; min-width:22px; }
+  .sens .warn-note { flex-basis:100%; font-size:12.5px; color:var(--bad); margin:0; }
 
   /* strip of shot colors */
   .strip { display:flex; height:34px; border-radius:4px; overflow:hidden; margin-top:12px; border:1px solid var(--line-soft); }
@@ -378,6 +382,13 @@
         <div id="stripwrap"></div>
         <div class="progress" id="progwrap" style="display:none"><i id="prog"></i></div>
         <p class="an-status" id="status"></p>
+        <div class="sens" id="sensrow" style="display:none">
+          <label for="sens">Sensibilidad de detección de cortes</label>
+          <input type="range" id="sens" min="6" max="34" value="14" step="1">
+          <span class="sv" id="sensval">14</span>
+          <button class="btn ghost tiny" type="button" id="btn-recount">Recontar</button>
+          <p class="warn-note" id="sensWarn" style="display:none"></p>
+        </div>
       </div>
     </div>
 
@@ -603,7 +614,15 @@
       metricsEl=document.getElementById("metrics"), statusEl=document.getElementById("status"),
       progWrap=document.getElementById("progwrap"), progEl=document.getElementById("prog"),
       anEl=document.getElementById("an"), btnAnalyze=document.getElementById("btn-analyze"),
-      stripWrap=document.getElementById("stripwrap");
+      stripWrap=document.getElementById("stripwrap"),
+      sensRow=document.getElementById("sensrow"), sens=document.getElementById("sens"),
+      sensVal=document.getElementById("sensval"), sensWarn=document.getElementById("sensWarn");
+  var lastFrames=null, lastDur=0;
+
+  sens.addEventListener("input",function(){ sensVal.textContent=sens.value; });
+  document.getElementById("btn-recount").addEventListener("click",function(){
+    if(lastFrames) report(lastFrames,lastDur);
+  });
 
   document.getElementById("btn-file").addEventListener("click",function(){ fileInput.click(); });
 
@@ -630,7 +649,12 @@
     metricsEl.innerHTML="";
     var W=vid.videoWidth,H=vid.videoHeight;
     var vert=W&&H&&Math.abs(W/H-9/16)<0.02;
-    m("Formato","Debe ser 9:16",W+"×"+H,vert?"correcto":"no es 9:16",vert?"ok":"no");
+    m("Proporción","Debe ser 9:16",(vert?"9:16":"no es 9:16"),vert?"correcta":"corregir",vert?"ok":"no");
+    var full=(W>=1080&&H>=1920);
+    var half=(W>=720&&H>=1280);
+    m("Resolución","Mínimo 1080×1920",W+"×"+H,
+      full?"cumple":half?"por debajo del estándar":"muy por debajo",
+      full?"ok":half?"mid":"no");
     m("Duración","",(vid.duration||0).toFixed(1)+" s","","mid");
   }
 
@@ -679,6 +703,8 @@
 
     function finish(){
       vid.currentTime=0; progWrap.style.display="none"; btnAnalyze.disabled=false;
+      lastFrames=frames; lastDur=dur;
+      sensRow.style.display="flex";
       report(frames,dur);
     }
   }
@@ -706,7 +732,7 @@
     basics();
     if(frames.length<4){ statusEl.textContent="No se pudieron leer suficientes cuadros."; return; }
 
-    var TH=14;
+    var TH=parseFloat(sens.value)||14;
     // ---- cortes
     var cuts=[];
     frames.forEach(function(f){
@@ -780,6 +806,19 @@
     m("Zonas de interfaz","Detalle en las bandas superior e inferior vs el centro",
       "sup "+topR.toFixed(2)+" · inf "+botR.toFixed(2),zf[0],zf[1]);
 
+    // ---- aviso de sobredetección
+    var perSec=cuts.length/Math.max(1,dur);
+    var softRatio=cuts.length?soft.length/cuts.length:0;
+    if(perSec>0.55 || (cuts.length>10 && softRatio>0.7)){
+      sensWarn.style.display="block";
+      sensWarn.textContent="Está contando "+cuts.length+" cortes en "+dur.toFixed(0)+" s y "+
+        Math.round(softRatio*100)+"% salen de bajo contraste. Es el patrón típico de sobredetección: "+
+        "el clip probablemente tiene subtítulos animados, auto-zoom o b-roll en movimiento, y el detector "+
+        "los está leyendo como cortes. Subí la sensibilidad y recontá hasta que el número se parezca a los cortes que ves.";
+    } else {
+      sensWarn.style.display="none";
+    }
+
     statusEl.textContent="Listo. Estos números son indicios para mirar, no veredictos: verificá lo que marque en rojo antes de decidir.";
   }
 
@@ -810,7 +849,7 @@
     Array.prototype.forEach.call(document.querySelectorAll(".scale button"),function(b){b.setAttribute("aria-pressed","false");});
     Array.prototype.forEach.call(document.querySelectorAll("[data-kill]"),function(k){k.checked=false;});
     anEl.classList.remove("on"); metricsEl.innerHTML=""; stripWrap.innerHTML=""; statusEl.textContent="";
-    btnAnalyze.disabled=true;
+    btnAnalyze.disabled=true; lastFrames=null; sensRow.style.display="none"; sensWarn.style.display="none";
     try{ vid.removeAttribute("src"); vid.load(); }catch(e){}
     recompute();
   });
