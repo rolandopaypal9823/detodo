@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guion VSL Platinum</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127916;</text></svg>">
+<style>
+  :root{--ground:#FBFAF8;--surface:#FFFFFF;--surface-2:#F1F0EC;--ink:#191713;--ink-soft:#5C574E;--ink-faint:#8B857A;--rule:#E3E0D8;--rule-soft:#EEECE6;--accent:#1F5C4D;--cue:#8A5A1B;--cue-bg:#F7EFE2;--alert:#A8331F;--alert-bg:#F9E9E5;--shadow:0 1px 2px rgba(25,23,19,.05),0 8px 24px -14px rgba(25,23,19,.14);--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;--sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#12110F;--surface:#191816;--surface-2:#201E1B;--ink:#EDEBE6;--ink-soft:#A29C91;--ink-faint:#7C766B;--rule:#2C2A26;--rule-soft:#232120;--accent:#5FBFA5;--cue:#D6A44E;--cue-bg:#2E2517;--alert:#E88A76;--alert-bg:#331914;--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -14px rgba(0,0,0,.6)}}
+  :root[data-theme="dark"]{--ground:#12110F;--surface:#191816;--surface-2:#201E1B;--ink:#EDEBE6;--ink-soft:#A29C91;--ink-faint:#7C766B;--rule:#2C2A26;--rule-soft:#232120;--accent:#5FBFA5;--cue:#D6A44E;--cue-bg:#2E2517;--alert:#E88A76;--alert-bg:#331914;--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -14px rgba(0,0,0,.6)}
+  *,*::before,*::after{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;margin:0;padding:0 24px 120px}
+  .wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+  .bar{position:sticky;top:0;z-index:50;background:var(--ground);border-bottom:1px solid var(--rule);margin:0 -24px;padding:10px 24px;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+  .bar .sp{flex:1}
+  .btn{font-family:var(--sans);font-size:13px;font-weight:600;padding:8px 14px;border-radius:5px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);cursor:pointer}
+  .btn:hover{background:var(--surface-2);border-color:var(--ink-faint)}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn--go{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn--go:hover:not(:disabled){filter:brightness(1.08);background:var(--accent)}
+  .st{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.03em}
+  .st[data-k="ok"]{color:var(--accent);font-weight:700}
+  .st[data-k="warn"]{color:var(--alert);font-weight:700}
+  .st[data-k="dirty"]{color:var(--cue);font-weight:700}
+  [contenteditable]{border-radius:3px;outline:none}
+  [contenteditable]:hover{background:color-mix(in srgb,var(--accent) 8%,transparent)}
+  [contenteditable]:focus{background:color-mix(in srgb,var(--accent) 12%,transparent);box-shadow:0 0 0 2px var(--accent)}
+  body[data-ro="1"] [contenteditable]:hover,body[data-ro="1"] [contenteditable]:focus{background:transparent;box-shadow:none}
+  header.masthead{padding:30px 0;display:flex;flex-direction:column;gap:14px;border-bottom:2px solid var(--ink)}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);margin:0}
+  h1{font-family:var(--serif);font-size:clamp(32px,5.5vw,50px);line-height:1.06;font-weight:600;letter-spacing:-.015em;margin:0}
+  .standfirst{font-family:var(--serif);font-size:18.5px;line-height:1.55;color:var(--ink-soft);max-width:62ch;margin:0}
+  .facts{display:flex;flex-wrap:wrap;gap:10px 26px;margin:4px 0 0}
+  .fact{display:flex;flex-direction:column;gap:1px}
+  .fact dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+  .fact dd{margin:0;font-size:14.5px;font-weight:600;font-variant-numeric:tabular-nums}
+  section{display:flex;flex-direction:column;gap:16px}
+  h2{font-family:var(--serif);font-size:26px;line-height:1.2;font-weight:600;margin:0}
+  h3{font-size:15px;font-weight:700;margin:0}
+  p{margin:0;max-width:68ch}
+  .paso{display:flex;flex-direction:column;border-top:2px solid var(--ink);padding-top:14px}
+  .paso-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:2px}
+  .paso-num{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+  .paso-meta{font-family:var(--mono);font-size:11px;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+  .paso-title{font-family:var(--serif);font-size:25px;font-weight:600;line-height:1.2;flex-basis:100%;margin:2px 0 0}
+  .paso-note{font-size:13.5px;color:var(--ink-soft);max-width:70ch;margin:8px 0 12px;padding-left:12px;border-left:2px solid var(--rule)}
+  .sub{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:20px 0 2px;padding-bottom:5px;border-bottom:1px solid var(--rule)}
+  .line{display:grid;grid-template-columns:1fr 226px;gap:0 24px;padding:12px 0;border-bottom:1px solid var(--rule-soft);align-items:start}
+  .say{font-family:var(--serif);font-size:18.5px;line-height:1.5;max-width:56ch}
+  .cue{font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--cue);background:var(--cue-bg);padding:7px 9px;border-radius:3px}
+  .cue b{font-weight:700;display:block;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.75;margin-bottom:3px}
+  .gap{background:var(--alert-bg);color:var(--alert);font-family:var(--mono);font-size:12px;padding:9px 12px;border-radius:3px;margin:10px 0;font-weight:600;line-height:1.5}
+  .callout{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--cue);border-radius:4px;padding:17px 19px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow)}
+  .callout.alert{border-left-color:var(--alert)}
+  .callout.hot{border-left-color:var(--accent)}
+  .callout h3{color:var(--cue);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+  .callout.alert h3{color:var(--alert)}
+  .callout.hot h3{color:var(--accent)}
+  .callout p{font-size:14.5px}
+  .scroller{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--surface)}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:600px}
+  th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+  thead th{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;background:var(--surface-2);border-bottom:1px solid var(--rule)}
+  tbody tr:last-child td{border-bottom:none}
+  footer{border-top:1px solid var(--rule);padding-top:22px;font-size:13px;color:var(--ink-faint);display:flex;flex-direction:column;gap:5px}
+  .banner{background:var(--cue-bg);color:var(--cue);border-radius:4px;padding:10px 14px;font-size:13.5px;font-weight:600}
+  @media (max-width:760px){.line{grid-template-columns:1fr;gap:8px}.say{font-size:17.5px;max-width:none}}
+  @media (max-width:620px){body{padding:0 16px 100px}.bar{margin:0 -16px;padding:10px 16px}}
+  @media print{.bar{display:none}}
+</style>
+</head>
+<body>
+<div class="bar">
+  <button class="btn btn--go" id="save">Guardar en la nube</button>
+  <button class="btn" id="copy">Copiar Markdown</button>
+  <button class="btn" id="reload">Traer la última versión</button>
+  <span class="st" id="st">Cargando…</span>
+  <span class="sp"></span>
+  <span class="st" id="meta"></span>
+</div>
+<div id="app"></div>
+
+<script id="D" type="application/json">{"eyebrow":"Instituto de Productividad · Alto Rendimiento Platinum","title":"Guion VSL Platinum","standfirst":"Diez minutos. Los diez pasos de la plantilla, en la voz de Nico. Izquierda lo que se dice, derecha lo que ve la editora.","facts":[["Duración","10 min"],["Pasos","10 de 10"],["Alumnos","+400"],["Proceso","6 meses"],["Corte","cada 3 seg"],["Destino","Entrevista de admisión"]],"sections":[{"type":"notes","h2":"Reglas de este guion","callouts":[{"cls":"alert","h3":"Las cuatro reglas","ps":["<strong>Una.</strong> Todo lo que se afirma sale de una fuente verificable: los 22 testimonios, los 22 módulos, el núcleo de comunicación o un dato confirmado. Donde no hay fuente, hay un hueco marcado en rojo, no una frase de relleno.","<strong>Dos.</strong> El guion no afirma nada sobre quien mira que no se pueda sostener. Se habla del patrón, no de la persona.","<strong>Tres.</strong> Solo se cita textualmente lo dicho en un testimonio público. Lo que sale de llamadas de venta es material privado: la idea se puede usar, las palabras no.","<strong>Cuatro.</strong> El guion dice sin matices que somos el único programa de habla hispana con aval universitario. Es la afirmación competitiva más fuerte del video y se dejó sin hedge por decisión directa, no porque se haya verificado acá."]},{"cls":"","h3":"Choques con la voz de Nico, resueltos","ps":["<strong>La exclusividad.</strong> Nico tiene prohibido decir que algo es \"la única solución\". En el paso 9 la supremacía se convierte en distinción: no \"hay uno solo\", sino \"hay miles de sistemas que te ordenan la agenda; lo que no vi es uno que le ponga a lo tuyo la variable que ya hace funcionar lo ajeno\".","<strong>El atajo.</strong> Nico es antiprometedor por definición. Se resuelve nombrando la objeción antes de que aparezca: \"no te vendo un atajo, spoiler alert: no existe\"."]},{"cls":"","h3":"Sobre el VSL de Florencia","ps":["Se tomaron tres piezas de ese guion ya probado: la analogía de la canilla, la línea \"lo que cambió no fui yo, fue el sistema\" y el framing del 1% en el cierre. Los tres son mecanismo-agnósticos.","<strong>No se importó</strong> el mecanismo de ese video (fatiga prefrontal → sistema límbico). Ese VSL no está armado para Platinum; este sí, con urgencia prestada construido sobre 15 llamadas reales. Meter los dos mecanismos juntos explica el mismo problema dos veces con dos causas distintas."]}]},{"type":"paso","num":"Paso 1","meta":"0:00 — 0:35","title":"Duración y dirección","note":"Abre con vacío de curiosidad sobre eje error (funnel400): algo anda mal en tu cerebro y no lo sabías. No se nombra el mecanismo — eso se paga en el paso 7. La duración va fusionada en la promesa, no como anuncio aparte. Después, el discriminador del núcleo: si no filtramos, el video se llena de perfil Gold.","blocks":[{"t":"line","say":"¿Sabías que hay una razón neurológica, con nombre y apellido, por la que tu cerebro es capaz de cumplirle a cualquiera... menos a vos?","cue":"<b>Placa completa</b>¿Por qué le cumplís a cualquiera menos a vos?"},{"t":"line","say":"En los próximos diez minutos te la voy a mostrar.","cue":"<b>Cámara</b>Frontal, corte seco"},{"t":"line","say":"Y esto es para vos si hay gente cuyo trabajo depende de tus decisiones. Un equipo, un estudio, una empresa, socios. Gente que si vos no resolvés, se frena.","cue":"<b>B-roll</b>Equipo esperando en una reunión"},{"t":"line","say":"Es para vos si nunca dejaste caer nada de otro. Cumplís los plazos de todo el mundo. Y sin embargo hace dos años que el mismo objetivo tuyo está en la misma lista.","cue":"<b>Placa grande</b>\"Cumplís con todos menos con vos\""},{"t":"line","say":"Y ojo, no te hablo de trabajar menos ni de bajar el ritmo. Te hablo de dejar de ser el cuello de botella de tu propia empresa.","cue":"<b>Placa</b>NO es trabajar menos"},{"t":"line","say":"Ahora, si sos empleado, no tenés gente a cargo y buscás una app para ordenar tus tareas: cerrá el video. En serio. No es para vos y no te quiero hacer perder diez minutos.","cue":"<b>Blur + texto</b>\"Esto no es para vos\""}]},{"type":"paso","num":"Paso 2","meta":"0:35 — 1:05","title":"Agradecimiento y promesa","note":"La \"mala noticia\" reencuadrada es el movimiento más subestimado de 8Belts. Acá es crítico: este avatar gira el resentimiento hacia adentro. Hay que desactivar la culpa antes de que aparezca. Ojo con el conteo: \"una razón, cinco señales\" — no \"cinco claves\", que es el nombre de la solución en el paso 8.","blocks":[{"t":"line","say":"¿Sabés qué? Te agradezco que estés acá. Porque un montón de gente siente exactamente lo que estás sintiendo vos. Muy poca frena diez minutos a entender por qué le pasa.","cue":"<b>Cámara</b>Frontal, más cerca"},{"t":"line","say":"¿Qué vas a aprender hoy? Vas a conocer esa razón neurológica, y las cinco señales con las que se manifiesta en tu día a día. Las vas a reconocer todas.","cue":"<b>Placa</b>1 razón · 5 señales"},{"t":"line","say":"Y te aviso que tiene una mala noticia. Cuando escuches la número uno, vas a sentir que estuviste peleando años contra el enemigo equivocado.","cue":"<b>Blur + texto</b>\"El enemigo equivocado\""},{"t":"line","say":"Pero eso es bueno. Porque no vamos a lamentar que el problema haya estado ahí. Vamos a celebrar que por fin sabemos cuál era.","cue":"<b>Cámara</b>Lateral"}]},{"type":"paso","num":"Paso 3","meta":"1:05 — 1:55","title":"El sistema único","note":"La analogía madre ya existe y no hay que inventarla: la zanahoria ajena y el huerto propio, atestiguada por cuatro alumnos que no se conocen entre sí. Es más fuerte que el puente de Anxo porque salió de ellos.","blocks":[{"t":"line","say":"Además te voy a mostrar cómo integramos todo esto en un sistema. Se llama protocolo Synaps, y es el corazón del programa Alto Rendimiento del Instituto de Productividad. Por acá ya pasaron más de cuatrocientas personas.","cue":"<b>Placa</b>PROTOCOLO SYNAPS · +400 alumnos"},{"t":"line","say":"Y te lo quiero explicar con algo que me dijeron cuatro alumnos distintos, que no se conocen entre ellos, sin ponerse de acuerdo.","cue":"<b>Placa</b>4 personas · misma frase"},{"t":"line","say":"Sos el conejito que corre atrás de la zanahoria. Solo que la zanahoria no es tuya. La está moviendo otro.","cue":"<b>B-roll</b>Ilustración conejo/zanahoria. Placa grande"},{"t":"line","say":"Y podés correr más rápido, levantarte a las cinco, comprarte la agenda nueva. Pero mientras la zanahoria la mueva otro, vas a llegar siempre al lugar al que otro quiso que llegues.","cue":"<b>Cortes rápidos</b>Reloj 5AM · agenda · app de tareas"},{"t":"line","say":"Nosotros no te enseñamos a correr más rápido. Te ayudamos a plantar tu propio huerto y a elegir vos cuándo comer.","cue":"<b>B-roll</b>Huerto. Placa: \"Tu propio huerto\""},{"t":"line","say":"Y ojo, no te vendo un atajo. Spoiler alert: no existe. Lo que sí existe es dejar de gastar el mismo esfuerzo en la dirección equivocada.","cue":"<b>Blur + texto</b>\"No existe el atajo\""}]},{"type":"paso","num":"Paso 4","meta":"1:55 — 2:35","title":"Autoridad","note":"Estructura de Anxo replicada exacta: fracaso primero, conclusión falsa, el \"falso\", credenciales después y cortas, y el pivote final. Si las credenciales van al principio, matan la conexión.","blocks":[{"t":"line","say":"Soy Nico Fernández Miranda. Y te voy a ser honesto: yo no llegué acá porque era bueno en esto. Llegué porque era un desastre.","cue":"<b>Cámara</b>Frontal cerrada. Sin música"},{"t":"line","say":"Me desaprobaron matemáticas cuatro veces. Trabajaba catorce horas por día. Migrañas crónicas, subí de peso, y las relaciones que más me importaban se me desarmaban en la mano. Hasta que reventé. Literal. En París.","cue":"<b>Cortes cada 3 seg</b>\"4 veces\" · \"14 horas\" · \"París\""},{"t":"line","say":"¿Y sabés qué conclusión saqué? La peor posible: necesito aguantar más.","cue":"<b>Blur + texto</b>\"Necesito aguantar más\""},{"t":"line","say":"Falso.","cue":"<b>Placa completa</b>FALSO"},{"t":"line","say":"No es que no me esforzara. Me esforzaba de más, apuntando al lugar equivocado. Y fijate que dije esforzar y no sacrificar — esa elección no es inocente, y en un rato vas a entender por qué.","cue":"<b>Placa</b>ESFORZAR ≠ SACRIFICAR"},{"t":"line","say":"Hoy soy Contador Público con medalla al mejor promedio, fui docente universitario, hago un doctorado y tengo un máster en neurociencia. Escribí <em>Hackea tu cerebro</em>, di charlas TED y fundé el Instituto de Productividad. Pero lo último que quiero hoy es hablar de mí.","cue":"<b>Cortes rápidos</b>Libro · TED · aula. Máximo 15 seg"}]},{"type":"paso","num":"Paso 5","meta":"2:35 — 3:25","title":"Despertando el dolor · el infierno","note":"Recortado a la mitad respecto de la versión de 12 minutos: este avatar ya trae este peldaño subido, no hay que construirlo. Contenido del núcleo pero reformulado en palabras de Nico — patrones descritos, no frases textuales de llamadas privadas. La única literal es la de la notebook, que Celi dijo en su testimonio público.","blocks":[{"t":"line","say":"Porque yo empatizo muchísimo con todas aquellas personas que…","cue":"<b>Cámara</b>Frontal. Ritmo más lento"},{"t":"line","say":"Nunca dejaron caer nada de otro. Y tienen el mismo trámite propio ocho años metido en un cajón.","cue":"<b>Placa</b>Bandeja vacía vs. cajón lleno"},{"t":"line","say":"Que están sentadas frente a un hijo que les habla, y tardan medio minuto en darse cuenta de que no escucharon nada.","cue":"<b>B-roll</b>Padre distraído, hijo hablándole"},{"t":"line","say":"Que ellas no se sienten tan ausentes. Los que lo notan son los de al lado. Y eso es lo que asusta de verdad.","cue":"<b>Blur + texto</b>\"Los que lo notan son los de al lado\""},{"t":"line","say":"Que abren la computadora apenas se duermen los chicos. Haya deadline o no lo haya.","cue":"<b>B-roll</b>Notebook abriéndose de noche"},{"t":"line","say":"Que dirigen equipos con buenos números y por dentro dudan de si están hechas para dirigir.","cue":"<b>Placa</b>\"Aunque los resultados sean buenos\""},{"t":"line","say":"Que se despiertan de madrugada con un solo pensamiento clavado, y ya no vuelven a dormirse.","cue":"<b>B-roll</b>Reloj 3:00 AM · techo oscuro"},{"t":"line","say":"Que tienen la sensación de estarse perdiendo los mejores años de sus hijos mientras están ocupadas resolviendo otra cosa.","cue":"<b>Cámara</b>Frontal cerrada. Silencio 1 seg"},{"t":"line","say":"¿Y qué hacen con todo esto? Nada. Lo empujan para adelante. Porque siempre hay algo de otro que es más urgente.","cue":"<b>Placa</b>\"Siempre hay algo más urgente\""},{"t":"line","say":"Y acá viene lo que nadie te cuenta: ese \"siempre hay algo más urgente\" no es casualidad de tu semana. Es la única regla con la que tu cerebro está funcionando ahora mismo.","cue":"<b>Blur + texto</b>Loop abierto hacia el paso 7"}]},{"type":"paso","num":"Paso 6","meta":"3:25 — 4:30","title":"La esperanza ejemplificada · el cielo","note":"Cada caso lleva punto A concreto, punto B concreto y su objeción, como pide la plantilla. El A siempre es una escena, nunca un adjetivo: la computadora en la playa dice más que \"estaba desbordada\". Los tres salen de testimonios públicos con video. Andrés cierra el loop de esforzarse contra sacrificarse del paso 4, y Celi adelanta el argumento de la entrevista que remata el paso 10.","blocks":[{"t":"line","say":"Te quiero contar tres casos. No los más espectaculares: tres personas que llegaron con el mismo patrón que te acabo de describir.","cue":"<b>Placa</b>3 casos reales"},{"t":"line","say":"Germán es farmacéutico, dueño de una farmacia familiar con seis empleados. Llegó, palabras de él, desbordado por todos lados: sin descanso, apagando incendios, con los números que no le cerraban y sin encontrar dónde estaba la falla.","cue":"<b>Placa</b>GERMÁN · Farmacéutico · 6 empleados<br><b>PUNTO A</b>Desbordado por todos lados"},{"t":"line","say":"Hoy tiene su sistema para delegar, aprendió a cortar a tiempo y tiene un norte escrito para todo el año. Los mismos empleados. La misma farmacia. ¿Y sabés qué lo frenaba? Procrastinar la decisión.","cue":"<b>Placa</b><b>PUNTO B</b>Delega · corta a tiempo · norte anual<br>Fragmento de testimonio"},{"t":"line","say":"Celi es arquitecta, lidera un equipo de cuarenta y cinco personas en San Diego, y es mamá. ¿Querés saber cómo estaba antes? Se fue de vacaciones a la playa en México con la computadora. Trabajó todos los días salvo el veinticuatro y el treinta y uno.","cue":"<b>Placa</b>CELI · Arquitecta · lidera 45 personas<br><b>PUNTO A</b>Vacaciones trabajando salvo 24 y 31"},{"t":"line","say":"Este año hizo pilates tres veces por semana: el primer año con actividad física desde que es madre. Recuperó la espalda. Terminó la ciudadanía de sus hijos, postergada años. Y se pasó un mes entero en Argentina con ellos, trabajando remoto.","cue":"<b>Placa</b><b>PUNTO B</b>Pilates 3x · espalda · ciudadanía · 1 mes en Argentina"},{"t":"line","say":"Celi entró con dos miedos: que fuera una estafa, o que el servicio fuera mediocre. ¿Sabés qué la destrabó? Que hubiera una entrevista de admisión. Dijo: esto no es una suscripción de internet. Y después lo repitió dos veces: lo debería haber hecho diez años atrás.","cue":"<b>Placa</b>No es una suscripción de internet<br><b>Blur</b>\"Lo debería haber hecho 10 años atrás\""},{"t":"line","say":"Andrés es ingeniero agrónomo, veintisiete años, lidera un equipo. Y ojo con esto: no venía de cero, ya había hecho otras mentorías y coaching antes. Crecía rápido, pero a un costo altísimo — dormía seis horas convencido de que le alcanzaba y andaba con una mochila detrás todo el tiempo. Decía que veía la vida en gris.","cue":"<b>Placa</b>ANDRÉS · Ing. agrónomo · 27 años<br><b>PUNTO A</b>Mochila · viraje de gris a color"},{"t":"line","say":"Y fijate cómo lo dijo, porque es exactamente la diferencia entre esforzarse y sacrificarse: me di cuenta que pagaba un precio demasiado alto por mi crecimiento, y que se puede seguir creciendo a un costo que uno puede gestionar. Hoy sigue creciendo. Pero volvió a ver la vida con colores.","cue":"<b>Blur + texto grande</b>Cita de Andrés<br><b>PUNTO B</b>La vida con colores"},{"t":"line","say":"Un farmacéutico con seis empleados, una arquitecta que lidera cuarenta y cinco personas y un ingeniero de veintisiete. Distintos rubros, distintas edades, distintos países. El mismo patrón.","cue":"<b>Placa</b>Mismo patrón · 3 perfiles"}]},{"type":"paso","num":"Paso 7","meta":"4:30 — 6:20","title":"La historia","note":"Bloque decisivo, casi intacto del recorte. La plantilla pide seis movimientos en orden — preocupación, errores, cómo afecta, el click, el propósito, lo logrado. Los cinco errores son el vehículo del mecanismo: urgencia prestada. Y mapean uno a uno con las cinco claves del paso 8.","blocks":[{"t":"sub","v":"1 · Preocupación"},{"t":"line","say":"Probablemente estés preocupado porque esto ya lo intentaste. Varias veces. Arrancaste con todas las ganas y a los pocos meses estabas igual. Y te entiendo, porque casi todo el mundo comete estos cinco errores. Yo los cometí todos.","cue":"<b>Placa</b>5 errores"},{"t":"sub","v":"2 · Los cinco errores"},{"t":"line","say":"Error uno: creer que es un problema de disciplina. Y acá está lo que nadie te dijo. Tu cerebro no jerarquiza por importancia. Jerarquiza por <em>quién está esperando</em>. Lo ajeno viene con una persona del otro lado. Lo tuyo, no.","cue":"<b>Placa completa</b>URGENCIA PRESTADA<br>Ilustración: dos tareas, una con persona esperando"},{"t":"line","say":"Por eso no es que seas desorganizado. Sos impecable con lo ajeno. Procrastinás una sola categoría de cosas: las tuyas.","cue":"<b>Blur + texto</b>\"Procrastinás una sola categoría: la tuya\""},{"t":"line","say":"Error dos: buscar más método. Otra app, otra agenda, otro sistema. Pero el método nunca fue el problema, y la prueba es que con lo ajeno te funciona perfecto.","cue":"<b>Cortes rápidos</b>Apps · agendas · planners"},{"t":"line","say":"Error tres: meter más horas. Atacaste el volumen cuando el problema era la jerarquía. Si todo es prioridad, nada es prioridad.","cue":"<b>Placa</b>\"Si todo es prioridad, nada es prioridad\""},{"t":"line","say":"Error cuatro: delegar. Contrataste gente, armaste equipo. Pero delegaste el seguimiento de lo ajeno, no el de lo tuyo. Conozco a alguien que contrató un director de operaciones para resolver justo esto. Sigue igual.","cue":"<b>Placa</b>\"Delegaste lo ajeno, no lo tuyo\""},{"t":"line","say":"Y error cinco, el más difícil de ver. No solo recibís urgencia ajena: la fabricás. Porque si tu identidad se apoya en ser el que resuelve, tu cerebro necesita que siempre haya algo para resolver. Y te lo consigue.","cue":"<b>Blur + texto grande</b>Necesitás que siempre haya algo para resolver"},{"t":"sub","v":"3 · Cómo afecta"},{"t":"line","say":"Y esto no queda en la oficina. Se te mete en la mesa familiar, en el sueño, en el humor, en cómo te ves a vos mismo. Yo lo viví: no era falta de capacidad. Era una jerarquía mal cableada que me estaba costando los años que no vuelven.","cue":"<b>B-roll</b>Mesa familiar · noche · espejo"},{"t":"line","say":"Y acá va lo importante: no sos vago. Sos demasiado responsable, mal apuntado.","cue":"<b>Placa completa</b>\"No sos vago. Sos demasiado responsable, mal apuntado\""},{"t":"sub","v":"4 · El click"},{"t":"line","say":"Cuando me cayó la ficha, entendí que no necesitaba más fuerza de voluntad. Necesitaba ponerle a lo mío la misma variable que ya hacía funcionar lo de todos los demás: alguien del otro lado esperándolo.","cue":"<b>Cámara</b>Frontal cerrada"},{"t":"line","say":"Y lo digo con todas las letras: lo que cambió no fui yo. Fue el sistema con el que me manejaba.","cue":"<b>Placa completa</b>\"Lo que cambió no fui yo. Fue el sistema.\""},{"t":"sub","v":"5 · El propósito y la entrada a las claves"},{"t":"line","say":"Por eso armé el Instituto. Mi objetivo es sacar esto del laboratorio y bajarlo a algo que puedas usar el lunes a la mañana. No es motivación. Es ciencia con instrucciones.","cue":"<b>Placa</b>\"No es motivación, es ciencia\""},{"t":"line","say":"¿Y cómo se soluciona una canilla que gotea? No apretándola con más fuerza. Desarmándola y cambiándole el cuerito. Con tu cerebro pasa lo mismo: se arregla yendo a la causa. Y eso se apoya en cinco claves. Te las muestro una por una.","cue":"<b>B-roll</b>Canilla goteando → desarmada<br><b>Placa</b>Las 5 claves"}]},{"type":"paso","num":"Paso 8","meta":"6:20 — 7:55","title":"Las claves en las que se fundamenta la solución","note":"Cada clave arranca por la forma obsoleta, sigue por el dolor que genera y termina en cómo se incorpora al sistema. Van en qué y por qué, nunca el cómo: si el espectador sale sabiendo ejecutarlo, no aplica. Las cinco salen de módulos reales del programa.","callout":{"cls":"hot","h3":"Nota de edición — comparativa viejo vs. nuevo","ps":["Este es el único paso donde cada punto se muestra con un <strong>gráfico comparativo en pantalla partida</strong>: de un lado \"lo obsoleto\", del otro \"lo que hacemos nosotros\" — no alcanza con narrarlo, tiene que verse. La mitad izquierda cambia con lo obsoleto de cada clave, la derecha con la respuesta. Formato sugerido: ícono simple + una palabra por lado (ej. \"DISCIPLINA SOLA\" / \"ALGUIEN DEL OTRO LADO\"), no párrafos.","Son cinco gráficos, uno por clave — la pieza visual más pesada de producir del guion entero. Conviene que la editora la vea primero."]},"blocks":[{"t":"sub","v":"Clave 1 · Alguien del otro lado"},{"t":"line","say":"Lo obsoleto: apoyarte en tu propia disciplina. ¿El dolor? Que la disciplina sola tiene fecha de vencimiento. Para algunos son tres meses, para otros una semana. Da igual cuál sea la tuya: ya la conocés.","cue":"<b>Comparativa</b>DISCIPLINA SOLA / ALGUIEN DEL OTRO LADO"},{"t":"line","say":"Nosotros sacamos tu objetivo de tu cabeza y lo ponemos en una agenda compartida con otra persona. Un coach que te acompaña semana a semana, que te escribe, que te sigue el rastro. Lo sentís presente todo el tiempo. Ahí lo tuyo deja de ser opcional. Exactamente como lo ajeno.","cue":"<b>Placa</b>Acompañamiento semana a semana"},{"t":"sub","v":"Clave 2 · El envase antes que la agenda"},{"t":"line","say":"Lo obsoleto: tratar el descanso, la comida y el movimiento como el premio que te vas a dar cuando termines. ¿El dolor? Que rendís con el freno de mano puesto y creés que ese es tu techo.","cue":"<b>Comparativa</b>PREMIO AL FINAL / INFRAESTRUCTURA"},{"t":"line","say":"Y esto no es autoayuda. El ejercicio genera BDNF, que es literalmente el fertilizante del cerebro. Y hay estudios que muestran que el sesenta y cinco por ciento de los líderes reconoce que el sueño fragmentado le afecta las decisiones estratégicas.","cue":"<b>Placa</b>65% de los líderes · BDNF"},{"t":"sub","v":"Clave 3 · Sacarlo de la cabeza"},{"t":"line","say":"Lo obsoleto: llevarlo todo en la cabeza. ¿El dolor? Son las tres de la mañana y tu cerebro repasa la lista porque no confía en que esté guardada en ningún lado.","cue":"<b>Comparativa</b>TODO EN LA CABEZA / SISTEMA EXTERNO"},{"t":"line","say":"La solución no es acordarse mejor. Es un sistema externo donde todo lo que te pesa vive fuera de tu cabeza, y lo revisás cuando querés vos, no cuando tu cerebro decide despertarte.","cue":"<b>Placa</b>Second Brain + Habit Tracker"},{"t":"sub","v":"Clave 4 · Jerarquía, no volumen"},{"t":"line","say":"Lo obsoleto: exprimir el día. Levantarte más temprano, dormir menos, apretar la agenda. ¿El dolor? Que trabajás más que nunca y avanzás lo mismo de siempre.","cue":"<b>Comparativa</b>MÁS HORAS / MEJOR JERARQUÍA"},{"t":"line","say":"Fijate que no es falta de tiempo. Es falta de claridad. Dos problemas distintos, con dos soluciones distintas.","cue":"<b>Placa completa</b>\"No es falta de tiempo, es falta de claridad\""},{"t":"sub","v":"Clave 5 · Delegar lo tuyo"},{"t":"line","say":"Lo obsoleto: delegar tareas y quedarte con el seguimiento de todo. ¿El dolor? Que soltaste el trabajo pero no la carga mental, y ahora sos el cuello de botella con más reuniones.","cue":"<b>Comparativa</b>DELEGAR TAREAS / REDISEÑAR DECISIONES"},{"t":"line","say":"Acá trabajamos la delegación en serio, que no es repartir tareas: es rediseñar quién decide qué. Y sumás una comunidad de gente en tu misma situación, más un mastermind con especialistas como el doctor Sebastián La Rosa.","cue":"<b>Placa</b>Comunidad + Mastermind + Dr. La Rosa"}]},{"type":"paso","num":"Paso 9","meta":"7:55 — 9:05","title":"Inicio del aterrizaje","note":"Acumulamos verdades todo el video; acá aterrizan. Cinco trabajos: darle sentido al éxito, hacer que se visualice dentro, eliminar incertidumbre, dar motivos para que el día sea hoy y romper objeciones. Sin garantía, por decisión — el VSL pide una entrevista, no una compra, y la reversión de riesgo de la compra corresponde a la llamada.","blocks":[{"t":"sub","v":"Conclusión y autoridad lógica"},{"t":"line","say":"Y acá está la respuesta a por qué esto funciona. Sistemas que te ordenan la agenda hay miles. Cursos de productividad hay de sobra. Coaches, muchísimos. Lo que todavía no vi es uno que le ponga a lo tuyo la variable que ya hace funcionar todo lo demás en tu vida: alguien del otro lado esperándolo.","cue":"<b>Placa</b>Distinción, no supremacía"},{"t":"sub","v":"El aval universitario"},{"t":"line","say":"Y te quiero mostrar algo que casi ningún programa te puede mostrar. La versión Platinum se certifica en conjunto con la Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy.","cue":"<b>Placa</b>UNJu · Facultad de Ciencias Económicas"},{"t":"line","say":"Y no es una constancia por haber puesto la cara. Son doscientas cincuenta horas, con evaluación y trabajo final aplicado a tu propia vida o a tu negocio. El certificado lo emite y lo firma la Facultad, con mecanismo de verificación. Se gana. No se regala.","cue":"<b>Placa</b>250 horas · evaluación · trabajo final<br>Certificado firmado + verificable"},{"t":"line","say":"Y hoy no hay otro programa de habla hispana que tenga esto. Por eso pesa distinto: en tu CV, en tu LinkedIn, frente a quien se lo tengas que mostrar.","cue":"<b>Placa completa</b>Único aval universitario · habla hispana"},{"t":"line","say":"Y para ser justos: es un certificado universitario, no un título de grado ni de posgrado. Pero es real, tiene evaluación, y la firma es de la Facultad.","cue":"<b>Placa chica</b>No reemplaza un título de grado"},{"t":"sub","v":"Los avances del proceso"},{"t":"line","say":"El proceso completo son seis meses. El ritmo es acompañamiento uno a uno constante, seguimiento entre medio, la comunidad, y la plataforma abierta las veinticuatro horas.","cue":"<b>Placa</b>6 MESES<br><b>B-roll</b>Videollamada · plataforma"},{"t":"gap","v":"PENDIENTE — los avances concretos del proceso. Los 22 testimonios documentan resultados de seis meses, ninguno documenta qué pasa antes. No hay nada verificable para poner acá todavía. Se resuelve preguntándole a alumnos actuales qué cambió el primer mes."},{"t":"sub","v":"Objeciones"},{"t":"line","say":"Ahora, sé lo que estás pensando, porque me lo dicen en todas las entrevistas. \"Con lo de hoy lo armo solo.\" Puede ser. Pero fijate: tus intentos anteriores no se cayeron por falta de información. Ya tenías la información. Eso <em>es</em> la prueba.","cue":"<b>Placa</b>\"Ya tenías la información\""},{"t":"line","say":"\"Me pongo las pilas y listo.\" Si la voluntad fuera la variable, esto ya estaría resuelto. Con lo ajeno la voluntad te sobra. Ese nunca fue el problema.","cue":"<b>Cámara</b>Lateral"},{"t":"line","say":"Y la que más escucho: \"¿no serán vendehumos?\". Por eso hay una entrevista antes. Si esto fuera una suscripción de internet te pondría un botón y listo. No lo es.","cue":"<b>Placa</b>Por eso hay entrevista"}]},{"type":"paso","num":"Paso 10","meta":"9:05 — 10:00","title":"La llamada a la acción","note":"La plantilla pide arrancar por \"qué haría tu competencia y vos no\". Ahí es donde 8Belts dice \"no te voy a hacer agendar una llamada tediosa\" — y eso argumenta en contra de nuestro embudo. Se conserva la primera mitad y se invierte la segunda.","blocks":[{"t":"line","say":"Y quiero ser claro antes de cerrar: no te estoy pidiendo que cambies tu vida en los próximos diez minutos. Te estoy pidiendo el uno por ciento. Agendar una entrevista.","cue":"<b>Placa completa</b>El 1%"},{"t":"line","say":"Llegados acá, hay dos cosas que no voy a hacer. La primera: no te voy a poner un link de compra. Porque esto no se compra a ciegas, y quiero asegurarme de que sea la mejor decisión para tu vida y tu carrera — no solo para nosotros.","cue":"<b>Blur + texto</b>\"Esto no se compra a ciegas\""},{"t":"line","say":"Y la segunda: no te voy a hacer esperar. Nada de dejar un formulario y ver si alguien aparece.","cue":"<b>Placa</b>\"No te voy a hacer esperar\""},{"t":"line","say":"Esto es lo que sí vamos a hacer. Abajo tenés un botón para agendar tu entrevista. Y acá mismo, en esta página, tenés todos los detalles de lo que incluye la formación.","cue":"<b>Pantalla</b>Flecha al botón + scroll a detalles"},{"t":"line","say":"Paso uno: agendás y respondés un par de preguntas cortas, para que conozcamos tu caso antes de hablar.","cue":"<b>Placa numerada</b>1 · Agendás + respondés"},{"t":"line","say":"Paso dos: uno de nuestros asesores te escribe por WhatsApp y te manda un autodiagnóstico.","cue":"<b>Placa numerada</b>2 · WhatsApp + autodiagnóstico"},{"t":"line","say":"Paso tres: llegás a la entrevista sabiendo exactamente qué tenés que trabajar. Y ahí resolvemos tus dudas y vemos juntos si esto es para vos o no.","cue":"<b>Placa numerada</b>3 · Entrevista con claridad"},{"t":"line","say":"Y una cosa más. Ese autodiagnóstico y los recursos que te vamos a compartir son tuyos, entres o no al programa. Sin condiciones.","cue":"<b>Placa</b>Tuyo entres o no"},{"t":"line","say":"Porque me diste lo más valioso que tenés, que es tu tiempo. Y queremos ser recíprocos con eso.","cue":"<b>Cámara</b>Frontal cerrada. Sin placa"},{"t":"line","say":"Así que dale, agendá tu entrevista acá abajo. Nos vemos ahí.","cue":"<b>Pantalla</b>Botón grande + fin"}]},{"type":"table","h2":"Qué falta para cerrar","headers":["Dato","Bloquea","Por qué importa"],"rows":[["<strong>Avances concretos del proceso</strong>","Paso 9","Se resuelve preguntando a alumnos actuales qué cambió el primer mes"],["Qué aporta el Dr. La Rosa al mastermind","Paso 8","Para mencionarlo con precisión y no de adorno"],["El nombre que quedó como \"Lávater\"","—","No se pudo identificar; no se inventó"]]}],"footer":["Instituto de Productividad · Guion del VSL de Platinum","Plantilla: lecciones 7 a 16. Contenido: Núcleo de Comunicación NFM · Voz e identidad NFM · 22 módulos del programa · Casos de éxito del Instituto."]}</script>
+<script>
+"use strict";
+var DATA  = JSON.parse(document.getElementById("D").textContent);
+var REV   = 0;
+var DRAFT = "vsl-platinum-draft";
+var TOKKEY= "vsl-platinum-token";
+var dirty = false;
+
+var st = document.getElementById("st"), metaEl = document.getElementById("meta");
+function say(m,k){ st.textContent=m; st.setAttribute("data-k",k||""); }
+function stamp(at){ metaEl.textContent = at ? ("última versión: " + new Date(at).toLocaleString("es-AR")) : ""; }
+
+/* ---------- helpers ---------- */
+function get(p){ return p.split(".").reduce(function(o,k){ return o[k]; }, DATA); }
+function set(p, v){
+  var ks = p.split("."), last = ks.pop();
+  ks.reduce(function(o,k){ return o[k]; }, DATA)[last] = v;
+}
+function ed(tag, cls, path, html){
+  return "<" + tag + (cls ? ' class="' + cls + '"' : "") +
+         ' data-p="' + path + '" contenteditable="true">' + html + "</" + tag + ">";
+}
+
+/* ---------- render (una sola vez; después se muta DATA, no el DOM) ---------- */
+function render(){
+  var h = ['<div class="wrap">'];
+  h.push('<header class="masthead">');
+  h.push(ed("p","eyebrow","eyebrow",DATA.eyebrow));
+  h.push(ed("h1","","title",DATA.title));
+  h.push(ed("p","standfirst","standfirst",DATA.standfirst));
+  h.push('<dl class="facts">');
+  DATA.facts.forEach(function(f,i){
+    h.push('<div class="fact"><dt>'+f[0]+'</dt>'+ed("dd","","facts."+i+".1",f[1])+'</div>');
+  });
+  h.push('</dl></header>');
+
+  DATA.sections.forEach(function(s,si){
+    h.push("<section>");
+    if(s.type === "paso"){
+      h.push('<div class="paso"><div class="paso-head"><span class="paso-num">'+s.num+'</span>');
+      h.push(ed("span","paso-meta","sections."+si+".meta",s.meta));
+      h.push(ed("h2","paso-title","sections."+si+".title",s.title));
+      h.push("</div>");
+      if(s.note) h.push(ed("p","paso-note","sections."+si+".note",s.note));
+      if(s.callout){
+        h.push('<div class="callout '+s.callout.cls+'">');
+        h.push(ed("h3","","sections."+si+".callout.h3",s.callout.h3));
+        s.callout.ps.forEach(function(p,pi){ h.push(ed("p","","sections."+si+".callout.ps."+pi,p)); });
+        h.push("</div>");
+      }
+      s.blocks.forEach(function(b,bi){
+        var base = "sections."+si+".blocks."+bi;
+        if(b.t === "sub")  h.push(ed("div","sub",base+".v",b.v));
+        else if(b.t === "gap") h.push(ed("div","gap",base+".v",b.v));
+        else h.push('<div class="line">'+ed("div","say",base+".say",b.say)+ed("div","cue",base+".cue",b.cue)+"</div>");
+      });
+      h.push("</div>");
+    } else if(s.type === "table"){
+      h.push(ed("h2","","sections."+si+".h2",s.h2));
+      h.push('<div class="scroller"><table><thead><tr>');
+      s.headers.forEach(function(x){ h.push("<th>"+x+"</th>"); });
+      h.push("</tr></thead><tbody>");
+      s.rows.forEach(function(r,ri){
+        h.push("<tr>");
+        r.forEach(function(c,ci){ h.push(ed("td","","sections."+si+".rows."+ri+"."+ci,c)); });
+        h.push("</tr>");
+      });
+      h.push("</tbody></table></div>");
+    } else {
+      if(s.h2) h.push(ed("h2","","sections."+si+".h2",s.h2));
+      s.callouts.forEach(function(c,ci){
+        h.push('<div class="callout '+(c.cls||"")+'">');
+        h.push(ed("h3","","sections."+si+".callouts."+ci+".h3",c.h3));
+        c.ps.forEach(function(p,pi){ h.push(ed("p","","sections."+si+".callouts."+ci+".ps."+pi,p)); });
+        h.push("</div>");
+      });
+    }
+    h.push("</section>");
+  });
+
+  h.push("<footer>");
+  DATA.footer.forEach(function(f,i){ h.push(ed("div","","footer."+i,f)); });
+  h.push("</footer></div>");
+  document.getElementById("app").innerHTML = h.join("");
+}
+render();
+
+/* ---------- edición ---------- */
+function wire(){
+  document.addEventListener("input", function(e){
+    var el = e.target;
+    if(!el || !el.isContentEditable || !el.dataset.p) return;
+    set(el.dataset.p, el.innerHTML);
+    dirty = true;
+    try{ localStorage.setItem(DRAFT, JSON.stringify({rev:REV, data:DATA})); }catch(_){}
+    say("Cambios sin guardar","dirty");
+  });
+  document.addEventListener("paste", function(e){
+    var el = e.target;
+    if(!el || !el.isContentEditable) return;
+    e.preventDefault();
+    document.execCommand("insertText", false,
+      (e.clipboardData || window.clipboardData).getData("text/plain"));
+  });
+  window.addEventListener("beforeunload", function(e){
+    if(dirty){ e.preventDefault(); e.returnValue=""; }
+  });
+}
+
+/* ---------- nube: Netlify Function + Blobs ---------- */
+function token(){ try{ return localStorage.getItem(TOKKEY) || ""; }catch(_){ return ""; } }
+function askToken(){
+  var t = prompt("Clave de edición (te la da quien administra el sitio):", token() || "");
+  if(t === null) return null;
+  try{ localStorage.setItem(TOKKEY, t); }catch(_){}
+  return t;
+}
+
+async function pull(quiet){
+  try{
+    var r = await fetch("/api/doc", {cache:"no-store"});
+    if(!r.ok) throw new Error(r.status);
+    var j = await r.json();
+    REV = j.rev || 0;
+    stamp(j.at);
+    if(j.data){ DATA = j.data; }
+    if(!j.guarded){
+      var b = document.createElement("div");
+      b.className = "banner";
+      b.textContent = "Este documento está sin proteger: cualquiera con el link puede editarlo. Configurá la variable EDIT_TOKEN en Netlify para exigir clave.";
+      document.querySelector(".wrap").prepend(b);
+    }
+    if(!quiet) say(j.data ? "Listo" : "Sin versión guardada todavía","");
+    return true;
+  }catch(err){
+    say("No se pudo leer la nube — trabajando con la copia local","warn");
+    return false;
+  }
+}
+
+async function push(){
+  var b = document.getElementById("save");
+  b.disabled = true; say("Guardando…","");
+  try{
+    var r = await fetch("/api/doc", {
+      method:"PUT",
+      headers:{"content-type":"application/json","x-edit-token":token()},
+      body: JSON.stringify({data:DATA, rev:REV})
+    });
+    var j = await r.json().catch(function(){ return {}; });
+
+    if(r.status === 401){
+      say("Clave incorrecta o faltante","warn");
+      if(askToken() !== null){ b.disabled=false; return push(); }
+      b.disabled = false; return;
+    }
+    if(r.status === 409){
+      say("Otra persona guardó primero (v" + j.rev + ") — traé la última versión antes de guardar","warn");
+      b.disabled = false; return;
+    }
+    if(!r.ok){ say("No se pudo guardar (" + (j.error || r.status) + ")","warn"); b.disabled=false; return; }
+
+    REV = j.rev; stamp(j.at); dirty = false;
+    try{ localStorage.removeItem(DRAFT); }catch(_){}
+    say("Guardado en la nube ✓ (v" + REV + ")","ok");
+  }catch(err){
+    say("Falló la conexión — tus cambios siguen acá","warn");
+  }
+  b.disabled = false;
+}
+
+document.getElementById("save").addEventListener("click", push);
+document.getElementById("reload").addEventListener("click", async function(){
+  if(dirty && !confirm("Tenés cambios sin guardar. ¿Descartarlos y traer la última versión de la nube?")) return;
+  try{ localStorage.removeItem(DRAFT); }catch(_){}
+  dirty = false;
+  await pull();
+  render(); wire();
+  say("Actualizado desde la nube","ok");
+});
+
+/* ---------- markdown ---------- */
+function clean(s){
+  return String(s)
+    .replace(/<br\s*\/?>/gi," — ").replace(/<\/?(strong|b)>/gi,"**").replace(/<\/?(em|i)>/gi,"_")
+    .replace(/<[^>]+>/g,"").replace(/&nbsp;/g," ").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">")
+    .replace(/\s+/g," ").trim();
+}
+function cueClean(s){
+  return String(s).replace(/<b>(.*?)<\/b>/gi,"$1: ").replace(/<br\s*\/?>/gi," | ")
+    .replace(/<[^>]+>/g,"").replace(/\s+/g," ").trim().replace(/\s*\|\s*$/,"");
+}
+function toMd(){
+  var o = [];
+  o.push("# " + clean(DATA.title));
+  o.push("_" + clean(DATA.eyebrow) + "_", "");
+  o.push(clean(DATA.standfirst), "");
+  o.push(DATA.facts.map(function(f){ return "**"+clean(f[0])+":** "+clean(f[1]); }).join(" · "), "");
+  DATA.sections.forEach(function(s){
+    o.push("---","");
+    if(s.type === "paso"){
+      o.push("## " + clean(s.num).toUpperCase() + " · " + clean(s.title) + "  `" + clean(s.meta) + "`","");
+      if(s.note) o.push("> **Nota de dirección:** " + clean(s.note), "");
+      if(s.callout){
+        o.push("> **" + clean(s.callout.h3) + "**");
+        s.callout.ps.forEach(function(p){ o.push("> " + clean(p), ">"); });
+        o.push("");
+      }
+      s.blocks.forEach(function(b){
+        if(b.t === "sub") o.push("", "### " + clean(b.v), "");
+        else if(b.t === "gap") o.push("> ⚠️ **" + clean(b.v) + "**", "");
+        else { o.push(clean(b.say)); var c = cueClean(b.cue); if(c) o.push("`▸ " + c + "`"); o.push(""); }
+      });
+    } else if(s.type === "table"){
+      o.push("## " + clean(s.h2), "");
+      o.push("| " + s.headers.map(clean).join(" | ") + " |");
+      o.push("|" + s.headers.map(function(){ return "---"; }).join("|") + "|");
+      s.rows.forEach(function(r){ o.push("| " + r.map(clean).join(" | ") + " |"); });
+      o.push("");
+    } else {
+      if(s.h2) o.push("## " + clean(s.h2), "");
+      s.callouts.forEach(function(c){
+        o.push("> **" + clean(c.h3) + "**");
+        c.ps.forEach(function(p){ o.push("> " + clean(p), ">"); });
+        o.push("");
+      });
+    }
+  });
+  o.push("---","");
+  DATA.footer.forEach(function(f){ o.push("_" + clean(f) + "_"); });
+  return o.join("\n").replace(/\n{3,}/g,"\n\n");
+}
+document.getElementById("copy").addEventListener("click", function(){
+  var md = toMd();
+  function ok(){ say("Markdown copiado ✓","ok"); }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(md).then(ok, fb); }
+  else fb();
+  function fb(){
+    var ta = document.createElement("textarea");
+    ta.value = md; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); ok(); }catch(e){ say("No se pudo copiar","warn"); }
+    document.body.removeChild(ta);
+  }
+});
+
+/* ---------- arranque ---------- */
+(async function(){
+  await pull(true);
+  try{
+    var d = localStorage.getItem(DRAFT);
+    if(d){
+      var p = JSON.parse(d);
+      if(p && p.data && confirm("Tenés un borrador local sin guardar. ¿Recuperarlo?")){
+        DATA = p.data; dirty = true;
+      } else { localStorage.removeItem(DRAFT); }
+    }
+  }catch(_){}
+  render(); wire();
+  say(dirty ? "Borrador local sin guardar" : "Listo", dirty ? "dirty" : "");
+})();
+</script>
+</body>
+</html>

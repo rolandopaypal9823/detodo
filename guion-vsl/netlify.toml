@@ -1,0 +1,10 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+# El front pega a /api/doc; Netlify lo rutea a la función.
+[[redirects]]
+  from = "/api/doc"
+  to = "/.netlify/functions/doc"
+  status = 200
+  force = true
