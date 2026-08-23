@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El mapa del 1% · Instituto NFM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#0c3452;
+  --blue-dark:#061d30;
+  --blue-light:#e7edf2;
+  --orange:#ff6602;
+  --white:#ffffff;
+  --locked:#c9d2da;
+  --green:#25d366;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Open Sans',sans-serif;
+  --disp:'Montserrat',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#08151f}
+body{font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body.hide-cursor,body.hide-cursor *{cursor:none}
+
+#stage{position:fixed;inset:0;display:grid;place-items:center}
+#canvas{
+  position:relative;width:1920px;height:1080px;background:var(--white);
+  transform-origin:center center;overflow:hidden;
+}
+
+/* ---------- slides ---------- */
+.slide{
+  position:absolute;inset:0;opacity:0;pointer-events:none;
+  transition:opacity .32s ease;
+}
+.slide.on{opacity:1;pointer-events:auto}
+.slide > div{height:100%}
+.slide.dark{background:var(--blue-dark);color:var(--white)}
+
+/* ---------- capa del mapa (UN solo componente) ---------- */
+#mapLayer{
+  position:absolute;top:26px;left:60px;width:1800px;height:440px;
+  opacity:0;pointer-events:none;z-index:5;
+  transition:opacity .32s ease, transform .55s cubic-bezier(.65,.02,.25,1);
+  transform:translateY(0) scale(1);
+  transform-origin:center center;
+}
+#mapLayer.on{opacity:1}
+#mapLayer.hero{transform:translateY(224px) scale(1.04)}
+#mapSvg{position:absolute;inset:0;width:1800px;height:440px;overflow:visible}
+
+/* estados de estación */
+.st .disc{fill:var(--white);stroke:var(--locked);stroke-width:3;transition:stroke .45s ease}
+.st .ico{color:var(--locked);transition:color .45s ease}
+.st .num{font-family:var(--disp);font-weight:900;font-size:31px;fill:var(--locked);text-anchor:middle;transition:fill .45s ease}
+.st .lab{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:.05em;fill:var(--locked);text-anchor:middle;text-transform:uppercase;transition:fill .45s ease}
+.st .halo{fill:none;stroke:var(--orange);stroke-width:3.5;opacity:0;transform:scale(.72);transform-origin:center;transition:opacity .4s ease,transform .4s cubic-bezier(.34,1.4,.64,1)}
+.st .chk{opacity:0;transition:opacity .35s ease .12s}
+.st .chk circle{fill:var(--green)}
+.st .chk path{stroke:var(--white);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+.st.done .disc{stroke:var(--blue)}
+.st.done .ico{color:var(--blue)}
+.st.done .num{fill:var(--blue)}
+.st.done .lab{fill:var(--blue)}
+.st.done .chk{opacity:1}
+
+.st.current .disc{stroke:var(--blue);stroke-width:3.5}
+.st.current .ico{color:var(--blue)}
+.st.current .num{fill:var(--orange)}
+.st.current .lab{fill:var(--blue)}
+.st.current .halo{opacity:1;transform:scale(1)}
+
+/* trazado */
+#pathBase{fill:none;stroke:var(--locked);stroke-width:5;stroke-linecap:round;stroke-dasharray:2 16}
+#pathDone{fill:none;stroke:var(--orange);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .62s cubic-bezier(.65,.02,.25,1)}
+
+/* marcador Mini Nico */
+#marker{
+  position:absolute;left:0;top:0;width:112px;height:138px;
+  transition:transform .55s cubic-bezier(.55,.06,.28,1);
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  pointer-events:none;
+}
+#marker img{max-width:112px;max-height:126px;object-fit:contain;display:none}
+#marker.has-img .mn-fallback{display:none}
+#marker.has-img img{display:block}
+.mn-fallback{display:flex;flex-direction:column;align-items:center}
+.mn-pin{
+  width:86px;height:86px;border-radius:50%;background:var(--orange);
+  display:grid;place-items:center;color:var(--white);
+  font-family:var(--disp);font-weight:900;font-size:30px;letter-spacing:.02em;
+  box-shadow:0 14px 30px rgba(255,102,2,.32);
+}
+.mn-tip{width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-top:16px solid var(--orange);margin-top:-2px}
+
+/* ---------- portada ---------- */
+.cover{padding:150px 130px;display:flex;flex-direction:column;justify-content:center}
+.brandbar{display:flex;align-items:center;gap:18px;margin-bottom:64px}
+.brandbar .rule{width:96px;height:5px;background:var(--orange)}
+.kicker{font-family:var(--mono);font-size:22px;letter-spacing:.3em;text-transform:uppercase;color:var(--blue)}
+.cover h1{font-family:var(--disp);font-weight:900;font-size:132px;line-height:.98;color:var(--blue);letter-spacing:-.025em;text-wrap:balance}
+.cover h1 em{font-style:normal;color:var(--orange)}
+.cover .sub{font-size:40px;color:var(--blue);opacity:.72;margin-top:44px;font-weight:600}
+.cover .hint{position:absolute;left:130px;bottom:96px;font-family:var(--mono);font-size:20px;letter-spacing:.16em;color:var(--blue);opacity:.42;text-transform:uppercase}
+
+/* ---------- slide hero del mapa (intro / cierre) ---------- */
+.hero-slide{padding:112px 130px;display:flex;flex-direction:column;justify-content:space-between}
+.hero-slide h2{font-family:var(--disp);font-weight:900;font-size:76px;line-height:1.02;color:var(--blue);letter-spacing:-.02em;max-width:1300px;text-wrap:balance}
+.hero-slide h2 em{font-style:normal;color:var(--orange)}
+.hero-foot{font-size:34px;color:var(--blue);opacity:.7;font-weight:600;max-width:1150px}
+
+/* ---------- slides de nodo ---------- */
+.node-slide{padding:486px 90px 58px;display:grid;grid-template-columns:1fr 880px;gap:76px;align-items:center}
+.step-label{font-family:var(--mono);font-size:23px;letter-spacing:.26em;text-transform:uppercase;color:var(--orange);margin-bottom:28px}
+.step-label span{color:var(--blue);opacity:.45}
+.node-slide h2{font-family:var(--disp);font-weight:800;font-size:62px;line-height:1.06;color:var(--blue);letter-spacing:-.02em;text-wrap:balance}
+.node-copy{font-size:33px;line-height:1.45;color:var(--blue);opacity:.82;margin-top:30px;max-width:840px;text-wrap:pretty}
+.node-note{margin-top:40px;padding-top:28px;border-top:2px solid var(--blue-light);font-family:var(--mono);font-size:20px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);opacity:.5}
+
+/* marco de asset */
+.frames{display:flex;gap:26px;height:520px}
+.frame{flex:1;border:2px dashed var(--locked);border-radius:12px;display:grid;place-items:center;background:#fbfcfd;overflow:hidden;position:relative}
+.frame.real{border:2px solid var(--blue-light);background:var(--white);box-shadow:0 30px 70px rgba(12,52,82,.10)}
+.frame img{width:100%;height:100%;object-fit:contain;display:none}
+.frame.loaded img{display:block}
+.frame.loaded .ph{display:none}
+.ph{text-align:center;padding:24px}
+.ph .ph-t{font-family:var(--mono);font-size:19px;letter-spacing:.1em;color:var(--blue);opacity:.55;word-break:break-word}
+.ph .ph-s{font-family:var(--mono);font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:var(--locked);margin-bottom:14px}
+
+/* ---------- mock de WhatsApp (render nativo, sin screenshot) ---------- */
+.wa{width:100%;height:100%;background:var(--blue-light);display:flex;flex-direction:column;border-radius:10px;overflow:hidden}
+.wa-top{background:var(--blue);color:var(--white);display:flex;align-items:center;gap:14px;padding:16px 18px;flex:none}
+.wa-av{width:46px;height:46px;border-radius:50%;background:var(--orange);display:grid;place-items:center;font-family:var(--disp);font-weight:900;font-size:16px;color:var(--white);flex:none}
+.wa-who{font-family:var(--disp);font-weight:700;font-size:19px;line-height:1.2}
+.wa-st{font-size:14px;opacity:.65;font-weight:400}
+.wa-body{flex:1;min-height:0;padding:18px 16px;display:flex;flex-direction:column;gap:11px;justify-content:flex-end;overflow:hidden}
+.wa-b{max-width:90%;background:var(--white);border-radius:4px 12px 12px 12px;padding:12px 15px 8px;font-size:18px;line-height:1.38;color:#111b21;box-shadow:0 1px 2px rgba(6,29,48,.14)}
+.wa-b strong{font-weight:700}
+.wa-time{display:block;text-align:right;font-size:13px;color:#667781;margin-top:5px}
+.wa-link{padding:0;overflow:hidden}
+.wa-prev{background:#f2f6f8;border-bottom:1px solid #e2e9ee;padding:12px 14px}
+.wa-prev-t{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--blue)}
+.wa-prev-d{font-size:14px;color:#667781;margin-top:3px}
+.wa-url{padding:10px 15px 8px;font-size:17px;color:#0a7cba;word-break:break-all;line-height:1.35}
+.wa-in{flex:none;background:var(--white);margin:0 12px 12px;border-radius:100px;padding:11px 20px;font-size:16px;color:#8696a0}
+
+/* ---------- puertas (nodo 8) ---------- */
+.doors{display:grid;grid-template-columns:1.35fr 1fr;gap:26px;height:520px}
+.door{border:3px solid var(--locked);border-radius:12px;padding:34px 30px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color .4s ease,background .4s ease,transform .4s ease}
+.door .d-lab{font-family:var(--mono);font-size:18px;letter-spacing:.2em;text-transform:uppercase;color:var(--locked);transition:color .4s ease}
+.door h3{font-family:var(--disp);font-weight:800;font-size:38px;line-height:1.1;color:var(--locked);margin-top:14px;transition:color .4s ease}
+.door p{font-size:23px;line-height:1.4;color:var(--locked);margin-top:14px;transition:color .4s ease}
+.door svg{color:var(--locked);transition:color .4s ease}
+.door.lit{border-color:var(--blue)}
+.door.lit .d-lab{color:var(--orange)}
+.door.lit h3,.door.lit p{color:var(--blue)}
+.door.lit svg{color:var(--blue)}
+.door.lit.small{border-color:var(--orange)}
+
+/* ---------- calificador ---------- */
+.qual{padding:104px 110px 90px;display:flex;flex-direction:column}
+.qual .kicker{color:var(--white);opacity:.55}
+.qual .brandbar{margin-bottom:52px}
+.qual h2{font-family:var(--disp);font-weight:900;font-size:66px;color:var(--white);letter-spacing:-.02em;margin-bottom:56px}
+.qcols{display:grid;grid-template-columns:1fr 1fr;gap:96px;flex:1;align-items:center}
+.qcol h3{font-family:var(--disp);font-weight:800;font-size:40px;margin-bottom:34px;line-height:1.15}
+.qcol.yes h3{color:var(--white)}
+.qcol.no h3{color:var(--orange)}
+.qcol.yes p{font-size:31px;line-height:1.5;color:var(--white);opacity:.9;text-wrap:pretty}
+.qlist{list-style:none;display:flex;flex-direction:column;gap:30px}
+.qlist li{display:flex;gap:20px;font-size:27px;line-height:1.42;color:var(--white);opacity:.92;text-wrap:pretty}
+.qlist .x{color:var(--orange);font-family:var(--disp);font-weight:900;font-size:27px;flex:none;line-height:1.42}
+.qlist strong{color:var(--orange);font-weight:700}
+.qdiv{width:2px;background:rgba(255,255,255,.14);position:absolute;left:50%;top:280px;bottom:110px}
+
+/* ---------- CTA ---------- */
+.cta{padding:118px 120px;display:grid;grid-template-columns:1fr 620px;gap:90px;align-items:center}
+.cta h2{font-family:var(--disp);font-weight:900;font-size:82px;line-height:1.03;color:var(--blue);letter-spacing:-.025em;text-wrap:balance}
+.cta h2 em{font-style:normal;color:var(--orange)}
+.cta p{font-size:34px;line-height:1.45;color:var(--blue);opacity:.8;margin-top:38px;max-width:760px;text-wrap:pretty}
+.cta .steps{display:flex;gap:14px;margin-top:52px;flex-wrap:wrap}
+.cta .steps span{font-family:var(--mono);font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);border:2px solid var(--blue-light);border-radius:100px;padding:12px 22px}
+.qrbox{width:620px;height:620px;border:3px solid var(--orange);border-radius:14px;display:grid;place-items:center;background:var(--white);box-shadow:0 40px 90px rgba(255,102,2,.16)}
+.qrbox .frame{border:none;background:transparent;width:100%;height:100%}
+
+/* ---------- contador ---------- */
+#counter{position:absolute;right:44px;bottom:34px;font-family:var(--mono);font-size:22px;letter-spacing:.18em;color:var(--blue);opacity:.4;z-index:20}
+.slide.dark ~ #counter{color:var(--white)}
+#counter.light{color:var(--white);opacity:.45}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="canvas">
+
+    <!-- ============ CAPA DEL MAPA — un solo componente, persiste entre slides ============ -->
+    <div id="mapLayer">
+      <svg id="mapSvg" viewBox="0 -150 1800 440" xmlns="http://www.w3.org/2000/svg">
+        <path id="pathBase"></path>
+        <path id="pathDone"></path>
+        <g id="stations"></g>
+      </svg>
+      <!-- REEMPLAZAR: recorte PNG transparente de Mini Nico (assets/mini-nico-marker.png) -->
+      <div id="marker">
+        <img id="mini-nico" src="assets/mini-nico-marker.png" alt="">
+        <div class="mn-fallback"><div class="mn-pin">MN</div><div class="mn-tip"></div></div>
+      </div>
+    </div>
+
+    <div id="slides"></div>
+    <div id="counter">01 / 12</div>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   1 · CONTENIDO EDITABLE — Nico toca solo esto
+   ========================================================================= */
+const STATIONS = [
+  { n:1, label:"Estás acá",         title:"Estás acá: la clase",            copy:"Este momento. Lo que estás viviendo ahora.",                                            asset:null,                               asset2:null, icon:"laptop-play" },
+  { n:2, label:"Tu 1%",             title:"Tu 1%: el link del chat",        copy:"Tu único trabajo hoy: hacer clic. Lo demás pasa solo.",                                 asset:"assets/SCREENSHOT-qr.png",         asset2:null, icon:"qr" },
+  { n:3, label:"Unas preguntas",    title:"Unas preguntas (90 seg)",        copy:"Respondés unas preguntas y elegís tu horario.",                                         asset:"assets/SCREENSHOT-formulario.png", asset2:null, icon:"form" },
+  { n:4, label:"Página de gracias", title:"Material de preparación",        copy:"Ya empezás a prepararte antes de la llamada.",                                          asset:"assets/SCREENSHOT-pagina-gracias.png", asset2:null, icon:"check-gift" },
+  { n:5, label:"WhatsApp",          title:"Confirmación por WhatsApp",      copy:"Tu asesor te escribe. Recibís tu autodiagnóstico.",                                     asset:"WHATSAPP_MOCK",                    asset2:"assets/SCREENSHOT-autodiagnostico.png", icon:"chat" },
+  { n:6, label:"Recursos",          title:"Se desbloquean los recursos",    copy:"Herramientas que son tuyas, entres o no al programa.",                                  asset:"assets/SCREENSHOT-habit-tracker.png", asset2:null, icon:"toolbox" },
+  { n:7, label:"La llamada",        title:"La llamada: analizamos tu caso", copy:"Una sesión para ver tu caso en profundidad.",                                           asset:"assets/mini-nico-videollamada.png", asset2:null, icon:"videocall" },
+  { n:8, label:"El acceso",         title:"La puerta",                      copy:"Si es para vos, entrás al sistema completo. Si no, te quedás con los recursos igual.",  asset:"DOORS",                            asset2:null, icon:"double-door" }
+];
+
+/* geometría: separada del contenido (x,y de cada estación sobre el sendero) */
+const GEO = [
+  {x:110,  y:165},
+  {x:336,  y:175},
+  {x:561,  y:145},
+  {x:787,  y:105},
+  {x:1013, y:120},
+  {x:1238, y:85},
+  {x:1464, y:60},
+  {x:1690, y:40}
+];
+
+/* =========================================================================
+   2 · ÍCONOS (línea simple, grilla 48×48)
+   ========================================================================= */
+const ICONS = {
+  "laptop-play":'<rect x="7" y="10" width="34" height="23" rx="2.5"/><path d="M3 38h42"/><path d="M20 17.5v8l8-4z" stroke-linejoin="round"/>',
+  "qr":'<rect x="7" y="7" width="13" height="13" rx="1.5"/><rect x="28" y="7" width="13" height="13" rx="1.5"/><rect x="7" y="28" width="13" height="13" rx="1.5"/><path d="M28 28h5v5h-5zM36 28h5M28 36h5M36 33v8"/>',
+  "form":'<rect x="10" y="6" width="28" height="36" rx="2.5"/><rect x="15" y="14" width="6" height="6" rx="1"/><rect x="15" y="26" width="6" height="6" rx="1"/><path d="M25 17h9M25 29h9"/>',
+  "check-gift":'<rect x="8" y="18" width="32" height="22" rx="2.5"/><path d="M8 25h32M24 18v22"/><path d="M17 18c-4 0-6-2-6-4.5S13 9 15.5 9c3.5 0 6.5 4.5 8.5 9M31 18c4 0 6-2 6-4.5S35 9 32.5 9C29 9 26 13.5 24 18"/>',
+  "chat":'<path d="M9 10h30a2 2 0 012 2v18a2 2 0 01-2 2H21l-9 8v-8h-3a2 2 0 01-2-2V12a2 2 0 012-2z" stroke-linejoin="round"/><path d="M17 21h.01M24 21h.01M31 21h.01" stroke-width="4" stroke-linecap="round"/>',
+  "toolbox":'<path d="M7 22l6-8h22l6 8" stroke-linejoin="round"/><path d="M7 22v18a2 2 0 002 2h30a2 2 0 002-2V22" stroke-linejoin="round"/><path d="M18 14V9h12v5"/><path d="M15 36v-6M24 36v-11M33 36v-8" stroke-linecap="round"/>',
+  "videocall":'<rect x="6" y="10" width="36" height="24" rx="2.5"/><path d="M2 39h44"/><circle cx="18" cy="19" r="4"/><circle cx="30" cy="19" r="4"/><path d="M12 28c1.5-3 10.5-3 12 0M24 28c1.5-3 10.5-3 12 0"/>',
+  "double-door":'<rect x="10" y="8" width="26" height="34" rx="1.5"/><path d="M23 8v34"/><path d="M19.5 26h.01M26.5 26h.01" stroke-width="4" stroke-linecap="round"/><rect x="38" y="24" width="8" height="18" rx="1"/><path d="M40.5 34h.01" stroke-width="3" stroke-linecap="round"/>'
+};
+
+/* =========================================================================
+   3 · SLIDES
+   ========================================================================= */
+const SLIDES = [
+  {type:'cover'},
+  {type:'intro',  station:1},
+  {type:'node',   station:2},
+  {type:'node',   station:3},
+  {type:'node',   station:4},
+  {type:'node',   station:5},
+  {type:'node',   station:6},
+  {type:'node',   station:7},
+  {type:'node',   station:8, beats:2},
+  {type:'qualify'},
+  {type:'cta'},
+  {type:'close',  station:8, allDone:true}
+];
+
+/* =========================================================================
+   4 · CONSTRUCCIÓN DEL MAPA
+   ========================================================================= */
+const NS='http://www.w3.org/2000/svg';
+const pathBase=document.getElementById('pathBase');
+const pathDone=document.getElementById('pathDone');
+const stationsG=document.getElementById('stations');
+const marker=document.getElementById('marker');
+const mapLayer=document.getElementById('mapLayer');
+
+function smoothPath(pts,tension){
+  let d=`M ${pts[0].x} ${pts[0].y}`;
+  for(let i=0;i<pts.length-1;i++){
+    const p0=pts[i-1]||pts[i], p1=pts[i], p2=pts[i+1], p3=pts[i+2]||pts[i+1];
+    const c1x=p1.x+(p2.x-p0.x)/6*tension, c1y=p1.y+(p2.y-p0.y)/6*tension;
+    const c2x=p2.x-(p3.x-p1.x)/6*tension, c2y=p2.y-(p3.y-p1.y)/6*tension;
+    d+=` C ${c1x.toFixed(1)} ${c1y.toFixed(1)}, ${c2x.toFixed(1)} ${c2y.toFixed(1)}, ${p2.x} ${p2.y}`;
+  }
+  return d;
+}
+const D=smoothPath(GEO,1);
+pathBase.setAttribute('d',D);
+pathDone.setAttribute('d',D);
+
+/* largo del camino hasta cada estación (muestreo sobre el path real) */
+const TOTAL=pathDone.getTotalLength();
+const STOP_LEN=GEO.map(g=>{
+  let best=0,bd=Infinity;
+  for(let l=0;l<=TOTAL;l+=2){
+    const p=pathDone.getPointAtLength(l);
+    const dd=(p.x-g.x)**2+(p.y-g.y)**2;
+    if(dd<bd){bd=dd;best=l}
+  }
+  return best;
+});
+pathDone.style.strokeDasharray=TOTAL+' '+TOTAL;
+pathDone.style.strokeDashoffset=TOTAL;
+
+/* nodos */
+STATIONS.forEach((s,i)=>{
+  const g=document.createElementNS(NS,'g');
+  g.setAttribute('class','st');
+  g.setAttribute('transform',`translate(${GEO[i].x},${GEO[i].y})`);
+  g.innerHTML=
+    `<circle class="halo" r="46"></circle>`+
+    `<circle class="disc" r="33"></circle>`+
+    `<g class="ico" transform="translate(-16,-16) scale(0.6667)" fill="none" stroke="currentColor" stroke-width="2.8">${ICONS[s.icon]}</g>`+
+    `<g class="chk" transform="translate(25,-25)"><circle r="12"></circle><path d="M-5 0l3.5 3.5L5.5 -4"></path></g>`+
+    `<text class="num" y="68">${String(s.n).padStart(2,'0')}</text>`+
+    `<text class="lab" y="100">${s.label}</text>`;
+  stationsG.appendChild(g);
+});
+const stEls=[...stationsG.querySelectorAll('.st')];
+
+/* Mini Nico: si el PNG existe, reemplaza al placeholder */
+const mnImg=document.getElementById('mini-nico');
+mnImg.addEventListener('load',()=>marker.classList.add('has-img'));
+mnImg.addEventListener('error',()=>marker.classList.remove('has-img'));
+
+let currentStation=1, allDone=false;
+
+function renderMap(){
+  stEls.forEach((el,i)=>{
+    const n=i+1;
+    el.classList.remove('locked','done','current');
+    if(allDone){ el.classList.add('done'); if(n===8) el.classList.add('current'); }
+    else if(n<currentStation) el.classList.add('done');
+    else if(n===currentStation) el.classList.add('current');
+    else el.classList.add('locked');
+  });
+  const len=allDone?TOTAL:STOP_LEN[currentStation-1];
+  pathDone.style.strokeDashoffset=TOTAL-len;
+
+  const g=GEO[currentStation-1];
+  const x=allDone?g.x+38:g.x;
+  const y=allDone?g.y-16:g.y;
+  marker.style.transform=`translate(${(x-56).toFixed(1)}px, ${(y+150-50-138).toFixed(1)}px)`;
+}
+
+/* =========================================================================
+   5 · CONSTRUCCIÓN DE LOS SLIDES
+   ========================================================================= */
+const slidesEl=document.getElementById('slides');
+
+function frameHTML(src,alt){
+  return `<div class="frame" data-src="${src}">
+      <img src="${src}" alt="">
+      <div class="ph"><div class="ph-s">Falta este asset</div><div class="ph-t">${src.replace('assets/','')}</div></div>
+    </div>`;
+}
+function whatsappHTML(){
+  return `<div class="frame real" style="flex:0 0 448px;padding:0;align-items:stretch">
+    <div class="wa">
+      <div class="wa-top">
+        <div class="wa-av">IP</div>
+        <div><div class="wa-who">Asesor · Instituto de Productividad</div><div class="wa-st">en línea</div></div>
+      </div>
+      <div class="wa-body">
+        <div class="wa-b">¡Felicitaciones! Recibimos tu solicitud.<span class="wa-time">14:32</span></div>
+        <div class="wa-b">Tu próximo paso: realizá este autodiagnóstico para desbloquear tus recursos y herramientas.<span class="wa-time">14:32</span></div>
+        <div class="wa-b wa-link">
+          <div class="wa-prev">
+            <div class="wa-prev-t">Autodiagnóstico de Alto Rendimiento</div>
+            <div class="wa-prev-d">Instituto de Productividad · 3 minutos</div>
+          </div>
+          <div class="wa-url">https://test-presesion.netlify.app/<span class="wa-time">14:32</span></div>
+        </div>
+      </div>
+      <div class="wa-in">Escribí un mensaje</div>
+    </div>
+  </div>`;
+}
+function doorsHTML(){
+  const big=`<div class="door big" data-door="big">
+      <div>
+        <div class="d-lab">Si es para vos</div>
+        <h3>La puerta grande</h3>
+        <p>Entrás al sistema completo, con equipo y acompañamiento.</p>
+      </div>
+      <svg width="120" height="120" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="8" y="5" width="32" height="38" rx="1.5"/><path d="M24 5v38"/><path d="M19.5 26h.01M28.5 26h.01" stroke-width="4" stroke-linecap="round"/></svg>
+    </div>`;
+  const small=`<div class="door small" data-door="small">
+      <div>
+        <div class="d-lab">Y si no</div>
+        <h3>Te quedás con los recursos igual</h3>
+        <p>Las herramientas ya son tuyas. No perdiste nada.</p>
+      </div>
+      <svg width="76" height="76" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="14" y="12" width="20" height="31" rx="1.5"/><path d="M28 28h.01" stroke-width="4" stroke-linecap="round"/></svg>
+    </div>`;
+  return `<div class="doors">${big}${small}</div>`;
+}
+
+function buildNodeSlide(s){
+  let right='';
+  if(s.asset==='WHATSAPP_MOCK'){
+    right=`<div class="frames">${whatsappHTML()}${frameHTML(s.asset2)}</div>`;
+  }else if(s.asset==='DOORS'){
+    right=doorsHTML();
+  }else if(s.asset){
+    right=`<div class="frames">${frameHTML(s.asset)}</div>`;
+  }else{
+    right='';
+  }
+  return `<div class="node-slide">
+    <div>
+      <div class="step-label">Paso ${String(s.n).padStart(2,'0')} <span>/ 08</span></div>
+      <h2>${s.title}</h2>
+      <p class="node-copy">${s.copy}</p>
+    </div>
+    <div>${right}</div>
+  </div>`;
+}
+
+const TPL={
+  cover:()=>`<div class="cover">
+      <div class="brandbar"><div class="rule"></div><div class="kicker">Instituto de Productividad · NFM</div></div>
+      <h1>Escalá tu vida,<br>no tu <em>cansancio</em>.</h1>
+      <div class="sub">El camino que empieza hoy.</div>
+      <div class="hint">→ avanzar · ← volver · F pantalla completa</div>
+    </div>`,
+  intro:()=>`<div class="hero-slide">
+      <h2>Este es el camino.<br>Ocho pasos. Mirá <em>lo simple que es</em>.</h2>
+      <div class="hero-foot">No te pido que hagas todo hoy. Te pido el primer paso. Todo lo demás pasa solo.</div>
+    </div>`,
+  close:()=>`<div class="hero-slide">
+      <h2>Del otro lado<br>del camino.</h2>
+      <div class="hero-foot">En febrero, este papel es evidencia de lo que cambió.</div>
+    </div>`,
+  qualify:()=>`<div class="qual">
+      <div class="brandbar"><div class="rule"></div><div class="kicker">Antes de agendar</div></div>
+      <h2>Leé esto antes de escanear.</h2>
+      <div class="qcols">
+        <div class="qcol yes">
+          <h3>Esto es para vos si…</h3>
+          <p>Ya tenés algo andando. Un negocio, una carrera, un estudio, un equipo. Algo que construiste con esfuerzo y que hoy depende demasiado de vos. Llegaste lejos a fuerza de horas y sentís que de acá no pasás sin cambiar la estructura.</p>
+        </div>
+        <div class="qcol no">
+          <h3>No agendes si…</h3>
+          <ul class="qlist">
+            <li><span class="x">✗</span><span>Buscás un <strong>cursito barato de 200 dólares</strong>. No somos eso: es una mentoría con un equipo de profesionales y requiere una inversión seria de tiempo y de dinero.</span></li>
+            <li><span class="x">✗</span><span>Necesitás que <strong>un tercero te preste la plata</strong>, o tu tarjeta está al límite. No queremos hacerte perder el tiempo ni ocupar el lugar de alguien que sí está listo.</span></li>
+            <li><span class="x">✗</span><span>Venís <strong>"a ver de qué se trata"</strong>. La entrevista es para analizar tu caso y decidir, no para pedir información.</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="qdiv"></div>
+    </div>`,
+  cta:()=>`<div class="cta">
+      <div>
+        <div class="brandbar"><div class="rule"></div><div class="kicker">Tu 1%</div></div>
+        <h2>No te pido que hagas todo hoy.<br>Te pido <em>tu 1%</em>.</h2>
+        <p>Escaneás el QR, respondés unas preguntas, elegís horario. Todo lo demás del camino que te mostré pasa solo.</p>
+        <div class="steps"><span>01 · Escaneás</span><span>02 · Respondés</span><span>03 · Elegís horario</span></div>
+      </div>
+      <div class="qrbox">${frameHTML('assets/SCREENSHOT-qr.png')}</div>
+    </div>`
+};
+
+const slideEls=SLIDES.map(def=>{
+  const el=document.createElement('div');
+  el.className='slide'+(def.type==='qualify'?' dark':'');
+  if(def.type==='node') el.innerHTML=buildNodeSlide(STATIONS[def.station-1]);
+  else el.innerHTML=TPL[def.type]();
+  slidesEl.appendChild(el);
+  return el;
+});
+
+/* placeholders: si la imagen existe, se muestra; si no, queda el recuadro punteado */
+document.querySelectorAll('.frame img').forEach(img=>{
+  img.addEventListener('load',()=>{img.closest('.frame').classList.add('loaded','real')});
+});
+
+/* =========================================================================
+   6 · NAVEGACIÓN
+   ========================================================================= */
+const counter=document.getElementById('counter');
+let idx=0, beat=0;
+
+function beatsOf(i){return SLIDES[i].beats||1}
+
+function render(){
+  const def=SLIDES[idx];
+  slideEls.forEach((el,i)=>el.classList.toggle('on',i===idx));
+
+  const usesMap=['intro','node','close'].includes(def.type);
+  mapLayer.classList.toggle('on',usesMap);
+  mapLayer.classList.toggle('hero',def.type==='intro'||def.type==='close');
+
+  if(def.station){ currentStation=def.station; allDone=!!def.allDone; renderMap(); }
+
+  /* beats del nodo 8: primero la puerta grande, después la chica */
+  const doors=slideEls[idx].querySelectorAll('.door');
+  if(doors.length){
+    doors.forEach(d=>d.classList.remove('lit'));
+    doors[0].classList.add('lit');
+    if(beat>=1) doors[1].classList.add('lit');
+  }
+
+  counter.textContent=String(idx+1).padStart(2,'0')+' / '+String(SLIDES.length).padStart(2,'0');
+  counter.classList.toggle('light',def.type==='qualify');
+  try{localStorage.setItem('nfm_1pct_slide',JSON.stringify({idx,beat}))}catch(e){}
+}
+function next(){
+  if(beat<beatsOf(idx)-1){beat++;render();return}
+  if(idx<SLIDES.length-1){idx++;beat=0;render()}
+}
+function prev(){
+  if(beat>0){beat--;render();return}
+  if(idx>0){idx--;beat=beatsOf(idx)-1;render()}
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next()}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev()}
+  else if(e.key==='f'||e.key==='F'){
+    if(document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen();
+  }
+  else if(e.key==='Home'){idx=0;beat=0;render()}
+});
+document.addEventListener('click',e=>{ if(!e.target.closest('a')) next() });
+
+/* escalado a 1920×1080 */
+function fit(){
+  const s=Math.min(innerWidth/1920,innerHeight/1080);
+  document.getElementById('canvas').style.transform='scale('+s+')';
+}
+addEventListener('resize',fit);
+
+/* cursor que se esconde */
+let ct;
+function pokeCursor(){
+  document.body.classList.remove('hide-cursor');
+  clearTimeout(ct);
+  ct=setTimeout(()=>document.body.classList.add('hide-cursor'),3000);
+}
+addEventListener('mousemove',pokeCursor);
+
+/* arranque */
+try{
+  const saved=JSON.parse(localStorage.getItem('nfm_1pct_slide')||'null');
+  if(saved&&typeof saved.idx==='number'&&saved.idx<SLIDES.length){idx=saved.idx;beat=Math.min(saved.beat||0,beatsOf(idx)-1)}
+}catch(e){}
+fit();render();pokeCursor();
+</script>
+</body>
+</html>

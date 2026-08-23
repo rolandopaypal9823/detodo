@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<title>WhatsApp · Confirmación — Instituto de Productividad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#0c3452;--blue-dark:#061d30;--blue-light:#e7edf2;
+  --orange:#ff6602;--white:#ffffff;--green:#25d366;
+  --mono:'JetBrains Mono',monospace;--sans:'Open Sans',sans-serif;--disp:'Montserrat',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1080px;height:1350px;background:var(--white);font-family:var(--sans);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:64px 70px 70px;position:relative;-webkit-font-smoothing:antialiased}
+.head{display:flex;align-items:center;gap:16px;position:absolute;top:64px;left:70px}
+.head .rule{width:64px;height:4px;background:var(--orange)}
+.head .k{font-family:var(--mono);font-size:17px;letter-spacing:.28em;text-transform:uppercase;color:var(--blue)}
+.phone{width:640px;height:880px;border:12px solid var(--blue);border-radius:44px;overflow:hidden;display:flex;flex-direction:column;background:var(--blue-light);box-shadow:0 40px 90px rgba(12,52,82,.16)}
+.wa-top{background:var(--blue);color:var(--white);display:flex;align-items:center;gap:16px;padding:20px 22px 22px;flex:none}
+.wa-av{width:56px;height:56px;border-radius:50%;background:var(--orange);display:grid;place-items:center;font-family:var(--disp);font-weight:900;font-size:19px;color:var(--white);flex:none}
+.wa-who{font-family:var(--disp);font-weight:700;font-size:23px;line-height:1.2}
+.wa-st{font-size:16px;opacity:.65}
+.wa-body{flex:1;min-height:0;padding:26px 22px;display:flex;flex-direction:column;gap:14px;justify-content:flex-end;overflow:hidden}
+.day{align-self:center;order:-1;background:rgba(12,52,82,.08);color:var(--blue);font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);padding:7px 16px;border-radius:100px;margin-bottom:6px}
+.wa-b{max-width:90%;background:var(--white);border-radius:5px 16px 16px 16px;padding:16px 19px 11px;font-size:22px;line-height:1.42;color:#111b21;box-shadow:0 1px 2px rgba(6,29,48,.14)}
+.wa-time{display:block;text-align:right;font-size:14px;color:#667781;margin-top:6px}
+.wa-link{padding:0;overflow:hidden}
+.wa-prev{background:#f2f6f8;border-bottom:1px solid #e2e9ee;padding:16px 18px}
+.wa-prev-t{font-family:var(--disp);font-weight:700;font-size:19px;color:var(--blue);line-height:1.25}
+.wa-prev-d{font-size:16px;color:#667781;margin-top:4px}
+.wa-url{padding:14px 19px 10px;font-size:21px;color:#0a7cba;word-break:break-all;line-height:1.35}
+.wa-in{flex:none;background:var(--white);margin:0 16px 18px;border-radius:100px;padding:15px 24px;font-size:19px;color:#8696a0}
+.foot{margin-top:32px;font-family:var(--mono);font-size:16px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);opacity:.45}
+</style>
+</head>
+<body>
+  <div class="head"><div class="rule"></div><div class="k">Instituto de Productividad · NFM</div></div>
+  <div class="phone">
+    <div class="wa-top">
+      <div class="wa-av">IP</div>
+      <div><div class="wa-who">Asesor · Instituto de Productividad</div><div class="wa-st">en línea</div></div>
+    </div>
+    <div class="wa-body">
+      <div class="day">Hoy</div>
+      <div class="wa-b">¡Felicitaciones! Recibimos tu solicitud.<span class="wa-time">14:32</span></div>
+      <div class="wa-b">Tu próximo paso: realizá este autodiagnóstico para desbloquear tus recursos y herramientas.<span class="wa-time">14:32</span></div>
+      <div class="wa-b wa-link">
+        <div class="wa-prev">
+          <div class="wa-prev-t">Autodiagnóstico de Alto Rendimiento</div>
+          <div class="wa-prev-d">Instituto de Productividad · 3 minutos</div>
+        </div>
+        <div class="wa-url">https://test-presesion.netlify.app/<span class="wa-time">14:32</span></div>
+      </div>
+    </div>
+    <div class="wa-in">Escribí un mensaje</div>
+  </div>
+  <div class="foot">Paso 05 · Confirmación por WhatsApp</div>
+</body>
+</html>
