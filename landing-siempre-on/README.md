@@ -13,12 +13,12 @@ agregó, sacó ni movió ninguna sección. Lo que cambia es el copy, y que ahora
 
 ## 1. Decisión de los dos títulos
 
-### TEMA A · `Cumplís con todos menos con vos` (ya definido, arranca el 10 de agosto)
+### TEMA A · `Cumplís con todos menos con vos`
 
 Bajada: *La razón neurológica por la que tu cerebro ejecuta lo ajeno y archiva lo tuyo.*
 Es el título que ya está decidido en el MD (Parte 2) y no se toca.
 
-### TEMA B · `Escalá tu vida, no tu cansancio` (25 de agosto)
+### TEMA B · `Escalá tu vida, no tu cansancio`
 
 Bajada: *La razón neurológica por la que el que sostiene todo es el último en avanzar.*
 
@@ -44,26 +44,38 @@ la bajada y el quiz. El título se toca último.
 `La variable de ajuste sos vos` sigue donde el MD lo dejó: **creativos para dueños y gerentes, no como
 título**.
 
-Para septiembre (4 clases al mes) el par A/B alterna solo, semana a semana. Cuando quieras un tercer tema, se
+El par A/B alterna solo, clase a clase. Cuando quieras un tercer tema, se
 agrega un bloque `C` en `TEMAS` y se lo referencia en `CLASES`.
 
 ---
 
 ## 2. Las clases cargadas
 
-| Fecha | Día | Hora | Tema | Título en pantalla | UTM de campaña |
-|---|---|---|---|---|---|
-| 2026-08-10 | lunes | 19:00 ART | A | Cumplís con todos menos con vos | `clase-ago10-cumplis-con-todos` |
-| 2026-08-25 | martes | 19:00 ART | B | Escalá tu vida, no tu cansancio | `clase-ago25-escala-tu-vida` |
+### Septiembre 2026 — ritmo semanal, martes 19:00 ART
+
+| Fecha | Tema | Título en pantalla | UTM de campaña | Grupo de WhatsApp |
+|---|---|---|---|---|
+| mar 8 sep | A | Cumplís con todos menos con vos | `clase-sep08-cumplis-con-todos` | ✅ cargado |
+| mar 15 sep | B | Escalá tu vida, no tu cansancio | `clase-sep15-escala-tu-vida` | ⚠️ falta |
+| mar 22 sep | A | Cumplís con todos menos con vos | `clase-sep22-cumplis-con-todos` | ⚠️ falta |
+
+**Septiembre son sólo estas 3.** Después del 22 a las 19:00 se activa el modo semanal automático y la
+landing va a mostrar sola el **martes 29**, que no es una clase real. **Cargá octubre antes de esa hora.**
+Es el precio de que la URL nunca muestre una fecha vencida: si no hay nada cargado, inventa el martes
+siguiente.
 
 Para cambiarlas se toca **una sola línea** en `index.html`, bloque `CONFIG.CLASES`:
 
 ```js
 CLASES: [
-  { fecha:'2026-08-10', tema:'A', utm:'clase-ago10-cumplis-con-todos' },
-  { fecha:'2026-08-25', tema:'B', utm:'clase-ago25-escala-tu-vida'     }
+  { fecha:'2026-09-08', tema:'A', utm:'clase-sep08-cumplis-con-todos' },
+  { fecha:'2026-09-15', tema:'B', utm:'clase-sep15-escala-tu-vida'    },
+  { fecha:'2026-09-22', tema:'A', utm:'clase-sep22-cumplis-con-todos' }
 ],
 ```
+
+Los temas se repiten alternados: A, B, A, B. El copy de cada tema está una sola vez en `TEMAS` —
+no se duplica por clase.
 
 ---
 
@@ -191,16 +203,23 @@ necesita su propio grupo**. Por eso el link va cargado por clase:
 
 ```js
 CLASES: [
-  { fecha:'2026-08-10', tema:'A', utm:'...', wa:'https://go.wha.link/clase-10-08-neurociencia-aplicada' },
-  { fecha:'2026-08-25', tema:'B', utm:'...', wa:'' }    // ⚠️ falta cargar este
+  { fecha:'2026-09-08', tema:'A', utm:'...', wa:'https://go.wha.link/clase-8-de-septiembre-neurociencia' },
+  { fecha:'2026-09-15', tema:'B', utm:'...', wa:'' },   // ⚠️ falta
+  { fecha:'2026-09-22', tema:'A', utm:'...', wa:'' }    // ⚠️ falta
 ]
 ```
 
-**Falta el grupo de la clase del 25.** Mientras `wa` esté vacío, el botón manda al grupo del 10 (`WA_FALLBACK`)
-para que nunca quede un botón roto — pero eso significa que los leads del 25 caerían en el grupo del 10.
-**Cargalo antes del lunes 10 a las 19:00.** Para verificar: entrá a `thank-you.html?test-landing2` y mirá si
-la barra naranja de arriba dice *"⚠ falta cargar el grupo de WhatsApp de esta clase"*. Cuando lo cargues, ese
-aviso desaparece. También queda un warning en la consola del navegador.
+**Sólo está cargado el grupo del 8.** Mientras `wa` esté vacío, el botón cae en `GRUPO_FALLBACK` (que hoy es
+el grupo del 8) para que nunca quede roto — pero eso significa que los leads de esa clase entrarían al grupo
+equivocado y nunca recibirían el acceso. **Cargá cada uno antes de las 19:00 del martes anterior.**
+
+Para verificar: entrá a `thank-you.html?test-landing2` y mirá si la barra naranja dice *"⚠ falta cargar el
+grupo de WhatsApp de esta clase"*. Cuando lo cargues, el aviso desaparece. También queda un warning en la
+consola del navegador.
+
+> Se evaluó usar un link permanente con redirect (`nicolasfernandezmiranda.com/webinar-whatsapp`) para no
+> tener que cargar uno por semana. Se descartó: agrega un salto de WordPress entre el lead y el grupo, o sea
+> un punto de falla más justo en el paso más crítico del embudo.
 
 ### El caso borde que resuelve
 

@@ -493,7 +493,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
         </p>
 
         <p class="nfm-hero__date">
-          <span class="nfm-dot"></span> <span data-nfm-fecha="larga">Lunes 10 de agosto</span>
+          <span class="nfm-dot"></span> <span data-nfm-fecha="larga">Martes 8 de septiembre</span>
           <span class="nfm-dot"></span> <strong data-nfm-fecha="hora">19:00 hs (Argentina)</strong>
           <span class="nfm-dot"></span> En vivo por Zoom
         </p>
@@ -670,7 +670,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
   <div class="nfm-container">
     <div class="nfm-learn__head nfm-reveal">
       <span class="nfm-eyebrow">La clase</span>
-      <h2 data-nfm="learnTitulo">Lo que vas a descubrir el <span data-nfm-fecha="corta">10 de agosto</span></h2>
+      <h2 data-nfm="learnTitulo">Lo que vas a descubrir el <span data-nfm-fecha="corta">8 de septiembre</span></h2>
       <p data-nfm="learnSub">Una hora para entender el mecanismo que ninguna app ni ningún curso te explicó — y salir con tu primera palanca, no con más información para acumular.</p>
     </div>
 
@@ -804,7 +804,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
 <!-- ════════════════ CTA FINAL ════════════════ -->
 <section class="nfm-final">
   <div class="nfm-container nfm-mid">
-    <h2 class="nfm-reveal" data-nfm="finalTitulo">El <span data-nfm-fecha="corta">10 de agosto</span> dejás de ser <em>el último de tu propia lista.</em></h2>
+    <h2 class="nfm-reveal" data-nfm="finalTitulo">El <span data-nfm-fecha="corta">8 de septiembre</span> dejás de ser <em>el último de tu propia lista.</em></h2>
     <p class="nfm-reveal nfm-d1" data-nfm="finalSub">Una hora. Un mecanismo con nombre. Tu primera palanca esa misma noche. 100% gratuita y en vivo.</p>
     <div class="nfm-reveal nfm-d1">
       <button class="nfm-btn" data-scroll-to="nfm-registro">
@@ -813,7 +813,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
       </button>
     </div>
     <div class="nfm-reveal nfm-d2">
-      <p class="nfm-final__date"><span class="nfm-dot"></span> <span data-nfm-fecha="completa">Lunes 10 de agosto · 19:00 hs (Argentina) · En vivo por Zoom</span></p>
+      <p class="nfm-final__date"><span class="nfm-dot"></span> <span data-nfm-fecha="completa">Martes 8 de septiembre · 19:00 hs (Argentina) · En vivo por Zoom</span></p>
     </div>
   </div>
 </section>
@@ -861,8 +861,12 @@ var CONFIG = {
      fecha: 'AAAA-MM-DD'  ·  tema: 'A' o 'B'  ·  utm: nombre de campaña para etiquetar los leads
      (hora: siempre HORA_CLASE, definida más abajo) */
   CLASES: [
-    { fecha:'2026-08-10', tema:'A', utm:'clase-ago10-cumplis-con-todos' },   // lunes 10 de agosto
-    { fecha:'2026-08-25', tema:'B', utm:'clase-ago25-escala-tu-vida'     }    // martes 25 de agosto
+    { fecha:'2026-09-08', tema:'A', utm:'clase-sep08-cumplis-con-todos' },   // martes 8 de septiembre
+    { fecha:'2026-09-15', tema:'B', utm:'clase-sep15-escala-tu-vida'    },   // martes 15 de septiembre
+    { fecha:'2026-09-22', tema:'A', utm:'clase-sep22-cumplis-con-todos' }    // martes 22 de septiembre
+    /* ⚠️ Septiembre son SOLO estas 3. Después del 22 a las 19:00 se activa el modo
+       semanal automático y la landing va a mostrar el martes 29, que NO es una clase
+       real. Cargá octubre acá antes de esa hora. */
   ],
   /* Si cambiás este bloque, cambialo IGUAL en thank-you.html */
 
