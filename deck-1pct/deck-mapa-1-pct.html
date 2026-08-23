@@ -42,7 +42,7 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 
 /* ---------- capa del mapa (UN solo componente) ---------- */
 #mapLayer{
-  position:absolute;top:26px;left:60px;width:1800px;height:440px;
+  position:absolute;top:22px;left:60px;width:1800px;height:450px;
   opacity:0;pointer-events:none;z-index:5;
   transition:opacity .32s ease, transform .55s cubic-bezier(.65,.02,.25,1);
   transform:translateY(0) scale(1);
@@ -50,18 +50,20 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 }
 #mapLayer.on{opacity:1}
 #mapLayer.hero{transform:translateY(224px) scale(1.04)}
-#mapCam{position:absolute;inset:0;width:1800px;height:440px;transform-origin:0 0;
+#mapCam{position:absolute;inset:0;width:1800px;height:450px;transform-origin:0 0;
   transition:transform .62s cubic-bezier(.55,.06,.28,1)}
-#mapSvg{position:absolute;inset:0;width:1800px;height:440px;overflow:visible}
+#mapSvg{position:absolute;inset:0;width:1800px;height:450px;overflow:visible}
 
 /* estados de estación */
 .st{transition:opacity .5s ease}
 .st.hidden{opacity:0}
-.st .disc{fill:var(--white);stroke:var(--locked);stroke-width:3;transition:stroke .45s ease}
+.origin circle{fill:var(--blue)}
+.origin text{font-family:var(--mono);font-size:17px;letter-spacing:.18em;text-transform:uppercase;fill:var(--blue);text-anchor:middle;opacity:.6}
+.st .disc{fill:var(--white);stroke:var(--locked);stroke-width:4;transition:stroke .45s ease}
 .st .ico{color:var(--locked);transition:color .45s ease}
-.st .num{font-family:var(--disp);font-weight:900;font-size:31px;fill:var(--locked);text-anchor:middle;transition:fill .45s ease}
-.st .lab{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:.05em;fill:var(--locked);text-anchor:middle;text-transform:uppercase;transition:fill .45s ease}
-.st .halo{fill:none;stroke:var(--orange);stroke-width:3.5;opacity:0;transform:scale(.72);transform-origin:center;transition:opacity .4s ease,transform .4s cubic-bezier(.34,1.4,.64,1)}
+.st .num{font-family:var(--disp);font-weight:900;font-size:42px;fill:var(--locked);text-anchor:middle;transition:fill .45s ease}
+.st .lab{font-family:var(--disp);font-weight:700;font-size:25px;letter-spacing:.05em;fill:var(--locked);text-anchor:middle;text-transform:uppercase;transition:fill .45s ease}
+.st .halo{fill:none;stroke:var(--orange);stroke-width:4.5;opacity:0;transform:scale(.72);transform-origin:center;transition:opacity .4s ease,transform .4s cubic-bezier(.34,1.4,.64,1)}
 .st .chk{opacity:0;transition:opacity .35s ease .12s}
 .st .chk circle{fill:var(--green)}
 .st .chk path{stroke:var(--white);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
@@ -72,15 +74,15 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 .st.done .lab{fill:var(--blue)}
 .st.done .chk{opacity:1}
 
-.st.current .disc{stroke:var(--blue);stroke-width:3.5}
+.st.current .disc{stroke:var(--blue);stroke-width:4.5}
 .st.current .ico{color:var(--blue)}
 .st.current .num{fill:var(--orange)}
 .st.current .lab{fill:var(--blue)}
 .st.current .halo{opacity:1;transform:scale(1)}
 
 /* trazado */
-#pathBase{fill:none;stroke:var(--locked);stroke-width:5;stroke-linecap:round;stroke-dasharray:2 16}
-#pathDone{fill:none;stroke:var(--orange);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .62s cubic-bezier(.65,.02,.25,1)}
+#pathBase{fill:none;stroke:var(--locked);stroke-width:6;stroke-linecap:round;stroke-dasharray:2 18}
+#pathDone{fill:none;stroke:var(--orange);stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset .62s cubic-bezier(.65,.02,.25,1)}
 
 /* marcador Mini Nico */
 #marker{
@@ -118,15 +120,18 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 .hero-foot{font-size:34px;color:var(--blue);opacity:.7;font-weight:600;max-width:1150px}
 
 /* ---------- slides de nodo ---------- */
-.node-slide{padding:486px 90px 58px;display:grid;grid-template-columns:1fr 880px;gap:76px;align-items:center}
+.node-slide{padding:502px 90px 52px;display:grid;grid-template-columns:1fr 880px;gap:76px;align-items:center}
 .step-label{font-family:var(--mono);font-size:23px;letter-spacing:.26em;text-transform:uppercase;color:var(--orange);margin-bottom:28px}
 .step-label span{color:var(--blue);opacity:.45}
+.dots{display:inline-flex;gap:8px;margin-left:20px;vertical-align:middle}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--blue-light);display:block}
+.dots i.on{background:var(--orange)}
 .node-slide h2{font-family:var(--disp);font-weight:800;font-size:62px;line-height:1.06;color:var(--blue);letter-spacing:-.02em;text-wrap:balance}
 .node-copy{font-size:33px;line-height:1.45;color:var(--blue);opacity:.82;margin-top:30px;max-width:840px;text-wrap:pretty}
 .node-note{margin-top:40px;padding-top:28px;border-top:2px solid var(--blue-light);font-family:var(--mono);font-size:20px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);opacity:.5}
 
 /* marco de asset */
-.frames{display:flex;gap:26px;height:520px}
+.frames{display:flex;gap:26px;height:502px}
 .frame{flex:1;border:2px dashed var(--locked);border-radius:12px;display:grid;place-items:center;background:#fbfcfd;overflow:hidden;position:relative}
 .frame.real{border:2px solid var(--blue-light);background:var(--white);box-shadow:0 30px 70px rgba(12,52,82,.10)}
 .frame img{width:100%;height:100%;object-fit:contain;display:none}
@@ -154,7 +159,7 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 .wa-in{flex:none;background:var(--white);margin:0 12px 12px;border-radius:100px;padding:11px 20px;font-size:16px;color:#8696a0}
 
 /* ---------- puertas (nodo 8) ---------- */
-.doors{display:grid;grid-template-columns:1.35fr 1fr;gap:26px;height:520px}
+.doors{display:grid;grid-template-columns:1.35fr 1fr;gap:26px;height:502px}
 .door{border:3px solid var(--locked);border-radius:12px;padding:34px 30px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color .4s ease,background .4s ease,transform .4s ease}
 .door .d-lab{font-family:var(--mono);font-size:18px;letter-spacing:.2em;text-transform:uppercase;color:var(--locked);transition:color .4s ease}
 .door h3{font-family:var(--disp);font-weight:800;font-size:38px;line-height:1.1;color:var(--locked);margin-top:14px;transition:color .4s ease}
@@ -320,7 +325,7 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
     <!-- ============ CAPA DEL MAPA — un solo componente, persiste entre slides ============ -->
     <div id="mapLayer">
       <div id="mapCam">
-      <svg id="mapSvg" viewBox="0 -150 1800 440" xmlns="http://www.w3.org/2000/svg">
+      <svg id="mapSvg" viewBox="0 -170 1800 450" xmlns="http://www.w3.org/2000/svg">
         <path id="pathBase"></path>
         <path id="pathDone"></path>
         <g id="stations"></g>
@@ -342,27 +347,44 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 /* =========================================================================
    1 · CONTENIDO EDITABLE — Nico toca solo esto
    ========================================================================= */
+const ORIGEN = { label:"Estás acá" };
+
 const STATIONS = [
-  { n:1, label:"Estás acá",         title:"Estás acá: la clase",            copy:"Este momento. Lo que estás viviendo ahora.",                                            asset:null,                               asset2:null, icon:"laptop-play" },
-  { n:2, label:"Tu 1%",             title:"Tu 1%: el link del chat",        copy:"Tu único trabajo hoy: hacer clic. Lo demás pasa solo.",                                 asset:"assets/SCREENSHOT-qr.png",         asset2:null, icon:"qr" },
-  { n:3, label:"Unas preguntas",    title:"Unas preguntas (90 seg)",        copy:"Respondés unas preguntas y elegís tu horario.",                                         asset:"assets/SCREENSHOT-formulario.png", mock:"form",    asset2:"assets/SCREENSHOT-calendario.png",      mock2:"cal",  icon:"form" },
-  { n:4, label:"Página de gracias", title:"Material de preparación",        copy:"Ya empezás a prepararte antes de la llamada.",                                          asset:"assets/SCREENSHOT-pagina-gracias.png", mock:"gracias", asset2:null,                                    mock2:null,   icon:"check-gift" },
-  { n:5, label:"WhatsApp",          title:"Confirmación por WhatsApp",      copy:"Tu asesor te escribe. Recibís tu autodiagnóstico.",                                     asset:"WHATSAPP_MOCK",                    mock:null,      asset2:"assets/SCREENSHOT-autodiagnostico.png", mock2:"diag", icon:"chat" },
-  { n:6, label:"Recursos",          title:"Se desbloquean los recursos",    copy:"Herramientas que son tuyas, entres o no al programa.",                                  asset:"assets/SCREENSHOT-habit-tracker.png", mock:"tracker", asset2:"assets/SCREENSHOT-insight.png",       mock2:"insight", icon:"toolbox" },
-  { n:7, label:"La llamada",        title:"La llamada: analizamos tu caso", copy:"Una sesión para ver tu caso en profundidad.",                                           asset:"assets/mini-nico-videollamada.png", asset2:null, icon:"videocall" },
-  { n:8, label:"El acceso",         title:"La puerta",                      copy:"Si es para vos, entrás al sistema completo. Si no, te quedás con los recursos igual.",  asset:"DOORS",                            asset2:null, icon:"double-door" }
+  { n:1, label:"Tu 1%", icon:"qr", subs:[
+      { title:"El link del chat",
+        copy:"Tu único trabajo hoy: hacer clic. Lo demás pasa solo.",
+        assets:[{src:"assets/SCREENSHOT-qr.png"}] },
+      { title:"90 segundos de preguntas",
+        copy:"Unas preguntas para conocer tu caso, y elegís tu horario.",
+        assets:[{src:"assets/SCREENSHOT-formulario.png",mock:"form"},
+                {src:"assets/SCREENSHOT-calendario.png",mock:"cal"}] }
+  ]},
+  { n:2, label:"Pasa solo", icon:"check-gift", subs:[
+      { title:"Tu asesor te escribe",
+        copy:"Confirmás por WhatsApp y hacés tu autodiagnóstico. Sin que hagas nada más.",
+        assets:[{wa:true},
+                {src:"assets/SCREENSHOT-autodiagnostico.png",mock:"diag"}] },
+      { title:"Se desbloquean tus recursos",
+        copy:"Herramientas que son tuyas, entres o no al programa.",
+        assets:[{src:"assets/SCREENSHOT-habit-tracker.png",mock:"tracker"},
+                {src:"assets/SCREENSHOT-insight.png",mock:"insight",narrow:true}] }
+  ]},
+  { n:3, label:"La decisión", icon:"double-door", subs:[
+      { title:"La llamada: analizamos tu caso",
+        copy:"Una sesión 1 a 1 para ver tu caso en profundidad.",
+        assets:[{src:"assets/mini-nico-videollamada.png"}] },
+      { title:"La puerta",
+        copy:"Si es para vos, entrás al sistema completo. Si no, te quedás con los recursos igual.",
+        doors:true }
+  ]}
 ];
 
-/* geometría: separada del contenido (x,y de cada estación sobre el sendero) */
-const GEO = [
-  {x:110,  y:165},
-  {x:336,  y:175},
-  {x:561,  y:145},
-  {x:787,  y:105},
-  {x:1013, y:120},
-  {x:1238, y:85},
-  {x:1464, y:60},
-  {x:1690, y:40}
+/* geometría: el origen ("estás acá") + las 3 estaciones sobre el sendero */
+const PT = [
+  {x:186,  y:150},   // origen
+  {x:520,  y:140},
+  {x:1080, y:95},
+  {x:1640, y:45}
 ];
 
 /* =========================================================================
@@ -384,17 +406,16 @@ const ICONS = {
    ========================================================================= */
 const SLIDES = [
   {type:'cover'},
-  {type:'intro',  station:1, showAll:true},   // el único slide que muestra el camino entero
-  {type:'node',   station:2},
-  {type:'node',   station:3},
-  {type:'node',   station:4},
-  {type:'node',   station:5},
-  {type:'node',   station:6},
-  {type:'node',   station:7},
-  {type:'node',   station:8, beats:2},
+  {type:'intro',  station:0},          // Mini Nico todavía en el punto de partida
+  {type:'node',   station:1, sub:0},
+  {type:'node',   station:1, sub:1},
+  {type:'node',   station:2, sub:0},
+  {type:'node',   station:2, sub:1},
+  {type:'node',   station:3, sub:0},
+  {type:'node',   station:3, sub:1},
   {type:'qualify'},
   {type:'cta'},
-  {type:'close',  station:8, allDone:true}
+  {type:'close',  station:3, allDone:true}
 ];
 
 /* =========================================================================
@@ -418,13 +439,13 @@ function smoothPath(pts,tension){
   }
   return d;
 }
-const D=smoothPath(GEO,1);
+const D=smoothPath(PT,1);
 pathBase.setAttribute('d',D);
 pathDone.setAttribute('d',D);
 
 /* largo del camino hasta cada estación (muestreo sobre el path real) */
 const TOTAL=pathDone.getTotalLength();
-const STOP_LEN=GEO.map(g=>{
+const STOP_LEN=PT.map(g=>{
   let best=0,bd=Infinity;
   for(let l=0;l<=TOTAL;l+=2){
     const p=pathDone.getPointAtLength(l);
@@ -445,18 +466,25 @@ function dottedTo(len){
   return a.join(' ');
 }
 
+/* punto de partida: no es un paso, es dónde está parado hoy */
+const og=document.createElementNS(NS,'g');
+og.setAttribute('class','origin');
+og.setAttribute('transform',`translate(${PT[0].x},${PT[0].y})`);
+og.innerHTML=`<circle r="13"></circle><text y="46">${ORIGEN.label}</text>`;
+stationsG.appendChild(og);
+
 /* nodos */
 STATIONS.forEach((s,i)=>{
   const g=document.createElementNS(NS,'g');
   g.setAttribute('class','st');
-  g.setAttribute('transform',`translate(${GEO[i].x},${GEO[i].y})`);
+  g.setAttribute('transform',`translate(${PT[i+1].x},${PT[i+1].y})`);
   g.innerHTML=
-    `<circle class="halo" r="46"></circle>`+
-    `<circle class="disc" r="33"></circle>`+
-    `<g class="ico" transform="translate(-16,-16) scale(0.6667)" fill="none" stroke="currentColor" stroke-width="2.8">${ICONS[s.icon]}</g>`+
-    `<g class="chk" transform="translate(25,-25)"><circle r="12"></circle><path d="M-5 0l3.5 3.5L5.5 -4"></path></g>`+
-    `<text class="num" y="68">${String(s.n).padStart(2,'0')}</text>`+
-    `<text class="lab" y="100">${s.label}</text>`;
+    `<circle class="halo" r="62"></circle>`+
+    `<circle class="disc" r="46"></circle>`+
+    `<g class="ico" transform="translate(-23,-23) scale(0.958)" fill="none" stroke="currentColor" stroke-width="2.8">${ICONS[s.icon]}</g>`+
+    `<g class="chk" transform="translate(35,-35)"><circle r="15"></circle><path d="M-6 0l4.5 4.5L7 -5"></path></g>`+
+    `<text class="num" y="92">${String(s.n).padStart(2,'0')}</text>`+
+    `<text class="lab" y="126">${s.label}</text>`;
   stationsG.appendChild(g);
 });
 const stEls=[...stationsG.querySelectorAll('.st')];
@@ -466,44 +494,37 @@ const mnImg=document.getElementById('mini-nico');
 mnImg.addEventListener('load',()=>marker.classList.add('has-img'));
 mnImg.addEventListener('error',()=>marker.classList.remove('has-img'));
 
-let currentStation=1, allDone=false, revealAll=false;
+const VBTOP=170, MAPH=450;                          // origen del viewBox y alto de la banda
+let currentStation=0, allDone=false;
 
 function renderMap(){
   stEls.forEach((el,i)=>{
     const n=i+1;
     el.classList.remove('locked','done','current');
-    if(allDone){ el.classList.add('done'); if(n===8) el.classList.add('current'); }
+    if(allDone){ el.classList.add('done'); if(n===3) el.classList.add('current'); }
     else if(n<currentStation) el.classList.add('done');
     else if(n===currentStation) el.classList.add('current');
     else el.classList.add('locked');
   });
-  const len=allDone?TOTAL:STOP_LEN[currentStation-1];
+  const len=allDone?TOTAL:STOP_LEN[currentStation];
   pathDone.style.strokeDashoffset=TOTAL-len;
+  pathBase.style.strokeDasharray=dottedTo(TOTAL);
 
-  /* el sendero gris solo se asoma hasta la estación siguiente + un tramo corto:
-     el mapa no se ve largo de golpe, se va desbloqueando */
-  const abierto=allDone||revealAll;
-  const nextIdx=Math.min(currentStation,7);            // índice 0-based de la estación siguiente
-  const reveal=abierto?TOTAL:Math.min(TOTAL,STOP_LEN[nextIdx]+96);
-  pathBase.style.strokeDasharray=dottedTo(reveal);
-  stEls.forEach((el,i)=>el.classList.toggle('hidden',!abierto && (i+1)>currentStation+1));
-
-  /* cámara: encuadra el tramo revelado y se va abriendo sola a medida que crece */
-  const lastVis=abierto?8:Math.min(8,currentStation+1);
-  const vis=GEO.slice(0,lastVis);
-  const PADX=88, HEAD=196, FOOT=112;                  // aire, marcador arriba, etiquetas abajo
-  const x0=GEO[0].x-PADX, x1=vis[vis.length-1].x+PADX;
-  const yTop=Math.min(...vis.map(g=>g.y+150))-HEAD;
-  const yBot=Math.max(...vis.map(g=>g.y+150))+FOOT;
-  const k=Math.min(1.42, 1800/(x1-x0), 440/(yBot-yTop));
-  const tx=-k*x0;                                     // el camino siempre arranca a la izquierda
-  const ty=(440 -k*(yBot-yTop))/2-k*yTop;
+  /* cámara: encuadra el mapa entero (con 3 estaciones no hace falta esconder nada) */
+  const PADX=92, HEAD=214, FOOT=152;                  // aire, marcador arriba, etiquetas abajo
+  const x0=PT[0].x-PADX, x1=PT[3].x+PADX;
+  const yTop=Math.min(...PT.map(g=>g.y+VBTOP))-HEAD;
+  const yBot=Math.max(...PT.map(g=>g.y+VBTOP))+FOOT;
+  const k=Math.min(1.2, 1800/(x1-x0), MAPH/(yBot-yTop));
+  const tx=-k*x0;
+  const ty=(MAPH-k*(yBot-yTop))/2-k*yTop;
   cam.style.transform=`translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px) scale(${k.toFixed(3)})`;
 
-  const g=GEO[currentStation-1];
-  const x=allDone?g.x+38:g.x;
-  const y=allDone?g.y-16:g.y;
-  marker.style.transform=`translate(${(x-56).toFixed(1)}px, ${(y+150-50-138).toFixed(1)}px)`;
+  const g=PT[currentStation];
+  const x=allDone?g.x+52:g.x;
+  const y=allDone?g.y-20:g.y;
+  const lift=currentStation===0?34:66;                // el origen es chico, el marcador baja
+  marker.style.transform=`translate(${(x-56).toFixed(1)}px, ${(y+VBTOP-lift-138).toFixed(1)}px)`;
 }
 
 
@@ -651,7 +672,7 @@ function whatsappHTML(){
   </div>`;
 }
 function doorsHTML(){
-  const big=`<div class="door big" data-door="big">
+  const big=`<div class="door big lit" data-door="big">
       <div>
         <div class="d-lab">Si es para vos</div>
         <h3>La puerta grande</h3>
@@ -659,7 +680,7 @@ function doorsHTML(){
       </div>
       <svg width="120" height="120" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="8" y="5" width="32" height="38" rx="1.5"/><path d="M24 5v38"/><path d="M19.5 26h.01M28.5 26h.01" stroke-width="4" stroke-linecap="round"/></svg>
     </div>`;
-  const small=`<div class="door small" data-door="small">
+  const small=`<div class="door small lit" data-door="small">
       <div>
         <div class="d-lab">Y si no</div>
         <h3>Te quedás con los recursos igual</h3>
@@ -670,27 +691,26 @@ function doorsHTML(){
   return `<div class="doors">${big}${small}</div>`;
 }
 
-function buildNodeSlide(s){
-  let right='';
-  if(s.asset==='WHATSAPP_MOCK'){
-    right=`<div class="frames">${whatsappHTML()}${frameHTML(s.asset2,s.mock2)}</div>`;
-  }else if(s.asset==='DOORS'){
-    right=doorsHTML();
-  }else if(s.asset&&s.asset2){
-    const narrow = s.mock2==='insight' ? ' style="flex:0 0 336px"' : '';
-    right=`<div class="frames">${frameHTML(s.asset,s.mock)}${frameHTML(s.asset2,s.mock2,narrow)}</div>`;
-  }else if(s.asset){
-    right=`<div class="frames">${frameHTML(s.asset,s.mock)}</div>`;
-  }else{
-    right='';
-  }
+function assetsHTML(sub){
+  if(sub.doors) return doorsHTML();
+  const parts=sub.assets.map(a=>{
+    if(a.wa) return whatsappHTML();
+    return frameHTML(a.src,a.mock,a.narrow?' style="flex:0 0 336px"':'');
+  }).join('');
+  return `<div class="frames">${parts}</div>`;
+}
+
+function buildNodeSlide(st,i){
+  const sub=st.subs[i];
+  const dots=st.subs.map((_,j)=>`<i class="${j===i?'on':''}"></i>`).join('');
   return `<div class="node-slide">
     <div>
-      <div class="step-label">Paso ${String(s.n).padStart(2,'0')} <span>/ 08</span></div>
-      <h2>${s.title}</h2>
-      <p class="node-copy">${s.copy}</p>
+      <div class="step-label">Paso ${String(st.n).padStart(2,'0')} <span>/ 03 · ${st.label}</span>
+        <span class="dots">${dots}</span></div>
+      <h2>${sub.title}</h2>
+      <p class="node-copy">${sub.copy}</p>
     </div>
-    <div>${right}</div>
+    <div>${assetsHTML(sub)}</div>
   </div>`;
 }
 
@@ -702,8 +722,8 @@ const TPL={
       <div class="hint">→ avanzar · ← volver · F pantalla completa</div>
     </div>`,
   intro:()=>`<div class="hero-slide">
-      <h2>Este es el camino.<br>Ocho pasos. Mirá <em>lo simple que es</em>.</h2>
-      <div class="hero-foot">No te pido que hagas todo hoy. Te pido el primer paso. Todo lo demás pasa solo.</div>
+      <h2>Este es el camino.<br>Son <em>tres momentos</em>.</h2>
+      <div class="hero-foot">Y uno solo depende de vos: el primero, que te lleva 90 segundos. Los otros dos pasan casi solos.</div>
     </div>`,
   close:()=>`<div class="hero-slide">
       <h2>Del otro lado<br>del camino.</h2>
@@ -742,7 +762,7 @@ const TPL={
 const slideEls=SLIDES.map(def=>{
   const el=document.createElement('div');
   el.className='slide'+(def.type==='qualify'?' dark':'');
-  if(def.type==='node') el.innerHTML=buildNodeSlide(STATIONS[def.station-1]);
+  if(def.type==='node') el.innerHTML=buildNodeSlide(STATIONS[def.station-1],def.sub);
   else el.innerHTML=TPL[def.type]();
   slidesEl.appendChild(el);
   return el;
@@ -769,16 +789,9 @@ function render(){
   mapLayer.classList.toggle('on',usesMap);
   mapLayer.classList.toggle('hero',def.type==='intro'||def.type==='close');
 
-  if(def.station){ currentStation=def.station; allDone=!!def.allDone; revealAll=!!def.showAll; renderMap(); }
+  if(def.station!==undefined){ currentStation=def.station; allDone=!!def.allDone; renderMap(); }
 
   /* beats del nodo 8: primero la puerta grande, después la chica */
-  const doors=slideEls[idx].querySelectorAll('.door');
-  if(doors.length){
-    doors.forEach(d=>d.classList.remove('lit'));
-    doors[0].classList.add('lit');
-    if(beat>=1) doors[1].classList.add('lit');
-  }
-
   counter.textContent=String(idx+1).padStart(2,'0')+' / '+String(SLIDES.length).padStart(2,'0');
   counter.classList.toggle('light',def.type==='qualify');
   try{localStorage.setItem('nfm_1pct_slide',JSON.stringify({idx,beat}))}catch(e){}

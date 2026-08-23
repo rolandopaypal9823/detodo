@@ -23,29 +23,33 @@ Slides del roadmap del lead para el cierre de la clase **"Escalá tu vida, no tu
 **Ritmo:** 15-20 segundos por paso, tono "mirá lo simple que es". El único slide donde
 conviene frenar y leer despacio es el **calificador** (slide 10), que es el que filtra.
 
-## Orden de los 12 slides
+## Orden de los 11 slides
 
 1. Portada
-2. Intro del mapa (todo apagado menos la estación 1)
-3-9. Los 8 nodos (el nodo 8 tiene dos beats: puerta grande → puerta chica)
-10. Calificador ("esto es para vos si…" / "no agendes si…")
-11. CTA con el QR
-12. Cierre (mapa entero encendido)
+2. Intro del mapa — las 3 estaciones apagadas, Mini Nico en "estás acá"
+3-4. **Paso 01 · Tu 1%** — el link del chat / 90 segundos de preguntas
+5-6. **Paso 02 · Pasa solo** — tu asesor te escribe / se desbloquean tus recursos
+7-8. **Paso 03 · La decisión** — la llamada / la puerta (grande + chica)
+9. Calificador
+10. CTA con el QR
+11. Cierre
 
-## Cómo se desbloquea el mapa
+El mapa tiene **3 estaciones**, no ocho. Cada una se despliega en 2 sub-momentos que
+cambian el panel de abajo sin que el mapa avance — los puntitos al lado del "PASO 0X"
+muestran en cuál de los dos estás. Así el camino *se ve* corto, que es lo que hace que
+agendar se sienta chico.
 
-El mapa no se muestra entero de golpe. Funciona así:
+El punto de partida ("estás acá") es un punto chico, no una estación: no es un paso del
+camino, es dónde está parado hoy.
 
-- **Slide 2 (intro)** es el único que muestra el camino completo, todo apagado salvo la
-  estación 1. Es el beat de "ocho pasos, mirá lo simple que es".
-- **A partir de ahí** solo se ven las estaciones recorridas, la actual y **la siguiente**.
-  El sendero punteado se asoma un tramo corto más y corta.
-- Una **cámara** hace zoom sobre el tramo revelado y se va abriendo sola a medida que el
-  camino crece. Al principio dos estaciones ocupan toda la pantalla; al final entran las ocho.
-- El **cierre** vuelve a mostrar todo, ya recorrido.
+## Cómo funciona el mapa
 
-Si alguna vez querés que el intro también arranque cerrado, en el array `SLIDES` sacale
-`showAll:true` a la línea del `intro`.
+Es **un solo componente**. Avanzar no lo redibuja: solo cambia el estado de cada estación
+(apagada / recorrida / actual), estira el camino naranja y desliza a Mini Nico. El naranja
+solo crece: una estación recorrida nunca vuelve a apagarse.
+
+Una cámara encuadra el mapa entero y lo ajusta sola al alto de la banda, así que si algún
+día agregás o sacás una estación en `PT` + `STATIONS`, se reacomoda sin tocar el layout.
 
 ## Pantallas del producto: ya están dibujadas
 
