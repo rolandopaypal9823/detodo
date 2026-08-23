@@ -50,9 +50,13 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 }
 #mapLayer.on{opacity:1}
 #mapLayer.hero{transform:translateY(224px) scale(1.04)}
+#mapCam{position:absolute;inset:0;width:1800px;height:440px;transform-origin:0 0;
+  transition:transform .62s cubic-bezier(.55,.06,.28,1)}
 #mapSvg{position:absolute;inset:0;width:1800px;height:440px;overflow:visible}
 
 /* estados de estación */
+.st{transition:opacity .5s ease}
+.st.hidden{opacity:0}
 .st .disc{fill:var(--white);stroke:var(--locked);stroke-width:3;transition:stroke .45s ease}
 .st .ico{color:var(--locked);transition:color .45s ease}
 .st .num{font-family:var(--disp);font-weight:900;font-size:31px;fill:var(--locked);text-anchor:middle;transition:fill .45s ease}
@@ -188,6 +192,121 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 .qrbox{width:620px;height:620px;border:3px solid var(--orange);border-radius:14px;display:grid;place-items:center;background:var(--white);box-shadow:0 40px 90px rgba(255,102,2,.16)}
 .qrbox .frame{border:none;background:transparent;width:100%;height:100%}
 
+
+/* ---------- mockups de pantallas reales (se reemplazan solos si aparece el PNG) ---------- */
+.frame.loaded .mk{display:none}
+.mk{--ink:#0c3452;--mut:#6b7c8a;--line:#dde5ea;--soft:#f2f6f8;
+  position:absolute;inset:0;background:var(--white);display:flex;flex-direction:column;
+  font-family:var(--sans);color:var(--ink);text-align:left;overflow:hidden}
+.mk-bar{flex:none;height:36px;background:#eef2f5;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:6px;padding:0 13px}
+.mk-dot{width:9px;height:9px;border-radius:50%;background:#c6d0d8;flex:none}
+.mk-url{margin-left:10px;background:var(--white);border-radius:100px;font-family:var(--mono);font-size:11px;color:#93a1ac;padding:5px 14px;flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.mk-body{flex:1;min-height:0;position:relative;overflow:hidden}
+.mk-pad{padding:20px 22px;display:flex;flex-direction:column;gap:13px;height:100%}
+.mk-cut{position:absolute;left:0;right:0;bottom:0;height:64px;background:linear-gradient(to bottom,rgba(255,255,255,0),var(--white))}
+
+.mk h4{font-family:var(--disp);font-weight:800;font-size:16px;letter-spacing:-.01em}
+.mk .lbl{font-size:11.5px;font-weight:600;color:var(--ink);margin-bottom:5px}
+.mk .inp{border:1.5px solid #cfdae2;border-radius:5px;height:30px;background:var(--white)}
+.mk .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mk .q{font-size:12.5px;font-weight:700;line-height:1.35;margin-top:2px}
+.mk .opts{display:flex;flex-direction:column;gap:9px;margin-top:2px}
+.mk .opt{display:flex;gap:9px;font-size:11.5px;line-height:1.35;color:#33475a}
+.mk .rd{width:13px;height:13px;border:1.5px solid #b7c4ce;border-radius:50%;flex:none;margin-top:1px}
+.mk .rd.on{border-color:var(--orange);border-width:4px}
+.mk .btn{align-self:flex-start;background:#0b6bcb;color:var(--white);font-size:12.5px;font-weight:600;padding:9px 26px;border-radius:100px;margin-top:auto}
+
+/* calendario */
+.mk-cal{display:grid;grid-template-columns:1fr 118px;gap:16px;height:100%}
+.mk-cal .who{font-size:11px;color:var(--mut);font-weight:600}
+.mk-cal .tit{font-family:var(--disp);font-weight:800;font-size:15px;line-height:1.2;margin:3px 0 6px}
+.mk-cal .dur{font-family:var(--mono);font-size:10.5px;color:var(--mut);letter-spacing:.08em}
+.mk-cal .mth{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:700;margin:14px 0 8px}
+.mk-cal .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center}
+.mk-cal .grid span{font-size:10.5px;color:#8fa0ad;padding:4px 0}
+.mk-cal .grid b{font-size:11px;font-weight:500;color:#33475a;padding:5px 0;border-radius:50%}
+.mk-cal .grid b.av{background:#e8f1fb;color:#0b6bcb;font-weight:700}
+.mk-cal .grid b.sel{background:#0b6bcb;color:var(--white);font-weight:700}
+.mk-cal .times{display:flex;flex-direction:column;gap:8px}
+.mk-cal .times .t{border:1.5px solid #0b6bcb;color:#0b6bcb;border-radius:5px;text-align:center;font-size:11.5px;font-weight:600;padding:8px 0}
+.mk-cal .times .h{font-size:10.5px;color:var(--mut);font-family:var(--mono);letter-spacing:.06em}
+
+/* pagina de gracias */
+.mk-th{align-items:center;text-align:center;justify-content:center;gap:0;padding:26px 40px}
+.mk-th .tick{width:56px;height:56px;border-radius:50%;background:var(--green);display:grid;place-items:center;margin-bottom:16px}
+.mk-th .tick svg{stroke:var(--white);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.mk-th .k{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.mk-th h3{font-family:var(--disp);font-weight:900;font-size:31px;line-height:1.12;letter-spacing:-.02em}
+.mk-th h3 em{font-style:normal;color:var(--orange)}
+.mk-th .sub{font-size:15px;line-height:1.45;color:var(--mut);margin-top:12px;max-width:560px}
+.mk-th .card{margin-top:20px;width:100%;max-width:600px;border:1px solid var(--line);border-top:3px solid var(--orange);border-radius:10px;padding:16px 20px}
+.mk-th .wapp{display:flex;gap:12px;align-items:flex-start;background:#effaf3;border:1px solid #cdeeda;border-radius:8px;padding:12px 14px;text-align:left}
+.mk-th .wapp .ic{width:26px;height:26px;border-radius:50%;background:var(--green);flex:none}
+.mk-th .wapp b{font-size:13px;display:block;margin-bottom:2px}
+.mk-th .wapp span{font-size:12.5px;color:var(--mut);line-height:1.4}
+.mk-th .meta{display:flex;gap:26px;justify-content:center;margin-top:14px;font-size:12px;color:var(--mut)}
+.mk-th .meta b{color:var(--ink)}
+
+/* autodiagnostico */
+.mk-dg{padding:22px 24px;gap:12px;background:#f4f7f9}
+.mk-dg .badge{align-self:flex-start;border:1px solid #ffd3b4;background:#fff5ee;color:var(--orange);font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;padding:7px 12px;border-radius:6px}
+.mk-dg h3{font-family:var(--disp);font-weight:900;font-size:22px;line-height:1.15;letter-spacing:-.02em}
+.mk-dg p{font-size:12.5px;line-height:1.5;color:var(--mut)}
+.mk-dg .c{background:var(--white);border:1px solid var(--line);border-radius:9px;padding:13px 15px}
+.mk-dg .c b{font-size:12.5px;display:block;margin-bottom:4px}
+.mk-dg .c span{font-size:11.5px;line-height:1.45;color:var(--mut)}
+.mk-dg .cta{margin-top:auto;background:var(--orange);color:var(--white);text-align:center;font-family:var(--disp);font-weight:800;font-size:15px;padding:14px;border-radius:8px}
+.mk-dg .fin{text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:#9aa8b3;text-transform:uppercase}
+
+/* loading "construyendo tu sistema" */
+.mk-ld{background:#f4f7f9;align-items:center;justify-content:center;text-align:center;gap:0;padding:30px}
+.mk-ld .orb{width:104px;height:104px;position:relative;margin-bottom:24px}
+.mk-ld .orb .core{position:absolute;inset:11px;border-radius:50%;background:var(--blue-dark);display:grid;place-items:center}
+.mk-ld .orb svg.ring{position:absolute;inset:0}
+.mk-ld h3{font-family:var(--disp);font-weight:900;font-size:20px;letter-spacing:-.01em}
+.mk-ld p{font-size:12.5px;color:var(--mut);margin-top:9px;line-height:1.45}
+.mk-ld .bar{width:74%;height:7px;border-radius:100px;background:#dfe7ec;margin-top:22px;overflow:hidden}
+.mk-ld .bar i{display:block;height:100%;width:38%;background:var(--orange);border-radius:100px}
+.mk-ld .fin{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);width:100%;font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:#9aa8b3;text-transform:uppercase}
+
+
+/* habit tracker / insight (pantallas oscuras del producto) */
+.mk-dark{background:var(--blue-dark);color:var(--white)}
+.mk-tr{padding:20px 22px;gap:0}
+.mk-tr .top{display:flex;align-items:center;gap:11px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.13)}
+.mk-tr .n{width:24px;height:24px;border-radius:50%;background:var(--orange);color:var(--white);display:grid;place-items:center;font-family:var(--disp);font-weight:800;font-size:12px;flex:none}
+.mk-tr .top h5{font-family:var(--disp);font-weight:800;font-size:16px;letter-spacing:-.01em}
+.mk-tr .top .r{margin-left:auto;white-space:nowrap;font-size:8px;font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.mk-tr h6{font-family:var(--disp);font-weight:800;font-size:17px;line-height:1.22;margin:16px 0 10px}
+.mk-tr .li{display:flex;gap:9px;font-size:11.5px;line-height:1.45;color:rgba(255,255,255,.72);margin-bottom:8px}
+.mk-tr .li i{color:var(--orange);font-style:normal;flex:none}
+.mk-tr .li b{color:var(--white);font-weight:700}
+.mk-tr .card{margin-top:auto;border:1px solid rgba(255,255,255,.16);border-radius:9px;padding:14px 16px;text-align:center;background:rgba(255,255,255,.03)}
+.mk-tr .card .k{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+.mk-tr .card p{font-size:11px;line-height:1.45;color:rgba(255,255,255,.62)}
+.mk-tr .card .b{margin-top:11px;background:var(--orange);border-radius:7px;padding:11px;font-family:var(--disp);font-weight:800;font-size:13px}
+
+.mk-in{padding:18px 18px;gap:11px}
+.mk-in .badge{align-self:flex-start;border:1px solid rgba(255,102,2,.5);border-radius:7px;padding:6px 11px;font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+.mk-in h5{font-family:var(--disp);font-weight:900;font-size:26px;letter-spacing:-.02em}
+.mk-in h5 em{font-style:normal;color:var(--orange)}
+.mk-in .sm{font-size:11px;color:rgba(255,255,255,.5)}
+.mk-in .big{border:1px solid rgba(255,102,2,.35);border-radius:9px;padding:13px 15px;background:rgba(255,102,2,.07)}
+.mk-in .big .k{font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:7px}
+.mk-in .big .v{font-family:var(--disp);font-weight:900;font-size:30px;color:var(--orange);letter-spacing:-.02em;display:flex;align-items:baseline;gap:9px}
+.mk-in .big .v em{font-style:normal;font-size:19px;color:var(--green)}
+.mk-in .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mk-in .tile{border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:11px 6px;text-align:center;background:rgba(255,255,255,.03)}
+.mk-in .tile b{display:block;font-family:var(--disp);font-weight:900;font-size:17px;color:var(--orange)}
+.mk-in .tile span{font-size:9px;color:rgba(255,255,255,.5)}
+.mk-in .ban{border:1px solid rgba(255,255,255,.14);border-radius:9px;padding:12px 15px}
+.mk-in .ban .k{font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:#5ba8f5;margin-bottom:6px}
+.mk-in .ban .v{font-family:var(--disp);font-weight:900;font-size:24px;color:var(--green)}
+.mk-in .ins{border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.12)}
+.mk-in .ins .h{background:var(--orange);font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:8px 13px;font-weight:700}
+.mk-in .ins .c{padding:12px 13px;font-size:10.5px;line-height:1.5;color:rgba(255,255,255,.72)}
+.mk-in .ins .c b{color:var(--white)}
+
 /* ---------- contador ---------- */
 #counter{position:absolute;right:44px;bottom:34px;font-family:var(--mono);font-size:22px;letter-spacing:.18em;color:var(--blue);opacity:.4;z-index:20}
 .slide.dark ~ #counter{color:var(--white)}
@@ -200,6 +319,7 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 
     <!-- ============ CAPA DEL MAPA — un solo componente, persiste entre slides ============ -->
     <div id="mapLayer">
+      <div id="mapCam">
       <svg id="mapSvg" viewBox="0 -150 1800 440" xmlns="http://www.w3.org/2000/svg">
         <path id="pathBase"></path>
         <path id="pathDone"></path>
@@ -209,6 +329,7 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
       <div id="marker">
         <img id="mini-nico" src="assets/mini-nico-marker.png" alt="">
         <div class="mn-fallback"><div class="mn-pin">MN</div><div class="mn-tip"></div></div>
+      </div>
       </div>
     </div>
 
@@ -224,10 +345,10 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 const STATIONS = [
   { n:1, label:"Estás acá",         title:"Estás acá: la clase",            copy:"Este momento. Lo que estás viviendo ahora.",                                            asset:null,                               asset2:null, icon:"laptop-play" },
   { n:2, label:"Tu 1%",             title:"Tu 1%: el link del chat",        copy:"Tu único trabajo hoy: hacer clic. Lo demás pasa solo.",                                 asset:"assets/SCREENSHOT-qr.png",         asset2:null, icon:"qr" },
-  { n:3, label:"Unas preguntas",    title:"Unas preguntas (90 seg)",        copy:"Respondés unas preguntas y elegís tu horario.",                                         asset:"assets/SCREENSHOT-formulario.png", asset2:null, icon:"form" },
-  { n:4, label:"Página de gracias", title:"Material de preparación",        copy:"Ya empezás a prepararte antes de la llamada.",                                          asset:"assets/SCREENSHOT-pagina-gracias.png", asset2:null, icon:"check-gift" },
-  { n:5, label:"WhatsApp",          title:"Confirmación por WhatsApp",      copy:"Tu asesor te escribe. Recibís tu autodiagnóstico.",                                     asset:"WHATSAPP_MOCK",                    asset2:"assets/SCREENSHOT-autodiagnostico.png", icon:"chat" },
-  { n:6, label:"Recursos",          title:"Se desbloquean los recursos",    copy:"Herramientas que son tuyas, entres o no al programa.",                                  asset:"assets/SCREENSHOT-habit-tracker.png", asset2:null, icon:"toolbox" },
+  { n:3, label:"Unas preguntas",    title:"Unas preguntas (90 seg)",        copy:"Respondés unas preguntas y elegís tu horario.",                                         asset:"assets/SCREENSHOT-formulario.png", mock:"form",    asset2:"assets/SCREENSHOT-calendario.png",      mock2:"cal",  icon:"form" },
+  { n:4, label:"Página de gracias", title:"Material de preparación",        copy:"Ya empezás a prepararte antes de la llamada.",                                          asset:"assets/SCREENSHOT-pagina-gracias.png", mock:"gracias", asset2:null,                                    mock2:null,   icon:"check-gift" },
+  { n:5, label:"WhatsApp",          title:"Confirmación por WhatsApp",      copy:"Tu asesor te escribe. Recibís tu autodiagnóstico.",                                     asset:"WHATSAPP_MOCK",                    mock:null,      asset2:"assets/SCREENSHOT-autodiagnostico.png", mock2:"diag", icon:"chat" },
+  { n:6, label:"Recursos",          title:"Se desbloquean los recursos",    copy:"Herramientas que son tuyas, entres o no al programa.",                                  asset:"assets/SCREENSHOT-habit-tracker.png", mock:"tracker", asset2:"assets/SCREENSHOT-insight.png",       mock2:"insight", icon:"toolbox" },
   { n:7, label:"La llamada",        title:"La llamada: analizamos tu caso", copy:"Una sesión para ver tu caso en profundidad.",                                           asset:"assets/mini-nico-videollamada.png", asset2:null, icon:"videocall" },
   { n:8, label:"El acceso",         title:"La puerta",                      copy:"Si es para vos, entrás al sistema completo. Si no, te quedás con los recursos igual.",  asset:"DOORS",                            asset2:null, icon:"double-door" }
 ];
@@ -263,7 +384,7 @@ const ICONS = {
    ========================================================================= */
 const SLIDES = [
   {type:'cover'},
-  {type:'intro',  station:1},
+  {type:'intro',  station:1, showAll:true},   // el único slide que muestra el camino entero
   {type:'node',   station:2},
   {type:'node',   station:3},
   {type:'node',   station:4},
@@ -284,6 +405,7 @@ const pathBase=document.getElementById('pathBase');
 const pathDone=document.getElementById('pathDone');
 const stationsG=document.getElementById('stations');
 const marker=document.getElementById('marker');
+const cam=document.getElementById('mapCam');
 const mapLayer=document.getElementById('mapLayer');
 
 function smoothPath(pts,tension){
@@ -314,6 +436,15 @@ const STOP_LEN=GEO.map(g=>{
 pathDone.style.strokeDasharray=TOTAL+' '+TOTAL;
 pathDone.style.strokeDashoffset=TOTAL;
 
+/* patrón punteado que llega solo hasta `len` y después corta */
+function dottedTo(len){
+  const pairs=Math.max(0,Math.floor(len/18));
+  const a=[];
+  for(let i=0;i<pairs;i++) a.push(2,16);
+  a.push(0,TOTAL+80);
+  return a.join(' ');
+}
+
 /* nodos */
 STATIONS.forEach((s,i)=>{
   const g=document.createElementNS(NS,'g');
@@ -335,7 +466,7 @@ const mnImg=document.getElementById('mini-nico');
 mnImg.addEventListener('load',()=>marker.classList.add('has-img'));
 mnImg.addEventListener('error',()=>marker.classList.remove('has-img'));
 
-let currentStation=1, allDone=false;
+let currentStation=1, allDone=false, revealAll=false;
 
 function renderMap(){
   stEls.forEach((el,i)=>{
@@ -349,21 +480,152 @@ function renderMap(){
   const len=allDone?TOTAL:STOP_LEN[currentStation-1];
   pathDone.style.strokeDashoffset=TOTAL-len;
 
+  /* el sendero gris solo se asoma hasta la estación siguiente + un tramo corto:
+     el mapa no se ve largo de golpe, se va desbloqueando */
+  const abierto=allDone||revealAll;
+  const nextIdx=Math.min(currentStation,7);            // índice 0-based de la estación siguiente
+  const reveal=abierto?TOTAL:Math.min(TOTAL,STOP_LEN[nextIdx]+96);
+  pathBase.style.strokeDasharray=dottedTo(reveal);
+  stEls.forEach((el,i)=>el.classList.toggle('hidden',!abierto && (i+1)>currentStation+1));
+
+  /* cámara: encuadra el tramo revelado y se va abriendo sola a medida que crece */
+  const lastVis=abierto?8:Math.min(8,currentStation+1);
+  const vis=GEO.slice(0,lastVis);
+  const PADX=88, HEAD=196, FOOT=112;                  // aire, marcador arriba, etiquetas abajo
+  const x0=GEO[0].x-PADX, x1=vis[vis.length-1].x+PADX;
+  const yTop=Math.min(...vis.map(g=>g.y+150))-HEAD;
+  const yBot=Math.max(...vis.map(g=>g.y+150))+FOOT;
+  const k=Math.min(1.42, 1800/(x1-x0), 440/(yBot-yTop));
+  const tx=-k*x0;                                     // el camino siempre arranca a la izquierda
+  const ty=(440 -k*(yBot-yTop))/2-k*yTop;
+  cam.style.transform=`translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px) scale(${k.toFixed(3)})`;
+
   const g=GEO[currentStation-1];
   const x=allDone?g.x+38:g.x;
   const y=allDone?g.y-16:g.y;
   marker.style.transform=`translate(${(x-56).toFixed(1)}px, ${(y+150-50-138).toFixed(1)}px)`;
 }
 
+
+/* =========================================================================
+   4.b · MOCKUPS DE LAS PANTALLAS REALES
+   Reconstruidas en HTML para que se lean bien proyectadas. Si algún día
+   aparece el PNG real en assets/ con el nombre de `asset`, lo reemplaza solo.
+   ========================================================================= */
+function chrome(url,inner,cls){
+  return `<div class="mk"><div class="mk-bar"><div class="mk-dot"></div><div class="mk-dot"></div><div class="mk-dot"></div><div class="mk-url">${url}</div></div>`+
+         `<div class="mk-body"><div class="mk-pad ${cls||''}">${inner}</div></div></div>`;
+}
+const MOCKS={
+  form:()=>chrome('calendly.com/asesores-nfm/entrevista-de-admision',
+    `<h4>Entrevista de Admisión</h4>
+     <div class="row2"><div><div class="lbl">Nombre *</div><div class="inp"></div></div><div><div class="lbl">Apellidos *</div><div class="inp"></div></div></div>
+     <div><div class="lbl">Correo electrónico *</div><div class="inp"></div></div>
+     <div class="q">Para asignarte a un especialista del equipo ¿cuál de estas opciones describe mejor tu situación hoy?</div>
+     <div class="opts">
+       <div class="opt"><div class="rd on"></div><div>Tengo mi propia empresa o negocio en marcha</div></div>
+       <div class="opt"><div class="rd"></div><div>Lidero un equipo o un área, tengo gente a cargo</div></div>
+       <div class="opt"><div class="rd"></div><div>Soy profesional y vivo 100 % de mi profesión</div></div>
+       <div class="opt"><div class="rd"></div><div>Trabajo en relación de dependencia</div></div>
+     </div>
+     <div class="btn">Enviar</div>
+     <div class="mk-cut"></div>`),
+
+  cal:()=>chrome('calendly.com/asesores-nfm/entrevista-de-admision',
+    `<div class="mk-cal">
+      <div>
+        <div class="who">Asesores NFM</div>
+        <div class="tit">Entrevista de Admisión<br>Instituto de Productividad</div>
+        <div class="dur">1 H 15 MIN</div>
+        <div class="mth"><span>‹</span><span>agosto 2026</span><span>›</span></div>
+        <div class="grid">
+          <span>D</span><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span>
+          <b></b><b></b><b></b><b></b><b></b><b></b><b>1</b>
+          <b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b>
+          <b>9</b><b>10</b><b>11</b><b>12</b><b>13</b><b>14</b><b>15</b>
+          <b>16</b><b>17</b><b>18</b><b>19</b><b>20</b><b>21</b><b>22</b>
+          <b>23</b><b>24</b><b class="av">25</b><b class="sel">26</b><b class="av">27</b><b class="av">28</b><b>29</b>
+        </div>
+      </div>
+      <div class="times">
+        <div class="h">MIÉ 26</div>
+        <div class="t">07:00</div><div class="t">08:15</div><div class="t">09:30</div>
+        <div class="t">10:45</div><div class="t">12:00</div><div class="t">13:15</div>
+      </div>
+    </div>`),
+
+  gracias:()=>chrome('institutodeproductividad.com/gracias',
+    `<div class="tick"><svg width="30" height="30" viewBox="0 0 24 24"><path d="M4 12.5l5.2 5.2L20 7"/></svg></div>
+     <div class="k">¡Listo, ya estás dentro!</div>
+     <h3>¡Felicitaciones! <em>Ya tenés tu sesión agendada</em></h3>
+     <div class="sub">En las próximas horas, un asesor del Instituto se va a comunicar con vos por WhatsApp para coordinar todo y conocer tu caso en detalle.</div>
+     <div class="card">
+       <div class="wapp"><div class="ic"></div><div><b>Revisá tu WhatsApp.</b><span>Tu asesor te contactará. Respondele cuando puedas para confirmar el horario.</span></div></div>
+       <div class="meta"><div><b>Duración:</b> 45-60 min</div><div><b>Modalidad:</b> Videollamada</div><div><b>Tipo:</b> 1 a 1</div></div>
+     </div>`,'mk-th'),
+
+  diag:()=>chrome('test-presesion.netlify.app',
+    `<div class="badge">Diagnóstico previo · obligatorio</div>
+     <h3>¡Ya agendaste tu entrevista!<br>Antes, mirate de frente.</h3>
+     <p>No es un formulario. Es el punto de partida de tu proceso: lo que respondas acá lo va a tener tu asesor adelante.</p>
+     <div class="c"><b>¿Qué pasa con tus respuestas?</b><span>Las cruzamos con nuestra metodología basada en neurociencia y empezamos a armar tu hoja de ruta personal.</span></div>
+     <div class="c"><b>Premiamos tu compromiso.</b><span>Por presentarte a la entrevista accedés a herramientas personalizadas. Acá nadie se va con las manos vacías.</span></div>
+     <div class="cta">Empezar mi diagnóstico →</div>
+     <div class="fin">10 preguntas · 3 minutos · sin vueltas</div>`,'mk-dg'),
+
+
+  tracker:()=>chrome('institutodeproductividad.com/recursos',
+    `<div class="top"><div class="n">4</div><h5>Tu herramienta de tracking con IA</h5><div class="r">Para sostenerlo en el tiempo</div></div>
+     <h6>Lo que no se mide, no se sostiene.<br>Esta herramienta mide por vos.</h6>
+     <div class="li"><i>↗</i><div><b>Tus hábitos, en una vista.</b> Qué sostuviste, qué soltaste y dónde se corta la cadena.</div></div>
+     <div class="li"><i>↗</i><div><b>Tus horas de foco, en números.</b> Cuántas horas reales estás recuperando por semana.</div></div>
+     <div class="li"><i>↗</i><div><b>Tu hora, en dinero.</b> Cargás cuánto vale tu hora y ves cuánto estás dejando de capitalizar.</div></div>
+     <div class="card">
+       <div class="k">Tu copia personal</div>
+       <p>Hacé clic y se crea una copia tuya, privada, lista para usar con tu cuenta de Google.</p>
+       <div class="b">Obtener mi Habit Tracker →</div>
+     </div>`,'mk-tr mk-dark'),
+
+  insight:()=>chrome('institutodeproductividad.com/insight',
+    `<div class="badge">Tu insight del mes</div>
+     <h5>Hola, <em>Nico.</em></h5>
+     <div class="sm">Tu resumen de Junio 2026.</div>
+     <div class="big"><div class="k">Horas que capitalizás este mes</div><div class="v">29h <em>≈ US$1.425</em></div></div>
+     <div class="tiles">
+       <div class="tile"><b>16h</b><span>Foco profundo</span></div>
+       <div class="tile"><b>5d</b><span>Celular bajo control</span></div>
+       <div class="tile"><b>5h</b><span>Horas en tu meta</span></div>
+     </div>
+     <div class="ban"><div class="k">Tu banquito (índice de energía)</div><div class="v">10%</div></div>
+     <div class="ins"><div class="h">Insight</div><div class="c">Fue un mes de arranque. <b>Foco profundo</b> fue lo que más sostuviste. Ese es el primer ladrillo.</div></div>
+     <div class="mk-cut"></div>`,'mk-in mk-dark'),
+
+  loading:()=>chrome('test-presesion.netlify.app/resultado',
+    `<div class="orb">
+       <svg class="ring" width="104" height="104" viewBox="0 0 104 104" fill="none">
+         <circle cx="52" cy="52" r="50" stroke="#dfe7ec" stroke-width="4"/>
+         <path d="M52 2a50 50 0 0142 77" stroke="#ff6602" stroke-width="4" stroke-linecap="round" transform="rotate(80 52 52)"/>
+       </svg>
+       <div class="core"><svg width="34" height="34" viewBox="0 0 48 48" fill="none" stroke="#ff6602" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10c-4-3-11-2-12 4-4 1-5 7-1 9-2 4 1 8 5 8 0 4 4 6 8 4V10z"/><path d="M26 10c4-3 11-2 12 4 4 1 5 7 1 9 2 4-1 8-5 8 0 4-4 6-8 4V10z"/></svg></div>
+     </div>
+     <h3>Estamos construyendo tu sistema…</h3>
+     <p>Cruzando tu caso con nuestra metodología basada en neurociencia…</p>
+     <div class="bar"><i></i></div>
+     <div class="fin">Instituto de Productividad · Nicolás Fernández Miranda &amp; Team</div>`,'mk-ld')
+};
+
 /* =========================================================================
    5 · CONSTRUCCIÓN DE LOS SLIDES
    ========================================================================= */
 const slidesEl=document.getElementById('slides');
 
-function frameHTML(src,alt){
-  return `<div class="frame" data-src="${src}">
+function frameHTML(src,mock,attrs){
+  const body = mock&&MOCKS[mock]
+    ? MOCKS[mock]()
+    : `<div class="ph"><div class="ph-s">Falta este asset</div><div class="ph-t">${src.replace('assets/','')}</div></div>`;
+  return `<div class="frame${mock?' real':''}"${attrs||''} data-src="${src}">
       <img src="${src}" alt="">
-      <div class="ph"><div class="ph-s">Falta este asset</div><div class="ph-t">${src.replace('assets/','')}</div></div>
+      ${body}
     </div>`;
 }
 function whatsappHTML(){
@@ -411,11 +673,14 @@ function doorsHTML(){
 function buildNodeSlide(s){
   let right='';
   if(s.asset==='WHATSAPP_MOCK'){
-    right=`<div class="frames">${whatsappHTML()}${frameHTML(s.asset2)}</div>`;
+    right=`<div class="frames">${whatsappHTML()}${frameHTML(s.asset2,s.mock2)}</div>`;
   }else if(s.asset==='DOORS'){
     right=doorsHTML();
+  }else if(s.asset&&s.asset2){
+    const narrow = s.mock2==='insight' ? ' style="flex:0 0 336px"' : '';
+    right=`<div class="frames">${frameHTML(s.asset,s.mock)}${frameHTML(s.asset2,s.mock2,narrow)}</div>`;
   }else if(s.asset){
-    right=`<div class="frames">${frameHTML(s.asset)}</div>`;
+    right=`<div class="frames">${frameHTML(s.asset,s.mock)}</div>`;
   }else{
     right='';
   }
@@ -470,7 +735,7 @@ const TPL={
         <p>Escaneás el QR, respondés unas preguntas, elegís horario. Todo lo demás del camino que te mostré pasa solo.</p>
         <div class="steps"><span>01 · Escaneás</span><span>02 · Respondés</span><span>03 · Elegís horario</span></div>
       </div>
-      <div class="qrbox">${frameHTML('assets/SCREENSHOT-qr.png')}</div>
+      <div class="qrbox">${frameHTML('assets/SCREENSHOT-qr.png',null)}</div>
     </div>`
 };
 
@@ -504,7 +769,7 @@ function render(){
   mapLayer.classList.toggle('on',usesMap);
   mapLayer.classList.toggle('hero',def.type==='intro'||def.type==='close');
 
-  if(def.station){ currentStation=def.station; allDone=!!def.allDone; renderMap(); }
+  if(def.station){ currentStation=def.station; allDone=!!def.allDone; revealAll=!!def.showAll; renderMap(); }
 
   /* beats del nodo 8: primero la puerta grande, después la chica */
   const doors=slideEls[idx].querySelectorAll('.door');
