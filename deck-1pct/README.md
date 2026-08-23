@@ -76,7 +76,7 @@ Para meterlo, cambiá el `mock2` de algún nodo por `"loading"`.
 
 | Archivo | Qué tiene que mostrar | Formato ideal |
 |---|---|---|
-| `SCREENSHOT-qr.png` | El QR real (o el botón/link del chat). Se usa en el nodo 2 y en el slide del CTA. | cuadrado, ≥1000×1000 |
+| `SCREENSHOT-qr.png` | **El QR de agendar.** Se usa en el paso 01 y en el slide del CTA. Ver abajo. | cuadrado, ≥1000×1000 |
 | `mini-nico-videollamada.png` | Ilustración de Mini Nico en videollamada (nodo 7). | fondo blanco o transparente |
 | `mini-nico-marker.png` | Recorte de Mini Nico con **fondo transparente**. Es el marcador que camina por el mapa. | PNG transparente, ~600px de alto |
 
@@ -88,3 +88,22 @@ Mientras `mini-nico-marker.png` no esté, el marcador es un pin naranja con las 
 Todo el contenido de los 8 pasos vive en el array `STATIONS`, arriba de todo del `<script>`
 en `deck-mapa-1-pct.html`. Se cambian `title` y `copy` sin tocar nada del layout.
 Las coordenadas del sendero están aparte, en `GEO`.
+
+## El QR
+
+Un QR es data, no dibujo: no se puede reconstruir mirándolo. Hay dos formas de ponerlo:
+
+**A · Generarlo (recomendado, sale nítido a cualquier tamaño).**
+
+```bash
+pip install "qrcode[pil]"
+python3 hacer-qr.py "https://LA-URL-DE-AGENDAR"
+```
+
+Deja `assets/SCREENSHOT-qr.png` listo y el deck lo toma solo. Sale en azul NFM, con
+corrección de errores alta (se lee aunque el proyector recorte un poco).
+
+**B · Recortar el que ya tenés** de la placa vieja y guardarlo con ese mismo nombre.
+Solo el cuadrado del QR, sin texto alrededor y sin margen de más.
+
+Probalo escaneándolo desde la pantalla antes de la clase, no desde el archivo.

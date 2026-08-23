@@ -188,13 +188,17 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 .qdiv{width:2px;background:rgba(255,255,255,.14);position:absolute;left:50%;top:280px;bottom:110px}
 
 /* ---------- CTA ---------- */
-.cta{padding:118px 120px;display:grid;grid-template-columns:1fr 620px;gap:90px;align-items:center}
+.cta{padding:100px 110px;display:grid;grid-template-columns:1fr 600px;gap:80px;align-items:center}
+.cta-note{margin-top:44px;padding-top:26px;border-top:2px solid var(--blue-light);font-size:25px;line-height:1.45;color:var(--blue);opacity:.8;max-width:700px}
+.cta-note b{opacity:1;font-weight:700}
+.qrcol{display:flex;flex-direction:column;align-items:center;gap:28px}
+.cupos{font-family:var(--disp);font-weight:900;font-size:40px;color:var(--orange);letter-spacing:-.01em}
 .cta h2{font-family:var(--disp);font-weight:900;font-size:82px;line-height:1.03;color:var(--blue);letter-spacing:-.025em;text-wrap:balance}
 .cta h2 em{font-style:normal;color:var(--orange)}
 .cta p{font-size:34px;line-height:1.45;color:var(--blue);opacity:.8;margin-top:38px;max-width:760px;text-wrap:pretty}
 .cta .steps{display:flex;gap:14px;margin-top:52px;flex-wrap:wrap}
 .cta .steps span{font-family:var(--mono);font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);border:2px solid var(--blue-light);border-radius:100px;padding:12px 22px}
-.qrbox{width:620px;height:620px;border:3px solid var(--orange);border-radius:14px;display:grid;place-items:center;background:var(--white);box-shadow:0 40px 90px rgba(255,102,2,.16)}
+.qrbox{width:600px;height:600px;border:3px solid var(--orange);border-radius:14px;display:grid;place-items:center;background:var(--white);box-shadow:0 40px 90px rgba(255,102,2,.16)}
 .qrbox .frame{border:none;background:transparent;width:100%;height:100%}
 
 
@@ -750,12 +754,16 @@ const TPL={
     </div>`,
   cta:()=>`<div class="cta">
       <div>
-        <div class="brandbar"><div class="rule"></div><div class="kicker">Tu 1%</div></div>
+        <div class="brandbar"><div class="rule"></div><div class="kicker">Cómo se entra</div></div>
         <h2>No te pido que hagas todo hoy.<br>Te pido <em>tu 1%</em>.</h2>
         <p>Escaneás el QR, respondés unas preguntas, elegís horario. Todo lo demás del camino que te mostré pasa solo.</p>
         <div class="steps"><span>01 · Escaneás</span><span>02 · Respondés</span><span>03 · Elegís horario</span></div>
+        <div class="cta-note"><b>Entrevista de admisión.</b> Videollamada personal con nuestro Director de Admisiones.</div>
       </div>
-      <div class="qrbox">${frameHTML('assets/SCREENSHOT-qr.png',null)}</div>
+      <div class="qrcol">
+        <div class="qrbox">${frameHTML('assets/SCREENSHOT-qr.png',null)}</div>
+        <div class="cupos">12 cupos esta semana.</div>
+      </div>
     </div>`
 };
 
