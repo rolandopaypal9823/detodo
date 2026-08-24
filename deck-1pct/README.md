@@ -141,3 +141,24 @@ La columna izquierda usa el **idioma del operador** (cuello de botella, delegar,
 funcione sin vos): es el registro que más discrimina Platinum de Gold (2,25x). El filtro no
 se hace echando gente, se hace hablándole al que corresponde — el que no se siente aludido
 no agenda solo.
+
+## Las fotos del paso 03 (widget "qué incluye")
+
+Los cuatro recuadros cargan las fotos desde la landing. Si no hay red, queda el recuadro
+gris con el nombre de la foto que va ahí, y le podés **arrastrar una local encima**.
+
+**Encuadre.** Los recuadros son apaisados y la foto se recorta arriba y abajo, no a los
+lados: así las caras nunca se pierden. Si alguna queda mal encuadrada, se ajusta con `pos`
+en el array `WIDGET`, dentro del `<script>`:
+
+```js
+{k:"coach", src:"...", pos:"center 32%", ph:"...", tag:"...", t:"..."}
+```
+
+`pos` es un `object-position` de CSS. Bajá el porcentaje para subir el encuadre (mostrar
+más de arriba) y subilo para bajarlo. `center top` muestra el borde superior completo —
+útil para capturas de pantalla.
+
+Si querés todavía menos recorte, sacá del `widgetHTML()` la fila de abajo (`wrow2`, las
+tarjetas 05 y 06): las fotos ganan 90px de alto y quedan casi sin recortar. Esos dos ítems
+igual los decís de palabra.
