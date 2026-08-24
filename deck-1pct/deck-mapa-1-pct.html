@@ -108,7 +108,7 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 .brandbar{display:flex;align-items:center;gap:18px;margin-bottom:64px}
 .brandbar .rule{width:96px;height:5px;background:var(--orange)}
 .kicker{font-family:var(--mono);font-size:22px;letter-spacing:.3em;text-transform:uppercase;color:var(--blue)}
-.cover h1{font-family:var(--disp);font-weight:900;font-size:132px;line-height:.98;color:var(--blue);letter-spacing:-.025em;text-wrap:balance}
+.cover h1{font-family:var(--disp);font-weight:900;font-size:78px;line-height:1.06;color:var(--blue);letter-spacing:-.02em;text-wrap:balance;max-width:1560px}
 .cover h1 em{font-style:normal;color:var(--orange)}
 .cover .sub{font-size:40px;color:var(--blue);opacity:.72;margin-top:44px;font-weight:600}
 .cover .hint{position:absolute;left:130px;bottom:96px;font-family:var(--mono);font-size:20px;letter-spacing:.16em;color:var(--blue);opacity:.42;text-transform:uppercase}
@@ -479,8 +479,8 @@ const ICONS = {
    ========================================================================= */
 const SLIDES = [
   {type:'cover',
-   notes:["Cerraste la clase. Ahora les mostrás el caminito antes de liberar el QR."],
-   cue:"Respirá. Cambiá el tono: acá dejás de enseñar y empezás a mostrar el proceso."},
+   notes:["Cerraste la clase. Ahora les hacés la pregunta directa: ¿quieren que les muestres cómo aplicar esto en su vida, con acompañamiento?"],
+   cue:"Respirá. Cambiá el tono: acá dejás de enseñar y le hacés la pregunta a la sala, de verdad — dejá el silencio para que conteste mentalmente que sí."},
 
   {type:'intro',  station:0,
    notes:["Va a ser así: la aplicación, la entrevista, y el acceso al sistema.",
@@ -868,7 +868,7 @@ function buildNodeSlide(st,i){
 const TPL={
   cover:()=>`<div class="cover">
       <div class="brandbar"><div class="rule"></div><div class="kicker">Instituto de Productividad · NFM</div></div>
-      <h1>Escalá tu vida,<br>no tu <em>cansancio</em>.</h1>
+      <h1>¿Querés que te muestre cómo aplicar el sistema completo en tu vida con nuestro <em>acompañamiento</em>?</h1>
       <div class="sub">El camino que empieza hoy.</div>
       <div class="hint">→ avanzar · ← volver · F pantalla completa · N notas</div>
     </div>`,
