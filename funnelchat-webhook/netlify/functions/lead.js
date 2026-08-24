@@ -109,22 +109,26 @@ export default async (req) => {
   const inicio = pick('event_start_time');  // ISO con offset, ej. 2026-08-24T09:20:00-04:00
   const asesor = pick('assigned_to');       // "Valentín Borja"
 
-  // Link del autodiagnóstico ya armado y encodeado. Se manda listo para
-  // pegar en la plantilla: si se arma con variables sueltas en FunnelChat,
-  // los espacios y acentos del nombre rompen la URL en WhatsApp.
+  const primerNombre = nombre.split(/\s+/)[0] || '';
+  const asesorNombre = asesor.split(/\s+/)[0] || '';   // "Valentín", sin el apellido
+
+  // Link del autodiagnóstico ya armado y encodeado, listo para pegar en la
+  // plantilla. Dos motivos para armarlo acá y no con variables sueltas en
+  // FunnelChat: (1) el apellido del asesor mete un espacio y WhatsApp corta
+  // el enlace ahí; (2) los acentos sin encodear lo rompen igual.
   const linkDiag =
-    'https://test-presesion.netlify.app/?asignado=' + encodeURIComponent(asesor) +
-    '&nombre=' + encodeURIComponent(nombre);
+    'https://test-presesion.netlify.app/?asignado=' + encodeURIComponent(asesorNombre) +
+    '&nombre=' + encodeURIComponent(primerNombre);
 
   const payload = {
     nombre:      nombre,
-    primer_nombre: nombre.split(/\s+/)[0] || '',   // para el "Hola {{}}" de la plantilla
+    primer_nombre: primerNombre,                   // para el "Hola {{}}" de la plantilla
     email:       pick('email', 'correo', 'invitee_email'),
     telefono:    telefono,                          // con +, ej. +5491112345678
     telefono_sin_plus: telefono.replace(/^\+/, ''), // sin +, ej. 5491112345678
                                                     // (algunas plataformas lo quieren así)
     asesor:        asesor,                         // "Valentín Borja"
-    asesor_nombre: asesor.split(/\s+/)[0] || '',   // "Valentín" — para el mensaje
+    asesor_nombre: asesorNombre,                   // "Valentín" — sin apellido
     cita_inicio:   inicio,
     cita_texto:    formatCita(inicio),             // "martes 24 de agosto, 09:20 h"
     link_autodiagnostico: linkDiag,                // listo para pegar en la plantilla
