@@ -56,8 +56,8 @@ agrega un bloque `C` en `TEMAS` y se lo referencia en `CLASES`.
 | Fecha | Tema | Título en pantalla | UTM de campaña | Grupo de WhatsApp |
 |---|---|---|---|---|
 | mar 8 sep | A | Cumplís con todos menos con vos | `clase-sep08-cumplis-con-todos` | ✅ cargado |
-| mar 15 sep | B | Escalá tu vida, no tu cansancio | `clase-sep15-escala-tu-vida` | ⚠️ falta |
-| mar 22 sep | A | Cumplís con todos menos con vos | `clase-sep22-cumplis-con-todos` | ⚠️ falta |
+| mar 15 sep | B | Escalá tu vida, no tu cansancio | `clase-sep15-escala-tu-vida` | ✅ cargado |
+| mar 22 sep | A | Cumplís con todos menos con vos | `clase-sep22-cumplis-con-todos` | ✅ cargado (revisar "semptiembre") |
 
 **Septiembre son sólo estas 3.** Después del 22 a las 19:00 se activa el modo semanal automático y la
 landing va a mostrar sola el **martes 29**, que no es una clase real. **Cargá octubre antes de esa hora.**
