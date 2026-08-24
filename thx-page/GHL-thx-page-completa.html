@@ -1,0 +1,681 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     THANK YOU PAGE COMPLETA — Instituto NFM
+     Todo en UN solo widget de código personalizado (GoHighLevel).
+
+     Incluye:
+       0 · Webhook → FunnelChat (invisible, se dispara al cargar)
+       1 · Hero: ¡Agendaste! + mini-roadmap de 3 pasos
+       2 · Tu asesor asignado + WhatsApp
+       3 · Volvé a la clase
+       4 · Video de presesión        ← OPCIONAL, borrable
+       5 · El equipo                 ← OPCIONAL, borrable
+
+     ANTES DE PUBLICAR, cambiá estas 2 líneas (están juntas,
+     abajo de "CONFIGURACIÓN"):
+       WEBHOOK_URL  → tu endpoint de Netlify
+       URL_CLASE    → el link de la clase en vivo
+
+     Todo el CSS está bajo el prefijo .nfmtx para no chocar con
+     los estilos de GoHighLevel.
+     ═══════════════════════════════════════════════════════════════ -->
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ═══ TOKENS Y BASE ═══════════════════════════════════════════ */
+.nfmtx {
+  --navy:     #0C3452;
+  --navy-dk:  #061D30;
+  --orange:   #FF6602;
+  --white:    #FFFFFF;
+  --text:     #2D3748;
+  --muted:    #6B7280;
+  --locked:   #C9D2DA;
+  --wa:       #25D366;
+  --border:   rgba(12, 52, 82, 0.10);
+
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text);
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+.nfmtx *, .nfmtx *::before, .nfmtx *::after { box-sizing: border-box; }
+
+.nfmtx__wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.nfmtx__section { padding: 64px 0; }
+.nfmtx__section + .nfmtx__section { border-top: 1px solid var(--border); }
+
+/* Trama diagonal de fondo, marca NFM */
+.nfmtx::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(45deg,  transparent, transparent 30px, rgba(255,102,2,.025) 30px, rgba(255,102,2,.025) 31px),
+    repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(12,52,82,.015) 30px, rgba(12,52,82,.015) 31px);
+  pointer-events: none;
+}
+
+.nfmtx__eyebrow {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem; font-weight: 800;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 12px;
+}
+.nfmtx__h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.6rem, 3.6vw, 2.3rem);
+  font-weight: 900; line-height: 1.2; letter-spacing: -0.02em;
+  color: var(--navy); margin: 0 0 14px;
+  text-wrap: balance;
+}
+.nfmtx__h2 span { color: var(--orange); }
+.nfmtx__lead {
+  font-size: 1rem; color: var(--muted); line-height: 1.62;
+  max-width: 560px; margin: 0 auto;
+}
+.nfmtx__lead strong { color: var(--navy); font-weight: 700; }
+.nfmtx__center { text-align: center; }
+
+/* ═══ 1 · HERO + ROADMAP ══════════════════════════════════════ */
+.nfmtx__check {
+  width: 64px; height: 64px; margin: 0 auto 20px;
+  background: var(--wa); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 28px rgba(37, 211, 102, 0.35);
+  animation: nfmtx-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.nfmtx__check svg { width: 32px; height: 32px; fill: #fff; }
+
+.nfmtx__card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(12, 52, 82, 0.08);
+  position: relative; overflow: hidden;
+  animation: nfmtx-up 0.5s ease 0.15s both;
+}
+.nfmtx__card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+  background: linear-gradient(90deg, var(--orange), #ff8b3d, var(--orange));
+}
+
+.nfmtx__map { padding: 38px 34px 32px; margin-top: 36px; }
+.nfmtx__steps {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  position: relative;
+}
+.nfmtx__steps::before {
+  content: ''; position: absolute;
+  top: 27px; left: 16.66%; right: 16.66%;
+  border-top: 3px dotted var(--locked);
+}
+.nfmtx__step { position: relative; text-align: center; padding: 0 14px; }
+.nfmtx__dot {
+  width: 54px; height: 54px; margin: 0 auto 14px;
+  border-radius: 50%; background: var(--white);
+  border: 3px solid var(--locked);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Montserrat', sans-serif; font-weight: 900;
+  font-size: 1.1rem; color: var(--locked);
+  position: relative; z-index: 1;
+}
+.nfmtx__step.is-current .nfmtx__dot {
+  border-color: var(--orange); color: var(--orange);
+  box-shadow: 0 0 0 6px rgba(255, 102, 2, 0.12);
+}
+.nfmtx__steplabel {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--locked); margin-bottom: 10px;
+}
+.nfmtx__step.is-current .nfmtx__steplabel { color: var(--navy); }
+.nfmtx__items {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 6px;
+  font-size: 0.84rem; line-height: 1.45; color: var(--muted);
+}
+.nfmtx__items li { display: flex; align-items: flex-start; gap: 7px; justify-content: center; text-align: left; }
+.nfmtx__ok {
+  flex: none; width: 17px; height: 17px; margin-top: 1px;
+  border-radius: 50%; background: var(--wa);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.nfmtx__ok svg { width: 10px; height: 10px; fill: #fff; }
+.nfmtx__next {
+  flex: none; width: 17px; height: 17px; margin-top: 1px;
+  border-radius: 50%; border: 2px solid var(--orange);
+}
+.nfmtx__items li.is-done { color: var(--navy); font-weight: 600; }
+.nfmtx__items li.is-soon strong { color: var(--orange); font-weight: 700; }
+.nfmtx__steptext { font-size: 0.82rem; color: var(--muted); line-height: 1.5; margin: 0; }
+
+/* ═══ 2 · ASESOR ══════════════════════════════════════════════ */
+.nfmtx__closer { padding: 40px 36px 36px; text-align: center; margin-top: 8px; }
+.nfmtx__photo {
+  width: 140px; height: 140px; border-radius: 50%;
+  margin: 0 auto 22px; overflow: hidden;
+  border: 4px solid var(--white);
+  box-shadow: 0 8px 24px rgba(12, 52, 82, 0.18), 0 0 0 4px rgba(255, 102, 2, 0.15);
+  background: linear-gradient(135deg, var(--navy) 0%, #051a2b 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+.nfmtx__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.nfmtx__photo svg { width: 56px; height: 56px; fill: var(--orange); }
+.nfmtx__role {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem; font-weight: 800;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 6px;
+}
+.nfmtx__name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 1.8rem); font-weight: 900;
+  color: var(--navy); margin: 0 0 16px; letter-spacing: -0.02em;
+}
+.nfmtx__msg {
+  font-size: 0.98rem; color: var(--text); line-height: 1.65;
+  max-width: 460px; margin: 0 auto 26px;
+}
+.nfmtx__meta {
+  display: flex; justify-content: center; gap: 22px; flex-wrap: wrap;
+  margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--border);
+  font-size: 0.84rem; color: var(--muted);
+}
+.nfmtx__meta strong { color: var(--navy); font-weight: 700; }
+
+/* Cajas de aviso (WhatsApp / volver a la clase) */
+.nfmtx__note {
+  border-radius: 14px; padding: 18px 22px;
+  display: flex; align-items: center; gap: 14px;
+  text-align: left; margin-top: 16px;
+}
+.nfmtx__note--wa { background: rgba(37,211,102,.08); border: 1px solid rgba(37,211,102,.28); }
+.nfmtx__note--or { background: rgba(255,102,2,.06); border: 1px solid rgba(255,102,2,.25); }
+.nfmtx__noteicon {
+  width: 44px; height: 44px; flex-shrink: 0; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+}
+.nfmtx__noteicon--wa { background: var(--wa); }
+.nfmtx__noteicon--or { background: var(--orange); }
+.nfmtx__noteicon svg { width: 24px; height: 24px; fill: #fff; }
+.nfmtx__notetext { font-size: 0.92rem; line-height: 1.5; color: var(--text); }
+.nfmtx__notetext strong { font-family: 'Montserrat', sans-serif; color: var(--navy); font-weight: 700; }
+
+/* Botón volver a la clase */
+.nfmtx__btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--orange); color: #fff !important;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 16px 34px; border-radius: 100px;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 16px rgba(255, 102, 2, 0.28);
+}
+.nfmtx__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255, 102, 2, 0.4); }
+.nfmtx__btn:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+
+/* ═══ 4 · VIDEO ═══════════════════════════════════════════════ */
+.nfmtx__videobox { padding: 16px; }
+.nfmtx__player {
+  position: relative; border-radius: 14px; overflow: hidden;
+  background: var(--navy); aspect-ratio: 16 / 9;
+}
+.nfmtx__player wistia-player { width: 100%; height: 100%; display: block; }
+wistia-player[media-id='tdrkk8cd9a']:not(:defined) {
+  background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/tdrkk8cd9a/swatch');
+  display: block; filter: blur(5px); padding-top: 56.25%;
+}
+
+/* ═══ 5 · EQUIPO ══════════════════════════════════════════════ */
+.nfmtx__grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px;
+}
+.nfmtx__member {
+  background: #fff; border-radius: 16px; padding: 28px 22px 24px;
+  box-shadow: 0 2px 12px rgba(12, 52, 82, 0.06);
+  border: 1px solid var(--border);
+  transition: transform .25s, box-shadow .25s;
+  display: flex; flex-direction: column;
+}
+.nfmtx__member:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(12, 52, 82, 0.1); }
+.nfmtx__mphoto {
+  width: 110px; height: 110px; border-radius: 50%; overflow: hidden;
+  margin: 0 auto 18px; border: 3px solid #fff;
+  box-shadow: 0 4px 16px rgba(12, 52, 82, 0.12);
+}
+.nfmtx__mphoto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.nfmtx__mname {
+  font-family: 'Montserrat', sans-serif; font-size: 1.08rem; font-weight: 800;
+  color: var(--navy); text-align: center; margin: 0 0 6px; line-height: 1.25;
+}
+.nfmtx__mrole {
+  font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 700;
+  color: var(--orange); text-align: center; text-transform: uppercase;
+  letter-spacing: 0.05em; margin: 0 0 14px; line-height: 1.35; min-height: 2.2em;
+}
+.nfmtx__mbio { font-size: 0.86rem; color: var(--text); line-height: 1.55; margin: 0; }
+
+/* ═══ ANIMACIONES ═════════════════════════════════════════════ */
+@keyframes nfmtx-up  { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes nfmtx-pop { 0% { opacity: 0; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .nfmtx *, .nfmtx *::before { animation: none !important; transition: none !important; }
+}
+
+/* ═══ RESPONSIVE ══════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .nfmtx__grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+}
+@media (max-width: 640px) {
+  .nfmtx__section { padding: 48px 0; }
+  .nfmtx__map, .nfmtx__closer { padding: 28px 20px 24px; }
+  .nfmtx__steps { grid-template-columns: 1fr; gap: 26px; }
+  .nfmtx__steps::before { display: none; }
+  .nfmtx__step {
+    display: grid; grid-template-columns: 54px 1fr; gap: 14px;
+    text-align: left; padding: 0; align-items: start;
+  }
+  .nfmtx__dot { margin: 0; }
+  .nfmtx__steplabel { margin-bottom: 6px; }
+  .nfmtx__items li { justify-content: flex-start; }
+  .nfmtx__photo { width: 120px; height: 120px; }
+  .nfmtx__grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+  .nfmtx__note { padding: 14px 16px; gap: 12px; }
+  .nfmtx__noteicon { width: 38px; height: 38px; }
+}
+</style>
+
+
+<div class="nfmtx">
+
+  <!-- ═══ 1 · HERO + MINI-ROADMAP ═══════════════════════════════ -->
+  <section class="nfmtx__section">
+    <div class="nfmtx__wrap">
+
+      <div class="nfmtx__center">
+        <div class="nfmtx__check">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+        <div class="nfmtx__eyebrow">Tu 1% de hoy, hecho</div>
+        <h2 class="nfmtx__h2" id="nfmtx-title">
+          ¡Felicitaciones! <span>Ya diste el único paso que dependía de vos.</span>
+        </h2>
+        <p class="nfmtx__lead">
+          Tu entrevista quedó agendada. Acá estás parado en el camino que te mostré —
+          <strong>todo lo demás pasa solo.</strong>
+        </p>
+      </div>
+
+      <div class="nfmtx__card nfmtx__map">
+        <div class="nfmtx__steps">
+
+          <div class="nfmtx__step is-current">
+            <div class="nfmtx__dot">01</div>
+            <div>
+              <div class="nfmtx__steplabel">La aplicación</div>
+              <ul class="nfmtx__items">
+                <li class="is-done">
+                  <span class="nfmtx__ok"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+                  <span>Reservaste tu entrevista</span>
+                </li>
+                <li class="is-soon">
+                  <span class="nfmtx__next"></span>
+                  <span><strong>Tu autodiagnóstico</strong> te llega por WhatsApp</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="nfmtx__step">
+            <div class="nfmtx__dot">02</div>
+            <div>
+              <div class="nfmtx__steplabel">La entrevista</div>
+              <p class="nfmtx__steptext">Con tu coach asignado, en el horario que elegiste. Vemos tu caso y si podemos ayudarte.</p>
+            </div>
+          </div>
+
+          <div class="nfmtx__step">
+            <div class="nfmtx__dot">03</div>
+            <div>
+              <div class="nfmtx__steplabel">El acceso</div>
+              <p class="nfmtx__steptext">Si hacemos match, entrás a tu sistema. Y si no, igual te llevás tu entregable.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══ 2 · TU ASESOR + WHATSAPP ══════════════════════════════ -->
+  <section class="nfmtx__section">
+    <div class="nfmtx__wrap">
+
+      <div class="nfmtx__center">
+        <div class="nfmtx__eyebrow">Quién te va a acompañar</div>
+        <h2 class="nfmtx__h2" id="nfmtx-closer-title">Te va a contactar <span>tu asesor</span> por WhatsApp</h2>
+      </div>
+
+      <div class="nfmtx__card nfmtx__closer">
+        <div class="nfmtx__photo" id="nfmtx-photo"></div>
+        <div class="nfmtx__role" id="nfmtx-role">Asesor/a · Instituto de Productividad</div>
+        <h3 class="nfmtx__name" id="nfmtx-name">—</h3>
+        <p class="nfmtx__msg" id="nfmtx-msg">—</p>
+
+        <div class="nfmtx__note nfmtx__note--wa">
+          <div class="nfmtx__noteicon nfmtx__noteicon--wa">
+            <svg viewBox="0 0 24 24"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.88 11.89L4 20l4.22-1.11a7.93 7.93 0 0 0 3.79.97h.01a7.94 7.94 0 0 0 7.94-7.94c0-2.12-.82-4.11-2.36-5.6zM12.05 18.5a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.66.67-2.44-.16-.25a6.59 6.59 0 1 1 12.21-3.46 6.6 6.6 0 0 1-6.62 6.55zm3.62-4.93c-.2-.1-1.17-.58-1.35-.65-.18-.07-.32-.1-.45.1-.13.2-.51.65-.63.78-.12.13-.23.15-.43.05a5.4 5.4 0 0 1-1.6-.99 5.97 5.97 0 0 1-1.1-1.37c-.12-.2 0-.31.09-.41.09-.09.2-.23.3-.35.1-.12.13-.2.2-.33.07-.13.03-.25-.02-.35-.05-.1-.45-1.08-.62-1.48-.16-.39-.33-.34-.45-.34l-.38-.01a.74.74 0 0 0-.53.25 2.23 2.23 0 0 0-.69 1.65c0 .98.7 1.92.8 2.05.1.13 1.39 2.13 3.37 2.99a11.4 11.4 0 0 0 1.13.42c.47.15.9.13 1.24.08.38-.06 1.17-.48 1.34-.94.16-.46.16-.86.11-.94-.05-.08-.18-.13-.38-.23z"/></svg>
+          </div>
+          <div class="nfmtx__notetext">
+            <strong>Lo único que te pedimos:</strong> cuando te escribamos por WhatsApp, confirmá.
+            Con eso queda tomado tu lugar.
+          </div>
+        </div>
+
+        <div class="nfmtx__meta">
+          <span id="nfmtx-cita" style="display:none">📅 <strong>Tu entrevista:</strong> <span id="nfmtx-citatxt"></span></span>
+          <span>⏱️ <strong>Duración:</strong> 45-60 min</span>
+          <span>💻 <strong>Modalidad:</strong> Videollamada</span>
+          <span>🎯 <strong>Tipo:</strong> 1 a 1</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══ 3 · VOLVÉ A LA CLASE ══════════════════════════════════ -->
+  <section class="nfmtx__section">
+    <div class="nfmtx__wrap nfmtx__center">
+      <div class="nfmtx__eyebrow">Y ahora</div>
+      <h2 class="nfmtx__h2">Volvé a la clase — <span>Nico sigue en vivo</span></h2>
+      <p class="nfmtx__lead">
+        Acá no te queda nada más por hacer. Lo que falta te llega por WhatsApp.
+      </p>
+      <p style="margin-top:28px">
+        <a class="nfmtx__btn" id="nfmtx-back" href="#" target="_blank" rel="noopener">
+          ← Volver a la clase
+        </a>
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ═══ 4 · VIDEO DE PRESESIÓN ════════════════════════════════
+       OPCIONAL. Si la gente agenda desde la clase EN VIVO, mi
+       recomendación es BORRAR esta sección entera (hasta el
+       cierre de </section>) y mandar el video por WhatsApp:
+       compite con que vuelvan a escuchar el cierre de Nico.
+       ═════════════════════════════════════════════════════════ -->
+  <section class="nfmtx__section" id="nfmtx-video">
+    <div class="nfmtx__wrap">
+      <div class="nfmtx__center" style="margin-bottom:32px">
+        <div class="nfmtx__eyebrow">Antes de tu sesión</div>
+        <h2 class="nfmtx__h2">Mirá este video antes de hablar con <span id="nfmtx-vidname">tu asesor</span></h2>
+        <p class="nfmtx__lead">
+          Nico te explica cómo va a ser el proceso y qué necesita saber de vos en la llamada.
+          <strong>Lo que dice al cierre cambia la forma en que vas a la sesión.</strong>
+        </p>
+      </div>
+
+      <div class="nfmtx__card nfmtx__videobox">
+        <div class="nfmtx__player">
+          <wistia-player media-id="tdrkk8cd9a" aspect="1.7777777777777777"></wistia-player>
+        </div>
+      </div>
+
+      <div class="nfmtx__note nfmtx__note--or">
+        <div class="nfmtx__noteicon nfmtx__noteicon--or">🎯</div>
+        <div class="nfmtx__notetext">
+          <strong>Mirá el video completo.</strong> Es el paso que hace que la sesión con tu asesor
+          sea efectiva — sin esto, le restás tiempo a lo que realmente importa hablar.
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ 5 · EL EQUIPO ═════════════════════════════════════════
+       OPCIONAL. Borrable entera si querés la página más corta.
+       ═════════════════════════════════════════════════════════ -->
+  <section class="nfmtx__section" id="nfmtx-equipo">
+    <div class="nfmtx__wrap">
+      <div class="nfmtx__center">
+        <div class="nfmtx__eyebrow">El equipo</div>
+        <h2 class="nfmtx__h2">No vas a estar solo en esto</h2>
+        <p class="nfmtx__lead">
+          Detrás de cada paso hay un profesional especializado. No es un referente para todo:
+          es un equipo, cada uno en lo suyo.
+        </p>
+      </div>
+
+      <div class="nfmtx__grid">
+
+        <div class="nfmtx__member">
+          <div class="nfmtx__mphoto"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/nico-bio-card.jpg" alt="Nicolás Fernández Miranda" loading="lazy"></div>
+          <h3 class="nfmtx__mname">Nicolás Fernández Miranda</h3>
+          <p class="nfmtx__mrole">Fundador del Instituto</p>
+          <p class="nfmtx__mbio">Máster en Neurociencia aplicada al rendimiento. Autor bestseller de <em>Hackea tu Cerebro</em>, conferencista TEDx y consultor de más de 80 empresas.</p>
+        </div>
+
+        <div class="nfmtx__member">
+          <div class="nfmtx__mphoto"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/03/MONTE.jpg" alt="Agustina Monte" loading="lazy"></div>
+          <h3 class="nfmtx__mname">Agustina Monte</h3>
+          <p class="nfmtx__mrole">Coach Nutricional</p>
+          <p class="nfmtx__mbio">Especializada en salud intestinal. Porque no se puede tener claridad mental si el sistema digestivo está inflamado.</p>
+        </div>
+
+        <div class="nfmtx__member">
+          <div class="nfmtx__mphoto"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/MONTE.jpg" alt="Martín Monte" loading="lazy"></div>
+          <h3 class="nfmtx__mname">Martín Monte</h3>
+          <p class="nfmtx__mrole">Alto rendimiento y liderazgo</p>
+          <p class="nfmtx__mbio">Te ayuda a diseñar una rutina física que te dé energía en lugar de quitártela — sin necesidad de correr un Ironman.</p>
+        </div>
+
+        <div class="nfmtx__member">
+          <div class="nfmtx__mphoto"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/03/AGOS-AMGRA.jpg" alt="Agostina Magra" loading="lazy"></div>
+          <h3 class="nfmtx__mname">Agostina Magra</h3>
+          <p class="nfmtx__mrole">Accountability Coach</p>
+          <p class="nfmtx__mbio">Te ayuda a cumplir lo que te propusiste, mantenerte enfocado y romper con los ciclos de autosabotaje.</p>
+        </div>
+
+        <div class="nfmtx__member">
+          <div class="nfmtx__mphoto"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/pierinaa.jpg" alt="Pierina Monte Riso" loading="lazy"></div>
+          <h3 class="nfmtx__mname">Pierina Monte Riso</h3>
+          <p class="nfmtx__mrole">Client Success Manager</p>
+          <p class="nfmtx__mbio">Acompaña a cada alumno durante todo el proceso para que la experiencia sea transformadora de verdad.</p>
+        </div>
+
+        <div class="nfmtx__member">
+          <div class="nfmtx__mphoto"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/Captura-de-pantalla-2026-05-18-075350.png" alt="Soledad Funes" loading="lazy" style="object-position:center top"></div>
+          <h3 class="nfmtx__mname">Soledad Funes</h3>
+          <p class="nfmtx__mrole">Psicología · TDAH y ansiedad</p>
+          <p class="nfmtx__mbio">Acompañamiento 1 a 1 para profesionales que viven con la cabeza acelerada y no logran bajar las revoluciones.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+<!-- Wistia (solo si dejaste la sección 4) -->
+<script src="https://fast.wistia.com/player.js" async></script>
+<script src="https://fast.wistia.com/embed/tdrkk8cd9a.js" async type="module"></script>
+
+
+<script>
+(function () {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════════════
+     CONFIGURACIÓN — cambiá estas dos líneas y listo
+     ═══════════════════════════════════════════════════════════ */
+  var WEBHOOK_URL = 'https://TU-SITIO.netlify.app/lead';
+  var URL_CLASE   = 'https://TU-DOMINIO.com/clase-en-vivo';
+
+
+  /* ═══ Datos de los asesores ═══════════════════════════════ */
+  var CLOSERS = {
+    valentin: { nombre:'Valentín', role:'Asesor · Instituto de Productividad',
+      foto:'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-19-at-1.08.42-PM-1.jpg',
+      mensaje:'Voy a estar en la sesión con vos para escucharte y ayudarte a definir el mejor camino. Nos vemos en breve 🙌' },
+    luciana: { nombre:'Luciana', role:'Asesora · Instituto de Productividad',
+      foto:'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-19-at-11.20.09-AM.jpeg',
+      mensaje:'Estoy esperando nuestra charla para conocer tu caso en detalle y ver cómo podemos avanzar. ¡Hablamos pronto! ✨' },
+    cristina: { nombre:'Cristina', role:'Asesora · Instituto de Productividad',
+      foto:'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-19-at-12.51.15-PM.jpeg',
+      pos:'center 10%',
+      mensaje:'Voy a acompañarte en esta primera conversación para entender qué necesitás y cómo podemos ayudarte. Te escribo pronto 💫' },
+    pierina: { nombre:'Pierina', role:'Asesora · Instituto de Productividad',
+      foto:'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/Captura-de-pantalla-2026-05-23-102252.png',
+      mensaje:'Voy a ser quien te escuche en esta primera charla para conocer tu caso y guiarte en lo que necesitás resolver. ¡Hablamos pronto! 🌟' },
+    paula: { nombre:'Paula', role:'Asesora · Instituto de Productividad',
+      foto:'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/06/image-1.png',
+      pos:'center top',
+      mensaje:'Voy a acompañarte en esta primera conversación para entender bien tu situación y ver si el programa es para vos. ¡Hablamos en un rato! 👋' },
+    matias: { nombre:'Matías', role:'Asesor · Instituto de Productividad',
+      foto:'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/06/image.png',
+      mensaje:'Voy a estar en la sesión con vos para escucharte y ayudarte a encontrar el mejor camino. Nos vemos en breve 🙌' }
+  };
+
+  var GENERICO = {
+    role: 'Equipo de Asesores · Instituto de Productividad',
+    nombre: 'Un asesor del Instituto',
+    mensaje: 'Uno de nuestros coaches de admisión ya se está preparando para tu llamada y te va a escribir muy pronto.'
+  };
+
+
+  /* ═══ Helpers ═════════════════════════════════════════════ */
+  // Calendly a veces manda los valores con doble encoding
+  function dec(s) {
+    if (!s) return '';
+    try {
+      var d = decodeURIComponent(String(s));
+      if (/%[0-9A-Fa-f]{2}/.test(d)) { try { d = decodeURIComponent(d); } catch (e) {} }
+      return d;
+    } catch (e) { return String(s); }
+  }
+  function capitalizar(full) {
+    if (!full) return '';
+    var f = full.trim().split(/\s+/)[0] || '';
+    return f.charAt(0).toUpperCase() + f.slice(1).toLowerCase();
+  }
+  function clave(full) {
+    if (!full) return '';
+    var f = full.trim().split(/\s+/)[0] || '';
+    return f.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+  function el(id) { return document.getElementById(id); }
+
+  // "2026-08-24T09:20:00-04:00" → "lunes 24 de agosto · 09:20 h"
+  // Usa la hora tal cual la manda Calendly (la local del invitado).
+  function formatCita(iso) {
+    if (!iso) return '';
+    var m = iso.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+    if (!m) return '';
+    var dias  = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+    var meses = ['enero','febrero','marzo','abril','mayo','junio',
+                 'julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    var dia = dias[new Date(Date.UTC(+m[1], +m[2] - 1, +m[3])).getUTCDay()];
+    return dia + ' ' + (+m[3]) + ' de ' + meses[+m[2] - 1] + ' · ' + m[4] + ':' + m[5] + ' h';
+  }
+
+  // Todos los params de la URL, ya decodificados
+  var P = {};
+  new URLSearchParams(location.search).forEach(function (v, k) { P[k] = dec(v); });
+
+
+  /* ═══ 0 · WEBHOOK → FunnelChat ════════════════════════════
+     Manda TODOS los params al relay de Netlify, que normaliza
+     nombre/email/teléfono y se los pasa a FunnelChat.
+     Se dispara una sola vez, aunque la persona refresque.
+     ═════════════════════════════════════════════════════════ */
+  (function dispararWebhook() {
+    if (!Object.keys(P).length) return;
+    if (WEBHOOK_URL.indexOf('TU-SITIO') !== -1) return;  // sin configurar todavía
+
+    var idUnico = P.invitee_email || P.invitee_uuid || location.search;
+    var KEY = 'nfm_lead_' + idUnico;
+    try { if (sessionStorage.getItem(KEY)) return; } catch (e) {}
+
+    var payload = {};
+    for (var k in P) payload[k] = P[k];
+    payload.origen = 'thx-agendamiento';
+
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function () {
+      try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+    }).catch(function () { /* si falla, el asesor igual escribe a mano */ });
+  })();
+
+
+  /* ═══ 1 · Personalizar con el nombre y la fecha ═══════════
+     Ojo: Calendly manda invitee_full_name VACÍO, así que el
+     nombre sale de invitee_first_name.
+     ═════════════════════════════════════════════════════════ */
+  var nombreLead = capitalizar(P.invitee_first_name || P.invitee_full_name || '');
+  if (nombreLead) {
+    el('nfmtx-title').innerHTML =
+      '¡Felicitaciones, ' + nombreLead + '! <span>Ya diste el único paso que dependía de vos.</span>';
+  }
+
+  // Fecha y hora reales de la entrevista: verla acá baja el no-show
+  var citaTxt = formatCita(P.event_start_time || '');
+  if (citaTxt) {
+    el('nfmtx-citatxt').textContent = citaTxt;
+    el('nfmtx-cita').style.display = '';
+  }
+
+
+  /* ═══ 2 · Asesor asignado ═════════════════════════════════ */
+  var k = clave(P.assigned_to || '');
+  var c = CLOSERS[k];
+  var foto = el('nfmtx-photo');
+
+  if (c) {
+    el('nfmtx-closer-title').innerHTML = 'Te va a contactar <span>' + c.nombre + '</span> por WhatsApp';
+    el('nfmtx-role').textContent = c.role;
+    el('nfmtx-name').textContent = c.nombre;
+    el('nfmtx-msg').textContent =
+      (nombreLead ? 'Hola ' + nombreLead + ', soy ' + c.nombre + '. ' : 'Hola, soy ' + c.nombre + '. ') + c.mensaje;
+    foto.innerHTML = '<img src="' + c.foto + '" alt="' + c.nombre + '"' +
+      (c.pos ? ' style="object-position:' + c.pos + '"' : '') + '>';
+    if (el('nfmtx-vidname')) el('nfmtx-vidname').textContent = c.nombre;
+  } else {
+    el('nfmtx-role').textContent = GENERICO.role;
+    el('nfmtx-name').textContent = GENERICO.nombre;
+    el('nfmtx-msg').textContent = GENERICO.mensaje;
+    foto.innerHTML = '<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>';
+  }
+
+
+  /* ═══ 3 · Botón "volver a la clase" ═══════════════════════ */
+  var back = el('nfmtx-back');
+  if (URL_CLASE.indexOf('TU-DOMINIO') === -1) {
+    back.href = URL_CLASE;
+  } else {
+    back.parentNode.style.display = 'none';  // sin configurar: ocultá el botón roto
+  }
+
+})();
+</script>
