@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qué incluye — Instituto de Productividad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================================
+   WIDGET "QUÉ INCLUYE" — recortado de la landing del Instituto de Productividad.
+   Autocontenido: pegalo tal cual en un slide/iframe del webinar.
+   ========================================================================= */
+:root{
+  --nfm-blue:#0c3452;
+  --nfm-blue-light:#e7edf2;
+  --nfm-orange:#ff6602;
+  --nfm-orange-text:#c04a00;
+  --nfm-orange-wash:#fff7f2;
+  --nfm-white:#ffffff;
+  --ink:#0c3452;
+  --muted:#33536b;
+  --mono-grey:#5c7286;
+  --mono-grey-soft:#6b8296;
+  --hair:rgba(12,52,82,.10);
+  --hair-2:rgba(12,52,82,.16);
+  --maxw:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Open Sans',sans-serif;color:var(--ink);background:var(--nfm-white);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:'Montserrat',sans-serif}
+p{text-wrap:pretty}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:56px 24px}
+.center{text-align:center}
+
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.2em;font-size:11px;font-weight:500;color:var(--nfm-orange-text);background:var(--nfm-orange-wash);border:1px solid rgba(255,102,2,.22);padding:8px 15px;border-radius:100px;margin-bottom:20px}
+.h2{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(28px,4.4vw,46px);line-height:1.06;letter-spacing:-.015em;margin-bottom:22px;color:var(--nfm-blue);text-wrap:balance}
+.h2 .hl{color:var(--nfm-orange)}
+.lead-2{font-size:clamp(17px,2.2vw,21px);color:var(--muted);max-width:780px;line-height:1.62;margin-left:auto;margin-right:auto}
+
+/* Recuadros con foto (4) */
+.bcards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px;text-align:left}
+.bcard{background:#fff;border:1px solid var(--hair);border-radius:16px;overflow:hidden;box-shadow:0 12px 32px rgba(12,52,82,.06);display:flex;flex-direction:column}
+.bcard__ph{position:relative;aspect-ratio:4/3;background:linear-gradient(150deg,#eef3f7,#dae5ee);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.bcard__ph img{width:100%;height:100%;object-fit:cover}
+.bcard__body{padding:16px 18px 20px}
+.bcard__tag{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nfm-orange-text);font-weight:500}
+.bcard__body h3{font-weight:800;font-size:15px;color:var(--nfm-blue);margin:6px 0 6px}
+.bcard__body p{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* Fotos reales (collage 1 foto por recuadro acá) */
+.photo-slot{position:relative;overflow:hidden}
+.photo-slot__inner{text-align:center;padding:16px;display:flex;flex-direction:column;align-items:center;gap:9px}
+.photo-slot__icon{width:40px;height:40px;border-radius:11px;background:rgba(12,52,82,.06);border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;color:var(--mono-grey)}
+.photo-slot__icon svg{width:20px;height:20px}
+.photo-slot__label{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mono-grey);line-height:1.7}
+.photo-slot__label span{display:block;color:var(--mono-grey-soft);font-size:9px;margin-top:2px}
+.photo-slot.is-filled{background:none}
+.collage{position:absolute;inset:0;display:grid;gap:3px;background:#fff}
+.collage img{width:100%;height:100%;min-width:0;min-height:0;object-fit:cover;display:block}
+.collage--1{grid-template-columns:1fr}
+[data-img="coach"] .collage img{object-position:center 38%}
+
+/* Recuadros sin foto (2) */
+.incl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
+.incl-grid--duo{grid-template-columns:repeat(2,1fr);max-width:760px;margin-left:auto;margin-right:auto;text-align:left}
+.ic{background:#fff;border:1px solid var(--nfm-blue-light);border-radius:14px;padding:24px 22px;display:flex;gap:14px;align-items:flex-start;box-shadow:0 12px 32px rgba(12,52,82,.06)}
+.ic .mk{font-family:'Montserrat';font-weight:900;font-size:19px;color:var(--nfm-orange);flex:0 0 auto;line-height:1;margin-top:2px}
+.ic h3{font-weight:800;font-size:16px;margin-bottom:6px;color:var(--nfm-blue)}
+.ic p{font-size:13.5px;color:var(--muted);line-height:1.5}
+
+@media(max-width:980px){
+  .bcards{grid-template-columns:repeat(2,1fr)}
+  .incl-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .bcards{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}
+  .incl-grid--duo{grid-template-columns:1fr;max-width:420px}
+  .wrap{padding:40px 20px}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap center">
+  <div class="center"><span class="eyebrow">Qué incluye</span></div>
+  <h2 class="h2">Qué incluyen los programas del <span class="hl">Instituto de Productividad</span></h2>
+  <p class="lead-2">Todo lo que ponemos del otro lado —dentro de nuestros procesos— para que esta vez tus objetivos sí avancen. Un profesional por cada frente, no un PDF y suerte.</p>
+
+  <div class="bcards">
+
+    <div class="bcard">
+      <div class="bcard__ph photo-slot" data-img="coach" data-alt="Sesión de acompañamiento 1 a 1 del Instituto">
+        <div class="photo-slot__inner">
+          <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="photo-slot__label">Foto<span>Acompañamiento 1 a 1</span></div>
+        </div>
+      </div>
+      <div class="bcard__body">
+        <span class="bcard__tag">01 · Incluido</span>
+        <h3>Tu coach dedicada, 1 a 1</h3>
+        <p>La persona del otro lado esperándote: te conoce, te sigue de cerca y no te deja aflojar. Lo que los alumnos valoran por encima de todo (8.8/10).</p>
+      </div>
+    </div>
+
+    <div class="bcard">
+      <div class="bcard__ph photo-slot" data-img="modulos" data-alt="Plataforma del curso El ABC del Alto Rendimiento">
+        <div class="photo-slot__inner">
+          <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="photo-slot__label">Foto<span>Método · plataforma del curso</span></div>
+        </div>
+      </div>
+      <div class="bcard__body">
+        <span class="bcard__tag">02 · Incluido</span>
+        <h3>Biblioteca de +20 módulos</h3>
+        <p>El método completo, ordenado y secuencial. Píldoras cortas y accionables, no teoría.</p>
+      </div>
+    </div>
+
+    <div class="bcard">
+      <div class="bcard__ph photo-slot" data-img="llamadas" data-alt="Clase en vivo del Instituto de Productividad">
+        <div class="photo-slot__inner">
+          <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="photo-slot__label">Foto<span>Clases / encuentros en vivo</span></div>
+        </div>
+      </div>
+      <div class="bcard__body">
+        <span class="bcard__tag">03 · Incluido</span>
+        <h3>Llamadas grupales en vivo</h3>
+        <p>Encuentros con Nico y el equipo para resolver tu caso real, y aprender de los compañeros.</p>
+      </div>
+    </div>
+
+    <div class="bcard">
+      <div class="bcard__ph photo-slot" data-img="comunidad" data-alt="Comunidad del Instituto de Productividad">
+        <div class="photo-slot__inner">
+          <div class="photo-slot__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="photo-slot__label">Foto<span>Comunidad / mastermind presencial</span></div>
+        </div>
+      </div>
+      <div class="bcard__body">
+        <span class="bcard__tag">04 · Incluido</span>
+        <h3>Comunidad + mastermind presencial</h3>
+        <p>Gente con tu carga y tu oficio, que no juzga y acompaña — incluido el mastermind presencial en Buenos Aires.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="incl-grid incl-grid--duo">
+    <div class="ic"><span class="mk">05</span><div><h3>Equipo multidisciplinario</h3><p>Psicólogos, nutricionistas y coaches de alto rendimiento: un profesional por cada frente de tu vida y tu operación, no un solo referente para todo.</p></div></div>
+    <div class="ic"><span class="mk">06</span><div><h3>Método y sistemas listos para usar</h3><p>Biblioteca de módulos accionables + Habit Tracker y Second Brain para sacarte la carga de la cabeza. Copiás, adaptás, aplicás.</p></div></div>
+  </div>
+</div>
+
+<script>
+/* ===== FOTOS REALES · pegá tus links acá (podés poner varias por recuadro y arma un collage) ===== */
+const IMG = {
+  coach: [
+    "https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b62e2cf81b06f057b50b2.png"
+  ],
+  modulos: [
+    "https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b62e2497cd89d2487dead.png"
+  ],
+  llamadas: [
+    "https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b6278f7a089644cf46063.jpg"
+  ],
+  comunidad: [
+    "https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b6275ecb6db2520210e75.jpg"
+  ],
+};
+
+function fillPhotos(){
+  var slots=document.querySelectorAll('[data-img]');
+  for(var s=0;s<slots.length;s++){
+    var slot=slots[s], key=slot.getAttribute('data-img');
+    var arr=(IMG[key])?IMG[key]:[];
+    arr=arr.filter(function(u){ return u && u.indexOf('http')===0; });
+    if(!arr.length) continue;
+    var n=Math.min(arr.length,4);
+    var alt=slot.getAttribute('data-alt')||'Instituto de Productividad';
+    var html='<div class="collage collage--'+n+'">';
+    for(var i=0;i<n;i++){ html+='<img src="'+arr[i]+'" alt="'+alt+'" loading="lazy">'; }
+    html+='</div>';
+    slot.innerHTML=html;
+    slot.classList.add('is-filled');
+  }
+}
+window.addEventListener('DOMContentLoaded', fillPhotos);
+</script>
+
+</body>
+</html>
