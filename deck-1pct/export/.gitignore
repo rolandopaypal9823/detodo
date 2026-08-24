@@ -1,6 +1,9 @@
 s*.png
+bg*.png
+chk*.png
+preview.html
+textos.json
 meta.json
 node_modules/
 package*.json
-minimo.pptx
 *.pdf
