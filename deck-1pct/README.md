@@ -16,6 +16,7 @@ Slides del roadmap del lead para el cierre de la clase **"Escalá tu vida, no tu
 
 - `→` / `barra espaciadora` / clic: avanzar · `←`: volver · `Home`: al principio
 - `F`: pantalla completa (usar esto antes de compartir pantalla en Zoom)
+- `N`: abre las notas del presentador en otra ventana
 - El cursor se esconde solo a los 3 segundos
 - Refrescar no pierde el lugar: guarda el slide actual en `localStorage`
 - Contador abajo a la derecha: `07 / 12`
@@ -26,21 +27,33 @@ conviene frenar y leer despacio es el **calificador** (slide 10), que es el que 
 ## Orden de los 11 slides
 
 1. Portada
-2. Intro del mapa — las 3 estaciones apagadas, Mini Nico en "estás acá"
-3-4. **Paso 01 · Tu 1%** — el link del chat / 90 segundos de preguntas
-5-6. **Paso 02 · Pasa solo** — tu asesor te escribe / se desbloquean tus recursos
-7-8. **Paso 03 · La decisión** — la llamada / la puerta (grande + chica)
+2. Intro del mapa — los 3 pasos apagados, Mini Nico en "estás acá"
+3-4. **Paso 01 · La aplicación** — reservás tu entrevista / tu autodiagnóstico
+5-6. **Paso 02 · La entrevista** — con tu coach asignado / lo único que te pedimos
+7-8. **Paso 03 · El acceso** — accedés a tu sistema / y si no hacemos match
 9. Calificador
 10. CTA con el QR
 11. Cierre
 
-El mapa tiene **3 estaciones**, no ocho. Cada una se despliega en 2 sub-momentos que
+El mapa tiene **3 estaciones**, no ocho. Cada una se despliega en 2 micro-pasos que
 cambian el panel de abajo sin que el mapa avance — los puntitos al lado del "PASO 0X"
-muestran en cuál de los dos estás. Así el camino *se ve* corto, que es lo que hace que
-agendar se sienta chico.
+muestran en cuál estás. Así el camino *se ve* corto, que es lo que hace que agendar se
+sienta chico.
 
 El punto de partida ("estás acá") es un punto chico, no una estación: no es un paso del
 camino, es dónde está parado hoy.
+
+Hay una línea causal que conviene no romper al editar: **el autodiagnóstico del paso 01 es
+lo que fabrica el entregable del paso 03.** Es lo que sostiene el "nadie se va con las
+manos vacías".
+
+## Notas del presentador
+
+Apretá **`N`** y se abren en una ventana aparte, sincronizada con el slide actual.
+En Zoom compartí **solo la ventana del deck** y dejá la de notas en tu otra pantalla.
+
+Las mismas notas están en `guion.md`, para leerlas antes o imprimirlas. Si editás una,
+editá la otra: viven en el array `notes` de cada sub-paso dentro de `deck-mapa-1-pct.html`.
 
 ## Cómo funciona el mapa
 

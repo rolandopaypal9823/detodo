@@ -159,6 +159,17 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 .wa-in{flex:none;background:var(--white);margin:0 12px 12px;border-radius:100px;padding:11px 20px;font-size:16px;color:#8696a0}
 
 /* ---------- puertas (nodo 8) ---------- */
+.pares{display:grid;grid-template-columns:1fr 1fr;gap:26px;height:502px}
+.par{border:3px solid var(--blue-light);border-radius:12px;padding:38px 34px;display:flex;flex-direction:column;justify-content:center}
+.par .d-lab{font-family:var(--mono);font-size:19px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange)}
+.par h3{font-family:var(--disp);font-weight:800;font-size:36px;line-height:1.12;color:var(--blue);margin-top:16px}
+.par p{font-size:24px;line-height:1.45;color:var(--blue);opacity:.72;margin-top:16px;text-wrap:pretty}
+.lista{height:502px;border:3px solid var(--blue);border-radius:12px;padding:44px 46px;display:flex;flex-direction:column;justify-content:center}
+.lista .d-lab{font-family:var(--mono);font-size:20px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange)}
+.lista h3{font-family:var(--disp);font-weight:900;font-size:46px;line-height:1.1;color:var(--blue);margin:16px 0 30px;letter-spacing:-.02em}
+.lista ul{list-style:none;display:flex;flex-direction:column;gap:19px}
+.lista li{display:flex;gap:18px;align-items:baseline;font-size:28px;line-height:1.35;color:var(--blue)}
+.lista li span{color:var(--green);font-weight:700;flex:none}
 .doors{display:grid;grid-template-columns:1.35fr 1fr;gap:26px;height:502px}
 .door{border:3px solid var(--locked);border-radius:12px;padding:34px 30px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color .4s ease,background .4s ease,transform .4s ease}
 .door .d-lab{font-family:var(--mono);font-size:18px;letter-spacing:.2em;text-transform:uppercase;color:var(--locked);transition:color .4s ease}
@@ -354,32 +365,65 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 const ORIGEN = { label:"Estás acá" };
 
 const STATIONS = [
-  { n:1, label:"Tu 1%", icon:"qr", subs:[
-      { title:"El link del chat",
-        copy:"Tu único trabajo hoy: hacer clic. Lo demás pasa solo.",
-        assets:[{src:"assets/SCREENSHOT-qr.png"}] },
-      { title:"90 segundos de preguntas",
-        copy:"Unas preguntas para conocer tu caso, y elegís tu horario.",
+  { n:1, label:"La aplicación", icon:"form", subs:[
+      { title:"Reservás tu entrevista",
+        copy:"Elegís tu horario y nos contás unos datos, para asignarte el coach que corresponde a tu caso.",
         assets:[{src:"assets/SCREENSHOT-formulario.png",mock:"form"},
-                {src:"assets/SCREENSHOT-calendario.png",mock:"cal"}] }
-  ]},
-  { n:2, label:"Pasa solo", icon:"check-gift", subs:[
-      { title:"Tu asesor te escribe",
-        copy:"Confirmás por WhatsApp y hacés tu autodiagnóstico. Sin que hagas nada más.",
+                {src:"assets/SCREENSHOT-calendario.png",mock:"cal"}],
+        notes:["Este es tu 1% de hoy: reservás tu entrevista de admisión.",
+               "Te vamos a preguntar unos datos. Es para asignarte el coach que corresponde a tu caso, no para llenar una planilla.",
+               "Elegís el horario que te sirve."],
+        cue:"Rápido, 15 segundos. Es el paso que tiene que sonar chico." },
+      { title:"Tu autodiagnóstico",
+        copy:"Te lo mandamos por WhatsApp. Con eso armamos tu sistema personal.",
         assets:[{wa:true},
-                {src:"assets/SCREENSHOT-autodiagnostico.png",mock:"diag"}] },
-      { title:"Se desbloquean tus recursos",
-        copy:"Herramientas que son tuyas, entres o no al programa.",
-        assets:[{src:"assets/SCREENSHOT-habit-tracker.png",mock:"tracker"},
-                {src:"assets/SCREENSHOT-insight.png",mock:"insight",narrow:true}] }
+                {src:"assets/SCREENSHOT-autodiagnostico.png",mock:"diag"}],
+        notes:["Por WhatsApp te compartimos un autodiagnóstico.",
+               "Este paso es clave: con esto armamos tu sistema. Tu sistema personal, no uno genérico.",
+               "Lo que respondas acá es lo que después te llega hecho. Guardá esta idea, porque vuelve en el paso tres."],
+        cue:"Acá sí frená un segundo. Es lo que convierte el trámite en algo que ya es tuyo." }
   ]},
-  { n:3, label:"La decisión", icon:"double-door", subs:[
-      { title:"La llamada: analizamos tu caso",
-        copy:"Una sesión 1 a 1 para ver tu caso en profundidad.",
-        assets:[{src:"assets/mini-nico-videollamada.png"}] },
-      { title:"La puerta",
-        copy:"Si es para vos, entrás al sistema completo. Si no, te quedás con los recursos igual.",
-        doors:true }
+  { n:2, label:"La entrevista", icon:"videocall", subs:[
+      { title:"Con tu coach asignado",
+        copy:"Vemos tu caso en profundidad y si realmente podemos ayudarte. Puede que no.",
+        assets:[{src:"assets/mini-nico-videollamada.png"}],
+        notes:["Segundo paso: tu entrevista de admisión con tu coach asignado.",
+               "Ahí vemos tu caso y vemos si realmente podemos ayudarte o no. Y a veces la respuesta es que no.",
+               "No es una llamada para venderte nada. Es para ver si esto es para vos."],
+        cue:"El \u0022puede que no\u0022 dicho tranquilo baja la guardia más que cualquier otra frase del deck." },
+      { title:"Lo único que te pedimos",
+        copy:"Que confirmes por WhatsApp y que cumplas el horario que elegiste.",
+        pares:[
+          {k:"Confirmás",  t:"Nos contestás por WhatsApp", d:"Con eso queda tomado tu lugar y sabemos que vas."},
+          {k:"Asistís",    t:"Cumplís el horario que elegiste", d:"Del otro lado hay profesionales preparando tu caso antes de la llamada."}
+        ],
+        notes:["Lo único que te pedimos: que nos confirmes por WhatsApp y que cumplas el horario que elegiste.",
+               "Estamos invirtiendo recursos para poder ayudarte y mostrarte si el Instituto es para vos.",
+               "Si agendás algo, respetá el tiempo de los profesionales. Es lo mismo que pedirías vos."],
+        cue:"Firme pero sin reto. Es respeto mutuo, no una amenaza. Mirá a cámara acá." }
+  ]},
+  { n:3, label:"El acceso", icon:"double-door", subs:[
+      { title:"Accedés a tu sistema",
+        copy:"Si hacemos match, entrás a todo: acompañamiento, coaches, metodología, clases y sesiones 1 a 1.",
+        lista:{k:"Si hacemos match", t:"El sistema completo", items:[
+          "Acompañamiento con tu coach",
+          "La metodología completa",
+          "Clases semanales en vivo",
+          "Sesiones uno a uno",
+          "El equipo del Instituto atrás"
+        ]},
+        notes:["Tercer paso: accedés a tu sistema.",
+               "Si hacemos match, entrás a todo: acompañamiento, coaches, metodología, clases semanales, sesiones uno a uno.",
+               "Todo el sistema completo, no una parte."],
+        cue:"Este es el único momento del mapa donde te podés detener a enumerar. Disfrutalo." },
+      { title:"Y si no hacemos match",
+        copy:"Te llevás igual tu entregable, preparado con el autodiagnóstico que hiciste en el paso uno.",
+        assets:[{src:"assets/SCREENSHOT-habit-tracker.png",mock:"tracker"},
+                {src:"assets/SCREENSHOT-insight.png",mock:"insight",narrow:true}],
+        notes:["Y si no hacemos match, igual te llevás tu entregable.",
+               "Lo preparamos con tu autodiagnóstico, el que hiciste en el paso uno. Herramientas para tu caso específico.",
+               "Acá nadie se va con las manos vacías. Todo esto se basa en que pases a la acción."],
+        cue:"ESTA es la que elimina la fricción de \u0022me van a vender\u0022. Decila lento y con los ojos en la cámara." }
   ]}
 ];
 
@@ -409,17 +453,40 @@ const ICONS = {
    3 · SLIDES
    ========================================================================= */
 const SLIDES = [
-  {type:'cover'},
-  {type:'intro',  station:0},          // Mini Nico todavía en el punto de partida
+  {type:'cover',
+   notes:["Cerraste la clase. Ahora les mostrás el caminito antes de liberar el QR."],
+   cue:"Respirá. Cambiá el tono: acá dejás de enseñar y empezás a mostrar el proceso."},
+
+  {type:'intro',  station:0,
+   notes:["Va a ser así: la aplicación, la entrevista, y el acceso al sistema.",
+          "Son tres pasos. Nada más que tres.",
+          "Y de los tres, uno solo depende de vos: el de hoy."],
+   cue:"Señalá los tres con la mano mientras los nombrás. Que se vea que es corto."},
+
   {type:'node',   station:1, sub:0},
   {type:'node',   station:1, sub:1},
   {type:'node',   station:2, sub:0},
   {type:'node',   station:2, sub:1},
   {type:'node',   station:3, sub:0},
   {type:'node',   station:3, sub:1},
-  {type:'qualify'},
-  {type:'cta'},
-  {type:'close',  station:3, allDone:true}
+
+  {type:'qualify',
+   notes:["Antes de darte el QR quiero ser honesto con vos, para no hacerte perder el tiempo.",
+          "Esto es para vos si ya tenés algo andando y sentís que de acá no pasás sin cambiar la estructura.",
+          "Y no agendes si estás en alguna de estas tres. No es un reto: es cuidar el lugar de alguien que sí está listo."],
+   cue:"ACÁ FRENÁS. Es el único slide que se lee despacio. Sin sonrisa nerviosa. Firme y tranquilo."},
+
+  {type:'cta',
+   notes:["Tu 1% de hoy es esto y nada más: escaneás, respondés, elegís horario.",
+          "Todo lo demás del camino que te mostré pasa solo.",
+          "Doce cupos esta semana, con el Director de Admisiones."],
+   cue:"Dejá el QR en pantalla en silencio unos segundos. No hables encima del escaneo."},
+
+  {type:'close',  station:3, allDone:true,
+   notes:["Ese es el camino completo.",
+          "Todo esto se basa en una sola cosa: que pases a la acción.",
+          "Nos vemos del otro lado."],
+   cue:"Cierre corto. No agregues nada nuevo acá."}
 ];
 
 /* =========================================================================
@@ -675,6 +742,22 @@ function whatsappHTML(){
     </div>
   </div>`;
 }
+function paresHTML(pares){
+  return `<div class="pares">`+pares.map(p=>`<div class="par">
+      <div>
+        <div class="d-lab">${p.k}</div>
+        <h3>${p.t}</h3>
+        <p>${p.d}</p>
+      </div>
+    </div>`).join('')+`</div>`;
+}
+function listaHTML(l){
+  return `<div class="lista">
+    <div class="d-lab">${l.k}</div>
+    <h3>${l.t}</h3>
+    <ul>${l.items.map(i=>`<li><span>✓</span>${i}</li>`).join('')}</ul>
+  </div>`;
+}
 function doorsHTML(){
   const big=`<div class="door big lit" data-door="big">
       <div>
@@ -696,6 +779,8 @@ function doorsHTML(){
 }
 
 function assetsHTML(sub){
+  if(sub.pares) return paresHTML(sub.pares);
+  if(sub.lista) return listaHTML(sub.lista);
   if(sub.doors) return doorsHTML();
   const parts=sub.assets.map(a=>{
     if(a.wa) return whatsappHTML();
@@ -723,11 +808,11 @@ const TPL={
       <div class="brandbar"><div class="rule"></div><div class="kicker">Instituto de Productividad · NFM</div></div>
       <h1>Escalá tu vida,<br>no tu <em>cansancio</em>.</h1>
       <div class="sub">El camino que empieza hoy.</div>
-      <div class="hint">→ avanzar · ← volver · F pantalla completa</div>
+      <div class="hint">→ avanzar · ← volver · F pantalla completa · N notas</div>
     </div>`,
   intro:()=>`<div class="hero-slide">
-      <h2>Este es el camino.<br>Son <em>tres momentos</em>.</h2>
-      <div class="hero-foot">Y uno solo depende de vos: el primero, que te lleva 90 segundos. Los otros dos pasan casi solos.</div>
+      <h2>Va a ser así.<br>Tres pasos, y <em>uno solo depende de vos</em>.</h2>
+      <div class="hero-foot">La aplicación, la entrevista, y el acceso a tu sistema. El de hoy te lleva 90 segundos.</div>
     </div>`,
   close:()=>`<div class="hero-slide">
       <h2>Del otro lado<br>del camino.</h2>
@@ -782,6 +867,56 @@ document.querySelectorAll('.frame img').forEach(img=>{
 });
 
 /* =========================================================================
+   5.b · NOTAS DEL PRESENTADOR (tecla N — se abre en OTRA ventana)
+   Compartí en Zoom solo la ventana del deck; dejá esta en tu otra pantalla.
+   ========================================================================= */
+let notesWin=null;
+
+function notesFor(def){
+  if(def.type==='node'){
+    const sub=STATIONS[def.station-1].subs[def.sub];
+    return {titulo:sub.title, notes:sub.notes||[], cue:sub.cue||''};
+  }
+  const t={cover:'Portada',intro:'El camino',qualify:'Antes de agendar',cta:'El QR',close:'Cierre'}[def.type];
+  return {titulo:t, notes:def.notes||[], cue:def.cue||''};
+}
+
+function toggleNotes(){
+  if(notesWin&&!notesWin.closed){ notesWin.close(); notesWin=null; return; }
+  notesWin=window.open('','nfmNotas','width=760,height=900');
+  if(!notesWin) return;
+  notesWin.document.write(`<!doctype html><html lang="es-AR"><head><meta charset="utf-8">
+    <title>Notas · El mapa del 1%</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+      *{box-sizing:border-box;margin:0;padding:0}
+      body{font-family:'Open Sans',sans-serif;background:#061d30;color:#fff;padding:34px 36px;line-height:1.5}
+      .n{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#ff6602}
+      h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:34px;line-height:1.15;margin:12px 0 26px;letter-spacing:-.02em}
+      ul{list-style:none;display:flex;flex-direction:column;gap:20px}
+      li{font-size:22px;line-height:1.45;padding-left:22px;border-left:3px solid rgba(255,255,255,.2)}
+      .cue{margin-top:30px;padding:18px 20px;border:1px solid rgba(255,102,2,.5);border-radius:9px;background:rgba(255,102,2,.08);font-size:18px;line-height:1.45;color:#ffd2b4}
+      .cue b{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#ff6602;margin-bottom:7px}
+      .nav{margin-top:34px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:rgba(255,255,255,.35);text-transform:uppercase}
+    </style></head><body><div id="c"></div></body></html>`);
+  notesWin.document.close();
+  updateNotes();
+}
+
+function updateNotes(){
+  if(!notesWin||notesWin.closed) return;
+  const c=notesWin.document.getElementById('c');
+  if(!c) return;
+  const def=SLIDES[idx], n=notesFor(def);
+  c.innerHTML=
+    `<div class="n">${String(idx+1).padStart(2,'0')} / ${String(SLIDES.length).padStart(2,'0')}</div>`+
+    `<h1>${n.titulo}</h1>`+
+    `<ul>${n.notes.map(x=>`<li>${x}</li>`).join('')}</ul>`+
+    (n.cue?`<div class="cue"><b>Cómo decirlo</b>${n.cue}</div>`:'')+
+    `<div class="nav">Avanzá desde la ventana del deck</div>`;
+}
+
+/* =========================================================================
    6 · NAVEGACIÓN
    ========================================================================= */
 const counter=document.getElementById('counter');
@@ -802,6 +937,7 @@ function render(){
   /* beats del nodo 8: primero la puerta grande, después la chica */
   counter.textContent=String(idx+1).padStart(2,'0')+' / '+String(SLIDES.length).padStart(2,'0');
   counter.classList.toggle('light',def.type==='qualify');
+  updateNotes();
   try{localStorage.setItem('nfm_1pct_slide',JSON.stringify({idx,beat}))}catch(e){}
 }
 function next(){
@@ -820,6 +956,7 @@ document.addEventListener('keydown',e=>{
     if(document.fullscreenElement) document.exitFullscreen();
     else document.documentElement.requestFullscreen();
   }
+  else if(e.key==='n'||e.key==='N'){toggleNotes()}
   else if(e.key==='Home'){idx=0;beat=0;render()}
 });
 document.addEventListener('click',e=>{ if(!e.target.closest('a')) next() });
