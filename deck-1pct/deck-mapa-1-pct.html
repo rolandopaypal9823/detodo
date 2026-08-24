@@ -195,11 +195,14 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 .qcol.yes p{font-size:28px;line-height:1.5;color:var(--white);opacity:.88;text-wrap:pretty}
 .qcol.yes p+p{margin-top:22px}
 .qcol.yes strong{color:var(--orange);font-weight:700}
-.qlist{list-style:none;display:flex;flex-direction:column;gap:26px}
-.qlist li{display:flex;gap:20px;font-size:25px;line-height:1.42;color:var(--white);opacity:.92;text-wrap:pretty}
-.qlist .x{color:var(--orange);font-family:var(--disp);font-weight:900;font-size:27px;flex:none;line-height:1.42}
+.qlist{list-style:none;display:flex;flex-direction:column;gap:22px}
+.qlist li{display:flex;gap:20px;font-size:24px;line-height:1.4;color:var(--white);opacity:.92;text-wrap:pretty}
+.qlist .x{color:var(--orange);font-family:var(--disp);font-weight:900;font-size:26px;flex:none;line-height:1.4}
 .qlist strong{color:var(--orange);font-weight:700}
-.qdiv{width:2px;background:rgba(255,255,255,.14);position:absolute;left:50%;top:280px;bottom:110px}
+.qfoot{margin-top:30px;padding-top:26px;border-top:2px solid rgba(255,255,255,.14);
+  font-size:22px;line-height:1.42;color:var(--white);opacity:.72;text-wrap:pretty}
+.qfoot strong{color:var(--white);opacity:1;font-weight:700}
+.qdiv{width:2px;background:rgba(255,255,255,.14);position:absolute;left:50%;top:280px;bottom:76px}
 
 /* ---------- CTA ---------- */
 .cta{padding:100px 110px;display:grid;grid-template-columns:1fr 600px;gap:80px;align-items:center}
@@ -495,9 +498,12 @@ const SLIDES = [
   {type:'qualify',
    notes:["Antes de darte el QR quiero ser honesto con vos, así no te hago perder el tiempo.",
           "Esto es para el que ya tiene algo andando y hoy es el cuello de botella de su propio negocio. El que llegó lejos a fuerza de horas y sabe que de acá no pasa sumando esfuerzo.",
-          "Es una mentoría con equipo atrás. La inversión está en el orden de los cuatro dígitos en dólares; el número exacto sale en la entrevista, según tu caso.",
-          "Y si hoy tendrías que pedir la plata prestada o tu tarjeta está al límite: no agendes todavía. Quedate con los recursos igual. Nadie te va a apurar."],
-   cue:"Techo, no pozo: le hablás al que llegó lejos y chocó contra un límite, no al que está fallando. Ni una gota de culpa acá — es el registro donde el Platinum se baja. Tono de honestidad, no de filtro."},
+          "Es una mentoría con un equipo que te sostiene: coaches, psicóloga, nutricionista, sesiones uno a uno. No estás comprando un curso, estás invirtiendo en un sistema integral.",
+          "El monto se define en la entrevista, según tu caso y lo que necesites. No te vamos a recomendar el plan más caro, sino el que te vaya a dar resultados.",
+          "Ahora, si lo que buscás es un cursito de 200 dólares que te promete soluciones mágicas y a los diez días te devuelve a la misma rutina de antes: esto no es lo que estás buscando.",
+          "Y si hoy tendrías que pedir la plata prestada, tu tarjeta está al límite, o tenés otras prioridades que hoy no te dejan enfocarte en vos: no agendes todavía. Quedate con los recursos igual. Nadie te va a apurar.",
+          "Trabajamos con gente que tiene un objetivo concreto y una vida exigente encima: un negocio, un equipo, una carrera, un proyecto propio. Si hoy la prioridad es llegar a fin de mes, este no es tu momento — y está perfecto."],
+   cue:"Techo, no pozo: le hablás al que llegó lejos y chocó contra un límite, no al que está fallando. La línea del cursito de 200 va con humor, sin desprecio. El cierre bajalo tranquilo: 'y está perfecto' se dice de verdad, no como escape."},
 
   {type:'cta',
    notes:["Tu 1% de hoy es esto y nada más: escaneás, respondés, elegís horario.",
@@ -887,10 +893,12 @@ const TPL={
         <div class="qcol no">
           <h3>Y esto es lo que tenés que saber</h3>
           <ul class="qlist">
-            <li><span class="x">·</span><span>Es una mentoría con equipo: coaches, psicóloga, nutricionista, sesiones uno a uno. <strong>La inversión está en el orden de los cuatro dígitos en dólares</strong>, no es un curso grabado de 200.</span></li>
-            <li><span class="x">·</span><span>El número exacto <strong>se define en la entrevista</strong>, según tu caso y lo que necesites.</span></li>
-            <li><span class="x">·</span><span>Si hoy tendrías que pedir la plata prestada, o tu tarjeta está al límite: <strong>no agendes todavía</strong>. Quedate con los recursos igual y volvé cuando sea tu momento. Nadie te va a apurar.</span></li>
+            <li><span class="x">·</span><span>Es una mentoría con <strong>un equipo que te sostiene</strong>: coaches, psicóloga, nutricionista, sesiones uno a uno. No estás comprando un curso, estás invirtiendo en un sistema integral.</span></li>
+            <li><span class="x">·</span><span>El monto <strong>se define en la entrevista</strong>, según tu caso y lo que necesites. No te vamos a recomendar el plan más caro: el que te vaya a dar resultados.</span></li>
+            <li><span class="x">·</span><span>Si buscás <strong>un cursito de 200 dólares</strong> que promete soluciones mágicas y a los diez días te devuelve a la misma rutina de antes, esto no es lo que estás buscando.</span></li>
+            <li><span class="x">·</span><span>Si hoy tendrías que pedir la plata prestada, tu tarjeta está al límite, o tenés otras prioridades que no te dejan enfocarte en vos: <strong>no agendes todavía</strong>. Quedate con los recursos. Nadie te va a apurar.</span></li>
           </ul>
+          <p class="qfoot">Trabajamos con gente que tiene <strong>un objetivo concreto y una vida exigente encima</strong>: un negocio, un equipo, una carrera, un proyecto propio. Si hoy la prioridad es llegar a fin de mes, este no es tu momento — y está perfecto.</p>
         </div>
       </div>
       <div class="qdiv"></div>
