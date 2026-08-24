@@ -107,6 +107,14 @@ export default async (req) => {
     [pick('invitee_first_name'), pick('invitee_last_name')].filter(Boolean).join(' ');
 
   const inicio = pick('event_start_time');  // ISO con offset, ej. 2026-08-24T09:20:00-04:00
+  const asesor = pick('assigned_to');       // "Valentín Borja"
+
+  // Link del autodiagnóstico ya armado y encodeado. Se manda listo para
+  // pegar en la plantilla: si se arma con variables sueltas en FunnelChat,
+  // los espacios y acentos del nombre rompen la URL en WhatsApp.
+  const linkDiag =
+    'https://test-presesion.netlify.app/?asignado=' + encodeURIComponent(asesor) +
+    '&nombre=' + encodeURIComponent(nombre);
 
   const payload = {
     nombre:      nombre,
@@ -115,9 +123,11 @@ export default async (req) => {
     telefono:    telefono,                          // con +, ej. +5491112345678
     telefono_sin_plus: telefono.replace(/^\+/, ''), // sin +, ej. 5491112345678
                                                     // (algunas plataformas lo quieren así)
-    asesor:      pick('assigned_to'),
-    cita_inicio: inicio,
-    cita_texto:  formatCita(inicio),               // "martes 24 de agosto, 09:20 h"
+    asesor:        asesor,                         // "Valentín Borja"
+    asesor_nombre: asesor.split(/\s+/)[0] || '',   // "Valentín" — para el mensaje
+    cita_inicio:   inicio,
+    cita_texto:    formatCita(inicio),             // "martes 24 de agosto, 09:20 h"
+    link_autodiagnostico: linkDiag,                // listo para pegar en la plantilla
     origen:      pick('origen', 'source') || 'thx-page',
     fecha:       new Date().toISOString(),
     params:      data,  // TODO lo que llegó, por si querés mapear otro campo en FunnelChat
