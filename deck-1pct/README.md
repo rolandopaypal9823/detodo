@@ -89,12 +89,17 @@ Para meterlo, cambiá el `mock2` de algún nodo por `"loading"`.
 
 | Archivo | Qué tiene que mostrar | Formato ideal |
 |---|---|---|
-| `SCREENSHOT-qr.png` | **El QR de agendar.** Se usa en el paso 01 y en el slide del CTA. Ver abajo. | cuadrado, ≥1000×1000 |
-| `mini-nico-videollamada.png` | Ilustración de Mini Nico en videollamada (nodo 7). | fondo blanco o transparente |
-| `mini-nico-marker.png` | Recorte de Mini Nico con **fondo transparente**. Es el marcador que camina por el mapa. | PNG transparente, ~600px de alto |
+| `SCREENSHOT-qr.png` | **El QR de agendar.** Se usa en el slide del CTA. Ver abajo. | cuadrado, ≥1000×1000 |
 
-Mientras `mini-nico-marker.png` no esté, el marcador es un pin naranja con las iniciales
-"MN". Apenas aparezca el PNG, lo reemplaza solo.
+Es lo único que falta. Las dos ilustraciones de Mini Nico ya están puestas:
+
+- **El marcador que camina por el mapa** (`assets/mini-nico-marker.png`), recortado con
+  fondo transparente.
+- **La videollamada del paso 02** (`assets/mini-nico-videollamada.jpg`).
+
+Las dos van además **embebidas dentro del HTML** (bloque `EMBED` al final del archivo), así
+que el deck funciona aunque lo muevas sin la carpeta `assets/`. Si querés cambiar alguna,
+arrastrá la nueva encima — lo que arrastres siempre le gana a lo embebido.
 
 ## Editar los textos
 
