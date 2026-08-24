@@ -1,0 +1,44 @@
+<!-- ═══════════════════════════════════════════════════════
+     SNIPPET — pegar en la Thank You Page (Elementor → HTML)
+     Toma nombre/email/teléfono de los params de Calendly y
+     los manda a la Netlify Function, que los reenvía a
+     FunnelChat. Se dispara una sola vez por persona.
+     ⚠️ Reemplazá TU-SITIO por el subdominio real de Netlify.
+     ═══════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  var ENDPOINT = 'https://TU-SITIO.netlify.app/lead';
+
+  function dec(s) {
+    if (!s) return '';
+    try {
+      var d = decodeURIComponent(s);
+      if (/%[0-9A-Fa-f]{2}/.test(d)) { try { d = decodeURIComponent(d); } catch (e) {} }
+      return d;
+    } catch (e) { return s; }
+  }
+
+  var p = new URLSearchParams(location.search);
+  var payload = {
+    nombre:   dec(p.get('invitee_full_name') || p.get('invitee_first_name')),
+    email:    dec(p.get('invitee_email') || p.get('email')),
+    telefono: dec(p.get('answer_1') || p.get('phone') || p.get('invitee_phone')),
+    origen:   'thx-agendamiento'
+  };
+
+  // Sin email ni teléfono no hay a quién escribirle
+  if (!payload.email && !payload.telefono) return;
+
+  // Evita duplicados si la persona refresca la página
+  var KEY = 'nfm_lead_' + (payload.email || payload.telefono);
+  try { if (sessionStorage.getItem(KEY)) return; } catch (e) {}
+
+  fetch(ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function () {
+    try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+  }).catch(function () {});
+})();
+</script>
