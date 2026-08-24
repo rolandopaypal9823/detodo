@@ -1,0 +1,4 @@
+s*.png
+meta.json
+node_modules/
+package*.json
