@@ -112,7 +112,9 @@ export default async (req) => {
     nombre:      nombre,
     primer_nombre: nombre.split(/\s+/)[0] || '',   // para el "Hola {{}}" de la plantilla
     email:       pick('email', 'correo', 'invitee_email'),
-    telefono:    telefono,
+    telefono:    telefono,                          // con +, ej. +5491112345678
+    telefono_sin_plus: telefono.replace(/^\+/, ''), // sin +, ej. 5491112345678
+                                                    // (algunas plataformas lo quieren así)
     asesor:      pick('assigned_to'),
     cita_inicio: inicio,
     cita_texto:  formatCita(inicio),               // "martes 24 de agosto, 09:20 h"
