@@ -133,6 +133,7 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 /* marco de asset */
 .frames{display:flex;gap:26px;height:502px}
 .frame{flex:1;border:2px dashed var(--locked);border-radius:12px;display:grid;place-items:center;background:#fbfcfd;overflow:hidden;position:relative}
+.frame.drop{border:3px solid var(--orange)!important;background:#fff7f2}
 .frame.real{border:2px solid var(--blue-light);background:var(--white);box-shadow:0 30px 70px rgba(12,52,82,.10)}
 .frame img{width:100%;height:100%;object-fit:contain;display:none}
 .frame.loaded img{display:block}
@@ -191,9 +192,11 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 .qcol h3{font-family:var(--disp);font-weight:800;font-size:40px;margin-bottom:34px;line-height:1.15}
 .qcol.yes h3{color:var(--white)}
 .qcol.no h3{color:var(--orange)}
-.qcol.yes p{font-size:31px;line-height:1.5;color:var(--white);opacity:.9;text-wrap:pretty}
-.qlist{list-style:none;display:flex;flex-direction:column;gap:30px}
-.qlist li{display:flex;gap:20px;font-size:27px;line-height:1.42;color:var(--white);opacity:.92;text-wrap:pretty}
+.qcol.yes p{font-size:28px;line-height:1.5;color:var(--white);opacity:.88;text-wrap:pretty}
+.qcol.yes p+p{margin-top:22px}
+.qcol.yes strong{color:var(--orange);font-weight:700}
+.qlist{list-style:none;display:flex;flex-direction:column;gap:26px}
+.qlist li{display:flex;gap:20px;font-size:25px;line-height:1.42;color:var(--white);opacity:.92;text-wrap:pretty}
 .qlist .x{color:var(--orange);font-family:var(--disp);font-weight:900;font-size:27px;flex:none;line-height:1.42}
 .qlist strong{color:var(--orange);font-weight:700}
 .qdiv{width:2px;background:rgba(255,255,255,.14);position:absolute;left:50%;top:280px;bottom:110px}
@@ -404,18 +407,18 @@ const STATIONS = [
   ]},
   { n:3, label:"El acceso", icon:"double-door", subs:[
       { title:"Accedés a tu sistema",
-        copy:"Si hacemos match, entrás a todo: acompañamiento, coaches, metodología, clases y sesiones 1 a 1.",
+        copy:"Si hacemos match, entrás a todo. Y no me tenés solo a mí: tenés al equipo entero atrás.",
         lista:{k:"Si hacemos match", t:"El sistema completo", items:[
-          "Acompañamiento con tu coach",
-          "La metodología completa",
-          "Clases semanales en vivo",
-          "Sesiones uno a uno",
-          "El equipo del Instituto atrás"
+          "12 sesiones uno a uno con tu coach",
+          "6 clases en vivo por semana",
+          "El Método NILD, paso por paso",
+          "Coaches, psicóloga y nutricionista",
+          "Comunidad y cowork 24/7"
         ]},
         notes:["Tercer paso: accedés a tu sistema.",
-               "Si hacemos match, entrás a todo: acompañamiento, coaches, metodología, clases semanales, sesiones uno a uno.",
-               "Todo el sistema completo, no una parte."],
-        cue:"Este es el único momento del mapa donde te podés detener a enumerar. Disfrutalo." },
+               "Si hacemos match, entrás a todo: doce sesiones uno a uno, seis clases en vivo por semana, el método completo.",
+               "Y no me tenés solo a mí: tenés coaches, psicóloga, nutricionista. Un equipo entero atrás de tu caso."],
+        cue:"El único momento del mapa donde te podés detener a enumerar. Nombrá al EQUIPO, no a vos: es lo que hace que la gente compre el sistema y no al gurú." },
       { title:"Y si no hacemos match",
         copy:"Te llevás igual tu entregable, preparado con el autodiagnóstico que hiciste en el paso uno.",
         assets:[{src:"assets/SCREENSHOT-habit-tracker.png",mock:"tracker"},
@@ -471,16 +474,18 @@ const SLIDES = [
   {type:'node',   station:3, sub:1},
 
   {type:'qualify',
-   notes:["Antes de darte el QR quiero ser honesto con vos, para no hacerte perder el tiempo.",
-          "Esto es para vos si ya tenés algo andando y sentís que de acá no pasás sin cambiar la estructura.",
-          "Y no agendes si estás en alguna de estas tres. No es un reto: es cuidar el lugar de alguien que sí está listo."],
-   cue:"ACÁ FRENÁS. Es el único slide que se lee despacio. Sin sonrisa nerviosa. Firme y tranquilo."},
+   notes:["Antes de darte el QR quiero ser honesto con vos, así no te hago perder el tiempo.",
+          "Esto es para el que ya tiene algo andando y hoy es el cuello de botella de su propio negocio. El que llegó lejos a fuerza de horas y sabe que de acá no pasa sumando esfuerzo.",
+          "Es una mentoría con equipo atrás. La inversión está en el orden de los cuatro dígitos en dólares; el número exacto sale en la entrevista, según tu caso.",
+          "Y si hoy tendrías que pedir la plata prestada o tu tarjeta está al límite: no agendes todavía. Quedate con los recursos igual. Nadie te va a apurar."],
+   cue:"Techo, no pozo: le hablás al que llegó lejos y chocó contra un límite, no al que está fallando. Ni una gota de culpa acá — es el registro donde el Platinum se baja. Tono de honestidad, no de filtro."},
 
   {type:'cta',
    notes:["Tu 1% de hoy es esto y nada más: escaneás, respondés, elegís horario.",
           "Todo lo demás del camino que te mostré pasa solo.",
-          "Doce cupos esta semana, con el Director de Admisiones."],
-   cue:"Dejá el QR en pantalla en silencio unos segundos. No hables encima del escaneo."},
+          "Doce cupos esta semana, con el Director de Admisiones.",
+          "Y si no lo hacés hoy no pasa nada grave: simplemente dentro de un año vas a estar exactamente donde estás hoy, con un año más de horas encima."],
+   cue:"La urgencia va como costo de oportunidad, nunca como catástrofe. Nada de 'vas a colapsar'. Después dejá el QR en silencio unos segundos: no hables encima del escaneo."},
 
   {type:'close',  station:3, allDone:true,
    notes:["Ese es el camino completo.",
@@ -714,7 +719,7 @@ const slidesEl=document.getElementById('slides');
 function frameHTML(src,mock,attrs){
   const body = mock&&MOCKS[mock]
     ? MOCKS[mock]()
-    : `<div class="ph"><div class="ph-s">Falta este asset</div><div class="ph-t">${src.replace('assets/','')}</div></div>`;
+    : `<div class="ph"><div class="ph-s">Arrastrá el PNG acá</div><div class="ph-t">${src.replace('assets/','')}</div></div>`;
   return `<div class="frame${mock?' real':''}"${attrs||''} data-src="${src}">
       <img src="${src}" alt="">
       ${body}
@@ -820,23 +825,26 @@ const TPL={
     </div>`,
   qualify:()=>`<div class="qual">
       <div class="brandbar"><div class="rule"></div><div class="kicker">Antes de agendar</div></div>
-      <h2>Leé esto antes de escanear.</h2>
+      <h2>Dos cosas, para ser honestos.</h2>
       <div class="qcols">
         <div class="qcol yes">
           <h3>Esto es para vos si…</h3>
-          <p>Ya tenés algo andando. Un negocio, una carrera, un estudio, un equipo. Algo que construiste con esfuerzo y que hoy depende demasiado de vos. Llegaste lejos a fuerza de horas y sentís que de acá no pasás sin cambiar la estructura.</p>
+          <p>Ya tenés algo andando: un negocio, un equipo, una carrera, un estudio. Y llegaste hasta acá a fuerza de horas.</p>
+          <p>Hoy <strong>el cuello de botella sos vos</strong>. Todo pasa por tus manos, delegar te cuesta más que hacerlo, y sabés que de acá no pasás sumando esfuerzo.</p>
+          <p>No venís a empezar. Venís a que lo que ya construiste <strong>funcione sin que vos lo sostengas</strong>.</p>
         </div>
         <div class="qcol no">
-          <h3>No agendes si…</h3>
+          <h3>Y esto es lo que tenés que saber</h3>
           <ul class="qlist">
-            <li><span class="x">✗</span><span>Buscás un <strong>cursito barato de 200 dólares</strong>. No somos eso: es una mentoría con un equipo de profesionales y requiere una inversión seria de tiempo y de dinero.</span></li>
-            <li><span class="x">✗</span><span>Necesitás que <strong>un tercero te preste la plata</strong>, o tu tarjeta está al límite. No queremos hacerte perder el tiempo ni ocupar el lugar de alguien que sí está listo.</span></li>
-            <li><span class="x">✗</span><span>Venís <strong>"a ver de qué se trata"</strong>. La entrevista es para analizar tu caso y decidir, no para pedir información.</span></li>
+            <li><span class="x">·</span><span>Es una mentoría con equipo: coaches, psicóloga, nutricionista, sesiones uno a uno. <strong>La inversión está en el orden de los cuatro dígitos en dólares</strong>, no es un curso grabado de 200.</span></li>
+            <li><span class="x">·</span><span>El número exacto <strong>se define en la entrevista</strong>, según tu caso y lo que necesites.</span></li>
+            <li><span class="x">·</span><span>Si hoy tendrías que pedir la plata prestada, o tu tarjeta está al límite: <strong>no agendes todavía</strong>. Quedate con los recursos igual y volvé cuando sea tu momento. Nadie te va a apurar.</span></li>
           </ul>
         </div>
       </div>
       <div class="qdiv"></div>
     </div>`,
+
   cta:()=>`<div class="cta">
       <div>
         <div class="brandbar"><div class="rule"></div><div class="kicker">Cómo se entra</div></div>
@@ -864,6 +872,40 @@ const slideEls=SLIDES.map(def=>{
 /* placeholders: si la imagen existe, se muestra; si no, queda el recuadro punteado */
 document.querySelectorAll('.frame img').forEach(img=>{
   img.addEventListener('load',()=>{img.closest('.frame').classList.add('loaded','real')});
+});
+
+/* ---------- arrastrar una imagen sobre cualquier marco y que quede pegada ----------
+   Resuelve el QR sin carpetas ni archivos: soltás el PNG encima y se guarda en el
+   navegador. Shift+clic sobre un marco lo vuelve a vaciar. ------------------------- */
+const imgKey=src=>'nfm_1pct_img_'+src;
+
+document.addEventListener('dragover',e=>e.preventDefault());
+document.addEventListener('drop',e=>e.preventDefault());
+
+document.querySelectorAll('.frame[data-src]').forEach(f=>{
+  const im=f.querySelector('img');
+  try{ const guardada=localStorage.getItem(imgKey(f.dataset.src)); if(guardada) im.src=guardada; }catch(e){}
+
+  f.addEventListener('dragover',e=>{e.preventDefault();e.stopPropagation();f.classList.add('drop')});
+  f.addEventListener('dragleave',()=>f.classList.remove('drop'));
+  f.addEventListener('drop',e=>{
+    e.preventDefault(); e.stopPropagation(); f.classList.remove('drop');
+    const file=e.dataTransfer.files&&e.dataTransfer.files[0];
+    if(!file||!file.type.startsWith('image/')) return;
+    const r=new FileReader();
+    r.onload=()=>{
+      im.src=r.result;
+      try{ localStorage.setItem(imgKey(f.dataset.src),r.result); }
+      catch(err){ alert('La imagen entra pero pesa demasiado para guardarla.\nSe ve ahora; al refrescar se pierde.\nProbá con una más liviana.'); }
+    };
+    r.readAsDataURL(file);
+  });
+  f.addEventListener('click',e=>{
+    if(!e.shiftKey) return;
+    e.stopPropagation();
+    try{ localStorage.removeItem(imgKey(f.dataset.src)); }catch(err){}
+    location.reload();
+  });
 });
 
 /* =========================================================================

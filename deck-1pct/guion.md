@@ -76,11 +76,13 @@ frase del deck.
 ## 07 · Paso 03 · Accedés a tu sistema
 
 > Tercer paso: accedés a tu sistema.
-> Si hacemos match, entrás a todo: acompañamiento, coaches, metodología, clases semanales,
-> sesiones uno a uno.
-> Todo el sistema completo, no una parte.
+> Si hacemos match, entrás a todo: doce sesiones uno a uno, seis clases en vivo por semana,
+> el método completo.
+> Y no me tenés solo a mí: tenés coaches, psicóloga, nutricionista. Un equipo entero atrás
+> de tu caso.
 
-*Cómo decirlo:* este es el único momento del mapa donde te podés detener a enumerar. Disfrutalo.
+*Cómo decirlo:* el único momento del mapa donde te podés detener a enumerar. **Nombrá al
+EQUIPO, no a vos:** es lo que hace que la gente compre el sistema y no al gurú.
 
 ---
 
@@ -98,13 +100,17 @@ y con los ojos en la cámara.
 
 ## 09 · Antes de agendar (el calificador)
 
-> Antes de darte el QR quiero ser honesto con vos, para no hacerte perder el tiempo.
-> Esto es para vos si ya tenés algo andando y sentís que de acá no pasás sin cambiar la estructura.
-> Y no agendes si estás en alguna de estas tres. No es un reto: es cuidar el lugar de
-> alguien que sí está listo.
+> Antes de darte el QR quiero ser honesto con vos, así no te hago perder el tiempo.
+> Esto es para el que ya tiene algo andando y hoy es el cuello de botella de su propio
+> negocio. El que llegó lejos a fuerza de horas y sabe que de acá no pasa sumando esfuerzo.
+> Es una mentoría con equipo atrás. La inversión está en el orden de los cuatro dígitos en
+> dólares; el número exacto sale en la entrevista, según tu caso.
+> Y si hoy tendrías que pedir la plata prestada o tu tarjeta está al límite: no agendes
+> todavía. Quedate con los recursos igual. Nadie te va a apurar.
 
-*Cómo decirlo:* **acá frenás.** Es el único slide que se lee despacio. Sin sonrisa
-nerviosa. Firme y tranquilo.
+*Cómo decirlo:* **techo, no pozo.** Le hablás al que llegó lejos y chocó contra un límite,
+no al que está fallando. **Ni una gota de culpa acá** — es el registro donde el Platinum se
+baja (habla de culpa la mitad que el Gold). Tono de honestidad, no de filtro.
 
 ---
 
@@ -113,8 +119,12 @@ nerviosa. Firme y tranquilo.
 > Tu 1% de hoy es esto y nada más: escaneás, respondés, elegís horario.
 > Todo lo demás del camino que te mostré pasa solo.
 > Doce cupos esta semana, con el Director de Admisiones.
+> Y si no lo hacés hoy no pasa nada grave: simplemente dentro de un año vas a estar
+> exactamente donde estás hoy, con un año más de horas encima.
 
-*Cómo decirlo:* dejá el QR en pantalla en silencio unos segundos. No hables encima del escaneo.
+*Cómo decirlo:* la urgencia va como **costo de oportunidad, nunca como catástrofe**. Nada
+de "vas a colapsar". Después dejá el QR en silencio unos segundos: no hables encima del
+escaneo.
 
 ---
 
@@ -125,3 +135,25 @@ nerviosa. Firme y tranquilo.
 > Nos vemos del otro lado.
 
 *Cómo decirlo:* cierre corto. No agregues nada nuevo acá.
+
+---
+
+## Reglas del brief que gobiernan este cierre
+
+Del brief de la clase nueva, lo que aplica al mapa y al calificador:
+
+- **Techo, no pozo.** Le hablás al que llegó lejos y chocó contra un límite, nunca al que
+  está fallando.
+- **Ni una gota de culpa.** El Platinum habla de culpa la mitad que el Gold (0,56x). Cada
+  vez que aparece culpa, le estás hablando al Gold y pasándole por encima al que paga.
+- **El idioma que discrimina es delegar / sistematizar / que funcione sin vos** (2,25x, lo
+  más discriminante de toda la tabla). Está en la columna izquierda del calificador.
+- **La ansiedad no filtra** (1,08x): la habla todo el mundo por igual. Sirve para que se
+  sienta en la sala, no para segmentar.
+- **Urgencia como costo de oportunidad**, no como catástrofe. "Un año más igual", no "vas
+  a colapsar".
+- **Nombrar el orden de magnitud de la inversión antes del QR.** El sticker shock resuelto
+  en la llamada es la peor posición posible: ticket promedio US$3.354 con cobranza efectiva
+  del 44%.
+- **Nada de autodiagnóstico en vivo.** Acá no se pide escribir nada: el autodiagnóstico va
+  después de agendar, que es exactamente lo que muestra el paso 01.

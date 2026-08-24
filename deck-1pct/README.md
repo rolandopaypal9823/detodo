@@ -102,6 +102,15 @@ Todo el contenido de los 8 pasos vive en el array `STATIONS`, arriba de todo del
 en `deck-mapa-1-pct.html`. Se cambian `title` y `copy` sin tocar nada del layout.
 Las coordenadas del sendero están aparte, en `GEO`.
 
+## Poner una imagen sin tocar archivos
+
+Arrastrá cualquier PNG **sobre el marco donde va** y queda pegado: se guarda en el navegador
+y sobrevive al refresh. Sirve para el QR y para reemplazar cualquier mockup por el
+screenshot real. **Shift+clic** sobre un marco lo vuelve a vaciar.
+
+Es la vía rápida. La vía definitiva sigue siendo dejar el PNG en `assets/` con el nombre de
+la tabla: eso viaja con el archivo y no depende del navegador de esa máquina.
+
 ## El QR
 
 Un QR es data, no dibujo: no se puede reconstruir mirándolo. Hay dos formas de ponerlo:
@@ -120,3 +129,15 @@ corrección de errores alta (se lee aunque el proyector recorte un poco).
 Solo el cuadrado del QR, sin texto alrededor y sin margen de más.
 
 Probalo escaneándolo desde la pantalla antes de la clase, no desde el archivo.
+
+## Cómo calibra el calificador
+
+El slide de antes del QR filtra **liquidez, no compromiso**. La razón está en la data: de
+los que no compran, **~47% tenía la plata** — la traba real es timing, miedo o pareja, y son
+recuperables. Filtrar por compromiso ("no vengas a ver de qué se trata") espanta justo a
+ese grupo. Ese pedido de compromiso ahora vive en el paso 02B, en positivo.
+
+La columna izquierda usa el **idioma del operador** (cuello de botella, delegar, que
+funcione sin vos): es el registro que más discrimina Platinum de Gold (2,25x). El filtro no
+se hace echando gente, se hace hablándole al que corresponde — el que no se siente aludido
+no agenda solo.
