@@ -10,10 +10,11 @@
        4 · Video de presesión        ← OPCIONAL, borrable
        5 · El equipo                 ← OPCIONAL, borrable
 
-     ANTES DE PUBLICAR, cambiá estas 2 líneas (están juntas,
-     abajo de "CONFIGURACIÓN"):
-       WEBHOOK_URL  → tu endpoint de Netlify
-       URL_CLASE    → el link de la clase en vivo
+     ANTES DE PUBLICAR (buscá "CONFIGURACIÓN" más abajo):
+       WEBHOOK_URL  → ✅ YA CONFIGURADO
+       URL_CLASE    → ⚠️ FALTA: poné el link de la clase en vivo.
+                      Mientras no lo pongas, el botón "Volver a la
+                      clase" se oculta solo (no queda roto).
 
      Todo el CSS está bajo el prefijo .nfmtx para no chocar con
      los estilos de GoHighLevel.
@@ -527,8 +528,8 @@ wistia-player[media-id='tdrkk8cd9a']:not(:defined) {
   /* ═══════════════════════════════════════════════════════════
      CONFIGURACIÓN — cambiá estas dos líneas y listo
      ═══════════════════════════════════════════════════════════ */
-  var WEBHOOK_URL = 'https://TU-SITIO.netlify.app/lead';
-  var URL_CLASE   = 'https://TU-DOMINIO.com/clase-en-vivo';
+  var WEBHOOK_URL = 'https://funnelchat-webhook-agenda-hecha.netlify.app/lead';
+  var URL_CLASE   = 'https://TU-DOMINIO.com/clase-en-vivo';   // ← FALTA: link de la clase
 
 
   /* ═══ Datos de los asesores ═══════════════════════════════ */
