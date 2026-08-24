@@ -330,6 +330,31 @@ body.hide-cursor,body.hide-cursor *{cursor:none}
 .mk-in .ins .c{padding:12px 13px;font-size:10.5px;line-height:1.5;color:rgba(255,255,255,.72)}
 .mk-in .ins .c b{color:var(--white)}
 
+
+/* ---------- widget "qué incluye" (recorte de la landing, con fotos reales) ---------- */
+.widget{height:502px;display:flex;flex-direction:column;gap:18px}
+.wrow1{flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.wrow2{flex:none;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.wcard{background:var(--white);border:1px solid rgba(12,52,82,.10);border-radius:14px;overflow:hidden;
+  box-shadow:0 12px 30px rgba(12,52,82,.07);display:flex;flex-direction:column}
+.wslot{position:relative;flex:1;min-height:0;background:linear-gradient(150deg,#eef3f7,#dae5ee);
+  display:flex;align-items:center;justify-content:center;overflow:hidden}
+.wslot img{width:100%;height:100%;object-fit:cover;display:none}
+.wslot.loaded img{display:block}
+.wslot.loaded .wph{display:none}
+.wslot.drop{outline:3px solid var(--orange);outline-offset:-3px}
+.wph{text-align:center;padding:8px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:#5c7286;line-height:1.7}
+.wph span{display:block;color:#7d92a4;font-size:9px;margin-top:2px}
+.wbody{padding:13px 14px 15px;flex:none}
+.wtag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#c04a00;font-weight:500}
+.wbody h4{font-family:var(--disp);font-weight:800;font-size:16px;line-height:1.22;color:var(--blue);margin-top:6px}
+.wi{background:var(--white);border:1px solid var(--blue-light);border-radius:14px;padding:22px 22px;
+  display:flex;gap:14px;align-items:flex-start;box-shadow:0 12px 30px rgba(12,52,82,.07)}
+.wi .wnum{font-family:var(--disp);font-weight:900;font-size:22px;color:var(--orange);flex:none;line-height:1}
+.wi h4{font-family:var(--disp);font-weight:800;font-size:17px;color:var(--blue);margin-bottom:6px}
+.wi p{font-size:14px;line-height:1.45;color:#33536b}
+
 /* ---------- contador ---------- */
 #counter{position:absolute;right:44px;bottom:34px;font-family:var(--mono);font-size:22px;letter-spacing:.18em;color:var(--blue);opacity:.4;z-index:20}
 .slide.dark ~ #counter{color:var(--white)}
@@ -408,13 +433,7 @@ const STATIONS = [
   { n:3, label:"El acceso", icon:"double-door", subs:[
       { title:"Accedés a tu sistema",
         copy:"Si hacemos match, entrás a todo. Y no me tenés solo a mí: tenés al equipo entero atrás.",
-        lista:{k:"Si hacemos match", t:"El sistema completo", items:[
-          "12 sesiones uno a uno con tu coach",
-          "6 clases en vivo por semana",
-          "El Método NILD, paso por paso",
-          "Coaches, psicóloga y nutricionista",
-          "Comunidad y cowork 24/7"
-        ]},
+        widget:true,
         notes:["Tercer paso: accedés a tu sistema.",
                "Si hacemos match, entrás a todo: doce sesiones uno a uno, seis clases en vivo por semana, el método completo.",
                "Y no me tenés solo a mí: tenés coaches, psicóloga, nutricionista. Un equipo entero atrás de tu caso."],
@@ -747,6 +766,37 @@ function whatsappHTML(){
     </div>
   </div>`;
 }
+/* fotos reales de la landing. Si no hay internet, queda el recuadro y podés
+   arrastrarle una foto local encima (se guarda en el navegador). */
+const WIDGET = [
+  {k:"coach",     src:"https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b62e2cf81b06f057b50b2.png",
+   ph:"Sesión 1 a 1 · Nico y Soledad", tag:"01 · Incluido", t:"Tu coach dedicada, 1 a 1"},
+  {k:"modulos",   src:"https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b62e2497cd89d2487dead.png",
+   ph:"Plataforma · El ABC del Alto Rendimiento", tag:"02 · Incluido", t:"Biblioteca de +20 módulos"},
+  {k:"llamadas",  src:"https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b6278f7a089644cf46063.jpg",
+   ph:"Clase en vivo · Nico frente al grupo", tag:"03 · Incluido", t:"Llamadas grupales en vivo"},
+  {k:"comunidad", src:"https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b6275ecb6db2520210e75.jpg",
+   ph:"Mastermind presencial · foto grupal", tag:"04 · Incluido", t:"Comunidad + mastermind presencial"}
+];
+const WIDGET_DUO = [
+  {n:"05", t:"Equipo multidisciplinario", p:"Psicólogos, nutricionistas y coaches: un profesional por cada frente, no un solo referente para todo."},
+  {n:"06", t:"Método y sistemas listos", p:"Módulos accionables + Habit Tracker y Second Brain. Copiás, adaptás, aplicás."}
+];
+
+function widgetHTML(){
+  const arriba=WIDGET.map(w=>`<div class="wcard">
+      <div class="wslot" data-src="assets/widget-${w.k}.jpg">
+        <img src="${w.src}" alt="">
+        <div class="wph">Foto<span>${w.ph}</span></div>
+      </div>
+      <div class="wbody"><div class="wtag">${w.tag}</div><h4>${w.t}</h4></div>
+    </div>`).join('');
+  const abajo=WIDGET_DUO.map(d=>`<div class="wi">
+      <span class="wnum">${d.n}</span><div><h4>${d.t}</h4><p>${d.p}</p></div>
+    </div>`).join('');
+  return `<div class="widget"><div class="wrow1">${arriba}</div><div class="wrow2">${abajo}</div></div>`;
+}
+
 function paresHTML(pares){
   return `<div class="pares">`+pares.map(p=>`<div class="par">
       <div>
@@ -784,6 +834,7 @@ function doorsHTML(){
 }
 
 function assetsHTML(sub){
+  if(sub.widget) return widgetHTML();
   if(sub.pares) return paresHTML(sub.pares);
   if(sub.lista) return listaHTML(sub.lista);
   if(sub.doors) return doorsHTML();
@@ -870,8 +921,8 @@ const slideEls=SLIDES.map(def=>{
 });
 
 /* placeholders: si la imagen existe, se muestra; si no, queda el recuadro punteado */
-document.querySelectorAll('.frame img').forEach(img=>{
-  img.addEventListener('load',()=>{img.closest('.frame').classList.add('loaded','real')});
+document.querySelectorAll('[data-src] img').forEach(img=>{
+  img.addEventListener('load',()=>{const c=img.closest('[data-src]');c.classList.add('loaded');if(c.classList.contains('frame'))c.classList.add('real')});
 });
 
 /* ---------- arrastrar una imagen sobre cualquier marco y que quede pegada ----------
@@ -882,7 +933,7 @@ const imgKey=src=>'nfm_1pct_img_'+src;
 document.addEventListener('dragover',e=>e.preventDefault());
 document.addEventListener('drop',e=>e.preventDefault());
 
-document.querySelectorAll('.frame[data-src]').forEach(f=>{
+document.querySelectorAll('[data-src]').forEach(f=>{
   const im=f.querySelector('img');
   try{ const guardada=localStorage.getItem(imgKey(f.dataset.src)); if(guardada) im.src=guardada; }catch(e){}
 
