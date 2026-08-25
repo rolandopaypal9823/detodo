@@ -175,7 +175,9 @@ html, body{ margin:0; padding:0; background:#081F33; }
   color:var(--nfm-ink); line-height:1.06; letter-spacing:-0.03em; margin:0 0 14px;
   animation:nfm-fu .6s .12s var(--nfm-ease) both;
 }
-.nfm-hero__title em{ color:var(--nfm-orange); font-style:normal; }
+.nfm-hero__title em{ color:var(--nfm-orange); font-style:normal;
+  /* "en vivo." nunca se parte al medio: corta antes, no adentro */
+  white-space:nowrap; }
 .nfm-hero__kicker{
   font-family:var(--nfm-font-h); font-size:clamp(1rem,1.7vw,1.22rem); font-weight:500;
   color:var(--nfm-orange-deep); line-height:1.3; letter-spacing:-0.01em; margin:0 0 22px;
@@ -564,9 +566,9 @@ html, body{ margin:0; padding:0; background:#081F33; }
       <div class="nfm-hero__text-col">
         <span class="nfm-hero__tag">Funciones de septiembre · Con Valentina Ensinck</span>
 
-        <h1 class="nfm-hero__title">Tu día te maneja <em>a vos.</em></h1>
+        <h1 class="nfm-hero__title">Hackea tu Cerebro <em>en vivo.</em></h1>
 
-        <p class="nfm-hero__kicker">Cuatro noches en vivo para entender el algoritmo de tu cerebro. Esta vez, con invitada.</p>
+        <p class="nfm-hero__kicker">Tu día te maneja a vos. Cuatro noches para entender por qué — esta vez, con invitada.</p>
 
         <p class="nfm-hero__seed">
           No es falta de voluntad. Tu cerebro corre un programa que nadie te explicó — dopamina, foco, hábitos, sueño —
