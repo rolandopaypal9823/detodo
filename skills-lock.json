@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "skills": {
+    "duo-culture": {
+      "source": "HKTITAN/duolingo",
+      "sourceType": "github",
+      "skillPath": "skills/duo-culture/SKILL.md",
+      "computedHash": "7876ad4b9d86a98d7de6a9ae76d54e00fd93189aa92654744a9657252fe71c6c"
+    },
+    "duo-design": {
+      "source": "HKTITAN/duolingo",
+      "sourceType": "github",
+      "skillPath": "skills/duo-design/SKILL.md",
+      "computedHash": "d421ea0199a46ca218ee1943684036b3d3aad99c28edfbc40aab741eb1097350"
+    },
+    "duo-experimentation": {
+      "source": "HKTITAN/duolingo",
+      "sourceType": "github",
+      "skillPath": "skills/duo-experimentation/SKILL.md",
+      "computedHash": "acc4b4c4f6733603e5af7f1bf0ddbf026c1aa64476a05de9ce3f04133e31d38e"
+    },
+    "duo-gamification": {
+      "source": "HKTITAN/duolingo",
+      "sourceType": "github",
+      "skillPath": "skills/duo-gamification/SKILL.md",
+      "computedHash": "4b00a91d46dc03aad926f7a13c3935d080675c089da9ca0385bf3863cedd08c7"
+    },
+    "duo-growth": {
+      "source": "HKTITAN/duolingo",
+      "sourceType": "github",
+      "skillPath": "skills/duo-growth/SKILL.md",
+      "computedHash": "010f352aa5f49079d46bd0400d10e2d4ec47ee5a4e010c9fcd1102fcc5f20f65"
+    },
+    "duo-product": {
+      "source": "HKTITAN/duolingo",
+      "sourceType": "github",
+      "skillPath": "skills/duo-product/SKILL.md",
+      "computedHash": "5a257600b8a9a56c4d21875468c01dfe81dbe1dbed3408a82129ef8d356ae193"
+    },
+    "duo-retention": {
+      "source": "HKTITAN/duolingo",
+      "sourceType": "github",
+      "skillPath": "skills/duo-retention/SKILL.md",
+      "computedHash": "fb544871d3af94d040a7664bbc3605b7815fed71baf056a6b31c25b86d6d92bd"
+    },
+    "duo-voice": {
+      "source": "HKTITAN/duolingo",
+      "sourceType": "github",
+      "skillPath": "skills/duo-voice/SKILL.md",
+      "computedHash": "c110ad723ffbc95d626a29e7fbff1c6e7d0400144142d3403cdf66c37b27151d"
+    }
+  }
+}
