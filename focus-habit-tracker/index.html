@@ -102,7 +102,7 @@
     </div>
   </aside>
 
-  <main class="main" id="main"><!-- vistas renderizadas por app.js --></main>
+  <main class="main" id="main" tabindex="-1"><!-- vistas renderizadas por app.js --></main>
 
   <nav class="tabbar" aria-label="Principal">
     <a href="#/inicio" data-nav="inicio" class="tab-item">
@@ -118,6 +118,20 @@
       <span>Objetivos</span>
     </a>
   </nav>
+</div>
+
+<!-- ============ CELEBRACIÓN (día perfecto / hito de racha) ============ -->
+<div id="celebration" class="celebration-backdrop" hidden>
+  <div class="celebration" role="dialog" aria-modal="true" aria-live="polite">
+    <div class="celebration-burst" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+    <div class="celebration-num" id="cel-num"></div>
+    <h2 class="celebration-title" id="cel-title"></h2>
+    <p class="celebration-sub" id="cel-sub"></p>
+    <p class="celebration-extra mono-label" id="cel-extra" hidden></p>
+    <button type="button" class="btn btn-primary" id="cel-close">Seguir</button>
+  </div>
 </div>
 
 <!-- ============ MODAL GESTIONAR HÁBITOS ============ -->
@@ -137,7 +151,7 @@
         </label>
         <label class="field field-meta">
           <span class="field-label" title="Cuántos días del mes querés cumplirlo">META / MES</span>
-          <input type="number" id="habit-meta" min="1" max="31" step="1" value="20" required>
+          <input type="number" id="habit-meta" min="1" max="31" step="1" value="24" required>
         </label>
       </div>
       <div id="habit-suggestions" class="habit-suggestions"></div>

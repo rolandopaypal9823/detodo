@@ -13,6 +13,21 @@ Web app de hábitos y objetivos con la identidad NFM: azul que ordena (`#0c3452`
 - **Objetivos y metas** — hasta 3 metas concretas con los campos del método (qué + para cuándo, para qué, horas de foco; opcionales para profundizar). Guardado automático.
 - **PWA** — instalable como ícono en el celular (ver abajo). Abre al instante gracias al service worker.
 
+## Sistema de racha (mecánicas Duolingo, estética NFM)
+
+Basado en las skills del playbook de Duolingo (`.agents/skills/duo-*`), traducido al producto:
+
+- **Racha** — días consecutivos con al menos un hábito marcado. Si hoy todavía no marcaste, la racha de ayer sigue viva: hoy se define hoy. (`duo-retention/streak-mechanics`)
+- **Congelador de racha ◆** — si te salteás un día, un congelador se usa solo y la racha sigue. Arrancás con 1, ganás 1 cada 7 días de racha, máximo 2 en mano. Es escaso a propósito: protege la racha sin diluir el incentivo diario. Los días congelados se ven con ◆ en la grilla. (`duo-retention/streak-freeze`)
+- **Hitos** — 7 · 30 · 50 · 100 · 365 días, cada uno con su celebración y su copy. La card de racha muestra siempre el próximo hito y cuánto falta (la anticipación es parte de la celebración). (`duo-gamification/celebration-moments`)
+- **Día perfecto** — completar todos los hábitos del día dispara la celebración media, una sola vez por día.
+- **Feedback chico** — cada check tiene su micro-animación (260 ms, curva con rebote). Se apaga con `prefers-reduced-motion`. (`duo-design/juicy-motion`)
+- **La racha se define hoy** — de noche (19+), si no marcaste nada, Inicio te lo dice en una línea. Sin push, sin spam: una sola señal, adentro de la app. (`duo-retention/notification-discipline`, loss-framing de `loss-aversion`)
+- **Estados de la card de racha** — la card habla según el momento: "N días en juego · hoy: 0 marcados" (pérdida), "✓ Día asegurado" (primer check), "Día completo · X/X". Siempre el dato, nunca el carácter. (`duo-culture/candor-what-not-who`)
+- **Reset anti-culpa** — cuando la racha muere, la card muestra tu mejor racha histórica y "hoy arranca la nueva". Sin rojo, sin drama. La **constancia total** (días con ≥1 marca, nunca se resetea) vive en el Panel. (`duo-retention/forever-product`)
+- **Cierre de mes** — el día 1, el Panel te da el veredicto del mes cerrado por hábito: ≥95% → "subí la vara" (a un tap), <50% → "bajala o eliminá". Banda media: silencio. Hábitos con <7 días de datos no reciben veredicto. (`duo-culture/green-machine`, `duo-experimentation/sample-size`)
+- **Voz centralizada** — todas las strings visibles viven en `js/copy.js` con el brief de voz (clínico + confrontativo) para auditarlas en una pasada. (`duo-voice/wholesome-unhinged` traducido a NFM)
+
 ## Modos de guardado
 
 | Modo | Qué necesita | Dónde guarda |
@@ -34,12 +49,23 @@ Web app de hábitos y objetivos con la identidad NFM: azul que ordena (`#0c3452`
 
 > Tip: en Supabase → Authentication → Providers → Email, podés desactivar "Confirm email" para que crear cuenta entre directo, sin paso de confirmación.
 
-## Publicar la página
+## Publicar en Netlify (recomendado)
 
-Cualquier hosting estático sirve. Los tres típicos:
+El repo ya trae `netlify.toml` en la raíz (publica `focus-habit-tracker/`, sin build, con el header correcto para el service worker). Dos caminos:
 
-- **Vercel / Netlify**: arrastrá la carpeta `focus-habit-tracker/` o conectá el repo (root: `focus-habit-tracker`). Sin build command.
-- **GitHub Pages**: serví el repo y entrá a `/focus-habit-tracker/`. Las rutas son relativas, funciona en subcarpeta.
+**A. Conectado al repo (deploy automático en cada push):**
+1. [app.netlify.com](https://app.netlify.com) → **Add new project** → **Importar from Git** → GitHub → elegí este repo.
+2. Branch to deploy: la rama donde está la app. El resto lo toma del `netlify.toml` — no toques build command ni publish directory.
+3. **Deploy**. Netlify te da una URL `https://<nombre>.netlify.app` con HTTPS.
+
+**B. Manual (sin conectar Git):**
+[app.netlify.com/drop](https://app.netlify.com/drop) → arrastrá la carpeta `focus-habit-tracker/`. Listo, pero cada actualización la subís a mano.
+
+Después del primer deploy:
+- **Site configuration → Domain management** para cambiar el nombre (`focus-nfm.netlify.app`) o colgar un dominio propio.
+- Si activaste Supabase: en Supabase → **Authentication → URL Configuration**, poné la URL de Netlify como *Site URL* (para que los mails de confirmación redirijan bien).
+
+Otras opciones: Vercel (mismos valores) o GitHub Pages (`/focus-habit-tracker/` — las rutas son relativas, funciona en subcarpeta).
 
 Para probar local:
 
@@ -74,6 +100,9 @@ focus-habit-tracker/
 
 ## Decisiones del MVP (y qué viene después)
 
-- **Solo el día actual es editable** — decidido en la review: marcar en el día potencia el uso diario.
-- **Recordatorio nocturno**: las notificaciones push reales necesitan app nativa (permisos del sistema). Queda para la fase app.
+- **Solo el día actual es editable** — decidido en la review: marcar en el día potencia el uso diario. El congelador es la única excepción, y es automática.
+- **Recordatorio nocturno**: push real necesita app nativa; por ahora, la línea "tu racha se define hoy" adentro de la app (19+ hs).
 - **Íconos por hábito**: primero funcional; los chips visuales se agregan después.
+- **Sin XP, sin ligas, sin corazones**: con un solo usuario y cero social, serían ruido. La progresión ya está en las metas mensuales y la racha (`duo-gamification/anti-grind`).
+- **Sin recompensa variable ni "quests" diarias**: la sorpresa por la sorpresa es timba, y una cuota diaria convierte ganas en obligación. Un solo momento de confrontación con datos: el cierre de mes.
+- **Regla dura**: el pasado no se edita, y no existe perdón de racha más blando que el congelador.

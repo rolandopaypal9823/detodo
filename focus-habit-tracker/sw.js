@@ -1,6 +1,6 @@
 // Service worker mínimo: cachea el shell para que la app abra
 // al instante (y funcione sin red en modo local).
-const CACHE = 'focus-nfm-v1';
+const CACHE = 'focus-nfm-v3';
 const SHELL = [
   './',
   './index.html',
@@ -8,6 +8,7 @@ const SHELL = [
   './js/app.js',
   './js/store.js',
   './js/config.js',
+  './js/copy.js',
   './manifest.webmanifest',
   './assets/favicon.svg',
   './assets/icon-192.png',

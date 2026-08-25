@@ -1,0 +1,18 @@
+# Netlify — deploy del Focus Habit Tracker
+# La app vive en focus-habit-tracker/ y no tiene build: se publica tal cual.
+
+[build]
+  publish = "focus-habit-tracker"
+  command = ""
+
+# El service worker nunca se cachea en CDN/navegador: así cada deploy
+# llega a los usuarios apenas recargan (el SW cachea el resto).
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"

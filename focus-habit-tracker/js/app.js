@@ -4,6 +4,7 @@
 
 import { supabaseEnabled } from './config.js';
 import * as store from './store.js';
+import { COPY } from './copy.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -105,8 +106,10 @@ async function authAction(fn) {
     await fn();
     await store.initStore();
     if (!store.getState().profile.name) {
-      const name = prompt('¿Cómo te llamás?') || '';
-      if (name.trim()) store.setName(name);
+      // sin prompt() nativo: arranca con el prefijo del email, editable en la barra
+      const email = store.getUser()?.email || '';
+      const guess = email.split('@')[0].replace(/[._-]+/g, ' ').trim();
+      if (guess) store.setName(guess[0].toUpperCase() + guess.slice(1));
     }
     showApp();
   } catch (err) {
@@ -121,10 +124,14 @@ function authError(msg) {
 }
 
 function traducirError(msg) {
-  if (/invalid login credentials/i.test(msg)) return 'Email o contraseña incorrectos.';
-  if (/already registered/i.test(msg)) return 'Ese email ya tiene cuenta. Probá entrar.';
-  if (/rate limit/i.test(msg)) return 'Demasiados intentos. Esperá un minuto.';
-  return msg;
+  if (/invalid login credentials/i.test(msg)) return COPY.errores.credenciales;
+  if (/already registered/i.test(msg)) return COPY.errores.yaRegistrado;
+  if (/rate limit/i.test(msg)) return COPY.errores.demasiadosIntentos;
+  if (/email not confirmed/i.test(msg)) return COPY.errores.emailSinConfirmar;
+  if (/password.*(short|weak|at least)/i.test(msg)) return COPY.errores.passwordDebil;
+  if (/failed to fetch|network|fetch failed|load failed/i.test(msg)) return COPY.errores.sinConexion;
+  if (/revisá tu email/i.test(msg)) return msg; // mensaje propio de signUp
+  return COPY.errores.generico;
 }
 
 $('#btn-logout').addEventListener('click', async () => {
@@ -150,8 +157,28 @@ function renderChrome() {
 }
 
 $('#user-name').addEventListener('click', () => {
-  const name = prompt('Tu nombre', store.getState().profile.name);
-  if (name && name.trim()) { store.setName(name); renderChrome(); route(); }
+  const btn = $('#user-name');
+  if (btn.dataset.editing) return;
+  btn.dataset.editing = '1';
+  const input = document.createElement('input');
+  input.className = 'user-name-input';
+  input.maxLength = 30;
+  input.value = store.getState().profile.name;
+  btn.replaceWith(input);
+  input.focus();
+  input.select();
+  const commit = () => {
+    if (input.value.trim()) store.setName(input.value);
+    delete btn.dataset.editing;
+    input.replaceWith(btn);
+    renderChrome();
+    route();
+  };
+  input.addEventListener('blur', commit);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') input.blur();
+    if (e.key === 'Escape') { input.value = store.getState().profile.name; input.blur(); }
+  });
 });
 
 // ============================================================
@@ -166,6 +193,12 @@ function currentRoute() {
 }
 
 function route() {
+  lastRenderDay = store.todayKey();
+  // si pasó la medianoche (o volvés de días sin abrir), reconciliar congeladores
+  if (store.getState().habits.length) {
+    const spent = store.reconcileFreezes();
+    if (spent) renderChrome();
+  }
   const r = currentRoute();
   $$('[data-nav]').forEach((a) => a.classList.toggle('active', a.dataset.nav === r));
   routes[r]();
@@ -174,6 +207,16 @@ function route() {
 }
 
 window.addEventListener('hashchange', route);
+
+// cambio de día con la app abierta: al volver del background (PWA) o
+// cruzar medianoche, re-renderizar para que "hoy" sea hoy de verdad.
+let lastRenderDay = store.todayKey();
+function checkDayChange() {
+  if (store.todayKey() !== lastRenderDay && !$('#app').hidden) route();
+}
+document.addEventListener('visibilitychange', checkDayChange);
+window.addEventListener('focus', checkDayChange);
+setInterval(checkDayChange, 60 * 1000);
 
 // re-render de la vista activa cuando cambia el estado (sync remoto, etc.)
 store.onChange(() => { if (!$('#app').hidden) renderChrome(); });
@@ -231,11 +274,16 @@ function renderInicio() {
       </div>
     </section>` : ''}
 
+    ${renderNudge(s, today, racha)}
+
     <div class="stat-row">
       <div class="card stat-card">
         <span class="stat-num ${racha > 0 ? 'hot' : ''}">${racha}</span>
         <div class="stat-meta">
           <span class="mono-label">RACHA DE DÍAS</span>
+          ${renderFreezes(s)}
+          ${renderRachaState(s, today, racha)}
+          ${renderMilestone(racha)}
         </div>
       </div>
       <div class="card stat-card">
@@ -249,7 +297,9 @@ function renderInicio() {
     <section>
       <div class="today-head">
         <h2 class="section-title">Hábitos de hoy</h2>
-        ${today.total ? `<span class="today-pct">${today.pct}%</span>` : ''}
+        ${today.total && today.done === today.total
+          ? `<span class="perfect-inline">${COPY.diaPerfecto(today.total)}</span>`
+          : today.total ? `<span class="today-pct">${today.pct}%</span>` : ''}
       </div>
       ${s.habits.length ? `
         <div class="today-list">
@@ -265,14 +315,111 @@ function renderInicio() {
         <p class="grid-hint" style="margin-top:12px">Marcás el día en el que estás. Mañana, el panel arranca de nuevo.</p>
       ` : `
         <div class="empty">
-          <div class="empty-title">Todavía no definiste hábitos</div>
-          <div>Arrancá por uno. Con eso alcanza para hoy.</div>
-          <button type="button" class="btn btn-primary" data-action="open-habits">Definir mi primer hábito</button>
+          <div class="empty-title">${COPY.vacios.inicioTitulo}</div>
+          <div>${COPY.vacios.inicioSub}</div>
+          <button type="button" class="btn btn-primary" data-action="open-habits">${COPY.vacios.inicioCta}</button>
         </div>`}
     </section>
   `;
   bindCommon();
 }
+
+// congeladores: escasos y visibles — ◆ lleno = disponible
+function renderFreezes(s) {
+  const f = s.freezes;
+  const pips = [0, 1].map((i) => `<span class="pip ${i < f.available ? 'full' : ''}">◆</span>`).join('');
+  return `<span class="freeze-row" title="Congelador de racha: si te salteás un día, se usa solo y tu racha sigue. Ganás 1 cada 7 días de racha (máximo 2).">${pips}<span class="freeze-label">${f.available === 1 ? 'CONGELADOR' : 'CONGELADORES'}</span></span>`;
+}
+
+// máquina de estados de la card de racha (loss-aversion: marco de pérdida
+// para retener, marco de ganancia para arrancar; candor: el dato, no el carácter)
+function renderRachaState(s, today, racha) {
+  let line = '';
+  let hot = false;
+  if (racha === 0) {
+    const best = store.bestStreak();
+    line = best > 0 ? COPY.racha.resetAntiCulpa(best) : COPY.racha.nuevo;
+  } else if (today.done === 0 && racha >= 3) {
+    line = COPY.racha.enJuego(racha);
+    hot = true;
+  } else if (today.total > 0 && today.done === today.total) {
+    line = COPY.racha.completo(today.total);
+  } else if (today.done >= 1) {
+    line = COPY.racha.asegurado;
+  }
+  return line ? `<span class="racha-state ${hot ? 'hot' : ''}">${line}</span>` : '';
+}
+
+// anticipación del próximo hito (celebration-moments: ver venir "el grande")
+function renderMilestone(racha) {
+  const next = store.nextMilestone(racha);
+  if (!next || racha === 0) return '';
+  const prev = store.prevMilestone(racha);
+  const pct = Math.round(((racha - prev) / (next - prev)) * 100);
+  const label = next - racha === 1 ? COPY.racha.vispera(next) : `HITO ${next} · FALTAN ${next - racha} DÍAS`;
+  return `
+    <span class="milestone-row">
+      <span class="milestone-bar"><i style="width:${pct}%"></i></span>
+      <span class="milestone-label">${label}</span>
+    </span>`;
+}
+
+// avisos de inicio: un congelador te salvó / tu racha se define hoy
+function renderNudge(s, today, racha) {
+  const notices = [];
+  if (s.ui.freezeNoticeDay === store.todayKey()) {
+    notices.push(`<div class="notice"><span class="notice-dot" aria-hidden="true">◆</span>
+      <span>${COPY.avisos.congeladorUsado(s.freezes.available)}</span></div>`);
+  }
+  // congelador ganado hoy: se anuncia acá aunque no haya hito
+  // (en rachas 14, 21... se gana sin modal — que no sea en silencio)
+  if (s.freezes.lastEarnDay === store.todayKey()) {
+    notices.push(`<div class="notice"><span class="notice-dot" aria-hidden="true">◆</span>
+      <span>${COPY.avisos.congeladorGanado(s.freezes.available)}</span></div>`);
+  }
+  const evening = new Date().getHours() >= 19;
+  if (evening && s.habits.length && today.done === 0) {
+    const msg = racha > 0 ? COPY.avisos.rachaEnJuego(racha) : COPY.avisos.cerraElDia;
+    notices.push(`<div class="notice notice-hot"><span class="notice-dot" aria-hidden="true">⚡</span><span>${msg}</span></div>`);
+  }
+  return notices.join('');
+}
+
+// ============================================================
+// CELEBRACIONES — 3 niveles (juicy-feedback / día perfecto / hito)
+// El nivel chico es CSS puro en el check; acá van los dos grandes.
+// ============================================================
+
+// Tiering (celebration-moments): chico = CSS del check · medio = línea
+// inline "DÍA PERFECTO" · grande = modal SOLO en hitos; 100/365 más largos.
+function showCelebration(ev) {
+  if (!ev.milestone) return; // el modal es solo para hitos
+  const cel = $('#celebration');
+  const c = COPY.hitos[ev.milestone];
+  $('#cel-num').textContent = ev.milestone;
+  $('#cel-title').textContent = c.title;
+  $('#cel-sub').textContent = c.sub;
+  const extra = $('#cel-extra');
+  extra.hidden = !ev.earnedFreeze;
+  if (ev.earnedFreeze) extra.textContent = COPY.congeladorGanado;
+  cel.hidden = false;
+  const box = $('.celebration', cel);
+  box.classList.toggle('grand', ev.milestone >= 100); // hold y burst extendidos
+  box.classList.remove('play');
+  void box.offsetWidth;
+  box.classList.add('play');
+  $('#cel-close').focus();
+}
+
+function hideCelebration() {
+  $('#celebration').hidden = true;
+  // devolver el foco a la vista (el botón original ya fue re-renderizado)
+  const target = $('[data-toggle]') || $('#main');
+  if (target) target.focus();
+}
+
+$('#cel-close').addEventListener('click', hideCelebration);
+$('#celebration').addEventListener('click', (e) => { if (e.target === $('#celebration')) hideCelebration(); });
 
 // ============================================================
 // VISTA: PANEL DE HÁBITOS
@@ -306,6 +453,8 @@ function renderHabitos() {
       <button type="button" class="btn btn-primary" data-action="open-habits">Gestionar hábitos</button>
     </div>
 
+    ${renderMonthClose()}
+
     ${s.habits.length ? `
     <section class="card panel-summary">
       <div class="ring-wrap">
@@ -320,6 +469,7 @@ function renderHabitos() {
         <div class="sum-item"><span class="summary-num">${stats.done}</span><span class="mono-label">COMPLETADOS</span></div>
         <div class="sum-item"><span class="summary-num">${stats.remaining}</span><span class="mono-label">RESTANTES</span></div>
         <div class="sum-item"><span class="summary-num">${stats.days}</span><span class="mono-label">DÍAS DEL MES</span></div>
+        <div class="sum-item"><span class="summary-num">${store.totalActiveDays()}</span><span class="mono-label">CONSTANCIA TOTAL</span></div>
       </div>
     </section>
 
@@ -350,12 +500,14 @@ function renderHabitos() {
             ${keys.map((k) => {
               const dow = new Date(k + 'T12:00:00').getDay();
               const checked = store.isChecked(habit.id, k);
+              const frozen = !checked && Boolean(s.freezes.used[k]);
               const editable = k === todayK;
               const cls = ['cell', checked ? 'checked' : '', k === todayK ? 'today' : '',
+                frozen ? 'frozen' : '',
                 (dow === 0 || dow === 6) ? 'weekend' : '', editable ? 'editable' : ''].join(' ');
               return `<td>${editable
                 ? `<button type="button" class="${cls}" data-toggle="${habit.id}" aria-pressed="${checked}" title="${esc(habit.name)} · hoy"></button>`
-                : `<span class="${cls}"></span>`}</td>`;
+                : `<span class="${cls}" ${frozen ? 'title="Día cubierto por un congelador de racha"' : ''}></span>`}</td>`;
             }).join('')}
             <td class="hg-count"><span class="${done >= meta ? 'met' : ''}">${done}</span>/${meta}</td>
           </tr>`).join('')}
@@ -379,9 +531,9 @@ function renderHabitos() {
     </section>` : ''}
     ` : `
     <div class="empty">
-      <div class="empty-title">Tu panel está esperando</div>
-      <div>Definí tus hábitos y empezá a marcar tus días.</div>
-      <button type="button" class="btn btn-primary" data-action="open-habits">Definir mis hábitos</button>
+      <div class="empty-title">${COPY.vacios.panelTitulo}</div>
+      <div>${COPY.vacios.panelSub}</div>
+      <button type="button" class="btn btn-primary" data-action="open-habits">${COPY.vacios.panelCta}</button>
     </div>`}
   `;
 
@@ -392,6 +544,11 @@ function renderHabitos() {
     gridScroll.scrollLeft = Math.max(0, todayHead.offsetLeft - gridScroll.clientWidth * 0.6);
   }
 
+  $$('[data-close-action]').forEach((b) => b.addEventListener('click', () => {
+    store.decideMonthClose(b.dataset.closeMonth, b.dataset.habit, b.dataset.closeAction);
+    renderHabitos();
+  }));
+
   $$('[data-month]').forEach((b) => b.addEventListener('click', () => {
     const d = new Date(view.y, view.m + Number(b.dataset.month), 1);
     view = { y: d.getFullYear(), m: d.getMonth() };
@@ -400,6 +557,34 @@ function renderHabitos() {
   // volver al mes actual si quedó en otro y no es navegación explícita
   if (!isCurrentMonth) { /* se queda donde el usuario navegó */ }
   bindCommon();
+}
+
+// Cierre de mes (green-machine paso 6: duplicá lo que funciona, cortá lo
+// que no). Solo aparece si hay veredictos pendientes; banda media = silencio.
+function renderMonthClose() {
+  const report = store.monthCloseReport();
+  if (!report) return '';
+  const mesNombre = MONTHS[report.month.m];
+  return `
+  <section class="card close-card">
+    <div class="mono-label">${COPY.cierre.titulo(mesNombre).toUpperCase()}</div>
+    <p class="close-intro">${COPY.cierre.intro}</p>
+    ${report.flagged.map(({ habit, done, pct, verdict }) => `
+    <div class="close-row">
+      <div class="close-info">
+        <span class="close-name">${esc(habit.name)}</span>
+        <span class="close-pct ${verdict === 'raise' ? 'good' : 'bad'}">${done}/${habit.meta} · ${pct}%</span>
+        <span class="close-verdict">${verdict === 'raise' ? COPY.cierre.subiLaVara : COPY.cierre.teAplasta}</span>
+      </div>
+      <div class="close-actions">
+        ${verdict === 'raise'
+          ? `<button type="button" class="btn-mini" data-close-action="raise" data-close-month="${report.month.key}" data-habit="${habit.id}">${COPY.cierre.subir(Math.min(31, Math.round(habit.meta * 1.2) || habit.meta + 2))}</button>`
+          : `<button type="button" class="btn-mini" data-close-action="lower" data-close-month="${report.month.key}" data-habit="${habit.id}">${COPY.cierre.bajar(Math.max(1, Math.round(habit.meta * 0.8)))}</button>
+             <button type="button" class="btn-mini danger" data-close-action="delete" data-close-month="${report.month.key}" data-habit="${habit.id}">${COPY.cierre.eliminar}</button>`}
+        <button type="button" class="btn-mini ghost" data-close-action="keep" data-close-month="${report.month.key}" data-habit="${habit.id}">${COPY.cierre.mantener}</button>
+      </div>
+    </div>`).join('')}
+  </section>`;
 }
 
 // ============================================================
@@ -480,7 +665,7 @@ const modal = $('#modal-habits');
 function openHabitsModal() {
   editingHabitId = null;
   $('#habit-form').reset();
-  $('#habit-meta').value = 20;
+  $('#habit-meta').value = 24;
   $('#habit-submit').textContent = 'Crear hábito';
   renderModalList();
   modal.hidden = false;
@@ -533,7 +718,7 @@ function renderModalList() {
     const h = s.habits.find((x) => x.id === b.dataset.del);
     if (confirm(`¿Eliminar «${h.name}»? Se pierde su historial de marcas.`)) {
       store.deleteHabit(h.id);
-      if (editingHabitId === h.id) { editingHabitId = null; $('#habit-form').reset(); $('#habit-meta').value = 20; $('#habit-submit').textContent = 'Crear hábito'; }
+      if (editingHabitId === h.id) { editingHabitId = null; $('#habit-form').reset(); $('#habit-meta').value = 24; $('#habit-submit').textContent = 'Crear hábito'; }
       renderModalList();
     }
   }));
@@ -542,13 +727,13 @@ function renderModalList() {
 $('#habit-form').addEventListener('submit', (e) => {
   e.preventDefault();
   const name = $('#habit-name').value.trim();
-  const meta = Math.min(31, Math.max(1, Number($('#habit-meta').value) || 20));
+  const meta = Math.min(31, Math.max(1, Number($('#habit-meta').value) || 24));
   if (!name) return;
   if (editingHabitId) store.updateHabit(editingHabitId, name, meta);
   else store.addHabit(name, meta);
   editingHabitId = null;
   $('#habit-form').reset();
-  $('#habit-meta').value = 20;
+  $('#habit-meta').value = 24;
   $('#habit-submit').textContent = 'Crear hábito';
   renderModalList();
   $('#habit-name').focus();
@@ -559,6 +744,12 @@ modal.addEventListener('click', (e) => {
 });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !modal.hidden) closeHabitsModal();
+  if (e.key === 'Escape' && !$('#celebration').hidden) hideCelebration();
+  // trap de foco: el diálogo de celebración tiene un solo control
+  if (e.key === 'Tab' && !$('#celebration').hidden) {
+    e.preventDefault();
+    $('#cel-close').focus();
+  }
 });
 
 // ============================================================
@@ -568,8 +759,9 @@ document.addEventListener('keydown', (e) => {
 function bindCommon() {
   $$('[data-action="open-habits"]').forEach((b) => b.addEventListener('click', openHabitsModal));
   $$('[data-toggle]').forEach((b) => b.addEventListener('click', () => {
-    store.toggleToday(b.dataset.toggle);
+    const ev = store.toggleToday(b.dataset.toggle);
     route();
+    if (ev.milestone) showCelebration(ev);
   }));
   const dismiss = $('[data-dismiss-steps]');
   if (dismiss) dismiss.addEventListener('click', () => { store.dismissSteps(); route(); });
