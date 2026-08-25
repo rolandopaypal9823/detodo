@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hackea Tu Cerebro — Nico Fernández Miranda + Valentina Ensinck · Funciones de septiembre</title>
+<meta name="description" content="Cuatro funciones de septiembre con Nicolás Fernández Miranda y Valentina Ensinck como invitada. Una noche para entender el algoritmo de tu cerebro y salir con el manual.">
+<meta property="og:title" content="Hackea Tu Cerebro — con Valentina Ensinck · Funciones de septiembre">
+<meta property="og:description" content="Cuatro noches, dos en escena. CABA, San Rafael, Mendoza y San Juan. Elegí tu función.">
+<meta property="og:type" content="website">
+
+<!-- ════════════════════════════════════════════════════════════════
+     META PIXEL  ·  En GoHighLevel va en: Settings → Tracking Code → HEAD
+     (acá está incluido sólo para que el archivo funcione como preview)
+     ════════════════════════════════════════════════════════════════ -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1203017011123382');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1203017011123382&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- ═══════════ DESDE ACÁ EMPIEZA LO QUE VA EN EL CUSTOM CODE DE GHL ═══════════ -->
+
+<style>
+/* ════════════════════════════════════════════════════════════════
+   NFM · FUNCIONES DE SEPTIEMBRE · NICO + VALENTINA ENSINCK
+   Mismo sistema visual que la landing de clases en vivo (validada)
+   ════════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --nfm-navy-deep:  #081F33;
+  --nfm-navy:       #0C3452;
+  --nfm-navy-1:     #0E2E4A;
+  --nfm-navy-2:     #143A5C;
+  --nfm-teal:       #1A4A6E;
+
+  --nfm-orange:       #FF6602;
+  --nfm-orange-hover: #FF8033;
+  --nfm-orange-deep:  #E55A00;
+  --nfm-orange-glow:  rgba(255,102,2,0.35);
+
+  --nfm-white:    #FFFFFF;
+  --nfm-gray-50:  #F4F6FA;
+  --nfm-gray-100: #EDF1F7;
+  --nfm-gray-200: #E2E8F0;
+  --nfm-ink:        #0C3452;
+  --nfm-ink-mute:   #5A6B7E;
+  --nfm-ink-subtle: #8A98A8;
+
+  --nfm-tl:  rgba(255,255,255,0.87);
+  --nfm-tm:  rgba(255,255,255,0.60);
+  --nfm-ts:  rgba(255,255,255,0.42);
+  --nfm-hair:rgba(255,255,255,0.09);
+  --nfm-hair-strong:rgba(255,255,255,0.16);
+
+  --nfm-font-h: 'Space Grotesk', sans-serif;
+  --nfm-font-b: 'DM Sans', 'Inter', sans-serif;
+  --nfm-r:   14px;
+  --nfm-r-lg:22px;
+  --nfm-ease:cubic-bezier(0.22,1,0.36,1);
+}
+
+/* ─── reset acotado ─── */
+html, body{ margin:0; padding:0; background:#081F33; }
+.nfm-page, .nfm-page *, .nfm-page *::before, .nfm-page *::after{ box-sizing:border-box; }
+.nfm-page{ font-family:var(--nfm-font-b); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+.nfm-page img{ max-width:100%; height:auto; display:block; }
+.nfm-page a{ text-decoration:none; color:inherit; }
+.nfm-page ul,.nfm-page ol{ list-style:none; margin:0; padding:0; }
+
+/* ─── utilidades ─── */
+.nfm-container{ max-width:1200px; margin:0 auto; padding:0 24px; }
+.nfm-narrow{ max-width:760px; }
+.nfm-mid{ max-width:920px; }
+.nfm-accent{ color:var(--nfm-orange); }
+
+.nfm-eyebrow{
+  display:inline-block; font-family:var(--nfm-font-h);
+  font-size:0.72rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--nfm-orange); border:1px solid rgba(255,102,2,0.32);
+  padding:6px 16px; border-radius:50px; margin-bottom:20px;
+}
+.nfm-eyebrow--solid{ background:rgba(255,102,2,0.10); }
+
+/* ─── botón primario ─── */
+.nfm-btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  font-family:var(--nfm-font-h); font-size:1.02rem; font-weight:600; letter-spacing:0.01em;
+  color:#fff; background:var(--nfm-orange); border:none; border-radius:50px;
+  padding:17px 36px; cursor:pointer; position:relative; overflow:hidden;
+  transition:transform .25s var(--nfm-ease), box-shadow .25s var(--nfm-ease), background .25s var(--nfm-ease);
+  box-shadow:0 6px 28px var(--nfm-orange-glow);
+}
+.nfm-btn::after{
+  content:''; position:absolute; top:0; left:-120%; width:60%; height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,0.35),transparent);
+  transform:skewX(-20deg); transition:left .6s var(--nfm-ease);
+}
+.nfm-btn:hover{ background:var(--nfm-orange-hover); transform:translateY(-2px); box-shadow:0 10px 38px var(--nfm-orange-glow); color:#fff; }
+.nfm-btn:hover::after{ left:140%; }
+.nfm-btn svg{ width:18px; height:18px; flex-shrink:0; transition:transform .25s var(--nfm-ease); }
+.nfm-btn:hover svg{ transform:translateX(4px); }
+
+/* ─── reveal on scroll ─── */
+.nfm-reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s var(--nfm-ease), transform .7s var(--nfm-ease); }
+.nfm-reveal.nfm-vis{ opacity:1; transform:none; }
+.nfm-d1{ transition-delay:.08s } .nfm-d2{ transition-delay:.16s } .nfm-d3{ transition-delay:.24s } .nfm-d4{ transition-delay:.32s }
+
+/* ════════════════ NAV ════════════════ */
+.nfm-nav{
+  position:fixed; top:0; left:0; right:0; z-index:9999; padding:14px 0;
+  background:rgba(8,31,51,0.30); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  transition:all .3s var(--nfm-ease); border-bottom:1px solid transparent;
+}
+.nfm-nav.nfm-nav--scrolled{
+  background:rgba(8,31,51,0.92); padding:9px 0;
+  border-bottom:1px solid var(--nfm-hair); box-shadow:0 6px 30px rgba(0,0,0,0.35);
+}
+.nfm-nav__inner{ display:flex; align-items:center; justify-content:space-between; }
+.nfm-nav__logo img{ height:64px; width:auto; transition:height .3s var(--nfm-ease); }
+.nfm-nav--scrolled .nfm-nav__logo img{ height:48px; }
+.nfm-nav__cta{
+  font-family:var(--nfm-font-h); font-size:0.82rem; font-weight:600; color:#fff;
+  background:var(--nfm-orange); border:none; border-radius:50px; padding:11px 24px; cursor:pointer;
+  transition:all .25s var(--nfm-ease); box-shadow:0 4px 18px var(--nfm-orange-glow);
+}
+.nfm-nav__cta:hover{ background:var(--nfm-orange-hover); transform:translateY(-1px); color:#fff; }
+
+/* ════════════════ HERO ════════════════ */
+.nfm-hero{
+  position:relative; overflow:hidden; padding:128px 0 0;
+  background:
+    radial-gradient(900px 500px at 78% 12%, rgba(255,102,2,0.16), transparent 60%),
+    radial-gradient(700px 600px at 10% 100%, rgba(26,74,110,0.55), transparent 65%),
+    linear-gradient(160deg, #0C3452 0%, #081F33 100%);
+}
+.nfm-hero::before{ /* grano sutil */
+  content:''; position:absolute; inset:0; opacity:0.04; pointer-events:none; z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.nfm-hero__particles{ position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none; }
+.nfm-particle{ position:absolute; bottom:-12px; border-radius:50%; background:rgba(255,102,2,0.35); animation:nfm-float linear infinite; }
+@keyframes nfm-float{ 0%{transform:translateY(0) scale(1);opacity:.55} 100%{transform:translateY(-112vh) scale(.35);opacity:0} }
+
+.nfm-hero__grid{
+  position:relative; z-index:2; display:grid; grid-template-columns:1.06fr 0.94fr; gap:40px; align-items:end;
+}
+.nfm-hero__text-col{ padding-bottom:84px; }
+.nfm-hero__tag{
+  display:inline-block; font-family:var(--nfm-font-h); font-size:0.74rem; font-weight:600;
+  letter-spacing:0.12em; text-transform:uppercase; color:var(--nfm-orange);
+  background:rgba(255,102,2,0.12); border:1px solid rgba(255,102,2,0.34);
+  padding:7px 16px; border-radius:50px; margin-bottom:22px;
+  animation:nfm-fu .6s var(--nfm-ease) both;
+}
+.nfm-hero__title{
+  font-family:var(--nfm-font-h); font-size:clamp(2.1rem,4.2vw,3.3rem); font-weight:700;
+  color:#fff; line-height:1.06; letter-spacing:-0.03em; margin:0 0 14px;
+  animation:nfm-fu .6s .12s var(--nfm-ease) both;
+}
+.nfm-hero__title em{ color:var(--nfm-orange); font-style:normal; }
+.nfm-hero__kicker{
+  font-family:var(--nfm-font-h); font-size:clamp(1rem,1.7vw,1.22rem); font-weight:500;
+  color:var(--nfm-orange); line-height:1.3; letter-spacing:-0.01em; margin:0 0 22px;
+  animation:nfm-fu .6s .2s var(--nfm-ease) both;
+}
+.nfm-hero__seed{
+  font-size:1.02rem; color:var(--nfm-tl); line-height:1.65; margin:0 0 26px; max-width:34em;
+  animation:nfm-fu .6s .28s var(--nfm-ease) both;
+}
+.nfm-hero__seed strong{ color:#fff; font-weight:600; }
+.nfm-hero__date{
+  font-family:var(--nfm-font-h); font-size:0.95rem; color:var(--nfm-tm); margin:0 0 22px;
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  animation:nfm-fu .6s .34s var(--nfm-ease) both;
+}
+.nfm-hero__date strong{ color:#fff; font-weight:600; }
+.nfm-hero__date .nfm-dot{ width:4px; height:4px; border-radius:50%; background:var(--nfm-orange); }
+
+.nfm-cd-label{ font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:600; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--nfm-ts); margin:0 0 12px; animation:nfm-fu .6s .4s var(--nfm-ease) both; }
+.nfm-cd{ display:flex; gap:12px; margin-bottom:30px; animation:nfm-fu .6s .44s var(--nfm-ease) both; }
+.nfm-cd__item{
+  display:flex; flex-direction:column; align-items:center; min-width:66px; padding:13px 16px;
+  background:rgba(255,255,255,0.06); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+}
+.nfm-cd__num{ font-family:var(--nfm-font-h); font-size:1.9rem; font-weight:700; color:var(--nfm-orange); line-height:1; }
+.nfm-cd__unit{ font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--nfm-tm); margin-top:5px; }
+
+.nfm-live{ display:none; align-items:center; gap:10px; margin-bottom:30px;
+  background:rgba(255,102,2,0.10); border:1px solid rgba(255,102,2,0.34); border-radius:var(--nfm-r);
+  padding:14px 18px; font-family:var(--nfm-font-h); font-weight:600; color:#fff; font-size:0.98rem; }
+.nfm-live__dot{ width:9px; height:9px; border-radius:50%; background:var(--nfm-orange); flex-shrink:0;
+  box-shadow:0 0 0 0 var(--nfm-orange-glow); animation:nfm-pulse 1.6s infinite; }
+@keyframes nfm-pulse{ 0%{box-shadow:0 0 0 0 rgba(255,102,2,.55)} 70%{box-shadow:0 0 0 12px rgba(255,102,2,0)} 100%{box-shadow:0 0 0 0 rgba(255,102,2,0)} }
+.nfm-is-live .nfm-cd, .nfm-is-live .nfm-cd-label{ display:none; }
+.nfm-is-live .nfm-live{ display:flex; }
+
+.nfm-hero__cta-wrap{ animation:nfm-fu .6s .5s var(--nfm-ease) both; }
+.nfm-hero__micro{ font-size:0.82rem; color:var(--nfm-tm); margin:14px 0 0; }
+.nfm-hero__micro strong{ color:var(--nfm-tl); }
+
+/* ─────────────────────────────────────────────────────────────────
+   FIGURA RECORTADA DEL HERO (Nico + Valentina sobre el degradé)
+   El PNG va SIN fondo (con transparencia). Acá abajo se le arma el
+   "fondo profesional" con CSS: halo de luz detrás + sombra de piso.
+   No hace falta editar la foto en ningún programa.
+   ───────────────────────────────────────────────────────────────── */
+.nfm-hero__cut{
+  position:relative; display:flex; align-items:flex-end; justify-content:center;
+  min-height:620px; height:100%; animation:nfm-fu .7s .3s var(--nfm-ease) both;
+}
+.nfm-hero__cut::before{ /* halo de luz de escenario detrás de las figuras */
+  content:''; position:absolute; left:50%; bottom:6%; transform:translateX(-50%);
+  width:104%; aspect-ratio:1/1; border-radius:50%; z-index:0;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,140,60,0.34) 0%, rgba(255,102,2,0.16) 34%, transparent 56%),
+    radial-gradient(circle at 50% 52%, rgba(86,166,224,0.34) 0%, rgba(26,74,110,0.30) 46%, transparent 72%);
+  filter:blur(14px);
+}
+.nfm-hero__cut::after{ /* sombra de piso: apoya las figuras y evita el efecto "recorte flotando" */
+  content:''; position:absolute; left:50%; bottom:0; transform:translateX(-50%);
+  width:58%; height:46px; border-radius:50%; z-index:0;
+  background:radial-gradient(ellipse at center, rgba(3,12,20,0.62) 0%, rgba(3,12,20,0.22) 45%, transparent 72%);
+  filter:blur(5px);
+}
+.nfm-hero__cut img{
+  position:relative; z-index:1; width:100%; height:100%; max-height:660px;
+  object-fit:contain; object-position:bottom center;
+  filter:drop-shadow(0 26px 44px rgba(0,0,0,0.45));
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   PLAN B · si el PNG NO tiene transparencia (fondo blanco sólido)
+   Agregale la clase   nfm-hero__cut--card   al div del hero:
+     <div class="nfm-hero__cut nfm-hero__cut--card">
+   La foto pasa a mostrarse como una tarjeta con marco, que es como
+   está en la landing general. Queda prolijo y no se ve el recuadro
+   blanco flotando. Es un cambio de una sola palabra.
+   ───────────────────────────────────────────────────────────────── */
+.nfm-hero__cut--card{ align-items:center; padding-bottom:84px; }
+.nfm-hero__cut--card::before,
+.nfm-hero__cut--card::after{ display:none; }
+.nfm-hero__cut--card img{
+  height:auto; max-height:none; aspect-ratio:4/5; object-fit:cover; object-position:center 18%;
+  border-radius:var(--nfm-r-lg); border:1px solid var(--nfm-hair);
+  box-shadow:0 30px 80px rgba(0,0,0,0.45); filter:none;
+}
+
+@keyframes nfm-fu{ from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:none} }
+
+/* ════════════════ SOCIAL PROOF ════════════════ */
+.nfm-proof{ background:var(--nfm-gray-50); padding:30px 0 34px; border-bottom:1px solid var(--nfm-gray-200); }
+.nfm-proof__label{ text-align:center; font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:600;
+  letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-ink-subtle); margin:0 0 20px; }
+.nfm-proof__row{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:28px 46px; }
+.nfm-proof__logo{ max-height:30px; width:auto; filter:grayscale(100%); opacity:0.5; transition:all .25s var(--nfm-ease); }
+.nfm-proof__logo:hover{ filter:grayscale(0%); opacity:1; }
+
+/* ════════════════ ESPEJO ════════════════ */
+.nfm-espejo{ background:var(--nfm-white); padding:84px 0; }
+.nfm-espejo__label{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:600;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-orange);
+  border:1px solid rgba(255,102,2,0.3); border-radius:50px; padding:5px 15px; margin-bottom:18px; }
+.nfm-espejo h2{ font-family:var(--nfm-font-h); font-size:clamp(1.6rem,3.2vw,2.3rem); font-weight:700;
+  color:var(--nfm-ink); line-height:1.15; letter-spacing:-0.02em; margin:0 0 14px; }
+.nfm-espejo h2 em{ color:var(--nfm-orange); font-style:normal; }
+.nfm-espejo__intro{ font-size:1.02rem; color:var(--nfm-ink-mute); line-height:1.7; margin:0 0 30px; }
+.nfm-espejo__intro strong{ color:var(--nfm-ink); }
+.nfm-espejo__item{ display:flex; gap:14px; align-items:flex-start; margin-bottom:14px; }
+.nfm-espejo__ic{ flex-shrink:0; margin-top:3px; width:22px; height:22px; background:rgba(255,102,2,0.12);
+  border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.nfm-espejo__ic svg{ width:10px; height:10px; stroke:var(--nfm-orange); fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+.nfm-espejo__item p{ font-size:0.98rem; color:#2a3f54; line-height:1.6; margin:0; }
+.nfm-espejo__close{ margin-top:26px; padding:22px 24px; border-left:3px solid var(--nfm-orange);
+  background:rgba(255,102,2,0.06); border-radius:0 var(--nfm-r) var(--nfm-r) 0; }
+.nfm-espejo__close p{ font-size:1rem; color:#3a4f64; line-height:1.7; font-style:italic; margin:0; }
+.nfm-espejo__close strong{ color:var(--nfm-ink); font-style:normal; }
+
+/* ════════════════ FUNCIONES ════════════════ */
+.nfm-fx{ position:relative; overflow:hidden; padding:88px 0; background:var(--nfm-gray-50); }
+.nfm-fx__particles{ position:absolute; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+.nfm-fx-particle{ position:absolute; bottom:-10px; border-radius:50%; background:var(--nfm-orange); opacity:.4; animation:nfm-rfloat linear infinite; }
+@keyframes nfm-rfloat{ 0%{transform:translateY(0) scale(1);opacity:.4} 100%{transform:translateY(-110vh) scale(.3);opacity:0} }
+.nfm-fx .nfm-container{ position:relative; z-index:1; }
+.nfm-fx__title{ font-family:var(--nfm-font-h); font-size:clamp(1.6rem,3.2vw,2.3rem); font-weight:700;
+  text-align:center; color:var(--nfm-ink); letter-spacing:-0.02em; line-height:1.18; margin:0 auto 14px; max-width:18em; }
+.nfm-fx__title span{ color:var(--nfm-orange); }
+.nfm-fx__sub{ font-size:1.04rem; font-weight:500; color:var(--nfm-ink-mute);
+  text-align:center; max-width:680px; margin:0 auto 44px; line-height:1.6; }
+.nfm-fx__sub strong{ color:var(--nfm-ink); font-weight:700; }
+
+.nfm-fx__grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+.nfm-fx__card{
+  display:flex; flex-direction:column; background:#fff; border:1px solid var(--nfm-gray-200);
+  border-radius:var(--nfm-r-lg); overflow:hidden; position:relative;
+  box-shadow:0 14px 44px rgba(12,52,82,0.07);
+  transition:transform .25s var(--nfm-ease), box-shadow .25s var(--nfm-ease), border-color .25s var(--nfm-ease);
+}
+.nfm-fx__card:hover{ transform:translateY(-4px); border-color:rgba(255,102,2,0.30); box-shadow:0 22px 60px rgba(12,52,82,0.13); }
+.nfm-fx__media{ position:relative; aspect-ratio:16/10; overflow:hidden; background:var(--nfm-navy-1); }
+.nfm-fx__media img{ width:100%; height:100%; object-fit:cover; }
+.nfm-fx__flag{
+  font-family:var(--nfm-font-h); font-size:0.6rem; font-weight:700; letter-spacing:0.1em;
+  text-transform:uppercase; color:#fff; background:var(--nfm-orange);
+  border-radius:50px; padding:6px 12px; box-shadow:0 4px 14px rgba(255,102,2,0.4);
+}
+.nfm-fx__media .nfm-fx__flag{ position:absolute; top:12px; left:12px; z-index:2; }
+.nfm-fx__body{ display:flex; flex-direction:column; flex:1; padding:24px 22px 26px; }
+.nfm-fx__when{ font-family:var(--nfm-font-h); font-size:0.72rem; font-weight:700; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--nfm-orange); margin:0 0 8px; }
+.nfm-fx__city{ font-family:var(--nfm-font-h); font-size:1.34rem; font-weight:700; color:var(--nfm-ink);
+  letter-spacing:-0.02em; line-height:1.1; margin:0 0 6px; }
+.nfm-fx__venue{ font-size:0.9rem; color:var(--nfm-ink-mute); line-height:1.5; margin:0 0 20px; }
+.nfm-fx__card .nfm-btn{ margin-top:auto; width:100%; padding:14px 16px; font-size:0.9rem; box-shadow:0 4px 18px var(--nfm-orange-glow); }
+.nfm-fx__soon{
+  margin-top:auto; width:100%; padding:14px 16px; text-align:center; cursor:default;
+  font-family:var(--nfm-font-h); font-size:0.88rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+  color:var(--nfm-ink-subtle); background:transparent; border:1.5px solid var(--nfm-gray-200); border-radius:50px;
+}
+.nfm-fx__note{ font-size:0.85rem; color:var(--nfm-ink-subtle); text-align:center; margin:32px auto 0; max-width:760px; line-height:1.6; }
+.nfm-fx__note strong{ color:var(--nfm-ink-mute); }
+
+/* ════════════════ LA INVITADA ════════════════ */
+.nfm-guest{ padding:96px 0; background:#081F33; color:#fff; position:relative; overflow:hidden; }
+.nfm-guest::before{ content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,102,2,0.4),transparent); }
+.nfm-guest__inner{ display:grid; grid-template-columns:0.8fr 1.2fr; gap:56px; align-items:center; max-width:1040px; margin:0 auto; }
+.nfm-guest__figure{ position:relative; }
+.nfm-guest__photo{
+  width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:var(--nfm-r-lg);
+  border:1px solid var(--nfm-hair); box-shadow:0 28px 70px rgba(0,0,0,0.45);
+}
+.nfm-guest__figure::after{ /* filo de luz naranja */
+  content:''; position:absolute; inset:0; border-radius:var(--nfm-r-lg); pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(255,102,2,0.20);
+}
+.nfm-guest h2{ font-family:var(--nfm-font-h); font-size:clamp(1.7rem,3.4vw,2.5rem); font-weight:700;
+  line-height:1.14; letter-spacing:-0.02em; margin:0 0 8px; }
+.nfm-guest h2 em{ color:var(--nfm-orange); font-style:normal; }
+.nfm-guest__role{ font-family:var(--nfm-font-h); font-size:0.95rem; font-weight:500; color:var(--nfm-orange); margin:0 0 22px; }
+.nfm-guest__body p{ font-size:1.02rem; color:var(--nfm-tl); line-height:1.75; margin:0 0 16px; }
+.nfm-guest__body p strong{ color:#fff; }
+.nfm-guest__creds{ display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+.nfm-guest__cred{
+  font-family:var(--nfm-font-h); font-size:0.78rem; font-weight:600; color:var(--nfm-tl);
+  background:rgba(255,255,255,0.05); border:1px solid var(--nfm-hair);
+  border-radius:50px; padding:8px 16px;
+}
+
+/* ════════════════ EL SHOW / MECANISMO ════════════════ */
+.nfm-bridge{ position:relative; padding:100px 0; overflow:hidden;
+  background:linear-gradient(180deg, #081F33 0%, #0C3452 55%, #081F33 100%); color:#fff; }
+.nfm-bridge::before{ content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,102,2,0.4),transparent); }
+.nfm-bridge__head{ max-width:760px; margin:0 auto 44px; text-align:center; }
+.nfm-bridge h2{ font-family:var(--nfm-font-h); font-size:clamp(1.7rem,3.6vw,2.6rem); font-weight:700;
+  line-height:1.16; letter-spacing:-0.02em; margin:0 0 20px; }
+.nfm-bridge h2 em{ color:var(--nfm-orange); font-style:normal; }
+.nfm-bridge__head p{ font-size:1.05rem; color:var(--nfm-tl); line-height:1.7; margin:0; }
+.nfm-bridge__head p strong{ color:#fff; }
+.nfm-bridge__viz{ display:flex; align-items:center; justify-content:center; gap:0; max-width:640px; margin:0 auto 40px; }
+.nfm-bridge__node{ flex:1; max-width:210px; text-align:center; padding:26px 18px;
+  background:var(--nfm-navy-1); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg); }
+.nfm-bridge__node strong{ display:block; font-family:var(--nfm-font-h); font-size:1.32rem; font-weight:700; color:#fff; letter-spacing:0.02em; margin-bottom:4px; }
+.nfm-bridge__node span{ font-size:0.82rem; color:var(--nfm-tm); line-height:1.45; display:block; }
+.nfm-bridge__node--mine{ border-color:rgba(255,102,2,0.30); }
+.nfm-bridge__node--mine strong{ color:var(--nfm-orange); }
+.nfm-bridge__gap{ flex:0 0 92px; position:relative; height:3px;
+  background:repeating-linear-gradient(90deg, var(--nfm-orange) 0 8px, transparent 8px 16px); opacity:.7; }
+.nfm-bridge__gap::after{ content:'✕'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  font-size:0.9rem; color:var(--nfm-orange); background:#0C3452; width:26px; height:26px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,102,2,0.5); }
+.nfm-bridge__body{ max-width:680px; margin:0 auto; }
+.nfm-bridge__body p{ font-size:1.02rem; color:var(--nfm-tl); line-height:1.75; margin:0 0 16px; text-align:center; }
+.nfm-bridge__quote{ margin:36px auto 0; max-width:600px; text-align:center;
+  padding:28px 32px; background:rgba(255,255,255,0.04); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg); }
+.nfm-bridge__quote p{ font-family:var(--nfm-font-h); font-size:1.25rem; font-weight:500; color:#fff;
+  line-height:1.4; letter-spacing:-0.01em; margin:0 0 12px; font-style:italic; }
+.nfm-bridge__quote span{ font-size:0.82rem; color:var(--nfm-tm); }
+.nfm-bridge__kick{ text-align:center; font-family:var(--nfm-font-h); font-size:1.05rem; font-weight:600;
+  color:var(--nfm-orange); margin:36px auto 0; max-width:580px; line-height:1.45; }
+
+/* ════════════════ QUÉ TE LLEVÁS ════════════════ */
+.nfm-learn{ background:var(--nfm-white); padding:96px 0; color:var(--nfm-ink); }
+.nfm-learn__head{ text-align:center; margin-bottom:48px; }
+.nfm-learn__head h2{ font-family:var(--nfm-font-h); font-size:clamp(1.7rem,3.4vw,2.4rem); font-weight:700;
+  letter-spacing:-0.02em; line-height:1.15; margin:0 0 12px; color:var(--nfm-ink); }
+.nfm-learn__head p{ font-size:1.02rem; color:var(--nfm-ink-mute); max-width:580px; margin:0 auto; line-height:1.6; }
+.nfm-map{ max-width:860px; margin:0 auto; background:var(--nfm-white); border:1px solid var(--nfm-gray-200);
+  border-radius:var(--nfm-r-lg); padding:20px 40px; box-shadow:0 20px 60px rgba(12,52,82,0.07); }
+.nfm-map__item{ display:flex; gap:26px; align-items:flex-start; padding:26px 0; border-bottom:1px solid var(--nfm-gray-200); }
+.nfm-map__item:last-child{ border-bottom:none; }
+.nfm-map__num{ font-family:var(--nfm-font-h); font-size:2rem; font-weight:700;
+  color:transparent; -webkit-text-stroke:1.5px var(--nfm-orange); min-width:52px; line-height:1; }
+.nfm-map__txt h4{ font-family:var(--nfm-font-h); font-size:1.14rem; font-weight:700; color:var(--nfm-ink); margin:0 0 6px; letter-spacing:-0.01em; }
+.nfm-map__txt p{ font-size:0.96rem; color:var(--nfm-ink-mute); line-height:1.6; margin:0; }
+.nfm-learn__cta{ text-align:center; margin-top:44px; }
+
+/* ════════════════ PRUEBA ════════════════ */
+.nfm-tst{ padding:96px 0; background:linear-gradient(180deg,#0C3452 0%,#081F33 100%); color:#fff; }
+.nfm-tst__head{ text-align:center; margin-bottom:48px; }
+.nfm-tst__head h2{ font-family:var(--nfm-font-h); font-size:clamp(1.6rem,3.2vw,2.3rem); font-weight:700;
+  letter-spacing:-0.02em; line-height:1.18; margin:0 0 12px; color:#fff; }
+.nfm-tst__head p{ color:var(--nfm-tm); max-width:560px; margin:0 auto; font-size:1rem; line-height:1.6; }
+.nfm-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; max-width:940px; margin:0 auto; }
+.nfm-stat{ text-align:center; padding:34px 24px; background:var(--nfm-navy-1);
+  border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg); transition:all .25s var(--nfm-ease); }
+.nfm-stat:hover{ border-color:rgba(255,102,2,0.28); transform:translateY(-4px); }
+.nfm-stat b{ display:block; font-family:var(--nfm-font-h); font-size:clamp(2rem,4vw,2.8rem); font-weight:700;
+  color:var(--nfm-orange); line-height:1; letter-spacing:-0.02em; margin-bottom:10px; }
+.nfm-stat span{ font-size:0.92rem; color:var(--nfm-tl); line-height:1.55; display:block; }
+.nfm-tst__grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:44px; }
+.nfm-tst__card{ display:flex; flex-direction:column; gap:16px; background:var(--nfm-navy-1);
+  border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg); padding:24px; transition:all .25s var(--nfm-ease); }
+.nfm-tst__card:hover{ border-color:rgba(255,102,2,0.28); transform:translateY(-4px); }
+.nfm-tst__video{ position:relative; width:100%; aspect-ratio:16/9; border-radius:14px; overflow:hidden; border:1px solid var(--nfm-hair); }
+.nfm-tst__video iframe{ width:100%; height:100%; border:none; display:block; }
+.nfm-tst__card h4{ font-family:var(--nfm-font-h); font-size:1.05rem; font-weight:700; color:#fff; margin:0; }
+.nfm-tst__role{ font-size:0.8rem; color:var(--nfm-tm); margin:-10px 0 0; display:block; }
+.nfm-tst__card p{ font-size:0.92rem; color:var(--nfm-tl); line-height:1.6; font-style:italic; margin:0; }
+.nfm-insight{ margin:44px auto 0; background:rgba(255,102,2,0.07); border-left:3px solid var(--nfm-orange);
+  border-radius:0 var(--nfm-r) var(--nfm-r) 0; padding:24px 28px; max-width:820px; }
+.nfm-insight p{ font-size:1rem; color:var(--nfm-tl); line-height:1.7; margin:0; }
+.nfm-insight strong{ color:var(--nfm-orange); font-weight:700; }
+
+/* ════════════════ EL GIRO ════════════════ */
+.nfm-anchor{ padding:100px 0; background:#081F33; color:#fff; }
+.nfm-anchor__head{ text-align:center; max-width:740px; margin:0 auto 18px; }
+.nfm-anchor h2{ font-family:var(--nfm-font-h); font-size:clamp(1.8rem,3.8vw,2.7rem); font-weight:700;
+  line-height:1.14; letter-spacing:-0.02em; margin:0 0 22px; }
+.nfm-anchor h2 em{ color:var(--nfm-orange); font-style:normal; }
+.nfm-anchor__body{ max-width:660px; margin:0 auto 44px; }
+.nfm-anchor__body p{ font-size:1.04rem; color:var(--nfm-tl); line-height:1.75; margin:0 0 16px; text-align:center; }
+.nfm-anchor__obj{ display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:840px; margin:0 auto; }
+.nfm-anchor__card{ background:var(--nfm-navy-1); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg); padding:30px 28px; }
+.nfm-anchor__card h4{ font-family:var(--nfm-font-h); font-size:1.05rem; font-weight:600; color:#fff; margin:0 0 12px; font-style:italic; }
+.nfm-anchor__card p{ font-size:0.96rem; color:var(--nfm-tl); line-height:1.65; margin:0; }
+.nfm-anchor__card p strong{ color:var(--nfm-orange); font-weight:600; }
+
+/* ════════════════ FAQ ════════════════ */
+.nfm-faq{ background:var(--nfm-white); padding:96px 0; }
+.nfm-faq__head{ text-align:center; margin-bottom:40px; }
+.nfm-faq__head h2{ font-family:var(--nfm-font-h); font-size:clamp(1.6rem,3.2vw,2.3rem); font-weight:700;
+  color:var(--nfm-ink); letter-spacing:-0.02em; line-height:1.15; margin:0; }
+.nfm-faq__list{ max-width:820px; margin:0 auto; border:1px solid var(--nfm-gray-200);
+  border-radius:var(--nfm-r-lg); overflow:hidden; box-shadow:0 20px 60px rgba(12,52,82,0.06); background:#fff; }
+.nfm-faq__item{ border-bottom:1px solid var(--nfm-gray-200); }
+.nfm-faq__item:last-child{ border-bottom:none; }
+.nfm-faq__item summary{ display:flex; align-items:center; justify-content:space-between; gap:16px;
+  font-family:var(--nfm-font-h); font-size:1rem; font-weight:600; color:var(--nfm-ink);
+  padding:22px 28px; cursor:pointer; list-style:none; transition:background .2s var(--nfm-ease); }
+.nfm-faq__item summary::-webkit-details-marker{ display:none; }
+.nfm-faq__item summary:hover{ background:var(--nfm-gray-50); }
+.nfm-faq__item summary::after{ content:'+'; font-size:1.5rem; font-weight:400; color:var(--nfm-orange); flex-shrink:0; line-height:1; }
+.nfm-faq__item[open] summary::after{ content:'–'; }
+.nfm-faq__item p{ font-size:0.96rem; color:var(--nfm-ink-mute); line-height:1.7; margin:0; padding:0 28px 24px; }
+
+/* ════════════════ CTA FINAL ════════════════ */
+.nfm-final{ position:relative; overflow:hidden; padding:104px 0; text-align:center; color:#fff;
+  background:
+    radial-gradient(600px 300px at 50% 0%, rgba(255,102,2,0.18), transparent 70%),
+    linear-gradient(180deg,#081F33 0%, #0C3452 100%); }
+.nfm-final h2{ font-family:var(--nfm-font-h); font-size:clamp(1.9rem,4.2vw,3rem); font-weight:700;
+  line-height:1.12; letter-spacing:-0.025em; margin:0 auto 18px; max-width:16em; }
+.nfm-final h2 em{ color:var(--nfm-orange); font-style:normal; }
+.nfm-final p{ font-size:1.06rem; color:var(--nfm-tl); max-width:30em; margin:0 auto 34px; line-height:1.6; }
+.nfm-final__date{ font-family:var(--nfm-font-h); font-weight:600; font-size:0.95rem; color:var(--nfm-tl);
+  margin-top:22px; display:block; text-align:center; }
+.nfm-final__date .nfm-dot{ display:inline-block; width:4px; height:4px; border-radius:50%;
+  background:var(--nfm-orange); vertical-align:middle; margin-right:8px; }
+
+/* ════════════════ FOOTER ════════════════ */
+.nfm-footer{ background:#081F33; padding:34px 0; text-align:center; border-top:1px solid var(--nfm-hair); }
+.nfm-footer p{ font-size:0.8rem; color:var(--nfm-tm); margin:0; }
+
+/* ════════════════ STICKY MOBILE CTA ════════════════ */
+.nfm-sticky{ position:fixed; left:0; right:0; bottom:0; z-index:9998; padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:rgba(8,31,51,0.94); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border-top:1px solid var(--nfm-hair); transform:translateY(120%); transition:transform .35s var(--nfm-ease); display:none; }
+.nfm-sticky.nfm-sticky--show{ transform:none; }
+.nfm-sticky .nfm-btn{ width:100%; padding:15px; font-size:1rem; box-shadow:none; }
+
+/* ════════════════ RESPONSIVE ════════════════ */
+@media (max-width:1024px){
+  .nfm-hero{ padding:116px 0 0; }
+  .nfm-hero__grid{ gap:28px; }
+  .nfm-hero__cut{ min-height:520px; }
+  .nfm-fx__grid{ grid-template-columns:1fr 1fr; }
+  .nfm-tst__grid{ grid-template-columns:1fr 1fr; }
+  .nfm-tst__card:last-child{ grid-column:1 / -1; max-width:560px; margin:0 auto; width:100%; }
+  .nfm-map{ padding:16px 30px; }
+  .nfm-guest__inner{ gap:36px; }
+}
+/* — hero a una columna: el texto arriba, la figura recortada abajo — */
+@media (max-width:900px){
+  .nfm-hero{ padding:104px 0 0; }
+  .nfm-hero__grid{ grid-template-columns:1fr; gap:0; }
+  .nfm-hero__text-col{ padding-bottom:20px; }
+  .nfm-hero__cut{ min-height:0; height:auto; }
+  .nfm-hero__cut img{ max-height:400px; }
+  .nfm-hero__cut::before{ width:100%; bottom:4%; }
+  .nfm-hero__cut::after{ width:66%; height:32px; }
+  .nfm-hero__cta-wrap .nfm-btn{ width:100%; }
+  .nfm-guest__inner{ grid-template-columns:1fr; text-align:center; }
+  .nfm-guest__figure{ max-width:320px; margin:0 auto; }
+  .nfm-guest__creds{ justify-content:center; }
+}
+@media (max-width:768px){
+  .nfm-espejo, .nfm-learn, .nfm-fx, .nfm-tst, .nfm-anchor, .nfm-faq, .nfm-guest{ padding:64px 0; }
+  .nfm-bridge, .nfm-final{ padding:72px 0; }
+  .nfm-anchor__obj{ grid-template-columns:1fr; }
+  .nfm-fx__grid{ grid-template-columns:1fr; }
+  .nfm-stats{ grid-template-columns:1fr; }
+  .nfm-tst__grid{ grid-template-columns:1fr; }
+  .nfm-tst__card:last-child{ grid-column:auto; }
+  .nfm-bridge__viz{ flex-direction:column; gap:0; }
+  .nfm-bridge__node{ max-width:280px; width:100%; }
+  .nfm-bridge__gap{ flex:0 0 56px; width:3px; height:56px;
+    background:repeating-linear-gradient(180deg, var(--nfm-orange) 0 8px, transparent 8px 16px); }
+  .nfm-map{ padding:8px 22px; }
+  .nfm-map__item{ gap:18px; }
+  .nfm-map__num{ font-size:1.6rem; min-width:40px; }
+  .nfm-proof__row{ gap:22px 30px; }
+  .nfm-proof__logo{ max-height:24px; }
+  .nfm-nav__logo img{ height:48px; }
+  .nfm-sticky{ display:block; }
+  .nfm-cd{ gap:8px; }
+  .nfm-cd__item{ min-width:0; flex:1; padding:11px 8px; }
+  .nfm-cd__num{ font-size:1.5rem; }
+  .nfm-faq__item summary{ padding:18px 20px; font-size:0.94rem; }
+  .nfm-faq__item p{ padding:0 20px 20px; font-size:0.92rem; }
+}
+@media (max-width:480px){
+  .nfm-container{ padding:0 18px; }
+  .nfm-hero__title{ font-size:1.75rem; }
+  .nfm-hero__cut img{ max-height:330px; }
+  .nfm-btn{ padding:15px 24px; font-size:0.95rem; }
+}
+</style>
+
+
+<div class="nfm-page">
+
+<!-- ════════════════ NAV ════════════════ -->
+<nav class="nfm-nav" id="nfm-nav">
+  <div class="nfm-container nfm-nav__inner">
+    <a href="#nfm-hero" class="nfm-nav__logo" aria-label="Nicolás Fernández Miranda">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png" alt="Nicolás Fernández Miranda">
+    </a>
+    <button type="button" class="nfm-nav__cta" data-scroll-to="nfm-funciones">VER FUNCIONES →</button>
+  </div>
+</nav>
+
+<!-- ════════════════ HERO ════════════════ -->
+<section class="nfm-hero" id="nfm-hero">
+  <div class="nfm-hero__particles" id="nfm-particles"></div>
+  <div class="nfm-container">
+    <div class="nfm-hero__grid">
+
+      <div class="nfm-hero__text-col">
+        <span class="nfm-hero__tag">Funciones de septiembre · Con Valentina Ensinck</span>
+
+        <h1 class="nfm-hero__title">Tu día te maneja <em>a vos.</em></h1>
+
+        <p class="nfm-hero__kicker">Cuatro noches en vivo para entender el algoritmo de tu cerebro. Esta vez, con invitada.</p>
+
+        <p class="nfm-hero__seed">
+          No es falta de voluntad. Tu cerebro corre un programa que nadie te explicó — dopamina, foco, hábitos, sueño —
+          y mientras no lo veas funcionando, vas a seguir peleándote con vos.
+          <strong>En septiembre, Nico lo desarma en escena junto a Valentina Ensinck.</strong>
+        </p>
+
+        <p class="nfm-hero__date">
+          <span class="nfm-dot"></span> <span id="nfm-next-city">Buenos Aires</span>
+          <span class="nfm-dot"></span> <strong id="nfm-next-date">Vie 11 SEP · 20:30 hs</strong>
+          <span class="nfm-dot"></span> <span id="nfm-next-venue">ND Teatro</span>
+        </p>
+
+        <p class="nfm-cd-label">Próxima función en...</p>
+        <div class="nfm-cd">
+          <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-days">00</span><span class="nfm-cd__unit">Días</span></div>
+          <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-hours">00</span><span class="nfm-cd__unit">Horas</span></div>
+          <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-min">00</span><span class="nfm-cd__unit">Min</span></div>
+          <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-sec">00</span><span class="nfm-cd__unit">Seg</span></div>
+        </div>
+        <div class="nfm-live"><span class="nfm-live__dot"></span><span>La función es hoy — quedan las últimas entradas.</span></div>
+
+        <div class="nfm-hero__cta-wrap">
+          <button class="nfm-btn" data-scroll-to="nfm-funciones">
+            ELEGIR MI FUNCIÓN
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <p class="nfm-hero__micro">90 minutos · Apto todo público · <strong>Solo cuatro funciones en septiembre</strong></p>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════════════════════════
+           FOTO DE PORTADA · Nico + Valentina recortados sobre el degradé
+           ⚠️ REEMPLAZAR el src por la URL del PNG una vez subido a GHL.
+              Requisito: PNG CON FONDO TRANSPARENTE (sin el blanco).
+              El "fondo profesional" ya lo pone el CSS: halo de luz de
+              escenario detrás + sombra de piso. No hace falta editar la foto.
+           ════════════════════════════════════════════════════════════════ -->
+      <div class="nfm-hero__cut">
+        <img src="URL_DE_LA_FOTO_NICO_VALENTINA.png" alt="Nicolás Fernández Miranda y Valentina Ensinck" loading="eager">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ SOCIAL PROOF ════════════════ -->
+<section class="nfm-proof">
+  <div class="nfm-container">
+    <p class="nfm-proof__label">Su trabajo fue destacado en</p>
+    <div class="nfm-proof__row">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/CNN.png" alt="CNN" class="nfm-proof__logo">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-110.svg" alt="Infobae" class="nfm-proof__logo">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-104.svg" alt="Endeavor" class="nfm-proof__logo">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-105.svg" alt="TEDx" class="nfm-proof__logo">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/Yale-Bulldogs-logo.png" alt="Yale" class="nfm-proof__logo">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/5-1.png" alt="YPF" class="nfm-proof__logo">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/6-1.png" alt="Samsung" class="nfm-proof__logo">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/accountlogo.jpg" alt="Ternium" class="nfm-proof__logo">
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ ESPEJO ════════════════ -->
+<section class="nfm-espejo">
+  <div class="nfm-container nfm-narrow">
+    <span class="nfm-espejo__label nfm-reveal">¿Te suena familiar?</span>
+    <h2 class="nfm-reveal nfm-d1">¿Alguna de estas escenas <em>es tu semana?</em></h2>
+    <p class="nfm-espejo__intro nfm-reveal nfm-d1">
+      No te falta información: ya escuchaste mil consejos de productividad.
+      <strong>Lo que nunca te explicaron es por qué, sabiendo todo eso, tu día igual termina manejándote a vos.</strong>
+    </p>
+
+    <div>
+      <div class="nfm-espejo__item nfm-reveal nfm-d1">
+        <div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
+        <p>Estás con las personas que más querés, pero tu cabeza está en el teléfono. Presente de cuerpo, ausente de verdad.</p>
+      </div>
+      <div class="nfm-espejo__item nfm-reveal nfm-d1">
+        <div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
+        <p>A las tres de la tarde el cerebro no te da más. Café número tres, y todavía queda medio día por delante.</p>
+      </div>
+      <div class="nfm-espejo__item nfm-reveal nfm-d2">
+        <div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
+        <p>Dijiste “hoy me acuesto temprano” y a la 1 AM seguís con el teléfono en la cara, sin saber bien cómo llegaste ahí.</p>
+      </div>
+      <div class="nfm-espejo__item nfm-reveal nfm-d2">
+        <div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
+        <p>Abrís el documento a las 9. A las 11 tenés catorce pestañas abiertas y el documento sigue con el título.</p>
+      </div>
+      <div class="nfm-espejo__item nfm-reveal nfm-d2">
+        <div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
+        <p>Arrancaste el hábito el lunes con toda la energía. El jueves ya no estaba, y ni te acordás qué día lo dejaste.</p>
+      </div>
+      <div class="nfm-espejo__item nfm-reveal nfm-d2">
+        <div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
+        <p>Te acostás cansado, con la sensación rara de haber estado ocupado todo el día y no haber avanzado en nada tuyo.</p>
+      </div>
+    </div>
+
+    <div class="nfm-espejo__close nfm-reveal nfm-d2">
+      <p>
+        Si algo de esto resonó: <strong>no es falta de voluntad y no sos un desastre.</strong>
+        Vivimos en un mundo diseñado para interrumpirte y nadie te dio las herramientas para manejarlo.
+        <strong>Tu cerebro está haciendo exactamente lo que fue programado para hacer — el tema es que vos no conocés el programa.</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ FUNCIONES DE SEPTIEMBRE ════════════════ -->
+<section class="nfm-fx" id="nfm-funciones">
+  <div class="nfm-fx__particles" id="nfm-fx-particles"></div>
+  <div class="nfm-container">
+    <h2 class="nfm-fx__title nfm-reveal">Cuatro funciones en septiembre. <span>Elegí la tuya.</span></h2>
+    <p class="nfm-fx__sub nfm-reveal nfm-d1">
+      Buenos Aires, San Rafael, Mendoza y San Juan, con Valentina Ensinck como invitada.
+      <strong>Cada botón te lleva directo a la compra</strong> en la ticketera oficial de esa función.
+    </p>
+
+    <!-- las tarjetas se generan solas desde el bloque FUNCIONES del script -->
+    <div class="nfm-fx__grid nfm-reveal nfm-d1" id="nfm-fx-grid"></div>
+
+    <p class="nfm-fx__note nfm-reveal nfm-d2">
+      La compra se hace de forma segura en la ticketera oficial de cada función: Plateanet en Buenos Aires y Entradaweb en San Rafael, Mendoza y San Juan.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════ LA INVITADA ════════════════ -->
+<section class="nfm-guest">
+  <div class="nfm-container">
+    <div class="nfm-guest__inner">
+
+      <!-- ⚠️ REEMPLAZAR por una foto de Valentina sola (retrato vertical) -->
+      <div class="nfm-guest__figure nfm-reveal">
+        <img class="nfm-guest__photo" src="URL_FOTO_VALENTINA.jpg" alt="Valentina Ensinck" loading="lazy">
+      </div>
+
+      <div class="nfm-reveal nfm-d1">
+        <span class="nfm-eyebrow nfm-eyebrow--solid">La invitada</span>
+        <h2>Esta vez, Nico <em>no está solo en escena.</em></h2>
+
+        <!-- ⚠️ COMPLETAR con el rol real de Valentina. No lo dejes genérico:
+             lo que la audiencia necesita saber es por qué ella suma a esta noche. -->
+        <p class="nfm-guest__role">Valentina Ensinck · [COMPLETAR: a qué se dedica]</p>
+
+        <div class="nfm-guest__body">
+          <p>
+            <!-- ⚠️ COMPLETAR: 2-3 líneas sobre quién es y qué trae ella al show.
+                 Escribilo traduciendo cada credencial a por qué le importa al que
+                 compra la entrada — no como una lista de títulos. -->
+            [COMPLETAR: quién es Valentina y qué aporta a la noche.]
+          </p>
+          <p>
+            <strong>Dos cabezas mirando el mismo problema desde dos lugares distintos.</strong>
+            Lo que en una charla es una explicación, acá se vuelve conversación — y lo que se conversa
+            en escena se entiende mejor que lo que se expone.
+          </p>
+        </div>
+
+        <!-- ⚠️ COMPLETAR o borrar: credenciales verificables de Valentina -->
+        <div class="nfm-guest__creds">
+          <span class="nfm-guest__cred">[Credencial 1]</span>
+          <span class="nfm-guest__cred">[Credencial 2]</span>
+          <span class="nfm-guest__cred">[Credencial 3]</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ EL SHOW · EL MECANISMO ════════════════ -->
+<section class="nfm-bridge">
+  <div class="nfm-container">
+    <div class="nfm-bridge__head nfm-reveal">
+      <span class="nfm-eyebrow nfm-eyebrow--solid">El show</span>
+      <h2>Tu cerebro no está roto.<br>Está corriendo <em>un programa que no elegiste.</em></h2>
+      <p>Se llama <strong>el algoritmo de tu cerebro</strong>: dopamina, foco, hábitos y sueño funcionando con reglas propias, escritas mucho antes de que existieran las notificaciones. Nadie te lo explicó, y por eso creés que el problema sos vos.</p>
+    </div>
+
+    <div class="nfm-bridge__viz nfm-reveal nfm-d1">
+      <div class="nfm-bridge__node"><strong>LO QUE QUERÉS</strong><span>lo que te propusiste hacer hoy</span></div>
+      <div class="nfm-bridge__gap"></div>
+      <div class="nfm-bridge__node nfm-bridge__node--mine"><strong>LO QUE HACÉS</strong><span>lo que tu cerebro elige por vos</span></div>
+    </div>
+
+    <div class="nfm-bridge__body nfm-reveal nfm-d1">
+      <p>
+        Entre esas dos cosas hay un mecanismo. No es voluntad, no es carácter, no es motivación:
+        es química, atención y diseño. <strong style="color:#fff">Y como cualquier mecanismo, se puede entender y se puede intervenir.</strong>
+      </p>
+
+      <div class="nfm-bridge__quote">
+        <p>“Hackear el cerebro para vencer la procrastinación, entrenar el foco y sostener la energía mental alta.”</p>
+        <span>— Nicolás Fernández Miranda</span>
+      </div>
+
+      <p class="nfm-bridge__kick">Por eso el show no es una charla motivacional. Es el manual de tu propio cerebro, contado de forma que te vas a reír mientras lo aprendés — y cuando te reís, el conocimiento se consolida.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ QUÉ TE LLEVÁS ════════════════ -->
+<section class="nfm-learn">
+  <div class="nfm-container">
+    <div class="nfm-learn__head nfm-reveal">
+      <span class="nfm-eyebrow">La noche</span>
+      <h2>Salís del teatro con el manual</h2>
+      <p>90 minutos en escena, desarmando el algoritmo de tu cerebro con neurociencia y mucho humor. Nada de monólogo aburrido.</p>
+    </div>
+
+    <div class="nfm-map nfm-reveal nfm-d1">
+      <div class="nfm-map__item">
+        <div class="nfm-map__num">01</div>
+        <div class="nfm-map__txt">
+          <h4>Foco a demanda</h4>
+          <p>Qué enciende y qué apaga tu atención de verdad — para poder arrancar una tarea sin tener que pelearte con vos mismo cada vez.</p>
+        </div>
+      </div>
+      <div class="nfm-map__item">
+        <div class="nfm-map__num">02</div>
+        <div class="nfm-map__txt">
+          <h4>Energía que dura el día entero</h4>
+          <p>Sueño, descanso y estrés manejados con ciencia y no con café. Por qué a las tres de la tarde te caés, y qué hacer al respecto.</p>
+        </div>
+      </div>
+      <div class="nfm-map__item">
+        <div class="nfm-map__num">03</div>
+        <div class="nfm-map__txt">
+          <h4>Hábitos que se sostienen solos</h4>
+          <p>Por qué el hábito se cae siempre en la misma semana, y cómo se diseña uno que no dependa de la motivación del lunes.</p>
+        </div>
+      </div>
+      <div class="nfm-map__item">
+        <div class="nfm-map__num">04</div>
+        <div class="nfm-map__txt">
+          <h4>El primer movimiento, esa misma noche</h4>
+          <p>No salís con más información para acumular: salís con algo concreto para aplicar el día siguiente, apenas te despertás.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="nfm-learn__cta nfm-reveal nfm-d2">
+      <button class="nfm-btn" data-scroll-to="nfm-funciones">
+        ELEGIR MI FUNCIÓN
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ PRUEBA ════════════════ -->
+<section class="nfm-tst">
+  <div class="nfm-container">
+    <div class="nfm-tst__head nfm-reveal">
+      <span class="nfm-eyebrow nfm-eyebrow--solid">Formato probado</span>
+      <h2>Un show que ya funcionó frente a <span class="nfm-accent">miles de personas</span></h2>
+      <p>No es un experimento: es un formato consolidado en charlas, empresas y teatros.</p>
+    </div>
+
+    <div class="nfm-stats">
+      <div class="nfm-stat nfm-reveal nfm-d1">
+        <b>+15.000</b>
+        <span>personas ya lo vieron exponer en vivo</span>
+      </div>
+      <div class="nfm-stat nfm-reveal nfm-d2">
+        <b>Bestseller</b>
+        <span>“Hackea tu cerebro” (Ediciones Lea), el libro que origina el show</span>
+      </div>
+      <div class="nfm-stat nfm-reveal nfm-d3">
+        <b>+1M</b>
+        <span>de seguidores en redes sociales</span>
+      </div>
+    </div>
+
+    <!-- ⚠️ TESTIMONIOS EN VIDEO — descomentá cuando tengas videos de gente que
+         fue a una función. NO poner testimonios sin nombre: restan más de lo que suman.
+    <div class="nfm-tst__grid">
+      <div class="nfm-tst__card nfm-reveal nfm-d1">
+        <div class="nfm-tst__video">
+          <iframe src="https://www.youtube.com/embed/ID_DEL_VIDEO" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" title="Testimonio"></iframe>
+        </div>
+        <h4>[NOMBRE]</h4>
+        <span class="nfm-tst__role">[Oficio · ciudad · función a la que fue]</span>
+        <p>“[Frase textual del asistente, con sus palabras.]”</p>
+      </div>
+    </div>
+    -->
+
+    <div class="nfm-insight nfm-reveal">
+      <p><strong>No es motivación, es ciencia.</strong> Cada cosa que se cuenta esa noche está anclada en investigación real y traducida a algo que puedas hacer un martes a las nueve de la mañana. Eso es lo que hace que, a diferencia de una charla común, al día siguiente todavía te acordés.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ EL GIRO ════════════════ -->
+<section class="nfm-anchor">
+  <div class="nfm-container">
+    <div class="nfm-anchor__head nfm-reveal">
+      <span class="nfm-eyebrow nfm-eyebrow--solid">El giro</span>
+      <h2>Probaste mil cosas. Y todas eran <em>la misma cosa disfrazada:</em> poné más voluntad.</h2>
+    </div>
+
+    <div class="nfm-anchor__body nfm-reveal nfm-d1">
+      <p>
+        La app nueva, el planner, levantarte a las cinco, el método del gurú de turno, la lista de tareas perfecta.
+        Todo apunta al mismo lugar: exigirte más. <strong style="color:#fff">Y por eso seguís igual.</strong>
+      </p>
+      <p>
+        Nadie te enseñó a manejar un auto diciéndote “poné más ganas”. Te explicaron cómo funciona el auto.
+        <strong style="color:#fff">Con tu cerebro nunca hicieron eso — y es el único que vas a tener toda la vida.</strong>
+      </p>
+    </div>
+
+    <div class="nfm-anchor__obj">
+      <div class="nfm-anchor__card nfm-reveal nfm-d1">
+        <h4>La creencia vieja</h4>
+        <p>“Si no logro sostener lo que me propongo es porque me falta disciplina. Soy un desastre, un procrastinador, un vago.” <strong>La culpa siempre cae sobre vos.</strong></p>
+      </div>
+      <div class="nfm-anchor__card nfm-reveal nfm-d2">
+        <h4>El paradigma nuevo</h4>
+        <p>Tu cerebro sigue reglas concretas de dopamina, atención y energía. No te falta carácter: te falta el manual. <strong>La disciplina no es la causa del cambio: es la consecuencia de entender cómo funcionás.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ FAQ ════════════════ -->
+<section class="nfm-faq">
+  <div class="nfm-container">
+    <div class="nfm-faq__head nfm-reveal">
+      <span class="nfm-eyebrow">Dudas típicas</span>
+      <h2>Preguntas frecuentes</h2>
+    </div>
+    <div class="nfm-faq__list nfm-reveal nfm-d1">
+      <details class="nfm-faq__item"><summary>¿Cuánto dura el show?</summary><p>Aproximadamente 90 minutos.</p></details>
+      <details class="nfm-faq__item"><summary>¿Valentina está en todas las funciones?</summary><p>Sí: participa en las cuatro funciones de septiembre (Buenos Aires, San Rafael, Mendoza y San Juan).</p></details>
+      <details class="nfm-faq__item"><summary>¿Es una charla técnica?</summary><p>No. Es un show en vivo, dinámico, divertido y práctico, donde Nico, experto y máster en neurociencia, explica conceptos difíciles de forma simple para que los puedas aplicar en tu día a día y mejorar tu productividad, pasando un buen momento.</p></details>
+      <details class="nfm-faq__item"><summary>¿Necesito haber leído el libro?</summary><p>No. El show se llama igual que el libro, “Hackea tu cerebro”, y se basa en él, pero lo profundiza todavía más. Si no lo leíste, entrás sin saber nada de neurociencia y salís entendiendo cómo funciona tu cerebro. Y si lo leíste, vas a ver capas del algoritmo que en el papel no entraban.</p></details>
+      <details class="nfm-faq__item"><summary>¿Puedo comprar en la puerta del teatro?</summary><p>Si quedan entradas, sí, pero a precio full. Las preventas con descuento son únicamente online, por la ticketera oficial de cada función.</p></details>
+      <details class="nfm-faq__item"><summary>¿Qué medios de pago aceptan?</summary><p>Los que ofrece la ticketera de cada función (Plateanet o Entradaweb). Te recomendamos revisarlos en su página al momento de comprar.</p></details>
+      <details class="nfm-faq__item"><summary>¿Pueden ir menores?</summary><p>Sí, es apto para todo público.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ CTA FINAL ════════════════ -->
+<section class="nfm-final">
+  <div class="nfm-container nfm-mid">
+    <h2 class="nfm-reveal">Cuatro noches en septiembre. <em>Después, no se repiten.</em></h2>
+    <p class="nfm-reveal nfm-d1">90 minutos con Nico y Valentina en escena. Neurociencia bajada a tierra, mucho humor, y el manual de tu propia cabeza para llevarte a casa.</p>
+    <div class="nfm-reveal nfm-d1">
+      <button class="nfm-btn" data-scroll-to="nfm-funciones">
+        ELEGIR MI FUNCIÓN
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <div class="nfm-reveal nfm-d2">
+      <p class="nfm-final__date"><span class="nfm-dot"></span> <span id="nfm-final-cities">Buenos Aires · San Rafael · Mendoza · San Juan</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ FOOTER ════════════════ -->
+<footer class="nfm-footer">
+  <div class="nfm-container">
+    <p>© 2026 Nicolás Fernández Miranda · Instituto de Productividad · Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- ════════════════ STICKY MOBILE CTA ════════════════ -->
+<div class="nfm-sticky" id="nfm-sticky">
+  <button class="nfm-btn" data-scroll-to="nfm-funciones">Elegir mi función</button>
+</div>
+
+</div><!-- /.nfm-page -->
+
+
+<script>
+/* ════════════════════════════════════════════════════════════════════════════════
+   NFM · FUNCIONES DE SEPTIEMBRE (con Valentina Ensinck)
+   ────────────────────────────────────────────────────────────────────────────────
+   ▸ Sólo las cuatro funciones de septiembre.
+   ▸ El contador apunta a la próxima que todavía no pasó. Cuando una función pasa,
+     desaparece sola de la grilla. No hay que tocar nada el día después de cada show.
+   ════════════════════════════════════════════════════════════════════════════════ */
+(function(){
+'use strict';
+
+/* ══════════════════════════════════════════════════════════════════
+   ①  FUNCIONES · ESTO ES LO ÚNICO QUE SE EDITA
+   ══════════════════════════════════════════════════════════════════
+   iso  → fecha y hora en formato ISO con huso de Argentina (-03:00).
+          Se usa para ordenar y para el contador.
+   hora → "20:30" · dejalo en "" si todavía no está confirmado
+   tag  → etiqueta naranja de la tarjeta
+   img  → foto de esa función · "" = tarjeta sin imagen
+   ────────────────────────────────────────────────────────────────── */
+var FUNCIONES = [
+  { ciudad:"Buenos Aires", iso:"2026-09-11T20:30:00-03:00", dia:"Vie 11 SEP", hora:"20:30",
+    sala:"ND Teatro", dir:"Paraguay 918, CABA",
+    tag:"Con Valentina Ensinck", img:"",
+    utm:"caba",
+    url:"https://www.plateanet.com/obra/34841?obra=NICOLAS+FERNANDEZ+MIRANDA+PRESENTA+HACKEA+TU+CEREBRO&paso=inicio" },
+
+  { ciudad:"San Rafael", iso:"2026-09-18T21:00:00-03:00", dia:"Vie 18 SEP", hora:"21:00",
+    sala:"Aula a confirmar", dir:"Mendoza",
+    tag:"Con Valentina Ensinck", img:"",
+    utm:"san-rafael",
+    url:"https://www.entradaweb.com.ar/evento/7950d7fa/step/1" },
+
+  { ciudad:"Mendoza", iso:"2026-09-19T20:30:00-03:00", dia:"Sáb 19 SEP", hora:"20:30",
+    sala:"El Círculo Teatro", dir:"O. V. Andrade 510, Ciudad de Mendoza",
+    tag:"Con Valentina Ensinck", img:"",
+    utm:"mendoza",
+    url:"https://www.entradaweb.com.ar/evento/e3c65648/step/1" },
+
+  { ciudad:"San Juan", iso:"2026-09-20T20:30:00-03:00", dia:"Dom 20 SEP", hora:"20:30",
+    sala:"Auditorio Museo Franklin Rawson", dir:"Av. Lib. San Martín 862, San Juan",
+    tag:"Con Valentina Ensinck", img:"",
+    utm:"san-juan",
+    url:"https://www.entradaweb.com.ar/evento/49305f4e/step/1" }
+];
+
+var UTM_BASE = "utm_source=landing&utm_medium=cta&utm_campaign=htc-septiembre-valentina";
+
+/* ══════════════════════════════════════════════════════════════════
+   ②  MOTOR · de acá para abajo no hace falta tocar nada
+   ══════════════════════════════════════════════════════════════════ */
+
+/* — arrastra los UTM de la URL (pauta) al link de la ticketera — */
+function linkCon(url, utmContent){
+  if(!url) return "";
+  var q = window.location.search.replace(/^\?/,'');
+  var extra = q ? q + "&" : "";
+  return url + (url.indexOf('?') > -1 ? "&" : "?") + extra + UTM_BASE + "&utm_content=" + utmContent;
+}
+
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+function proximas(){
+  var ahora = Date.now();
+  return FUNCIONES
+    .filter(function(f){ return new Date(f.iso).getTime() + 4*3600*1000 > ahora; })
+    .sort(function(a,b){ return new Date(a.iso) - new Date(b.iso); });
+}
+
+/* — dibuja la grilla — */
+(function pintarGrilla(){
+  var cont = document.getElementById('nfm-fx-grid');
+  if(!cont) return;
+  var lista = proximas(), html = '';
+
+  for(var i=0;i<lista.length;i++){
+    var f = lista[i];
+    var cuando = f.dia + (f.hora ? ' · ' + f.hora + ' hs' : '');
+    var venue  = f.sala + (f.dir ? ' · ' + f.dir : '');
+
+    html += '<div class="nfm-fx__card">';
+    if(f.img){
+      html += '<div class="nfm-fx__media">' +
+                (f.tag ? '<span class="nfm-fx__flag">'+esc(f.tag)+'</span>' : '') +
+                '<img src="'+esc(f.img)+'" alt="'+esc(f.ciudad)+'" loading="lazy">' +
+              '</div>';
+    }
+    html += '<div class="nfm-fx__body">';
+    if(!f.img && f.tag){ html += '<span class="nfm-fx__flag" style="align-self:flex-start;margin-bottom:14px">'+esc(f.tag)+'</span>'; }
+    html += '<p class="nfm-fx__when">'+esc(cuando)+'</p>' +
+            '<h3 class="nfm-fx__city">'+esc(f.ciudad)+'</h3>' +
+            '<p class="nfm-fx__venue">'+esc(venue)+'</p>';
+    html += f.url
+      ? '<a class="nfm-btn nfm-js-buy" href="'+esc(linkCon(f.url, f.utm))+'" target="_blank" rel="noopener">COMPRAR ENTRADA</a>'
+      : '<span class="nfm-fx__soon">Próximamente</span>';
+    html += '</div></div>';
+  }
+
+  cont.innerHTML = html;
+
+  var pie = document.getElementById('nfm-final-cities');
+  if(pie && lista.length){
+    pie.textContent = lista.map(function(f){ return f.ciudad; }).join(' · ');
+  }
+})();
+
+/* — contador a la próxima función — */
+(function contador(){
+  var lista = proximas();
+  var d = document.getElementById('nfm-cd-days'),
+      h = document.getElementById('nfm-cd-hours'),
+      m = document.getElementById('nfm-cd-min'),
+      s = document.getElementById('nfm-cd-sec');
+  if(!d) return;
+
+  if(!lista.length){
+    var cd = document.querySelector('.nfm-cd'), lb = document.querySelector('.nfm-cd-label'),
+        fe = document.querySelector('.nfm-hero__date');
+    if(cd) cd.style.display='none'; if(lb) lb.style.display='none'; if(fe) fe.style.display='none';
+    return;
+  }
+
+  var prox = lista[0], destino = new Date(prox.iso).getTime();
+
+  var elCity = document.getElementById('nfm-next-city'),
+      elDate = document.getElementById('nfm-next-date'),
+      elVen  = document.getElementById('nfm-next-venue');
+  if(elCity) elCity.textContent = prox.ciudad;
+  if(elDate) elDate.textContent = prox.dia + (prox.hora ? ' · ' + prox.hora + ' hs' : '');
+  if(elVen)  elVen.textContent  = prox.sala;
+
+  function pad(n){ return n < 10 ? '0'+n : ''+n; }
+  function tick(){
+    var diff = destino - Date.now();
+    if(diff <= 0){
+      document.querySelector('.nfm-page').classList.add('nfm-is-live');
+      return;
+    }
+    d.textContent = pad(Math.floor(diff/86400000));
+    h.textContent = pad(Math.floor((diff%86400000)/3600000));
+    m.textContent = pad(Math.floor((diff%3600000)/60000));
+    s.textContent = pad(Math.floor((diff%60000)/1000));
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* ─── partículas ─── */
+function makeParticles(id, count){
+  var c = document.getElementById(id); if(!c) return;
+  for(var i=0;i<count;i++){
+    var p = document.createElement('div');
+    p.className = (id === 'nfm-particles') ? 'nfm-particle' : 'nfm-fx-particle';
+    var s = (3 + Math.random()*5)+'px';
+    p.style.cssText = 'left:'+(Math.random()*100)+'%;width:'+s+';height:'+s+
+      ';animation-duration:'+(10+Math.random()*14)+'s;animation-delay:-'+(Math.random()*12)+'s';
+    c.appendChild(p);
+  }
+}
+makeParticles('nfm-particles', 22);
+makeParticles('nfm-fx-particles', 16);
+
+/* ─── nav + sticky ─── */
+(function(){
+  var nav = document.getElementById('nfm-nav'), sticky = document.getElementById('nfm-sticky');
+  window.addEventListener('scroll', function(){
+    if(nav)    nav.classList.toggle('nfm-nav--scrolled', window.scrollY > 60);
+    if(sticky) sticky.classList.toggle('nfm-sticky--show', window.scrollY > 700);
+  }, {passive:true});
+})();
+
+/* ─── reveal on scroll ─── */
+function reveal(){
+  var els = document.querySelectorAll('.nfm-reveal'), wh = window.innerHeight;
+  for(var i=0;i<els.length;i++){
+    if(els[i].getBoundingClientRect().top < wh - 70) els[i].classList.add('nfm-vis');
+  }
+}
+window.addEventListener('scroll', reveal, {passive:true});
+window.addEventListener('load', reveal);
+reveal();
+
+/* ─── scroll-to ─── */
+function scrollToId(id){
+  var t = document.getElementById(id); if(!t) return;
+  window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 76, behavior:'smooth' });
+}
+document.addEventListener('click', function(e){
+  var b = e.target.closest ? e.target.closest('[data-scroll-to]') : null;
+  if(b){ e.preventDefault(); scrollToId(b.getAttribute('data-scroll-to')); return; }
+  var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+  if(a){ var href = a.getAttribute('href'); if(href.length > 1){ e.preventDefault(); scrollToId(href.slice(1)); } }
+});
+
+/* ─── pixel: clic en comprar ─── */
+document.addEventListener('click', function(e){
+  var a = e.target.closest ? e.target.closest('.nfm-js-buy') : null;
+  if(a && window.fbq) fbq('track','InitiateCheckout');
+});
+
+})();
+</script>
+<!-- ═══════════ HASTA ACÁ EL CUSTOM CODE DE GHL ═══════════ -->
+</body>
+</html>
