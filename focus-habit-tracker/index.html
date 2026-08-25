@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Focus — Habit Tracker NFM</title>
+<meta name="description" content="Tu sistema de hábitos y objetivos. Instituto de Productividad NFM.">
+<meta name="theme-color" content="#0c3452">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Focus NFM">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+
+<!-- ============ AUTH / BIENVENIDA ============ -->
+<div id="screen-auth" class="auth-screen" hidden>
+  <div class="auth-card">
+    <div class="auth-brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <div class="brand-name">FOCUS</div>
+        <div class="brand-sub">HABIT TRACKER · INSTITUTO NFM</div>
+      </div>
+    </div>
+    <h1 class="auth-title">¿Sos consciente de<br>cuánto vale tu hora?</h1>
+    <p class="auth-copy">Definí tus hábitos, marcá tu día, sostené la racha. Todo señal, cero ruido.</p>
+
+    <!-- login con cuenta (aparece solo si Supabase está configurado) -->
+    <form id="auth-form" class="auth-form" hidden>
+      <label class="field">
+        <span class="field-label">EMAIL</span>
+        <input type="email" id="auth-email" autocomplete="email" required placeholder="vos@email.com">
+      </label>
+      <label class="field">
+        <span class="field-label">CONTRASEÑA</span>
+        <input type="password" id="auth-pass" autocomplete="current-password" required minlength="6" placeholder="••••••••">
+      </label>
+      <p id="auth-error" class="auth-error" hidden></p>
+      <div class="auth-actions">
+        <button type="submit" class="btn btn-primary" id="btn-login">Entrar</button>
+        <button type="button" class="btn btn-ghost" id="btn-signup">Crear cuenta</button>
+      </div>
+    </form>
+
+    <!-- arranque en modo local (sin Supabase configurado) -->
+    <form id="local-form" class="auth-form" hidden>
+      <label class="field">
+        <span class="field-label">TU NOMBRE</span>
+        <input type="text" id="local-name" autocomplete="given-name" required maxlength="30" placeholder="¿Cómo te llamás?">
+      </label>
+      <button type="submit" class="btn btn-primary">Empezar</button>
+      <p class="auth-note">Tu progreso se guarda en este dispositivo. Cuando actives tu cuenta, se sincroniza en todos.</p>
+    </form>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app" hidden>
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <a class="sidebar-brand" href="#/inicio">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <div class="brand-name">FOCUS</div>
+          <div class="brand-sub">INSTITUTO NFM</div>
+        </div>
+      </a>
+      <div class="sidebar-date" id="sidebar-date"></div>
+      <nav class="sidebar-nav" aria-label="Principal">
+        <a href="#/inicio" data-nav="inicio" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+          <span>Inicio</span>
+        </a>
+        <a href="#/habitos" data-nav="habitos" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg>
+          <span>Hábitos</span>
+        </a>
+        <a href="#/objetivos" data-nav="objetivos" class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg>
+          <span>Objetivos</span>
+        </a>
+      </nav>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="sidebar-user">
+        <span class="user-avatar" id="user-avatar">·</span>
+        <div class="user-meta">
+          <button type="button" class="user-name" id="user-name" title="Editar tu nombre">—</button>
+          <span class="user-mode" id="user-mode">MODO LOCAL</span>
+        </div>
+      </div>
+      <button type="button" class="btn-logout" id="btn-logout" title="Cerrar sesión">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main" id="main"><!-- vistas renderizadas por app.js --></main>
+
+  <nav class="tabbar" aria-label="Principal">
+    <a href="#/inicio" data-nav="inicio" class="tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+      <span>Inicio</span>
+    </a>
+    <a href="#/habitos" data-nav="habitos" class="tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg>
+      <span>Hábitos</span>
+    </a>
+    <a href="#/objetivos" data-nav="objetivos" class="tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg>
+      <span>Objetivos</span>
+    </a>
+  </nav>
+</div>
+
+<!-- ============ MODAL GESTIONAR HÁBITOS ============ -->
+<div id="modal-habits" class="modal-backdrop" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-habits-title">
+    <div class="modal-head">
+      <h2 id="modal-habits-title">Gestionar hábitos</h2>
+      <button type="button" class="btn-close" data-close aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <form id="habit-form" class="habit-form">
+      <div class="habit-form-row">
+        <label class="field grow">
+          <span class="field-label">NOMBRE</span>
+          <input type="text" id="habit-name" maxlength="60" required placeholder="Ej: 2 horas de foco profundo">
+        </label>
+        <label class="field field-meta">
+          <span class="field-label" title="Cuántos días del mes querés cumplirlo">META / MES</span>
+          <input type="number" id="habit-meta" min="1" max="31" step="1" value="20" required>
+        </label>
+      </div>
+      <div id="habit-suggestions" class="habit-suggestions"></div>
+      <button type="submit" class="btn btn-primary" id="habit-submit">Crear hábito</button>
+    </form>
+    <ul class="habit-list" id="habit-list"></ul>
+  </div>
+</div>
+
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>
