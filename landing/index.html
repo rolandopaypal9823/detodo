@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hackear tu vida</title>
+<meta name="description" content="Contenido complementario del libro Hackear tu vida, de Nicolas Fernandez Miranda.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nfm-blue:#0c3452;
+  --nfm-blue-dark:#061d30;
+  --nfm-blue-light:#e7edf2;
+  --nfm-orange:#ff6602;
+  --nfm-white:#ffffff;
+  --line:rgba(231,237,242,0.18);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--nfm-blue-dark);
+  color:var(--nfm-white);
+  font-family:'Open Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ---------- Cabecera / logo ---------- */
+.top{
+  padding:32px 40px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap;
+}
+.logo img{display:block;height:46px;width:auto;}
+.logo .wordmark{
+  font-family:'Montserrat',sans-serif;
+  font-weight:900;
+  font-size:22px;
+  letter-spacing:0.02em;
+  line-height:1;
+  color:var(--nfm-white);
+}
+.logo .wordmark span{display:block;font-family:'JetBrains Mono',monospace;font-weight:400;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--nfm-blue-light);opacity:.7;margin-top:7px;}
+.top .book{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.28em;
+  text-transform:uppercase;
+  color:var(--nfm-blue-light);
+  opacity:.75;
+}
+
+/* ---------- Cuerpo ---------- */
+main{
+  flex:1;
+  width:100%;
+  max-width:1180px;
+  margin:0 auto;
+  padding:80px 40px 96px;
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+  gap:72px;
+  align-items:start;
+  align-content:center;
+}
+.tag{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--nfm-orange);
+  border:2px solid var(--nfm-orange);
+  border-radius:100px;
+  padding:8px 18px;
+  margin-bottom:34px;
+}
+h1{
+  font-family:'Montserrat',sans-serif;
+  font-weight:900;
+  font-size:clamp(38px,5.4vw,62px);
+  line-height:1.02;
+  letter-spacing:-0.015em;
+  margin:0 0 26px;
+  text-wrap:pretty;
+}
+.lead{
+  font-size:19px;
+  line-height:1.62;
+  color:var(--nfm-blue-light);
+  margin:0;
+  max-width:44ch;
+  text-wrap:pretty;
+}
+.lead + .lead{margin-top:18px;}
+
+/* ---------- Recuadro proximamente ---------- */
+.panel{
+  background:var(--nfm-blue);
+  border:2px solid var(--line);
+  border-radius:12px;
+  padding:48px 44px;
+  box-shadow:0 40px 100px rgba(6,29,48,0.55);
+}
+.panel .status{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700;
+  font-size:11px;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--nfm-orange);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:22px;
+}
+.panel .status::before{
+  content:"";
+  width:8px;height:8px;border-radius:50%;
+  background:var(--nfm-orange);
+  flex:none;
+}
+.panel h2{
+  font-family:'Montserrat',sans-serif;
+  font-weight:800;
+  font-size:26px;
+  line-height:1.22;
+  margin:0 0 16px;
+  text-wrap:pretty;
+}
+.panel p{
+  font-size:16px;
+  line-height:1.6;
+  color:var(--nfm-blue-light);
+  margin:0;
+  text-wrap:pretty;
+}
+.panel .meta{
+  margin-top:32px;
+  padding-top:24px;
+  border-top:1px solid var(--line);
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--nfm-blue-light);
+  opacity:.65;
+}
+
+/* ---------- Contenido real de una variante (cuando se carga) ---------- */
+.bloques{margin-top:34px;display:grid;gap:20px;}
+.bloque{
+  background:var(--nfm-blue);
+  border:2px solid var(--line);
+  border-radius:12px;
+  padding:26px 28px;
+}
+.bloque h3{
+  font-family:'Montserrat',sans-serif;
+  font-weight:700;
+  font-size:17px;
+  margin:0 0 8px;
+}
+.bloque p{margin:0;font-size:15px;line-height:1.6;color:var(--nfm-blue-light);}
+.bloque a{color:var(--nfm-white);}
+.cta{
+  display:inline-block;
+  margin-top:34px;
+  background:var(--nfm-orange);
+  color:var(--nfm-white);
+  font-family:'Montserrat',sans-serif;
+  font-weight:800;
+  font-size:16px;
+  letter-spacing:0.01em;
+  text-decoration:none;
+  padding:18px 34px;
+  border-radius:10px;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.cta:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(255,102,2,0.32);}
+.cta[hidden]{display:none;}
+
+/* ---------- Pie ---------- */
+footer{
+  border-top:1px solid var(--line);
+  padding:26px 40px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  letter-spacing:0.26em;
+  text-transform:uppercase;
+  color:var(--nfm-blue-light);
+  opacity:.55;
+}
+
+@media (max-width:900px){
+  main{grid-template-columns:1fr;gap:48px;padding:56px 26px 72px;}
+  .top{padding:24px 26px;}
+  footer{padding:22px 26px;}
+  .panel{padding:36px 28px;}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="logo">
+    <img src="assets/logo.svg" alt="Nicolas Fernandez Miranda"
+         onerror="this.outerHTML='&lt;div class=\'wordmark\'&gt;NFM&lt;span&gt;Nicolas Fernandez Miranda&lt;/span&gt;&lt;/div&gt;'">
+  </div>
+  <div class="book" id="book-label"></div>
+</header>
+
+<main>
+  <section>
+    <span class="tag" id="tag"></span>
+    <h1 id="titulo"></h1>
+    <div id="bajada"></div>
+    <div class="bloques" id="bloques"></div>
+    <a class="cta" id="cta" href="#" hidden></a>
+  </section>
+
+  <aside>
+    <div class="panel" id="panel">
+      <div class="status" id="panel-status"></div>
+      <h2 id="panel-titulo"></h2>
+      <p id="panel-texto"></p>
+      <div class="meta" id="panel-meta"></div>
+    </div>
+  </aside>
+</main>
+
+<footer id="footer"></footer>
+
+<script>
+/* =========================================================================
+   HACKEAR TU VIDA - LANDING DE 13 QR
+   -------------------------------------------------------------------------
+   Como funciona:
+   La pagina se arma sola segun el parametro ?qr= de la URL.
+       https://tudominio.com/            -> pagina general (sin QR)
+       https://tudominio.com/?qr=1       -> contenido del QR 1
+       https://tudominio.com/?qr=13      -> contenido del QR 13
+
+   Para cargar el contenido real de un QR, editas SOLO su entrada de abajo.
+   Mientras "estado" sea "proximamente", esa pagina muestra el recuadro de
+   proximamente. Cuando la pases a "publicado", muestra titulo, bajada,
+   bloques y boton.
+   ========================================================================= */
+
+const LIBRO = "Hackear tu vida";          // titulo del libro (cambialo en un solo lugar)
+const AUTOR = "Nicolas Fernandez Miranda";
+const TOTAL_QR = 13;
+
+/* Textos por defecto del estado "proximamente" (se usan si la variante no los pisa) */
+const PROXIMAMENTE = {
+  status:  "Proximamente",
+  titulo:  "Contenido disponible proximamente",
+  texto:   "Estamos terminando de preparar el material de esta seccion del libro. Volve a escanear este mismo QR en unos dias y ya vas a encontrarlo aca."
+};
+
+/* -------------------------------------------------------------------------
+   LOS 13 QR
+   Campos de cada entrada:
+     etiqueta : lo que va en la pildora naranja (ej. "QR 01 - CAPITULO 1")
+     titulo   : titulo grande de la pagina
+     bajada   : array de parrafos (podes dejar [] )
+     estado   : "proximamente"  o  "publicado"
+     bloques  : array de {titulo, texto}  -> solo se muestran si estado = "publicado"
+     cta      : {texto, url}              -> solo se muestra si estado = "publicado"
+   ------------------------------------------------------------------------- */
+const CONTENIDOS = {};
+for (let i = 1; i <= TOTAL_QR; i++) {
+  CONTENIDOS[i] = {
+    etiqueta: "QR " + String(i).padStart(2, "0"),
+    titulo:   "Contenido del QR " + i,
+    bajada:   ["Llegaste desde el QR numero " + i + " de " + LIBRO + ". Este espacio es el complemento de lo que acabas de leer."],
+    estado:   "proximamente",
+    bloques:  [],
+    cta:      null
+  };
+}
+
+/* ---- A PARTIR DE ACA SE EDITA CADA QR ----------------------------------
+   Ejemplo de como queda uno publicado (descomentar y completar):
+
+CONTENIDOS[1] = {
+  etiqueta: "QR 01 - CAPITULO 1",
+  titulo:   "Titulo del contenido del capitulo 1",
+  bajada:   ["Primer parrafo.", "Segundo parrafo."],
+  estado:   "publicado",
+  bloques:  [
+    { titulo: "Video", texto: "Descripcion del video." },
+    { titulo: "Ejercicio", texto: "Descripcion del ejercicio." }
+  ],
+  cta: { texto: "Ver el material", url: "https://..." }
+};
+   ----------------------------------------------------------------------- */
+
+
+/* Pagina general: cuando alguien entra sin ?qr= */
+const HOME = {
+  etiqueta: "Libro",
+  titulo:   LIBRO,
+  bajada:   [
+    "Esta es la pagina de contenido complementario del libro. A lo largo de sus paginas vas a encontrar 13 codigos QR: cada uno te trae a este mismo lugar, pero con el material especifico de esa seccion.",
+    "Escanea el QR que aparece en el libro para acceder a su contenido."
+  ],
+  estado:   "proximamente",
+  bloques:  [],
+  cta:      null
+};
+
+/* ======================= MOTOR (no hace falta tocar) ===================== */
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const crudo  = params.get("qr");
+  const n      = parseInt(crudo, 10);
+  const esQR   = Number.isInteger(n) && n >= 1 && n <= TOTAL_QR;
+  const data   = esQR ? CONTENIDOS[n] : HOME;
+
+  document.title = esQR
+    ? data.etiqueta + " - " + LIBRO
+    : LIBRO + " - " + AUTOR;
+
+  document.getElementById("book-label").textContent =
+    esQR ? LIBRO + " / QR " + String(n).padStart(2, "0") : LIBRO;
+
+  document.getElementById("tag").textContent = data.etiqueta;
+  document.getElementById("titulo").textContent = data.titulo;
+
+  const bajada = document.getElementById("bajada");
+  (data.bajada || []).forEach(function (t) {
+    const p = document.createElement("p");
+    p.className = "lead";
+    p.textContent = t;
+    bajada.appendChild(p);
+  });
+
+  const publicado = data.estado === "publicado";
+
+  /* Recuadro de proximamente */
+  const panel = document.getElementById("panel");
+  if (publicado) {
+    panel.remove();
+  } else {
+    const px = data.proximamente || {};
+    document.getElementById("panel-status").textContent = px.status || PROXIMAMENTE.status;
+    document.getElementById("panel-titulo").textContent = px.titulo || PROXIMAMENTE.titulo;
+    document.getElementById("panel-texto").textContent  = px.texto  || PROXIMAMENTE.texto;
+    document.getElementById("panel-meta").textContent   =
+      esQR ? "QR " + String(n).padStart(2, "0") + " de " + TOTAL_QR : LIBRO;
+  }
+
+  /* Bloques y CTA (solo publicado) */
+  if (publicado) {
+    const cont = document.getElementById("bloques");
+    (data.bloques || []).forEach(function (b) {
+      const div = document.createElement("div");
+      div.className = "bloque";
+      const h = document.createElement("h3");
+      h.textContent = b.titulo;
+      const p = document.createElement("p");
+      p.textContent = b.texto;
+      div.appendChild(h); div.appendChild(p);
+      cont.appendChild(div);
+    });
+    if (data.cta && data.cta.url) {
+      const a = document.getElementById("cta");
+      a.textContent = data.cta.texto;
+      a.href = data.cta.url;
+      a.hidden = false;
+    }
+  }
+
+  document.getElementById("footer").textContent = LIBRO + " / " + AUTOR;
+})();
+</script>
+</body>
+</html>

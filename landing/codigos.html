@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enlaces de los 13 QR</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Open+Sans:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--nfm-blue:#0c3452;--nfm-blue-dark:#061d30;--nfm-blue-light:#e7edf2;--nfm-orange:#ff6602;}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--nfm-blue-dark);color:#fff;font-family:'Open Sans',sans-serif;padding:56px 32px;}
+.wrap{max-width:840px;margin:0 auto;}
+h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:34px;margin:0 0 10px;}
+.sub{color:var(--nfm-blue-light);font-size:16px;line-height:1.6;margin:0 0 30px;max-width:60ch;}
+label{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:var(--nfm-orange);margin-bottom:10px;}
+input{width:100%;padding:14px 16px;border-radius:10px;border:2px solid rgba(231,237,242,0.18);background:var(--nfm-blue);color:#fff;font-family:'JetBrains Mono',monospace;font-size:14px;}
+table{width:100%;border-collapse:collapse;margin-top:34px;}
+th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:var(--nfm-blue-light);opacity:.6;padding:0 0 12px;font-weight:400;}
+td{padding:13px 0;border-top:1px solid rgba(231,237,242,0.14);font-family:'JetBrains Mono',monospace;font-size:13px;vertical-align:middle;}
+td.n{font-family:'Montserrat',sans-serif;font-weight:900;font-size:19px;color:var(--nfm-orange);width:56px;}
+td a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.28);word-break:break-all;}
+td a:hover{border-color:var(--nfm-orange);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Enlaces de los 13 QR</h1>
+  <p class="sub">Pone abajo el dominio final de la landing y copia cada enlace al generador de QR. Cada numero abre la misma pagina con su contenido propio.</p>
+
+  <label for="base">Dominio de la landing</label>
+  <input id="base" type="text" value="https://tudominio.com" spellcheck="false">
+
+  <table>
+    <thead><tr><th>QR</th><th>Enlace</th></tr></thead>
+    <tbody id="filas"></tbody>
+  </table>
+</div>
+
+<script>
+const TOTAL_QR = 13;
+const input = document.getElementById("base");
+const filas = document.getElementById("filas");
+
+function render() {
+  const base = input.value.trim().replace(/\/+$/, "");
+  filas.innerHTML = "";
+  for (let i = 1; i <= TOTAL_QR; i++) {
+    const url = base + "/?qr=" + i;
+    const tr = document.createElement("tr");
+    const td1 = document.createElement("td");
+    td1.className = "n";
+    td1.textContent = String(i).padStart(2, "0");
+    const td2 = document.createElement("td");
+    const a = document.createElement("a");
+    a.href = url; a.textContent = url; a.target = "_blank"; a.rel = "noopener";
+    td2.appendChild(a);
+    tr.appendChild(td1); tr.appendChild(td2);
+    filas.appendChild(tr);
+  }
+}
+input.addEventListener("input", render);
+render();
+</script>
+</body>
+</html>
