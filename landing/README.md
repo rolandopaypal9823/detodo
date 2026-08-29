@@ -17,6 +17,7 @@ Si el parametro falta, no es un numero o esta fuera de 1-13, se muestra la pagin
 
 | Archivo | Que es |
 |---|---|
+| `HANDOFF.md` | Documento de traspaso: todo el contexto del proyecto mas el codigo completo. Para pegar en un chat nuevo de Claude que no tenga contexto |
 | `elementor.html` | **La version para pegar en Elementor.** Es la que hay que usar si la pagina se monta en WordPress |
 | `index.html` | La misma landing como archivo suelto, para hosting estatico o para abrirla y probarla en local |
 | `codigos.html` | Lista los 13 enlaces listos para pegar en el generador de QR. Escribis el dominio y te arma las 13 URLs |
