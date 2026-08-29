@@ -1,0 +1,407 @@
+<!--
+  =========================================================================
+  HACKEAR TU VIDA - LANDING DE 13 QR  ::  VERSION PARA ELEMENTOR
+  -------------------------------------------------------------------------
+  Pega TODO este bloque dentro de un widget "HTML" de Elementor.
+  Reemplaza por completo lo que haya adentro del widget.
+
+  No lleva <html>, <head> ni <body>: dentro de una pagina de WordPress esas
+  etiquetas se descartan y el CSS del body termina pintando el sitio entero.
+  Aca todo el CSS esta encerrado en #htv-app, asi que no toca nada del resto
+  de la pagina.
+
+  El bloque se estira solo a todo el ancho de la pantalla, aunque el
+  contenedor de Elementor sea angosto. Si NO lo queres a todo el ancho,
+  borra las 5 lineas marcadas con "ANCHO COMPLETO" mas abajo.
+
+  Para que se vea limpio, en Elementor conviene:
+    - Contenedor: ancho "Completo", sin padding.
+    - Pagina: layout "Lienzo de Elementor" o "Ancho completo".
+  =========================================================================
+-->
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+#htv-app{
+  /* ---- ANCHO COMPLETO (borra estas 5 lineas si no lo queres) ---- */
+  position:relative;
+  left:50%;
+  margin-left:-50vw;
+  width:100vw;
+  max-width:100vw;
+  /* --------------------------------------------------------------- */
+
+  --htv-blue:#0c3452;
+  --htv-blue-dark:#061d30;
+  --htv-blue-light:#e7edf2;
+  --htv-orange:#ff6602;
+  --htv-line:rgba(231,237,242,0.18);
+
+  background:var(--htv-blue-dark);
+  color:#ffffff;
+  font-family:'Open Sans',sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  min-height:88vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+#htv-app *,#htv-app *::before,#htv-app *::after{box-sizing:border-box;}
+
+/* ---------- Cabecera / logo ---------- */
+#htv-app .htv-top{
+  padding:32px 40px;
+  border-bottom:1px solid var(--htv-line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap;
+}
+#htv-app .htv-logo img{display:block;height:46px;width:auto;margin:0;}
+#htv-app .htv-wordmark{
+  font-family:'Montserrat',sans-serif;
+  font-weight:900;
+  font-size:22px;
+  letter-spacing:0.02em;
+  line-height:1;
+  color:#ffffff;
+}
+#htv-app .htv-wordmark span{
+  display:block;
+  font-family:'JetBrains Mono',monospace;
+  font-weight:400;
+  font-size:9px;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--htv-blue-light);
+  opacity:.7;
+  margin-top:7px;
+}
+#htv-app .htv-book{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.28em;
+  text-transform:uppercase;
+  color:var(--htv-blue-light);
+  opacity:.75;
+}
+
+/* ---------- Cuerpo ---------- */
+#htv-app .htv-main{
+  flex:1;
+  width:100%;
+  max-width:1180px;
+  margin:0 auto;
+  padding:80px 40px 96px;
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+  gap:72px;
+  align-items:start;
+  align-content:center;
+}
+#htv-app .htv-tag{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--htv-orange);
+  border:2px solid var(--htv-orange);
+  border-radius:100px;
+  padding:8px 18px;
+  margin:0 0 34px;
+}
+#htv-app h1.htv-h1{
+  font-family:'Montserrat',sans-serif;
+  font-weight:900;
+  font-size:clamp(38px,5.4vw,62px);
+  line-height:1.02;
+  letter-spacing:-0.015em;
+  color:#ffffff;
+  margin:0 0 26px;
+  padding:0;
+  text-wrap:pretty;
+}
+#htv-app .htv-lead{
+  font-size:19px;
+  line-height:1.62;
+  color:var(--htv-blue-light);
+  margin:0;
+  max-width:44ch;
+  text-wrap:pretty;
+}
+#htv-app .htv-lead + .htv-lead{margin-top:18px;}
+
+/* ---------- Recuadro proximamente ---------- */
+#htv-app .htv-panel{
+  background:var(--htv-blue);
+  border:2px solid var(--htv-line);
+  border-radius:12px;
+  padding:48px 44px;
+  box-shadow:0 40px 100px rgba(6,29,48,0.55);
+}
+#htv-app .htv-status{
+  font-family:'JetBrains Mono',monospace;
+  font-weight:700;
+  font-size:11px;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--htv-orange);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:22px;
+}
+#htv-app .htv-status::before{
+  content:"";
+  width:8px;height:8px;border-radius:50%;
+  background:var(--htv-orange);
+  flex:none;
+}
+#htv-app h2.htv-h2{
+  font-family:'Montserrat',sans-serif;
+  font-weight:800;
+  font-size:26px;
+  line-height:1.22;
+  color:#ffffff;
+  margin:0 0 16px;
+  padding:0;
+  text-wrap:pretty;
+}
+#htv-app .htv-panel p{
+  font-size:16px;
+  line-height:1.6;
+  color:var(--htv-blue-light);
+  margin:0;
+  text-wrap:pretty;
+}
+#htv-app .htv-meta{
+  margin-top:32px;
+  padding-top:24px;
+  border-top:1px solid var(--htv-line);
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--htv-blue-light);
+  opacity:.65;
+}
+
+/* ---------- Contenido publicado ---------- */
+#htv-app .htv-bloques{margin-top:34px;display:grid;gap:20px;}
+#htv-app .htv-bloque{
+  background:var(--htv-blue);
+  border:2px solid var(--htv-line);
+  border-radius:12px;
+  padding:26px 28px;
+}
+#htv-app h3.htv-h3{
+  font-family:'Montserrat',sans-serif;
+  font-weight:700;
+  font-size:17px;
+  color:#ffffff;
+  margin:0 0 8px;
+  padding:0;
+}
+#htv-app .htv-bloque p{margin:0;font-size:15px;line-height:1.6;color:var(--htv-blue-light);}
+#htv-app a.htv-cta{
+  display:inline-block;
+  margin-top:34px;
+  background:var(--htv-orange);
+  color:#ffffff;
+  font-family:'Montserrat',sans-serif;
+  font-weight:800;
+  font-size:16px;
+  letter-spacing:0.01em;
+  text-decoration:none;
+  padding:18px 34px;
+  border-radius:10px;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+#htv-app a.htv-cta:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(255,102,2,0.32);color:#ffffff;}
+#htv-app a.htv-cta[hidden]{display:none;}
+
+/* ---------- Pie ---------- */
+#htv-app .htv-footer{
+  border-top:1px solid var(--htv-line);
+  padding:26px 40px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  letter-spacing:0.26em;
+  text-transform:uppercase;
+  color:var(--htv-blue-light);
+  opacity:.55;
+}
+
+@media (max-width:1024px){
+  #htv-app .htv-main{grid-template-columns:1fr;gap:48px;padding:64px 32px 80px;}
+}
+@media (max-width:767px){
+  #htv-app .htv-main{padding:52px 24px 68px;gap:40px;}
+  #htv-app .htv-top{padding:24px;}
+  #htv-app .htv-footer{padding:22px 24px;}
+  #htv-app .htv-panel{padding:34px 26px;}
+  #htv-app .htv-lead{font-size:17px;}
+}
+</style>
+
+<div id="htv-app">
+
+  <div class="htv-top">
+    <div class="htv-logo">
+      <img src="/wp-content/uploads/logo-nfm-blanco.svg" alt="Nicolas Fernandez Miranda"
+           onerror="this.outerHTML='&lt;div class=\'htv-wordmark\'&gt;NFM&lt;span&gt;Nicolas Fernandez Miranda&lt;/span&gt;&lt;/div&gt;'">
+    </div>
+    <div class="htv-book" id="htv-book"></div>
+  </div>
+
+  <div class="htv-main">
+    <div>
+      <span class="htv-tag" id="htv-tag"></span>
+      <h1 class="htv-h1" id="htv-titulo"></h1>
+      <div id="htv-bajada"></div>
+      <div class="htv-bloques" id="htv-bloques"></div>
+      <a class="htv-cta" id="htv-cta" href="#" hidden></a>
+    </div>
+
+    <div>
+      <div class="htv-panel" id="htv-panel">
+        <div class="htv-status" id="htv-panel-status"></div>
+        <h2 class="htv-h2" id="htv-panel-titulo"></h2>
+        <p id="htv-panel-texto"></p>
+        <div class="htv-meta" id="htv-panel-meta"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="htv-footer" id="htv-footer"></div>
+
+</div>
+
+<script>
+/* =========================================================================
+   La pagina se arma sola segun el parametro ?qr= de la URL.
+       .../HTV/          -> pagina general
+       .../HTV/?qr=1     -> contenido del QR 1
+       .../HTV/?qr=13    -> contenido del QR 13
+
+   Para cargar el contenido real de un QR, edita su entrada mas abajo:
+   mientras "estado" sea "proximamente" se ve el recuadro; cuando lo pases
+   a "publicado" se ven titulo, bajada, bloques y boton.
+   ========================================================================= */
+(function () {
+  var LIBRO = "Hackear tu vida";              // titulo del libro
+  var AUTOR = "Nicolas Fernandez Miranda";
+  var TOTAL_QR = 13;
+
+  var PROXIMAMENTE = {
+    status: "Proximamente",
+    titulo: "Contenido disponible proximamente",
+    texto:  "Estamos terminando de preparar el material de esta seccion del libro. Volve a escanear este mismo QR en unos dias y ya vas a encontrarlo aca."
+  };
+
+  /* ---- Los 13 QR ---- */
+  var CONTENIDOS = {};
+  for (var i = 1; i <= TOTAL_QR; i++) {
+    CONTENIDOS[i] = {
+      etiqueta: "QR " + (i < 10 ? "0" + i : i),
+      titulo:   "Contenido del QR " + i,
+      bajada:   ["Llegaste desde el QR numero " + i + " de " + LIBRO + ". Este espacio es el complemento de lo que acabas de leer."],
+      estado:   "proximamente",
+      bloques:  [],
+      cta:      null
+    };
+  }
+
+  /* ---- A PARTIR DE ACA SE EDITA CADA QR ---------------------------------
+     Ejemplo de uno ya publicado (descomentar y completar):
+
+  CONTENIDOS[1] = {
+    etiqueta: "QR 01 - CAPITULO 1",
+    titulo:   "Titulo del contenido del capitulo 1",
+    bajada:   ["Primer parrafo.", "Segundo parrafo."],
+    estado:   "publicado",
+    bloques:  [
+      { titulo: "Video", texto: "Descripcion del video." },
+      { titulo: "Ejercicio", texto: "Descripcion del ejercicio." }
+    ],
+    cta: { texto: "Ver el material", url: "https://..." }
+  };
+     --------------------------------------------------------------------- */
+
+  /* ---- Pagina general: cuando entran sin ?qr= ---- */
+  var HOME = {
+    etiqueta: "Libro",
+    titulo:   LIBRO,
+    bajada:   [
+      "Esta es la pagina de contenido complementario del libro. A lo largo de sus paginas vas a encontrar 13 codigos QR: cada uno te trae a este mismo lugar, pero con el material especifico de esa seccion.",
+      "Escanea el QR que aparece en el libro para acceder a su contenido."
+    ],
+    estado:   "proximamente",
+    bloques:  [],
+    cta:      null
+  };
+
+  /* ======================= MOTOR (no hace falta tocar) =================== */
+  function $(id){ return document.getElementById(id); }
+
+  var params = new URLSearchParams(window.location.search);
+  var n = parseInt(params.get("qr"), 10);
+  var esQR = !isNaN(n) && n >= 1 && n <= TOTAL_QR;
+  var data = esQR ? CONTENIDOS[n] : HOME;
+  var nn = esQR ? (n < 10 ? "0" + n : "" + n) : "";
+
+  $("htv-book").textContent = esQR ? LIBRO + " / QR " + nn : LIBRO;
+  $("htv-tag").textContent = data.etiqueta;
+  $("htv-titulo").textContent = data.titulo;
+
+  var bajada = $("htv-bajada");
+  (data.bajada || []).forEach(function (t) {
+    var p = document.createElement("p");
+    p.className = "htv-lead";
+    p.textContent = t;
+    bajada.appendChild(p);
+  });
+
+  var publicado = data.estado === "publicado";
+
+  if (publicado) {
+    $("htv-panel").parentNode.removeChild($("htv-panel"));
+
+    var cont = $("htv-bloques");
+    (data.bloques || []).forEach(function (b) {
+      var div = document.createElement("div");
+      div.className = "htv-bloque";
+      var h = document.createElement("h3");
+      h.className = "htv-h3";
+      h.textContent = b.titulo;
+      var p = document.createElement("p");
+      p.textContent = b.texto;
+      div.appendChild(h); div.appendChild(p);
+      cont.appendChild(div);
+    });
+
+    if (data.cta && data.cta.url) {
+      var a = $("htv-cta");
+      a.textContent = data.cta.texto;
+      a.href = data.cta.url;
+      a.hidden = false;
+    }
+  } else {
+    var px = data.proximamente || {};
+    $("htv-panel-status").textContent = px.status || PROXIMAMENTE.status;
+    $("htv-panel-titulo").textContent = px.titulo || PROXIMAMENTE.titulo;
+    $("htv-panel-texto").textContent  = px.texto  || PROXIMAMENTE.texto;
+    $("htv-panel-meta").textContent   = esQR ? "QR " + nn + " de " + TOTAL_QR : LIBRO;
+  }
+
+  $("htv-footer").textContent = LIBRO + " / " + AUTOR;
+
+  if (esQR) { document.title = "QR " + nn + " - " + LIBRO; }
+})();
+</script>
