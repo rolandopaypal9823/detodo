@@ -32,6 +32,10 @@
   max-width:100vw;
   /* --------------------------------------------------------------- */
 
+  /* Tamano del logo. Es el unico numero que hay que tocar para agrandarlo
+     o achicarlo. Estaba en 46px; ahora esta 5 veces mas grande. */
+  --htv-logo-alto:230px;
+
   --htv-blue:#0c3452;
   --htv-blue-dark:#061d30;
   --htv-blue-light:#e7edf2;
@@ -53,7 +57,7 @@
 
 /* ---------- Cabecera / logo ---------- */
 #htv-app .htv-top{
-  padding:32px 40px;
+  padding:28px 40px;
   border-bottom:1px solid var(--htv-line);
   display:flex;
   align-items:center;
@@ -61,15 +65,18 @@
   gap:24px;
   flex-wrap:wrap;
 }
-#htv-app .htv-logo img{display:block;height:46px;width:auto;max-width:260px;margin:0;}
+#htv-app .htv-logo img{
+  display:block;
+  height:var(--htv-logo-alto);
+  width:auto;
+  max-width:min(80vw,900px);
+  object-fit:contain;
+  margin:0;
+}
 
 /* Si el logo se ve oscuro o directamente no se ve sobre el fondo azul,
    activa la linea de abajo quitandole el comentario: fuerza el logo a blanco puro. */
 /* #htv-app .htv-logo img{filter:brightness(0) invert(1);} */
-
-@media (max-width:767px){
-  #htv-app .htv-logo img{height:36px;max-width:180px;}
-}
 #htv-app .htv-wordmark{
   font-family:'Montserrat',sans-serif;
   font-weight:900;
@@ -247,11 +254,13 @@
 }
 
 @media (max-width:1024px){
+  #htv-app{--htv-logo-alto:150px;}
   #htv-app .htv-main{grid-template-columns:1fr;gap:48px;padding:64px 32px 80px;}
 }
 @media (max-width:767px){
+  #htv-app{--htv-logo-alto:110px;}
   #htv-app .htv-main{padding:52px 24px 68px;gap:40px;}
-  #htv-app .htv-top{padding:24px;}
+  #htv-app .htv-top{padding:20px 24px;}
   #htv-app .htv-footer{padding:22px 24px;}
   #htv-app .htv-panel{padding:34px 26px;}
   #htv-app .htv-lead{font-size:17px;}
