@@ -40,7 +40,9 @@ body{
   gap:24px;
   flex-wrap:wrap;
 }
-.logo img{display:block;height:46px;width:auto;}
+.logo img{display:block;height:46px;width:auto;max-width:260px;}
+/* Si el logo se ve oscuro sobre el fondo azul, activa esta linea: */
+/* .logo img{filter:brightness(0) invert(1);} */
 .logo .wordmark{
   font-family:'Montserrat',sans-serif;
   font-weight:900;
@@ -205,6 +207,7 @@ footer{
 @media (max-width:900px){
   main{grid-template-columns:1fr;gap:48px;padding:56px 26px 72px;}
   .top{padding:24px 26px;}
+  .logo img{height:36px;max-width:180px;}
   footer{padding:22px 26px;}
   .panel{padding:36px 28px;}
 }
@@ -214,7 +217,7 @@ footer{
 
 <header class="top">
   <div class="logo">
-    <img src="assets/logo.svg" alt="Nicolas Fernandez Miranda"
+    <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png" alt="Nicolas Fernandez Miranda"
          onerror="this.outerHTML='&lt;div class=\'wordmark\'&gt;NFM&lt;span&gt;Nicolas Fernandez Miranda&lt;/span&gt;&lt;/div&gt;'">
   </div>
   <div class="book" id="book-label"></div>

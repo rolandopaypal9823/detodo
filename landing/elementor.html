@@ -61,7 +61,15 @@
   gap:24px;
   flex-wrap:wrap;
 }
-#htv-app .htv-logo img{display:block;height:46px;width:auto;margin:0;}
+#htv-app .htv-logo img{display:block;height:46px;width:auto;max-width:260px;margin:0;}
+
+/* Si el logo se ve oscuro o directamente no se ve sobre el fondo azul,
+   activa la linea de abajo quitandole el comentario: fuerza el logo a blanco puro. */
+/* #htv-app .htv-logo img{filter:brightness(0) invert(1);} */
+
+@media (max-width:767px){
+  #htv-app .htv-logo img{height:36px;max-width:180px;}
+}
 #htv-app .htv-wordmark{
   font-family:'Montserrat',sans-serif;
   font-weight:900;
@@ -254,7 +262,7 @@
 
   <div class="htv-top">
     <div class="htv-logo">
-      <img src="/wp-content/uploads/logo-nfm-blanco.svg" alt="Nicolas Fernandez Miranda"
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png" alt="Nicolas Fernandez Miranda"
            onerror="this.outerHTML='&lt;div class=\'htv-wordmark\'&gt;NFM&lt;span&gt;Nicolas Fernandez Miranda&lt;/span&gt;&lt;/div&gt;'">
     </div>
     <div class="htv-book" id="htv-book"></div>
