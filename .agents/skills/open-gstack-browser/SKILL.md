@@ -1,0 +1,1 @@
+/home/user/detodo/.agents/skills/gstack/open-gstack-browser/SKILL.md

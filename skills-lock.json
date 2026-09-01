@@ -48,6 +48,12 @@
       "sourceType": "github",
       "skillPath": "skills/duo-voice/SKILL.md",
       "computedHash": "c110ad723ffbc95d626a29e7fbff1c6e7d0400144142d3403cdf66c37b27151d"
+    },
+    "gstack": {
+      "source": "garrytan/gstack",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "ba199c2f3d5364f0888e302d1c84882a2b9d6e4a4bff304ece2089ff15daf1de"
     }
   }
 }

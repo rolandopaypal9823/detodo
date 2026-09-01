@@ -1,0 +1,1 @@
+/home/user/detodo/.agents/skills/gstack/design-html/SKILL.md

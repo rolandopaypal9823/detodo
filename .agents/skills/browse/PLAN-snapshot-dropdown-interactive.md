@@ -1,0 +1,1 @@
+/home/user/detodo/.agents/skills/gstack/browse/PLAN-snapshot-dropdown-interactive.md

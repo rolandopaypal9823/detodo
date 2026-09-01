@@ -1,0 +1,1 @@
+/home/user/detodo/.agents/skills/gstack/pair-agent/SKILL.md
