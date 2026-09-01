@@ -1,4 +1,4 @@
-# HANDOFF — Landing "Hackear tu vida" (13 QR)
+# HANDOFF — Landing "Hackea tu vida" (13 QR)
 
 > Documento de traspaso. Esta pensado para pegarse entero en un chat nuevo de
 > Claude que no tenga nada de contexto previo. Al final esta el codigo completo
@@ -8,7 +8,7 @@
 
 ## 1. Que es esto
 
-Nicolas Fernandez Miranda (NFM) publica un libro llamado **"Hackear tu vida"**.
+Nicolas Fernandez Miranda (NFM) publica un libro llamado **"Hackea tu vida"**.
 A lo largo del libro hay **13 codigos QR impresos**, numerados del 1 al 13.
 
 Cuando un lector escanea cualquiera de esos QR, va a parar **siempre a la misma
@@ -211,9 +211,10 @@ visual de la marca). **Prohibidas:** Inter, Roboto, Arial, Helvetica, system-ui.
 **Voz del copy:** rioplatense informal (vos), directo, sin guiones largos. NFM no
 usa emojis en piezas seria.
 
-**Pendiente de confirmar:** el titulo del libro se escribio **"Hackear tu vida"**,
-pero podria ser "Hackea tu vida". Esta en la constante `LIBRO`, arriba del
-script: se cambia en un solo lugar y no afecta a los QR.
+**Titulo del libro:** es **"Hackea tu vida"** (confirmado). Vive en la constante
+`LIBRO`, arriba del script, y de ahi se propaga a la cabecera, el pie y el
+`<title>`: se cambia en un solo lugar. No afecta a los QR, porque las URLs solo
+llevan el numero.
 
 ---
 
@@ -224,7 +225,7 @@ Esto es lo que esta en produccion, pegado en un widget HTML de Elementor.
 ```html
 <!--
   =========================================================================
-  HACKEAR TU VIDA - LANDING DE 13 QR  ::  VERSION PARA ELEMENTOR
+  HACKEA TU VIDA - LANDING DE 13 QR  ::  VERSION PARA ELEMENTOR
   -------------------------------------------------------------------------
   Pega TODO este bloque dentro de un widget "HTML" de Elementor.
   Reemplaza por completo lo que haya adentro del widget.
@@ -536,7 +537,7 @@ Esto es lo que esta en produccion, pegado en un widget HTML de Elementor.
    a "publicado" se ven titulo, bajada, bloques y boton.
    ========================================================================= */
 (function () {
-  var LIBRO = "Hackear tu vida";              // titulo del libro
+  var LIBRO = "Hackea tu vida";              // titulo del libro
   var AUTOR = "Nicolas Fernandez Miranda";
   var TOTAL_QR = 13;
 

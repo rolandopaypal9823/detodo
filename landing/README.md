@@ -1,4 +1,4 @@
-# Landing "Hackear tu vida" — 13 variantes por QR
+# Landing "Hackea tu vida" — 13 variantes por QR
 
 Una sola pagina que cambia por completo segun el numero de QR que venga en la URL.
 
