@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Genérico a propósito: ver la nota del mismo bloque en index.html -->
+<title>¡Lugar reservado! · Nicolás Fernández Miranda</title>
+
+<!-- ════════════════════════════════════════════════════════════════
+     META PIXEL  ·  En GoHighLevel va en: (página Thank You) Settings → Tracking Code → HEAD
+     Incluye SÓLO PageView. La conversión (Lead / CompleteRegistration) la manda
+     GoHighLevel por la API de Conversiones, filtrada por la respuesta del form.
+     ⚠️ NO agregues acá fbq('track','Lead') ni 'CompleteRegistration': el pixel y la
+        CAPI no se deduplican solas si no comparten event_id, así que Meta contaría
+        dos veces cada registro.
+     ════════════════════════════════════════════════════════════════ -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1203017011123382');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1203017011123382&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- ═══════════ DESDE ACÁ EMPIEZA LO QUE VA EN EL CUSTOM CODE DE GHL ═══════════ -->
+
+<style>
+/* ════════════════════════════════════════════════════════════════
+   NFM · THANK YOU PAGE SIEMPRE-ON
+   Fechas, título de la clase y grupo de WhatsApp dinámicos.
+   Mismo sistema visual que la landing (Space Grotesk × DM Sans)
+   ════════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root{
+  --nfm-navy-deep:  #081F33;
+  --nfm-navy:       #0C3452;
+  --nfm-navy-1:     #0E2E4A;
+  --nfm-navy-2:     #143A5C;
+  --nfm-orange:     #FF6602;
+  --nfm-orange-hover:#FF8033;
+  --nfm-orange-glow: rgba(255,102,2,0.30);
+  --nfm-amber:      #FFB020;
+  --nfm-green:      #22C55E;
+  --nfm-wa:         #25D366;
+  --nfm-white:      #FFFFFF;
+  --nfm-tl: rgba(255,255,255,0.87);
+  --nfm-tm: rgba(255,255,255,0.60);
+  --nfm-ts: rgba(255,255,255,0.42);
+  --nfm-hair: rgba(255,255,255,0.09);
+  --nfm-font-h:'Space Grotesk', sans-serif;
+  --nfm-font-b:'DM Sans', sans-serif;
+  --nfm-r:14px; --nfm-r-lg:22px;
+  --nfm-ease:cubic-bezier(0.22,1,0.36,1);
+}
+
+html, body{ margin:0; padding:0; background:#081F33; }
+.nfm-thx, .nfm-thx *, .nfm-thx *::before, .nfm-thx *::after{ box-sizing:border-box; }
+.nfm-thx{
+  font-family:var(--nfm-font-b); color:var(--nfm-white); line-height:1.6; overflow-x:hidden;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  background:
+    radial-gradient(800px 420px at 50% -5%, rgba(255,102,2,0.14), transparent 62%),
+    linear-gradient(180deg, #0C3452 0%, #081F33 38%, #081F33 100%);
+}
+.nfm-thx img{ max-width:100%; height:auto; display:block; }
+.nfm-thx a{ text-decoration:none; color:inherit; }
+.nfm-thx p{ margin:0; }
+
+.nfm-thx__container{ max-width:720px; margin:0 auto; padding:0 24px; }
+.nfm-thx .acc{ color:var(--nfm-orange); }
+
+/* reveal */
+.nfm-rv{ opacity:0; transform:translateY(22px); animation:nfm-fu .6s var(--nfm-ease) forwards; }
+.nfm-rv-1{ animation-delay:.05s } .nfm-rv-2{ animation-delay:.15s } .nfm-rv-3{ animation-delay:.25s }
+.nfm-rv-4{ animation-delay:.35s } .nfm-rv-5{ animation-delay:.45s } .nfm-rv-6{ animation-delay:.55s }
+@keyframes nfm-fu{ to{ opacity:1; transform:none; } }
+@keyframes nfm-scaleIn{ from{opacity:0;transform:scale(.8)} to{opacity:1;transform:none} }
+@keyframes nfm-check{ from{stroke-dashoffset:40} to{stroke-dashoffset:0} }
+@keyframes nfm-pulse{ 0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)} 50%{box-shadow:0 0 0 16px rgba(34,197,94,0)} }
+@keyframes nfm-shimmer{ 0%{background-position:-200% center} 100%{background-position:200% center} }
+
+/* ── NAV ── */
+.nfm-thx__nav{ padding:18px 0; border-bottom:1px solid var(--nfm-hair); }
+.nfm-thx__nav-inner{ display:flex; align-items:center; justify-content:center; }
+.nfm-thx__nav img{ height:72px; width:auto; }
+
+/* ── HERO CONFIRMACIÓN ── */
+.nfm-thx__hero{ padding:56px 0 36px; text-align:center; }
+.nfm-thx__check{
+  width:84px; height:84px; margin:0 auto 26px; border-radius:50%;
+  background:rgba(34,197,94,0.10); border:2px solid rgba(34,197,94,0.28);
+  display:flex; align-items:center; justify-content:center;
+  animation:nfm-scaleIn .5s var(--nfm-ease) both, nfm-pulse 2.4s .6s ease infinite;
+}
+.nfm-thx__check svg{ width:38px; height:38px; color:var(--nfm-green); }
+.nfm-thx__check svg path{ stroke-dasharray:40; animation:nfm-check .6s .3s ease both; }
+.nfm-thx__hero h1{
+  font-family:var(--nfm-font-h); font-size:clamp(1.7rem,4vw,2.3rem); font-weight:700;
+  line-height:1.16; letter-spacing:-0.02em; margin:0 0 14px;
+}
+.nfm-thx__hero .sub{ font-size:1.05rem; color:var(--nfm-tm); max-width:520px; margin:0 auto; line-height:1.6; }
+.nfm-thx__hero .sub strong{ color:var(--nfm-tl); font-weight:600; }
+
+/* ── VIDEO (Loom) ── */
+.nfm-thx__video{ padding:6px 0 14px; }
+.nfm-thx__video-label{
+  font-family:var(--nfm-font-h); font-size:0.8rem; font-weight:600; letter-spacing:0.16em;
+  text-transform:uppercase; text-align:center; color:var(--nfm-orange); margin:0 0 18px;
+}
+.nfm-thx__video-frame{
+  border-radius:var(--nfm-r-lg); overflow:hidden; background:#000;
+  border:1px solid var(--nfm-hair); box-shadow:0 24px 60px rgba(0,0,0,0.45);
+}
+
+/* ── STEPS ── */
+.nfm-thx__steps{ padding:28px 0 16px; }
+.nfm-thx__steps-title{
+  font-family:var(--nfm-font-h); font-size:0.8rem; font-weight:600; letter-spacing:0.16em;
+  text-transform:uppercase; text-align:center; color:var(--nfm-orange); margin:0 0 34px;
+}
+.nfm-step{ margin-bottom:22px; }
+.nfm-step__head{ display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+.nfm-step__num{
+  width:32px; height:32px; flex-shrink:0; border-radius:9px;
+  background:rgba(255,102,2,0.12); border:1px solid rgba(255,102,2,0.28);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--nfm-font-h); font-weight:700; font-size:0.92rem; color:var(--nfm-orange);
+}
+.nfm-step__head h3{ font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:700; color:#fff; margin:0; }
+.nfm-step__head h3 .tag{ color:var(--nfm-orange); font-size:0.78em; font-weight:700; }
+.nfm-step__body{
+  background:rgba(255,255,255,0.04); border:1px solid var(--nfm-hair);
+  border-radius:var(--nfm-r-lg); padding:28px;
+}
+.nfm-step__body p{ font-size:0.96rem; color:var(--nfm-tl); line-height:1.7; margin:0 0 16px; }
+.nfm-step__body p:last-child{ margin-bottom:0; }
+.nfm-step__body strong{ color:#fff; font-weight:600; }
+
+/* botón WhatsApp */
+.nfm-wa-btn{
+  display:flex; align-items:center; justify-content:center; gap:12px; width:100%;
+  font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:700; color:#fff;
+  background:var(--nfm-wa); border:none; border-radius:50px; padding:19px 28px; cursor:pointer;
+  position:relative; overflow:hidden; transition:transform .25s var(--nfm-ease), box-shadow .25s var(--nfm-ease), background .25s var(--nfm-ease);
+  box-shadow:0 8px 28px rgba(37,211,102,0.28); margin:4px 0 6px;
+}
+.nfm-wa-btn::before{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);
+  background-size:200% 100%; animation:nfm-shimmer 3s infinite;
+}
+.nfm-wa-btn:hover{ background:#20BD5C; transform:translateY(-2px); box-shadow:0 12px 36px rgba(37,211,102,0.4); color:#fff; }
+.nfm-wa-btn svg{ width:24px; height:24px; flex-shrink:0; position:relative; z-index:1; }
+.nfm-step__micro{ font-size:0.8rem; color:var(--nfm-tm); text-align:center; margin-top:12px !important; }
+
+/* ── WARNING (amber) ── */
+.nfm-warn{
+  display:flex; gap:16px; align-items:flex-start;
+  background:rgba(255,176,32,0.08); border:1px solid rgba(255,176,32,0.32);
+  border-radius:var(--nfm-r); padding:20px 22px; margin-top:18px;
+}
+.nfm-warn__ic{
+  flex-shrink:0; width:34px; height:34px; border-radius:9px;
+  background:rgba(255,176,32,0.16); display:flex; align-items:center; justify-content:center; font-size:1.1rem;
+}
+.nfm-warn__txt strong{ color:var(--nfm-amber); }
+.nfm-warn__txt p{ font-size:0.92rem; color:var(--nfm-tl); line-height:1.65; margin:0; }
+.nfm-warn__title{ font-family:var(--nfm-font-h); font-weight:700; color:var(--nfm-amber); display:block; margin-bottom:4px; font-size:0.95rem; }
+
+/* ── DISCLAIMER correo/recursos ── */
+.nfm-disclaimer{
+  display:flex; gap:14px; align-items:flex-start;
+  margin:26px 0 0; padding:18px 20px;
+  background:rgba(255,255,255,0.03); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r);
+}
+.nfm-disclaimer__ic{ flex-shrink:0; width:30px; height:30px; border-radius:8px;
+  background:rgba(255,102,2,0.10); display:flex; align-items:center; justify-content:center; font-size:0.95rem; }
+.nfm-disclaimer p{ font-size:0.85rem; color:var(--nfm-tm); line-height:1.6; margin:0; }
+.nfm-disclaimer strong{ color:var(--nfm-tl); font-weight:600; }
+
+/* ── EVENT REMINDER ── */
+.nfm-thx__reminder{ padding:30px 0 56px; }
+.nfm-rem-card{
+  background:var(--nfm-navy-1); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg);
+  padding:30px 32px; display:flex; align-items:center; justify-content:center; gap:30px;
+}
+.nfm-rem-date{ text-align:center; flex-shrink:0; }
+.nfm-rem-date .dn{ font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-orange); margin:0 0 4px; }
+.nfm-rem-date .dnum{ font-family:var(--nfm-font-h); font-size:3rem; font-weight:700; line-height:1; margin:0; }
+.nfm-rem-date .dm{ font-family:var(--nfm-font-h); font-size:0.82rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--nfm-tm); margin:2px 0 0; }
+.nfm-rem-div{ width:1px; align-self:stretch; background:var(--nfm-hair); }
+.nfm-rem-info{ text-align:left; }
+.nfm-rem-info h4{ font-family:var(--nfm-font-h); font-size:1.08rem; font-weight:700; color:#fff; margin:0 0 8px; line-height:1.3; letter-spacing:-0.01em; }
+.nfm-rem-info .time{ font-family:var(--nfm-font-h); font-weight:600; color:#fff; font-size:0.96rem; margin:0 0 4px; }
+.nfm-rem-info .via{ font-size:0.85rem; color:var(--nfm-tm); margin:0; }
+
+/* ── FOOTER ── */
+.nfm-thx__footer{ padding:30px 0; border-top:1px solid var(--nfm-hair); text-align:center; }
+.nfm-thx__footer p{ font-size:0.8rem; color:var(--nfm-tm); }
+
+/* ── BARRA DE MODO PRUEBA ── */
+.nfm-testbar{ background:var(--nfm-orange); color:#fff; font-family:var(--nfm-font-h);
+  font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+  text-align:center; padding:9px 14px; line-height:1.4; }
+
+/* ── RESPONSIVE ── */
+@media (max-width:600px){
+  .nfm-thx__nav img{ height:58px; }
+  .nfm-step__body{ padding:22px; }
+  .nfm-wa-btn{ font-size:1rem; padding:17px 22px; }
+  .nfm-rem-card{ flex-direction:column; gap:18px; text-align:center; padding:28px 24px; }
+  .nfm-rem-div{ width:60px; height:1px; align-self:center; }
+  .nfm-rem-info{ text-align:center; }
+  .nfm-testbar{ font-size:0.6rem; letter-spacing:0.06em; }
+}
+</style>
+
+
+<div class="nfm-thx">
+
+  <!-- NAV -->
+  <nav class="nfm-thx__nav">
+    <div class="nfm-thx__container nfm-thx__nav-inner">
+      <a href="#" aria-label="Nicolás Fernández Miranda">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png" alt="Nicolás Fernández Miranda">
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO CONFIRMACIÓN -->
+  <section class="nfm-thx__hero">
+    <div class="nfm-thx__container">
+      <div class="nfm-thx__check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h1 class="nfm-rv nfm-rv-1">¡Felicitaciones! Estás a un paso de <span class="acc">asegurar tu lugar.</span></h1>
+      <p class="sub nfm-rv nfm-rv-2">El solo hecho de haber dado este paso ya te diferencia de la mayoría. Ahora seguí estas indicaciones para llegar listo al <strong data-thx-fecha="larga">martes 22 de septiembre</strong>.</p>
+    </div>
+  </section>
+
+  <!-- VIDEO (Loom) -->
+  <section class="nfm-thx__video">
+    <div class="nfm-thx__container">
+      <p class="nfm-thx__video-label nfm-rv nfm-rv-2">Mirá este video antes de seguir</p>
+      <div class="nfm-thx__video-frame nfm-rv nfm-rv-3">
+        <div style="position:relative; padding-bottom:56.25%; height:0;">
+          <iframe id="nfm-thx-loom" src="https://www.loom.com/embed/4f2cc1c6518e4134a159b5db19f58b2e" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="nfm-thx__steps">
+    <div class="nfm-thx__container">
+      <p class="nfm-thx__steps-title nfm-rv nfm-rv-3">Seguí estos pasos para confirmar tu lugar</p>
+
+      <!-- PASO 1 — WhatsApp -->
+      <div class="nfm-step nfm-rv nfm-rv-4">
+        <div class="nfm-step__head">
+          <div class="nfm-step__num">1</div>
+          <h3>Unite al grupo de WhatsApp <span class="tag">(OBLIGATORIO)</span></h3>
+        </div>
+        <div class="nfm-step__body">
+          <p>Este es el <strong>único canal oficial</strong> de la clase. Si no estás adentro, no vas a poder acceder el <strong data-thx-fecha="diaSemanaMin">martes</strong>. Ahí te vamos a compartir todo lo importante: el acceso, los recordatorios y los recursos previos.</p>
+          <a href="https://go.wha.link/clase-22-de-semptiembre-de-neurociencia" id="nfm-thx-wa" class="nfm-wa-btn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            UNIRME AL GRUPO DE WHATSAPP
+          </a>
+          <p class="nfm-step__micro">Solo los que estén dentro van a ser tomados en cuenta para la clase en vivo.</p>
+        </div>
+      </div>
+
+      <!-- PASO 2 — Revisá la descripción + agendá (WARNING) -->
+      <div class="nfm-step nfm-rv nfm-rv-5">
+        <div class="nfm-step__head">
+          <div class="nfm-step__num">2</div>
+          <h3>Revisá la descripción del grupo y agendá la clase</h3>
+        </div>
+        <div class="nfm-step__body">
+          <p>Apenas entres al grupo, abrí la <strong>descripción del grupo</strong>. Ahí te dejamos el link para agregar la clase a tu <strong>Google Calendar</strong> con un solo clic.</p>
+          <div class="nfm-warn">
+            <div class="nfm-warn__ic">⚠️</div>
+            <div class="nfm-warn__txt">
+              <span class="nfm-warn__title">No te saltees este paso</span>
+              <p>Agendarla ahora es la forma más simple de que <strong>no se te escape</strong> y asistas sí o sí el <strong data-thx-fecha="diaYNumero">martes 22</strong>. Te va a llegar el recordatorio solo, en tu calendario, el día de la clase.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DISCLAIMER — correo + recursos -->
+      <div class="nfm-disclaimer nfm-rv nfm-rv-5">
+        <div class="nfm-disclaimer__ic">📩</div>
+        <p>En los próximos días vas a recibir por <strong>mail y por el grupo</strong> los recursos previos a la clase, pensados para que llegues con el nivel de base necesario. Revisá tu correo (incluí <strong>spam / promociones</strong>) y mantenete atento al grupo.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EVENT REMINDER -->
+  <section class="nfm-thx__reminder">
+    <div class="nfm-thx__container">
+      <div class="nfm-rem-card nfm-rv nfm-rv-6">
+        <div class="nfm-rem-date">
+          <p class="dn" data-thx-fecha="diaSemana">Martes</p>
+          <p class="dnum" data-thx-fecha="diaNum">22</p>
+          <p class="dm" data-thx-fecha="mesAnio">Septiembre 2026</p>
+        </div>
+        <div class="nfm-rem-div"></div>
+        <div class="nfm-rem-info">
+          <h4 data-thx="claseTitulo">Cumplís con todos menos con vos: la razón neurológica por la que tu cerebro ejecuta lo ajeno y archiva lo tuyo.</h4>
+          <p class="time"><span data-thx-fecha="hora">19:00 hs (Argentina)</span></p>
+          <p class="via">Vía Zoom · El acceso llega al grupo de WhatsApp</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="nfm-thx__footer">
+    <div class="nfm-thx__container">
+      <p>© Nicolás Fernández Miranda · Instituto de Productividad</p>
+    </div>
+  </footer>
+
+</div><!-- /.nfm-thx -->
+
+
+<script>
+/* ════════════════════════════════════════════════════════════════════════════════
+   NFM · THANK YOU PAGE SIEMPRE-ON
+   ────────────────────────────────────────────────────────────────────────────────
+   Muestra la clase a la que se acaba de anotar la persona: fecha, día, título
+   y el grupo de WhatsApp de ESA clase.
+
+   Cómo sabe cuál es (en este orden):
+     1. ?clase_fecha=2026-08-25 en la URL (si algún día se lo pasás en el redirect)
+     2. lo que dejó guardado la landing en el navegador (sessionStorage)
+     3. el calendario, igual que la landing
+
+   El punto 2 evita un caso borde real: alguien se registra 18:59 del día de la
+   clase y aterriza acá 19:00:30, cuando la landing ya rotó. Sin eso, le
+   mostraríamos la clase siguiente y lo mandaríamos al grupo equivocado.
+   ════════════════════════════════════════════════════════════════════════════════ */
+(function(){
+'use strict';
+
+/* ══════════════════════════════════════════════════════════════════
+   ①  CONFIG
+   ⚠️ El bloque CLASES tiene que ser IDÉNTICO al de la landing.
+      Si agregás una clase allá, agregala acá.
+   ══════════════════════════════════════════════════════════════════ */
+var CONFIG = {
+
+  /* fecha = cuándo es la clase · desde = cuándo la página EMPIEZA a mostrarla (00:00 hs ARG) */
+  /* ⚠️ VERSIÓN FIJA · SÓLO la clase del 22 de septiembre, tema A. */
+  CLASES: [
+    { fecha:'2026-09-22', tema:'A', utm:'clase-sep22-cumplis-con-todos',
+      wa:'https://go.wha.link/clase-22-de-semptiembre-de-neurociencia' }
+  ],
+
+  /* Se usa sólo si la clase activa no tiene el suyo cargado, para que el botón nunca
+     quede roto. Ojo: manda al grupo equivocado, así que es red de seguridad, no solución. */
+  GRUPO_FALLBACK: 'https://go.wha.link/clase-8-de-septiembre-neurociencia',
+
+  /* Video de bienvenida. Se puede poner uno distinto por clase con loom:'...' */
+  LOOM_ID: '4f2cc1c6518e4134a159b5db19f58b2e',
+
+  HORA_CLASE: 19,
+  MINUTOS_CLASE: 0,
+  OFFSET_ARG: -3,          // Argentina = UTC-3 todo el año
+  MINUTOS_DE_GRACIA: 0,
+  CERRAR_CAPTACION_HORAS: 0,
+  AUTO_SEMANAL: false,   // fijo
+  AUTO_DIA: 2,             // 0=domingo, 1=lunes, 2=martes...
+  AUTO_TEMA_ALTERNA: true
+};
+
+/* ══════════════════════════════════════════════════════════════════
+   ②  COPY POR TEMÁTICA
+   ══════════════════════════════════════════════════════════════════ */
+var TEMAS = {
+  A: {
+    tituloPagina: '¡Lugar reservado! · Cumplís con todos menos con vos — Nicolás Fernández Miranda',
+    claseTitulo: 'Cumplís con todos menos con vos: la razón neurológica por la que tu cerebro ejecuta lo ajeno y archiva lo tuyo.'
+  },
+  B: {
+    tituloPagina: '¡Lugar reservado! · Escalá tu vida, no tu cansancio — Nicolás Fernández Miranda',
+    claseTitulo: 'Escalá tu vida, no tu cansancio: la razón neurológica por la que el que sostiene todo es el último en avanzar.'
+  }
+};
+
+/* ══════════════════════════════════════════════════════════════════
+   ③  MOTOR
+   ══════════════════════════════════════════════════════════════════ */
+var DIAS  = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+var HORA = 3600000, DIA = 86400000;
+
+function pad(n){ n = String(n); return n.length < 2 ? '0'+n : n; }
+function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+function qs(k){
+  var m = new RegExp('[?&]'+k+'=([^&#]*)').exec(window.location.search);
+  return m ? decodeURIComponent(m[1].replace(/\+/g,' ')) : null;
+}
+function ss(k){ try{ return window.sessionStorage.getItem(k); }catch(e){ return null; } }
+
+var TEST_SIGUIENTE = /test-?landing-?2/i.test(window.location.href);
+var NOW_FORZADO = null;
+function ahora(){
+  if(NOW_FORZADO != null) return NOW_FORZADO;
+  var sim = qs('nfm_now');
+  if(sim){ var t = Date.parse(sim); if(!isNaN(t)) return t; }
+  return Date.now();
+}
+
+function tsClase(fechaISO){
+  var p = fechaISO.split('-');
+  return Date.UTC(+p[0], +p[1]-1, +p[2], CONFIG.HORA_CLASE - CONFIG.OFFSET_ARG, CONFIG.MINUTOS_CLASE, 0, 0);
+}
+function tsCorte(ts){
+  return ts + CONFIG.MINUTOS_DE_GRACIA*60000 - CONFIG.CERRAR_CAPTACION_HORAS*HORA;
+}
+function partesArg(ts){
+  var d = new Date(ts + CONFIG.OFFSET_ARG*HORA);
+  return { dow:d.getUTCDay(), dia:d.getUTCDate(), mes:d.getUTCMonth(), anio:d.getUTCFullYear(),
+           hh:d.getUTCHours(), mm:d.getUTCMinutes() };
+}
+function isoDe(ts){
+  var p = partesArg(ts);
+  return p.anio+'-'+pad(p.mes+1)+'-'+pad(p.dia);
+}
+function fechasDe(ts){
+  var p = partesArg(ts);
+  var larga = DIAS[p.dow]+' '+p.dia+' de '+MESES[p.mes];
+  return {
+    diaSemana: DIAS[p.dow],
+    diaSemanaMin: DIAS[p.dow].toLowerCase(),
+    diaNum: String(p.dia),
+    mesAnio: cap(MESES[p.mes])+' '+p.anio,
+    diaYNumero: DIAS[p.dow].toLowerCase()+' '+p.dia,
+    corta: p.dia+' de '+MESES[p.mes],
+    larga: larga.toLowerCase(),
+    largaCap: larga,
+    hora: pad(p.hh)+':'+pad(p.mm)+' hs (Argentina)',
+    completa: larga+' · '+pad(p.hh)+':'+pad(p.mm)+' hs (Argentina)'
+  };
+}
+
+/* — Momento en que la landing EMPIEZA a mostrar una clase.
+     'desde' = las 00:00 hs de Argentina de ese día. Sirve para arrancar la captación
+     de una clase antes de que termine la anterior: es la forma de controlar a mano
+     cuándo cambia la temática, sin depender de la fecha de la clase.
+     Si una clase no tiene 'desde', se activa cuando se corta la anterior. — */
+function tsDesde(i){
+  var c = CONFIG.CLASES[i];
+  if(c.desde){
+    var p = c.desde.split('-');
+    return Date.UTC(+p[0], +p[1]-1, +p[2], 0 - CONFIG.OFFSET_ARG, 0, 0, 0);
+  }
+  if(i === 0) return -Infinity;
+  return tsCorte(tsClase(CONFIG.CLASES[i-1].fecha));
+}
+
+/* — Elegir la clase activa —
+     1. la última cuya fecha de arranque ('desde') ya pasó
+     2. nunca quedarse en una clase que ya se dio: si pasó, avanza a la siguiente
+        aunque su 'desde' no haya llegado (mejor mostrar la próxima que una fecha vencida)
+     3. si ya pasaron todas y AUTO_SEMANAL está prendido, genera la siguiente — */
+function claseActiva(){
+  var now = ahora(), i, ts;
+  if(!CONFIG.CLASES || !CONFIG.CLASES.length){
+    return null;
+  }
+
+  var elegida = 0;
+  for(i=0; i<CONFIG.CLASES.length; i++){
+    if(now >= tsDesde(i)) elegida = i;
+  }
+  while(elegida < CONFIG.CLASES.length-1 && now >= tsCorte(tsClase(CONFIG.CLASES[elegida].fecha))){
+    elegida++;
+  }
+
+  var c = CONFIG.CLASES[elegida];
+  ts = tsClase(c.fecha);
+  if(now < tsCorte(ts)) return { ts:ts, def:c, auto:false };
+  if(!CONFIG.AUTO_SEMANAL) return { ts:ts, def:c, auto:false };
+
+  /* modo semanal automático */
+  var tema = c.tema, guarda = 0;
+  while(guarda++ < 520){
+    ts += DIA;
+    ts += ((CONFIG.AUTO_DIA - partesArg(ts).dow + 7) % 7) * DIA;
+    if(CONFIG.AUTO_TEMA_ALTERNA) tema = (tema === 'A') ? 'B' : 'A';
+    if(now < tsCorte(ts)) break;
+  }
+  return { ts:ts, def:{ fecha:isoDe(ts), tema:tema, utm:'clase-semanal-'+isoDe(ts)+'-tema'+tema, wa:'' }, auto:true };
+}
+
+/* — la clase que la persona realmente eligió — */
+var clase = claseActiva();
+var claseSalteada = null;
+
+if(TEST_SIGUIENTE && clase){
+  claseSalteada = clase;
+  NOW_FORZADO = clase.ts + 1000;
+  clase = claseActiva();
+}else{
+  /* 1º la URL, 2º lo que guardó la landing */
+  var pedida = qs('clase_fecha') || ss('nfm_clase_fecha');
+  if(pedida && /^\d{4}-\d{2}-\d{2}$/.test(pedida)){
+    var encontrada = null;
+    for(var k=0;k<CONFIG.CLASES.length;k++){
+      if(CONFIG.CLASES[k].fecha === pedida){ encontrada = CONFIG.CLASES[k]; break; }
+    }
+    if(encontrada){ clase = { ts:tsClase(encontrada.fecha), def:encontrada, auto:false }; }
+    else if(clase && isoDe(clase.ts) !== pedida){
+      /* clase generada por el modo semanal automático */
+      clase = { ts:tsClase(pedida), def:{ fecha:pedida, tema:clase.def.tema, utm:clase.def.utm, wa:'' }, auto:true };
+    }
+  }
+}
+
+if(clase){
+  var COPY   = TEMAS[clase.def.tema] || TEMAS.A;
+  var FECHAS = fechasDe(clase.ts);
+  var WA     = clase.def.wa || CONFIG.GRUPO_FALLBACK;
+  var WA_PROPIO = !!clase.def.wa;
+
+  /* fechas */
+  var f = document.querySelectorAll('[data-thx-fecha]'), i;
+  for(i=0;i<f.length;i++){
+    var kf = f[i].getAttribute('data-thx-fecha');
+    if(FECHAS[kf] != null) f[i].textContent = FECHAS[kf];
+  }
+  /* textos */
+  var e = document.querySelectorAll('[data-thx]');
+  for(i=0;i<e.length;i++){
+    var kt = e[i].getAttribute('data-thx');
+    if(COPY[kt] != null) e[i].innerHTML = COPY[kt];
+  }
+  if(COPY.tituloPagina) document.title = COPY.tituloPagina;
+
+  /* grupo de WhatsApp de esta clase */
+  var btn = document.getElementById('nfm-thx-wa');
+  if(btn) btn.setAttribute('href', WA);
+  if(!WA_PROPIO && window.console && console.warn){
+    console.warn('[NFM] La clase del '+isoDe(clase.ts)+' no tiene grupo de WhatsApp propio. '+
+                 'El botón está cayendo en GRUPO_FALLBACK: '+CONFIG.GRUPO_FALLBACK);
+  }
+
+  /* video propio de la clase, si tiene */
+  var loom = document.getElementById('nfm-thx-loom');
+  var loomId = clase.def.loom || CONFIG.LOOM_ID;
+  if(loom && loomId){
+    var nuevo = 'https://www.loom.com/embed/'+loomId;
+    if(loom.getAttribute('src') !== nuevo) loom.setAttribute('src', nuevo);
+  }
+
+  /* barra de modo prueba */
+  if(TEST_SIGUIENTE && claseSalteada){
+    var bar = document.createElement('div');
+    bar.className = 'nfm-testbar';
+    bar.textContent = 'Modo prueba · simulando que ya pasó la clase del '+ fechasDe(claseSalteada.ts).corta +
+                      ' · esta es la thank you page de la clase siguiente' +
+                      (WA_PROPIO ? '' : ' · ⚠ FALTA CARGAR EL GRUPO DE WHATSAPP DE ESTA CLASE');
+    document.body.insertBefore(bar, document.body.firstChild);
+  }
+}
+})();
+</script>
+<!-- ═══════════ HASTA ACÁ EL CUSTOM CODE DE GHL ═══════════ -->
+</body>
+</html>
