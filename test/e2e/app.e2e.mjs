@@ -145,14 +145,29 @@ describe('app en el navegador', { skip: chromium ? false : 'Playwright no instal
   });
 
   test('el día congelado se ve en la grilla del panel', async () => {
+    // La grilla muestra un mes por vez, así que el día congelado tiene que
+    // caer en el mes que se está viendo. Elegimos el día 1 del mes actual
+    // (siempre pasado, salvo que hoy SEA el 1, y ahí retrocedemos un mes).
+    const hoy = new Date();
+    const esPrimero = hoy.getDate() === 1;
+    const diaFrio = esPrimero
+      ? (() => { const d = new Date(hoy.getFullYear(), hoy.getMonth(), 0); return dk(d); })()
+      : dk(new Date(hoy.getFullYear(), hoy.getMonth(), 1));
+
     const s = estadoConRacha();
     // el día congelado NO puede estar marcado: la celda es una cosa o la otra
-    delete s.checks.h1[daysAgo(3)];
-    s.freezes.used = { [daysAgo(3)]: true };
+    delete s.checks.h1[diaFrio];
+    s.freezes.used = { [diaFrio]: true };
     await sembrar(s);
+
     await page.goto(BASE + '/#/habitos');
     await page.waitForSelector('.habit-grid');
-    assert.ok(await page.locator('.cell.frozen').count() >= 1);
+    if (esPrimero) {
+      await page.locator('[data-month="prev"], .month-nav button').first().click();
+      await page.waitForTimeout(400);
+    }
+    assert.ok(await page.locator('.cell.frozen').count() >= 1,
+      `sin celda congelada para ${diaFrio} en la grilla`);
   });
 
   test('el pasado no se puede marcar, solo hoy', async () => {
@@ -174,5 +189,56 @@ describe('app en el navegador', { skip: chromium ? false : 'Playwright no instal
     await page.keyboard.press('Escape');
     await page.waitForTimeout(300);
     assert.equal(await page.locator('.notice-hot').count(), 0);
+  });
+
+  // Regression: ISSUE-002 — un nombre de hábito largo sin espacios desbordaba
+  // el ancho de la página en mobile (750px de contenido en 375px de viewport),
+  // porque el item flex no tenía min-width:0 y no achicaba bajo su contenido.
+  // Found by /qa on 2026-09-02
+  // Report: .gstack/qa-reports/qa-report-focus-habit-tracker-2026-09-02.md
+  describe('layout mobile con texto del usuario', () => {
+    let mobile;
+
+    before(async () => {
+      mobile = await browser.newContext({ viewport: { width: 375, height: 812 } });
+    });
+    after(async () => { await mobile?.close(); });
+
+    /** Devuelve los elementos que se pasan del ancho del viewport. */
+    async function desbordes(p) {
+      return p.evaluate(() => {
+        const vw = document.documentElement.clientWidth;
+        const out = [];
+        for (const el of document.querySelectorAll('body *')) {
+          const b = el.getBoundingClientRect();
+          if (b.right > vw + 1 && b.width > 0 && !out.some((o) => o.node.contains(el))) {
+            out.push({ node: el, sel: el.tagName.toLowerCase() + '.' + String(el.className || '').split(' ')[0], w: Math.round(b.width) });
+          }
+        }
+        return out.map((o) => `${o.sel} (${o.w}px)`);
+      });
+    }
+
+    for (const [caso, nombre] of [
+      ['una palabra larguísima sin espacios', 'A'.repeat(60)],
+      ['una URL larga pegada como nombre', 'https://ejemplo.com/una/ruta/muy/larga/sin/espacios/que/no/corta'],
+    ]) {
+      test(`no hay scroll horizontal con ${caso}`, async () => {
+        const p = await mobile.newPage();
+        const s = estadoConRacha();
+        s.habits[1].name = nombre;
+        await p.goto(BASE + '/');
+        await p.evaluate((st) => localStorage.setItem('focus-nfm:v1', JSON.stringify(st)), s);
+        await p.reload();
+        await p.waitForSelector('#app:not([hidden])');
+
+        const fuera = await desbordes(p);
+        const ancho = await p.evaluate(() => ({ scroll: document.documentElement.scrollWidth, view: document.documentElement.clientWidth }));
+        await p.close();
+
+        assert.deepEqual(fuera, [], `elementos desbordados: ${fuera.join(', ')}`);
+        assert.ok(ancho.scroll <= ancho.view + 1, `scrollWidth ${ancho.scroll}px > viewport ${ancho.view}px`);
+      });
+    }
   });
 });

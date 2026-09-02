@@ -388,7 +388,15 @@ h1, h2, h3 { font-family: var(--font-display); }
   width: 100%; text-align: left;
 }
 .today-item:hover { border-color: var(--blue); }
-.today-item .habit-title { flex: 1; font-weight: 600; font-size: 14.5px; }
+/* Texto que escribe el usuario dentro de un contenedor flex.
+   Los items flex arrancan en min-width:auto, o sea que NO achican por debajo
+   de su contenido: un nombre largo sin espacios empuja la fila y con ella
+   toda la pagina (scroll horizontal en mobile). min-width:0 deja que la fila
+   achique y overflow-wrap corta la palabra en vez de desbordar. */
+.today-item .habit-title {
+  flex: 1; font-weight: 600; font-size: 14.5px;
+  min-width: 0; overflow-wrap: anywhere;
+}
 .today-item.checked { background: var(--blue-faint); }
 .today-item.checked .habit-title { color: var(--ink-faint); text-decoration: line-through; font-weight: 400; }
 .check-circle {
@@ -571,7 +579,7 @@ h1, h2, h3 { font-family: var(--font-display); }
 }
 .close-row:first-of-type { border-top: 0; }
 .close-info { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.close-name { font-weight: 700; font-size: 14px; }
+.close-name { font-weight: 700; font-size: 14px; overflow-wrap: anywhere; }
 .close-pct { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; }
 .close-pct.good { color: var(--orange); }
 .close-pct.bad { color: var(--ink-mute); }
