@@ -315,7 +315,11 @@ h1, h2, h3 { font-family: var(--font-display); }
 /* ---------- inicio: stats ---------- */
 
 .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
-.stat-card { padding: 18px 22px; display: flex; align-items: center; gap: 16px; }
+/* min-width:0 por la misma razon que en .habit-title: los hijos de grid
+   tampoco achican por debajo de su contenido, y la barra de hito adentro
+   empujaba la columna 5px afuera del viewport en pantallas de 375px. */
+.stat-card { padding: 18px 22px; display: flex; align-items: center; gap: 16px; min-width: 0; }
+.stat-meta { min-width: 0; }
 .stat-num {
   font-family: var(--font-display); font-weight: 900; font-size: 40px; line-height: 1;
   color: var(--blue); min-width: 34px;
@@ -351,7 +355,7 @@ h1, h2, h3 { font-family: var(--font-display); }
 }
 
 /* anticipación del próximo hito */
-.milestone-row { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; min-width: 130px; }
+.milestone-row { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; min-width: 0; width: 100%; max-width: 130px; }
 .milestone-bar { display: block; height: 3px; border-radius: 2px; background: var(--blue-soft); overflow: hidden; }
 .milestone-bar i { display: block; height: 100%; background: var(--orange); border-radius: 2px; transition: width .4s cubic-bezier(0.34, 1.2, 0.64, 1); }
 .milestone-label {
