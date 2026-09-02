@@ -1,0 +1,16 @@
+{
+  "name": "focus-habit-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Focus Habit Tracker NFM — tests. La app es HTML/CSS/JS sin build en focus-habit-tracker/.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "test:e2e": "node --test test/e2e/*.e2e.mjs",
+    "test:all": "node --test test/*.test.mjs test/e2e/*.e2e.mjs",
+    "serve": "python3 -m http.server 8471 --directory focus-habit-tracker"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.56.0"
+  }
+}
