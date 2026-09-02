@@ -1,0 +1,15 @@
+# Puente GoHighLevel -> Doppler Email Marketing
+# El webhook de GHL le pega a https://<tu-sitio>.netlify.app/api/ghl-doppler
+
+[build]
+  publish   = "public"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/api/ghl-doppler"
+  to   = "/.netlify/functions/ghl-doppler"
+  status = 200
+  force = true
