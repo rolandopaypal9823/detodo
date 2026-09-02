@@ -9,10 +9,15 @@ manda después una **Automatización de Doppler** con disparador
 Form GHL → Workflow GHL → Webhook → Netlify Function → API Doppler (lista) → Automatización Doppler → mails
 ```
 
-## 1. Deploy en Netlify
+## 1. Deploy en Netlify (arrastrando la carpeta)
 
-Conectá este repo a Netlify (o `netlify deploy --prod` con la CLI). No hay build:
-`publish = public`, `functions = netlify/functions`.
+1. Descomprimí `puente-ghl-doppler.zip`. Adentro está la carpeta `puente-ghl-doppler/`.
+2. Entrá a https://app.netlify.com/drop y **arrastrá la carpeta entera** (no el zip,
+   no el contenido suelto: la carpeta).
+3. Netlify crea el sitio con la función incluida. No hay build ni dependencias.
+
+Después de cargar las variables de entorno (paso 2) hacé **Deploys → Trigger deploy**
+o volvé a arrastrar la carpeta, para que la función las tome.
 
 Endpoint final: `https://TU-SITIO.netlify.app/api/ghl-doppler`
 
@@ -25,7 +30,6 @@ Site configuration → Environment variables:
 | `DOPPLER_API_KEY` | sí | API key de Doppler (Panel de control → Integraciones y API → API Key) |
 | `DOPPLER_ACCOUNT` | sí | el **email** de tu cuenta de Doppler (es el `accountName` de la API) |
 | `DOPPLER_LIST_ID` | sí | id numérico de la lista destino (se ve en la URL de la lista en Doppler) |
-| `WEBHOOK_SECRET` | recomendada | token propio; GHL lo manda como `?key=...` o header `x-webhook-token` |
 | `DOPPLER_FIELD_MAP` | no | JSON `{"campo_del_lead":"CAMPO_DOPPLER"}`, ej. `{"phone":"PHONE"}` |
 | `ALLOWED_LIST_IDS` | no | ids extra permitidos, separados por coma, para usar `?list=` |
 
@@ -39,7 +43,7 @@ reintenta sola mandando solo el email, así el lead nunca se pierde.
 Workflow → Trigger `Form Submitted` → acción **Webhook**:
 
 - Método: `POST`
-- URL: `https://TU-SITIO.netlify.app/api/ghl-doppler?key=EL_MISMO_WEBHOOK_SECRET`
+- URL: `https://TU-SITIO.netlify.app/api/ghl-doppler`
 - Body: JSON con al menos `email`, y opcionalmente `first_name`, `last_name`, `phone`.
 
 El parser acepta el payload plano o anidado (`contact`, `customData`) y también
@@ -54,14 +58,14 @@ Todo contacto que entre por este endpoint arranca la secuencia solo.
 ## 5. Probar
 
 ```bash
-curl -X POST "https://TU-SITIO.netlify.app/api/ghl-doppler?key=WEBHOOK_SECRET" \
+curl -X POST "https://TU-SITIO.netlify.app/api/ghl-doppler" \
   -H "Content-Type: application/json" \
   -d '{"email":"prueba@tudominio.com","first_name":"Juan","last_name":"Perez"}'
 ```
 
 Respuesta esperada: `{"ok":true,"email":"prueba@tudominio.com","listId":"...","dopplerStatus":201}`
 
-Códigos: `401` token mal, `400` JSON o email inválido, `422` Doppler rechazó el
+Códigos: `400` JSON o email inválido, `422` Doppler rechazó el
 dato, `502` Doppler caído o con error (GHL puede reintentar). Los detalles quedan
 en Netlify → Functions → Logs.
 

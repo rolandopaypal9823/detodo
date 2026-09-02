@@ -11,7 +11,6 @@
  *   DOPPLER_API_KEY      (obligatoria) API key de Doppler
  *   DOPPLER_ACCOUNT      (obligatoria) email de la cuenta de Doppler
  *   DOPPLER_LIST_ID      (obligatoria) id numerico de la lista destino por defecto
- *   WEBHOOK_SECRET       (opcional, recomendada) token compartido con GHL
  *   DOPPLER_FIELD_MAP    (opcional) JSON { "campoDelLead": "CAMPO_DOPPLER" }
  *   ALLOWED_LIST_IDS     (opcional) ids permitidos separados por coma para override por request
  */
@@ -148,7 +147,7 @@ export default async function handler(request) {
     return json(405, { ok: false, error: "method_not_allowed" });
   }
 
-  const { DOPPLER_API_KEY, DOPPLER_ACCOUNT, DOPPLER_LIST_ID, WEBHOOK_SECRET } = process.env;
+  const { DOPPLER_API_KEY, DOPPLER_ACCOUNT, DOPPLER_LIST_ID } = process.env;
 
   const missing = [
     ["DOPPLER_API_KEY", DOPPLER_API_KEY],
@@ -165,16 +164,6 @@ export default async function handler(request) {
 
   const url = new URL(request.url);
 
-  // Autenticacion del webhook: ?key=... o header x-webhook-token.
-  if (WEBHOOK_SECRET) {
-    const provided =
-      request.headers.get("x-webhook-token") ||
-      url.searchParams.get("key") ||
-      (request.headers.get("authorization") || "").replace(/^Bearer\s+/i, "");
-    if (provided !== WEBHOOK_SECRET) {
-      return json(401, { ok: false, error: "unauthorized" });
-    }
-  }
 
   let payload;
   try {
