@@ -1,0 +1,57 @@
+{
+  "date": "2026-09-02",
+  "url": "http://localhost:8471",
+  "healthScore": 96,
+  "issues": [
+    {
+      "id": "ISSUE-001",
+      "title": "Google Fonts render-blocking: 12.4s hasta el primer pintado",
+      "severity": "high",
+      "category": "performance",
+      "status": "fixed",
+      "commit": "b74f7b4"
+    },
+    {
+      "id": "ISSUE-002",
+      "title": "Nombre de habito largo desborda el layout en mobile",
+      "severity": "medium",
+      "category": "visual",
+      "status": "fixed",
+      "commit": "0b57a88"
+    },
+    {
+      "id": "ISSUE-003",
+      "title": "Fila de stats se pasa 5px del viewport en mobile",
+      "severity": "medium",
+      "category": "visual",
+      "status": "fixed",
+      "commit": "f36f24b"
+    }
+  ],
+  "deferred": [
+    {
+      "title": "Labels apretados en la card de racha a 375px",
+      "severity": "low",
+      "category": "visual"
+    },
+    {
+      "title": "Accesibilidad no auditada a fondo",
+      "severity": "unknown",
+      "category": "accessibility"
+    }
+  ],
+  "categoryScores": {
+    "console": 70,
+    "links": 100,
+    "visual": 100,
+    "functional": 100,
+    "ux": 100,
+    "content": 100,
+    "performance": 100
+  },
+  "baselineScore": 92,
+  "tests": {
+    "unit": 36,
+    "e2e": 12
+  }
+}
