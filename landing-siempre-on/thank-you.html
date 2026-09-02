@@ -363,16 +363,17 @@ html, body{ margin:0; padding:0; background:#081F33; }
    ══════════════════════════════════════════════════════════════════ */
 var CONFIG = {
 
+  /* fecha = cuándo es la clase · desde = cuándo la página EMPIEZA a mostrarla (00:00 hs ARG) */
   CLASES: [
-    { fecha:'2026-09-08', tema:'A', utm:'clase-sep08-cumplis-con-todos',
+    { fecha:'2026-09-08', desde:'2026-08-24', tema:'A', utm:'clase-sep08-cumplis-con-todos',
       wa:'https://go.wha.link/clase-8-de-septiembre-neurociencia' },
 
-    { fecha:'2026-09-15', tema:'B', utm:'clase-sep15-escala-tu-vida',
+    { fecha:'2026-09-15', desde:'2026-09-02', tema:'B', utm:'clase-sep15-escala-tu-vida',
       wa:'https://go.wha.link/clase-15-de-septiembre-de-neurociencia' },
 
     /* ⚠️ El link del 22 dice "semptiembre" (con eme). Está puesto tal cual lo creó Nico.
        Si el grupo se creó bien escrito, hay que corregirlo acá. */
-    { fecha:'2026-09-22', tema:'A', utm:'clase-sep22-cumplis-con-todos',
+    { fecha:'2026-09-22', desde:'2026-09-11', tema:'A', utm:'clase-sep22-cumplis-con-todos',
       wa:'https://go.wha.link/clase-22-de-semptiembre-de-neurociencia' }
     /* ⚠️ Septiembre son SOLO estas 3. Cargá octubre antes del 22 a las 19:00. */
   ],
@@ -465,26 +466,50 @@ function fechasDe(ts){
   };
 }
 
-/* — la clase según el calendario — */
+/* — Momento en que la landing EMPIEZA a mostrar una clase.
+     'desde' = las 00:00 hs de Argentina de ese día. Sirve para arrancar la captación
+     de una clase antes de que termine la anterior: es la forma de controlar a mano
+     cuándo cambia la temática, sin depender de la fecha de la clase.
+     Si una clase no tiene 'desde', se activa cuando se corta la anterior. — */
+function tsDesde(i){
+  var c = CONFIG.CLASES[i];
+  if(c.desde){
+    var p = c.desde.split('-');
+    return Date.UTC(+p[0], +p[1]-1, +p[2], 0 - CONFIG.OFFSET_ARG, 0, 0, 0);
+  }
+  if(i === 0) return -Infinity;
+  return tsCorte(tsClase(CONFIG.CLASES[i-1].fecha));
+}
+
+/* — Elegir la clase activa —
+     1. la última cuya fecha de arranque ('desde') ya pasó
+     2. nunca quedarse en una clase que ya se dio: si pasó, avanza a la siguiente
+        aunque su 'desde' no haya llegado (mejor mostrar la próxima que una fecha vencida)
+     3. si ya pasaron todas y AUTO_SEMANAL está prendido, genera la siguiente — */
 function claseActiva(){
   var now = ahora(), i, ts;
-  if(!CONFIG.CLASES || !CONFIG.CLASES.length) return null;
-
-  for(i=0; i<CONFIG.CLASES.length; i++){
-    ts = tsClase(CONFIG.CLASES[i].fecha);
-    if(now < tsCorte(ts)) return { ts:ts, def:CONFIG.CLASES[i], auto:false };
+  if(!CONFIG.CLASES || !CONFIG.CLASES.length){
+    return null;
   }
 
-  var ultima = CONFIG.CLASES[CONFIG.CLASES.length-1];
-  if(!CONFIG.AUTO_SEMANAL) return { ts:tsClase(ultima.fecha), def:ultima, auto:false };
+  var elegida = 0;
+  for(i=0; i<CONFIG.CLASES.length; i++){
+    if(now >= tsDesde(i)) elegida = i;
+  }
+  while(elegida < CONFIG.CLASES.length-1 && now >= tsCorte(tsClase(CONFIG.CLASES[elegida].fecha))){
+    elegida++;
+  }
 
-  var tema = ultima.tema;
-  ts = tsClase(ultima.fecha);
-  var guarda = 0;
+  var c = CONFIG.CLASES[elegida];
+  ts = tsClase(c.fecha);
+  if(now < tsCorte(ts)) return { ts:ts, def:c, auto:false };
+  if(!CONFIG.AUTO_SEMANAL) return { ts:ts, def:c, auto:false };
+
+  /* modo semanal automático */
+  var tema = c.tema, guarda = 0;
   while(guarda++ < 520){
     ts += DIA;
-    var saltos = (CONFIG.AUTO_DIA - partesArg(ts).dow + 7) % 7;
-    ts += saltos*DIA;
+    ts += ((CONFIG.AUTO_DIA - partesArg(ts).dow + 7) % 7) * DIA;
     if(CONFIG.AUTO_TEMA_ALTERNA) tema = (tema === 'A') ? 'B' : 'A';
     if(now < tsCorte(ts)) break;
   }

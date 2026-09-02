@@ -860,13 +860,15 @@ var CONFIG = {
   /* — Las clases del mes. Agregá o cambiá líneas y listo. —
      fecha: 'AAAA-MM-DD'  ·  tema: 'A' o 'B'  ·  utm: nombre de campaña para etiquetar los leads
      (hora: siempre HORA_CLASE, definida más abajo) */
+  /* fecha = cuándo es la clase · desde = cuándo la landing EMPIEZA a mostrarla (00:00 hs ARG) */
   CLASES: [
-    { fecha:'2026-09-08', tema:'A', utm:'clase-sep08-cumplis-con-todos' },   // martes 8 de septiembre
-    { fecha:'2026-09-15', tema:'B', utm:'clase-sep15-escala-tu-vida'    },   // martes 15 de septiembre
-    { fecha:'2026-09-22', tema:'A', utm:'clase-sep22-cumplis-con-todos' }    // martes 22 de septiembre
-    /* ⚠️ Septiembre son SOLO estas 3. Después del 22 a las 19:00 se activa el modo
-       semanal automático y la landing va a mostrar el martes 29, que NO es una clase
-       real. Cargá octubre acá antes de esa hora. */
+    { fecha:'2026-09-08', desde:'2026-08-24', tema:'A', utm:'clase-sep08-cumplis-con-todos' },
+    { fecha:'2026-09-15', desde:'2026-09-02', tema:'B', utm:'clase-sep15-escala-tu-vida' },
+    { fecha:'2026-09-22', desde:'2026-09-11', tema:'A', utm:'clase-sep22-cumplis-con-todos' }    // martes 22 de septiembre
+    /* ⚠️ FALTA la clase de octubre con desde:'2026-09-20', que es cuando arranca su
+       captación. Sin ella: del 20 al 22 la landing sigue mostrando la del 22 (correcto,
+       todavía no pasó), y después del 22 a las 19:00 entra el modo semanal y muestra el
+       martes 29, que NO es una clase real. */
   ],
   /* Si cambiás este bloque, cambialo IGUAL en thank-you.html */
 
@@ -1149,33 +1151,50 @@ function fechasDe(ts){
   };
 }
 
-/* — Elegir la clase activa: la primera que todavía no pasó su corte.
-     Si ya pasaron todas y AUTO_SEMANAL está prendido, genera la siguiente
-     (próximo AUTO_DIA a las HORA_CLASE) alternando temática. — */
+/* — Momento en que la landing EMPIEZA a mostrar una clase.
+     'desde' = las 00:00 hs de Argentina de ese día. Sirve para arrancar la captación
+     de una clase antes de que termine la anterior: es la forma de controlar a mano
+     cuándo cambia la temática, sin depender de la fecha de la clase.
+     Si una clase no tiene 'desde', se activa cuando se corta la anterior. — */
+function tsDesde(i){
+  var c = CONFIG.CLASES[i];
+  if(c.desde){
+    var p = c.desde.split('-');
+    return Date.UTC(+p[0], +p[1]-1, +p[2], 0 - CONFIG.OFFSET_ARG, 0, 0, 0);
+  }
+  if(i === 0) return -Infinity;
+  return tsCorte(tsClase(CONFIG.CLASES[i-1].fecha));
+}
+
+/* — Elegir la clase activa —
+     1. la última cuya fecha de arranque ('desde') ya pasó
+     2. nunca quedarse en una clase que ya se dio: si pasó, avanza a la siguiente
+        aunque su 'desde' no haya llegado (mejor mostrar la próxima que una fecha vencida)
+     3. si ya pasaron todas y AUTO_SEMANAL está prendido, genera la siguiente — */
 function claseActiva(){
   var now = ahora(), i, ts;
   if(!CONFIG.CLASES || !CONFIG.CLASES.length){
     return { ts: now + 7*DIA, tema:'A', utm:'clase-sin-fecha-cargada', auto:true };
   }
 
+  var elegida = 0;
   for(i=0; i<CONFIG.CLASES.length; i++){
-    ts = tsClase(CONFIG.CLASES[i].fecha);
-    if(now < tsCorte(ts)) return { ts:ts, tema:CONFIG.CLASES[i].tema, utm:CONFIG.CLASES[i].utm, auto:false };
+    if(now >= tsDesde(i)) elegida = i;
+  }
+  while(elegida < CONFIG.CLASES.length-1 && now >= tsCorte(tsClase(CONFIG.CLASES[elegida].fecha))){
+    elegida++;
   }
 
-  var ultima = CONFIG.CLASES[CONFIG.CLASES.length-1];
-  if(!CONFIG.AUTO_SEMANAL) return { ts:tsClase(ultima.fecha), tema:ultima.tema, utm:ultima.utm, auto:false };
+  var c = CONFIG.CLASES[elegida];
+  ts = tsClase(c.fecha);
+  if(now < tsCorte(ts)) return { ts:ts, tema:c.tema, utm:c.utm, auto:false };
+  if(!CONFIG.AUTO_SEMANAL) return { ts:ts, tema:c.tema, utm:c.utm, auto:false };
 
   /* modo semanal automático */
-  var tema = ultima.tema;
-  ts = tsClase(ultima.fecha);
-  var guarda = 0;
+  var tema = c.tema, guarda = 0;
   while(guarda++ < 520){
-    /* avanzar al próximo AUTO_DIA posterior a ts */
     ts += DIA;
-    var dow = partesArg(ts).dow;
-    var saltos = (CONFIG.AUTO_DIA - dow + 7) % 7;
-    ts += saltos*DIA;
+    ts += ((CONFIG.AUTO_DIA - partesArg(ts).dow + 7) % 7) * DIA;
     if(CONFIG.AUTO_TEMA_ALTERNA) tema = (tema === 'A') ? 'B' : 'A';
     if(now < tsCorte(ts)) break;
   }

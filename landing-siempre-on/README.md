@@ -53,26 +53,32 @@ agrega un bloque `C` en `TEMAS` y se lo referencia en `CLASES`.
 
 ### Septiembre 2026 — ritmo semanal, martes 19:00 ART
 
-| Fecha | Tema | Título en pantalla | UTM de campaña | Grupo de WhatsApp |
+Cada clase tiene **dos fechas distintas**, y esto es lo importante:
+
+- **`fecha`** — cuándo se da la clase.
+- **`desde`** — cuándo la landing **empieza a promocionarla** (00:00 hs de Argentina de ese día).
+
+Son cosas separadas a propósito: la captación de una clase arranca días antes de que la anterior se dé.
+El cambio de temática lo manda `desde`, no la fecha de la clase.
+
+| Captación desde | Clase | Tema | Título en pantalla | Grupo de WhatsApp |
 |---|---|---|---|---|
-| mar 8 sep | A | Cumplís con todos menos con vos | `clase-sep08-cumplis-con-todos` | ✅ cargado |
-| mar 15 sep | B | Escalá tu vida, no tu cansancio | `clase-sep15-escala-tu-vida` | ✅ cargado |
-| mar 22 sep | A | Cumplís con todos menos con vos | `clase-sep22-cumplis-con-todos` | ✅ cargado (revisar "semptiembre") |
-
-**Septiembre son sólo estas 3.** Después del 22 a las 19:00 se activa el modo semanal automático y la
-landing va a mostrar sola el **martes 29**, que no es una clase real. **Cargá octubre antes de esa hora.**
-Es el precio de que la URL nunca muestre una fecha vencida: si no hay nada cargado, inventa el martes
-siguiente.
-
-Para cambiarlas se toca **una sola línea** en `index.html`, bloque `CONFIG.CLASES`:
+| ya corriendo (24 ago) | mar 8 sep | A | Cumplís con todos menos con vos | ✅ cargado |
+| **2 sep, 00:00** | mar 15 sep | B | Escalá tu vida, no tu cansancio | ✅ cargado |
+| **11 sep, 00:00** | mar 22 sep | A | Cumplís con todos menos con vos | ✅ cargado (revisar "semptiembre") |
+| **20 sep, 00:00** | ⚠️ octubre, sin cargar | B | — | ⚠️ falta |
 
 ```js
 CLASES: [
-  { fecha:'2026-09-08', tema:'A', utm:'clase-sep08-cumplis-con-todos' },
-  { fecha:'2026-09-15', tema:'B', utm:'clase-sep15-escala-tu-vida'    },
-  { fecha:'2026-09-22', tema:'A', utm:'clase-sep22-cumplis-con-todos' }
+  { fecha:'2026-09-08', desde:'2026-08-24', tema:'A', utm:'clase-sep08-cumplis-con-todos' },
+  { fecha:'2026-09-15', desde:'2026-09-02', tema:'B', utm:'clase-sep15-escala-tu-vida'    },
+  { fecha:'2026-09-22', desde:'2026-09-11', tema:'A', utm:'clase-sep22-cumplis-con-todos' }
 ],
 ```
+
+**Falta la clase de octubre con `desde:'2026-09-20'`**, que es cuando arranca su captación. Sin ella: del
+20 al 22 la landing sigue mostrando la del 22 (correcto, todavía no pasó), y después del 22 a las 19:00
+entra el modo semanal automático y muestra el martes 29, que no es una clase real.
 
 Los temas se repiten alternados: A, B, A, B. El copy de cada tema está una sola vez en `TEMAS` —
 no se duplica por clase.
@@ -81,7 +87,7 @@ no se duplica por clase.
 
 ## 3. Qué cambia solo y cuándo
 
-**A las 19:00:00 hs de Argentina del día de la clase**, la landing salta sola a la clase siguiente. Cambian
+**A las 00:00 hs de Argentina del día que dice `desde`**, la landing salta sola a la clase siguiente. Cambian
 de una vez: contador, fecha del hero, fecha del formulario, fecha del CTA final, título del navegador, H1,
 bajada, semilla, espejo completo (6 ítems), sección del mecanismo, los 4 puntos de "qué vas a descubrir",
 el giro y el cierre. **Ninguna fecha se escribe a mano en el copy.**
