@@ -1,0 +1,951 @@
+
+<!-- ═══════════════════════════════════════════════════════
+     WIDGET — CASOS DE ÉXITO MATCH (Mini test → 3 casos)
+     Filtra por perfil + sexo/padre-madre + dolor
+     ═══════════════════════════════════════════════════════ -->
+
+<style>
+  .nfm-cases {
+    --navy:   #0C3452;
+    --navy2:  #091F33;
+    --orange: #FF6602;
+    --orange-light: rgba(255, 102, 2, 0.08);
+    --cream:  #FBF7F1;
+    --white:  #ffffff;
+    --text:   #2D3748;
+    --muted:  #6B7280;
+    --border: rgba(12, 52, 82, 0.10);
+
+    position: relative;
+    background: transparent;
+    color: var(--text);
+    padding: 88px 0 96px;
+    font-family: 'Open Sans', sans-serif;
+    overflow: hidden;
+  }
+
+  .nfm-cases::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,102,2,.025) 30px, rgba(255,102,2,.025) 31px),
+      repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(12,52,82,.015) 30px, rgba(12,52,82,.015) 31px);
+    pointer-events: none;
+  }
+
+  .nfm-cases__container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .nfm-cases__header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 48px;
+  }
+
+  .nfm-cases__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #b34a00;
+    margin-bottom: 18px;
+  }
+
+  .nfm-cases__eyebrow::before,
+  .nfm-cases__eyebrow::after {
+    content: '';
+    width: 50px;
+    height: 1px;
+    background: rgba(255, 102, 2, 0.35);
+  }
+
+  .nfm-cases__title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin: 0 0 18px;
+    color: var(--navy);
+  }
+
+  .nfm-cases__title span { color: var(--orange); }
+
+  .nfm-cases__subtitle {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .nfm-cases__quiz {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .nfm-cases__progress-wrap {
+    margin-bottom: 22px;
+  }
+
+  .nfm-cases__progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .nfm-cases__progress-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nfm-cases__progress-count {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #b34a00;
+  }
+
+  .nfm-cases__progress-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(12, 52, 82, 0.08);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .nfm-cases__progress-fill {
+    height: 100%;
+    background: var(--orange);
+    border-radius: 100px;
+    transition: width 0.4s ease;
+  }
+
+  .nfm-cases__q {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 30px 28px 26px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 14px rgba(12, 52, 82, 0.05);
+    animation: nfm-fadeUp 0.35s ease both;
+  }
+
+  .nfm-cases__q-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #b34a00;
+    margin-bottom: 12px;
+  }
+
+  .nfm-cases__q-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+    color: var(--navy);
+  }
+
+  .nfm-cases__options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nfm-cases__option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.18s;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--text);
+    text-align: left;
+    width: 100%;
+  }
+
+  .nfm-cases__option:hover {
+    border-color: rgba(255, 102, 2, 0.45);
+    background: var(--orange-light);
+  }
+
+  .nfm-cases__option.is-selected {
+    border-color: var(--orange);
+    background: var(--orange-light);
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .nfm-cases__letter {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1.5px solid rgba(12, 52, 82, 0.25);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 900;
+    color: var(--muted);
+    transition: all 0.18s;
+    margin-top: 1px;
+  }
+
+  .nfm-cases__option.is-selected .nfm-cases__letter {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: #fff;
+  }
+
+  .nfm-cases__nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .nfm-cases__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--orange);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(255, 102, 2, 0.28);
+  }
+
+  .nfm-cases__btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(255, 102, 2, 0.4);
+  }
+
+  .nfm-cases__btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  .nfm-cases__result {
+    display: none;
+  }
+
+  .nfm-cases__result.is-visible {
+    display: block;
+    animation: nfm-fadeUp 0.5s ease both;
+  }
+
+  .nfm-cases__result-intro {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .nfm-cases__result-intro h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+    color: var(--navy);
+  }
+
+  .nfm-cases__result-intro h3 span { color: var(--orange); }
+
+  .nfm-cases__result-intro p {
+    font-family: 'Open Sans', sans-serif;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .nfm-cases__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 36px;
+  }
+
+  .nfm-cases__card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 14px rgba(12, 52, 82, 0.06);
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  }
+
+  .nfm-cases__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(12, 52, 82, 0.12);
+    border-color: rgba(255, 102, 2, 0.35);
+  }
+
+  .nfm-cases__video:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+  .nfm-cases__video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--navy2);
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .nfm-cases__video img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+  }
+
+  .nfm-cases__video:hover img {
+    transform: scale(1.04);
+  }
+
+  .nfm-cases__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 42px;
+    background: rgba(0, 0, 0, 0.78);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+    pointer-events: none;
+  }
+
+  .nfm-cases__video:hover .nfm-cases__play {
+    background: #cc0000;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .nfm-cases__play svg {
+    width: 22px;
+    height: 22px;
+    fill: #fff;
+  }
+
+  .nfm-cases__video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .nfm-cases__video--placeholder {
+    background: linear-gradient(135deg, var(--orange) 0%, #c84500 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+  }
+
+  .nfm-cases__video--placeholder .nfm-cases__placeholder-initial {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  .nfm-cases__card-header {
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nfm-cases__card-intro {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .nfm-cases__card-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 900;
+    margin: 0 0 4px;
+    color: var(--navy);
+  }
+
+  .nfm-cases__card-perfil {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.76rem;
+    color: #b34a00;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  .nfm-cases__card-body {
+    padding: 18px 22px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nfm-cases__beforeafter {
+    margin-bottom: 16px;
+  }
+
+  .nfm-cases__ba-block + .nfm-cases__ba-block {
+    margin-top: 12px;
+  }
+
+  .nfm-cases__ba-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #b34a00;
+    margin-bottom: 5px;
+  }
+
+  .nfm-cases__ba-text {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  .nfm-cases__quote {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--navy);
+    border-left: 3px solid var(--orange);
+    padding: 10px 14px;
+    background: var(--orange-light);
+    border-radius: 0 8px 8px 0;
+    line-height: 1.5;
+    margin: 0;
+    margin-top: auto;
+  }
+
+  .nfm-cases__cta-final {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+
+  .nfm-cases__retake-wrap {
+    text-align: center;
+  }
+
+  /* ── TODOS LOS CASOS ── */
+  .nfm-cases__all {
+    margin-top: 64px;
+    padding-top: 52px;
+    border-top: 1px solid var(--border);
+  }
+
+  .nfm-cases__all-head {
+    text-align: center;
+    margin-bottom: 34px;
+  }
+
+  .nfm-cases__all-head h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin: 0 0 10px;
+  }
+
+  .nfm-cases__all-head h3 span { color: var(--orange); }
+
+  .nfm-cases__all-head p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .nfm-cases__grid--all { margin-bottom: 0; }
+
+  .nfm-cases__grid--all .nfm-cases__card-header { border-bottom: none; padding-bottom: 4px; }
+  .nfm-cases__grid--all .nfm-cases__card-body { padding-top: 8px; }
+
+  .nfm-cases__retake {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid rgba(12, 52, 82, 0.18);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .nfm-cases__retake:hover {
+    color: var(--navy);
+    border-color: var(--navy);
+    background: rgba(12, 52, 82, 0.04);
+  }
+
+  @keyframes nfm-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 900px) {
+    .nfm-cases__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 32px;
+    }
+  }
+  @media (max-width: 620px) {
+    .nfm-cases__grid { grid-template-columns: 1fr; max-width: 480px; }
+  }
+
+  @media (max-width: 540px) {
+    .nfm-cases { padding: 64px 0 72px; }
+    .nfm-cases__q { padding: 24px 20px 22px; }
+    .nfm-cases__option { padding: 12px 14px; font-size: 0.88rem; }
+  }
+</style>
+
+<section class="nfm-cases" id="nfm-casos">
+  <div class="nfm-cases__container">
+
+    <div class="nfm-cases__header">
+      <div class="nfm-cases__eyebrow">Casos reales · Encontrá el tuyo</div>
+      <h2 class="nfm-cases__title">
+        Conocé a 3 personas que <span>tuvieron tu mismo punto de partida</span>
+      </h2>
+      <p class="nfm-cases__subtitle">
+        Respondé 3 preguntas rápidas y te muestro tres alumnos que se parecen a vos — mismo perfil, mismo dolor, mismo punto donde estás hoy. Y si preferís, más abajo están <b>todas</b> las entrevistas completas.
+      </p>
+    </div>
+
+    <div class="nfm-cases__quiz" id="nfm-cases-quiz">
+      <div class="nfm-cases__progress-wrap">
+        <div class="nfm-cases__progress-header">
+          <span class="nfm-cases__progress-label">Pregunta</span>
+          <span class="nfm-cases__progress-count" id="nfm-cases-count">1 / 3</span>
+        </div>
+        <div class="nfm-cases__progress-track">
+          <div class="nfm-cases__progress-fill" id="nfm-cases-fill" style="width:33.33%"></div>
+        </div>
+      </div>
+
+      <div id="nfm-cases-qbox"></div>
+
+      <div class="nfm-cases__nav">
+        <button class="nfm-cases__btn" id="nfm-cases-next" onclick="nfmCasesNext()" disabled>
+          Siguiente →
+        </button>
+      </div>
+    </div>
+
+    <div class="nfm-cases__result" id="nfm-cases-result">
+      <div class="nfm-cases__result-intro">
+        <h3>Estos 3 alumnos <span>arrancaron donde estás vos hoy</span></h3>
+        <p>Sus historias coinciden con tu perfil y el patrón que más te resuena. Mirá los videos para ver cómo lo transformaron.</p>
+      </div>
+
+      <div class="nfm-cases__grid" id="nfm-cases-grid"></div>
+
+      <div class="nfm-cases__cta-final">
+        <a class="nfm-cases__btn" href="#" onclick="agdOpen('casos');return false">Quiero hacer el cambio →</a>
+      </div>
+
+      <div class="nfm-cases__retake-wrap">
+        <button class="nfm-cases__retake" onclick="nfmCasesReset()">↻ Volver a hacer el test</button>
+      </div>
+    </div>
+
+    <!-- TODOS LOS CASOS (siempre visibles — transparencia total) -->
+    <div class="nfm-cases__all">
+      <div class="nfm-cases__all-head">
+        <h3>O miralos <span>todos</span></h3>
+        <p>Sin recortes ni selección: todas las entrevistas, con nombre, cara y oficio. Elegí la que quieras.</p>
+      </div>
+      <div class="nfm-cases__grid nfm-cases__grid--all" id="nfm-cases-allgrid"></div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function() {
+  const preguntas = [
+    {
+      id: 'perfil',
+      eyebrow: 'Tu vida profesional',
+      text: '¿Cuál es tu mundo profesional hoy?',
+      opciones: [
+        { letra:'A', texto:'Empresario/a o dueño/a de negocio', val:'empresario' },
+        { letra:'B', texto:'Líder o gerente de equipo', val:'lider' },
+        { letra:'C', texto:'Profesional independiente', val:'independiente' },
+        { letra:'D', texto:'Emprendedor/a lanzando algo nuevo', val:'emprendedor' },
+        { letra:'E', texto:'Estudiante o en formación', val:'estudiante' }
+      ]
+    },
+    {
+      id: 'genero',
+      eyebrow: 'Tu contexto personal',
+      text: 'Para personalizar tu resultado, ¿cuál te describe mejor?',
+      opciones: [
+        { letra:'A', texto:'Soy padre', val:{ g:'M', hijos:true } },
+        { letra:'B', texto:'Soy hombre, no tengo hijos', val:{ g:'M', hijos:false } },
+        { letra:'C', texto:'Soy madre', val:{ g:'F', hijos:true } },
+        { letra:'D', texto:'Soy mujer, no tengo hijos', val:{ g:'F', hijos:false } }
+      ]
+    },
+    {
+      id: 'dolor',
+      eyebrow: 'Tu mayor lucha hoy',
+      text: '¿Cuál de estas frases te golpea más?',
+      opciones: [
+        { letra:'A', texto:'Vivo cansado/a — al final del día no me queda nada para mí', val:'energia' },
+        { letra:'B', texto:'Empiezo hábitos pero no los logro sostener más de 2 semanas', val:'habitos' },
+        { letra:'C', texto:'Duermo poco y mal — eso me arruina el día siguiente', val:'sueno' },
+        { letra:'D', texto:'Vivo apagando incendios, sin poder priorizar lo importante', val:'organizacion' },
+        { letra:'E', texto:'Mi cabeza no para — pienso en el trabajo hasta cuando descanso', val:'mentalidad' },
+        { letra:'F', texto:'Sacrifico todo lo personal por lo laboral', val:'equilibrio' }
+      ]
+    }
+  ];
+
+  const casos = [
+    { id:'celi', g:'F', youtubeId:'95H0-szcsMs',
+      intro:'Esto vivía Celi antes de empezar:',
+      nombre:'Celi', perfil:'Arquitecta, líder de 45 personas · San Diego, EEUU',
+      perfilTags:['lider','independiente'], dominante:'equilibrio',
+      puntoA:'Lideraba un equipo de 45 personas con un costo personal demasiado alto. Sin tiempo, sin equilibrio como madre y profesional.',
+      puntoB:'Recuperó el equilibrio sin dejar de rendir al mismo nivel. Lidera con claridad y tiempo de calidad con su familia.',
+      frase:'"El sistema correcto te permite rendir sin quemarte."' },
+
+    { id:'cristian', g:'M', youtubeId:'7x_hvNVvc88',
+      intro:'Hace un tiempo, esto le pasaba a Cristian:',
+      nombre:'Cristian', perfil:'Bioquímico y empresario · Jujuy, Argentina',
+      perfilTags:['empresario','lider'], dominante:'organizacion',
+      puntoA:'Empresa en crecimiento pero sentía que la empresa lo manejaba a él. Alta irritabilidad, sin tiempo para sí mismo.',
+      puntoB:'Maneja todo a distancia. Tiene tiempo para su pareja y para sí mismo. Su pareja notó el cambio sin que él lo dijera.',
+      frase:'"Hiciste bien, vas bien, seguí. Esto es una carrera contra uno mismo."' },
+
+    { id:'andres', g:'M', youtubeId:'0o-tzNPybNk',
+      intro:'Esto le estaba pasando a Andrés:',
+      nombre:'Andrés', perfil:'Ingeniero agrónomo, líder de equipo · Argentina',
+      perfilTags:['lider','empresario'], dominante:'energia',
+      puntoA:'Crecía rápido pero con un costo emocional y físico altísimo. Quemado, disperso, sin equilibrio.',
+      puntoB:'Hoy entrena, lidera y en 6 meses logró lo que antes le parecían 2 años. Sin quemarse.',
+      frase:'"El sistema correcto no te pide más esfuerzo — te pide más inteligencia."' },
+
+    { id:'romi', g:'F', youtubeId:'anq1RGIC7_Q',
+      intro:'Romi reconoció esto cuando entró:',
+      nombre:'Romi', perfil:'Publicista digital · Argentina',
+      perfilTags:['emprendedor','independiente'], dominante:'habitos',
+      puntoA:'De 7 a 16 hs trabajaba, después estudiaba. Las 24 hs no le alcanzaban. No entrenaba, no dormía bien.',
+      puntoB:'Trabaja 4 hs en relación de dependencia, organiza el resto a su gusto. Entrena todos los días. Cuida descanso y vínculos.',
+      frase:'"No cambié mi personalidad. Ordené mi estructura."' },
+
+    { id:'natalia', g:'F', youtubeId:'CVo9A7ADvTs',
+      intro:'Natalia llegó viviendo esto:',
+      nombre:'Natalia', perfil:'Astrónoma e investigadora CONICET · Argentina',
+      perfilTags:['independiente','estudiante'], dominante:'sueno',
+      puntoA:'Agotamiento y desorden crónicos. No podía descansar bien. Su emprendimiento, paralizado.',
+      puntoB:'Sueño reparador instalado como hábito. Emprendimiento activo. Claridad de prioridades.',
+      frase:'"Cuando dormís bien, todo lo demás empieza a acomodarse solo."' },
+
+    { id:'milton', g:'M', youtubeId:'xDpQB0t2RH8',
+      intro:'Milton reconoció esto cuando entró:',
+      nombre:'Milton', perfil:'Diseñador UX · Argentina',
+      perfilTags:['independiente','emprendedor'], dominante:'habitos',
+      puntoA:'Procrastinador crónico con el teléfono. Los proyectos se postergaban semana tras semana.',
+      puntoB:'Pasó de procrastinador a arrancador. Redujo el uso del teléfono. Los proyectos avanzan.',
+      frase:'"Cuando dejé de esperar las ganas para arrancar, todo cambió."' },
+
+    { id:'pierina', g:'F', youtubeId:'vgF6e9MptW4',
+      intro:'Pierina llegó con esto encima:',
+      nombre:'Pierina', perfil:'Doctoranda en Roma · Italia',
+      perfilTags:['estudiante','independiente'], dominante:'organizacion',
+      puntoA:'40 hs semanales de trabajo, 6 hs de sueño, agenda llena de cosas que no cumplía. Sin foco para lo importante.',
+      puntoB:'Rindió 5 exámenes de idioma para entrar al doctorado. Escribe su tesis en 4 hs lo que antes le llevaba 9.',
+      frase:'"Pasé de querer hacer todo y no poder nada, a hacer lo importante con claridad."' },
+
+    { id:'pau', g:'F', youtubeId:'YoC-5YlvD7w',
+      intro:'Pau llegó viviendo exactamente esto:',
+      nombre:'Pau', perfil:'Arquitecta independiente · Argentina',
+      perfilTags:['independiente','emprendedor'], dominante:'equilibrio',
+      puntoA:'Caos y desborde. Sin poder delegar ni organizar su tiempo. El día la manejaba a ella.',
+      puntoB:'Recuperó el equilibrio, aprendió a delegar y a proteger su foco. Trabaja con estructura y claridad.',
+      frase:'"Cuando entendés cómo funciona tu cerebro, todo cambia."' },
+
+    { id:'sacha', g:'M', youtubeId:'lVhqgQ5cx04',
+      intro:'Sacha llegó sintiéndose así:',
+      nombre:'Sacha', perfil:'Estudiante · Hoy parte del equipo NFM',
+      perfilTags:['estudiante','emprendedor'], dominante:'mentalidad',
+      puntoA:'Conocimiento de neurociencia "en el aire", sin aplicar. Hábitos basados en fuerza de voluntad pura → se quemaba.',
+      puntoB:'Dejó malos hábitos. Aplica las herramientas con criterio. Pasó de alumno a parte del equipo del Instituto.',
+      frase:'"El poder de crecimiento está en el nivel de incertidumbre que podemos soportar."' },
+
+    { id:'jair', g:'M', youtubeId:'7F5YjFM-EJY',
+      intro:'Jair llegó sintiéndose así:',
+      nombre:'Jair', perfil:'Ingeniero en sistemas · Colombia',
+      perfilTags:['independiente','emprendedor'], dominante:'sueno',
+      puntoA:'Venía trabajando hábitos pero le faltaba estructura para el siguiente nivel. Sin acompañamiento.',
+      puntoB:'Hábitos sólidos, mejor sueño, acompañamiento real. Viajó desde Colombia al mastermind presencial.',
+      frase:'"No dudes tanto en hacer esa inversión en vos — vas a ver los resultados."' },
+
+    { id:'anto', g:'F', youtubeId:'UHvxGkuGfI0',
+      intro:'Anto reconoció esto cuando entró:',
+      nombre:'Anto', perfil:'Técnica química y emprendedora · Argentina',
+      perfilTags:['emprendedor','independiente'], dominante:'habitos',
+      puntoA:'Procrastinación y creencias limitantes bloqueaban su acción. Múltiples proyectos sin ejecutar a nivel.',
+      puntoB:'De creencias limitantes a acción concreta. Usa las herramientas con claridad para múltiples frentes.',
+      frase:'"Las herramientas no te cambian la vida — vos sí podés, cuando las usás."' },
+
+    { id:'tati', g:'F', youtubeId:'wePT08l1BYM',
+      intro:'Tatiana llegó viviendo esto:',
+      nombre:'Tatiana', perfil:'Estudiante de lenguas + au pair en EEUU · Colombia',
+      perfilTags:['estudiante','emprendedor'], dominante:'mentalidad',
+      puntoA:'Estrés crónico, desánimo. Combinaba estudio, trabajo y voluntariado sin sistema. Sin claridad de carrera.',
+      puntoB:'Claridad de propósito, hábitos instalados, carrera retomada con dirección y menos estrés.',
+      frase:'"Cuando tenés claridad de hacia dónde vas, el esfuerzo empieza a valer la pena."' },
+
+    { id:'orne', g:'F', youtubeId:'cTkEqvEXOiE',
+      intro:'Ornela entró sintiéndose así:',
+      nombre:'Ornela', perfil:'Estudiante y profesora particular · Argentina',
+      perfilTags:['estudiante'], dominante:'energia',
+      puntoA:'Quemada total. Demasiadas responsabilidades sin orden. Hábitos que intuía correctos pero no sostenía.',
+      puntoB:'Se organizó y planificó. Renunció al trabajo que la agotaba. Disfrutó el mastermind sin ansiedad social.',
+      frase:'"Confía y anímate que se viene lo mejor."' },
+
+    { id:'santi', g:'M', youtubeId:'zRGwIl_FXfk',
+      intro:'Santi llegó viviendo esto:',
+      nombre:'Santi', perfil:'Laboratorista en formación · Argentina',
+      perfilTags:['estudiante'], dominante:'energia',
+      puntoA:'Inacción y dopamina barata. Días gastados en estímulos de bajo valor.',
+      puntoB:'Dejó los hábitos de bajo valor. Pasó de inacción a foco y acción sostenida.',
+      frase:'"Invertir en el cerebro es la mejor inversión que vas a hacer."' }
+  ];
+
+  let currentQ = 0;
+  let respuestas = {};
+  let selectedIdx = null;
+
+  function render() {
+    const q = preguntas[currentQ];
+    const letters = ['A','B','C','D','E','F'];
+
+    document.getElementById('nfm-cases-qbox').innerHTML = `
+      <div class="nfm-cases__q">
+        <div class="nfm-cases__q-eyebrow">Pregunta ${currentQ+1} · ${q.eyebrow}</div>
+        <div class="nfm-cases__q-text">${q.text}</div>
+        <div class="nfm-cases__options">
+          ${q.opciones.map((op,i) => `
+            <button class="nfm-cases__option" onclick="nfmCasesSelect(this,${i})">
+              <div class="nfm-cases__letter">${letters[i]}</div>
+              <span>${op.texto}</span>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    selectedIdx = null;
+    document.getElementById('nfm-cases-next').disabled = true;
+    document.getElementById('nfm-cases-fill').style.width = ((currentQ+1)/preguntas.length*100)+'%';
+    document.getElementById('nfm-cases-count').textContent = `${currentQ+1} / ${preguntas.length}`;
+    document.getElementById('nfm-cases-next').textContent = currentQ === preguntas.length-1 ? 'Ver mis 3 casos →' : 'Siguiente →';
+  }
+
+  window.nfmCasesSelect = function(el, idx) {
+    document.querySelectorAll('#nfm-cases-qbox .nfm-cases__option').forEach(o => o.classList.remove('is-selected'));
+    el.classList.add('is-selected');
+    selectedIdx = idx;
+    document.getElementById('nfm-cases-next').disabled = false;
+  };
+
+  window.nfmCasesNext = function() {
+    if (selectedIdx === null) return;
+    respuestas[preguntas[currentQ].id] = preguntas[currentQ].opciones[selectedIdx].val;
+    if (currentQ < preguntas.length-1) {
+      currentQ++;
+      render();
+      document.getElementById('nfm-casos').scrollIntoView({behavior:'smooth', block:'start'});
+    } else {
+      mostrarResultado();
+    }
+  };
+
+  window.nfmCasesReset = function() {
+    currentQ = 0;
+    respuestas = {};
+    selectedIdx = null;
+    document.getElementById('nfm-cases-result').classList.remove('is-visible');
+    document.getElementById('nfm-cases-quiz').style.display = 'block';
+    render();
+    document.getElementById('nfm-casos').scrollIntoView({behavior:'smooth', block:'start'});
+  };
+
+  function matchTop3(genero, perfil, dolor) {
+    const pool = casos.filter(c => c.g === genero);
+    const scored = pool.map(c => {
+      let score = 0;
+      if (c.perfilTags.includes(perfil)) score += 10;
+      if (c.dominante === dolor) score += 8;
+      score += (parseInt(c.id.length, 10) % 3) * 0.1;
+      return { caso: c, score };
+    });
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, 3).map(s => s.caso);
+  }
+
+  window.nfmCasesPlayVideo = function(el) {
+    const id = el.dataset.ytid;
+    if (!id || id === 'PEGAR_ID_AQUI') return;
+    el.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" title="Caso de éxito" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  };
+
+  function renderVideo(caso) {
+    const id = caso.youtubeId;
+    const tieneId = id && id !== 'PEGAR_ID_AQUI';
+
+    if (tieneId) {
+      return `
+        <div class="nfm-cases__video" data-ytid="${id}" role="button" tabindex="0" aria-label="Reproducir el caso de ${caso.nombre}" onclick="nfmCasesPlayVideo(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();nfmCasesPlayVideo(this);}">
+          <img src="https://img.youtube.com/vi/${id}/hqdefault.jpg" alt="${caso.nombre}" loading="lazy">
+          <div class="nfm-cases__play">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+      `;
+    } else {
+      return `
+        <div class="nfm-cases__video nfm-cases__video--placeholder">
+          <span class="nfm-cases__placeholder-initial">${caso.nombre.charAt(0)}</span>
+        </div>
+      `;
+    }
+  }
+
+  function mostrarResultado() {
+    const genData = respuestas.genero || { g:'M', hijos:false };
+    const genero = genData.g;
+    const top3 = matchTop3(genero, respuestas.perfil, respuestas.dolor);
+
+    document.getElementById('nfm-cases-quiz').style.display = 'none';
+    const res = document.getElementById('nfm-cases-result');
+    res.classList.add('is-visible');
+
+    document.getElementById('nfm-cases-grid').innerHTML = top3.map(c => `
+      <div class="nfm-cases__card">
+        ${renderVideo(c)}
+        <div class="nfm-cases__card-header">
+          <div class="nfm-cases__card-intro">${c.intro}</div>
+          <div class="nfm-cases__card-name">${c.nombre}</div>
+          <div class="nfm-cases__card-perfil">${c.perfil}</div>
+        </div>
+        <div class="nfm-cases__card-body">
+          <div class="nfm-cases__beforeafter">
+            <div class="nfm-cases__ba-block">
+              <div class="nfm-cases__ba-label">Antes</div>
+              <div class="nfm-cases__ba-text">${c.puntoA}</div>
+            </div>
+            <div class="nfm-cases__ba-block">
+              <div class="nfm-cases__ba-label">Después</div>
+              <div class="nfm-cases__ba-text">${c.puntoB}</div>
+            </div>
+          </div>
+          <div class="nfm-cases__quote">${c.frase}</div>
+        </div>
+      </div>
+    `).join('');
+
+    document.getElementById('nfm-casos').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  function cardHTML(c){
+    return `
+      <div class="nfm-cases__card">
+        ${renderVideo(c)}
+        <div class="nfm-cases__card-header">
+          <div class="nfm-cases__card-intro">${c.intro}</div>
+          <div class="nfm-cases__card-name">${c.nombre}</div>
+          <div class="nfm-cases__card-perfil">${c.perfil}</div>
+        </div>
+        <div class="nfm-cases__card-body">
+          <div class="nfm-cases__beforeafter">
+            <div class="nfm-cases__ba-block">
+              <div class="nfm-cases__ba-label">Antes</div>
+              <div class="nfm-cases__ba-text">${c.puntoA}</div>
+            </div>
+            <div class="nfm-cases__ba-block">
+              <div class="nfm-cases__ba-label">Después</div>
+              <div class="nfm-cases__ba-text">${c.puntoB}</div>
+            </div>
+          </div>
+          <div class="nfm-cases__quote">${c.frase}</div>
+        </div>
+      </div>`;
+  }
+
+  function renderAll(){
+    var grid=document.getElementById('nfm-cases-allgrid');
+    if(grid) grid.innerHTML = casos.map(cardHTML).join('');
+  }
+
+  render();
+  renderAll();
+})();
+</script>

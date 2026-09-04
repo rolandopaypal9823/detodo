@@ -7,6 +7,7 @@ BASE = "/home/user/detodo"
 SCR  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tsl-assets")
 NEURAL = open(SCR + "/neural.html", encoding="utf-8").read()
 CASOS  = json.load(open(SCR + "/casos.json", encoding="utf-8"))
+QUIZ   = open(SCR + "/quiz.html", encoding="utf-8").read()
 
 CALENDLY = "https://calendly.com/nicolasfernandezmiranda/sesion-de-claridad-sma-clon-clon?primary_color=ff4b00"
 
@@ -226,6 +227,59 @@ h1 .hl,.shimmer{color:var(--nfm-orange)}
 .deck__hint{text-align:center;margin-top:12px;font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mono-grey)}
 .section--navy .deck__hint{color:#7d97ac}
 
+/* ---------- FEED VERTICAL (version D · tipo TikTok) ---------- */
+body.feed-mode{overflow:hidden}
+body.feed-mode .topbar{position:fixed;top:0;left:0;right:0}
+.feed{height:100vh;height:100dvh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;position:relative;z-index:2}
+body.agd-lock .feed{overflow:hidden}
+.fslide{min-height:100vh;min-height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:96px 20px 34px;position:relative;text-align:center}
+.fslide__in{width:100%;max-width:560px;margin:0 auto}
+.fslide--navy{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(120% 90% at 18% 10%, rgba(23,70,109,.55), transparent 55%),radial-gradient(90% 80% at 88% 104%, rgba(255,102,2,.06), transparent 60%),linear-gradient(180deg,#0e3352 0%,#0c3452 45%,#061d30 100%)}
+.fslide--navy>*:not(.neural-local){position:relative;z-index:1}
+.fslide--navy .h2,.fslide--navy h1{color:#fff}
+.fslide--navy .lead-2,.fslide--navy .sub{color:#9fb6c8}
+.fslide--navy .lead-2 b,.fslide--navy .sub b{color:#fff}
+.fslide--navy .eyebrow{color:#ffd0ac;background:rgba(255,102,2,.14);border-color:rgba(255,255,255,.16)}
+.fslide h1{font-size:clamp(28px,7.6vw,42px)}
+.fslide .h2{font-size:clamp(24px,6.6vw,34px);margin-bottom:14px}
+.fslide .sub,.fslide .lead-2{font-size:clamp(15px,4.1vw,17px);margin-left:auto;margin-right:auto}
+.fslide .btn{margin-top:24px;width:100%;max-width:400px}
+/* lista compacta dentro de un slide */
+.flist{display:grid;gap:9px;margin-top:18px;text-align:left}
+.flist .fi{background:#fff;border:1px solid var(--nfm-blue-light);border-radius:12px;padding:12px 14px;display:flex;gap:11px;align-items:flex-start}
+.fslide--navy .flist .fi{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14)}
+.flist .mk{font-family:'Montserrat';font-weight:900;font-size:14px;color:var(--nfm-orange);flex:0 0 auto;line-height:1.2}
+.flist h4{font-family:'Montserrat';font-weight:800;font-size:14px;color:var(--nfm-blue);line-height:1.3}
+.flist p{font-size:12.5px;color:var(--muted);line-height:1.42;margin-top:2px}
+.fslide--navy .flist h4{color:#fff}
+.fslide--navy .flist p{color:#a9bfd0}
+.fslide .feat-list{text-align:left;margin-top:16px}
+.fslide .feat-list li{font-size:14px}
+.fslide--navy .feat-list li{color:#fff}
+.fslide .feat-legal{text-align:left;margin-top:14px;font-size:10px}
+.fslide--navy .feat-legal{color:#8ba2b6;border-top-color:rgba(255,255,255,.14)}
+/* slide de caso */
+.fcaso__thumb{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:0;padding:0;cursor:pointer;background:#0c3452;display:block;box-shadow:0 18px 44px rgba(0,0,0,.3)}
+.fcaso__thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.fcaso__thumb::after{content:"";position:absolute;inset:0;background:rgba(12,52,82,.26)}
+.fcaso__thumb .caso__play{z-index:2}
+.fcaso__thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
+.fcaso__name{font-family:'Montserrat';font-weight:900;font-size:20px;color:#fff;margin-top:16px}
+.fcaso__perfil{font-family:'JetBrains Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#ffb27a;margin:6px 0 10px;line-height:1.5}
+.fcaso__frase{font-size:15px;color:#c3d4e1;line-height:1.55;font-style:italic}
+/* barra de progreso del feed */
+.feed-bar{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(12,52,82,.12);z-index:65}
+.feed-bar span{display:block;height:100%;width:0;background:var(--nfm-orange);transition:width .25s linear}
+.feed-count{position:fixed;right:14px;bottom:14px;z-index:65;font-family:'JetBrains Mono';font-size:10px;letter-spacing:.14em;color:#fff;background:rgba(6,29,48,.6);backdrop-filter:blur(6px);padding:6px 11px;border-radius:100px;pointer-events:none}
+.feed-hint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono';font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mono-grey);display:flex;flex-direction:column;align-items:center;gap:5px}
+.fslide--navy .feed-hint{color:#8ba2b6}
+.feed-hint .ar{font-size:15px;animation:fbounce 1.6s infinite}
+@keyframes fbounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+@media(max-width:640px){
+  .fslide{padding:88px 18px 30px}
+  .fslide .flist p{font-size:12px}
+}
+
 /* ---------- CIERRE ---------- */
 .apply{text-align:center}
 .apply h2{font-weight:900;font-size:clamp(28px,4.6vw,48px);line-height:1.04;margin-bottom:20px;max-width:800px;margin-left:auto;margin-right:auto;color:var(--nfm-blue)}
@@ -240,6 +294,8 @@ h1 .hl,.shimmer{color:var(--nfm-orange)}
 .section--navy.apply p b{color:#fff}
 .section--navy.apply .st{color:#9fb6c8}
 .apply--wash{background:linear-gradient(180deg,#fff 0%,var(--nfm-orange-wash) 100%);border-top:1px solid var(--hair)}
+/* el quiz de casos va sobre un tinte suave para separarse de la seccion clara de arriba */
+.quiz-wrap{position:relative;z-index:2;background:linear-gradient(180deg,#fff 0%,#f2f6fa 55%,#eef3f8 100%);border-top:1px solid var(--hair)}
 
 /* ---------- FOOTER ---------- */
 .foot{background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-top:1px solid var(--hair);padding:42px 0;text-align:center}
@@ -561,6 +617,137 @@ DECK_JS = """
 </script>
 """
 
+# ══════════════════════════════════════════════════════════ FEED (versión D)
+def fcta(origen, texto="Agendar mi entrevista de admisión"):
+    return ('      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen(\'%s\');return false">'
+            '%s <span class="arrow">&rarr;</span></a>' % (origen, texto))
+
+
+def feed_html():
+    S = []
+
+    # 1 · promesa
+    S.append("""  <section class="fslide">
+    <div class="fslide__in">
+      <span class="eyebrow">Alto rendimiento con base en neurociencia</span>
+      <h1>No te falta información. Te falta un método que trabaje <span class="hl">a favor de tu cerebro</span>.</h1>
+      <p class="sub">Un <b>acompañamiento de 6 meses</b> con coach dedicada, equipo multidisciplinario y aval universitario. No más apps ni más fuerza de voluntad: un sistema a tu medida, con base en neurociencia.</p>
+%s
+    </div>
+    <div class="feed-hint"><span>Desliz&aacute; para seguir</span><span class="ar">&darr;</span></div>
+  </section>""" % fcta('feed-promesa'))
+
+    # 2 · qué incluye
+    incluye = [
+        ("01", "Tu coach dedicada, 1 a 1", "Te conoce, te sigue de cerca y no te deja aflojar. Lo m&aacute;s valorado por los alumnos (8.8/10)."),
+        ("02", "Biblioteca de +20 m&oacute;dulos", "El m&eacute;todo completo, ordenado y secuencial. P&iacute;ldoras cortas y accionables."),
+        ("03", "Llamadas grupales en vivo", "Encuentros con Nico y el equipo para resolver tu caso real."),
+        ("04", "Comunidad + mastermind", "Gente con tu carga y tu oficio &mdash; incluido el mastermind presencial en Buenos Aires."),
+        ("05", "Equipo multidisciplinario", "Psic&oacute;logos, nutricionistas y coaches de alto rendimiento."),
+        ("06", "Sistemas listos para usar", "Habit Tracker y Second Brain para sacarte la carga de la cabeza."),
+    ]
+    items = "\n".join(
+        '        <div class="fi"><span class="mk">%s</span><div><h4>%s</h4><p>%s</p></div></div>' % it
+        for it in incluye)
+    S.append("""  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Qu&eacute; incluye</span>
+      <h2 class="h2">No es un curso de videos: es un <span class="hl">acompa&ntilde;amiento de 6 meses</span></h2>
+      <div class="flist">
+%s
+      </div>
+%s
+    </div>
+  </section>""" % (items, fcta('feed-incluye')))
+
+    # 3 · aval universitario
+    S.append("""  <section class="fslide">
+    <div class="fslide__in">
+      <span class="eyebrow">El respaldo</span>
+      <h2 class="h2">Tu sistema, con <span class="hl">aval universitario</span></h2>
+      <p class="sub">La versi&oacute;n <b>Platinum</b> se certifica de forma conjunta con la <b>Facultad de Ciencias Econ&oacute;micas de la Universidad Nacional de Jujuy (UNJu)</b>. Se gana, no se regala.</p>
+      <ul class="feat-list">
+        <li>250 horas certificadas por la Facultad, con evaluaci&oacute;n y trabajo final</li>
+        <li>Certificado digital firmado por la Facultad, con verificaci&oacute;n</li>
+        <li>Exclusivo de la versi&oacute;n Platinum &middot; Certificaci&oacute;n optativa</li>
+      </ul>
+      <p class="feat-legal">El certificado es emitido por la Facultad de Ciencias Econ&oacute;micas de la Universidad Nacional de Jujuy en el marco de un programa de certificaci&oacute;n conjunta con NFM Productivity S.A.S. La certificaci&oacute;n universitaria es optativa, exige requisitos acad&eacute;micos de aprobaci&oacute;n y no constituye t&iacute;tulo universitario de grado ni de posgrado, ni acredita equivalencias autom&aacute;ticas.</p>
+%s
+    </div>
+  </section>""" % fcta('feed-aval'))
+
+    # 4..N · todos los casos, uno por slide
+    for n, c in enumerate(CASOS, 1):
+        S.append("""  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso %02d de %d</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="%s" aria-label="Ver la entrevista de %s">
+        <img src="https://img.youtube.com/vi/%s/hqdefault.jpg" alt="Entrevista a %s" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">%s</div>
+      <div class="fcaso__perfil">%s</div>
+      <p class="fcaso__frase">%s</p>
+%s
+    </div>
+  </section>""" % (n, len(CASOS), c['yt'], c['nombre'], c['yt'], c['nombre'],
+                   c['nombre'], c['perfil'], c['frase'], fcta('feed-caso-'+c['id'])))
+
+    # cierre
+    S.append("""  <section class="fslide">
+    <div class="fslide__in">
+      <span class="eyebrow">El siguiente paso</span>
+      <h2 class="h2">Agend&aacute; tu <span class="hl">entrevista de admisi&oacute;n</span></h2>
+      <p class="sub">1 a 1 con el equipo. Vemos tu caso concreto y si el Instituto es para vos. Sin costo.</p>
+      <div class="steps" style="justify-content:center;display:flex;gap:18px;flex-wrap:wrap;margin-top:22px">
+        <div class="st"><span class="b">1</span> Eleg&iacute;s d&iacute;a y hora</div>
+        <div class="st"><span class="b">2</span> Charlamos tu caso</div>
+        <div class="st"><span class="b">3</span> Vemos si encaj&aacute;s</div>
+      </div>
+%s
+    </div>
+  </section>""" % fcta('feed-cierre'))
+
+    return ('<div class="feed-bar"><span id="feedFill"></span></div>\n'
+            '<div class="feed-count" id="feedCount">01 / %d</div>\n'
+            '<div class="feed" id="feed">\n' % (len(S)) + "\n".join(S) + '\n</div>\n')
+
+
+FEED_JS = """
+<script>
+/* ---------- Feed vertical: progreso y contador ---------- */
+(function(){
+  var feed=document.getElementById('feed'); if(!feed) return;
+  document.body.classList.add('feed-mode');
+  var slides=feed.querySelectorAll('.fslide');
+  var fill=document.getElementById('feedFill'), count=document.getElementById('feedCount');
+  var total=slides.length, actual=0;
+
+  function pintar(){
+    fill.style.width=((actual+1)/total*100)+'%';
+    count.textContent=('0'+(actual+1)).slice(-2)+' / '+('0'+total).slice(-2);
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      for(var i=0;i<es.length;i++){
+        if(es[i].isIntersecting){
+          var k=Array.prototype.indexOf.call(slides, es[i].target);
+          if(k>-1 && k!==actual){ actual=k; pintar(); }
+        }
+      }
+    }, {root:feed, threshold:0.55});
+    for(var i=0;i<total;i++) io.observe(slides[i]);
+  } else {
+    feed.addEventListener('scroll', function(){
+      var k=Math.round(feed.scrollTop/feed.clientHeight);
+      if(k!==actual){ actual=Math.min(total-1,Math.max(0,k)); pintar(); }
+    }, {passive:true});
+  }
+  pintar();
+})();
+</script>
+"""
+
 # ══════════════════════════════════════════════════════════════════ FOOTER + JS
 FOOTER_JS = """
 <footer class="foot">
@@ -575,33 +762,40 @@ FOOTER_JS = """
 
 <!-- ═══ POPUP AGENDAR · Calendly · cierra SOLO con la X ═══ -->
 <style>
-  .agd-overlay{position:fixed;inset:0;z-index:200;display:none;align-items:flex-start;justify-content:center;padding:3vh 16px;background:rgba(6,29,48,.74);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow-y:auto}
+  .agd-overlay{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(6,29,48,.74);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
   .agd-overlay.open{display:flex;animation:agdfade .25s ease}
   @keyframes agdfade{from{opacity:0}to{opacity:1}}
-  .agd-card{position:relative;width:100%;max-width:720px;background:#fff;border-radius:18px;box-shadow:0 40px 120px rgba(0,0,0,.42);padding:30px 26px 24px;margin:auto;animation:agdpop .3s ease}
+  /* columna flex: la cabecera ocupa lo suyo y el calendario se queda con TODO el resto,
+     asi Calendly nunca aparece cortado ni con doble barra de scroll */
+  .agd-card{position:relative;width:100%;max-width:1020px;height:min(94vh,880px);background:#fff;border-radius:18px;box-shadow:0 40px 120px rgba(0,0,0,.42);padding:22px 22px 18px;display:flex;flex-direction:column;animation:agdpop .3s ease}
+  .agd-head{flex:0 0 auto;padding-right:48px}
   @keyframes agdpop{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
   .agd-x{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;border:1px solid var(--hair-2);background:#fff;color:var(--mono-grey);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;z-index:3}
   .agd-x:hover{color:#fff;background:var(--nfm-blue);border-color:var(--nfm-blue)}
   .agd-x:focus-visible{outline:3px solid var(--nfm-orange);outline-offset:2px}
   .agd-mono{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--nfm-orange-text);font-weight:500;display:block;margin-bottom:10px}
   .agd-card h3{font-family:'Montserrat';font-weight:800;font-size:clamp(19px,2.6vw,24px);color:var(--nfm-blue);line-height:1.2;margin:0 0 18px;max-width:30ch}
-  .agd-cal{min-height:700px;border-radius:12px;overflow:hidden;border:1px solid var(--hair)}
-  .agd-cal .calendly-inline-widget{min-width:280px;height:700px}
-  .agd-ph{min-height:700px;display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;color:var(--muted);font-size:14px;background:#f4f6f8}
+  .agd-cal{flex:1 1 auto;min-height:380px;display:flex;border-radius:12px;overflow:hidden;border:1px solid var(--hair);background:#f4f6f8}
+  /* el hijo se estira solo (align-items:stretch): sin height:100%, que no resuelve dentro de un flex item */
+  .agd-cal>*{flex:1 1 auto;width:100%;min-width:0;border:0;display:block}
+  .agd-ph{display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;color:var(--muted);font-size:14px}
   .agd-ph a{color:var(--nfm-orange-text);font-weight:700}
   body.agd-lock{overflow:hidden}
   @media(max-width:640px){
     .agd-overlay{padding:0}
-    .agd-card{max-width:none;border-radius:0;min-height:100vh;padding:26px 14px 18px}
-    .agd-cal,.agd-cal .calendly-inline-widget,.agd-ph{min-height:640px;height:640px}
+    .agd-card{max-width:none;height:100vh;height:100dvh;border-radius:0;padding:18px 12px 12px}
+    .agd-card h3{font-size:18px;margin-bottom:12px}
+    .agd-cal{min-height:0}
   }
 </style>
 
 <div class="agd-overlay" id="agdModal">
   <div class="agd-card" role="dialog" aria-modal="true" aria-label="Agendar entrevista de admisión">
     <button class="agd-x" type="button" id="agdX" onclick="agdClose()" aria-label="Cerrar">✕</button>
-    <span class="agd-mono">◆ Entrevista de admisión · 1 a 1 · Sin costo</span>
-    <h3>Elegí el día y la hora que mejor te queden</h3>
+    <div class="agd-head">
+      <span class="agd-mono">◆ Entrevista de admisión · 1 a 1 · Sin costo</span>
+      <h3>Elegí el día y la hora que mejor te queden</h3>
+    </div>
     <div class="agd-cal" id="agdCal"><div class="agd-ph">Cargando calendario…</div></div>
   </div>
 </div>
@@ -716,21 +910,8 @@ __NEURAL__
 
 
 def hero(version):
-    if version == 'larga':
-        return """
-<!-- HERO · la promesa -->
-<section class="hero">
-  <div class="wrap center">
-    <span class="eyebrow fade-up d1">Alto rendimiento con base en neurociencia</span>
-    <h1 class="fade-up d1" style="max-width:22ch;margin-left:auto;margin-right:auto">No te falta información. Te falta un método que trabaje <span class="hl">a favor de tu cerebro</span>.</h1>
-    <p class="sub fade-up d2" style="margin-left:auto;margin-right:auto">En el <b>Instituto de Productividad</b> no sumamos más apps, más cursos ni más fuerza de voluntad. Entendemos cómo funciona tu cerebro y armamos un sistema a tu medida —para que rendir deje de ser pelearte con vos mismo. <b>Neurociencia aplicada, no más disciplina.</b></p>
-    <p class="sub fade-up d3" style="margin-left:auto;margin-right:auto">Ya intentaste el planner, la app nueva, levantarte más temprano. Funcionó tres semanas y se cayó. No fue falta de carácter: tu cerebro no jerarquiza por importancia, jerarquiza por <b>quién está esperando</b>. Lo que le debés a otro tiene fecha y cara; lo que te debés a vos, no.</p>
-    <p class="sub fade-up d3" style="margin-left:auto;margin-right:auto">Por eso esto no es un curso de videos para mirar y archivar. Es un <b>acompañamiento de 6 meses</b> con una coach dedicada, un equipo multidisciplinario y un método secuencial —el mismo que ya recorrieron cientos de profesionales, líderes y dueños de negocio.</p>
-__CTA__
-  </div>
-</section>
-"""
-    if version == 'corta':
+    # larga y corta comparten el mismo hero (asi el test A/B aisla lo que va debajo)
+    if version in ('larga','corta'):
         return """
 <!-- HERO · la promesa -->
 <section class="hero">
@@ -757,8 +938,12 @@ __CTA__
 def build(version, title, rotulo, body):
     out = HEAD.replace('__TITLE__', title).replace('__ROTULO__', rotulo)
     out += body
-    js = DECK_JS if version == 'slides' else ''
-    out += FOOTER_JS.replace('__CALENDLY__', CALENDLY).replace('__NEURAL__', js + "\n" + NEURAL)
+    js = DECK_JS if version == 'slides' else (FEED_JS if version == 'feed' else '')
+    pie = FOOTER_JS
+    if version == 'feed':               # en el feed cada slide ocupa la pantalla: sin footer
+        i = pie.index('<footer class="foot">'); j = pie.index('</footer>') + len('</footer>')
+        pie = pie[:i] + pie[j:]
+    out += pie.replace('__CALENDLY__', CALENDLY).replace('__NEURAL__', js + "\n" + NEURAL)
     return out
 
 
@@ -768,7 +953,6 @@ larga = (
     + SEC_CASOS.replace('__CARDS__', casos_cards(9)).replace('__CTA__', cta('casos', 'Quiero mi entrevista de admisión'))
     + SEC_INCLUYE.replace('__NAVY__', '').replace('__CTA__', cta('incluye'))
     + SEC_AVAL.replace('__NAVY__', ' section--navy').replace('__CTA__', cta('aval', 'Quiero aplicar al Platinum'))
-    + SEC_CIERRE.replace('__CLASE__', ' apply--wash')
 )
 
 # ─────────────────────────────────────────────────────────── VERSIÓN B · CORTA
@@ -776,7 +960,7 @@ corta = (
     hero('corta').replace('__CTA__', cta('hero'))
     + SEC_INCLUYE.replace('__NAVY__', ' section--navy').replace('__CTA__', cta('incluye'))
     + SEC_AVAL.replace('__NAVY__', '').replace('__CTA__', cta('aval', 'Quiero aplicar al Platinum'))
-    + SEC_CIERRE.replace('__CLASE__', ' section--navy')
+    + '\n<div class="quiz-wrap">\n' + QUIZ + '\n</div>\n'
 )
 
 # ────────────────────────────────────────────────────────── VERSIÓN C · SLIDES
@@ -787,7 +971,10 @@ slides = (
     + SEC_CIERRE.replace('__CLASE__', ' section--navy')
 )
 
+feed = feed_html()
+
 files = [
+    ('tsl-d-feed.html',   'feed',   'Instituto de Productividad · Pas&aacute; y agend&aacute;', 'VERSIÓN D · FEED VERTICAL (mobile-first, un slide por pantalla)', feed),
     ('tsl-a-larga.html',  'larga',  'Instituto de Productividad · Método con base en neurociencia', 'VERSIÓN A · LARGA (promesa → casos → qué incluye → aval)', larga),
     ('tsl-b-corta.html',  'corta',  'Instituto de Productividad · Método con base en neurociencia', 'VERSIÓN B · CORTA (promesa → qué incluye → aval)', corta),
     ('tsl-c-slides.html', 'slides', 'Instituto de Productividad · La presentación en 4 slides',    'VERSIÓN C · SLIDES (promesa → deck de 4 slides → casos)', slides),

@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Instituto de Productividad · Método con base en neurociencia</title>
+<title>Instituto de Productividad · Pas&aacute; y agend&aacute;</title>
 <meta name="description" content="No te falta información: te falta un método que trabaje a favor de tu cerebro. Instituto de Productividad — acompañamiento de 6 meses con base en neurociencia y aval universitario.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* =========================================================================
-   VERSIÓN A · LARGA (promesa → casos → qué incluye → aval)
+   VERSIÓN D · FEED VERTICAL (mobile-first, un slide por pantalla)
    TSL (carta de venta sin video) · Instituto de Productividad
    Autocontenida: se pega tal cual en un widget HTML de GoHighLevel.
    Lo único editable está en el bloque CONFIG (al final del archivo).
@@ -344,207 +344,245 @@ body.agd-lock .feed{overflow:hidden}
   </a>
   <a href="#" class="btn btn-primary btn-sm topbar__cta" onclick="agdOpen('topbar');return false"><span class="lbl-full">Agendar entrevista</span><span class="lbl-short">Agendar</span><span class="arrow">→</span></a>
 </header>
-
-<!-- HERO · la promesa -->
-<section class="hero">
-  <div class="wrap center">
-    <span class="eyebrow fade-up d1">Alto rendimiento con base en neurociencia</span>
-    <h1 class="fade-up d1" style="max-width:22ch;margin-left:auto;margin-right:auto">No te falta información. Te falta un método que trabaje <span class="hl">a favor de tu cerebro</span>.</h1>
-    <p class="sub fade-up d2" style="margin-left:auto;margin-right:auto">Un <b>acompañamiento de 6 meses</b> con coach dedicada, equipo multidisciplinario y aval universitario. No más apps ni más fuerza de voluntad: un sistema a tu medida, con base en neurociencia.</p>
-    <div class="cta-block">
-      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('hero');return false">Agendar mi entrevista de admisión <span class="arrow">→</span></a>
-    <div class="fine">Sin costo · Entrevista 1 a 1 con el equipo de admisión</div>
+<div class="feed-bar"><span id="feedFill"></span></div>
+<div class="feed-count" id="feedCount">01 / 18</div>
+<div class="feed" id="feed">
+  <section class="fslide">
+    <div class="fslide__in">
+      <span class="eyebrow">Alto rendimiento con base en neurociencia</span>
+      <h1>No te falta información. Te falta un método que trabaje <span class="hl">a favor de tu cerebro</span>.</h1>
+      <p class="sub">Un <b>acompañamiento de 6 meses</b> con coach dedicada, equipo multidisciplinario y aval universitario. No más apps ni más fuerza de voluntad: un sistema a tu medida, con base en neurociencia.</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-promesa');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
     </div>
-  </div>
-</section>
-
-<!-- CASOS · testimonios reales -->
-<section class="section section--navy" id="casos">
-  <div class="wrap center">
-    <div class="center"><span class="eyebrow">Casos reales</span></div>
-    <h2 class="h2">No es teoría: es gente que <span class="hl">ya lo hizo</span></h2>
-    <p class="lead-2">Profesionales, líderes y dueños de negocio que dejaron de correr atrás del día y recuperaron el control de su tiempo, su energía y sus objetivos. Cada uno con nombre, oficio y su entrevista completa.</p>
-    <div class="casos-grid">
-      <article class="caso">
-        <button type="button" class="caso__thumb" data-yt="95H0-szcsMs" aria-label="Ver la entrevista de Celi">
-          <img src="https://img.youtube.com/vi/95H0-szcsMs/hqdefault.jpg" alt="Entrevista a Celi" loading="lazy">
-          <span class="caso__play" aria-hidden="true"></span>
-        </button>
-        <div class="caso__body">
-          <div class="caso__name">Celi</div>
-          <div class="caso__perfil">Arquitecta, líder de 45 personas · San Diego, EEUU</div>
-          <p class="caso__frase">"El sistema correcto te permite rendir sin quemarte."</p>
-        </div>
-      </article>
-      <article class="caso">
-        <button type="button" class="caso__thumb" data-yt="7x_hvNVvc88" aria-label="Ver la entrevista de Cristian">
-          <img src="https://img.youtube.com/vi/7x_hvNVvc88/hqdefault.jpg" alt="Entrevista a Cristian" loading="lazy">
-          <span class="caso__play" aria-hidden="true"></span>
-        </button>
-        <div class="caso__body">
-          <div class="caso__name">Cristian</div>
-          <div class="caso__perfil">Bioquímico y empresario · Jujuy, Argentina</div>
-          <p class="caso__frase">"Hiciste bien, vas bien, seguí. Esto es una carrera contra uno mismo."</p>
-        </div>
-      </article>
-      <article class="caso">
-        <button type="button" class="caso__thumb" data-yt="0o-tzNPybNk" aria-label="Ver la entrevista de Andrés">
-          <img src="https://img.youtube.com/vi/0o-tzNPybNk/hqdefault.jpg" alt="Entrevista a Andrés" loading="lazy">
-          <span class="caso__play" aria-hidden="true"></span>
-        </button>
-        <div class="caso__body">
-          <div class="caso__name">Andrés</div>
-          <div class="caso__perfil">Ingeniero agrónomo, líder de equipo · Argentina</div>
-          <p class="caso__frase">"El sistema correcto no te pide más esfuerzo — te pide más inteligencia."</p>
-        </div>
-      </article>
-      <article class="caso">
-        <button type="button" class="caso__thumb" data-yt="anq1RGIC7_Q" aria-label="Ver la entrevista de Romi">
-          <img src="https://img.youtube.com/vi/anq1RGIC7_Q/hqdefault.jpg" alt="Entrevista a Romi" loading="lazy">
-          <span class="caso__play" aria-hidden="true"></span>
-        </button>
-        <div class="caso__body">
-          <div class="caso__name">Romi</div>
-          <div class="caso__perfil">Publicista digital · Argentina</div>
-          <p class="caso__frase">"No cambié mi personalidad. Ordené mi estructura."</p>
-        </div>
-      </article>
-      <article class="caso">
-        <button type="button" class="caso__thumb" data-yt="CVo9A7ADvTs" aria-label="Ver la entrevista de Natalia">
-          <img src="https://img.youtube.com/vi/CVo9A7ADvTs/hqdefault.jpg" alt="Entrevista a Natalia" loading="lazy">
-          <span class="caso__play" aria-hidden="true"></span>
-        </button>
-        <div class="caso__body">
-          <div class="caso__name">Natalia</div>
-          <div class="caso__perfil">Astrónoma e investigadora CONICET · Argentina</div>
-          <p class="caso__frase">"Cuando dormís bien, todo lo demás empieza a acomodarse solo."</p>
-        </div>
-      </article>
-      <article class="caso">
-        <button type="button" class="caso__thumb" data-yt="xDpQB0t2RH8" aria-label="Ver la entrevista de Milton">
-          <img src="https://img.youtube.com/vi/xDpQB0t2RH8/hqdefault.jpg" alt="Entrevista a Milton" loading="lazy">
-          <span class="caso__play" aria-hidden="true"></span>
-        </button>
-        <div class="caso__body">
-          <div class="caso__name">Milton</div>
-          <div class="caso__perfil">Diseñador UX · Argentina</div>
-          <p class="caso__frase">"Cuando dejé de esperar las ganas para arrancar, todo cambió."</p>
-        </div>
-      </article>
-      <article class="caso">
-        <button type="button" class="caso__thumb" data-yt="vgF6e9MptW4" aria-label="Ver la entrevista de Pierina">
-          <img src="https://img.youtube.com/vi/vgF6e9MptW4/hqdefault.jpg" alt="Entrevista a Pierina" loading="lazy">
-          <span class="caso__play" aria-hidden="true"></span>
-        </button>
-        <div class="caso__body">
-          <div class="caso__name">Pierina</div>
-          <div class="caso__perfil">Doctoranda en Roma · Italia</div>
-          <p class="caso__frase">"Pasé de querer hacer todo y no poder nada, a hacer lo importante con claridad."</p>
-        </div>
-      </article>
-      <article class="caso">
-        <button type="button" class="caso__thumb" data-yt="YoC-5YlvD7w" aria-label="Ver la entrevista de Pau">
-          <img src="https://img.youtube.com/vi/YoC-5YlvD7w/hqdefault.jpg" alt="Entrevista a Pau" loading="lazy">
-          <span class="caso__play" aria-hidden="true"></span>
-        </button>
-        <div class="caso__body">
-          <div class="caso__name">Pau</div>
-          <div class="caso__perfil">Arquitecta independiente · Argentina</div>
-          <p class="caso__frase">"Cuando entendés cómo funciona tu cerebro, todo cambia."</p>
-        </div>
-      </article>
-      <article class="caso">
-        <button type="button" class="caso__thumb" data-yt="lVhqgQ5cx04" aria-label="Ver la entrevista de Sacha">
-          <img src="https://img.youtube.com/vi/lVhqgQ5cx04/hqdefault.jpg" alt="Entrevista a Sacha" loading="lazy">
-          <span class="caso__play" aria-hidden="true"></span>
-        </button>
-        <div class="caso__body">
-          <div class="caso__name">Sacha</div>
-          <div class="caso__perfil">Estudiante · Hoy parte del equipo NFM</div>
-          <p class="caso__frase">"El poder de crecimiento está en el nivel de incertidumbre que podemos soportar."</p>
-        </div>
-      </article>
-    </div>
-    <div class="cta-block">
-      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('casos');return false">Quiero mi entrevista de admisión <span class="arrow">→</span></a>
-    <div class="fine">Sin costo · Entrevista 1 a 1 con el equipo de admisión</div>
-    </div>
-  </div>
-</section>
-
-<!-- QUÉ INCLUYE -->
-<section class="section" id="incluye">
-  <div class="wrap center">
-    <div class="center"><span class="eyebrow">Qué incluye</span></div>
-    <h2 class="h2">Qué incluyen los programas del <span class="hl">Instituto de Productividad</span></h2>
-    <p class="lead-2">Todo lo que ponemos del otro lado —dentro de nuestros procesos— para que esta vez tus objetivos sí avancen. Un profesional por cada frente, no un PDF y suerte.</p>
-
-    <div class="bcards">
-      <div class="bcard">
-        <div class="bcard__ph photo-slot" data-img="coach" data-alt="Sesión de acompañamiento 1 a 1 del Instituto"></div>
-        <div class="bcard__body"><span class="bcard__tag">01 · Incluido</span><h3>Tu coach dedicada, 1 a 1</h3><p>La persona del otro lado esperándote: te conoce, te sigue de cerca y no te deja aflojar. Lo que los alumnos valoran por encima de todo (8.8/10).</p></div>
+    <div class="feed-hint"><span>Desliz&aacute; para seguir</span><span class="ar">&darr;</span></div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Qu&eacute; incluye</span>
+      <h2 class="h2">No es un curso de videos: es un <span class="hl">acompa&ntilde;amiento de 6 meses</span></h2>
+      <div class="flist">
+        <div class="fi"><span class="mk">01</span><div><h4>Tu coach dedicada, 1 a 1</h4><p>Te conoce, te sigue de cerca y no te deja aflojar. Lo m&aacute;s valorado por los alumnos (8.8/10).</p></div></div>
+        <div class="fi"><span class="mk">02</span><div><h4>Biblioteca de +20 m&oacute;dulos</h4><p>El m&eacute;todo completo, ordenado y secuencial. P&iacute;ldoras cortas y accionables.</p></div></div>
+        <div class="fi"><span class="mk">03</span><div><h4>Llamadas grupales en vivo</h4><p>Encuentros con Nico y el equipo para resolver tu caso real.</p></div></div>
+        <div class="fi"><span class="mk">04</span><div><h4>Comunidad + mastermind</h4><p>Gente con tu carga y tu oficio &mdash; incluido el mastermind presencial en Buenos Aires.</p></div></div>
+        <div class="fi"><span class="mk">05</span><div><h4>Equipo multidisciplinario</h4><p>Psic&oacute;logos, nutricionistas y coaches de alto rendimiento.</p></div></div>
+        <div class="fi"><span class="mk">06</span><div><h4>Sistemas listos para usar</h4><p>Habit Tracker y Second Brain para sacarte la carga de la cabeza.</p></div></div>
       </div>
-      <div class="bcard">
-        <div class="bcard__ph photo-slot" data-img="modulos" data-alt="Plataforma del curso El ABC del Alto Rendimiento"></div>
-        <div class="bcard__body"><span class="bcard__tag">02 · Incluido</span><h3>Biblioteca de +20 módulos</h3><p>El método completo, ordenado y secuencial. Píldoras cortas y accionables, no teoría.</p></div>
-      </div>
-      <div class="bcard">
-        <div class="bcard__ph photo-slot" data-img="llamadas" data-alt="Clase en vivo del Instituto de Productividad"></div>
-        <div class="bcard__body"><span class="bcard__tag">03 · Incluido</span><h3>Llamadas grupales en vivo</h3><p>Encuentros con Nico y el equipo para resolver tu caso real, y aprender de los compañeros.</p></div>
-      </div>
-      <div class="bcard">
-        <div class="bcard__ph photo-slot" data-img="comunidad" data-alt="Comunidad del Instituto de Productividad"></div>
-        <div class="bcard__body"><span class="bcard__tag">04 · Incluido</span><h3>Comunidad + mastermind presencial</h3><p>Gente con tu carga y tu oficio, que no juzga y acompaña — incluido el mastermind presencial en Buenos Aires.</p></div>
-      </div>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-incluye');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
     </div>
+  </section>
+  <section class="fslide">
+    <div class="fslide__in">
+      <span class="eyebrow">El respaldo</span>
+      <h2 class="h2">Tu sistema, con <span class="hl">aval universitario</span></h2>
+      <p class="sub">La versi&oacute;n <b>Platinum</b> se certifica de forma conjunta con la <b>Facultad de Ciencias Econ&oacute;micas de la Universidad Nacional de Jujuy (UNJu)</b>. Se gana, no se regala.</p>
+      <ul class="feat-list">
+        <li>250 horas certificadas por la Facultad, con evaluaci&oacute;n y trabajo final</li>
+        <li>Certificado digital firmado por la Facultad, con verificaci&oacute;n</li>
+        <li>Exclusivo de la versi&oacute;n Platinum &middot; Certificaci&oacute;n optativa</li>
+      </ul>
+      <p class="feat-legal">El certificado es emitido por la Facultad de Ciencias Econ&oacute;micas de la Universidad Nacional de Jujuy en el marco de un programa de certificaci&oacute;n conjunta con NFM Productivity S.A.S. La certificaci&oacute;n universitaria es optativa, exige requisitos acad&eacute;micos de aprobaci&oacute;n y no constituye t&iacute;tulo universitario de grado ni de posgrado, ni acredita equivalencias autom&aacute;ticas.</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-aval');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso 01 de 14</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="95H0-szcsMs" aria-label="Ver la entrevista de Celi">
+        <img src="https://img.youtube.com/vi/95H0-szcsMs/hqdefault.jpg" alt="Entrevista a Celi" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">Celi</div>
+      <div class="fcaso__perfil">Arquitecta, líder de 45 personas · San Diego, EEUU</div>
+      <p class="fcaso__frase">"El sistema correcto te permite rendir sin quemarte."</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-caso-celi');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso 02 de 14</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="7x_hvNVvc88" aria-label="Ver la entrevista de Cristian">
+        <img src="https://img.youtube.com/vi/7x_hvNVvc88/hqdefault.jpg" alt="Entrevista a Cristian" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">Cristian</div>
+      <div class="fcaso__perfil">Bioquímico y empresario · Jujuy, Argentina</div>
+      <p class="fcaso__frase">"Hiciste bien, vas bien, seguí. Esto es una carrera contra uno mismo."</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-caso-cristian');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso 03 de 14</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="0o-tzNPybNk" aria-label="Ver la entrevista de Andrés">
+        <img src="https://img.youtube.com/vi/0o-tzNPybNk/hqdefault.jpg" alt="Entrevista a Andrés" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">Andrés</div>
+      <div class="fcaso__perfil">Ingeniero agrónomo, líder de equipo · Argentina</div>
+      <p class="fcaso__frase">"El sistema correcto no te pide más esfuerzo — te pide más inteligencia."</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-caso-andres');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso 04 de 14</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="anq1RGIC7_Q" aria-label="Ver la entrevista de Romi">
+        <img src="https://img.youtube.com/vi/anq1RGIC7_Q/hqdefault.jpg" alt="Entrevista a Romi" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">Romi</div>
+      <div class="fcaso__perfil">Publicista digital · Argentina</div>
+      <p class="fcaso__frase">"No cambié mi personalidad. Ordené mi estructura."</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-caso-romi');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso 05 de 14</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="CVo9A7ADvTs" aria-label="Ver la entrevista de Natalia">
+        <img src="https://img.youtube.com/vi/CVo9A7ADvTs/hqdefault.jpg" alt="Entrevista a Natalia" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">Natalia</div>
+      <div class="fcaso__perfil">Astrónoma e investigadora CONICET · Argentina</div>
+      <p class="fcaso__frase">"Cuando dormís bien, todo lo demás empieza a acomodarse solo."</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-caso-natalia');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso 06 de 14</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="xDpQB0t2RH8" aria-label="Ver la entrevista de Milton">
+        <img src="https://img.youtube.com/vi/xDpQB0t2RH8/hqdefault.jpg" alt="Entrevista a Milton" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">Milton</div>
+      <div class="fcaso__perfil">Diseñador UX · Argentina</div>
+      <p class="fcaso__frase">"Cuando dejé de esperar las ganas para arrancar, todo cambió."</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-caso-milton');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso 07 de 14</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="vgF6e9MptW4" aria-label="Ver la entrevista de Pierina">
+        <img src="https://img.youtube.com/vi/vgF6e9MptW4/hqdefault.jpg" alt="Entrevista a Pierina" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">Pierina</div>
+      <div class="fcaso__perfil">Doctoranda en Roma · Italia</div>
+      <p class="fcaso__frase">"Pasé de querer hacer todo y no poder nada, a hacer lo importante con claridad."</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-caso-pierina');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso 08 de 14</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="YoC-5YlvD7w" aria-label="Ver la entrevista de Pau">
+        <img src="https://img.youtube.com/vi/YoC-5YlvD7w/hqdefault.jpg" alt="Entrevista a Pau" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">Pau</div>
+      <div class="fcaso__perfil">Arquitecta independiente · Argentina</div>
+      <p class="fcaso__frase">"Cuando entendés cómo funciona tu cerebro, todo cambia."</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-caso-pau');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso 09 de 14</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="lVhqgQ5cx04" aria-label="Ver la entrevista de Sacha">
+        <img src="https://img.youtube.com/vi/lVhqgQ5cx04/hqdefault.jpg" alt="Entrevista a Sacha" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">Sacha</div>
+      <div class="fcaso__perfil">Estudiante · Hoy parte del equipo NFM</div>
+      <p class="fcaso__frase">"El poder de crecimiento está en el nivel de incertidumbre que podemos soportar."</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-caso-sacha');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso 10 de 14</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="7F5YjFM-EJY" aria-label="Ver la entrevista de Jair">
+        <img src="https://img.youtube.com/vi/7F5YjFM-EJY/hqdefault.jpg" alt="Entrevista a Jair" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">Jair</div>
+      <div class="fcaso__perfil">Ingeniero en sistemas · Colombia</div>
+      <p class="fcaso__frase">"No dudes tanto en hacer esa inversión en vos — vas a ver los resultados."</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-caso-jair');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso 11 de 14</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="UHvxGkuGfI0" aria-label="Ver la entrevista de Anto">
+        <img src="https://img.youtube.com/vi/UHvxGkuGfI0/hqdefault.jpg" alt="Entrevista a Anto" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">Anto</div>
+      <div class="fcaso__perfil">Técnica química y emprendedora · Argentina</div>
+      <p class="fcaso__frase">"Las herramientas no te cambian la vida — vos sí podés, cuando las usás."</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-caso-anto');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso 12 de 14</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="wePT08l1BYM" aria-label="Ver la entrevista de Tatiana">
+        <img src="https://img.youtube.com/vi/wePT08l1BYM/hqdefault.jpg" alt="Entrevista a Tatiana" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">Tatiana</div>
+      <div class="fcaso__perfil">Estudiante de lenguas + au pair en EEUU · Colombia</div>
+      <p class="fcaso__frase">"Cuando tenés claridad de hacia dónde vas, el esfuerzo empieza a valer la pena."</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-caso-tati');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso 13 de 14</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="cTkEqvEXOiE" aria-label="Ver la entrevista de Ornela">
+        <img src="https://img.youtube.com/vi/cTkEqvEXOiE/hqdefault.jpg" alt="Entrevista a Ornela" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">Ornela</div>
+      <div class="fcaso__perfil">Estudiante y profesora particular · Argentina</div>
+      <p class="fcaso__frase">"Confía y anímate que se viene lo mejor."</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-caso-orne');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide fslide--navy">
+    <div class="fslide__in">
+      <span class="eyebrow">Caso 14 de 14</span>
+      <button type="button" class="fcaso__thumb caso__thumb" data-yt="zRGwIl_FXfk" aria-label="Ver la entrevista de Santi">
+        <img src="https://img.youtube.com/vi/zRGwIl_FXfk/hqdefault.jpg" alt="Entrevista a Santi" loading="lazy">
+        <span class="caso__play" aria-hidden="true"></span>
+      </button>
+      <div class="fcaso__name">Santi</div>
+      <div class="fcaso__perfil">Laboratorista en formación · Argentina</div>
+      <p class="fcaso__frase">"Invertir en el cerebro es la mejor inversión que vas a hacer."</p>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-caso-santi');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+  <section class="fslide">
+    <div class="fslide__in">
+      <span class="eyebrow">El siguiente paso</span>
+      <h2 class="h2">Agend&aacute; tu <span class="hl">entrevista de admisi&oacute;n</span></h2>
+      <p class="sub">1 a 1 con el equipo. Vemos tu caso concreto y si el Instituto es para vos. Sin costo.</p>
+      <div class="steps" style="justify-content:center;display:flex;gap:18px;flex-wrap:wrap;margin-top:22px">
+        <div class="st"><span class="b">1</span> Eleg&iacute;s d&iacute;a y hora</div>
+        <div class="st"><span class="b">2</span> Charlamos tu caso</div>
+        <div class="st"><span class="b">3</span> Vemos si encaj&aacute;s</div>
+      </div>
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('feed-cierre');return false">Agendar mi entrevista de admisión <span class="arrow">&rarr;</span></a>
+    </div>
+  </section>
+</div>
 
-    <div class="incl-grid">
-      <div class="ic"><span class="mk">05</span><div><h3>Equipo multidisciplinario</h3><p>Psicólogos, nutricionistas y coaches de alto rendimiento: un profesional por cada frente de tu vida y tu operación, no un solo referente para todo.</p></div></div>
-      <div class="ic"><span class="mk">06</span><div><h3>Método y sistemas listos para usar</h3><p>Biblioteca de módulos accionables + Habit Tracker y Second Brain para sacarte la carga de la cabeza. Copiás, adaptás, aplicás.</p></div></div>
-    </div>
-    <div class="cta-block">
-      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('incluye');return false">Agendar mi entrevista de admisión <span class="arrow">→</span></a>
-    <div class="fine">Sin costo · Entrevista 1 a 1 con el equipo de admisión</div>
-    </div>
-  </div>
-</section>
 
-<!-- AVAL UNIVERSITARIO -->
-<section class="section section--navy" id="aval">
-  <div class="wrap">
-    <div class="center"><span class="eyebrow">El respaldo</span></div>
-    <h2 class="h2 center">Lo que casi ningún programa te puede mostrar</h2>
-    <p class="lead-2 center" style="max-width:62ch;margin-left:auto;margin-right:auto">Esto es lo que separa al Instituto de "un curso más".</p>
-    <div class="incl-feature">
-      <div class="incl-feature__body">
-        <span class="feat-badge">★ El diferencial · Respaldo académico</span>
-        <h3 class="feat-title">Tu sistema, con <span class="hl">aval universitario</span></h3>
-        <p class="feat-lead">No es una constancia por asistir. La versión <b>Platinum</b> se certifica de forma conjunta con la <b>Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy (UNJu)</b>: un trayecto de 250 horas con evaluación y un trabajo final aplicado a tu propia vida o negocio. Se gana, no se regala — y por eso pesa distinto en tu CV, tu LinkedIn y frente a quien sea.</p>
-        <ul class="feat-list">
-          <li>Trayecto de 250 horas certificado por la Facultad, con evaluación y trabajo final</li>
-          <li>Certificado digital emitido y firmado por la Facultad, con mecanismo de verificación</li>
-          <li>Exclusivo de la versión Platinum · Certificación optativa</li>
-        </ul>
-        <p class="feat-legal">El certificado es emitido por la Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy en el marco de un programa de certificación conjunta con NFM Productivity S.A.S. La certificación universitaria es optativa, exige requisitos académicos de aprobación y no constituye título universitario de grado ni de posgrado, ni acredita equivalencias automáticas.</p>
-      </div>
-      <figure class="incl-feature__photo photo-slot" data-img="certificados" data-alt="Alumnos del Instituto de Productividad con su certificado"></figure>
-    </div>
-    <div class="cta-block">
-      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('aval');return false">Quiero aplicar al Platinum <span class="arrow">→</span></a>
-    <div class="fine">Sin costo · Entrevista 1 a 1 con el equipo de admisión</div>
-    </div>
-  </div>
-</section>
-
-<footer class="foot">
-  <div class="wrap">
-    <a href="#top" class="brand">
-      <svg class="brand__logo" viewBox="0 0 132 112" role="img" aria-label="Instituto de Productividad"><use href="#ip-logo"/></svg>
-      <span class="brand__wordmark"><span class="brand__top">Instituto de</span><span class="brand__bottom">Productividad</span></span>
-    </a>
-    <small>© Instituto de Productividad · Nicolás Fernández Miranda</small>
-  </div>
-</footer>
 
 <!-- ═══ POPUP AGENDAR · Calendly · cierra SOLO con la X ═══ -->
 <style>
@@ -689,6 +727,39 @@ function fillPhotos(){
 window.addEventListener('DOMContentLoaded', fillPhotos);
 </script>
 
+
+<script>
+/* ---------- Feed vertical: progreso y contador ---------- */
+(function(){
+  var feed=document.getElementById('feed'); if(!feed) return;
+  document.body.classList.add('feed-mode');
+  var slides=feed.querySelectorAll('.fslide');
+  var fill=document.getElementById('feedFill'), count=document.getElementById('feedCount');
+  var total=slides.length, actual=0;
+
+  function pintar(){
+    fill.style.width=((actual+1)/total*100)+'%';
+    count.textContent=('0'+(actual+1)).slice(-2)+' / '+('0'+total).slice(-2);
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      for(var i=0;i<es.length;i++){
+        if(es[i].isIntersecting){
+          var k=Array.prototype.indexOf.call(slides, es[i].target);
+          if(k>-1 && k!==actual){ actual=k; pintar(); }
+        }
+      }
+    }, {root:feed, threshold:0.55});
+    for(var i=0;i<total;i++) io.observe(slides[i]);
+  } else {
+    feed.addEventListener('scroll', function(){
+      var k=Math.round(feed.scrollTop/feed.clientHeight);
+      if(k!==actual){ actual=Math.min(total-1,Math.max(0,k)); pintar(); }
+    }, {passive:true});
+  }
+  pintar();
+})();
+</script>
 
 <!-- ==== DECORATIVO (aislado): red neuronal + barra de carga + título por letra ==== -->
 <script>
