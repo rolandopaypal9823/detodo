@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hackea tu Cerebro EN VIVO · Clase en vivo con Nicolás Fernández Miranda</title>
+<meta name="description" content="Mientras más productivo sos, menos avanzás en tu vida. Clase en vivo de 2 horas para profesionales, líderes y dueños. USD 17.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   HACKEA TU CEREBRO EN VIVO · v3
+   Arquitectura: página de venta directa de Dan Henry (getclients.com/mdw-a-9)
+   Sistema visual: NFM. La estructura se copia; la estética NO.
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --navy:#0c3452; --navy-deep:#061d30; --navy-soft:#e7edf2;
+  --orange:#ff6602; --orange-hover:#ff8033;
+  --ink:#0c3452; --ink-mute:#4a5f70; --ink-subtle:#8a98a8;
+  --line:#dde5ec; --white:#fff; --cream:#faf9f7;
+  --f-display:'Montserrat',Georgia,serif;
+  --f-body:'Open Sans',Georgia,serif;
+  --f-mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--ink);font-family:var(--f-body);
+  font-size:18px;line-height:1.62;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+
+/* medida angosta = aire editorial, sin cambiar de tipografía */
+.wrap{max-width:680px;margin:0 auto;padding:0 22px}
+.wrap--wide{max-width:860px}
+
+h1,h2,h3{font-family:var(--f-display);line-height:1.1;margin:0 0 18px;letter-spacing:-.015em}
+h1{font-size:clamp(32px,7vw,52px);font-weight:900}
+h2{font-size:clamp(26px,5vw,38px);font-weight:800}
+h3{font-size:20px;font-weight:800;letter-spacing:0}
+.accent{color:var(--orange)}
+p{margin:0 0 18px}
+strong{font-weight:700}
+em{font-style:italic}
+
+/* ── 1 · BARRA SUPERIOR: fecha + countdown en la misma línea ── */
+.topbar{background:var(--navy-deep);color:#fff;padding:11px 16px;text-align:center;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  position:sticky;top:0;z-index:50}
+.topbar .dot{color:var(--orange)}
+.topbar b{font-weight:500}
+.topbar .sep{opacity:.35;margin:0 10px}
+.topbar .t{color:var(--orange);font-weight:500}
+@media(max-width:640px){ .topbar{font-size:9.5px;letter-spacing:.1em} .topbar .sep{margin:0 5px} }
+
+/* ── HERO ── */
+.hero{padding:26px 0 40px;text-align:center}
+.eyebrow{font-family:var(--f-mono);font-size:11px;font-weight:500;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--orange);margin:0 0 18px;line-height:1.5}
+.hero__sub{font-size:clamp(16.5px,2.3vw,20px);color:var(--ink-mute);max-width:600px;margin:0 auto 24px}
+.hero__sub strong{color:var(--ink)}
+
+.watch{font-family:var(--f-mono);font-size:11px;font-weight:500;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--orange);margin:0 0 12px}
+.vsl{background:var(--navy-deep);border-radius:10px;aspect-ratio:16/9;
+  display:flex;align-items:center;justify-content:center;color:#6d8ba3;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-align:center;padding:20px;
+  box-shadow:0 24px 60px rgba(12,52,82,.20)}
+
+/* countdown en cajas */
+.cd{display:flex;gap:9px;justify-content:center;margin:20px 0 20px}
+.cd__i{background:var(--white);border:1.5px solid var(--line);border-radius:8px;
+  padding:9px 4px;min-width:66px}
+.cd__n{font-family:var(--f-display);font-weight:900;font-size:26px;line-height:1;color:var(--ink)}
+.cd__u{font-family:var(--f-mono);font-size:9px;letter-spacing:.16em;color:var(--ink-subtle);
+  text-transform:uppercase;margin-top:5px}
+.cd__i--hot .cd__n{color:var(--orange)}
+
+/* CTA con el precio adentro */
+.cta{display:inline-block;width:100%;max-width:440px;background:var(--orange);color:#fff;
+  border:0;border-radius:10px;font-family:var(--f-display);font-weight:900;
+  font-size:clamp(18px,2.6vw,22px);padding:19px 26px;cursor:pointer;text-align:center;
+  box-shadow:0 12px 34px rgba(255,102,2,.32);transition:transform .12s,background .12s}
+.cta:hover{background:var(--orange-hover);transform:translateY(-2px)}
+
+/* micro-copy con la garantía, pegado al botón */
+.micro{font-size:13.5px;font-style:italic;color:var(--ink-subtle);line-height:1.6;
+  max-width:540px;margin:14px auto 0}
+
+/* barra de specs */
+.specs{font-size:14px;font-weight:700;color:var(--ink);text-align:center;
+  margin:26px 0 0;line-height:1.8;display:flex;flex-wrap:wrap;gap:0 4px;justify-content:center}
+.specs span{white-space:nowrap}
+.specs i{font-style:normal;color:var(--ink-subtle);margin:0 6px}
+@media(max-width:520px){
+  .specs{flex-direction:column;gap:2px}
+  .specs i{display:none}
+}
+
+/* ── CUERPO: carta de venta ── */
+.sec{padding:clamp(44px,7vw,72px) 0;border-top:1px solid var(--line)}
+.sec--cream{background:var(--cream);border-top:none}
+.sec--navy{background:var(--navy);color:#fff;border-top:none}
+.sec--navy h2{color:#fff}
+.sec--navy p{color:rgba(255,255,255,.84)}
+.lead{font-size:19px}
+
+/* párrafos de una línea = ritmo de carta */
+.beat{margin:0 0 20px}
+
+/* testimonios que prueban EL PROBLEMA, no el producto */
+.chat{margin:22px 0;padding-left:2px}
+.chat p{font-style:italic;color:#3d7ea6;margin:0 0 7px;font-size:17px}
+
+/* el paréntesis de inclusión */
+.include{font-size:16px;color:var(--ink-subtle);line-height:1.6;margin:24px 0}
+.sec--navy .include{color:rgba(255,255,255,.55)}
+
+/* blockquote */
+blockquote{margin:26px 0;padding:18px 0 18px 22px;border-left:3px solid var(--orange);
+  font-family:var(--f-display);font-weight:700;font-size:19px;font-style:italic;line-height:1.45}
+blockquote cite{display:block;font-family:var(--f-body);font-weight:400;font-style:normal;
+  font-size:14px;color:var(--ink-subtle);margin-top:10px}
+
+.cta-wrap{text-align:center;margin:34px 0 0}
+
+/* ── MODAL DE CHECKOUT ── */
+.ov{position:fixed;inset:0;background:rgba(6,29,48,.74);display:none;
+  align-items:flex-start;justify-content:center;padding:20px;z-index:100;overflow-y:auto}
+.ov[data-open]{display:flex}
+.modal{background:#fff;border-radius:12px;max-width:520px;width:100%;margin:auto;
+  position:relative;overflow:hidden}
+.modal__x{position:absolute;top:10px;right:12px;background:#fff;border:1px solid var(--line);
+  width:28px;height:28px;border-radius:50%;font-size:17px;line-height:1;color:var(--ink-mute);
+  cursor:pointer;z-index:2}
+.steps{display:flex;border-bottom:3px solid var(--line);position:relative}
+.steps__i{flex:1;text-align:center;padding:15px 8px;font-family:var(--f-display);
+  font-weight:700;font-size:14px;color:var(--ink-subtle)}
+.steps__i small{display:block;font-family:var(--f-body);font-weight:400;font-size:11.5px;margin-top:2px}
+.steps__i[data-on]{color:var(--navy)}
+.steps__bar{position:absolute;bottom:-3px;left:0;width:50%;height:3px;background:var(--navy);
+  transition:transform .22s}
+.modal__body{padding:24px}
+.fld{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:7px;
+  font-size:16px;font-family:var(--f-body);margin-bottom:11px;color:var(--ink)}
+.fld:focus{outline:0;border-color:var(--orange)}
+.privacy{text-align:center;font-size:12px;color:var(--ink-subtle);margin:10px 0 0}
+.back{background:none;border:0;color:var(--ink-mute);font-size:14px;cursor:pointer;
+  font-family:var(--f-body);padding:6px 0;margin-bottom:12px}
+
+/* tabla del ítem */
+.item{display:flex;justify-content:space-between;align-items:center;padding:13px 0;
+  border-bottom:1px solid var(--line);font-size:15px}
+.item b{font-family:var(--f-display);font-size:15px}
+.item .p{font-weight:700;color:var(--navy)}
+
+/* bumps · 2, no 4 — ver plan §6.6 */
+.bump{border:1.5px solid #e8d9a8;background:#fffdf3;border-radius:8px;padding:14px;margin:12px 0}
+.bump label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.bump input{margin-top:3px;width:17px;height:17px;accent-color:var(--orange);flex:0 0 auto}
+.bump .t{font-family:var(--f-display);font-weight:800;font-size:14.5px;color:#1a6b32;line-height:1.35}
+.bump .d{font-size:13.5px;color:var(--ink-mute);margin-top:5px;line-height:1.5}
+
+.total{display:flex;justify-content:space-between;padding:15px 0 4px;
+  font-family:var(--f-display);font-weight:900;font-size:19px;border-top:2px solid var(--line);margin-top:6px}
+.pay{margin-top:16px}
+.secure{text-align:center;font-size:12px;color:var(--ink-subtle);margin:11px 0 0}
+
+/* sticky mobile */
+.sticky{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);
+  padding:10px 16px;z-index:40;display:none;box-shadow:0 -6px 22px rgba(12,52,82,.13)}
+.sticky .cta{padding:15px;font-size:17px;box-shadow:none}
+@media(max-width:760px){ .sticky[data-on]{display:block} body{padding-bottom:76px} }
+
+.pending{border:2px dashed var(--orange);border-radius:10px;padding:22px;margin:26px 0;
+  background:#fff8f3;font-size:15px;line-height:1.6}
+.pending b{font-family:var(--f-display)}
+
+footer{background:var(--navy-deep);color:#6d8ba3;text-align:center;padding:34px 20px;font-size:13.5px}
+</style>
+</head>
+<body>
+
+<!-- ══════════ 1 · BARRA: FECHA + COUNTDOWN JUNTOS ══════════ -->
+<div class="topbar">
+  <span class="dot">•</span> Clase en vivo <b>{{FECHA_LARGA}} · {{HORA}} hs (ARG)</b>
+  <span class="sep">│</span> Empieza en: <span class="t" id="tb-cd">00d : 00h : 00m : 00s</span>
+</div>
+
+<!-- ══════════ ABOVE THE FOLD ══════════ -->
+<div class="wrap hero">
+
+  <!-- 2 · eyebrow que CALIFICA antes del título -->
+  <p class="eyebrow">Para profesionales, líderes y dueños que sostienen la operación de todos</p>
+
+  <!-- 3 · H1 paradoja, bicolor -->
+  <h1>Mientras más productivo sos,<br><span class="accent">menos avanzás en tu vida.</span></h1>
+
+  <!-- 4 · subhead: credencial + confesión contraintuitiva + producto + promesa -->
+  <p class="hero__sub">
+    Fundé el Instituto de Productividad, escribí <em>Hackea tu Cerebro</em> y llevo
+    <strong>[[AÑOS]] años</strong> estudiando esto. Por eso te lo puedo decir:
+    <strong>casi todo lo que te vendieron como productividad te está haciendo más eficiente
+    en la vida de otra gente.</strong> En <em>Hackea tu Cerebro EN VIVO</em> te voy a mostrar
+    por qué pasa, y qué se hace en su lugar.
+  </p>
+
+  <!-- 5 · directiva de video -->
+  <p class="watch">▼ Mirá esto primero ▼</p>
+
+  <!-- 6 · VSL -->
+  <div class="vsl">[ VSL · 6 min — ver 02-vsl-guion.md ]</div>
+
+  <!-- 7 · countdown repetido, en cajas -->
+  <div class="cd">
+    <div class="cd__i"><div class="cd__n" id="cd-d">00</div><div class="cd__u">Días</div></div>
+    <div class="cd__i"><div class="cd__n" id="cd-h">00</div><div class="cd__u">Horas</div></div>
+    <div class="cd__i"><div class="cd__n" id="cd-m">00</div><div class="cd__u">Min</div></div>
+    <div class="cd__i cd__i--hot"><div class="cd__n" id="cd-s">00</div><div class="cd__u">Seg</div></div>
+  </div>
+
+  <!-- 8 · CTA con el precio ADENTRO -->
+  <button class="cta" data-cta>Quiero mi lugar — USD 17 &rarr;</button>
+
+  <!-- 9 · micro-copy: la garantía va ACÁ, no al final -->
+  <p class="micro">
+    Grabación para siempre + workbook con los accionables. Garantía de 30 días:
+    aplicá una sola cosa de la clase — si no te devuelve tiempo, te devolvemos los 17 dólares.
+    Te quedás igual con todo.
+  </p>
+
+  <!-- 10 · barra de specs -->
+  <p class="specs">
+    <span>Clase online de 2 horas</span><i>·</i><span>Por Zoom, desde donde estés</span><i>·</i><span>Grabación incluida</span>
+  </p>
+</div>
+
+<!-- ══════════ CUERPO · primera sección narrativa ══════════ -->
+<section class="sec sec--cream">
+  <div class="wrap">
+    <h2>El momento más caro <span class="accent">de tu semana</span></h2>
+
+    <p class="beat">Ya sabés cuál es.</p>
+    <p class="beat">Es el domingo a la noche. Abrís la agenda y planificás la semana en serio.</p>
+    <p class="beat">El lunes te levantás con todas las pilas.</p>
+
+    <!-- testimonios que prueban EL PROBLEMA, no el producto -->
+    <div class="chat">
+      <p>"Esta semana sí."</p>
+      <p>"Ahora sí me organizo."</p>
+      <p>"Arranco con todo."</p>
+    </div>
+
+    <p class="beat">Y el martes… ya se cayó.</p>
+    <p class="beat">No porque hayas fallado. Al contrario: cumpliste con todo el mundo. Entregaste, respondiste, resolviste, apagaste tres incendios que no eran tuyos.</p>
+    <p class="beat"><strong>Terminaste la semana habiendo hecho once cosas de otros y ninguna tuya — y ni siquiera podés decir que no hiciste nada.</strong></p>
+
+    <!-- el paréntesis de inclusión: recaptura al que no se ve en el ejemplo -->
+    <p class="include">
+      (¿No liderás un equipo? Quedate igual. Es la misma trampa que hace que el proyecto propio
+      lleve dos años en la misma lista, que el libro que ibas a escribir siga en la carpeta,
+      y que el turno médico que sacás para tu hijo en el día lo saques para vos recién cuando
+      ya no te queda opción.)
+    </p>
+
+    <blockquote>
+      "Sé exactamente lo que tengo que hacer. Hace años que lo sé. Y aun así no lo hago."
+      <cite>— Es la frase que dijeron 7 de cada 7 alumnos del programa, en entrevista, antes de entrar.</cite>
+    </blockquote>
+
+    <div class="cta-wrap">
+      <button class="cta" data-cta>Quiero mi lugar — USD 17 &rarr;</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ RESTO DEL CUERPO — PENDIENTE ══════════ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="pending">
+      <b>⚠️ Cuerpo pendiente de las capturas de getclients.com/mdw-a-9</b><br><br>
+      Falta el medio y el cierre: cómo Dan desarrolla el mecanismo, cómo presenta el stack,
+      si tiene FAQ, descalificador y prueba social, y cómo cierra.
+      El proxy de este entorno bloquea el dominio, así que se replica con las capturas del scroll.<br><br>
+      Ya definido y listo para escribir en cuanto lleguen: <b>villano</b> (la falsa productividad) →
+      <b>mecanismo</b> (urgencia prestada) → <b>los 5 mitos</b> → <b>casos</b> (Natalia, Pierina, Celi,
+      Juan Jesús, Sol Romero) → <b>descalificador</b> → <b>calculadora</b> → <b>oferta + garantía</b> → <b>FAQ</b> → <b>cierre</b>.
+    </div>
+  </div>
+</section>
+
+<footer>Instituto de Productividad · Nicolás Fernández Miranda</footer>
+
+<div class="sticky" id="sticky"><button class="cta" data-cta>Quiero mi lugar — USD 17 &rarr;</button></div>
+
+<!-- ══════════ CHECKOUT · modal de 2 pasos ══════════ -->
+<div class="ov" id="ov" role="dialog" aria-modal="true" aria-label="Checkout">
+  <div class="modal">
+    <button class="modal__x" id="x" aria-label="Cerrar">&times;</button>
+
+    <div class="steps">
+      <div class="steps__i" id="tab1" data-on><span>Tus datos</span><small>Contacto</small></div>
+      <div class="steps__i" id="tab2"><span>Pago</span><small>Facturación</small></div>
+      <div class="steps__bar" id="bar"></div>
+    </div>
+
+    <!-- PASO 1 · sólo captura. El lead queda aunque no pague. -->
+    <div class="modal__body" id="s1">
+      <input class="fld" type="text" id="f-name" placeholder="Nombre y apellido" autocomplete="name">
+      <input class="fld" type="email" id="f-mail" placeholder="tu@mail.com" autocomplete="email">
+      <input class="fld" type="tel" id="f-tel" placeholder="WhatsApp (con código de país)" autocomplete="tel">
+      <button class="cta" id="next" style="box-shadow:none">Ir al paso 2 &rarr;</button>
+      <p class="privacy">Respetamos tu privacidad. Te escribimos sólo por la clase.</p>
+    </div>
+
+    <!-- PASO 2 · ítem + 2 bumps + total -->
+    <div class="modal__body" id="s2" hidden>
+      <button class="back" id="back">&larr; Volver a mis datos</button>
+
+      <div class="item"><b>Hackea tu Cerebro EN VIVO</b><span class="p">USD 17</span></div>
+
+      <div class="bump">
+        <label>
+          <input type="checkbox" id="b1" data-price="7">
+          <span>
+            <span class="t">Sumale el libro «Hackea tu Cerebro» en digital — USD 7</span>
+            <span class="d">El libro completo, el mismo que está en librerías. La clase te muestra el mecanismo; el libro te da los 49 hacks.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="bump">
+        <label>
+          <input type="checkbox" id="b2" data-price="7">
+          <span>
+            <span class="t">Sumale el ebook de Desintoxicación Digital — USD 7</span>
+            <span class="d">El protocolo para recuperar las horas que hoy se te van en la pantalla, sin depender de la fuerza de voluntad.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="total"><span>Total</span><span id="total">USD 17</span></div>
+
+      <button class="cta pay" id="pay" style="box-shadow:none">Confirmar y pagar</button>
+      <p class="secure">Pago seguro con Stripe o Mercado Pago. Si estás en Argentina, Mercado Pago te evita el dólar tarjeta.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══ CONFIG · completar antes de publicar ═══ */
+var CONFIG = {
+  FECHA: '2026-10-06T19:00:00-03:00',   /* ⚠️ PLACEHOLDER — poner la fecha real */
+  CHECKOUT: {
+    '17': '{{CHECKOUT_17}}',   /* sin bumps  */
+    '24': '{{CHECKOUT_24}}',   /* + 1 bump   */
+    '31': '{{CHECKOUT_31}}'    /* + 2 bumps  */
+  }
+};
+
+/* ═══ TRACKING ═══
+   OJO: NFM manda la conversión por CAPI desde GHL. Si el pixel también la dispara,
+   Meta cuenta doble (no se deduplican sin event_id compartido). Acá sólo PageView. */
+function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
+
+/* ═══ COUNTDOWN ═══ */
+(function(){
+  var target = new Date(CONFIG.FECHA).getTime();
+  var el = { d:document.getElementById('cd-d'), h:document.getElementById('cd-h'),
+             m:document.getElementById('cd-m'), s:document.getElementById('cd-s'),
+             tb:document.getElementById('tb-cd') };
+  function pad(n){ return n<10?'0'+n:''+n; }
+  function tick(){
+    var diff = target - Date.now();
+    if(diff < 0) diff = 0;
+    var d=Math.floor(diff/864e5), h=Math.floor(diff%864e5/36e5),
+        m=Math.floor(diff%36e5/6e4), s=Math.floor(diff%6e4/1e3);
+    el.d.textContent=pad(d); el.h.textContent=pad(h);
+    el.m.textContent=pad(m); el.s.textContent=pad(s);
+    el.tb.textContent = pad(d)+'d : '+pad(h)+'h : '+pad(m)+'m : '+pad(s)+'s';
+  }
+  tick(); setInterval(tick,1000);
+})();
+
+/* ═══ FECHA EN EL COPY ═══ */
+(function(){
+  var f = new Date(CONFIG.FECHA);
+  var dias=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  var mes=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  /* Se formatea SIEMPRE en hora de Argentina (UTC-3), no en la del navegador:
+     si no, el que entra desde España o México ve una hora que no es la de la clase. */
+  var arg = new Date(f.getTime() + (f.getTimezoneOffset()*6e4) - (3*36e5));
+  var larga = dias[arg.getDay()]+' '+arg.getDate()+' de '+mes[arg.getMonth()];
+  function pad2(n){ return n<10?'0'+n:''+n; }
+  document.body.innerHTML = document.body.innerHTML
+    .replace(/\{\{FECHA_LARGA\}\}/g, larga)
+    .replace(/\{\{HORA\}\}/g, arg.getHours()+':'+pad2(arg.getMinutes()));
+})();
+
+/* ═══ MODAL ═══ */
+(function(){
+  var ov=document.getElementById('ov'), s1=document.getElementById('s1'), s2=document.getElementById('s2'),
+      bar=document.getElementById('bar'), t1=document.getElementById('tab1'), t2=document.getElementById('tab2');
+
+  function open(){ ov.setAttribute('data-open',''); track('Lead',{step:'modal_open'});
+    setTimeout(function(){ document.getElementById('f-name').focus(); },60); }
+  function close(){ ov.removeAttribute('data-open'); }
+
+  [].forEach.call(document.querySelectorAll('[data-cta]'), function(b){ b.addEventListener('click',open); });
+  document.getElementById('x').addEventListener('click',close);
+  ov.addEventListener('click',function(e){ if(e.target===ov) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+
+  function go2(){
+    s1.hidden=true; s2.hidden=false;
+    bar.style.transform='translateX(100%)';
+    t1.removeAttribute('data-on'); t2.setAttribute('data-on','');
+  }
+  function go1(){
+    s2.hidden=true; s1.hidden=false;
+    bar.style.transform='translateX(0)';
+    t2.removeAttribute('data-on'); t1.setAttribute('data-on','');
+  }
+
+  document.getElementById('next').addEventListener('click',function(){
+    var n=document.getElementById('f-name'), m=document.getElementById('f-mail');
+    if(!n.value.trim()){ n.style.borderColor='#ff6602'; n.focus(); return; }
+    if(!m.value || m.value.indexOf('@')<1){ m.style.borderColor='#ff6602'; m.focus(); return; }
+    try{ localStorage.setItem('nfm_lead', JSON.stringify({
+      n:n.value, m:m.value, t:document.getElementById('f-tel').value })); }catch(e){}
+    /* El lead se manda a GHL ACÁ, antes del pago: si no compra, igual queda captado. */
+    go2(); track('Lead',{step:'datos_ok'});
+  });
+  document.getElementById('back').addEventListener('click',go1);
+
+  /* total en vivo según bumps */
+  var b1=document.getElementById('b1'), b2=document.getElementById('b2'), out=document.getElementById('total');
+  function calc(){
+    var t=17 + (b1.checked?+b1.dataset.price:0) + (b2.checked?+b2.dataset.price:0);
+    out.textContent='USD '+t; return t;
+  }
+  b1.addEventListener('change',calc); b2.addEventListener('change',calc);
+
+  document.getElementById('pay').addEventListener('click',function(){
+    var total=calc(), url=CONFIG.CHECKOUT[String(total)], lead={};
+    try{ lead=JSON.parse(localStorage.getItem('nfm_lead')||'{}'); }catch(e){}
+    track('InitiateCheckout',{value:total,currency:'USD'});
+    if(url && url.indexOf('{{')!==0){
+      window.location.href = url + (url.indexOf('?')>0?'&':'?') +
+        'prefilled_email=' + encodeURIComponent(lead.m||'');
+    } else {
+      alert('Falta cargar el link de checkout para USD '+total+' en CONFIG.CHECKOUT.');
+    }
+  });
+})();
+
+/* ═══ STICKY ═══ */
+(function(){
+  var st=document.getElementById('sticky');
+  window.addEventListener('scroll',function(){
+    if(window.scrollY>300) st.setAttribute('data-on',''); else st.removeAttribute('data-on');
+  },{passive:true});
+})();
+</script>
+</body>
+</html>
