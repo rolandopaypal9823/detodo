@@ -176,6 +176,86 @@ blockquote cite{display:block;font-family:var(--f-body);font-weight:400;font-sty
 .pending b{font-family:var(--f-display)}
 
 footer{background:var(--navy-deep);color:#6d8ba3;text-align:center;padding:34px 20px;font-size:13.5px}
+
+/* ── BLOQUES DEL CUERPO ── */
+.stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:26px 0}
+.stats div{flex:1;min-width:140px;border:1.5px solid var(--line);border-radius:9px;padding:15px 10px;text-align:center}
+.stats .n{font-family:var(--f-display);font-weight:900;font-size:clamp(22px,4.4vw,30px);color:var(--orange);line-height:1}
+.stats .l{font-family:var(--f-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-subtle);margin-top:7px;line-height:1.4}
+.logos{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:22px 0 0}
+.logos span{background:var(--navy-soft);border-radius:100px;padding:7px 14px;font-size:12.5px;font-weight:700;
+  font-family:var(--f-mono);letter-spacing:.08em}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:26px 0}
+.cards div{border:1.5px solid var(--line);border-radius:10px;padding:18px;background:#fff}
+.cards .who{font-family:var(--f-display);font-weight:800;font-size:16px}
+.cards .num{font-family:var(--f-display);font-weight:900;font-size:15px;color:var(--orange);margin:2px 0 9px}
+.cards p{font-size:14.5px;color:var(--ink-mute);margin:0;line-height:1.55}
+.fail{border:1.5px solid var(--line);border-left:4px solid var(--orange);border-radius:8px;
+  padding:19px 20px;margin:14px 0;background:#fff}
+.fail h3{font-size:17px;margin:0 0 9px;color:var(--ink)}
+.fail p{font-size:15.5px;color:var(--ink-mute);margin:0;line-height:1.6}
+.fail .kick{display:block;margin-top:10px;color:var(--ink);font-weight:700;font-style:italic}
+.person{border:1.5px solid var(--line);border-radius:10px;padding:20px;margin:14px 0;background:#fff}
+.person .tag{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
+.person h3{font-size:18px;margin:9px 0 10px}
+.person p{font-size:15.5px;color:var(--ink-mute);margin:0;line-height:1.6}
+.stack{list-style:none;padding:0;margin:24px 0}
+.stack li{padding:15px 0 15px 30px;border-bottom:1px solid var(--line);position:relative;font-size:16px;color:var(--ink-mute);line-height:1.6}
+.stack li::before{content:"→";position:absolute;left:0;top:15px;color:var(--orange);font-weight:800}
+.stack b{color:var(--ink);font-family:var(--f-display);font-size:16.5px}
+.proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:26px 0}
+.proof div{border:1.5px solid var(--line);border-radius:10px;padding:18px;background:#fff}
+.proof .who{font-family:var(--f-display);font-weight:800;font-size:15.5px}
+.proof .role{font-size:13px;color:var(--ink-subtle);margin:2px 0 11px;line-height:1.4}
+.proof .ab{font-size:14.5px;color:var(--ink-mute);line-height:1.55;margin:0 0 10px}
+.proof .ab b{color:var(--ink)}
+.proof q{display:block;font-family:var(--f-display);font-weight:700;font-size:15px;font-style:italic;
+  padding-left:12px;border-left:2.5px solid var(--orange);line-height:1.45}
+.calc{border:2px solid var(--navy);border-radius:12px;padding:24px;background:#fff;margin:26px 0;
+  box-shadow:0 22px 56px rgba(12,52,82,.13)}
+.calc .hd{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-subtle);text-align:center;margin:0 0 18px}
+.calc label{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink-subtle);margin:16px 0 7px}
+.calc label b{font-family:var(--f-display);font-size:15px;color:var(--ink);letter-spacing:0}
+.calc input[type=range]{width:100%;accent-color:var(--orange)}
+.calc .out{margin-top:22px;padding-top:20px;border-top:2px solid var(--line);text-align:center}
+.calc .big{font-family:var(--f-display);font-weight:900;font-size:clamp(48px,12vw,74px);color:var(--orange);line-height:1}
+.calc .u{font-family:var(--f-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-subtle);display:block;margin-top:8px;line-height:1.5}
+.calc .eq{margin-top:14px;font-size:16.5px;line-height:1.55}
+.ladder{text-align:center;margin:24px 0;font-family:var(--f-display);font-weight:800;font-size:17px;line-height:1.9}
+.ladder .hot{color:var(--orange);font-size:20px}
+
+
+/* ── VALUE STACK · FAQ · CIERRE ── */
+.stackbox{border:2px solid var(--navy);border-radius:12px;padding:clamp(22px,3.4vw,32px);background:#fff;
+  box-shadow:0 24px 60px rgba(12,52,82,.13);margin:26px 0}
+.stackbox .it{padding:17px 0;border-bottom:1px solid var(--line)}
+.stackbox .it:last-of-type{border-bottom:none}
+.stackbox .it b{display:block;font-family:var(--f-display);font-weight:800;font-size:17px;margin-bottom:6px}
+.stackbox .it span{color:var(--ink-mute);font-size:15.5px;line-height:1.58}
+.inv{text-align:center;padding:24px 0 6px;border-top:2px solid var(--line);margin-top:8px}
+.inv .l{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-subtle)}
+.inv .n{font-family:var(--f-display);font-weight:900;font-size:clamp(46px,10vw,62px);line-height:1;margin-top:6px}
+.realtalk{border:1.5px solid var(--orange);border-radius:10px;padding:22px;margin:26px 0;background:rgba(255,102,2,.045)}
+.realtalk .t{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--orange);text-align:center;margin:0 0 14px}
+.realtalk p{font-size:15.5px;line-height:1.65;color:var(--ink-mute)}
+.realtalk p:last-child{margin-bottom:0}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{font-family:var(--f-display);font-weight:700;font-size:17px;cursor:pointer;list-style:none;
+  padding-right:32px;position:relative;line-height:1.35}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:0;top:-3px;color:var(--orange);font-size:25px;font-weight:800}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin:13px 0 0;color:var(--ink-mute);font-size:15.5px;line-height:1.62}
+.worst{border:1.5px solid rgba(255,255,255,.22);border-radius:10px;padding:20px;margin:24px 0;
+  font-size:16px;line-height:1.62;text-align:left}
+.sign{font-family:var(--f-display);font-weight:800;font-size:16px;margin-top:22px;letter-spacing:.02em}
+.legal{background:var(--navy-deep);color:#4d6a80;font-size:11.5px;line-height:1.6;padding:26px 20px 34px}
+.legal .wrap{max-width:760px}
+
 </style>
 </head>
 <body>
@@ -273,20 +353,300 @@ footer{background:var(--navy-deep);color:#6d8ba3;text-align:center;padding:34px 
   </div>
 </section>
 
-<!-- ══════════ RESTO DEL CUERPO — PENDIENTE ══════════ -->
+
+<!-- ══════════ 2 · EL MECANISMO ══════════ -->
 <section class="sec">
   <div class="wrap">
-    <div class="pending">
-      <b>⚠️ Cuerpo pendiente de las capturas de getclients.com/mdw-a-9</b><br><br>
-      Falta el medio y el cierre: cómo Dan desarrolla el mecanismo, cómo presenta el stack,
-      si tiene FAQ, descalificador y prueba social, y cómo cierra.
-      El proxy de este entorno bloquea el dominio, así que se replica con las capturas del scroll.<br><br>
-      Ya definido y listo para escribir en cuanto lleguen: <b>villano</b> (la falsa productividad) →
-      <b>mecanismo</b> (urgencia prestada) → <b>los 5 mitos</b> → <b>casos</b> (Natalia, Pierina, Celi,
-      Juan Jesús, Sol Romero) → <b>descalificador</b> → <b>calculadora</b> → <b>oferta + garantía</b> → <b>FAQ</b> → <b>cierre</b>.
+    <p class="beat">Eso no es mala suerte. <strong>Es el mecanismo.</strong></p>
+    <p class="beat">Tu cerebro no jerarquiza por importancia. <strong>Jerarquiza por quién está esperando.</strong></p>
+    <p class="beat">Lo ajeno llega con fecha, con nombre y con alguien del otro lado esperándolo. Lo tuyo llega solo. Y sin nadie esperando, tu cerebro nunca lo sube a la cima de la pila.</p>
+    <p class="beat">Se llama <strong>urgencia prestada</strong>. Y explica la paradoja del título:</p>
+    <blockquote>
+      Ser más productivo te hace más rápido resolviendo lo que tiene a alguien esperando.<br>
+      Y lo tuyo no tiene a nadie.<br>
+      <strong>Por eso cada punto de productividad que ganás lo invertís, sin darte cuenta, en avanzar la vida de otra gente.</strong>
+    </blockquote>
+    <p class="beat">Por eso "ponerle más voluntad" nunca alcanzó. La voluntad no es la variable que está fallando.</p>
+    <h3 style="margin:32px 0 14px">Y acá está la parte que debería hacerte sentir mejor:</h3>
+    <p class="beat"><strong>No es tu falta de disciplina. No es tu agenda. No es tu trabajo, ni tu jefe, ni la etapa de la vida en la que estás. No es que seas desorganizado. Y definitivamente no sos vos.</strong></p>
+    <p class="beat">Sos demasiado responsable, mal apuntado. Nunca dejaste caer nada de otro: se cae sólo lo tuyo.</p>
+    <div class="cta-wrap"><button class="cta" data-cta>Quiero mi lugar — USD 17 &rarr;</button></div>
+  </div>
+</section>
+
+<!-- ══════════ 3 · LOS 5 PILARES SON UN SISTEMA ══════════ -->
+<section class="sec sec--cream">
+  <div class="wrap">
+    <h2>La mayoría cree que la productividad es hacer más.<br><span class="accent">Yo creo lo contrario.</span></h2>
+    <p class="beat">Hay cinco cosas que sostienen tu rendimiento: <strong>descanso, alimentación, movimiento, foco y las herramientas que usás.</strong></p>
+    <p class="beat">Y no son cinco temas sueltos. Son un solo sistema. <strong>Ninguno funciona solo.</strong></p>
+    <p class="beat">Por eso arreglás uno, dejás los otros cuatro, y a las tres semanas estás exactamente en el mismo lugar. Es como decir: se me pinchó una rueda del auto, ningún problema, lo soluciono cargando nafta. La nafta hace falta. Pero la rueda sigue rota.</p>
+    <p class="beat">Y lo que tienen los cinco en común es lo que los vuelve invisibles: <strong>ninguno tiene a nadie del otro lado esperándolo.</strong> Nadie te reclama que duermas. Ningún cliente te escribe porque no entrenaste.</p>
+    <p class="beat">Fijate cómo lo tratan los que viven de rendir:</p>
+    <div class="cards">
+      <div><div class="who">Messi</div><div class="num">Hasta 11 horas</div><p>Con toda la presión que lleva encima, duerme hasta once horas por día. No es anécdota: es parte del trabajo.</p></div>
+      <div><div class="who">Federer</div><div class="num">10 horas</div><p>Diez horas de sueño en su etapa competitiva. Nadie le dijo nunca que le faltaba carácter por dormir.</p></div>
+      <div><div class="who">Vos</div><div class="num">5 o 6</div><p>Y lo naturalizaste. "Somos adultos, tenemos laburo." Es lo único de esta lista que no tiene a nadie controlándolo.</p></div>
+    </div>
+    <p class="beat"><strong>Tu capacidad cognitiva es un activo.</strong> Auditás el stock, la caja y el equipo. El único activo que nunca auditás es el que toma todas las decisiones — y hoy está embargado.</p>
+  </div>
+</section>
+
+<!-- ══════════ 4 · LOS 5 MITOS ══════════ -->
+<section class="sec">
+  <div class="wrap">
+    <h2>Las 5 mentiras que casi todos <span class="accent">creemos sobre el rendimiento</span></h2>
+    <p class="beat">Cada una suena a puro sentido común. Y cada una es la excusa con la que le explicás a tu cerebro por qué ese pilar puede esperar un poco más.</p>
+
+    <div class="fail"><h3>1 · "Dormir menos es ganar horas"</h3>
+      <p>La hora que ganás la pagás con tres. Cuando recortás sueño varios días seguidos, lo que rendís sigue cayendo — pero lo cansado que te sentís se aplana. Llegás a rendir como si hubieras pasado la noche entera despierto, y te sentís normal.
+      <span class="kick">No te acostumbraste. Se te rompió el instrumento que mide.</span></p></div>
+
+    <div class="fail"><h3>2 · "Comer bien es privarse, y no tengo tiempo para eso"</h3>
+      <p>No es dieta: es glucosa estable. Tu cerebro se come el 20% de toda la energía del cuerpo, y cuando esa energía entra en picos y bajones, lo primero que se cae no es el cuerpo — es la capacidad de decidir. Y a vos te pagan por decidir.
+      <span class="kick">No estás desganado a las cuatro de la tarde. Estás sin combustible.</span></p></div>
+
+    <div class="fail"><h3>3 · "Si no voy al gimnasio tres veces por semana, no sirve"</h3>
+      <p>El movimiento genera BDNF, que es literalmente fertilizante para el cerebro: mantiene y fabrica conexiones. Y para eso no hace falta intensidad, hace falta constancia. Treinta minutos de caminata cuentan.
+      <span class="kick">Constancia le gana a intensidad. Siempre.</span></p></div>
+
+    <div class="fail"><h3>4 · "Hacer muchas cosas a la vez es ser productivo"</h3>
+      <p>Tu cerebro no procesa dos tareas cognitivas a la vez. Lo que hacés es cambiar de tarea muy rápido, y cada cambio se paga hasta veintitrés minutos de volver a engancharte. Lo peor no es el precio: es que no lo sentís, porque volver a concentrarte se siente exactamente igual que trabajar.
+      <span class="kick">No te falta tiempo. Te falta un día que no se interrumpa solo.</span></p></div>
+
+    <div class="fail"><h3>5 · "La inteligencia artificial es para técnicos" / "me va a reemplazar"</h3>
+      <p>Bien usada te devuelve horas. Usada para pensar en tu lugar, te atrofia el criterio — que es justo lo único que no te puede reemplazar.
+      <span class="kick">La pregunta no es si la usás. Es quién maneja.</span></p></div>
+
+    <p class="beat" style="margin-top:28px"><strong>Una pregunta honesta: ¿cuántas de las cinco te acabás de reconocer?</strong></p>
+    <p class="beat">Ese reconocimiento es exactamente lo que la clase convierte en arreglo.</p>
+    <div class="cta-wrap"><button class="cta" data-cta>Quiero mi lugar — USD 17 &rarr;</button></div>
+  </div>
+</section>
+
+<!-- ══════════ 5 · QUIÉN TE VA A DAR LA CLASE ══════════ -->
+<section class="sec sec--cream">
+  <div class="wrap">
+    <h2>Quién te va a dar <span class="accent">la clase</span></h2>
+    <div class="stats">
+      <div><div class="n">+400</div><div class="l">Personas pasaron por el Instituto</div></div>
+      <div><div class="n">2</div><div class="l">Charlas TEDx</div></div>
+      <div><div class="n">[[MENTOREADOS]]</div><div class="l">Mentoreados · dato a confirmar</div></div>
+    </div>
+    <p class="beat">Soy <strong>Nicolás Fernández Miranda</strong>. Contador público, recibido con medalla al mejor promedio. Lo cuento no como currículum, sino porque hace diez años esa misma cabeza que sacaba las mejores notas <strong>no me alcanzaba para llegar al viernes</strong>.</p>
+    <p class="beat">Trabajaba catorce horas por día. Subí quince kilos, se me caía el pelo, migrañas crónicas, los vínculos que me importaban desmoronados. Y lo peor: <strong>me parecía normal.</strong> Estaba convencido de que estaba rindiendo.</p>
+    <p class="beat">Hasta que me agarró una crisis en París y no pude seguir fingiendo. Ahí empecé a estudiar el cerebro en serio.</p>
+    <p class="beat">Hoy tengo un máster en neurociencia, doy clases en la universidad, escribí <em>Hackea tu Cerebro</em> —que es best seller y está en librerías— y dirijo el Instituto de Productividad, donde un equipo de profesionales acompaña a gente que está exactamente donde yo estaba.</p>
+    <p class="beat"><strong>Y sí: fundé un instituto que se llama "de Productividad" y el título de esta página dice que la productividad te está frenando.</strong> Por eso mismo te lo puedo decir. Nadie que venda productividad te lo va a decir.</p>
+    <p class="beat" style="font-size:13px;color:var(--ink-subtle);margin-top:24px">Su trabajo fue destacado en:</p>
+    <div class="logos">
+      <span>CNN</span><span>Infobae</span><span>Endeavor</span><span>TEDx</span>
+      <span>Yale</span><span>YPF</span><span>Samsung</span><span>Ternium</span>
     </div>
   </div>
 </section>
+
+<!-- ══════════ 6 · OBJECIÓN 1 ══════════ -->
+<section class="sec">
+  <div class="wrap">
+    <h2>"Pero yo ya probé el planner, <span class="accent">Notion, levantarme a las cinco…"</span></h2>
+    <p class="beat">Sí. Y lo hiciste bien.</p>
+    <p class="beat">Probaste la app, el método del gurú, contratar a alguien que te ordene, la terapia. Duró tres meses. Después se cayó, como siempre.</p>
+    <p class="beat"><strong>Y acá está por qué, y por qué no es tu culpa: todas esas cosas apuntan al mismo lugar.</strong> Disciplina, planificación, fuerza de voluntad. Todas asumen que el problema es que no te esforzás lo suficiente.</p>
+    <p class="beat">Pensalo al revés. Cuando contrataste un entrenador no fue porque no supieras hacer sentadillas — eso está gratis en YouTube. Fue porque el martes a las siete hay alguien esperándote.</p>
+    <p class="beat"><strong>Y funcionó. Y nunca pensaste que ahí te faltaba carácter.</strong></p>
+    <p class="beat">Eso mismo es lo único que le falta a todo lo tuyo.</p>
+  </div>
+</section>
+
+<!-- ══════════ 7 · OBJECIÓN 2 · la moral ══════════ -->
+<section class="sec sec--navy">
+  <div class="wrap">
+    <h2>"Ya empecé cosas antes <span class="accent">y no las terminé."</span></h2>
+    <p class="beat lead">Es lo que más nos dicen. Y tenés razón: probablemente ya arrancaste tres o cuatro veces.</p>
+    <p class="beat lead">Pero fijate una cosa. <strong>Vos cumplís.</strong> Cumplís con tu cliente, con tu jefe, con tu socio, con tus hijos. Cuando hay alguien del otro lado esperando, llegás. Siempre. Nunca fallás.</p>
+    <p class="beat lead">El problema es que <strong>para lo tuyo no hay nadie del otro lado.</strong> Y tu cerebro no distingue entre "no es importante" y "no hay nadie esperando". Los trata igual.</p>
+    <p class="beat lead">Por eso esto es en vivo, con fecha y hora. Porque ese día, a esa hora, del otro lado voy a estar yo.</p>
+    <p class="include">(Y si estás pensando que no querés que te vendan dos horas: la clase vale por sí sola. Al final te cuento cómo trabajamos, una vez, y ahí decidís vos. No hay nada que empujar cuando lo que decís tiene sentido.)</p>
+    <div class="cta-wrap"><button class="cta" data-cta>Quiero mi lugar — USD 17 &rarr;</button></div>
+  </div>
+</section>
+
+<!-- ══════════ 8 · LA CALCULADORA ══════════ -->
+<section class="sec">
+  <div class="wrap">
+    <h2>¿Cuánto te cuesta hoy <span class="accent">volver a arrancar?</span></h2>
+    <p class="beat">Mismo trabajo. Misma agenda. Misma gente. Lo único que cambia es cuántas veces por día te tenés que volver a enganchar.</p>
+    <div class="calc">
+      <p class="hd">Poné tus números</p>
+      <label>Veces por día que te interrumpen o te interrumpís <b id="v1">12</b></label>
+      <input type="range" id="i1" min="2" max="40" value="12" step="1">
+      <label>Minutos que te lleva volver a engancharte <b id="v2">10</b></label>
+      <input type="range" id="i2" min="2" max="23" value="10" step="1">
+      <div class="out">
+        <div class="big" id="out">220</div>
+        <span class="u">horas al año, frente a la pantalla, sin avanzar</span>
+        <p class="eq" id="eq"></p>
+      </div>
+      <button class="cta" data-cta style="margin-top:20px;box-shadow:none">Quiero mi lugar — USD 17 &rarr;</button>
+    </div>
+    <p class="beat" style="font-size:15px;color:var(--ink-subtle)">La cuenta es deliberadamente conservadora: asume que la mitad de lo que perdés lo recuperás solo.</p>
+    <div class="ladder">
+      Recuperar una hora por semana es un alivio.<br>
+      Recuperar una por día es otra vida.<br>
+      <span class="hot">Recuperar las cinco es otra persona.</span>
+    </div>
+    <p class="beat">Y que quede claro, porque se malinterpreta: <strong>nadie te está pidiendo que aflojes.</strong> Ya estás trabajando menos de lo que creés. La diferencia te la están cobrando.</p>
+  </div>
+</section>
+
+<!-- ══════════ 9 · DESCALIFICADOR EN 3 PERSONAS ══════════ -->
+<section class="sec sec--cream">
+  <div class="wrap">
+    <h2>¿Esta clase <span class="accent">es para vos?</span></h2>
+    <p class="beat">Seamos honestos. Está hecha para tres personas concretas.</p>
+
+    <div class="person"><div class="tag">Persona 1</div>
+      <h3>Todos dependen de vos. Y lo tuyo hace dos años que espera.</h3>
+      <p>Tenés equipo, socios o clientes cuyo trabajo depende de tus decisiones. Nunca dejaste caer una entrega de otro. Y el mismo objetivo tuyo está en la misma lista, con la misma prioridad, desde hace dos años.</p></div>
+
+    <div class="person"><div class="tag">Persona 2</div>
+      <h3>Tu cuerpo ya te pasó la factura.</h3>
+      <p>No es una amenaza a futuro: ya pasó. El análisis que salió mal, el pico de ansiedad, los kilos, el médico que te dijo que así no. Y seguís administrando el problema en vez de resolverlo.</p></div>
+
+    <div class="person"><div class="tag">Persona 3</div>
+      <h3>Estás para más y hace rato que no avanzás.</h3>
+      <p>Llegaste a un buen nivel y sentís que estás en meseta. No te falta capacidad ni oportunidades: te falta el sistema para sostener lo que ya sabés que tendrías que estar haciendo.</p></div>
+
+    <p class="beat" style="margin-top:26px"><strong>Si alguna de las tres sos vos, son los diecisiete dólares mejor gastados de tu año.</strong></p>
+    <p class="include">(Si recién estás empezando y todavía no tenés a nadie dependiendo de tus decisiones, esta clase te va a quedar grande. Guardate los diecisiete dólares. Prefiero devolvértelos ahora que decepcionarte después.)</p>
+    <div class="cta-wrap"><button class="cta" data-cta>Quiero mi lugar — USD 17 &rarr;</button></div>
+  </div>
+</section>
+
+<!-- ══════════ 10 · EL STACK ══════════ -->
+<section class="sec">
+  <div class="wrap">
+    <h2>Adentro de las 2 horas: <span class="accent">qué te llevás</span></h2>
+    <p class="beat">Todo lo de esta clase es sobre los cinco pilares. Cero motivación, cero relleno.</p>
+    <ul class="stack">
+      <li><b>La urgencia prestada</b> — el mecanismo que decide por vos qué se hace y qué no, y cómo ponerle a lo tuyo la única variable que ya hace funcionar lo ajeno.</li>
+      <li><b>Los 5 pilares, uno por uno</b> — qué te contaron, qué pasa de verdad, y por qué ninguno funciona solo.</li>
+      <li><b>El instrumento roto</b> — por qué dejás de sentir el cansancio antes de dejar de pagarlo, y cómo recalibrarlo.</li>
+      <li><b>El día que no se interrumpe solo</b> — cómo se arma un bloque de foco real cuando tenés gente esperándote todo el día.</li>
+      <li><b>La regla 3-2-1</b> — las tres variables que mueven la aguja del descanso, y en qué momento del día se tocan (spoiler: no es de noche).</li>
+      <li><b>La IA como copiloto</b> — qué delegarle sin que te atrofie el criterio, con los usos concretos que uso yo para gestionar un equipo de 29 personas.</li>
+      <li><b>Micrófonos abiertos en cada pilar</b> — me contás a qué te dedicás y qué se te hace cuesta arriba, y lo miramos ahí mismo. Con tu caso, no con el caso promedio.</li>
+    </ul>
+    <p class="beat">Esto no es un video grabado que mirás y archivás. Es en vivo, y la mitad del valor está en que traigas tu caso concreto.</p>
+    <div class="cta-wrap"><button class="cta" data-cta>Quiero mi lugar — USD 17 &rarr;</button></div>
+  </div>
+</section>
+
+<!-- ══════════ 11 · PRUEBA SOCIAL ══════════ -->
+<section class="sec sec--cream">
+  <div class="wrap">
+    <h2>Gente que ya lo hizo, <span class="accent">con nombre y video</span></h2>
+    <p class="beat">Todas las entrevistas están publicadas en el canal del Instituto. Podés ir a verlas antes de decidir.</p>
+    <div class="proof">
+      <div><div class="who">Natalia</div><div class="role">Astrónoma del CONICET, investigadora y emprendedora. Mamá de dos.</div>
+        <p class="ab">Dormía <b>3 horas</b>, de lunes a lunes. Hoy duerme <b>7 u 8</b>.</p>
+        <q>Era como la ruedita del hámster. Corría, corría y no llegaba a ningún lado.</q></div>
+      <div><div class="who">Pierina</div><div class="role">Teóloga, doctoranda en Roma.</div>
+        <p class="ab">De <b>8 o 9 horas</b> de tesis por día a <b>4 o 5</b>. Con el mismo resultado.</p>
+        <q>Cada sí que doy afuera es un no que me digo a mí.</q></div>
+      <div><div class="who">Celi</div><div class="role">Arquitecta en San Diego. Lidera un equipo de 45 personas. Mamá.</div>
+        <p class="ab">Sin actividad física desde que tuvo hijos. Hoy, su <b>primer año</b> con actividad regular.</p>
+        <q>Lo debería haber hecho 10 años antes.</q></div>
+      <div><div class="who">Juan Jesús</div><div class="role">Empleado, estudiante de contador y emprendedor. Las tres cosas a la vez.</div>
+        <p class="ab">Comía en automático entre una cosa y otra. Hoy come lo mismo, con consciencia.</p>
+        <q>Logré las mismas cosas, pero sintiéndome bien.</q></div>
+    </div>
+    <p class="beat">No consiguieron más disciplina. No metieron más horas. No dejaron caer nada de nadie. <strong>Le pusieron a lo suyo la única cosa que ya hacía funcionar lo de todos los demás.</strong></p>
+  </div>
+</section>
+
+
+<!-- ══════════ 12 · VALUE STACK + PRECIO ══════════ -->
+<section class="sec">
+  <div class="wrap">
+    <h2>Todo lo que te llevás <span class="accent">por diecisiete dólares</span></h2>
+    <div class="stackbox">
+      <div class="it"><b>Hackea tu Cerebro EN VIVO</b><span>Dos horas conmigo, recorriendo los cinco pilares uno por uno, de principio a fin. Con los micrófonos abiertos en cada uno para mirar tu caso concreto.</span></div>
+      <div class="it"><b>Grabación permanente</b><span>La clase completa, tuya para siempre, en tu mail dentro de las 24 horas. Podés volver cada vez que se te caiga alguno de los cinco pilares.</span></div>
+      <div class="it"><b>Workbook con los accionables</b><span>No son apuntes: es lo que se dijo, ordenado y en formato de hacer, para que el lunes tengas por dónde empezar.</span></div>
+      <div class="it"><b>{{CAPITULO}} — capítulo de «Hackea tu Cerebro»</b><span>El capítulo del pilar de descanso, que es el cambio que más aparece en los casos del Instituto.</span></div>
+      <div class="it"><b>La garantía de los 30 días</b><span>Aplicá <strong>una sola cosa</strong> de la clase en los próximos 30 días. Si no te devuelve tiempo, escribinos una línea — sin formularios — y te devolvemos los diecisiete dólares. <strong>Te quedás igual con la grabación y con el workbook.</strong></span></div>
+      <div class="inv">
+        <div class="l">Tu inversión</div>
+        <div class="n">USD 17</div>
+      </div>
+      <button class="cta" data-cta style="margin-top:18px;box-shadow:none">Quiero mi lugar — USD 17 &rarr;</button>
+      <p style="text-align:center;font-size:13px;color:var(--ink-subtle);margin:12px 0 0">Pago seguro con Stripe o Mercado Pago. El acceso te llega al mail en el momento.</p>
+    </div>
+
+    <div class="realtalk">
+      <p class="t">★ Por qué cuesta diecisiete dólares ★</p>
+      <p>Podría cobrar doscientos y seguiría siendo barato. No lo hago, y te digo la cuenta honesta: <strong>es una clase en vivo, así que no me cuesta nada que entre una persona más.</strong></p>
+      <p>Prefiero que entren muchos, y que después algunos —los que de verdad lo necesiten— quieran que los acompañemos en serio con todo el equipo del Instituto. Ese es el negocio. Si vos venís, aplicás lo que te llevás y no querés nada más, <strong>está perfecto</strong>: la clase te da todo para hacerlo solo.</p>
+      <p>No es precio de lanzamiento ni promoción. Es lo que vale una clase.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 13 · FAQ · todo objeciones ══════════ -->
+<section class="sec sec--cream">
+  <div class="wrap">
+    <h2>Respuestas rápidas <span class="accent">antes de que reserves</span></h2>
+    <div class="faq">
+      <details><summary>¿Y si ese día no puedo?</summary><p>Te queda la grabación completa para siempre, en tu mail dentro de las 24 horas. Igual te recomiendo venir en vivo: lo único que no se puede recuperar es el bloque de micrófonos abiertos, donde miramos casos concretos.</p></details>
+
+      <details><summary>Ya compré cursos de productividad antes y no funcionaron. ¿Por qué éste sí?</summary><p>Porque casi todos te dan técnicas — la misma técnica que tu cerebro ya aprendió a ignorar. Esta clase te muestra el mecanismo de abajo: por qué lo tuyo se cae siempre en el mismo punto, y qué le falta para que no se caiga. Por eso también hay una garantía con dientes: aplicá una sola cosa y si no te devuelve tiempo en 30 días, te devolvemos los 17 dólares y te quedás con todo.</p></details>
+
+      <details><summary>No lidero un equipo. ¿Igual me sirve?</summary><p>Sí, mientras tengas algo tuyo que hace rato viene esperando turno: un proyecto, una tesis, un cambio de trabajo, tu salud. El mecanismo es el mismo. Lo que cambia es cuánta gente paga el costo cuando vos no rendís.</p></details>
+
+      <details><summary>¿Cómo pago desde mi país?</summary><p>Con tarjeta internacional por Stripe, o en pesos argentinos por Mercado Pago. Si estás en Argentina y no querés pagar dólar tarjeta, usá Mercado Pago.</p></details>
+
+      <details><summary>¿Es una clase o me van a vender dos horas?</summary><p>Es una clase. Vas a salir entendiendo qué está roto y por qué, aunque no hagas nada más con nosotros. Al final te contamos cómo trabajamos, una sola vez, y ahí decidís vos.</p></details>
+
+      <details><summary>Ya leí el libro. ¿Me sirve igual?</summary><p>Sí. El libro te da el mapa; la clase es en vivo y mira tu caso concreto, que es lo que un libro no puede hacer. Y los micrófonos abiertos no están en ninguna página.</p></details>
+
+      <details><summary>¿Necesito saber algo de neurociencia?</summary><p>No. Todo se explica aplicado y de forma reduccionista. Si no se puede hacer un martes a las nueve de la mañana, no entra en la clase.</p></details>
+
+      <details><summary>¿Cuál es la trampa?</summary><p>La que ya te conté arriba: algunos de los que vengan van a querer que los acompañemos con todo el equipo, y esa es una conversación que nos encanta tener. La mayoría se lleva lo que aprendió y lo aplica solo. Las dos cosas nos parecen bien — por eso cuesta diecisiete dólares.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 14 · CIERRE ══════════ -->
+<section class="sec sec--navy">
+  <div class="wrap" style="text-align:center">
+    <h2>Dejá de ser productivo.<br><span class="accent">Empezá a avanzar.</span></h2>
+    <p class="beat lead">El domingo que viene va a terminar de una de dos maneras.</p>
+    <p class="beat lead">Otra semana planificada que el martes se cae — o la primera en la que lo tuyo también tiene a alguien esperándolo.</p>
+    <p class="beat lead">Ya sabés lo que produce la versión de ahora. Cada semana que la repetís te cuesta exactamente lo mismo que te costó la anterior.</p>
+
+    <div class="worst">
+      <strong>¿Peor caso?</strong> Venís, aplicás una sola cosa, no te devuelve tiempo, nos escribís una línea, te devolvemos los diecisiete dólares y te quedás igual con la grabación, con el workbook y con el capítulo del libro.<br><br>
+      <strong>Tu peor caso son diecisiete dólares devueltos y una clase gratis. Tu mejor caso es el número que te dio la calculadora de más arriba.</strong>
+    </div>
+
+    <div class="cta-wrap"><button class="cta" data-cta>Quiero mi lugar — USD 17 &rarr;</button></div>
+    <p class="micro" style="color:rgba(255,255,255,.5)">
+      Grabación para siempre + workbook + capítulo del libro + garantía de 30 días en la que te quedás con todo.
+    </p>
+    <p class="sign">Nos vemos en la clase.<br>— Nicolás Fernández Miranda —</p>
+  </div>
+</section>
+
+
+<div class="legal">
+  <div class="wrap">
+    <p><strong>Descargo de responsabilidad:</strong> los resultados que se muestran en esta página son de personas reales del Instituto de Productividad y no son resultados típicos. Los tuyos van a variar y dependen de muchos factores, entre ellos tu situación, tu contexto y el trabajo que le pongas.</p>
+    <p>Esta clase es formativa y no reemplaza ninguna consulta médica, psicológica ni nutricional. Si tenés una condición de salud, consultá con un profesional antes de aplicar cambios en tu descanso, tu alimentación o tu actividad física.</p>
+    <p>Este sitio no forma parte de Facebook ni de Meta Platforms, Inc., y no está avalado por ellos de ninguna manera.</p>
+  </div>
+</div>
 
 <footer>Instituto de Productividad · Nicolás Fernández Miranda</footer>
 
@@ -460,6 +820,23 @@ function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
     if(window.scrollY>300) st.setAttribute('data-on',''); else st.removeAttribute('data-on');
   },{passive:true});
 })();
+
+/* ═══ CALCULADORA DE HORAS ═══ */
+(function(){
+  var i1=document.getElementById('i1'), i2=document.getElementById('i2');
+  if(!i1||!i2) return;
+  function calc(){
+    var n=+i1.value, m=+i2.value;
+    document.getElementById('v1').textContent=n;
+    document.getElementById('v2').textContent=m;
+    /* 220 días laborables · se cuenta sólo la MITAD del residuo, a propósito conservador */
+    var h=Math.round((n*m*220/60)/2);
+    document.getElementById('out').textContent=h.toLocaleString('es-AR');
+    document.getElementById('eq').innerHTML='Son <strong>'+Math.round(h/8)+' jornadas de trabajo</strong> al a\u00f1o. Si de la clase te llev\u00e1s una sola cosa y recuper\u00e1s apenas el 10% de eso, ya son '+Math.round(h*0.1)+' horas.';
+  }
+  i1.addEventListener('input',calc); i2.addEventListener('input',calc); calc();
+})();
+
 </script>
 </body>
 </html>
