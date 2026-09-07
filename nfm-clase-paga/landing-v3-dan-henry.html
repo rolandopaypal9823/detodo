@@ -1003,59 +1003,37 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
   </div>
 </section>
 
-<!-- ═══════════════ 6 · CALCULADORA · sobre gris ═══════════════ -->
+<!-- ═══════════════ 6 · LA CUENTA · sobre gris ═══════════════
+     Una sola pregunta y el resultado en HORAS, no en dinero. La página dice
+     que el costo son horas de sueño, entrenamiento y personas — medirlo en
+     dólares se contradecía con eso. Se conserva la participación, que es lo
+     único de este bloque que no se puede reemplazar leyendo. -->
 <section class="sec sec--tint">
   <div class="wrap">
     <h2>Permitime hacer <em>una mirada de contador.</em></h2>
-    <p class="beat">Si tenés un negocio o trabajás con números, esto lo vas a entender rápido. Hagamos la cuenta juntos.</p>
+    <p class="beat">Una sola pregunta, y sacamos la cuenta juntos.</p>
 
     <div class="calc">
-      <p class="hd">Poné tus números</p>
-
-      <label>Veces por día que te interrumpen o te interrumpís <b id="v1">12</b></label>
+      <label>¿Cuántas veces por día te interrumpen o te interrumpís? <b id="v1">12</b></label>
       <input type="range" id="i1" min="2" max="40" value="12" step="1">
       <p class="help">Entre notificaciones, mails, llamadas, tu equipo, clientes y las urgencias que aparecen en el día. Poné el mínimo que se te ocurra.</p>
 
-      <label>Minutos que te lleva volver a concentrarte <b id="v2">23</b></label>
-      <input type="range" id="i2" min="3" max="30" value="23" step="1">
-      <p class="help">Según el estudio de <strong>Gloria Mark (Universidad de California, Irvine)</strong>, el promedio es de <strong>23 minutos</strong>. Si te parece mucho, bajalo — vas a ver que el número igual sigue siendo grande.</p>
-
-      <label>Cuánto vale una hora tuya</label>
-      <div class="row">
-        <select id="cur" aria-label="Moneda">
-          <option value="USD">USD</option><option value="ARS">ARS</option>
-          <option value="MXN">MXN</option><option value="COP">COP</option>
-          <option value="CLP">CLP</option><option value="PEN">PEN</option>
-          <option value="UYU">UYU</option><option value="EUR">EUR</option>
-        </select>
-        <input type="number" id="ph" value="50" min="1" step="1" aria-label="Precio de tu hora">
-      </div>
-      <p class="help">¿No lo tenés a mano? Poné lo que facturás o cobrás por mes y lo dividimos por 160:
-        <span class="row row--sm">
-          <input type="number" id="mes" placeholder="Tu ingreso mensual" min="1" step="1" aria-label="Ingreso mensual">
-          <button type="button" id="derivar">Calcular mi hora</button>
-        </span>
-      </p>
-
       <div class="out">
-        <div class="big" id="plata">USD 12.650</div>
-        <span class="u">de costo de oportunidad al año</span>
+        <div class="big" id="horas">253 horas</div>
+        <span class="u">al año</span>
         <p class="eq" id="eq"></p>
       </div>
 
       <div class="nota" id="nota"></div>
 
       <button class="cta cta--full cta--flat" data-cta style="margin-top:20px">Quiero mi lugar — USD 17</button>
-      <p class="ancla">La clase cuesta <strong>USD 17</strong>.</p>
     </div>
 
-    <p class="beat">Y esas horas no son sólo dinero. <strong>Son las que no le estás dando a lo que hace crecer tu negocio, a tu salud, y a las personas con las que querés estar.</strong></p>
+    <p class="beat">No son horas de trabajo. <strong>Son las que no le estás dando a tu descanso, a entrenar, y a las personas con las que querés estar.</strong></p>
 
-    <!-- La escalera de identidad, con referente explícito y atada al número real
-         que devuelve la calculadora (~1 h/día con los defaults). -->
     <div class="ladder">
       Sacarle <b>una hora por semana</b> a lo ajeno y dársela a lo tuyo es un alivio.<br>
-      <b>Una hora por día</b> —que es, más o menos, lo que te acaba de dar la cuenta de arriba— es otro año.<br>
+      <b>Una hora por día</b> —que es, más o menos, lo que te acaba de dar la cuenta— es otro año.<br>
       <span class="hot">Esa misma hora, todos los días durante un año, son más de 250 horas. Ahí ya no es tiempo: es otra vida.</span>
     </div>
 
@@ -1369,72 +1347,55 @@ function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
   },{passive:true});
 })();
 
-/* ═══ CALCULADORA DE COSTO DE OPORTUNIDAD ═══
-   Modelo, con el descuento a la vista (ver plan §7.2):
-     interrupciones × minutos            = tiempo fragmentado por día
-     × 25%                               = pérdida que contamos (conservador a propósito)
-     × 220 días hábiles                  = horas al año
-     × precio de tu hora                 = costo de oportunidad
-   El 23 por defecto es Gloria Mark (UC Irvine, 2008): 23 min 15 s para volver a la tarea. */
+/* ═══ LA CUENTA ═══
+   Modelo, con el descuento a la vista:
+     interrupciones x 23 min          = tiempo fragmentado por día
+     x 25%                            = lo que contamos (conservador a propósito)
+     x 220 días hábiles               = horas al año
+   Los 23 minutos son Gloria Mark (UC Irvine, 2008): lo que tarda alguien en
+   volver a la tarea después de una interrupción. Antes era un slider; ahora es
+   una constante, para dejar una sola pregunta. */
 (function(){
-  var i1=document.getElementById('i1'), i2=document.getElementById('i2');
-  if(!i1||!i2) return;
-  var ph=document.getElementById('ph'), cur=document.getElementById('cur'),
-      mes=document.getElementById('mes'), der=document.getElementById('derivar');
+  var i1 = document.getElementById('i1');
+  if(!i1) return;
 
-  var FACTOR = 0.25;      // sólo contamos una cuarta parte
-  var DIAS   = 220;       // días hábiles al año
-  var HS_MES = 160;       // para derivar la hora del ingreso mensual
-
-  function money(n, c){
-    try { return n.toLocaleString('es-AR',{style:'currency',currency:c,maximumFractionDigits:0}); }
-    catch(e){ return c+' '+Math.round(n).toLocaleString('es-AR'); }
-  }
+  var MIN    = 23;    // minutos de recuperación (Gloria Mark, UC Irvine, 2008)
+  var FACTOR = 0.25;  // sólo contamos una cuarta parte
+  var DIAS   = 220;   // días hábiles al año
 
   function calc(){
-    var n=+i1.value, m=+i2.value, hora=Math.max(0,+ph.value||0), c=cur.value;
-    document.getElementById('v1').textContent=n;
-    document.getElementById('v2').textContent=m;
+    var n = +i1.value;
+    document.getElementById('v1').textContent = n;
 
-    var fragMin = n*m;                       // min/día fragmentados
-    var realMin = fragMin*FACTOR;            // lo que contamos
-    var horas   = Math.round(realMin*DIAS/60);
-    var plata   = horas*hora;
+    var fragMin = n * MIN;                       // min/día fragmentados
+    var realMin = fragMin * FACTOR;              // lo que contamos
+    var horas   = Math.round(realMin * DIAS / 60);
 
-    document.getElementById('plata').textContent = money(plata, c);
+    document.getElementById('horas').textContent = horas.toLocaleString('es-AR') + ' horas';
 
-    var jornadas = Math.round(horas/8);
-    var semanas  = Math.round(horas/40);
-    var eqTxt = 'Son <strong>'+horas.toLocaleString('es-AR')+' horas</strong> al año. '+
-                '<strong>'+jornadas+(jornadas===1?' jornada':' jornadas')+' de trabajo</strong>';
+    var jornadas = Math.round(horas / 8);
+    var semanas  = Math.round(horas / 40);
+    var eqTxt = 'Son <strong>' + jornadas + (jornadas === 1 ? ' jornada' : ' jornadas') +
+                ' de trabajo</strong>';
     if (semanas >= 4) {
-      var m2 = semanas/4, meses = (m2%1<0.05 ? String(Math.round(m2)) : m2.toFixed(1).replace('.',','));
-      eqTxt += ' — más de <strong>'+meses+(meses==='1'?' mes':' meses')+'</strong> de trabajo';
+      var m2 = semanas / 4;
+      var meses = (m2 % 1 < 0.05 ? String(Math.round(m2)) : m2.toFixed(1).replace('.', ','));
+      eqTxt += ' — más de <strong>' + meses + (meses === '1' ? ' mes' : ' meses') + '</strong>';
     } else if (semanas >= 1) {
-      eqTxt += ' — casi <strong>'+semanas+(semanas===1?' semana':' semanas')+'</strong>';
+      eqTxt += ' — casi <strong>' + semanas + (semanas === 1 ? ' semana' : ' semanas') + '</strong>';
     }
-    eqTxt += '.';
-    document.getElementById('eq').innerHTML = eqTxt;
+    document.getElementById('eq').innerHTML = eqTxt + '.';
 
     document.getElementById('nota').innerHTML =
-      '<strong>Cómo sale la cuenta:</strong> '+n+' interrupciones × '+m+' minutos = '+
-      fragMin+' minutos por día de tiempo fragmentado. '+
-      '<strong>Contamos sólo una cuarta parte</strong> ('+Math.round(realMin)+' min/día), '+
-      'porque el resto lo compensás trabajando más rápido — y eso no lo pagás en horas, lo pagás en estrés. '+
-      'Por '+DIAS+' días hábiles.';
+      '<strong>Cómo sale la cuenta:</strong> ' + n + ' interrupciones × ' + MIN +
+      ' minutos —lo que se tarda en volver a la tarea, según Gloria Mark (Universidad de ' +
+      'California, Irvine)— son ' + fragMin + ' minutos por día de tiempo fragmentado. ' +
+      '<strong>Contamos sólo una cuarta parte</strong> (' + Math.round(realMin) + ' min/día), ' +
+      'porque el resto lo compensás trabajando más rápido. Por ' + DIAS + ' días hábiles.';
   }
 
-  [i1,i2,ph,cur].forEach(function(el){ el.addEventListener('input',calc); el.addEventListener('change',calc); });
-
-  der.addEventListener('click', function(){
-    var v = +mes.value;
-    if(!v || v<=0){ mes.style.borderColor='#ff6602'; mes.focus(); return; }
-    ph.value = Math.round(v/HS_MES);
-    mes.style.borderColor='';
-    calc();
-  });
-  mes.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); der.click(); } });
-
+  i1.addEventListener('input', calc);
+  i1.addEventListener('change', calc);
   calc();
 })();
 
