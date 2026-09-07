@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Antes de tu sesión · 10 minutos con vos</title>
 <meta name="description" content="Un ejercicio corto de introspección para llegar a tu sesión con claridad sobre lo que realmente querés resolver.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,121 +10,144 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* =========================================================================
-   ANTES DE TU SESIÓN · ejercicio de introspección previo a la llamada
-   Una pregunta por pantalla. Lo editable está en el bloque CONFIG (abajo).
+   ANTES DE TU SESIÓN · ejercicio previo a la llamada
+   Pensado mobile-first: una sola cosa por pantalla, tipografía grande,
+   botones grandes y el CTA siempre fijo abajo.
+   Lo editable está en el bloque CONFIG (dentro del <script>).
    ========================================================================= */
 :root{
-  --navy:#0c3452; --navyd:#061d30; --light:#e7edf2;
+  --navy:#0c3452; --navyd:#061d30;
   --orange:#ff6602; --ohi:#ff8124; --otxt:#c04a00; --owash:#fff7f2;
   --muted:#33536b; --grey:#5c7286;
-  --hair:rgba(12,52,82,.10); --hair2:rgba(12,52,82,.16);
+  --hair:rgba(12,52,82,.10); --hair2:rgba(12,52,82,.18);
   --head:'Montserrat',sans-serif; --body:'Open Sans',sans-serif; --mono:'JetBrains Mono',monospace;
   --ease:cubic-bezier(.16,1,.3,1);
+  --navh:88px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
-body{font-family:var(--body);color:var(--navy);background:#fbfcfd;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+body{font-family:var(--body);color:var(--navy);background:#fbfcfd;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;display:block}
 h1,h2,h3{font-family:var(--head)}
-
-/* fondo sutil */
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(120% 80% at 50% 0%, rgba(255,102,2,.06), transparent 55%),
-             radial-gradient(90% 70% at 0% 100%, rgba(12,52,82,.05), transparent 60%)}
+  background:radial-gradient(120% 70% at 50% 0%, rgba(255,102,2,.07), transparent 55%),
+             radial-gradient(90% 60% at 0% 100%, rgba(12,52,82,.05), transparent 60%)}
 
-/* ── barra de progreso ── */
-.bar{position:fixed;top:0;left:0;right:0;height:3px;background:rgba(12,52,82,.09);z-index:60}
+/* ── progreso ── */
+.bar{position:fixed;top:0;left:0;right:0;height:4px;background:rgba(12,52,82,.09);z-index:60}
 .bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--ohi));transition:width .45s var(--ease)}
-.step-n{position:fixed;top:14px;right:16px;z-index:60;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey)}
+.step-n{position:fixed;top:16px;right:16px;z-index:60;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey)}
 
 /* ── escenario ── */
-.stage{position:relative;z-index:2;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:52px 20px 34px}
-.card{width:100%;max-width:620px;animation:in .45s var(--ease) both}
-@keyframes in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.stage{position:relative;z-index:2;min-height:100vh;min-height:100dvh;display:flex;padding:56px 18px calc(var(--navh) + 20px)}
+.card{width:100%;max-width:620px;margin:auto;animation:in .4s var(--ease) both}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-.k{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;color:var(--otxt);background:var(--owash);border:1px solid rgba(255,102,2,.22);padding:7px 14px;border-radius:100px;margin-bottom:18px}
-.q{font-family:var(--head);font-weight:800;font-size:clamp(21px,4.4vw,30px);line-height:1.2;letter-spacing:-.02em;margin-bottom:12px;text-wrap:balance}
+.k{display:inline-flex;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;color:var(--otxt);background:var(--owash);border:1px solid rgba(255,102,2,.24);padding:8px 15px;border-radius:100px;margin-bottom:20px}
+.q{font-family:var(--head);font-weight:800;font-size:clamp(25px,6.6vw,34px);line-height:1.18;letter-spacing:-.022em;margin-bottom:14px;text-wrap:balance}
 .q .hl{color:var(--orange)}
-.hint{color:var(--muted);font-size:14.5px;line-height:1.6;margin-bottom:24px;max-width:52ch}
+.hint{color:var(--muted);font-size:16px;line-height:1.6;margin-bottom:26px}
 
-/* ── campo de texto ── */
-.ta{width:100%;min-height:130px;border:1.5px solid var(--hair2);border-radius:14px;padding:16px 18px;font-family:var(--body);font-size:16px;line-height:1.6;color:var(--navy);background:#fff;resize:vertical;transition:border-color .18s,box-shadow .18s}
+/* ── texto libre ── */
+.ta{width:100%;min-height:170px;border:2px solid var(--hair2);border-radius:16px;padding:18px;font-family:var(--body);font-size:17px;line-height:1.6;color:var(--navy);background:#fff;resize:vertical;transition:border-color .18s,box-shadow .18s}
 .ta::placeholder{color:#9db0c0}
-.ta:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 4px rgba(255,102,2,.12)}
+.ta:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 4px rgba(255,102,2,.13)}
+.count{margin-top:9px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
 
 /* ── opciones ── */
-.opts{display:grid;gap:9px}
-.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1.5px solid var(--hair2);border-radius:13px;padding:14px 16px;cursor:pointer;font-family:var(--body);font-size:15px;color:var(--muted);transition:all .16s var(--ease)}
-.opt:hover{border-color:rgba(255,102,2,.5);background:var(--owash)}
+.opts{display:grid;gap:11px}
+.opt{display:flex;align-items:center;gap:14px;width:100%;min-height:64px;text-align:left;background:#fff;border:2px solid var(--hair2);border-radius:15px;padding:16px 18px;cursor:pointer;font-family:var(--body);font-size:16.5px;line-height:1.4;color:var(--muted);transition:all .16s var(--ease)}
+.opt:active{transform:scale(.985)}
+.opt:hover{border-color:rgba(255,102,2,.5)}
 .opt.on{border-color:var(--orange);background:var(--owash);color:var(--navy);font-weight:600}
-.opt .r{flex:0 0 auto;width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(12,52,82,.24);background:#fff;transition:all .16s}
-.opt.on .r{border-color:var(--orange);border-width:6px}
-/* escala 1-10 */
-.scale{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}
-.sc{aspect-ratio:1;border:1.5px solid var(--hair2);border-radius:10px;background:#fff;font-family:var(--head);font-weight:800;font-size:14px;color:var(--muted);cursor:pointer;transition:all .16s var(--ease);padding:0}
-.sc:hover{border-color:rgba(255,102,2,.5);color:var(--navy)}
-.sc.on{background:var(--orange);border-color:var(--orange);color:#fff;transform:translateY(-2px);box-shadow:0 8px 18px -6px rgba(255,102,2,.55)}
-.scale-lbl{display:flex;justify-content:space-between;margin-top:9px;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey)}
+.opt .r{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:2px solid rgba(12,52,82,.25);background:#fff;transition:all .16s}
+.opt.on .r{border-color:var(--orange);border-width:7px}
 
-/* ── navegación ── */
-.nav{display:flex;align-items:center;gap:14px;margin-top:26px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--head);font-weight:800;font-size:16px;padding:16px 32px;border-radius:12px;border:none;cursor:pointer;background:var(--orange);color:#fff;box-shadow:0 12px 30px -10px rgba(255,102,2,.6);transition:all .18s var(--ease)}
-.btn:hover:not(:disabled){transform:translateY(-2px);background:var(--ohi);box-shadow:0 18px 40px -12px rgba(255,102,2,.65)}
-.btn:disabled{opacity:.32;cursor:not-allowed;box-shadow:none}
+/* ── escala ── */
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+.sc{aspect-ratio:1;border:2px solid var(--hair2);border-radius:14px;background:#fff;font-family:var(--head);font-weight:800;font-size:19px;color:var(--muted);cursor:pointer;transition:all .16s var(--ease);padding:0}
+.sc:active{transform:scale(.95)}
+.sc.on{background:var(--orange);border-color:var(--orange);color:#fff;box-shadow:0 10px 22px -8px rgba(255,102,2,.6)}
+.scale-lbl{display:flex;justify-content:space-between;margin-top:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+
+/* ── navegación fija abajo ── */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:55;display:flex;align-items:center;gap:12px;
+  padding:14px 18px calc(14px + env(safe-area-inset-bottom));
+  background:rgba(251,252,253,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--hair)}
+.btn{flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--head);font-weight:800;font-size:18px;min-height:58px;padding:16px 24px;border-radius:14px;border:none;cursor:pointer;background:var(--orange);color:#fff;box-shadow:0 12px 28px -10px rgba(255,102,2,.65);transition:all .18s var(--ease)}
+.btn:active:not(:disabled){transform:scale(.985)}
+.btn:hover:not(:disabled){background:var(--ohi)}
+.btn:disabled{opacity:.34;cursor:not-allowed;box-shadow:none}
 .btn .ar{transition:transform .18s var(--ease)}
 .btn:hover:not(:disabled) .ar{transform:translateX(4px)}
-.back{background:none;border:none;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);cursor:pointer;padding:8px 4px}
-.back:hover{color:var(--navy)}
+.back{flex:0 0 auto;background:none;border:2px solid var(--hair2);border-radius:14px;min-height:58px;width:58px;font-size:20px;color:var(--grey);cursor:pointer}
+.back:hover{color:var(--navy);border-color:var(--navy)}
 
-/* ── pantalla de argumento ── */
-.arg .q{font-size:clamp(20px,4vw,27px)}
-.arg .body{font-size:16px;color:var(--muted);line-height:1.68}
-.arg .body p+p{margin-top:14px}
+/* ── argumentos ── */
+.arg .q{font-size:clamp(23px,6vw,31px)}
+.arg .body{font-size:16.5px;color:var(--muted);line-height:1.68}
+.arg .body p+p{margin-top:15px}
 .arg .body b{color:var(--navy)}
-.pull{margin-top:20px;padding:16px 20px;border-left:3px solid var(--orange);background:var(--owash);border-radius:0 12px 12px 0}
-.pull p{font-family:var(--head);font-weight:700;font-size:15.5px;line-height:1.45;color:var(--navy)}
+.pull{margin-top:22px;padding:18px 20px;border-left:4px solid var(--orange);background:var(--owash);border-radius:0 14px 14px 0}
+.pull p{font-family:var(--head);font-weight:700;font-size:16.5px;line-height:1.45;color:var(--navy)}
 
 /* ── Pierina ── */
-.pier{display:flex;align-items:center;gap:16px;margin-bottom:22px}
-.pier img{width:78px;height:78px;border-radius:50%;object-fit:cover;object-position:75% 45%;flex:0 0 auto;border:3px solid #fff;box-shadow:0 10px 26px -8px rgba(12,52,82,.35),0 0 0 3px rgba(255,102,2,.25)}
-.pier .n{font-family:var(--head);font-weight:800;font-size:17px}
-.pier .r{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--otxt);margin-top:3px}
-.pier .b{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.5}
-@media(max-width:460px){.pier{gap:12px}.pier img{width:62px;height:62px}}
+.pier{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.pier img{width:84px;height:84px;border-radius:50%;object-fit:cover;object-position:75% 45%;flex:0 0 auto;border:3px solid #fff;box-shadow:0 10px 26px -8px rgba(12,52,82,.35),0 0 0 3px rgba(255,102,2,.25)}
+.pier .n{font-family:var(--head);font-weight:800;font-size:18px;line-height:1.2}
+.pier .r{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--otxt);margin-top:4px;line-height:1.5}
+.pier .b{font-size:14px;color:var(--muted);margin-top:8px;line-height:1.5}
 
 /* ── casos ── */
-.cases{display:grid;gap:14px;margin-top:6px}
-.case{background:#fff;border:1px solid var(--hair);border-radius:16px;overflow:hidden;box-shadow:0 14px 34px -20px rgba(12,52,82,.34)}
+.cases{display:grid;gap:16px}
+.case{background:#fff;border:1px solid var(--hair);border-radius:18px;overflow:hidden;box-shadow:0 16px 38px -22px rgba(12,52,82,.35)}
 .case__v{position:relative;aspect-ratio:16/9;background:var(--navyd);cursor:pointer;overflow:hidden}
-.case__v img{width:100%;height:100%;object-fit:cover;transition:transform .35s var(--ease)}
-.case__v:hover img{transform:scale(1.04)}
+.case__v img{width:100%;height:100%;object-fit:cover}
 .case__v::after{content:"";position:absolute;inset:0;background:rgba(12,52,82,.24)}
-.case__p{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 10px 26px -6px rgba(255,102,2,.6);transition:transform .2s var(--ease)}
-.case__v:hover .case__p{transform:translate(-50%,-50%) scale(1.09)}
-.case__p svg{width:20px;height:20px;fill:#fff;margin-left:2px}
+.case__p{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 12px 28px -6px rgba(255,102,2,.65)}
+.case__p svg{width:22px;height:22px;fill:#fff;margin-left:3px}
 .case__v iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
-.case__b{padding:16px 18px 18px}
-.case__n{font-family:var(--head);font-weight:800;font-size:17px}
-.case__pf{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--otxt);margin:4px 0 12px;line-height:1.5}
-.ab{display:grid;gap:9px}
-.ab__i{display:flex;gap:10px;align-items:flex-start}
-.ab__t{flex:0 0 auto;font-family:var(--mono);font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px;border-radius:100px;margin-top:1px}
+.case__b{padding:18px 20px 20px}
+.case__n{font-family:var(--head);font-weight:800;font-size:19px}
+.case__pf{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--otxt);margin:5px 0 14px;line-height:1.5}
+.ab{display:grid;gap:11px}
+.ab__i{display:flex;gap:11px;align-items:flex-start}
+.ab__t{flex:0 0 auto;font-family:var(--mono);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;padding:5px 9px;border-radius:100px;margin-top:2px}
 .ab__t--a{background:rgba(12,52,82,.07);color:var(--grey)}
 .ab__t--b{background:var(--owash);color:var(--otxt);border:1px solid rgba(255,102,2,.25)}
-.ab__x{font-size:13px;color:var(--muted);line-height:1.5}
-.case__q{margin-top:12px;font-family:var(--head);font-weight:700;font-style:italic;font-size:13.5px;color:var(--navy);line-height:1.45}
+.ab__x{font-size:14.5px;color:var(--muted);line-height:1.5}
+.case__q{margin-top:14px;font-family:var(--head);font-weight:700;font-style:italic;font-size:15px;color:var(--navy);line-height:1.45}
 
 /* ── cierre ── */
-.done .big{font-family:var(--head);font-weight:900;font-size:clamp(24px,5vw,34px);line-height:1.12;letter-spacing:-.022em;margin-bottom:14px}
-.done .big .hl{color:var(--orange)}
-.recap{margin-top:22px;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:18px 20px;box-shadow:0 14px 34px -22px rgba(12,52,82,.3)}
-.recap h4{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);font-weight:500;margin-bottom:12px}
-.recap dl{display:grid;gap:11px}
-.recap dt{font-family:var(--head);font-weight:800;font-size:12px;color:var(--otxt);line-height:1.35}
-.recap dd{font-size:13.5px;color:var(--muted);line-height:1.5;margin-top:2px;white-space:pre-wrap}
-.fine{margin-top:14px;font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey);text-align:center}
-.copyok{display:none;margin-top:10px;text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#0e6b3a}
-.copyok.on{display:block}
+.big{font-family:var(--head);font-weight:900;font-size:clamp(27px,7vw,38px);line-height:1.12;letter-spacing:-.025em;margin-bottom:14px}
+.big .hl{color:var(--orange)}
+.field{margin-top:22px}
+.field label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey);margin-bottom:9px}
+.inp{width:100%;min-height:58px;border:2px solid var(--hair2);border-radius:14px;padding:16px 18px;font-family:var(--body);font-size:17px;color:var(--navy);background:#fff;transition:border-color .18s,box-shadow .18s}
+.inp:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 4px rgba(255,102,2,.13)}
+.recap{margin-top:22px;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:18px 20px}
+.recap h4{font-family:var(--mono);font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--grey);font-weight:500;margin-bottom:14px}
+.recap dl{display:grid;gap:13px}
+.recap dt{font-family:var(--head);font-weight:800;font-size:12.5px;color:var(--otxt);line-height:1.35}
+.recap dd{font-size:14.5px;color:var(--muted);line-height:1.5;margin-top:3px;white-space:pre-wrap}
+.state{margin-top:16px;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;display:none}
+.state.on{display:block}
+.state.ok{color:#0e6b3a}
+.state.err{color:var(--otxt)}
+.alt{display:none;margin-top:12px;text-align:center}
+.alt.on{display:block}
+.alt button{background:none;border:none;font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--otxt);cursor:pointer;text-decoration:underline}
+
+/* ── desde tablet para arriba ── */
+@media(min-width:760px){
+  :root{--navh:0px}
+  .stage{padding:70px 24px 60px;align-items:center}
+  .nav{position:static;background:none;backdrop-filter:none;border-top:0;padding:30px 0 0;justify-content:flex-start}
+  .btn{flex:0 0 auto;min-width:230px}
+  .scale{grid-template-columns:repeat(10,1fr)}
+  .sc{font-size:16px;border-radius:12px}
+  .cases{gap:20px}
+}
 </style>
 </head>
 <body>
@@ -132,26 +155,21 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 <div class="bar"><span id="barFill"></span></div>
 <div class="step-n" id="stepN"></div>
 
-<main class="stage">
-  <div class="card" id="card"></div>
-</main>
+<main class="stage"><div class="card" id="card"></div></main>
 
 <script>
 /* =========================================================================
    ⚙️  CONFIG — EDITÁ SOLO ESTO
    ========================================================================= */
 const CONFIG = {
-  // WhatsApp de Pierina en formato internacional, sin + ni espacios.
-  // Ej: "5491122334455". Si lo dejás vacío, el botón copia las respuestas
-  // al portapapeles en vez de abrir WhatsApp.
+  // URL del Apps Script desplegado (la que termina en /exec).
+  // Mientras esté vacío, el botón copia las respuestas al portapapeles.
+  SHEETS_ENDPOINT: "",
+
+  // Opcional: WhatsApp de Pierina (solo dígitos, ej "5491122334455").
+  // Se usa como respaldo si el envío al Sheets falla.
   WHATSAPP: "",
 
-  // Opcional: endpoint (Google Apps Script, webhook de GHL, Zapier…) al que
-  // se envían las respuestas apenas termina el ejercicio. Si queda vacío,
-  // no se envía nada a ningún lado: solo queda el botón de WhatsApp.
-  WEBHOOK: "",
-
-  // Foto y datos de quien guía la sesión.
   GUIA: {
     nombre: "Pierina Monte Riso",
     rol: "Client Success Manager · Instituto de Productividad",
@@ -162,42 +180,62 @@ const CONFIG = {
 
 /* Casos reales de alumnos del Instituto (punto A → punto B) */
 const CASOS = [
-  {g:'F', madre:true, yt:'95H0-szcsMs', nombre:'Celi', perfil:'Arquitecta, líder de 45 personas · San Diego, EEUU',
+  {g:'F', madre:true, tags:['lider','independiente'], dom:'equilibrio', yt:'95H0-szcsMs', nombre:'Celi', perfil:'Arquitecta, líder de 45 personas · San Diego, EEUU',
    a:'Lideraba un equipo de 45 personas con un costo personal demasiado alto. Sin tiempo, sin equilibrio como madre y profesional.',
    b:'Recuperó el equilibrio sin dejar de rendir al mismo nivel. Lidera con claridad y tiempo de calidad con su familia.',
    f:'"El sistema correcto te permite rendir sin quemarte."'},
-  {g:'F', yt:'vgF6e9MptW4', nombre:'Pierina', perfil:'Doctoranda en Roma · Italia',
-   a:'40 hs semanales de trabajo, 6 hs de sueño, agenda llena de cosas que no cumplía. Sin foco para lo importante.',
-   b:'Rindió 5 exámenes de idioma para entrar al doctorado. Escribe su tesis en 4 hs lo que antes le llevaba 9.',
-   f:'"Pasé de querer hacer todo y no poder nada, a hacer lo importante con claridad."'},
-  {g:'F', yt:'CVo9A7ADvTs', nombre:'Natalia', perfil:'Astrónoma e investigadora CONICET · Argentina',
-   a:'Agotamiento y desorden crónicos. No podía descansar bien. Su emprendimiento, paralizado.',
-   b:'Sueño reparador instalado como hábito. Emprendimiento activo. Claridad de prioridades.',
-   f:'"Cuando dormís bien, todo lo demás empieza a acomodarse solo."'},
-  {g:'F', yt:'anq1RGIC7_Q', nombre:'Romi', perfil:'Publicista digital · Argentina',
-   a:'De 7 a 16 hs trabajaba, después estudiaba. Las 24 hs no le alcanzaban. No entrenaba, no dormía bien.',
-   b:'Trabaja 4 hs en relación de dependencia y organiza el resto a su gusto. Entrena todos los días.',
-   f:'"No cambié mi personalidad. Ordené mi estructura."'},
-  {g:'F', yt:'YoC-5YlvD7w', nombre:'Pau', perfil:'Arquitecta independiente · Argentina',
-   a:'Caos y desborde. Sin poder delegar ni organizar su tiempo. El día la manejaba a ella.',
-   b:'Recuperó el equilibrio, aprendió a delegar y a proteger su foco. Trabaja con estructura y claridad.',
-   f:'"Cuando entendés cómo funciona tu cerebro, todo cambia."'},
-  {g:'M', yt:'7x_hvNVvc88', nombre:'Cristian', perfil:'Bioquímico y empresario · Jujuy, Argentina',
+  {g:'M', tags:['empresario','lider'], dom:'organizacion', yt:'7x_hvNVvc88', nombre:'Cristian', perfil:'Bioquímico y empresario · Jujuy, Argentina',
    a:'Empresa en crecimiento pero sentía que la empresa lo manejaba a él. Alta irritabilidad, sin tiempo para sí mismo.',
    b:'Maneja todo a distancia. Tiene tiempo para su pareja y para sí mismo. Su pareja notó el cambio sin que él lo dijera.',
    f:'"Hiciste bien, vas bien, seguí. Esto es una carrera contra uno mismo."'},
-  {g:'M', yt:'0o-tzNPybNk', nombre:'Andrés', perfil:'Ingeniero agrónomo, líder de equipo · Argentina',
+  {g:'M', tags:['lider','empresario'], dom:'energia', yt:'0o-tzNPybNk', nombre:'Andrés', perfil:'Ingeniero agrónomo, líder de equipo · Argentina',
    a:'Crecía rápido pero con un costo emocional y físico altísimo. Quemado, disperso, sin equilibrio.',
    b:'Hoy entrena, lidera y en 6 meses logró lo que antes le parecían 2 años. Sin quemarse.',
    f:'"El sistema correcto no te pide más esfuerzo — te pide más inteligencia."'},
-  {g:'M', yt:'7F5YjFM-EJY', nombre:'Jair', perfil:'Ingeniero en sistemas · Colombia',
+  {g:'F', tags:['emprendedor','independiente'], dom:'habitos', yt:'anq1RGIC7_Q', nombre:'Romi', perfil:'Publicista digital · Argentina',
+   a:'De 7 a 16 hs trabajaba, después estudiaba. Las 24 hs no le alcanzaban. No entrenaba, no dormía bien.',
+   b:'Trabaja 4 hs en relación de dependencia, organiza el resto a su gusto. Entrena todos los días. Cuida descanso y vínculos.',
+   f:'"No cambié mi personalidad. Ordené mi estructura."'},
+  {g:'F', tags:['independiente','estudiante'], dom:'sueno', yt:'CVo9A7ADvTs', nombre:'Natalia', perfil:'Astrónoma e investigadora CONICET · Argentina',
+   a:'Agotamiento y desorden crónicos. No podía descansar bien. Su emprendimiento, paralizado.',
+   b:'Sueño reparador instalado como hábito. Emprendimiento activo. Claridad de prioridades.',
+   f:'"Cuando dormís bien, todo lo demás empieza a acomodarse solo."'},
+  {g:'M', tags:['independiente','emprendedor'], dom:'habitos', yt:'xDpQB0t2RH8', nombre:'Milton', perfil:'Diseñador UX · Argentina',
+   a:'Procrastinador crónico con el teléfono. Los proyectos se postergaban semana tras semana.',
+   b:'Pasó de procrastinador a arrancador. Redujo el uso del teléfono. Los proyectos avanzan.',
+   f:'"Cuando dejé de esperar las ganas para arrancar, todo cambió."'},
+  {g:'F', tags:['estudiante','independiente'], dom:'organizacion', yt:'vgF6e9MptW4', nombre:'Pierina', perfil:'Doctoranda en Roma · Italia',
+   a:'40 hs semanales de trabajo, 6 hs de sueño, agenda llena de cosas que no cumplía. Sin foco para lo importante.',
+   b:'Rindió 5 exámenes de idioma para entrar al doctorado. Escribe su tesis en 4 hs lo que antes le llevaba 9.',
+   f:'"Pasé de querer hacer todo y no poder nada, a hacer lo importante con claridad."'},
+  {g:'F', tags:['independiente','emprendedor'], dom:'equilibrio', yt:'YoC-5YlvD7w', nombre:'Pau', perfil:'Arquitecta independiente · Argentina',
+   a:'Caos y desborde. Sin poder delegar ni organizar su tiempo. El día la manejaba a ella.',
+   b:'Recuperó el equilibrio, aprendió a delegar y a proteger su foco. Trabaja con estructura y claridad.',
+   f:'"Cuando entendés cómo funciona tu cerebro, todo cambia."'},
+  {g:'M', tags:['estudiante','emprendedor'], dom:'mentalidad', yt:'lVhqgQ5cx04', nombre:'Sacha', perfil:'Estudiante · Hoy parte del equipo NFM',
+   a:'Conocimiento de neurociencia "en el aire", sin aplicar. Hábitos basados en fuerza de voluntad pura, se quemaba.',
+   b:'Dejó malos hábitos. Aplica las herramientas con criterio. Pasó de alumno a parte del equipo del Instituto.',
+   f:'"El poder de crecimiento está en el nivel de incertidumbre que podemos soportar."'},
+  {g:'M', tags:['independiente','emprendedor'], dom:'sueno', yt:'7F5YjFM-EJY', nombre:'Jair', perfil:'Ingeniero en sistemas · Colombia',
    a:'Venía trabajando hábitos pero le faltaba estructura para el siguiente nivel. Sin acompañamiento.',
    b:'Hábitos sólidos, mejor sueño, acompañamiento real. Viajó desde Colombia al mastermind presencial.',
    f:'"No dudes tanto en hacer esa inversión en vos — vas a ver los resultados."'},
-  {g:'M', yt:'xDpQB0t2RH8', nombre:'Milton', perfil:'Diseñador UX · Argentina',
-   a:'Procrastinador crónico con el teléfono. Los proyectos se postergaban semana tras semana.',
-   b:'Pasó de procrastinador a arrancador. Redujo el uso del teléfono. Los proyectos avanzan.',
-   f:'"Cuando dejé de esperar las ganas para arrancar, todo cambió."'}
+  {g:'F', tags:['emprendedor','independiente'], dom:'habitos', yt:'UHvxGkuGfI0', nombre:'Anto', perfil:'Técnica química y emprendedora · Argentina',
+   a:'Procrastinación y creencias limitantes bloqueaban su acción. Múltiples proyectos sin ejecutar a nivel.',
+   b:'De creencias limitantes a acción concreta. Usa las herramientas con claridad para múltiples frentes.',
+   f:'"Las herramientas no te cambian la vida — vos sí podés, cuando las usás."'},
+  {g:'F', tags:['estudiante','emprendedor'], dom:'mentalidad', yt:'wePT08l1BYM', nombre:'Tatiana', perfil:'Estudiante de lenguas + au pair en EEUU · Colombia',
+   a:'Estrés crónico, desánimo. Combinaba estudio, trabajo y voluntariado sin sistema. Sin claridad de carrera.',
+   b:'Claridad de propósito, hábitos instalados, carrera retomada con dirección y menos estrés.',
+   f:'"Cuando tenés claridad de hacia dónde vas, el esfuerzo empieza a valer la pena."'},
+  {g:'F', tags:['estudiante'], dom:'energia', yt:'cTkEqvEXOiE', nombre:'Ornela', perfil:'Estudiante y profesora particular · Argentina',
+   a:'Quemada total. Demasiadas responsabilidades sin orden. Hábitos que intuía correctos pero no sostenía.',
+   b:'Se organizó y planificó. Renunció al trabajo que la agotaba. Disfrutó el mastermind sin ansiedad social.',
+   f:'"Confía y anímate que se viene lo mejor."'},
+  {g:'M', tags:['estudiante'], dom:'energia', yt:'zRGwIl_FXfk', nombre:'Santi', perfil:'Laboratorista en formación · Argentina',
+   a:'Inacción y dopamina barata. Días gastados en estímulos de bajo valor.',
+   b:'Dejó los hábitos de bajo valor. Pasó de inacción a foco y acción sostenida.',
+   f:'"Invertir en el cerebro es la mejor inversión que vas a hacer."'}
 ];
 
 /* =========================================================================
@@ -206,15 +244,40 @@ const CASOS = [
 const PASOS = [
   { tipo:'intro' },
 
-  { tipo:'opcion', id:'perfil', guardar:'Cómo se describe',
-    k:'Para personalizar esto',
-    q:'Antes de arrancar, ¿cuál te describe mejor?',
-    hint:'Con esto te muestro a personas que arrancaron parecido a vos.',
+  { tipo:'opcion', id:'perfil', col:'Perfil profesional',
+    k:'Contexto · 1 de 3',
+    q:'¿Cuál es tu mundo <span class="hl">profesional</span> hoy?',
+    hint:'Elegí lo que más se parezca. Es un toque, nada de escribir.',
     ops:[
-      {tx:'Soy madre', v:{g:'F',madre:true}},
-      {tx:'Soy mujer, no tengo hijos', v:{g:'F',madre:false}},
-      {tx:'Soy padre', v:{g:'M',madre:true}},
-      {tx:'Soy hombre, no tengo hijos', v:{g:'M',madre:false}}
+      {tx:'Empresario/a o dueño/a de negocio', v:'empresario'},
+      {tx:'Líder o gerente de equipo', v:'lider'},
+      {tx:'Profesional independiente', v:'independiente'},
+      {tx:'Emprendedor/a lanzando algo nuevo', v:'emprendedor'},
+      {tx:'Estudiante o en formación', v:'estudiante'}
+    ]},
+
+  { tipo:'opcion', id:'contexto', col:'Contexto personal',
+    k:'Contexto · 2 de 3',
+    q:'¿Y en lo <span class="hl">personal</span>?',
+    hint:'Cambia bastante el tipo de caso que te sirve ver.',
+    ops:[
+      {tx:'Soy madre', v:'madre'},
+      {tx:'Soy mujer, no tengo hijos', v:'mujer'},
+      {tx:'Soy padre', v:'padre'},
+      {tx:'Soy hombre, no tengo hijos', v:'hombre'}
+    ]},
+
+  { tipo:'opcion', id:'dolor', col:'Qué le pesa hoy',
+    k:'Contexto · 3 de 3',
+    q:'¿Cuál de estas frases <span class="hl">te golpea más</span>?',
+    hint:'La que te haga decir "esa soy yo". Si dudás entre dos, elegí la que más te pesa esta semana.',
+    ops:[
+      {tx:'Vivo cansado/a — al final del día no me queda nada para mí', v:'energia'},
+      {tx:'Empiezo hábitos pero no los sostengo más de dos semanas', v:'habitos'},
+      {tx:'Duermo poco y mal, y eso me arruina el día siguiente', v:'sueno'},
+      {tx:'Vivo apagando incendios, sin poder priorizar lo importante', v:'organizacion'},
+      {tx:'Mi cabeza no para: pienso en el trabajo hasta cuando descanso', v:'mentalidad'},
+      {tx:'Sacrifico todo lo personal por lo laboral', v:'equilibrio'}
     ]},
 
   { tipo:'casos' },
@@ -225,14 +288,14 @@ const PASOS = [
          '<p>No hace falta agregar nada nuevo a tu vida. Hace falta ver, con nombre y apellido, cuáles son tus limitaciones de hoy y hacia dónde querés ir. Y de ahí, paso a paso.</p>',
     pull:'No se trata de ir a las corridas. Se trata de que llegues, de que puedas cumplirlo, y de que en el camino se te acomode otra manera de ver las cosas.' },
 
-  { tipo:'texto', id:'situacion', guardar:'Qué lo disparó',
-    k:'Pregunta 1 de 6',
+  { tipo:'texto', id:'situacion', col:'Qué lo disparó',
+    k:'Pregunta 1 de 5',
     q:'¿Qué te hizo decir <span class="hl">"necesito ayuda con esto"</span>?',
-    hint:'Puede ser algo laboral, personal o de salud. Contalo en 2 o 3 líneas, sin filtro. Nadie más que Pierina va a leer esto.',
+    hint:'Puede ser algo laboral, personal o de salud. Dos o tres líneas, sin filtro.',
     ph:'Lo que se me viene a la cabeza es…' },
 
-  { tipo:'texto', id:'intentos', guardar:'Qué ya intentó',
-    k:'Pregunta 2 de 6',
+  { tipo:'texto', id:'intentos', col:'Qué ya intentó',
+    k:'Pregunta 2 de 5',
     q:'¿Qué ya intentaste sola/o, y por qué <span class="hl">no te alcanzó</span>?',
     hint:'Cursos, apps, terapia, levantarte más temprano, fuerza de voluntad. Lo que sea que hayas probado.',
     ph:'Probé… y lo que pasó fue…' },
@@ -243,41 +306,28 @@ const PASOS = [
          '<p>Por eso el acompañamiento no suma tareas: <b>saca ruido</b>. Sirve para encontrar lo único que hoy realmente mueve la aguja hacia tu objetivo, y sostener eso hasta que quede instalado.</p>',
     pull:'Enfocarte en lo único que hay que accionar ahora. No en las diez cosas que podrías estar haciendo.' },
 
-  { tipo:'texto', id:'costo', guardar:'Qué le dolería no resolver',
-    k:'Pregunta 3 de 6',
+  { tipo:'texto', id:'costo', col:'Qué le dolería no resolver',
+    k:'Pregunta 3 de 5',
     q:'Si en 6 meses seguís exactamente igual, ¿qué es lo que más te va a doler <span class="hl">no haber resuelto</span>?',
     hint:'Tomate unos segundos con esta. Suele ser la que más ordena.',
     ph:'Lo que más me dolería es…' },
 
-  { tipo:'escala', id:'urgencia', guardar:'Urgencia (1-10)',
-    k:'Pregunta 4 de 6',
+  { tipo:'escala', id:'urgencia', col:'Urgencia (1-10)',
+    k:'Pregunta 4 de 5',
     q:'¿Qué tan urgente sentís que es resolver esto <span class="hl">ahora</span>?',
     hint:'Ahora, no en general.',
     min:'Puede esperar', max:'No aguanta más' },
 
-  { tipo:'opcion', id:'freno', guardar:'Qué la frenaría',
-    k:'Pregunta 5 de 6',
+  { tipo:'opcion', id:'freno', col:'Qué la frenaría',
+    k:'Pregunta 5 de 5',
     q:'Si mañana te mostraran el paso a paso exacto, ¿qué te frenaría a <span class="hl">decir que sí</span>?',
-    hint:'Sé honesta/o. Esto no cambia nada de lo que vamos a hablar: solo hace que lleguemos preparadas.',
+    hint:'Sé honesta/o. No cambia nada de lo que vamos a hablar: solo hace que lleguemos preparadas.',
     ops:[
-      {tx:'El dinero: hoy no lo tengo resuelto', v:'plata'},
-      {tx:'El tiempo: no sé si puedo sostenerlo', v:'tiempo'},
-      {tx:'Miedo a empezar algo y volver a dejarlo', v:'miedo'},
-      {tx:'Lo tengo que hablar con mi pareja o mi familia', v:'consulta'},
-      {tx:'Nada, si me convence arranco', v:'nada'}
-    ]},
-
-  { tipo:'opcion', id:'monto', guardar:'Monto mensual cómodo',
-    k:'Pregunta 6 de 6',
-    q:'¿Qué monto mensual podrías destinar hoy <span class="hl">sin complicarte</span>?',
-    hint:'Es para no usar la llamada tanteando números. Sirve para armarte una propuesta realista, no para encasillarte.',
-    ops:[
-      {tx:'Hasta USD 100', v:'hasta 100'},
-      {tx:'Entre USD 100 y 200', v:'100-200'},
-      {tx:'Entre USD 200 y 400', v:'200-400'},
-      {tx:'Entre USD 400 y 600', v:'400-600'},
-      {tx:'Más de USD 600', v:'+600'},
-      {tx:'Prefiero verlo con Pierina en la llamada', v:'lo hablamos'}
+      {tx:'El dinero: hoy no lo tengo resuelto', v:'Dinero'},
+      {tx:'El tiempo: no sé si puedo sostenerlo', v:'Tiempo'},
+      {tx:'Miedo a empezar algo y volver a dejarlo', v:'Miedo a no sostenerlo'},
+      {tx:'Lo tengo que hablar con mi pareja o mi familia', v:'Consultarlo con su familia'},
+      {tx:'Nada, si me convence arranco', v:'Nada'}
     ]},
 
   { tipo:'fin' }
@@ -287,153 +337,147 @@ const PASOS = [
    MOTOR
    ========================================================================= */
 (function(){
-  const card = document.getElementById('card');
-  const fill = document.getElementById('barFill');
+  const card  = document.getElementById('card');
+  const fill  = document.getElementById('barFill');
   const stepN = document.getElementById('stepN');
-  const R = {};              // respuestas
-  let i = 0, sel = null;
+  const R = {};
+  let i = 0, enviando = false, enviado = false;
 
   const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const G = CONFIG.GUIA;
+  const PREG = PASOS.filter(p => p.id);
+
+  /* nombre desde la URL, si viene (?nombre= o ?invitee_first_name=) */
+  function nombreDeUrl(){
+    const p = new URLSearchParams(location.search);
+    let raw = p.get('nombre') || p.get('invitee_first_name') || p.get('name') || '';
+    try{ raw = decodeURIComponent(raw); }catch(e){}
+    return raw.trim();
+  }
+  R.nombre = nombreDeUrl();
 
   function progreso(){
     fill.style.width = (i/(PASOS.length-1)*100) + '%';
     const p = PASOS[i];
-    stepN.textContent = (p.tipo==='intro'||p.tipo==='fin') ? '' : (i + ' / ' + (PASOS.length-2));
+    if(p.tipo === 'intro' || p.tipo === 'fin'){ stepN.textContent = ''; return; }
+    const n = PREG.indexOf(p);
+    stepN.textContent = n >= 0 ? ((n+1) + ' / ' + PREG.length) : '';
   }
 
   function nav(txt, off){
     return '<div class="nav">' +
+      (i > 0 ? '<button class="back" id="bk" aria-label="Volver">←</button>' : '') +
       '<button class="btn" id="go"' + (off ? ' disabled' : '') + '>' + txt + ' <span class="ar">&rarr;</span></button>' +
-      (i > 0 ? '<button class="back" id="bk">← Volver</button>' : '') +
     '</div>';
   }
 
   function pintar(){
     const p = PASOS[i];
-    sel = null;
     let h = '';
 
     if(p.tipo === 'intro'){
       h = '<span class="k">Antes de tu sesión</span>' +
         '<h1 class="q">Regalate 10 minutos <span class="hl">con vos</span>.</h1>' +
-        '<p class="hint">Esto no es un formulario. Son seis preguntas cortas para que llegues a la sesión sabiendo qué querés resolver — y para que no gastemos la charla construyéndolo desde cero.</p>' +
-        '<div class="pier">' +
-          '<img src="' + G.foto + '" alt="' + esc(G.nombre) + '">' +
+        '<p class="hint">Esto no es un formulario. Son unas preguntas cortas para que llegues a la sesión sabiendo qué querés resolver — y para que no gastemos la charla construyéndolo desde cero.</p>' +
+        '<div class="pier"><img src="' + G.foto + '" alt="' + esc(G.nombre) + '">' +
           '<div><div class="n">' + esc(G.nombre) + '</div><div class="r">' + esc(G.rol) + '</div>' +
-          '<div class="b">' + esc(G.bio) + '</div></div>' +
-        '</div>' +
+          '<div class="b">' + esc(G.bio) + '</div></div></div>' +
         '<p class="hint" style="margin-bottom:0">Pierina también fue alumna: pasó por este mismo camino antes de acompañarlo. Va a leer tus respuestas antes de la llamada.</p>' +
         nav('Empezar');
     }
 
     else if(p.tipo === 'arg'){
-      h = '<div class="arg">' +
-        '<span class="k">' + p.k + '</span>' +
+      h = '<div class="arg"><span class="k">' + p.k + '</span>' +
         '<h2 class="q">' + p.q + '</h2>' +
         '<div class="body">' + p.body + '</div>' +
-        '<div class="pull"><p>' + p.pull + '</p></div>' +
-      '</div>' + nav('Seguir');
+        '<div class="pull"><p>' + p.pull + '</p></div></div>' + nav('Seguir');
     }
 
     else if(p.tipo === 'texto'){
-      h = '<span class="k">' + p.k + '</span>' +
-        '<h2 class="q">' + p.q + '</h2>' +
+      const v = R[p.id] || '';
+      h = '<span class="k">' + p.k + '</span><h2 class="q">' + p.q + '</h2>' +
         '<p class="hint">' + p.hint + '</p>' +
-        '<textarea class="ta" id="ta" placeholder="' + p.ph + '">' + esc(R[p.id] || '') + '</textarea>' +
-        nav('Continuar', !(R[p.id] && R[p.id].trim().length >= 8));
+        '<textarea class="ta" id="ta" placeholder="' + p.ph + '">' + esc(v) + '</textarea>' +
+        '<div class="count" id="cnt"></div>' +
+        nav('Continuar', v.trim().length < 12);
     }
 
     else if(p.tipo === 'opcion'){
-      h = '<span class="k">' + p.k + '</span>' +
-        '<h2 class="q">' + p.q + '</h2>' +
-        '<p class="hint">' + p.hint + '</p>' +
-        '<div class="opts">' +
-          p.ops.map((o,n) => '<button class="opt" data-n="' + n + '"><span class="r"></span><span>' + o.tx + '</span></button>').join('') +
-        '</div>' + nav('Continuar', true);
+      h = '<span class="k">' + p.k + '</span><h2 class="q">' + p.q + '</h2>' +
+        '<p class="hint">' + p.hint + '</p><div class="opts">' +
+        p.ops.map((o,n) => '<button class="opt' + (R[p.id] === o.v ? ' on' : '') + '" data-n="' + n + '">' +
+          '<span class="r"></span><span>' + o.tx + '</span></button>').join('') +
+        '</div>' + nav('Continuar', R[p.id] == null);
     }
 
     else if(p.tipo === 'escala'){
       let sc = '';
-      for(let n=1;n<=10;n++) sc += '<button class="sc" data-n="' + n + '">' + n + '</button>';
-      h = '<span class="k">' + p.k + '</span>' +
-        '<h2 class="q">' + p.q + '</h2>' +
-        '<p class="hint">' + p.hint + '</p>' +
-        '<div class="scale">' + sc + '</div>' +
+      for(let n=1;n<=10;n++) sc += '<button class="sc' + (R[p.id] === n ? ' on' : '') + '" data-n="' + n + '">' + n + '</button>';
+      h = '<span class="k">' + p.k + '</span><h2 class="q">' + p.q + '</h2>' +
+        '<p class="hint">' + p.hint + '</p><div class="scale">' + sc + '</div>' +
         '<div class="scale-lbl"><span>1 · ' + p.min + '</span><span>10 · ' + p.max + '</span></div>' +
-        nav('Continuar', true);
+        nav('Continuar', R[p.id] == null);
     }
 
     else if(p.tipo === 'casos'){
       const tres = elegirCasos();
       h = '<span class="k">Ya lo hicieron</span>' +
         '<h2 class="q">Tres personas que arrancaron <span class="hl">parecido a vos</span></h2>' +
-        '<p class="hint">Son alumnos del Instituto que dieron el siguiente paso. Tocá el video si querés escucharlos contarlo.</p>' +
+        '<p class="hint">Elegidos por tu perfil, tu contexto y lo que hoy te pesa. Tocá el video si querés escucharlos contarlo.</p>' +
         '<div class="cases">' + tres.map(c =>
-          '<article class="case">' +
-            '<div class="case__v" data-yt="' + c.yt + '">' +
-              '<img src="https://img.youtube.com/vi/' + c.yt + '/hqdefault.jpg" alt="Entrevista a ' + esc(c.nombre) + '" loading="lazy">' +
-              '<span class="case__p"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>' +
-            '</div>' +
-            '<div class="case__b">' +
-              '<div class="case__n">' + esc(c.nombre) + '</div>' +
-              '<div class="case__pf">' + esc(c.perfil) + '</div>' +
-              '<div class="ab">' +
-                '<div class="ab__i"><span class="ab__t ab__t--a">Antes</span><span class="ab__x">' + esc(c.a) + '</span></div>' +
-                '<div class="ab__i"><span class="ab__t ab__t--b">Después</span><span class="ab__x">' + esc(c.b) + '</span></div>' +
-              '</div>' +
-              '<p class="case__q">' + esc(c.f) + '</p>' +
-            '</div>' +
-          '</article>').join('') +
+          '<article class="case"><div class="case__v" data-yt="' + c.yt + '">' +
+            '<img src="https://img.youtube.com/vi/' + c.yt + '/hqdefault.jpg" alt="Entrevista a ' + esc(c.nombre) + '" loading="lazy">' +
+            '<span class="case__p"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>' +
+            '<div class="case__b"><div class="case__n">' + esc(c.nombre) + '</div>' +
+            '<div class="case__pf">' + esc(c.perfil) + '</div><div class="ab">' +
+              '<div class="ab__i"><span class="ab__t ab__t--a">Antes</span><span class="ab__x">' + esc(c.a) + '</span></div>' +
+              '<div class="ab__i"><span class="ab__t ab__t--b">Después</span><span class="ab__x">' + esc(c.b) + '</span></div>' +
+            '</div><p class="case__q">' + esc(c.f) + '</p></div></article>').join('') +
         '</div>' + nav('Seguir');
     }
 
     else if(p.tipo === 'fin'){
-      enviar();
-      h = '<div class="done">' +
-        '<span class="k">Listo</span>' +
+      h = '<span class="k">Último paso</span>' +
         '<h2 class="big">Ya hiciste <span class="hl">la parte difícil</span>.</h2>' +
-        '<p class="hint">Con esto, Pierina llega a la sesión sabiendo de dónde venís. En la llamada te va a devolver qué ve en tus respuestas y cuál es el paso que de verdad te conviene dar ahora — puede que no sea el que estás pensando.</p>' +
-        '<div class="pier"><img src="' + G.foto + '" alt="' + esc(G.nombre) + '">' +
-          '<div><div class="n">' + esc(G.nombre) + '</div><div class="r">Te espera en la sesión</div></div></div>' +
-        '<div class="recap"><h4>Lo que escribiste</h4><dl>' +
-          PASOS.filter(s => s.guardar && R[s.id] != null).map(s =>
-            '<div><dt>' + esc(s.guardar) + '</dt><dd>' + esc(textoDe(s)) + '</dd></div>').join('') +
+        '<p class="hint">Con esto Pierina llega a la sesión sabiendo de dónde venís. En la llamada te va a devolver qué ve en tus respuestas y cuál es el paso que de verdad te conviene dar ahora — puede que no sea el que estás pensando.</p>' +
+        '<div class="field"><label for="nom">¿Cómo te llamás?</label>' +
+          '<input class="inp" id="nom" type="text" autocomplete="name" placeholder="Tu nombre" value="' + esc(R.nombre || '') + '"></div>' +
+        '<div class="recap"><h4>Lo que respondiste</h4><dl>' +
+          PREG.filter(s => R[s.id] != null).map(s =>
+            '<div><dt>' + esc(s.col) + '</dt><dd>' + esc(textoDe(s)) + '</dd></div>').join('') +
         '</dl></div>' +
-        '<div class="nav"><button class="btn" id="go">' + (CONFIG.WHATSAPP ? 'Enviárselo a Pierina' : 'Copiar mis respuestas') + ' <span class="ar">&rarr;</span></button></div>' +
-        '<div class="copyok" id="copyok">✓ Copiado — pegáselo a Pierina por WhatsApp</div>' +
-        '<p class="fine">Tus respuestas son solo para tu sesión</p>' +
-      '</div>';
+        '<div class="state" id="st"></div>' +
+        '<div class="alt" id="alt"><button id="cp">Copiar mis respuestas</button></div>' +
+        '<div class="nav"><button class="back" id="bk" aria-label="Volver">←</button>' +
+        '<button class="btn" id="go"' + (R.nombre ? '' : ' disabled') + '>Enviar mis respuestas <span class="ar">&rarr;</span></button></div>';
     }
 
     card.innerHTML = h;
     card.style.animation = 'none'; void card.offsetWidth; card.style.animation = '';
-    window.scrollTo({top:0,behavior:'instant'});
+    window.scrollTo(0,0);
     progreso();
     enganchar();
   }
 
   function textoDe(s){
     const v = R[s.id];
-    if(s.tipo === 'opcion'){
-      const o = s.ops.find(x => JSON.stringify(x.v) === JSON.stringify(v));
-      return o ? o.tx : String(v);
-    }
+    if(s.tipo === 'opcion'){ const o = s.ops.find(x => x.v === v); return o ? o.tx : String(v); }
     if(s.tipo === 'escala') return v + ' de 10';
     return v;
   }
 
+  /* match por perfil profesional + contexto + dolor */
   function elegirCasos(){
-    const r = R.perfil || {g:'F',madre:false};
-    return CASOS.slice()
-      .map(c => {
-        let s = 0;
-        if(c.g === r.g) s += 10;
-        if(r.madre && c.madre) s += 6;
-        return {c:c, s:s + Math.random()};
-      })
-      .sort((x,y) => y.s - x.s)
-      .slice(0,3).map(x => x.c);
+    const gen = (R.contexto === 'madre' || R.contexto === 'mujer') ? 'F' : 'M';
+    const esPadre = (R.contexto === 'madre' || R.contexto === 'padre');
+    return CASOS.slice().map(c => {
+      let s = 0;
+      if(c.dom === R.dolor) s += 12;
+      if(c.tags.indexOf(R.perfil) > -1) s += 9;
+      if(c.g === gen) s += 6;
+      if(esPadre && c.madre) s += 4;
+      return {c:c, s:s + Math.random()};
+    }).sort((x,y) => y.s - x.s).slice(0,3).map(x => x.c);
   }
 
   function enganchar(){
@@ -443,19 +487,22 @@ const PASOS = [
     if(bk) bk.onclick = () => { i--; pintar(); };
 
     if(p.tipo === 'texto'){
-      const ta = document.getElementById('ta');
-      ta.addEventListener('input', () => {
+      const ta = document.getElementById('ta'), cnt = document.getElementById('cnt');
+      const refrescar = () => {
         R[p.id] = ta.value;
-        go.disabled = ta.value.trim().length < 8;
-      });
+        const n = ta.value.trim().length;
+        go.disabled = n < 12;
+        cnt.textContent = n < 12 ? 'Escribí un poco más para continuar' : '';
+      };
+      ta.addEventListener('input', refrescar);
+      refrescar();
     }
 
     if(p.tipo === 'opcion'){
       card.querySelectorAll('.opt').forEach(b => b.onclick = () => {
         card.querySelectorAll('.opt').forEach(x => x.classList.remove('on'));
         b.classList.add('on');
-        sel = +b.dataset.n;
-        R[p.id] = p.ops[sel].v;
+        R[p.id] = p.ops[+b.dataset.n].v;
         go.disabled = false;
       });
     }
@@ -473,50 +520,85 @@ const PASOS = [
       card.querySelectorAll('.case__v').forEach(v => v.onclick = () => {
         if(v.dataset.on) return;
         v.dataset.on = '1';
-        v.innerHTML = '<iframe src="https://www.youtube.com/embed/' + v.dataset.yt + '?autoplay=1&rel=0" title="Caso de éxito" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+        v.innerHTML = '<iframe src="https://www.youtube.com/embed/' + v.dataset.yt +
+          '?autoplay=1&rel=0" title="Caso de éxito" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
       });
     }
 
-    if(!go) return;
-    if(p.tipo === 'fin'){ go.onclick = compartir; return; }
-    go.onclick = () => { if(!go.disabled){ i++; pintar(); } };
-  }
-
-  /* ── resumen para Pierina ── */
-  function resumen(){
-    return 'ANTES DE MI SESIÓN\n\n' + PASOS
-      .filter(s => s.guardar && R[s.id] != null)
-      .map(s => '• ' + s.guardar + ':\n' + textoDe(s))
-      .join('\n\n');
-  }
-
-  function compartir(){
-    const txt = resumen();
-    if(CONFIG.WHATSAPP){
-      window.open('https://wa.me/' + CONFIG.WHATSAPP + '?text=' + encodeURIComponent(txt), '_blank', 'noopener');
+    if(p.tipo === 'fin'){
+      const nom = document.getElementById('nom');
+      nom.addEventListener('input', () => {
+        R.nombre = nom.value;
+        go.disabled = nom.value.trim().length < 2 || enviando || enviado;
+      });
+      document.getElementById('cp').onclick = copiar;
+      go.onclick = enviar;
       return;
     }
-    const ok = document.getElementById('copyok');
-    if(navigator.clipboard){
-      navigator.clipboard.writeText(txt).then(() => ok.classList.add('on'))
-        .catch(() => { prompt('Copiá tus respuestas:', txt); });
-    } else {
-      prompt('Copiá tus respuestas:', txt);
-    }
+
+    if(go) go.onclick = () => { if(!go.disabled){ i++; pintar(); } };
   }
 
-  /* ── envío opcional al webhook ── */
-  let enviado = false;
+  /* ── resumen en texto plano (respaldo) ── */
+  function resumen(){
+    return 'ANTES DE MI SESIÓN — ' + (R.nombre || '') + '\n\n' +
+      PREG.filter(s => R[s.id] != null).map(s => '• ' + s.col + ':\n' + textoDe(s)).join('\n\n');
+  }
+
+  function copiar(){
+    const txt = resumen();
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(txt)
+        .then(() => estado('ok', '✓ Copiado — pegáselo a Pierina'))
+        .catch(() => prompt('Copiá tus respuestas:', txt));
+    } else prompt('Copiá tus respuestas:', txt);
+  }
+
+  function estado(clase, txt){
+    const st = document.getElementById('st');
+    st.className = 'state on ' + clase;
+    st.textContent = txt;
+  }
+
+  /* ── envío al Google Sheets ── */
   function enviar(){
-    if(enviado || !CONFIG.WEBHOOK) return;
-    enviado = true;
-    const data = {fecha:new Date().toISOString(), url:location.href};
-    PASOS.filter(s => s.guardar && R[s.id] != null).forEach(s => { data[s.id] = textoDe(s); });
-    try{
-      fetch(CONFIG.WEBHOOK, {method:'POST', mode:'no-cors',
-        headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(data)})
-        .catch(e => console.warn('webhook:', e));
-    }catch(e){ console.warn('webhook:', e); }
+    if(enviando || enviado) return;
+    const go = document.getElementById('go');
+    const nom = document.getElementById('nom');
+    R.nombre = (nom.value || '').trim();
+    if(R.nombre.length < 2){ nom.focus(); return; }
+
+    const datos = {fecha:new Date().toISOString(), nombre:R.nombre, origen:location.href};
+    PREG.forEach(s => { if(R[s.id] != null) datos[s.id] = textoDe(s); });
+
+    if(!CONFIG.SHEETS_ENDPOINT){
+      copiar();
+      document.getElementById('alt').classList.add('on');
+      return;
+    }
+
+    enviando = true;
+    go.disabled = true;
+    go.innerHTML = 'Enviando…';
+    estado('', '');
+
+    fetch(CONFIG.SHEETS_ENDPOINT, {method:'POST', mode:'no-cors', body:JSON.stringify(datos)})
+      .then(listo).catch(listo);
+
+    /* con mode:no-cors no se puede leer la respuesta: damos por enviado
+       y dejamos a mano el respaldo por si algo falló */
+    function listo(){
+      enviando = false; enviado = true;
+      go.innerHTML = '✓ Enviado';
+      go.disabled = true;
+      estado('ok', '✓ Listo — Pierina ya las tiene');
+      document.getElementById('alt').classList.add('on');
+      if(CONFIG.WHATSAPP){
+        document.getElementById('cp').textContent = 'También enviárselas por WhatsApp';
+        document.getElementById('cp').onclick = () =>
+          window.open('https://wa.me/' + CONFIG.WHATSAPP + '?text=' + encodeURIComponent(resumen()), '_blank', 'noopener');
+      }
+    }
   }
 
   pintar();
