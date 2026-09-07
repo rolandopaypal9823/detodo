@@ -166,7 +166,8 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
    ========================================================================= */
 const CONFIG = {
   // URL del Apps Script desplegado (la que termina en /exec).
-  // Mientras esté vacío, el botón copia las respuestas al portapapeles.
+  // Si queda vacío el quiz funciona igual y el WhatsApp se arma lo mismo:
+  // lo único que se pierde es la fila en la planilla.
   SHEETS_ENDPOINT: "https://script.google.com/macros/s/AKfycbxDzwKyQUxGAJIk2-RpLgnQjy_F2pNn21OGPh7oA7KKlocSBVpJvTWy7dHlKK4q89jL/exec",
 
   // WhatsApp de Pierina, solo dígitos con código de país.
