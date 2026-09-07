@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hackea tu Cerebro EN VIVO · Clase en vivo con Nicolás Fernández Miranda</title>
-<meta name="description" content="Mientras más productivo sos, menos avanzás en tu vida. Clase en vivo de 2 horas para profesionales, líderes y empresarios. USD 17.">
+<meta name="description" content="Mientras más productivo sos, menos avanzás en tu vida. Bootcamp en vivo de 3 horas para profesionales, líderes y empresarios. USD 17.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -362,6 +362,20 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 .inv .n{font-family:var(--f-h); font-size:clamp(2.5rem,6.6vw,3.4rem); font-weight:900;
   color:var(--orange); line-height:1; letter-spacing:-0.03em; margin:12px 0 26px}
 .inv .pay{font-size:.9rem; color:rgba(255,255,255,.6); margin:16px 0 0}
+/* La nube · todo el widget de la oferta va dentro de una caja propia, con el
+   borde naranja y el sello arriba, para que se lea como una sola unidad y se
+   despegue del resto de la página. Es la caja de Dan, en paleta NFM. */
+.oferta{position:relative; max-width:672px; margin:14px auto 0; padding:48px 38px 40px;
+  background:radial-gradient(560px 260px at 50% 0%, rgba(255,102,2,.07), transparent 72%), #fff;
+  border:2px solid rgba(255,102,2,.3); border-radius:28px;
+  box-shadow:0 34px 90px rgba(12,52,82,.14)}
+.oferta::before{content:'Lo que incluye tu entrada'; position:absolute; top:0; left:50%;
+  transform:translate(-50%,-50%); background:var(--orange); color:#fff; white-space:nowrap;
+  font-family:var(--f-mono); font-size:.63rem; font-weight:600; letter-spacing:.16em;
+  text-transform:uppercase; padding:9px 20px; border-radius:50px;
+  box-shadow:0 10px 26px var(--orange-glow)}
+.oferta h2{margin-top:6px}
+.oferta .stack, .oferta .inv{max-width:none}
 .why{margin:32px auto 0; padding:28px 30px; background:var(--orange-wash);
   border:1px solid rgba(255,102,2,.2); border-radius:var(--r-lg); max-width:600px; text-align:left}
 .why h3{font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.18em;
@@ -608,6 +622,8 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 
   .myth{gap:16px; padding:20px 0}
   .myth__n{font-size:1.6rem; min-width:40px}
+  .oferta{padding:40px 20px 30px; border-radius:20px; margin-top:10px}
+  .oferta::before{font-size:.56rem; letter-spacing:.12em; padding:8px 14px}
   .stack li{padding:18px 0 18px 30px}
   .stack .what li{padding:10px 0 10px 28px}
   .faq summary{padding:20px 20px}
@@ -679,7 +695,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
       </div>
 
       <p class="specs">
-        <span>Clase online de 2 horas</span><i>·</i><span>Por Zoom, desde donde estés</span><i>·</i><span>Grabación incluida</span>
+        <span>Bootcamp online de 3 horas</span><i>·</i><span>Por Zoom, desde donde estés</span><i>·</i><span>Grabación incluida</span>
       </p>
     </div>
   </div>
@@ -874,10 +890,10 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
   </div>
 </section>
 
-<!-- ═══════════════ 4 · QUIÉN TE VA A DAR LA CLASE · navy ═══════════════ -->
+<!-- ═══════════════ 4 · QUIÉN DA EL BOOTCAMP · navy ═══════════════ -->
 <section class="sec sec--tint">
   <div class="wrap">
-    <h2>Quién te va a dar <em>la clase</em></h2>
+    <h2>Quién te va a dar <em>el bootcamp</em></h2>
 
     <img class="bio__ph" src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/nico-bio-card.jpg"
          alt="Nicolás Fernández Miranda" loading="lazy">
@@ -887,6 +903,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
     <p class="beat">Hasta que me agarró una crisis en París y no pude seguir fingiendo. Ahí empecé a estudiar el cerebro en serio.</p>
 
     <p class="beat">Hoy tengo un máster en neurociencia aplicada al rendimiento, doy clases en la universidad, di dos charlas TEDx, escribí <em>Hackea tu Cerebro</em> —best seller, y está en librerías— y dirijo el Instituto de Productividad, donde un equipo de profesionales acompaña a personas que están exactamente donde yo estaba.</p>
+    <p class="beat">Las tres horas las doy yo. En <strong>alimentación</strong> me acompaña nuestro nutricionista y en <strong>concentración y gestión emocional</strong>, nuestra psicóloga experta en TDAH. Los dos se quedan con el micrófono abierto para tus preguntas.</p>
 
     <div class="stats">
       <div class="stat"><b data-count="400">+400</b><span>Casos de éxito</span></div>
@@ -1055,23 +1072,25 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 <!-- ═══════════════ 7 · OFERTA · sobre claro ═══════════════ -->
 <section class="sec" id="oferta">
   <div class="wrap">
+   <div class="oferta">
     <h2>Todo lo que te llevás <em>por diecisiete dólares</em></h2>
 
     <ul class="stack">
-      <li><b>Hackea tu Cerebro EN VIVO · 2 horas</b><span>Los cinco sistemas del alto rendimiento, uno por uno, <strong>con los micrófonos abiertos en cada uno</strong>: en los cinco se resuelve un caso real en vivo, no una teoría. Esto es lo que te llevás de cada uno:</span>
+      <li><b>Hackea tu Cerebro EN VIVO · Bootcamp de 3 horas</b><span>Los cinco sistemas del alto rendimiento, uno por uno, <strong>con los micrófonos abiertos en cada uno</strong>: en los cinco se resuelve un caso real en vivo, no una teoría. Esto es lo que te llevás de cada uno:</span>
         <ol class="what">
-          <li><b>Descanso.</b> Cuántas horas necesitás vos —no el promedio— y qué hacer en la hora previa a dormir para que esas horas rindan.</li>
-          <li><b>Alimentación.</b> Qué comer al mediodía para que a las cuatro de la tarde no se te caiga el día. Sin dieta, sin contar calorías y sin cocinar más.</li>
-          <li><b>Movimiento.</b> El mínimo que sí funciona cuando no tenés tiempo para el gimnasio, y en qué momento del día conviene hacerlo.</li>
-          <li><b>Foco y tiempo.</b> Cómo armar una hora del día que no se interrumpa sola, incluso con personas a cargo y el teléfono sonando.</li>
-          <li><b>Inteligencia artificial.</b> Tres tareas de tu semana que le podés delegar hoy, y cómo pedírselo para que salga bien la primera vez.</li>
+          <li><b>Descanso.</b> Con Nicolás Fernández Miranda.</li>
+          <li><b>Alimentación.</b> Nos acompaña nuestro nutricionista, y vas a poder hacerle tus preguntas.</li>
+          <li><b>Movimiento.</b></li>
+          <li><b>Concentración y gestión emocional.</b> Entendé tus funciones ejecutivas, con nuestra psicóloga experta en TDAH.</li>
+          <li><b>Inteligencia artificial.</b> Tres aplicaciones concretas —Claude, tu Second Brain y automatizaciones inteligentes— para que las repliques en tu trabajo y con tu equipo.</li>
         </ol>
       </li>
       <li><b>La grabación, tuya para siempre</b><span>En tu mail dentro de las 24 horas, para que si ese día se te cruza una urgencia (te va a cruzar) no pierdas nada.</span></li>
-      <li><b>Workbook con los accionables</b><span>No son apuntes: es lo que se dijo, ordenado y en formato de hacer, <strong>para que salgas de la clase con el primer paso ya decidido</strong> y lo puedas aplicar al día siguiente, sin volver a pensarlo.</span></li>
-      <li class="stack__bonus"><b>El ebook completo de «Hackea tu Cerebro»</b><span>El libro entero en digital, el mismo que está en librerías, para que después de la clase tengas los 49 hacks a mano y no dependas de acordarte.
+      <li><b>Workbook con los accionables</b><span>No son apuntes: es lo que se dijo, ordenado y en formato de hacer, <strong>para que salgas del bootcamp con el primer paso ya decidido</strong> y lo puedas aplicar al día siguiente, sin volver a pensarlo.</span></li>
+      <li><b>La comunidad de WhatsApp, abierta</b><span>El grupo donde se resuelven las dudas que te quedan después del bootcamp, se comparten libros y herramientas, y cada uno cuenta qué le está funcionando y qué no. <strong>Saber qué hacer es la parte fácil: la difícil es sostenerlo, y solo cuesta más.</strong></span></li>
+      <li class="stack__bonus"><b>El ebook completo de «Hackea tu Cerebro»</b><span>El libro entero en digital, el mismo que está en librerías, para que después del bootcamp tengas los 49 hacks a mano y no dependas de acordarte.
         <span class="cupos" id="cupos-wrap"><b id="cupos">73</b> disponibles de 100</span>
-        <span class="cupos__nota">Sólo para las primeras 100 personas. Cuando se agotan, la clase sigue igual: el ebook no.</span>
+        <span class="cupos__nota">Sólo para las primeras 100 personas. Cuando se agotan, el bootcamp sigue igual: el ebook no.</span>
       </span></li>
     </ul>
 
@@ -1083,12 +1102,13 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
       <p class="pay">Pago seguro con Stripe o Mercado Pago. El acceso te llega al mail en el momento.</p>
-    </div>
+      </div>
+   </div>
 
     <div class="why">
       <h3>★ Por qué diecisiete dólares ★</h3>
       <p>Podría ser gratis. <strong>No lo es a propósito: lo que no te cuesta, no lo accionás.</strong></p>
-      <p>Diecisiete dólares no son una barrera económica — <strong>son un filtro de intención.</strong> Quiero un grupo chico, de personas que ya tomaron la decisión de invertir en sí mismas, porque el retorno no depende de la clase: depende de que hagas algo con lo que te llevás.</p>
+      <p>Diecisiete dólares no son una barrera económica — <strong>son un filtro de intención.</strong> Quiero un grupo chico, de personas que ya tomaron la decisión de invertir en sí mismas, porque el retorno no depende del bootcamp: depende de que hagas algo con lo que te llevás.</p>
       <p>Y no lo digo desde afuera. Lo viví en carne propia.</p>
     </div>
   </div>
@@ -1120,8 +1140,8 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
         <p>Y funciona — para lo que ya tenía a alguien esperándolo. Tu asistente te ordena las reuniones, los envíos, las entregas: todo eso ya tenía dueño. Lo tuyo sigue sin tener a nadie del otro lado, y eso no se delega. O hay alguien esperándolo, o no lo hay.</p>
       </details>
       <details>
-        <summary>¿Es una clase o me van a vender dos horas?</summary>
-        <p>Es una clase. Vas a salir entendiendo qué está roto y por qué, aunque no hagas nada más con nosotros. Al final te contamos cómo trabajamos, una sola vez, y ahí decidís vos.</p>
+        <summary>¿Es formación o me van a vender tres horas?</summary>
+        <p>Es formación. Vas a salir entendiendo qué está roto y por qué, aunque no hagas nada más con nosotros. Al final te contamos cómo trabajamos, una sola vez, y ahí decidís vos.</p>
       </details>
       <details>
         <summary>¿Cómo pago desde mi país?</summary>
@@ -1149,14 +1169,14 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </button>
 
-    <p class="sign">Nos vemos en la clase.<b>— Nicolás Fernández Miranda —</b></p>
+    <p class="sign">Nos vemos en el bootcamp.<b>— Nicolás Fernández Miranda —</b></p>
   </div>
 </section>
 
 <div class="legal">
   <div>
     <p><strong>Descargo de responsabilidad:</strong> los resultados que se muestran en esta página son de personas reales del Instituto de Productividad y no son resultados típicos. Los tuyos van a variar y dependen de muchos factores, entre ellos tu situación, tu contexto y el trabajo que le pongas.</p>
-    <p>Esta clase es formativa y no reemplaza ninguna consulta médica, psicológica ni nutricional. Si tenés una condición de salud, consultá con un profesional antes de aplicar cambios en tu descanso, tu alimentación o tu actividad física.</p>
+    <p>Este bootcamp es formativo y no reemplaza ninguna consulta médica, psicológica ni nutricional. Si tenés una condición de salud, consultá con un profesional antes de aplicar cambios en tu descanso, tu alimentación o tu actividad física.</p>
     <p>Este sitio no forma parte de Facebook ni de Meta Platforms, Inc., y no está avalado por ellos de ninguna manera.</p>
     <p>Instituto de Productividad · Nicolás Fernández Miranda</p>
   </div>
@@ -1191,7 +1211,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
         </div>
       </div>
       <button class="cta" id="next" style="box-shadow:none">Ir al paso 2 &rarr;</button>
-      <p class="privacy">Respetamos tu privacidad. Te escribimos sólo por la clase.</p>
+      <p class="privacy">Respetamos tu privacidad. Te escribimos sólo por el bootcamp.</p>
     </div>
 
     <!-- PASO 2 · ítem + 1 bump + total.
