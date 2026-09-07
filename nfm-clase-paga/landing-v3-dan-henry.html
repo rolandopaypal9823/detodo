@@ -7,7 +7,7 @@
 <meta name="description" content="Mientras más productivo sos, menos avanzás en tu vida. Clase en vivo de 2 horas para profesionales, líderes y empresarios. USD 17.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════════════════════════
    HACKEA TU CEREBRO EN VIVO · v3
@@ -15,7 +15,8 @@
    Protocolo de copy ............ Funnel 400% (5 pasos)
    Calibración de avatar ........ Núcleo de comunicación · edición Platinum
    Sistema visual ............... blanco, una sola columna centrada.
-                                  Tipografía Space Grotesk + DM Sans.
+                                  Tipografía oficial NFM: Montserrat + Open
+                                  Sans + JetBrains Mono.
    Una sola columna angosta y todo centrado: es lo que ordena la página. El
    naranja aparece sólo en acentos y CTAs — si todo es naranja, nada es naranja.
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -39,8 +40,12 @@
   --ink-mute:   #4E6174;
   --ink-subtle: #8A98A8;
 
-  --f-h: 'Space Grotesk', sans-serif;
-  --f-b: 'DM Sans', sans-serif;
+  /* Sistema tipográfico oficial NFM (biblia-estetica): Montserrat para
+     títulos, Open Sans para cuerpo, JetBrains Mono para labels en
+     mayúsculas — que es la firma visual de la marca. */
+  --f-h: 'Montserrat', Georgia, serif;
+  --f-b: 'Open Sans', Georgia, serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, monospace;
   --r:    14px;
   --r-lg: 22px;
   --ease: cubic-bezier(0.22,1,0.36,1);
@@ -70,20 +75,21 @@ a{color:inherit; text-decoration:none}
 /* ───────────── TIPOGRAFÍA ─────────────
    Títulos apretados (line-height 1.08-1.2, tracking negativo), cuerpo aireado
    (1.72-1.78). Ese contraste es lo que hace que se lea bien. */
-h1{font-family:var(--f-h); font-size:clamp(2rem,4.6vw,3.3rem); font-weight:700;
-  line-height:1.08; letter-spacing:-0.03em; margin:0 0 16px; color:var(--ink); text-wrap:balance}
-h2{font-family:var(--f-h); font-size:clamp(1.5rem,3.4vw,2.3rem); font-weight:700;
-  line-height:1.18; letter-spacing:-0.02em; margin:0 0 20px; color:var(--ink); text-wrap:balance}
-h3{font-family:var(--f-h); font-size:1.14rem; font-weight:700;
-  line-height:1.35; letter-spacing:-0.01em; margin:0 0 8px; color:var(--ink)}
+h1{font-family:var(--f-h); font-size:clamp(1.95rem,4.4vw,3.15rem); font-weight:800;
+  line-height:1.12; letter-spacing:-0.02em; margin:0 0 16px; color:var(--ink); text-wrap:balance}
+h2{font-family:var(--f-h); font-size:clamp(1.48rem,3.3vw,2.2rem); font-weight:800;
+  line-height:1.22; letter-spacing:-0.015em; margin:0 0 20px; color:var(--ink); text-wrap:balance}
+h3{font-family:var(--f-h); font-size:1.12rem; font-weight:700;
+  line-height:1.4; letter-spacing:-0.01em; margin:0 0 8px; color:var(--ink)}
 h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 
-/* Labels en mayúsculas: Space Grotesk con tracking ancho. Este sistema no usa mono. */
-.eyebrow{display:inline-block; font-family:var(--f-h); font-size:.76rem; font-weight:600;
+/* Labels en mayúsculas: JetBrains Mono con tracking ancho. Es la firma
+   visual de NFM y lo que separa este sistema de cualquier otro. */
+.eyebrow{display:inline-block; font-family:var(--f-mono); font-size:.76rem; font-weight:600;
   letter-spacing:.11em; text-transform:uppercase; color:var(--orange-text);
   background:var(--orange-wash); border:1px solid rgba(255,102,2,.26);
   padding:8px 17px; border-radius:50px; margin:0 0 22px}
-.label{font-family:var(--f-h); font-size:.72rem; font-weight:600; letter-spacing:.16em;
+.label{font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.16em;
   text-transform:uppercase; color:var(--ink-subtle); margin:0 0 18px}
 
 /* ───────────── SECCIONES ───────────── */
@@ -103,7 +109,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 /* ───────────── BOTONES ─────────────
    El naranja lleno queda para el fold, la oferta y el cierre. El resto, ghost. */
 .cta{display:inline-flex; align-items:center; justify-content:center; gap:10px;
-  font-family:var(--f-h); font-size:1.04rem; font-weight:600; letter-spacing:.01em;
+  font-family:var(--f-h); font-size:1.02rem; font-weight:800; letter-spacing:.005em;
   color:#fff; background:var(--orange); border:none; border-radius:50px;
   padding:18px 36px; cursor:pointer; position:relative; overflow:hidden; text-align:center;
   transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
@@ -146,39 +152,39 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 
 .hero{position:relative; overflow:hidden; padding:56px 0 68px;
   background:radial-gradient(820px 400px at 50% 0%, rgba(255,102,2,.06), transparent 66%), var(--white)}
-.hero__tag{display:inline-block; font-family:var(--f-h); font-size:.76rem; font-weight:600;
+.hero__tag{display:inline-block; font-family:var(--f-mono); font-size:.76rem; font-weight:600;
   letter-spacing:.11em; text-transform:uppercase; color:var(--orange-text);
   background:var(--orange-wash); border:1px solid rgba(255,102,2,.26);
   padding:8px 17px; border-radius:50px; margin:0 0 24px; animation:fu .6s var(--ease) both}
 .hero h1{animation:fu .6s .12s var(--ease) both}
 /* La frase-billboard: el H1 es una afirmación (forma Dan Henry) y no abre el
    loop por sí solo. Esto es lo que lo abre. */
-.hero__ask{font-family:var(--f-h); font-size:clamp(1.14rem,2.4vw,1.5rem); font-weight:600;
+.hero__ask{font-family:var(--f-h); font-size:clamp(1.1rem,2.3vw,1.45rem); font-weight:700;
   color:var(--orange); line-height:1.3; letter-spacing:-0.01em; margin:0 auto 24px; max-width:22em;
   animation:fu .6s .2s var(--ease) both}
 .hero__sub{font-size:1.06rem; color:var(--ink-mute); line-height:1.75; margin:0 auto 30px;
   max-width:33em; animation:fu .6s .28s var(--ease) both}
 .hero__sub strong{color:var(--ink); font-weight:700}
-.watch{font-family:var(--f-h); font-size:.74rem; font-weight:600; letter-spacing:.16em;
+.watch{font-family:var(--f-mono); font-size:.74rem; font-weight:600; letter-spacing:.16em;
   text-transform:uppercase; color:var(--orange-text); margin:0 0 14px; animation:fu .6s .32s var(--ease) both}
 .vsl{aspect-ratio:16/9; margin:0 auto 30px; background:var(--navy);
   border-radius:var(--r-lg); display:flex; align-items:center; justify-content:center;
   color:rgba(255,255,255,.42); font-family:var(--f-h); font-size:.9rem; overflow:hidden;
   box-shadow:var(--shadow-lg); animation:fu .7s .3s var(--ease) both}
-.cd-label{font-family:var(--f-h); font-size:.72rem; font-weight:600; letter-spacing:.14em;
+.cd-label{font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.14em;
   text-transform:uppercase; color:var(--ink-subtle); margin:0 0 12px; animation:fu .6s .4s var(--ease) both}
 .cd{display:flex; gap:10px; justify-content:center; margin:0 0 30px; animation:fu .6s .44s var(--ease) both}
 .cd__i{display:flex; flex-direction:column; align-items:center; min-width:70px; padding:14px 16px;
   background:var(--gray-50); border:1px solid var(--gray-200); border-radius:var(--r)}
-.cd__n{font-family:var(--f-h); font-size:1.9rem; font-weight:700; color:var(--orange);
+.cd__n{font-family:var(--f-h); font-size:1.8rem; font-weight:900; color:var(--orange);
   line-height:1; font-variant-numeric:tabular-nums}
-.cd__u{font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-subtle); margin-top:5px}
+.cd__u{font-family:var(--f-mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-subtle); margin-top:5px}
 .hero__cta{animation:fu .6s .5s var(--ease) both}
 /* Micro-copy pegado al botón (Dan Henry). Acá NO va garantía de devolución:
    contradice el «el precio es un filtro de intención» y el mecanismo entero. */
 .micro{font-size:.95rem; color:var(--ink-mute); line-height:1.68; margin:18px auto 0; max-width:34em}
 .micro strong{color:var(--ink); font-weight:700}
-.specs{font-family:var(--f-h); font-size:.82rem; font-weight:500;
+.specs{font-family:var(--f-mono); font-size:.82rem; font-weight:500;
   color:var(--ink-subtle); margin:26px 0 0; display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
 .specs i{font-style:normal; color:var(--orange)}
 @keyframes fu{from{opacity:0; transform:translateY(24px)} to{opacity:1; transform:none}}
@@ -204,9 +210,9 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 /* La identidad nombrada · paso 2 del protocolo. */
 .identity{margin:40px auto 0; padding:32px 28px; background:var(--gray-50);
   border:1px solid var(--gray-200); border-radius:var(--r-lg); max-width:620px}
-.identity__k{font-family:var(--f-h); font-size:.72rem; font-weight:600; letter-spacing:.18em;
+.identity__k{font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.18em;
   text-transform:uppercase; color:var(--ink-subtle); margin:0 0 10px}
-.identity__n{font-family:var(--f-h); font-size:clamp(1.6rem,4vw,2.3rem); font-weight:700;
+.identity__n{font-family:var(--f-h); font-size:clamp(1.55rem,3.8vw,2.2rem); font-weight:800;
   letter-spacing:-0.02em; line-height:1.15; color:var(--ink); margin:0 0 14px}
 .identity__n em{color:var(--orange); font-style:normal}
 .identity p{font-size:1.02rem; color:var(--ink-mute); margin:0 auto; max-width:30em; line-height:1.72}
@@ -219,14 +225,14 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 /* ═══════════════ MECANISMO + ESTUDIOS ═══════════════ */
 .mech{margin:28px auto; max-width:600px; padding:32px 30px; background:var(--navy);
   border-radius:var(--r-lg); box-shadow:var(--shadow-lg)}
-.mech p{font-family:var(--f-h); font-size:1.14rem; font-weight:500; line-height:1.5;
+.mech p{font-family:var(--f-h); font-size:1.12rem; font-weight:600; line-height:1.5;
   color:#fff; margin:0 0 10px}
 .mech p:last-child{margin:0}
 .mech .name{color:var(--orange); font-weight:700}
 .studies{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:28px 0 0}
 .studies .card{padding:24px 22px}
 .studies p{font-size:.98rem; color:var(--ink-mute); line-height:1.65; margin:0 0 14px}
-.studies .src{font-family:var(--f-h); font-size:.68rem; font-weight:600; letter-spacing:.05em;
+.studies .src{font-family:var(--f-mono); font-size:.68rem; font-weight:600; letter-spacing:.05em;
   color:var(--ink-subtle); margin:0; line-height:1.55; text-transform:uppercase}
 
 /* ═══════════════ MITOS ═══════════════ */
@@ -234,7 +240,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 .myth{display:flex; gap:22px; align-items:flex-start; padding:22px 0;
   border-bottom:1px solid var(--gray-200)}
 .myth:last-child{border-bottom:none}
-.myth__n{font-family:var(--f-h); font-size:2rem; font-weight:700; color:transparent;
+.myth__n{font-family:var(--f-h); font-size:1.9rem; font-weight:900; color:transparent;
   -webkit-text-stroke:1.5px var(--orange); min-width:50px; line-height:1; flex-shrink:0}
 .myth h3{font-family:var(--f-h); font-size:1.08rem; font-weight:600; font-style:italic;
   margin:0 0 6px}
@@ -249,7 +255,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 .stat{padding:28px 20px; background:var(--gray-50); border:1px solid var(--gray-200);
   border-radius:var(--r-lg); transition:transform .25s var(--ease), box-shadow .25s var(--ease)}
 .stat:hover{transform:translateY(-3px); box-shadow:var(--shadow)}
-.stat b{display:block; font-family:var(--f-h); font-size:clamp(1.9rem,4.6vw,2.6rem); font-weight:700;
+.stat b{display:block; font-family:var(--f-h); font-size:clamp(1.85rem,4.4vw,2.5rem); font-weight:900;
   color:var(--ink); line-height:1; letter-spacing:-0.02em; margin-bottom:10px; font-variant-numeric:tabular-nums}
 .stat span{font-size:.95rem; color:var(--ink-mute); line-height:1.5; display:block}
 
@@ -272,8 +278,8 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
   border-bottom:9px solid transparent; margin-left:4px}
 .caso__thumb iframe{position:absolute; inset:0; width:100%; height:100%; border:0; z-index:3}
 .caso__body{padding:20px 20px 22px; flex:1; display:flex; flex-direction:column; text-align:left}
-.caso__who{font-family:var(--f-h); font-size:1.05rem; font-weight:700; color:var(--ink); margin:0}
-.caso__role{font-family:var(--f-h); font-size:.64rem; font-weight:600; letter-spacing:.09em;
+.caso__who{font-family:var(--f-h); font-size:1.02rem; font-weight:800; color:var(--ink); margin:0}
+.caso__role{font-family:var(--f-mono); font-size:.64rem; font-weight:600; letter-spacing:.09em;
   text-transform:uppercase; color:var(--orange-text); margin:6px 0 12px; line-height:1.6}
 .caso__ab{font-size:.95rem; color:var(--ink-mute); line-height:1.65; margin:0 0 auto}
 .caso__ab b{color:var(--ink); font-weight:700}
@@ -286,16 +292,16 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 .menu p{font-size:1.04rem; line-height:1.78; color:var(--ink-mute); margin:0 0 14px}
 .menu p:last-child{margin:0}
 .menu strong{color:var(--ink); font-weight:700}
-.menu .beat-hot{font-family:var(--f-h); font-size:1.08rem; font-weight:700; color:var(--orange)}
+.menu .beat-hot{font-family:var(--f-h); font-size:1.06rem; font-weight:800; color:var(--orange)}
 
 /* ═══════════════ CALCULADORA ═══════════════ */
 .calc{background:#fff; border:1px solid var(--gray-200); border-radius:var(--r-lg);
   padding:32px; margin:30px auto; box-shadow:var(--shadow-lg); text-align:left}
-.calc .hd{font-family:var(--f-h); font-size:.72rem; font-weight:600; letter-spacing:.18em;
+.calc .hd{font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.18em;
   text-transform:uppercase; color:var(--ink-subtle); margin:0 0 24px; text-align:center}
 .calc label{display:flex; justify-content:space-between; align-items:baseline; gap:12px;
   font-family:var(--f-h); font-size:1rem; font-weight:600; color:var(--ink); margin:22px 0 12px}
-.calc label b{font-family:var(--f-h); font-size:1.5rem; font-weight:700; color:var(--orange);
+.calc label b{font-family:var(--f-h); font-size:1.45rem; font-weight:900; color:var(--orange);
   font-variant-numeric:tabular-nums}
 .calc input[type=range]{width:100%; -webkit-appearance:none; appearance:none; height:5px;
   border-radius:99px; background:var(--gray-200); outline:none; margin:0}
@@ -321,9 +327,9 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 .calc .out{margin:30px 0 0; padding:32px 24px; text-align:center; border-radius:var(--r-lg);
   background:radial-gradient(520px 250px at 50% 0%, rgba(255,102,2,.18), transparent 70%),
     linear-gradient(180deg,var(--navy) 0%,var(--navy-deep) 100%); color:#fff}
-.calc .big{font-family:var(--f-h); font-size:clamp(2.3rem,6.4vw,3.5rem); font-weight:700;
+.calc .big{font-family:var(--f-h); font-size:clamp(2.2rem,6vw,3.3rem); font-weight:900;
   color:var(--orange); line-height:1; letter-spacing:-0.03em; font-variant-numeric:tabular-nums}
-.calc .u{display:block; font-family:var(--f-h); font-size:.72rem; font-weight:600; letter-spacing:.16em;
+.calc .u{display:block; font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.16em;
   text-transform:uppercase; color:rgba(255,255,255,.6); margin-top:14px}
 .calc .oport{font-size:.98rem; color:rgba(255,255,255,.87); line-height:1.7; margin:20px auto 0; max-width:30em}
 .calc .oport strong{color:#fff}
@@ -334,7 +340,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 .calc .nota strong{color:var(--ink-mute)}
 .calc .ancla{text-align:center; font-size:.96rem; color:var(--ink-subtle); margin:14px 0 0}
 .calc .ancla strong{color:var(--ink)}
-.ladder{font-family:var(--f-h); font-size:1.12rem; font-weight:500; line-height:1.85;
+.ladder{font-family:var(--f-h); font-size:1.08rem; font-weight:600; line-height:1.85;
   color:var(--ink-mute); margin:30px auto; max-width:32em}
 .ladder b{color:var(--ink); font-weight:700}
 .ladder .hot{color:var(--orange); font-weight:700}
@@ -344,21 +350,21 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 .stack li{position:relative; padding:20px 0 20px 34px; border-bottom:1px solid var(--gray-200)}
 .stack li:last-child{border-bottom:none}
 .stack li::before{content:'→'; position:absolute; left:0; top:20px; color:var(--orange); font-weight:700}
-.stack b{display:block; font-family:var(--f-h); font-size:1.06rem; font-weight:700;
+.stack b{display:block; font-family:var(--f-h); font-size:1.04rem; font-weight:800;
   color:var(--ink); margin-bottom:6px}
 .stack span{font-size:1rem; color:var(--ink-mute); line-height:1.7}
 .inv{margin:32px auto 0; padding:36px 30px; text-align:center; border-radius:var(--r-lg); max-width:600px;
   background:radial-gradient(520px 250px at 50% 0%, rgba(255,102,2,.18), transparent 70%),
     linear-gradient(180deg,var(--navy) 0%,var(--navy-deep) 100%); color:#fff;
   box-shadow:var(--shadow-lg)}
-.inv .l{font-family:var(--f-h); font-size:.72rem; font-weight:600; letter-spacing:.2em;
+.inv .l{font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.2em;
   text-transform:uppercase; color:rgba(255,255,255,.6)}
-.inv .n{font-family:var(--f-h); font-size:clamp(2.6rem,7vw,3.6rem); font-weight:700;
+.inv .n{font-family:var(--f-h); font-size:clamp(2.5rem,6.6vw,3.4rem); font-weight:900;
   color:var(--orange); line-height:1; letter-spacing:-0.03em; margin:12px 0 26px}
 .inv .pay{font-size:.9rem; color:rgba(255,255,255,.6); margin:16px 0 0}
 .why{margin:32px auto 0; padding:28px 30px; background:var(--orange-wash);
   border:1px solid rgba(255,102,2,.2); border-radius:var(--r-lg); max-width:600px; text-align:left}
-.why h3{font-family:var(--f-h); font-size:.72rem; font-weight:600; letter-spacing:.18em;
+.why h3{font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.18em;
   text-transform:uppercase; color:var(--orange-text); margin:0 0 16px; text-align:center}
 .why p{font-size:1.02rem; color:var(--ink-mute); line-height:1.75; margin:0 0 14px}
 .why p:last-child{margin:0}
@@ -408,6 +414,61 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 .sticky[data-on]{transform:none}
 .sticky .cta{width:100%; padding:16px; font-size:1rem; box-shadow:none}
 
+
+/* ═══════════════ CHECKOUT · modal de 2 pasos ═══════════════ */
+.ov{position:fixed; inset:0; z-index:9999; background:rgba(8,31,51,.72);
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  display:none; align-items:flex-start; justify-content:center; padding:24px 16px; overflow-y:auto}
+.ov[data-open]{display:flex}
+.modal{background:#fff; border-radius:var(--r-lg); width:100%; max-width:480px; position:relative;
+  box-shadow:0 40px 100px rgba(8,31,51,.5); margin:auto; text-align:left;
+  animation:pop .28s var(--ease) both}
+@keyframes pop{from{opacity:0; transform:translateY(20px) scale(.98)} to{opacity:1; transform:none}}
+.modal__x{position:absolute; top:12px; right:14px; z-index:6; background:none; border:none;
+  font-size:26px; line-height:1; color:var(--ink-subtle); cursor:pointer; padding:4px 8px}
+.modal__x:hover{color:var(--ink)}
+.steps{display:flex; position:relative; border-bottom:1px solid var(--gray-200)}
+.steps__i{flex:1; padding:18px 16px 15px; text-align:center; opacity:.4; transition:opacity .25s var(--ease)}
+.steps__i[data-on]{opacity:1}
+.steps__i span{display:block; font-family:var(--f-h); font-weight:800; font-size:.94rem; color:var(--ink)}
+.steps__i small{display:block; font-family:var(--f-mono); font-size:.6rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-subtle); margin-top:4px}
+.steps__bar{position:absolute; bottom:-1px; left:0; width:50%; height:2px; background:var(--orange);
+  transition:transform .3s var(--ease)}
+.modal__body{padding:24px}
+.fld{width:100%; font-family:var(--f-b); font-size:1rem; padding:14px 15px; margin:0 0 11px;
+  border:1px solid var(--gray-200); border-radius:var(--r); background:#fff; color:var(--ink);
+  outline:none; transition:border-color .2s var(--ease)}
+.fld:focus{border-color:var(--orange)}
+.modal .cta{width:100%; margin-top:6px}
+.privacy{text-align:center; font-size:.8rem; color:var(--ink-subtle); margin:12px 0 0}
+.back{background:none; border:none; font-family:var(--f-h); font-size:.86rem; font-weight:700;
+  color:var(--ink-subtle); cursor:pointer; padding:0 0 14px}
+.back:hover{color:var(--orange)}
+.item{display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:15px 16px; background:var(--gray-50); border-radius:var(--r); margin:0 0 14px}
+.item b{font-family:var(--f-h); font-weight:800; font-size:.96rem; color:var(--ink)}
+.item .p{font-family:var(--f-h); font-weight:800; color:var(--ink)}
+/* Dos bumps, no cuatro: cuatro cajas con flecha roja queman la confianza
+   construida arriba, y este avatar tiene alergia documentada al vendehumo. */
+.bump{border:1.5px dashed var(--orange); background:var(--orange-wash);
+  border-radius:var(--r); margin:0 0 11px; transition:background .2s var(--ease)}
+.bump:hover{background:rgba(255,102,2,.10)}
+.bump label{display:flex; gap:12px; align-items:flex-start; padding:15px 16px; cursor:pointer}
+.bump input{margin:3px 0 0; width:18px; height:18px; accent-color:var(--orange); flex-shrink:0}
+.bump .t{display:block; font-family:var(--f-h); font-weight:800; font-size:.9rem;
+  color:var(--ink); line-height:1.45}
+.bump .d{display:block; font-size:.84rem; color:var(--ink-mute); line-height:1.6; margin-top:6px}
+.total{display:flex; justify-content:space-between; align-items:baseline;
+  padding:16px 4px 6px; border-top:1px solid var(--gray-200); margin-top:16px}
+.total span:first-child{font-family:var(--f-mono); font-size:.68rem; font-weight:500;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--ink-subtle)}
+.total span:last-child{font-family:var(--f-h); font-size:1.6rem; font-weight:900; color:var(--orange)}
+.secure{text-align:center; font-size:.8rem; color:var(--ink-subtle); margin:12px 0 0; line-height:1.65}
+@media(max-width:760px){
+  .modal__body{padding:20px}
+  .ov{padding:16px 12px}
+}
 
 /* ═══════════════ SELECTOR DE PAÍS ═══════════════
    Sin librería ni CDN: la bandera se deriva del código ISO con los
