@@ -437,22 +437,29 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
    Van en los cuatro momentos donde el argumento es abstracto y hoy lo sostiene
    sólo texto. El placeholder existe para poder ver el ritmo de la página antes
    de tener los dibujos: se reemplaza el src y listo. */
-.ill{margin:32px auto; max-width:600px}
-.ill img{width:100%; height:auto; border-radius:var(--r-lg); display:block; background:#fff;
-  border:1px solid var(--gray-200)}
+.ill{margin:36px auto; max-width:600px}
+/* Dos de las cuatro salieron verticales (casi 1:2) y dos apaisadas. Con
+   width:100% la vertical daría 600x1200 px — una pantalla y media. Limitando
+   por ALTO además de por ancho, la apaisada se topa con el ancho (600x355) y la
+   vertical con el alto (~350x700), y las dos entran bien sin recortar nada. */
+.ill img{display:block; margin:0 auto; width:auto; height:auto;
+  max-width:100%; max-height:700px;
+  border-radius:var(--r-lg); background:#fff; border:1px solid var(--gray-200)}
 /* El pie va en cuerpo, no en mono en mayúsculas: una línea larga en mono
    uppercase es justo lo que más cuesta leer en pantalla chica. */
 .ill figcaption{font-size:.92rem; font-style:italic; color:var(--ink-subtle);
   margin:14px auto 0; line-height:1.6; max-width:30em}
 /* Estado sin imagen todavía */
-.ill--todo{border:1.5px dashed var(--gray-200); border-radius:var(--r-lg); background:var(--gray-50);
-  aspect-ratio:4/3; display:flex; flex-direction:column; align-items:center; justify-content:center;
+.ill--todo{display:none; border:1.5px dashed var(--gray-200); border-radius:var(--r-lg); background:var(--gray-50);
+  aspect-ratio:4/3; flex-direction:column; align-items:center; justify-content:center;
   gap:8px; padding:24px; text-align:center}
+.ill--fallback img{display:none}
+.ill--fallback .ill--todo{display:flex}
 .ill--todo b{font-family:var(--f-h); font-weight:800; font-size:.98rem; color:var(--ink-subtle)}
 .ill--todo span{font-size:.88rem; color:var(--ink-subtle); max-width:32em; line-height:1.6}
 .ill--todo em{font-family:var(--f-mono); font-size:.64rem; letter-spacing:.16em; text-transform:uppercase;
   font-style:normal; color:var(--orange-text)}
-@media(max-width:760px){ .ill{margin:26px auto} }
+@media(max-width:760px){ .ill{margin:28px auto} .ill img{max-height:680px} }
 
 /* ═══════════════ CHECKOUT · modal de 2 pasos ═══════════════ */
 .ov{position:fixed; inset:0; z-index:9999; background:rgba(8,31,51,.72);
@@ -700,6 +707,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
     </div>
 
     <figure class="ill" data-ill="2">
+      <img src="{{ILL_2}}" alt="Un escritorio: arriba, la bandeja de entrada que se vacía a toda velocidad; abajo, un cajón con una sola carpeta intacta que él cierra con la rodilla" loading="lazy" decoding="async" data-ill-img>
       <div class="ill--todo">
         <em>Ilustración 2</em>
         <b>La bandeja de entrada y el cajón</b>
@@ -750,6 +758,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
     <p class="beat">Lo ajeno llega con fecha, con nombre y con alguien del otro lado esperándolo. Lo tuyo llega solo. Y sin nadie esperando, tu cerebro nunca lo sube a la cima de la pila. <strong>Se llama urgencia prestada.</strong></p>
 
     <figure class="ill" data-ill="1">
+      <img src="{{ILL_1}}" alt="Una máquina clasificadora: las cajas que tienen una mano esperándolas pasan por la compuerta; la que no tiene a nadie cae a un pozo lleno de cajas iguales" loading="lazy" decoding="async" data-ill-img>
       <div class="ill--todo">
         <em>Ilustración 1</em>
         <b>La máquina que abre sólo para quien tiene a alguien esperando</b>
@@ -796,6 +805,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
     <p class="beat">Tu operación la tenés aceitada al milímetro: sabés cuándo entra cada service y qué pasa si no entra. <strong>Con vos manejás sin service hace años</strong> — y encima creyendo cinco cosas que suenan a puro sentido común.</p>
 
     <figure class="ill" data-ill="3">
+      <img src="{{ILL_3}}" alt="Un auto en corte, sobre caballetes y con los cinco services vencidos, mientras él pisa el acelerador a fondo desde adentro" loading="lazy" decoding="async" data-ill-img>
       <div class="ill--todo">
         <em>Ilustración 3</em>
         <b>El auto sobre caballetes con los cinco services vencidos</b>
@@ -972,6 +982,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
     </div>
 
     <figure class="ill" data-ill="4">
+      <img src="{{ILL_4}}" alt="Una rueda-caminadora con un cuadrante de tres marcas y una trampilla en la tercera; abajo, la pila de las máquinas anteriores" loading="lazy" decoding="async" data-ill-img>
       <div class="ill--todo">
         <em>Ilustración 4</em>
         <b>La máquina que dura tres meses</b>
@@ -1691,6 +1702,19 @@ function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
 
   pintar();
   setInterval(pintar, 6e4);   /* se refresca solo si alguien deja la pestaña abierta */
+})();
+
+/* ═══ ILUSTRACIONES · red de seguridad ═══
+   Si el token {{ILL_n}} quedó sin reemplazar, o la URL se cae, o alguien borra
+   el archivo del WordPress dentro de seis meses: se esconde la imagen y vuelve
+   el placeholder. La página nunca muestra el ícono de imagen rota. */
+(function(){
+  [].forEach.call(document.querySelectorAll('img[data-ill-img]'), function(img){
+    function fallback(){ var f = img.closest('.ill'); if(f) f.classList.add('ill--fallback'); }
+    if(/\{\{/.test(img.getAttribute('src') || '')){ fallback(); return; }
+    img.addEventListener('error', fallback);
+    if(img.complete && img.naturalWidth === 0) fallback();
+  });
 })();
 
 </script>
