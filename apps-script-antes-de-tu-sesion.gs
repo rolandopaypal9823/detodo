@@ -117,7 +117,7 @@ function probar() {
     intentos: 'Texto de prueba de la segunda pregunta abierta.',
     costo: 'Texto de prueba de la tercera pregunta abierta.',
     urgencia: '8 de 10',
-    freno: 'Dinero',
+    freno: 'El dinero: hoy no lo tengo resuelto',
     origen: 'prueba manual'
   });
 }
