@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Instituto de Productividad · Método con base en neurociencia</title>
+<title>Instituto de Productividad · Más productivo sos, menos avanzás</title>
 <meta name="description" content="No te falta información: te falta un método que trabaje a favor de tu cerebro. Instituto de Productividad — acompañamiento de 6 meses con base en neurociencia y aval universitario.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* =========================================================================
-   VERSIÓN B · CORTA (promesa → qué incluye → aval)
+   VERSIÓN B2 · CORTA con ángulo Platinum (urgencia prestada) + equipo
    TSL (carta de venta sin video) · Instituto de Productividad
    Autocontenida: se pega tal cual en un widget HTML de GoHighLevel.
    Lo único editable está en el bloque CONFIG (al final del archivo).
@@ -213,6 +213,25 @@ h1 .hl,.shimmer{color:var(--nfm-orange)}
 .deck__hint{text-align:center;margin-top:12px;font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mono-grey)}
 .section--navy .deck__hint{color:#7d97ac}
 
+/* ---------- EQUIPO (widget integrado) ---------- */
+/* .nfm-team hereda el padding de .section para igualar al resto */
+.nfm-team__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:44px;text-align:left}
+.nfm-team__card{background:#fff;border-radius:16px;padding:32px 26px 28px;box-shadow:0 12px 34px rgba(12,52,82,.08);border:1px solid var(--hair);transition:transform .25s,box-shadow .25s;display:flex;flex-direction:column}
+.nfm-team__card:hover{transform:translateY(-4px);box-shadow:0 22px 48px rgba(12,52,82,.14)}
+.nfm-team__photo{width:130px;height:130px;border-radius:50%;overflow:hidden;margin:0 auto 20px;position:relative;border:3px solid #fff;box-shadow:0 4px 16px rgba(12,52,82,.14)}
+.nfm-team__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.nfm-team__card:hover .nfm-team__photo{box-shadow:0 4px 16px rgba(12,52,82,.14),0 0 0 4px rgba(255,102,2,.16)}
+.nfm-team__name{font-family:'Montserrat',sans-serif;font-size:1.2rem;font-weight:800;color:var(--nfm-blue);text-align:center;margin:0 0 6px;line-height:1.25}
+.nfm-team__role{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:500;color:var(--nfm-orange-text);text-align:center;text-transform:uppercase;letter-spacing:.1em;margin:0 0 14px;line-height:1.5;min-height:2.2em}
+.nfm-team__divider{width:36px;height:2px;background:var(--nfm-orange);border-radius:2px;margin:0 auto 18px;opacity:.65}
+.nfm-team__bio{font-size:.9rem;color:var(--muted);line-height:1.55;margin:0 0 12px;text-align:left}
+.nfm-team__bio:last-child{margin-bottom:0}
+.nfm-team__list{list-style:none;padding:0;margin:0}
+.nfm-team__list li{position:relative;padding-left:16px;font-size:.85rem;color:var(--muted);line-height:1.5;margin-bottom:6px}
+.nfm-team__list li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--nfm-orange)}
+.nfm-team__bio em{color:var(--nfm-blue);font-style:italic}
+@media(max-width:980px){.nfm-team__grid{grid-template-columns:repeat(2,1fr);gap:20px}}
+@media(max-width:640px){.nfm-team__grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}}
 
 /* ---------- FEED VERTICAL (version D · tipo TikTok) ---------- */
 body.feed-mode{overflow:hidden}
@@ -346,12 +365,12 @@ body.agd-lock .feed{overflow:hidden}
   <a href="#" class="btn btn-primary btn-sm topbar__cta" onclick="agdOpen('topbar');return false"><span class="lbl-full">Agendar entrevista</span><span class="lbl-short">Agendar</span><span class="arrow">→</span></a>
 </header>
 
-<!-- HERO · la promesa -->
+<!-- HERO · angulo Platinum: la paradoja de la productividad -->
 <section class="hero">
   <div class="wrap center">
     <span class="eyebrow fade-up d1">Alto rendimiento con base en neurociencia</span>
-    <h1 class="fade-up d1" style="max-width:22ch;margin-left:auto;margin-right:auto">No te falta información. Te falta un método que trabaje <span class="hl">a favor de tu cerebro</span>.</h1>
-    <p class="sub fade-up d2" style="margin-left:auto;margin-right:auto">Un <b>acompañamiento de 6 meses</b> con coach dedicada, equipo multidisciplinario y aval universitario. No más apps ni más fuerza de voluntad: un sistema a tu medida, con base en neurociencia.</p>
+    <h1 class="fade-up d1" style="max-width:20ch;margin-left:auto;margin-right:auto">Más productivo sos, <span class="hl">menos avanzás en tu vida</span>.</h1>
+    <p class="sub fade-up d2" style="margin-left:auto;margin-right:auto">No necesitás sumar más cosas, ni apps, ni calendarios, ni métodos. Sino aplicar la misma lógica con la que tu cerebro ya sabe trabajar: <b>alguien del otro lado esperando</b>.</p>
     <div class="cta-block">
       <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('hero');return false">Agendar mi entrevista de admisión <span class="arrow">→</span></a>
     <div class="fine">Sin costo · Entrevista 1 a 1 con el equipo de admisión</div>
@@ -359,8 +378,22 @@ body.agd-lock .feed{overflow:hidden}
   </div>
 </section>
 
+<!-- LA RAZÓN REAL · el mecanismo con nombre (copy reusada de la landing del Instituto) -->
+<section class="section section--navy" id="razon">
+  <div class="wrap center">
+    <div class="center"><span class="eyebrow">La razón real</span></div>
+    <h2 class="h2">Cumplís con todo el mundo.<br>Tus objetivos <span class="hl">quedan para después</span>.</h2>
+    <p class="lead-2" style="margin-bottom:16px">Cumplís impecable con los plazos de todo el mundo, pero ese proyecto que es tuyo lleva años en la misma lista. No es capacidad ni voluntad: tu cerebro no jerarquiza por importancia, jerarquiza por <b>quién está esperando</b>. Lo que le debés a otro tiene fecha y cara; lo que te debés a vos, no. A eso lo llamamos <b>urgencia prestada</b>.</p>
+    <p class="lead-2">La salida no es más información —eso ya lo tenés—. Es entender cómo decide tu cerebro y darle la estructura que le falta: un sistema a tu medida y un equipo que sostiene el proceso con vos. Un entrenador no te enseña a hacer sentadillas: hace que el martes a las 7 estés entrenando. <b>Eso es el Instituto.</b></p>
+    <div class="cta-block">
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('razon');return false">Agendar mi entrevista de admisión <span class="arrow">→</span></a>
+    <div class="fine">Sin costo · Entrevista 1 a 1 con el equipo de admisión</div>
+    </div>
+  </div>
+</section>
+
 <!-- QUÉ INCLUYE -->
-<section class="section section--navy" id="incluye">
+<section class="section" id="incluye">
   <div class="wrap center">
     <div class="center"><span class="eyebrow">Qué incluye</span></div>
     <h2 class="h2">Qué incluyen los programas del <span class="hl">Instituto de Productividad</span></h2>
@@ -397,7 +430,7 @@ body.agd-lock .feed{overflow:hidden}
 </section>
 
 <!-- AVAL UNIVERSITARIO -->
-<section class="section" id="aval">
+<section class="section section--navy" id="aval">
   <div class="wrap">
     <div class="center"><span class="eyebrow">El respaldo</span></div>
     <h2 class="h2 center">Lo que casi ningún programa te puede mostrar</h2>
@@ -422,7 +455,119 @@ body.agd-lock .feed{overflow:hidden}
     </div>
   </div>
 </section>
+<section class="section section--navy nfm-team" id="nfm-equipo">
+  <div class="wrap center">
+    <div class="center"><span class="eyebrow">El equipo</span></div>
+    <h2 class="h2">Este es el equipo que te va a estar <span class="hl">esperando del otro lado</span></h2>
+    <p class="lead-2">Acá tenés <b>un profesional por cada frente</b>: coach dedicada, psicólogos, nutricionistas y coaches de alto rendimiento. No es Nico solo: es un equipo que te ve, te sigue y no te deja aflojar. Con nombre y cara, incluso quien te va a atender en la primera charla.</p>
 
+    <div class="nfm-team__grid">
+
+      <!-- 1. NICOLÁS FERNÁNDEZ MIRANDA -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/nico-bio-card.jpg" alt="Nicolás Fernández Miranda" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Nicolás Fernández Miranda</h3>
+        <p class="nfm-team__role">Fundador del Instituto de Productividad</p>
+        <div class="nfm-team__divider"></div>
+        <ul class="nfm-team__list">
+          <li>Diplomaturas en Neurociencia aplicada</li>
+          <li>Máster en Neurociencia aplicada al rendimiento</li>
+          <li>Autor bestseller de <em>Hackea tu Cerebro</em></li>
+          <li>Conferencista TEDx</li>
+          <li>Consultor de más de 80 empresas</li>
+        </ul>
+      </div>
+
+      <!-- 2. AGUSTINA MONTE -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/03/MONTE.jpg" alt="Agustina Monte" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Agustina Monte</h3>
+        <p class="nfm-team__role">Coach Nutricional</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Especializada en salud intestinal y alimentación basada en plantas. Porque no se puede tener claridad mental si el sistema digestivo está inflamado.
+        </p>
+        <ul class="nfm-team__list">
+          <li>Microbiota (Posgrado España)</li>
+          <li>Patologías Digestivas (Inst. Conceptual)</li>
+          <li>Nutrición y rendimiento cognitivo</li>
+        </ul>
+      </div>
+
+      <!-- 3. MARTÍN MONTE -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/MONTE.jpg" alt="Martín Monte" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Martín Monte</h3>
+        <p class="nfm-team__role">Coach de Alto Rendimiento · Liderazgo y equipos</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Coach ejecutivo y organizacional, especializado en deporte de alto rendimiento.
+        </p>
+        <p class="nfm-team__bio">
+          Te ayuda a liderar sin que todo dependa de vos —delegar, priorizar, decidir— y a diseñar una rutina física que te dé energía en lugar de quitártela. Sin necesidad de correr un Ironman.
+        </p>
+      </div>
+
+      <!-- 4. AGOSTINA MAGRA -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/03/AGOS-AMGRA.jpg" alt="Agostina Magra" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Agostina Magra</h3>
+        <p class="nfm-team__role">Accountability Coach</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Coach ontológica con enfoque sistémico. Especializada en Neurociencias Aplicadas y Competencias Directivas.
+        </p>
+        <p class="nfm-team__bio">
+          Te ayuda a cumplir lo que te propusiste, mantenerte enfocado y romper con los ciclos de autosabotaje.
+        </p>
+      </div>
+
+      <!-- 5. PIERINA MONTE RISO -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/pierinaa.jpg" alt="Pierina Monte Riso" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Pierina Monte Riso</h3>
+        <p class="nfm-team__role">Client Success Manager</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Es quien sigue tu proceso de punta a punta: si desaparecés una semana, es ella la que te va a buscar —sin culpa y sin sermón. Habla 7 idiomas y estudia un doctorado en Roma.
+        </p>
+        <ul class="nfm-team__list">
+          <li>Coaching ontológico (Axon)</li>
+          <li>Profesora de Gestión del Tiempo</li>
+          <li>Acompaña alumnos en +10 países</li>
+        </ul>
+      </div>
+
+      <!-- 6. SOLEDAD FUNES -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/Captura-de-pantalla-2026-05-18-075350.png" alt="Soledad Funes" loading="lazy" style="object-position:center top;">
+        </div>
+        <h3 class="nfm-team__name">Soledad Funes</h3>
+        <p class="nfm-team__role">Lic. en Psicología · TDAH y Ansiedad</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Acompañamiento 1 a 1 en gestión emocional para profesionales que viven con la cabeza acelerada y no logran bajar las revoluciones.
+        </p>
+        <ul class="nfm-team__list">
+          <li>Gestión de TDA/H en adultos profesionales</li>
+          <li>Manejo de la ansiedad de alto rendimiento</li>
+          <li>Estrategias clínicas para gestión del estrés</li>
+        </ul>
+      </div>
+
+    </div>  </div>
+</section>
 <div class="quiz-wrap">
 
 <!-- ═══════════════════════════════════════════════════════

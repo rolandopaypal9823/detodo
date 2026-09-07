@@ -8,6 +8,8 @@ SCR  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tsl-assets")
 NEURAL = open(SCR + "/neural.html", encoding="utf-8").read()
 CASOS  = json.load(open(SCR + "/casos.json", encoding="utf-8"))
 QUIZ   = open(SCR + "/quiz.html", encoding="utf-8").read()
+EQUIPO = open(SCR + "/equipo.html", encoding="utf-8").read()
+EQUIPO_CSS = open(SCR + "/equipo.css", encoding="utf-8").read()
 
 CALENDLY = "https://calendly.com/nicolasfernandezmiranda/sesion-de-claridad-sma-clon-clon?primary_color=ff4b00"
 
@@ -227,6 +229,7 @@ h1 .hl,.shimmer{color:var(--nfm-orange)}
 .deck__hint{text-align:center;margin-top:12px;font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mono-grey)}
 .section--navy .deck__hint{color:#7d97ac}
 
+__EQUIPO_CSS__
 /* ---------- FEED VERTICAL (version D · tipo TikTok) ---------- */
 body.feed-mode{overflow:hidden}
 body.feed-mode .topbar{position:fixed;top:0;left:0;right:0}
@@ -458,6 +461,19 @@ SEC_AVAL = """
       </div>
       <figure class="incl-feature__photo photo-slot" data-img="certificados" data-alt="Alumnos del Instituto de Productividad con su certificado"></figure>
     </div>
+__CTA__
+  </div>
+</section>
+"""
+
+SEC_RAZON = """
+<!-- LA RAZÓN REAL · el mecanismo con nombre (copy reusada de la landing del Instituto) -->
+<section class="section section--navy" id="razon">
+  <div class="wrap center">
+    <div class="center"><span class="eyebrow">La razón real</span></div>
+    <h2 class="h2">Cumplís con todo el mundo.<br>Tus objetivos <span class="hl">quedan para después</span>.</h2>
+    <p class="lead-2" style="margin-bottom:16px">Cumplís impecable con los plazos de todo el mundo, pero ese proyecto que es tuyo lleva años en la misma lista. No es capacidad ni voluntad: tu cerebro no jerarquiza por importancia, jerarquiza por <b>quién está esperando</b>. Lo que le debés a otro tiene fecha y cara; lo que te debés a vos, no. A eso lo llamamos <b>urgencia prestada</b>.</p>
+    <p class="lead-2">La salida no es más información —eso ya lo tenés—. Es entender cómo decide tu cerebro y darle la estructura que le falta: un sistema a tu medida y un equipo que sostiene el proceso con vos. Un entrenador no te enseña a hacer sentadillas: hace que el martes a las 7 estés entrenando. <b>Eso es el Instituto.</b></p>
 __CTA__
   </div>
 </section>
@@ -923,6 +939,18 @@ __CTA__
   </div>
 </section>
 """
+    if version == 'b2':
+        return """
+<!-- HERO · angulo Platinum: la paradoja de la productividad -->
+<section class="hero">
+  <div class="wrap center">
+    <span class="eyebrow fade-up d1">Alto rendimiento con base en neurociencia</span>
+    <h1 class="fade-up d1" style="max-width:20ch;margin-left:auto;margin-right:auto">Más productivo sos, <span class="hl">menos avanzás en tu vida</span>.</h1>
+    <p class="sub fade-up d2" style="margin-left:auto;margin-right:auto">No necesitás sumar más cosas, ni apps, ni calendarios, ni métodos. Sino aplicar la misma lógica con la que tu cerebro ya sabe trabajar: <b>alguien del otro lado esperando</b>.</p>
+__CTA__
+  </div>
+</section>
+"""
     return """
 <!-- HERO · la promesa -->
 <section class="hero">
@@ -937,6 +965,7 @@ __CTA__
 
 def build(version, title, rotulo, body):
     out = HEAD.replace('__TITLE__', title).replace('__ROTULO__', rotulo)
+    out = out.replace('__EQUIPO_CSS__', EQUIPO_CSS if version == 'b2' else '')
     out += body
     js = DECK_JS if version == 'slides' else (FEED_JS if version == 'feed' else '')
     pie = FOOTER_JS
@@ -971,9 +1000,19 @@ slides = (
     + SEC_CIERRE.replace('__CLASE__', ' section--navy')
 )
 
+b2 = (
+    hero('b2').replace('__CTA__', cta('hero'))
+    + SEC_RAZON.replace('__CTA__', cta('razon'))
+    + SEC_INCLUYE.replace('__NAVY__', '').replace('__CTA__', cta('incluye'))
+    + SEC_AVAL.replace('__NAVY__', ' section--navy').replace('__CTA__', cta('aval', 'Quiero aplicar al Platinum'))
+    + EQUIPO
+    + '\n<div class="quiz-wrap">\n' + QUIZ + '\n</div>\n'
+)
+
 feed = feed_html()
 
 files = [
+    ('tsl-b2-corta-platinum.html', 'b2', 'Instituto de Productividad · Más productivo sos, menos avanzás', 'VERSIÓN B2 · CORTA con ángulo Platinum (urgencia prestada) + equipo', b2),
     ('tsl-d-feed.html',   'feed',   'Instituto de Productividad · Pas&aacute; y agend&aacute;', 'VERSIÓN D · FEED VERTICAL (mobile-first, un slide por pantalla)', feed),
     ('tsl-a-larga.html',  'larga',  'Instituto de Productividad · Método con base en neurociencia', 'VERSIÓN A · LARGA (promesa → casos → qué incluye → aval)', larga),
     ('tsl-b-corta.html',  'corta',  'Instituto de Productividad · Método con base en neurociencia', 'VERSIÓN B · CORTA (promesa → qué incluye → aval)', corta),
