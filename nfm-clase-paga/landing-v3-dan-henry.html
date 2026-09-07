@@ -4,560 +4,614 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hackea tu Cerebro EN VIVO · Clase en vivo con Nicolás Fernández Miranda</title>
-<meta name="description" content="Mientras más productivo sos, menos avanzás en tu vida. Clase en vivo de 2 horas para profesionales, líderes y dueños. USD 17.">
+<meta name="description" content="Mientras más productivo sos, menos avanzás en tu vida. Clase en vivo de 2 horas para profesionales, líderes y empresarios. USD 17.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════════════════
    HACKEA TU CEREBRO EN VIVO · v3
-   Arquitectura: página de venta directa de Dan Henry (getclients.com/mdw-a-9)
-   Sistema visual: NFM. La estructura se copia; la estética NO.
-   ═══════════════════════════════════════════════════════════════ */
+   Arquitectura de página ....... Dan Henry (getclients.com/mdw-a-9)
+   Protocolo de copy ............ Funnel 400% (5 pasos)
+   Sistema visual ............... "azul elegante" de las landings de registro
+                                  (landing-siempre-on) — NFM × Linear × Stripe
+   Bandas: oscuro arriba y abajo, claro en el medio. Los bloques donde el
+   lector LEE MUCHO o MIRA NÚMEROS van sobre claro, siempre.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 :root{
-  --navy:#0c3452; --navy-deep:#061d30; --navy-soft:#e7edf2;
-  --orange:#ff6602; --orange-hover:#ff8033; --orange-text:#c04a00;
-  --ink:#0c3452; --ink-mute:#4a5f70; --ink-subtle:#8a98a8;
-  --line:#dde5ec; --white:#fff; --cream:#faf9f7;
-  --f-display:'Montserrat',Georgia,serif;
-  --f-body:'Open Sans',Georgia,serif;
-  --f-mono:'JetBrains Mono',monospace;
+  /* — Escalera de superficies sobre navy — */
+  --navy-deep:  #081F33;   /* canvas más profundo */
+  --navy:       #0C3452;   /* navy de marca */
+  --navy-1:     #0E2E4A;   /* superficie 1 · las cards viven acá */
+  --navy-2:     #143A5C;   /* superficie 2 */
+  --teal:       #1A4A6E;
+
+  /* — Acento único — */
+  --orange:       #FF6602;
+  --orange-hover: #FF8033;
+  --orange-deep:  #E55A00;
+  --orange-glow:  rgba(255,102,2,0.35);
+  --orange-text:  #C04A00;   /* naranja legible sobre blanco (AA) */
+
+  /* — Neutros — */
+  --white:    #FFFFFF;
+  --gray-50:  #F4F6FA;
+  --gray-100: #EDF1F7;
+  --gray-200: #E2E8F0;
+  --ink:        #0C3452;
+  --ink-mute:   #5A6B7E;
+  --ink-subtle: #8A98A8;
+
+  /* — Texto sobre oscuro: jerarquía por opacidad, no por color — */
+  --tl: rgba(255,255,255,0.87);
+  --tm: rgba(255,255,255,0.60);
+  --ts: rgba(255,255,255,0.42);
+  --hair: rgba(255,255,255,0.09);
+  --hair-strong: rgba(255,255,255,0.16);
+
+  --f-h: 'Space Grotesk', sans-serif;
+  --f-b: 'DM Sans', sans-serif;
+  --r:    14px;
+  --r-lg: 22px;
+  --ease: cubic-bezier(0.22,1,0.36,1);
 }
+
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--white);color:var(--ink);font-family:var(--f-body);
-  font-size:18px;line-height:1.62;-webkit-font-smoothing:antialiased}
-img{max-width:100%;display:block}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{margin:0; background:var(--navy-deep); color:var(--ink); font-family:var(--f-b);
+  font-size:17px; line-height:1.7; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility}
+img{max-width:100%; height:auto; display:block}
+a{color:inherit; text-decoration:none}
 
-/* medida angosta = aire editorial, sin cambiar de tipografía */
-.wrap{max-width:680px;margin:0 auto;padding:0 22px}
-.wrap--wide{max-width:860px}
-
-h1,h2,h3{font-family:var(--f-display);line-height:1.1;margin:0 0 18px;letter-spacing:-.015em}
-h1{font-size:clamp(32px,7vw,52px);font-weight:900}
-h2{font-size:clamp(26px,5vw,38px);font-weight:800}
-h3{font-size:20px;font-weight:800;letter-spacing:0}
-.accent{color:var(--orange)}
-p{margin:0 0 18px}
-strong{font-weight:700}
-em{font-style:italic}
-
-/* ── 1 · BARRA SUPERIOR: fecha + countdown en la misma línea ── */
-.topbar{background:var(--navy-deep);color:#fff;padding:11px 16px;text-align:center;
-  font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  position:sticky;top:0;z-index:50}
-.topbar .dot{color:var(--orange)}
-.topbar b{font-weight:500}
-.topbar .sep{opacity:.35;margin:0 10px}
-.topbar .t{color:var(--orange);font-weight:500}
-@media(max-width:640px){ .topbar{font-size:9.5px;letter-spacing:.1em} .topbar .sep{margin:0 5px} }
-
-/* ── HERO ── */
-.hero{padding:26px 0 40px;text-align:center}
-.eyebrow{font-family:var(--f-mono);font-size:11px;font-weight:500;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--orange);margin:0 0 18px;line-height:1.5}
-.hero__sub{font-size:clamp(16.5px,2.3vw,20px);color:var(--ink-mute);max-width:600px;margin:0 auto 24px}
-.hero__sub strong{color:var(--ink)}
-
-.watch{font-family:var(--f-mono);font-size:11px;font-weight:500;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--orange);margin:0 0 12px}
-.vsl{background:var(--navy-deep);border-radius:10px;aspect-ratio:16/9;
-  display:flex;align-items:center;justify-content:center;color:#6d8ba3;
-  font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-align:center;padding:20px;
-  box-shadow:0 24px 60px rgba(12,52,82,.20)}
-
-/* countdown en cajas */
-.cd{display:flex;gap:9px;justify-content:center;margin:20px 0 20px}
-.cd__i{background:var(--white);border:1.5px solid var(--line);border-radius:8px;
-  padding:9px 4px;min-width:66px}
-.cd__n{font-family:var(--f-display);font-weight:900;font-size:26px;line-height:1;color:var(--ink)}
-.cd__u{font-family:var(--f-mono);font-size:9px;letter-spacing:.16em;color:var(--ink-subtle);
-  text-transform:uppercase;margin-top:5px}
-.cd__i--hot .cd__n{color:var(--orange)}
-
-/* CTA con el precio adentro */
-.cta{display:inline-block;width:100%;max-width:440px;background:var(--orange);color:#fff;
-  border:0;border-radius:10px;font-family:var(--f-display);font-weight:900;
-  font-size:clamp(18px,2.6vw,22px);padding:19px 26px;cursor:pointer;text-align:center;
-  box-shadow:0 12px 34px rgba(255,102,2,.32);transition:transform .12s,background .12s}
-.cta:hover{background:var(--orange-hover);transform:translateY(-2px)}
-
-/* micro-copy con la garantía, pegado al botón */
-.micro{font-size:13.5px;font-style:italic;color:var(--ink-subtle);line-height:1.6;
-  max-width:540px;margin:14px auto 0}
-
-/* barra de specs */
-.specs{font-size:14px;font-weight:700;color:var(--ink);text-align:center;
-  margin:26px 0 0;line-height:1.8;display:flex;flex-wrap:wrap;gap:0 4px;justify-content:center}
-.specs span{white-space:nowrap}
-.specs i{font-style:normal;color:var(--ink-subtle);margin:0 6px}
-@media(max-width:520px){
-  .specs{flex-direction:column;gap:2px}
-  .specs i{display:none}
+/* Con 38 partículas + reveals + shine, esto no es opcional en una página larga. */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important; animation-iteration-count:1!important;
+    transition-duration:.01ms!important; scroll-behavior:auto!important}
+  .particle,.rparticle{display:none!important}
 }
 
-/* ── CUERPO: carta de venta ── */
-.sec{padding:clamp(44px,7vw,72px) 0;border-top:1px solid var(--line)}
-.sec--cream{background:var(--cream);border-top:none}
-.sec--navy{background:var(--navy);color:#fff;border-top:none}
-.sec--navy h2{color:#fff}
-.sec--navy p{color:rgba(255,255,255,.84)}
-.lead{font-size:19px}
+.wrap{max-width:1120px; margin:0 auto; padding:0 24px}
+.narrow{max-width:760px}
+.mid{max-width:920px}
+.accent{color:var(--orange)}
 
-/* párrafos de una línea = ritmo de carta */
-.beat{margin:0 0 20px}
+/* ─────────────────────────── TIPOGRAFÍA ───────────────────────────
+   La regla del sistema: títulos apretados (lh 1.06-1.18, tracking negativo),
+   cuerpo aireado (lh 1.65-1.75, tracking 0). Ese contraste es la elegancia. */
+h1{font-family:var(--f-h); font-size:clamp(2.1rem,4.4vw,3.4rem); font-weight:700;
+  line-height:1.06; letter-spacing:-0.03em; margin:0 0 14px; color:#fff}
+h2{font-family:var(--f-h); font-size:clamp(1.6rem,3.4vw,2.4rem); font-weight:700;
+  line-height:1.15; letter-spacing:-0.02em; margin:0 0 18px}
+h3{font-family:var(--f-h); font-size:1.16rem; font-weight:700;
+  line-height:1.3; letter-spacing:-0.01em; margin:0 0 8px}
+h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 
-/* testimonios que prueban EL PROBLEMA, no el producto */
-.chat{margin:22px 0;padding-left:2px}
-.chat p{font-style:italic;color:#3d7ea6;margin:0 0 7px;font-size:17px}
+/* Eyebrow: Space Grotesk en mayúsculas con tracking ancho. NO hay mono en este sistema. */
+.eyebrow{display:inline-block; font-family:var(--f-h); font-size:.72rem; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--orange);
+  border:1px solid rgba(255,102,2,.32); padding:6px 16px; border-radius:50px; margin:0 0 20px}
+.label{font-family:var(--f-h); font-size:.68rem; font-weight:600; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-subtle); margin:0 0 18px; text-align:center}
 
-/* el paréntesis de inclusión */
-.include{font-size:16px;color:var(--ink-subtle);line-height:1.6;margin:24px 0}
-.sec--navy .include{color:rgba(255,255,255,.55)}
+/* ─────────────────────────── BANDAS ─────────────────────────── */
+.sec{padding:72px 0; position:relative}
+.sec--light{background:var(--white); color:var(--ink)}
+.sec--gray{background:var(--gray-50); color:var(--ink)}
+.sec--dark{background:linear-gradient(180deg,var(--navy-deep) 0%,var(--navy) 55%,var(--navy-deep) 100%);
+  color:#fff; overflow:hidden}
+.sec--dark-down{background:linear-gradient(180deg,var(--navy) 0%,var(--navy-deep) 100%); color:#fff; overflow:hidden}
+.sec--final{background:radial-gradient(600px 300px at 50% 0%, rgba(255,102,2,.18), transparent 70%),
+  linear-gradient(180deg,var(--navy-deep) 0%,var(--navy) 100%); color:#fff; overflow:hidden; text-align:center}
+.sec--dark h2,.sec--dark-down h2,.sec--final h2{color:#fff}
+.sec--dark h3,.sec--dark-down h3{color:#fff}
+.sec--light h2,.sec--gray h2{color:var(--ink)}
+.sec--light h3,.sec--gray h3{color:var(--ink)}
+/* El corte entre banda clara y oscura: un hairline que se enciende en el centro. */
+.sec--dark::before,.sec--dark-down::before,.sec--final::before{content:''; position:absolute;
+  top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,102,2,.4),transparent)}
 
-/* blockquote */
-blockquote{margin:26px 0;padding:18px 0 18px 22px;border-left:3px solid var(--orange);
-  font-family:var(--f-display);font-weight:700;font-size:19px;font-style:italic;line-height:1.45}
-blockquote cite{display:block;font-family:var(--f-body);font-weight:400;font-style:normal;
-  font-size:14px;color:var(--ink-subtle);margin-top:10px}
+/* Párrafos: "beat" es la unidad de la carta de venta. Uno por idea. */
+.beat{font-size:1.02rem; line-height:1.75; margin:0 0 16px; color:var(--ink-mute); max-width:34em}
+.sec--dark .beat,.sec--dark-down .beat,.sec--final .beat{color:var(--tl)}
+.beat strong{color:var(--ink); font-weight:700}
+.sec--dark .beat strong,.sec--dark-down .beat strong,.sec--final .beat strong{color:#fff}
+.beat--center{margin-left:auto; margin-right:auto; text-align:center}
 
-.cta-wrap{text-align:center;margin:34px 0 0}
+/* ─────────────────────────── BOTONES ───────────────────────────
+   Uno primario por pantalla. Con 7 CTAs en la página, el glow pierde
+   significado si todos lo llevan: el naranja lleno queda para el fold, la
+   oferta y el cierre; el resto va en ghost. */
+.cta{display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  font-family:var(--f-h); font-size:1.02rem; font-weight:600; letter-spacing:.01em;
+  color:#fff; background:var(--orange); border:none; border-radius:50px;
+  padding:17px 34px; cursor:pointer; position:relative; overflow:hidden; text-align:center;
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
+  box-shadow:0 6px 28px var(--orange-glow)}
+.cta::after{content:''; position:absolute; top:0; left:-120%; width:60%; height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);
+  transform:skewX(-20deg); transition:left .6s var(--ease)}
+.cta:hover{background:var(--orange-hover); transform:translateY(-2px); box-shadow:0 10px 38px var(--orange-glow)}
+.cta:hover::after{left:140%}
+.cta svg{width:18px; height:18px; flex-shrink:0; transition:transform .25s var(--ease)}
+.cta:hover svg{transform:translateX(4px)}
+.cta--full{width:100%}
+.cta--flat{box-shadow:none}
+/* Ghost: el secundario que este sistema no traía y una venta directa necesita. */
+.cta--ghost{background:transparent; border:1.5px solid var(--orange); color:var(--orange); box-shadow:none}
+.cta--ghost:hover{background:rgba(255,102,2,.08); border-color:var(--orange-hover); color:var(--orange-hover); box-shadow:none}
+.sec--dark .cta--ghost,.sec--dark-down .cta--ghost{border-color:rgba(255,102,2,.55); color:var(--orange)}
+.cta-wrap{margin:30px 0 0}
+.cta-wrap--center{text-align:center}
 
-/* ── MODAL DE CHECKOUT ── */
-.ov{position:fixed;inset:0;background:rgba(6,29,48,.74);display:none;
-  align-items:flex-start;justify-content:center;padding:20px;z-index:100;overflow-y:auto}
-.ov[data-open]{display:flex}
-.modal{background:#fff;border-radius:12px;max-width:520px;width:100%;margin:auto;
-  position:relative;overflow:hidden}
-.modal__x{position:absolute;top:10px;right:12px;background:#fff;border:1px solid var(--line);
-  width:28px;height:28px;border-radius:50%;font-size:17px;line-height:1;color:var(--ink-mute);
-  cursor:pointer;z-index:2}
-.steps{display:flex;border-bottom:3px solid var(--line);position:relative}
-.steps__i{flex:1;text-align:center;padding:15px 8px;font-family:var(--f-display);
-  font-weight:700;font-size:14px;color:var(--ink-subtle)}
-.steps__i small{display:block;font-family:var(--f-body);font-weight:400;font-size:11.5px;margin-top:2px}
-.steps__i[data-on]{color:var(--navy)}
-.steps__bar{position:absolute;bottom:-3px;left:0;width:50%;height:3px;background:var(--navy);
-  transition:transform .22s}
-.modal__body{padding:24px}
-.fld{width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:7px;
-  font-size:16px;font-family:var(--f-body);margin-bottom:11px;color:var(--ink)}
-.fld:focus{outline:0;border-color:var(--orange)}
-.privacy{text-align:center;font-size:12px;color:var(--ink-subtle);margin:10px 0 0}
-.back{background:none;border:0;color:var(--ink-mute);font-size:14px;cursor:pointer;
-  font-family:var(--f-body);padding:6px 0;margin-bottom:12px}
+/* ─────────────────────────── CARDS ───────────────────────────
+   Sobre navy una card NUNCA se separa por sombra: se separa por un paso de
+   luminancia (#0E2E4A sobre #081F33) y un hairline blanco al 9%. Nada más. */
+.card{background:var(--navy-1); border:1px solid var(--hair); border-radius:var(--r-lg);
+  padding:24px; transition:border-color .25s var(--ease), transform .25s var(--ease)}
+.card:hover{border-color:rgba(255,102,2,.28); transform:translateY(-4px)}
+.card--glass{background:rgba(255,255,255,.04); border:1px solid var(--hair);
+  border-radius:var(--r-lg); padding:26px 28px}
+.card--glass:hover{transform:none; border-color:var(--hair)}
+/* Sobre claro sí hay sombra — y es azul, nunca negra. */
+.card-l{background:#fff; border:1px solid var(--gray-200); border-radius:var(--r-lg);
+  padding:26px 28px; box-shadow:0 20px 60px rgba(12,52,82,.07)}
 
-/* tabla del ítem */
-.item{display:flex;justify-content:space-between;align-items:center;padding:13px 0;
-  border-bottom:1px solid var(--line);font-size:15px}
-.item b{font-family:var(--f-display);font-size:15px}
-.item .p{font-weight:700;color:var(--navy)}
+/* El "insight": se usa dos veces en toda la página, no más. */
+.insight{background:rgba(255,102,2,.07); border-left:3px solid var(--orange);
+  border-radius:0 var(--r) var(--r) 0; padding:22px 26px; margin:26px 0; max-width:820px}
+.insight p{margin:0; font-size:1rem; line-height:1.7; color:var(--ink-mute)}
+.insight strong{color:var(--ink); font-weight:700}
+.sec--dark .insight,.sec--dark-down .insight{background:rgba(255,102,2,.10)}
+.sec--dark .insight p,.sec--dark-down .insight p{color:var(--tl)}
+.sec--dark .insight strong,.sec--dark-down .insight strong{color:var(--orange)}
 
-/* bumps · 2, no 4 — ver plan §6.6 */
-.bump{border:1.5px solid #e8d9a8;background:#fffdf3;border-radius:8px;padding:14px;margin:12px 0}
-.bump label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
-.bump input{margin-top:3px;width:17px;height:17px;accent-color:var(--orange);flex:0 0 auto}
-.bump .t{font-family:var(--f-display);font-weight:800;font-size:14.5px;color:#1a6b32;line-height:1.35}
-.bump .d{font-size:13.5px;color:var(--ink-mute);margin-top:5px;line-height:1.5}
+/* ═══════════════════════ 1 · BARRA + HERO ═══════════════════════ */
+.topbar{background:var(--navy-deep); color:var(--tm); border-bottom:1px solid var(--hair);
+  font-family:var(--f-h); font-size:.76rem; font-weight:500; letter-spacing:.02em;
+  text-align:center; padding:10px 16px; line-height:1.5; position:relative; z-index:20}
+.topbar b{color:#fff; font-weight:600}
+.topbar .dot{color:var(--orange)}
+.topbar .sep{color:var(--ts); margin:0 4px}
+.topbar .t{font-variant-numeric:tabular-nums; color:var(--orange); font-weight:600}
 
-.total{display:flex;justify-content:space-between;padding:15px 0 4px;
-  font-family:var(--f-display);font-weight:900;font-size:19px;border-top:2px solid var(--line);margin-top:6px}
-.pay{margin-top:16px}
-.secure{text-align:center;font-size:12px;color:var(--ink-subtle);margin:11px 0 0}
+.hero{position:relative; overflow:hidden; padding:64px 0 72px; color:#fff;
+  background:
+    radial-gradient(900px 500px at 78% 12%, rgba(255,102,2,.16), transparent 60%),
+    radial-gradient(700px 600px at 10% 100%, rgba(26,74,110,.55), transparent 65%),
+    linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%)}
+/* Grano SVG al 4%: mata el banding de los gradientes y da textura de papel.
+   Es el detalle más barato y más determinante del look. */
+.hero::before{content:''; position:absolute; inset:0; opacity:.04; pointer-events:none; z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero__particles{position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none}
+.particle{position:absolute; bottom:-12px; border-radius:50%; background:rgba(255,102,2,.35);
+  animation:float linear infinite}
+@keyframes float{0%{transform:translateY(0) scale(1); opacity:.55} 100%{transform:translateY(-112vh) scale(.35); opacity:0}}
+.hero__inner{position:relative; z-index:2; max-width:820px; margin:0 auto; text-align:center}
+.hero__tag{display:inline-block; font-family:var(--f-h); font-size:.74rem; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--orange);
+  background:rgba(255,102,2,.12); border:1px solid rgba(255,102,2,.34);
+  padding:7px 16px; border-radius:50px; margin:0 0 22px; animation:fu .6s var(--ease) both}
+.hero h1{animation:fu .6s .12s var(--ease) both}
+/* Paso 1 del protocolo: la pregunta espejo. El H1 es afirmación (Dan Henry);
+   esto es lo que abre el loop (funnel400 · nivel + comportamiento). */
+.hero__ask{font-family:var(--f-h); font-size:clamp(1rem,1.9vw,1.24rem); font-weight:500;
+  color:var(--orange); line-height:1.35; letter-spacing:-0.01em; margin:0 auto 22px; max-width:24em;
+  animation:fu .6s .2s var(--ease) both}
+.hero__sub{font-size:1.02rem; color:var(--tl); line-height:1.7; margin:0 auto 26px; max-width:34em;
+  animation:fu .6s .28s var(--ease) both}
+.hero__sub strong{color:#fff; font-weight:600}
+.watch{font-family:var(--f-h); font-size:.72rem; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--orange); margin:0 0 12px; animation:fu .6s .32s var(--ease) both}
+.vsl{aspect-ratio:16/9; max-width:680px; margin-left:auto; margin-right:auto; background:var(--navy-1); border:1px solid var(--hair);
+  border-radius:var(--r-lg); display:flex; align-items:center; justify-content:center;
+  color:var(--ts); font-family:var(--f-h); font-size:.9rem; margin:0 0 26px; overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.45); animation:fu .7s .3s var(--ease) both}
+.cd-label{font-family:var(--f-h); font-size:.68rem; font-weight:600; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ts); margin:0 0 12px; animation:fu .6s .4s var(--ease) both}
+.cd{display:flex; gap:12px; justify-content:center; margin:0 0 26px; animation:fu .6s .44s var(--ease) both}
+.cd__i{display:flex; flex-direction:column; align-items:center; min-width:66px; padding:13px 16px;
+  background:rgba(255,255,255,.06); border:1px solid var(--hair); border-radius:var(--r);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px)}
+.cd__n{font-family:var(--f-h); font-size:1.9rem; font-weight:700; color:var(--orange);
+  line-height:1; font-variant-numeric:tabular-nums}
+.cd__u{font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--tm); margin-top:5px}
+.hero__cta{animation:fu .6s .5s var(--ease) both}
+/* Micro-copy pegado al botón (Dan Henry). Acá NO va garantía de devolución:
+   contradice el «el precio es un filtro de intención» y el mecanismo entero. */
+.micro{font-size:.86rem; color:var(--tm); line-height:1.6; margin:14px auto 0; max-width:38em}
+.micro strong{color:var(--tl)}
+.specs{font-family:var(--f-h); font-size:.76rem; font-weight:500; letter-spacing:.05em;
+  color:var(--ts); margin:22px 0 0; display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
+.specs i{font-style:normal; color:var(--orange)}
+@keyframes fu{from{opacity:0; transform:translateY(26px)} to{opacity:1; transform:none}}
 
-/* sticky mobile */
-.sticky{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);
-  padding:10px 16px;z-index:40;display:none;box-shadow:0 -6px 22px rgba(12,52,82,.13)}
-.sticky .cta{padding:15px;font-size:17px;box-shadow:none}
-@media(max-width:760px){ .sticky[data-on]{display:block} body{padding-bottom:76px} }
+/* ═══════════════════════ PRENSA ═══════════════════════ */
+.press-band{background:var(--gray-50); border-bottom:1px solid var(--gray-200); padding:26px 0 30px}
+.press{display:flex; flex-wrap:wrap; gap:18px 32px; justify-content:center; align-items:center}
+.press img{height:28px; width:auto; max-width:112px; object-fit:contain;
+  filter:grayscale(100%); opacity:.5; transition:opacity .25s var(--ease), filter .25s var(--ease)}
+.press img:hover{filter:grayscale(0); opacity:1}
 
-.pending{border:2px dashed var(--orange);border-radius:10px;padding:22px;margin:26px 0;
-  background:#fff8f3;font-size:15px;line-height:1.6}
-.pending b{font-family:var(--f-display)}
+/* ═══════════════════════ 2 · ESPEJO ═══════════════════════ */
+.chat{margin:22px 0; padding-left:20px; border-left:2px solid var(--gray-200)}
+.chat p{font-family:var(--f-h); font-style:italic; font-size:1rem; color:var(--orange-text);
+  margin:0 0 6px; font-weight:500}
+.aside{font-size:.94rem; color:var(--ink-subtle); line-height:1.65; margin:20px 0; max-width:36em;
+  font-style:italic}
+.quote{margin:26px 0; padding:22px 26px; background:var(--gray-50);
+  border-left:3px solid var(--orange); border-radius:0 var(--r) var(--r) 0; max-width:820px}
+.quote p{font-family:var(--f-h); font-size:1.05rem; font-style:italic; font-weight:500;
+  color:var(--ink); margin:0 0 8px; line-height:1.55}
+.quote cite{font-style:normal; font-size:.86rem; color:var(--ink-subtle); display:block}
 
-footer{background:var(--navy-deep);color:#6d8ba3;text-align:center;padding:34px 20px;font-size:13.5px}
+/* La identidad nombrada: el paso 2 del protocolo, que antes llegaba tarde y sin nombre. */
+.identity{margin:32px 0 10px; text-align:center}
+.identity__k{font-family:var(--f-h); font-size:.7rem; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ink-subtle); margin:0 0 10px}
+.identity__n{font-family:var(--f-h); font-size:clamp(1.5rem,3.4vw,2.2rem); font-weight:700;
+  letter-spacing:-0.02em; line-height:1.15; color:var(--ink); margin:0 0 12px}
+.identity__n em{color:var(--orange); font-style:normal}
+.identity p{font-size:1.02rem; color:var(--ink-mute); margin:0 auto; max-width:32em; line-height:1.7}
 
-/* ── BLOQUES DEL CUERPO ── */
-.stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:26px 0}
-.stats div{flex:1;min-width:140px;border:1.5px solid var(--line);border-radius:9px;padding:15px 10px;text-align:center}
-.stats .n{font-family:var(--f-display);font-weight:900;font-size:clamp(22px,4.4vw,30px);color:var(--orange);line-height:1}
-.stats .l{font-family:var(--f-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-subtle);margin-top:7px;line-height:1.4}
-.logos{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:22px 0 0}
-.logos span{background:var(--navy-soft);border-radius:100px;padding:7px 14px;font-size:12.5px;font-weight:700;
-  font-family:var(--f-mono);letter-spacing:.08em}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:26px 0}
-.cards div{border:1.5px solid var(--line);border-radius:10px;padding:18px;background:#fff}
-.cards .who{font-family:var(--f-display);font-weight:800;font-size:16px}
-.cards .num{font-family:var(--f-display);font-weight:900;font-size:15px;color:var(--orange);margin:2px 0 9px}
-.cards p{font-size:14.5px;color:var(--ink-mute);margin:0;line-height:1.55}
-.fail{border:1.5px solid var(--line);border-left:4px solid var(--orange);border-radius:8px;
-  padding:19px 20px;margin:14px 0;background:#fff}
-.fail h3{font-size:17px;margin:0 0 9px;color:var(--ink)}
-.fail p{font-size:15.5px;color:var(--ink-mute);margin:0;line-height:1.6}
-.fail .kick{display:block;margin-top:10px;color:var(--ink);font-weight:700;font-style:italic}
-.person{border:1.5px solid var(--line);border-radius:10px;padding:20px;margin:14px 0;background:#fff}
-.person .tag{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
-.person h3{font-size:18px;margin:9px 0 10px}
-.person p{font-size:15.5px;color:var(--ink-mute);margin:0;line-height:1.6}
-.stack{list-style:none;padding:0;margin:24px 0}
-.stack li{padding:15px 0 15px 30px;border-bottom:1px solid var(--line);position:relative;font-size:16px;color:var(--ink-mute);line-height:1.6}
-.stack li::before{content:"→";position:absolute;left:0;top:15px;color:var(--orange);font-weight:800}
-.stack b{color:var(--ink);font-family:var(--f-display);font-size:16.5px}
-/* ── Bio con foto ── */
-.bio{display:grid;grid-template-columns:190px 1fr;gap:26px;align-items:start;margin:26px 0 0}
-.bio__ph{width:100%;aspect-ratio:1/1;border-radius:12px;object-fit:cover;border:1.5px solid var(--line);
-  box-shadow:0 18px 44px rgba(12,52,82,.12);background:var(--navy-soft)}
-.bio__txt p:first-child{margin-top:0}
-@media(max-width:640px){.bio{grid-template-columns:1fr;gap:18px}.bio__ph{max-width:170px;margin:0 auto}}
-/* ── Logos de prensa ── */
-.press-label{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--ink-subtle);text-align:center;margin:30px 0 0}
-.press{display:flex;flex-wrap:wrap;gap:18px 30px;justify-content:center;align-items:center;margin:18px 0 0}
-.press img{height:26px;width:auto;max-width:110px;object-fit:contain;opacity:.55;filter:grayscale(1);
-  transition:opacity .2s,filter .2s}
-.press img:hover{opacity:1;filter:grayscale(0)}
-@media(max-width:640px){.press{gap:15px 22px}.press img{height:19px;max-width:80px}}
-/* ── Casos con video ── */
-.casos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0}
-@media(max-width:900px){.casos{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:420px){.casos{grid-template-columns:1fr}}
-.caso{border:1.5px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;
-  display:flex;flex-direction:column}
-.caso__thumb{position:relative;aspect-ratio:16/9;background:var(--navy);cursor:pointer;
-  border:0;padding:0;width:100%;display:block;overflow:hidden}
-.caso__thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.caso__thumb::after{content:"";position:absolute;inset:0;background:rgba(12,52,82,.24)}
-.caso__play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;
-  border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;
-  box-shadow:0 10px 24px rgba(255,102,2,.42);z-index:2;transition:transform .2s}
+/* Los tres espejos (antes "descalificador", que estaba después del precio). */
+.mirrors{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:30px 0 0}
+.mirrors .card-l{padding:22px 22px 24px; box-shadow:0 14px 44px rgba(12,52,82,.06)}
+.mirrors h3{font-size:1.02rem; margin:0 0 7px}
+.mirrors p{font-size:.94rem; color:var(--ink-mute); margin:0; line-height:1.6}
+
+/* ═══════════════════════ MECANISMO + ESTUDIOS ═══════════════════════ */
+.mech{margin:26px auto; max-width:760px; text-align:center; padding:28px 32px;
+  background:rgba(255,255,255,.04); border:1px solid var(--hair); border-radius:var(--r-lg)}
+.mech p{font-family:var(--f-h); font-size:1.06rem; font-weight:500; line-height:1.55;
+  color:#fff; margin:0 0 10px}
+.mech p:last-child{margin:0}
+.mech .name{color:var(--orange); font-weight:700}
+.studies{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:26px 0 0}
+.studies .card{padding:22px}
+.studies p{font-size:.94rem; color:var(--tl); line-height:1.6; margin:0 0 12px}
+.studies .src{font-family:var(--f-h); font-size:.68rem; font-weight:600; letter-spacing:.06em;
+  color:var(--ts); margin:0; line-height:1.5; text-transform:uppercase}
+.para{margin:30px auto 0; max-width:38em; text-align:center}
+.para p{font-size:1.04rem; color:var(--tl); line-height:1.75; margin:0}
+.para strong{color:var(--orange); font-weight:700}
+
+/* ═══════════════════════ 3 · MITOS ═══════════════════════ */
+.myths{margin:26px 0 0}
+.myth{display:flex; gap:22px; align-items:flex-start; padding:22px 0;
+  border-bottom:1px solid var(--gray-200)}
+.myth:last-child{border-bottom:none}
+.myth__n{font-family:var(--f-h); font-size:1.9rem; font-weight:700; color:transparent;
+  -webkit-text-stroke:1.5px var(--orange); min-width:48px; line-height:1; flex-shrink:0}
+.myth h3{font-family:var(--f-h); font-size:1.06rem; font-weight:600; font-style:italic;
+  color:var(--ink); margin:0 0 6px}
+.myth p{font-size:.98rem; color:var(--ink-mute); margin:0; line-height:1.6}
+.myth p strong{color:var(--ink)}
+
+/* ═══════════════════════ 4 · NICO ═══════════════════════ */
+.bio{display:grid; grid-template-columns:190px 1fr; gap:28px; align-items:start; margin:26px 0 0}
+.bio__ph{width:100%; aspect-ratio:1/1; border-radius:var(--r-lg); object-fit:cover;
+  border:1px solid var(--hair); box-shadow:0 24px 60px rgba(0,0,0,.4); background:var(--navy-1)}
+.bio__txt .beat:first-child{margin-top:0}
+.stats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:30px 0 0}
+.stat{text-align:center; padding:26px 18px; background:var(--navy-1); border:1px solid var(--hair);
+  border-radius:var(--r-lg); transition:border-color .25s var(--ease), transform .25s var(--ease)}
+.stat:hover{border-color:rgba(255,102,2,.28); transform:translateY(-4px)}
+.stat b{display:block; font-family:var(--f-h); font-size:clamp(1.7rem,3.6vw,2.4rem); font-weight:700;
+  color:var(--orange); line-height:1; letter-spacing:-0.02em; margin-bottom:9px}
+.stat span{font-size:.86rem; color:var(--tl); line-height:1.5; display:block}
+.press--dark img{filter:grayscale(100%) brightness(0) invert(1); opacity:.45}
+.press--dark img:hover{filter:none; opacity:1}
+.press-label--dark{color:var(--ts)}
+
+/* ═══════════════════════ 5 · CASOS ═══════════════════════ */
+.casos{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:26px 0}
+.caso{background:var(--navy-1); border:1px solid var(--hair); border-radius:var(--r-lg);
+  overflow:hidden; display:flex; flex-direction:column;
+  transition:border-color .25s var(--ease), transform .25s var(--ease)}
+.caso:hover{border-color:rgba(255,102,2,.28); transform:translateY(-4px)}
+.caso__thumb{position:relative; aspect-ratio:16/9; background:var(--navy-deep); cursor:pointer;
+  border:0; padding:0; width:100%; display:block; overflow:hidden}
+.caso__thumb img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s var(--ease)}
+.caso:hover .caso__thumb img{transform:scale(1.04)}
+.caso__thumb::after{content:''; position:absolute; inset:0; background:rgba(8,31,51,.3)}
+.caso__play{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:48px; height:48px;
+  border-radius:50%; background:var(--orange); display:flex; align-items:center; justify-content:center;
+  box-shadow:0 10px 26px var(--orange-glow); z-index:2; transition:transform .2s var(--ease)}
 .caso__thumb:hover .caso__play{transform:translate(-50%,-50%) scale(1.09)}
-.caso__play::after{content:"";border-left:14px solid #fff;border-top:9px solid transparent;
-  border-bottom:9px solid transparent;margin-left:4px}
-.caso__thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3}
-.caso__body{padding:15px 16px 17px;flex:1;display:flex;flex-direction:column}
-.caso__who{font-family:var(--f-display);font-weight:800;font-size:15.5px;color:var(--ink);margin:0}
-.caso__role{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--orange-text);margin:5px 0 10px;line-height:1.5}
-.caso__ab{font-size:14px;color:var(--ink-mute);line-height:1.55;margin:0 0 auto}
-.caso__ab b{color:var(--ink)}
-.caso__q{font-size:13.5px;color:var(--ink-subtle);line-height:1.5;font-style:italic;margin:14px 0 0;
-  padding-top:12px;border-top:1px solid var(--line)}
-.proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:26px 0}
-.proof div{border:1.5px solid var(--line);border-radius:10px;padding:18px;background:#fff}
-.proof .who{font-family:var(--f-display);font-weight:800;font-size:15.5px}
-.proof .role{font-size:13px;color:var(--ink-subtle);margin:2px 0 11px;line-height:1.4}
-.proof .ab{font-size:14.5px;color:var(--ink-mute);line-height:1.55;margin:0 0 10px}
-.proof .ab b{color:var(--ink)}
-.proof q{display:block;font-family:var(--f-display);font-weight:700;font-size:15px;font-style:italic;
-  padding-left:12px;border-left:2.5px solid var(--orange);line-height:1.45}
-.calc{border:2px solid var(--navy);border-radius:12px;padding:24px;background:#fff;margin:26px 0;
-  box-shadow:0 22px 56px rgba(12,52,82,.13)}
-.calc .hd{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--ink-subtle);text-align:center;margin:0 0 18px}
-.calc label{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.15em;
-  text-transform:uppercase;color:var(--ink-subtle);margin:16px 0 7px}
-.calc label b{font-family:var(--f-display);font-size:15px;color:var(--ink);letter-spacing:0}
-.calc input[type=range]{width:100%;accent-color:var(--orange)}
-.calc .out{margin-top:22px;padding-top:20px;border-top:2px solid var(--line);text-align:center}
-.calc .big{font-family:var(--f-display);font-weight:900;font-size:clamp(48px,12vw,74px);color:var(--orange);line-height:1}
-.calc .u{font-family:var(--f-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--ink-subtle);display:block;margin-top:8px;line-height:1.5}
-.calc .eq{margin-top:14px;font-size:16.5px;line-height:1.55}
-.ladder{text-align:center;margin:24px 0;font-family:var(--f-display);font-weight:800;font-size:17px;line-height:1.9}
-.ladder .hot{color:var(--orange);font-size:20px}
+.caso__play::after{content:''; border-left:14px solid #fff; border-top:9px solid transparent;
+  border-bottom:9px solid transparent; margin-left:4px}
+.caso__thumb iframe{position:absolute; inset:0; width:100%; height:100%; border:0; z-index:3}
+.caso__body{padding:18px 20px 20px; flex:1; display:flex; flex-direction:column}
+.caso__who{font-family:var(--f-h); font-size:1.02rem; font-weight:700; color:#fff; margin:0}
+.caso__role{font-family:var(--f-h); font-size:.62rem; font-weight:600; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--orange); margin:6px 0 11px; line-height:1.55}
+.caso__ab{font-size:.9rem; color:var(--tl); line-height:1.6; margin:0 0 auto}
+.caso__ab b{color:#fff; font-weight:700}
+.caso__q{font-size:.86rem; color:var(--tm); line-height:1.55; font-style:italic;
+  margin:14px 0 0; padding-top:12px; border-top:1px solid var(--hair)}
 
+/* El menú de posibilidades · paso 4 del protocolo. Va JUSTO antes de la oferta. */
+.menu{margin:34px auto 0; max-width:760px; padding:28px 30px; background:rgba(255,255,255,.04);
+  border:1px solid var(--hair); border-radius:var(--r-lg)}
+.menu p{font-size:1rem; line-height:1.75; color:var(--tl); margin:0 0 12px}
+.menu p:last-child{margin:0}
+.menu strong{color:#fff; font-weight:700}
+.menu .beat-hot{font-family:var(--f-h); font-size:1.04rem; font-weight:600; color:var(--orange)}
 
-/* ── VALUE STACK · FAQ · CIERRE ── */
-.stackbox{border:2px solid var(--navy);border-radius:12px;padding:clamp(22px,3.4vw,32px);background:#fff;
-  box-shadow:0 24px 60px rgba(12,52,82,.13);margin:26px 0}
-.stackbox .it{padding:17px 0;border-bottom:1px solid var(--line)}
-.stackbox .it:last-of-type{border-bottom:none}
-.stackbox .it b{display:block;font-family:var(--f-display);font-weight:800;font-size:17px;margin-bottom:6px}
-.stackbox .it span{color:var(--ink-mute);font-size:15.5px;line-height:1.58}
-.inv{text-align:center;padding:24px 0 6px;border-top:2px solid var(--line);margin-top:8px}
-.inv .l{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-subtle)}
-.inv .n{font-family:var(--f-display);font-weight:900;font-size:clamp(46px,10vw,62px);line-height:1;margin-top:6px}
-.realtalk{border:1.5px solid var(--orange);border-radius:10px;padding:22px;margin:26px 0;background:rgba(255,102,2,.045)}
-.realtalk .t{font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--orange);text-align:center;margin:0 0 14px}
-.realtalk p{font-size:15.5px;line-height:1.65;color:var(--ink-mute)}
-.realtalk p:last-child{margin-bottom:0}
-.faq details{border-bottom:1px solid var(--line);padding:18px 0}
-.faq summary{font-family:var(--f-display);font-weight:700;font-size:17px;cursor:pointer;list-style:none;
-  padding-right:32px;position:relative;line-height:1.35}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";position:absolute;right:0;top:-3px;color:var(--orange);font-size:25px;font-weight:800}
-.faq details[open] summary::after{content:"–"}
-.faq details p{margin:13px 0 0;color:var(--ink-mute);font-size:15.5px;line-height:1.62}
-.worst{border:1.5px solid rgba(255,255,255,.22);border-radius:10px;padding:20px;margin:24px 0;
-  font-size:16px;line-height:1.62;text-align:left}
-.sign{font-family:var(--f-display);font-weight:800;font-size:16px;margin-top:22px;letter-spacing:.02em}
-.legal{background:var(--navy-deep);color:#4d6a80;font-size:11.5px;line-height:1.6;padding:26px 20px 34px}
-.legal .wrap{max-width:760px}
-
-
-/* — calculadora de costo de oportunidad — */
-.calc .help{font-size:13.5px;color:var(--ink-subtle);line-height:1.55;margin:8px 0 0}
+/* ═══════════════════════ 6 · CALCULADORA ═══════════════════════ */
+.calc{background:#fff; border:1px solid var(--gray-200); border-radius:var(--r-lg);
+  padding:30px; margin:26px 0; box-shadow:0 24px 70px rgba(12,52,82,.10)}
+.calc .hd{font-family:var(--f-h); font-size:.68rem; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ink-subtle); margin:0 0 22px}
+.calc label{display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  font-family:var(--f-h); font-size:.96rem; font-weight:600; color:var(--ink); margin:20px 0 10px}
+.calc label b{font-family:var(--f-h); font-size:1.4rem; font-weight:700; color:var(--orange);
+  font-variant-numeric:tabular-nums}
+.calc input[type=range]{width:100%; -webkit-appearance:none; appearance:none; height:5px;
+  border-radius:99px; background:var(--gray-200); outline:none; margin:0}
+.calc input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; appearance:none;
+  width:22px; height:22px; border-radius:50%; background:var(--orange); cursor:pointer;
+  box-shadow:0 3px 12px var(--orange-glow); border:2px solid #fff}
+.calc input[type=range]::-moz-range-thumb{width:22px; height:22px; border-radius:50%;
+  background:var(--orange); cursor:pointer; border:2px solid #fff}
+.calc .help{font-size:.88rem; color:var(--ink-subtle); line-height:1.6; margin:9px 0 0}
 .calc .help strong{color:var(--ink-mute)}
-.calc .row{display:flex;gap:9px;margin-top:6px}
-.calc .row select,.calc .row input{padding:12px 13px;border:1.5px solid var(--line);border-radius:7px;
-  font-size:16px;font-family:var(--f-body);color:var(--ink);background:#fff}
-.calc .row select{flex:0 0 92px;font-family:var(--f-mono);font-size:13px}
-.calc .row input{flex:1;min-width:0}
-.calc .row--sm{display:flex;gap:7px;margin-top:9px}
-.calc .row--sm input{flex:1;min-width:0;padding:9px 11px;font-size:15px;border:1.5px solid var(--line);border-radius:6px}
-.calc .row--sm button{flex:0 0 auto;background:var(--navy);color:#fff;border:0;border-radius:6px;
-  padding:9px 14px;font-size:13.5px;font-family:var(--f-display);font-weight:700;cursor:pointer}
-.calc .oport{font-size:15px;color:var(--ink-mute);line-height:1.55;margin:14px 0 0;
-  max-width:440px;margin-left:auto;margin-right:auto}
-.calc .nota{margin-top:18px;padding:14px 16px;background:var(--navy-soft);border-radius:8px;
-  font-size:13.5px;color:var(--ink-mute);line-height:1.55;text-align:left}
-.calc .ancla{text-align:center;font-size:14px;color:var(--ink-subtle);margin:12px 0 0}
+.calc .row{display:flex; gap:10px; margin:0}
+.calc .row--sm{display:flex; gap:8px; margin:10px 0 0}
+.calc select,.calc input[type=number]{font-family:var(--f-b); font-size:1rem; padding:13px 14px;
+  border:1px solid var(--gray-200); border-radius:var(--r); background:#fff; color:var(--ink);
+  outline:none; transition:border-color .2s var(--ease)}
+.calc select:focus,.calc input[type=number]:focus{border-color:var(--orange)}
+.calc select{flex:0 0 96px}
+.calc input[type=number]{flex:1; min-width:0}
+.calc .row--sm button{font-family:var(--f-h); font-size:.86rem; font-weight:600; color:#fff;
+  background:var(--navy); border:none; border-radius:var(--r); padding:0 16px; cursor:pointer;
+  white-space:nowrap; transition:background .2s var(--ease)}
+.calc .row--sm button:hover{background:var(--navy-2)}
+.calc .out{margin:28px 0 0; padding:28px 24px; text-align:center; border-radius:var(--r-lg);
+  background:radial-gradient(500px 240px at 50% 0%, rgba(255,102,2,.16), transparent 70%),
+    linear-gradient(180deg,var(--navy) 0%,var(--navy-deep) 100%); color:#fff}
+.calc .big{font-family:var(--f-h); font-size:clamp(2.2rem,6vw,3.4rem); font-weight:700;
+  color:var(--orange); line-height:1; letter-spacing:-0.03em; font-variant-numeric:tabular-nums}
+.calc .u{display:block; font-family:var(--f-h); font-size:.7rem; font-weight:600; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--tm); margin-top:12px}
+.calc .oport{font-size:.94rem; color:var(--tl); line-height:1.65; margin:18px auto 0; max-width:30em}
+.calc .oport strong{color:#fff}
+.calc .eq{font-size:1rem; color:var(--tl); line-height:1.7; margin:14px auto 0; max-width:30em}
+.calc .eq strong{color:var(--orange); font-weight:700}
+.calc .nota{font-size:.84rem; color:var(--ink-subtle); line-height:1.65; margin:18px 0 0;
+  padding:16px 18px; background:var(--gray-50); border-radius:var(--r)}
+.calc .nota strong{color:var(--ink-mute)}
+.calc .ancla{text-align:center; font-size:.94rem; color:var(--ink-subtle); margin:12px 0 0}
+.calc .ancla strong{color:var(--ink)}
+.ladder{font-family:var(--f-h); font-size:1.1rem; font-weight:500; line-height:1.8;
+  color:var(--ink-mute); margin:26px 0; text-align:center}
+.ladder .hot{color:var(--orange); font-weight:700}
 
+/* ═══════════════════════ 7 · OFERTA ═══════════════════════ */
+.stack{list-style:none; padding:0; margin:26px 0 0}
+.stack li{position:relative; padding:18px 0 18px 32px; border-bottom:1px solid var(--gray-200)}
+.stack li:last-child{border-bottom:none}
+.stack li::before{content:'→'; position:absolute; left:0; top:18px; color:var(--orange); font-weight:700}
+.stack b{display:block; font-family:var(--f-h); font-size:1.02rem; font-weight:700;
+  color:var(--ink); margin-bottom:5px}
+.stack span{font-size:.96rem; color:var(--ink-mute); line-height:1.65}
+.inv{margin:26px 0 0; padding:30px; text-align:center; border-radius:var(--r-lg);
+  background:radial-gradient(500px 240px at 50% 0%, rgba(255,102,2,.16), transparent 70%),
+    linear-gradient(180deg,var(--navy) 0%,var(--navy-deep) 100%); color:#fff}
+.inv .l{font-family:var(--f-h); font-size:.68rem; font-weight:600; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--tm)}
+.inv .n{font-family:var(--f-h); font-size:clamp(2.4rem,6vw,3.4rem); font-weight:700;
+  color:var(--orange); line-height:1; letter-spacing:-0.03em; margin:10px 0 22px}
+.inv .pay{font-size:.86rem; color:var(--tm); margin:14px 0 0}
+.why{margin:26px 0 0; padding:26px 28px; background:var(--gray-50);
+  border:1px solid var(--gray-200); border-radius:var(--r-lg); max-width:820px}
+.why h3{font-family:var(--f-h); font-size:.7rem; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--orange-text); margin:0 0 14px}
+.why p{font-size:.98rem; color:var(--ink-mute); line-height:1.7; margin:0 0 12px}
+.why p:last-child{margin:0}
+.why strong{color:var(--ink); font-weight:700}
 
-/* — estudios — */
-.studies{margin:24px 0}
-.studies div{border-left:3px solid var(--orange);padding:14px 0 14px 18px;margin-bottom:16px}
-.studies .f{font-size:16.5px;line-height:1.6;margin:0 0 7px;color:var(--ink)}
-.studies .src{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;color:var(--ink-subtle);margin:0}
-/* — mitos comprimidos — */
-.myths{margin:24px 0}
-.myths>div{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line)}
-.myths>div:last-child{border-bottom:none}
-.myths .n{font-family:var(--f-display);font-weight:900;font-size:20px;color:var(--orange);
-  flex:0 0 auto;line-height:1.3}
-.myths .m{font-family:var(--f-display);font-weight:700;font-size:17px;margin:0 0 5px;color:var(--ink-mute)}
-.myths .k{margin:0;font-size:16px;font-weight:600;color:var(--ink);line-height:1.5}
+/* ═══════════════════════ 8 · DESCALIFICADOR + FAQ ═══════════════════════ */
+.nope{margin:0 0 34px; padding:24px 26px; background:var(--gray-50);
+  border-left:3px solid var(--ink-subtle); border-radius:0 var(--r) var(--r) 0; max-width:760px}
+.nope p{font-size:.98rem; color:var(--ink-mute); line-height:1.7; margin:0 0 8px}
+.nope p:last-child{margin:0}
+.nope strong{color:var(--ink)}
+.faq{max-width:820px; border:1px solid var(--gray-200); border-radius:var(--r-lg);
+  overflow:hidden; box-shadow:0 20px 60px rgba(12,52,82,.06); background:#fff; margin:0}
+.faq details{border-bottom:1px solid var(--gray-200)}
+.faq details:last-child{border-bottom:none}
+.faq summary{display:flex; align-items:center; justify-content:space-between; gap:16px;
+  font-family:var(--f-h); font-size:1rem; font-weight:600; color:var(--ink);
+  padding:20px 26px; cursor:pointer; list-style:none; transition:background .2s var(--ease)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{background:var(--gray-50)}
+.faq summary::after{content:'+'; font-size:1.5rem; font-weight:400; color:var(--orange);
+  flex-shrink:0; line-height:1}
+.faq details[open] summary::after{content:'–'}
+.faq p{font-size:.96rem; color:var(--ink-mute); line-height:1.7; margin:0; padding:0 26px 22px}
+.faq p strong{color:var(--ink)}
+
+/* ═══════════════════════ CIERRE ═══════════════════════ */
+.sec--final .beat{color:var(--tl); margin-left:auto; margin-right:auto}
+.close-box{margin:26px auto; max-width:640px; padding:26px 28px; text-align:left;
+  background:rgba(255,255,255,.04); border:1px solid var(--hair); border-radius:var(--r-lg)}
+.close-box p{font-size:.98rem; color:var(--tl); line-height:1.75; margin:0 0 12px}
+.close-box p:last-child{margin:0}
+.close-box strong{color:var(--orange); font-weight:700}
+.sign{font-family:var(--f-h); font-size:.94rem; color:var(--tm); margin:30px 0 0}
+.sign b{color:#fff; display:block; margin-top:4px; font-weight:600}
+
+.legal{background:var(--navy-deep); color:var(--ts); font-size:.76rem; line-height:1.7;
+  padding:34px 24px 40px; border-top:1px solid var(--hair)}
+.legal div{max-width:820px; margin:0 auto}
+.legal p{margin:0 0 12px}
+
+/* Sticky mobile: en venta directa muestra el PRECIO, no "reservá tu lugar". */
+.sticky{position:fixed; left:0; right:0; bottom:0; z-index:9998;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:rgba(8,31,51,.94); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border-top:1px solid var(--hair); transform:translateY(120%);
+  transition:transform .35s var(--ease); display:none}
+.sticky[data-on]{transform:none}
+.sticky .cta{width:100%; padding:15px; font-size:1rem; box-shadow:none}
+
+/* ═══════════════════════ RESPONSIVE ═══════════════════════ */
+@media(max-width:900px){
+  .studies,.mirrors{grid-template-columns:1fr}
+  .casos{grid-template-columns:repeat(2,1fr)}
+  .bio{grid-template-columns:1fr; gap:20px}
+  .bio__ph{max-width:170px; margin:0 auto}
+}
+@media(max-width:760px){
+  body{font-size:16px; padding-bottom:78px}
+  .sec{padding:56px 0}
+  .hero{padding:48px 0 56px}
+  .sticky{display:block}
+  .stats{grid-template-columns:1fr}
+  .cd{gap:8px}
+  .cd__i{min-width:0; flex:1; padding:11px 6px}
+  .cd__n{font-size:1.5rem}
+  .press img{height:20px; max-width:82px}
+  .press{gap:15px 22px}
+  .calc{padding:22px 18px}
+  .beat,.hero__sub{max-width:none}
+  .specs{flex-direction:column; gap:4px}
+  .specs i{display:none}
+  .topbar{font-size:.7rem}
+  .myth{gap:14px}
+  .myth__n{font-size:1.5rem; min-width:36px}
+}
+@media(max-width:430px){
+  .casos{grid-template-columns:1fr}
+  .wrap{padding:0 18px}
+  .cta{padding:15px 22px; font-size:.95rem}
+}
+
+/* ═══════════════════════ CHECKOUT · modal de 2 pasos ═══════════════════════
+   Queda CLARO a propósito: es un formulario, y oscurecerlo no aporta nada. */
+.ov{position:fixed; inset:0; z-index:9999; background:rgba(8,31,51,.72);
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  display:none; align-items:flex-start; justify-content:center; padding:24px 16px; overflow-y:auto}
+.ov[data-open]{display:flex}
+.modal{background:#fff; border-radius:var(--r-lg); width:100%; max-width:480px; position:relative;
+  box-shadow:0 40px 100px rgba(8,31,51,.5); margin:auto; animation:pop .28s var(--ease) both}
+@keyframes pop{from{opacity:0; transform:translateY(20px) scale(.98)} to{opacity:1; transform:none}}
+.modal__x{position:absolute; top:12px; right:14px; z-index:2; background:none; border:none;
+  font-size:26px; line-height:1; color:var(--ink-subtle); cursor:pointer; padding:4px 8px}
+.modal__x:hover{color:var(--ink)}
+.steps{display:flex; position:relative; border-bottom:1px solid var(--gray-200)}
+.steps__i{flex:1; padding:18px 16px 15px; text-align:center; opacity:.4; transition:opacity .25s var(--ease)}
+.steps__i[data-on]{opacity:1}
+.steps__i span{display:block; font-family:var(--f-h); font-weight:700; font-size:.94rem; color:var(--ink)}
+.steps__i small{display:block; font-family:var(--f-h); font-size:.62rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-subtle); margin-top:3px}
+.steps__bar{position:absolute; bottom:-1px; left:0; width:50%; height:2px; background:var(--orange);
+  transition:transform .3s var(--ease)}
+.modal__body{padding:24px}
+.fld{width:100%; font-family:var(--f-b); font-size:1rem; padding:14px 15px; margin:0 0 11px;
+  border:1px solid var(--gray-200); border-radius:var(--r); background:#fff; color:var(--ink);
+  outline:none; transition:border-color .2s var(--ease)}
+.fld:focus{border-color:var(--orange)}
+.modal .cta{width:100%; margin-top:6px}
+.privacy{text-align:center; font-size:.78rem; color:var(--ink-subtle); margin:12px 0 0}
+.back{background:none; border:none; font-family:var(--f-h); font-size:.84rem; font-weight:600;
+  color:var(--ink-subtle); cursor:pointer; padding:0 0 14px}
+.back:hover{color:var(--orange)}
+.item{display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:15px 16px; background:var(--gray-50); border-radius:var(--r); margin:0 0 14px}
+.item b{font-family:var(--f-h); font-size:.96rem; color:var(--ink)}
+.item .p{font-family:var(--f-h); font-weight:700; color:var(--ink)}
+/* Dos bumps, no cuatro: cuatro cajas con flecha roja queman la confianza
+   construida arriba, y este avatar tiene alergia documentada al vendehumo. */
+.bump{border:1.5px dashed var(--orange); background:rgba(255,102,2,.05);
+  border-radius:var(--r); margin:0 0 11px; transition:background .2s var(--ease)}
+.bump:hover{background:rgba(255,102,2,.09)}
+.bump label{display:flex; gap:12px; align-items:flex-start; padding:15px 16px; cursor:pointer}
+.bump input{margin:3px 0 0; width:18px; height:18px; accent-color:var(--orange); flex-shrink:0}
+.bump .t{display:block; font-family:var(--f-h); font-weight:700; font-size:.9rem;
+  color:var(--ink); line-height:1.4}
+.bump .d{display:block; font-size:.82rem; color:var(--ink-mute); line-height:1.55; margin-top:5px}
+.total{display:flex; justify-content:space-between; align-items:baseline;
+  padding:16px 4px 6px; border-top:1px solid var(--gray-200); margin-top:16px}
+.total span:first-child{font-family:var(--f-h); font-size:.7rem; font-weight:600;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--ink-subtle)}
+.total span:last-child{font-family:var(--f-h); font-size:1.7rem; font-weight:700; color:var(--orange)}
+.secure{text-align:center; font-size:.78rem; color:var(--ink-subtle); margin:12px 0 0; line-height:1.6}
 
 </style>
 </head>
 <body>
 
-<!-- ══════════ 1 · BARRA: FECHA + COUNTDOWN JUNTOS ══════════ -->
+<!-- ═══════════════ BARRA: FECHA + COUNTDOWN ═══════════════ -->
 <div class="topbar">
   <span class="dot">•</span> Clase en vivo <b>{{FECHA_LARGA}} · {{HORA}} hs (ARG)</b>
-  <span class="sep">│</span> Empieza en: <span class="t" id="tb-cd">00d : 00h : 00m : 00s</span>
+  <span class="sep">│</span> Empieza en <span class="t" id="tb-cd">00d : 00h : 00m : 00s</span>
 </div>
 
-<!-- ══════════ ABOVE THE FOLD ══════════ -->
-<div class="wrap hero">
-
-  <!-- 2 · eyebrow que CALIFICA antes del título -->
-  <p class="eyebrow">Para profesionales, líderes y empresarios que sostienen la operación de todos</p>
-
-  <!-- 3 · H1 paradoja, bicolor -->
-  <h1>Mientras más productivo sos,<br><span class="accent">menos avanzás en tu vida.</span></h1>
-
-  <!-- 4 · subhead: credencial + confesión contraintuitiva + producto + promesa -->
-  <p class="hero__sub">
-    Fundé el Instituto de Productividad, escribí <em>Hackea tu Cerebro</em> y llevo
-    <strong>más de 10 años</strong> estudiando y enseñando esto. Por eso te lo puedo decir:
-    <strong>casi todo lo que te vendieron como productividad te está haciendo más eficiente
-    en la vida de otras personas, pero no en la tuya.</strong> En <em>Hackea tu Cerebro EN VIVO</em>
-    te voy a mostrar por qué pasa, y qué se hace en su lugar.
-  </p>
-
-  <!-- 5 · directiva de video -->
-  <p class="watch">▼ Mirá esto primero ▼</p>
-
-  <!-- 6 · VSL -->
-  <div class="vsl">[ VSL · 6 min — ver 02-vsl-guion.md ]</div>
-
-  <!-- 7 · countdown repetido, en cajas -->
-  <div class="cd">
-    <div class="cd__i"><div class="cd__n" id="cd-d">00</div><div class="cd__u">Días</div></div>
-    <div class="cd__i"><div class="cd__n" id="cd-h">00</div><div class="cd__u">Horas</div></div>
-    <div class="cd__i"><div class="cd__n" id="cd-m">00</div><div class="cd__u">Min</div></div>
-    <div class="cd__i cd__i--hot"><div class="cd__n" id="cd-s">00</div><div class="cd__u">Seg</div></div>
-  </div>
-
-  <!-- 8 · CTA con el precio ADENTRO -->
-  <button class="cta" data-cta>Quiero mi lugar — USD 17 &rarr;</button>
-
-  <!-- 9 · micro-copy: la garantía va ACÁ, no al final -->
-  <p class="micro">
-    Grabación para siempre + workbook con los accionables. Garantía de 30 días:
-    aplicá una sola cosa de la clase — si no te devuelve tiempo, te devolvemos los 17 dólares.
-    Te quedás igual con todo.
-  </p>
-
-  <!-- 10 · barra de specs -->
-  <p class="specs">
-    <span>Clase online de 2 horas</span><i>·</i><span>Por Zoom, desde donde estés</span><i>·</i><span>Grabación incluida</span>
-  </p>
-</div>
-
-<!-- ══════════ 2 · ESPEJO + MECANISMO + ESTUDIOS ══════════ -->
-<section class="sec sec--cream">
+<!-- ═══════════════ 1 · ABOVE THE FOLD ═══════════════ -->
+<header class="hero">
+  <div class="hero__particles" id="particles"></div>
   <div class="wrap">
-    <h2>El momento más caro <span class="accent">de tu semana</span></h2>
+    <div class="hero__inner">
 
-    <p class="beat">Ya sabés cuál es.</p>
-    <p class="beat">Es el domingo a la noche. Abrís la agenda y planificás la semana en serio.</p>
-    <p class="beat">El lunes te levantás con todas las pilas.</p>
+      <!-- Califica antes del título (Dan Henry). Filtro Platinum: el discriminador
+           real es "¿hay gente cuyo trabajo depende de tus decisiones?" -->
+      <span class="hero__tag">Para dueños, socios y líderes con gente a cargo</span>
 
-    <div class="chat">
-      <p>"Esta semana sí."</p>
-      <p>"Ahora sí me organizo."</p>
-      <p>"Arranco con todo."</p>
-    </div>
+      <h1>Mientras más productivo sos,<br><em>menos avanzás en lo tuyo.</em></h1>
 
-    <p class="beat">Y el martes… ya se cayó.</p>
-    <p class="beat">No porque hayas fallado. Al contrario: <strong>cumpliste con todo el mundo.</strong> Entregaste, respondiste, resolviste, apagaste tres incendios que no eran tuyos. Terminaste la semana habiendo hecho once cosas de otros y ninguna tuya — y ni siquiera podés decir que no hiciste nada.</p>
+      <!-- La frase-billboard del núcleo. Cinco palabras, no se reformula. -->
+      <p class="hero__ask">Cumplís con todos menos con vos.</p>
 
-    <p class="include">
-      (¿No liderás un equipo? Quedate igual. Es la misma trampa que hace que el proyecto propio
-      lleve dos años en la misma lista, que el libro que ibas a escribir siga en la carpeta,
-      y que el turno médico que sacás para tu hijo en el día lo saques para vos recién cuando
-      ya no te queda opción.)
-    </p>
-
-    <blockquote>
-      "Sé exactamente lo que tengo que hacer. Hace años que lo sé. Y aun así no lo hago."
-      <cite>— Es la frase que dijeron 7 de cada 7 alumnos del programa, en entrevista, antes de entrar.</cite>
-    </blockquote>
-
-    <h3 style="margin:38px 0 16px;font-size:23px">Eso no es mala suerte. Es el mecanismo.</h3>
-
-    <p class="beat">Tu cerebro no jerarquiza por importancia. <strong>Jerarquiza por quién está esperando.</strong></p>
-    <p class="beat">Lo ajeno llega con fecha, con nombre y con alguien del otro lado esperándolo. Lo tuyo llega solo. Y sin nadie esperando, tu cerebro nunca lo sube a la cima de la pila. Se llama <strong>urgencia prestada</strong>.</p>
-
-    <blockquote>
-      Ser más productivo te hace más rápido resolviendo lo que tiene a alguien esperando.<br>
-      Y lo tuyo no tiene a nadie.<br>
-      <strong>Por eso cada punto de productividad que ganás lo invertís, sin darte cuenta, en avanzar la vida de otra gente.</strong>
-    </blockquote>
-
-    <p class="beat">Y esto no es una opinión mía. Está medido:</p>
-
-    <div class="studies">
-      <div>
-        <p class="f">Pasadas las <strong>50 horas semanales</strong> tu producción cae fuerte. Después de las <strong>55</strong> se desploma: el que trabaja 70 horas <strong>no produce más</strong> que el que trabaja 55.</p>
-        <p class="src">John Pencavel · Universidad de Stanford · <em>The Economic Journal</em>, 2015</p>
-      </div>
-      <div>
-        <p class="f">Trabajar <strong>55 horas o más por semana</strong> se asocia a un <strong>35% más de riesgo de ACV</strong> y un <strong>17% más de morir por cardiopatía isquémica</strong>. En 2016 murieron 745.000 personas por esa causa.</p>
-        <p class="src">OMS y OIT · <em>Environment International</em>, 2021</p>
-      </div>
-      <div>
-        <p class="f">Después de una interrupción tardás en promedio <strong>23 minutos</strong> en volver a la tarea que estabas haciendo. Y no lo sentís: volver se siente igual que trabajar.</p>
-        <p class="src">Gloria Mark · Universidad de California, Irvine · 2008</p>
-      </div>
-    </div>
-
-    <p class="beat"><strong>Ese es el cambio de paradigma.</strong> Avanzar en tu vida no es meter más horas. Es tener mejor calidad de tiempo, estar presente donde estás, dormir bien, comer bien, moverte. <strong>Tu cerebro es tu mayor activo</strong> — y hoy lo estás amortizando a pérdida.</p>
-
-    <h3 style="margin:36px 0 14px;font-size:21px">Y acá está la parte que debería hacerte sentir mejor:</h3>
-    <p class="beat"><strong>No es tu falta de disciplina. No es tu agenda. No es tu trabajo, ni tu jefe, ni la etapa de la vida en la que estás. No es que seas desorganizado. Y definitivamente no sos vos.</strong></p>
-    <p class="beat">Sos demasiado responsable, mal apuntado. Nunca dejaste caer nada de otro: se cae sólo lo tuyo.</p>
-
-    <div class="cta-wrap"><button class="cta" data-cta>Quiero mi lugar — USD 17 &rarr;</button></div>
-  </div>
-</section>
-
-<!-- ══════════ 3 · LOS 5 MITOS · comprimidos ══════════ -->
-<section class="sec">
-  <div class="wrap">
-    <h2>Las 5 mentiras que casi todos <span class="accent">creemos sobre el rendimiento</span></h2>
-    <p class="beat">Cada una suena a puro sentido común. Y cada una es la excusa con la que le explicás a tu cerebro por qué ese pilar puede esperar.</p>
-
-    <div class="myths">
-      <div><span class="n">01</span><div><p class="m">"Dormir menos es ganar horas."</p><p class="k">No te acostumbraste. Se te rompió el instrumento que mide.</p></div></div>
-      <div><span class="n">02</span><div><p class="m">"Comer bien es privarse, y no tengo tiempo."</p><p class="k">No estás desganado a las cuatro. Estás sin combustible.</p></div></div>
-      <div><span class="n">03</span><div><p class="m">"Si no voy al gimnasio tres veces por semana, no sirve."</p><p class="k">Constancia le gana a intensidad. Siempre.</p></div></div>
-      <div><span class="n">04</span><div><p class="m">"Hacer muchas cosas a la vez es ser productivo."</p><p class="k">No te falta tiempo. Te falta un día que no se interrumpa solo.</p></div></div>
-      <div><span class="n">05</span><div><p class="m">"La inteligencia artificial es para técnicos."</p><p class="k">La pregunta no es si la usás. Es quién maneja.</p></div></div>
-    </div>
-
-    <p class="beat" style="margin-top:26px"><strong>Una pregunta honesta: ¿cuántas de las cinco te acabás de reconocer?</strong></p>
-    <p class="beat">Ese reconocimiento es lo que la clase convierte en arreglo.</p>
-  </div>
-</section>
-
-<!-- ══════════ 4 · LA CALCULADORA · COSTO DE OPORTUNIDAD ══════════ -->
-<section class="sec">
-  <div class="wrap">
-    <h2>Permitime hacer <span class="accent">una mirada de contador.</span></h2>
-    <p class="beat">Si tenés un negocio o trabajás con números, esto lo vas a entender rápido. Hagamos la cuenta juntos.</p>
-
-    <div class="calc">
-      <p class="hd">Poné tus números</p>
-
-      <label>Veces por día que te interrumpen o te interrumpís <b id="v1">12</b></label>
-      <input type="range" id="i1" min="2" max="40" value="12" step="1">
-      <p class="help">Entre notificaciones, mails, llamadas, clientes y las urgencias que aparecen en el día. Poné el mínimo que se te ocurra.</p>
-
-      <label>Minutos que te lleva volver a concentrarte <b id="v2">23</b></label>
-      <input type="range" id="i2" min="3" max="30" value="23" step="1">
-      <p class="help">Según el estudio de <strong>Gloria Mark (Universidad de California, Irvine)</strong>, el promedio es de <strong>23 minutos</strong>. Si te parece mucho, bajalo — vas a ver que el número igual sigue siendo grande.</p>
-
-      <label>Cuánto vale una hora tuya</label>
-      <div class="row">
-        <select id="cur" aria-label="Moneda">
-          <option value="USD">USD</option><option value="ARS">ARS</option>
-          <option value="MXN">MXN</option><option value="COP">COP</option>
-          <option value="CLP">CLP</option><option value="PEN">PEN</option>
-          <option value="UYU">UYU</option><option value="EUR">EUR</option>
-        </select>
-        <input type="number" id="ph" value="50" min="1" step="1" aria-label="Precio de tu hora">
-      </div>
-      <p class="help">¿No lo tenés a mano? Poné lo que facturás o cobrás por mes y lo dividimos por 160:
-        <span class="row row--sm">
-          <input type="number" id="mes" placeholder="Tu ingreso mensual" min="1" step="1" aria-label="Ingreso mensual">
-          <button type="button" id="derivar">Calcular mi hora</button>
-        </span>
+      <p class="hero__sub">
+        Fundé el Instituto de Productividad, escribí <em>Hackea tu Cerebro</em> y llevo
+        <strong>más de 10 años</strong> estudiando y enseñando esto. Por eso te lo puedo decir:
+        <strong>casi todo lo que te vendieron como productividad te está haciendo más rápido
+        resolviendo lo de los demás.</strong> Tu operación dejó de ser un engranaje de tu vida
+        y pasó a ser el motor. En <em>Hackea tu Cerebro EN VIVO</em> te muestro por qué pasa,
+        y qué se hace en su lugar.
       </p>
 
-      <div class="out">
-        <div class="big" id="plata">USD 12.650</div>
-        <span class="u">de costo de oportunidad al año</span>
-        <p class="oport">(Esto se llama <strong>costo de oportunidad</strong>: no es plata que estás perdiendo. Es plata que <strong>podrías estar ganando</strong>.)</p>
-        <p class="eq" id="eq"></p>
+      <p class="watch">▼ Mirá esto primero ▼</p>
+      <div class="vsl">[ VSL · 6 min — ver 02-vsl-guion.md ]</div>
+
+      <p class="cd-label">La clase empieza en</p>
+      <div class="cd">
+        <div class="cd__i"><span class="cd__n" id="cd-d">00</span><span class="cd__u">Días</span></div>
+        <div class="cd__i"><span class="cd__n" id="cd-h">00</span><span class="cd__u">Horas</span></div>
+        <div class="cd__i"><span class="cd__n" id="cd-m">00</span><span class="cd__u">Min</span></div>
+        <div class="cd__i"><span class="cd__n" id="cd-s">00</span><span class="cd__u">Seg</span></div>
       </div>
 
-      <div class="nota" id="nota"></div>
+      <div class="hero__cta">
+        <button class="cta" data-cta>
+          <span>Quiero mi lugar — USD 17</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <!-- El riesgo real que el comprador está midiendo no es la plata: es no poder ir.
+             Por eso acá va la grabación, no una garantía de devolución. -->
+        <p class="micro">
+          <strong>Si ese día no podés, no perdés nada:</strong> la grabación queda tuya para
+          siempre y te llega al mail dentro de las 24 horas, con el workbook.
+        </p>
+      </div>
 
-      <button class="cta" data-cta style="margin-top:20px;box-shadow:none">Quiero mi lugar — USD 17 &rarr;</button>
-      <p class="ancla">La clase cuesta <strong>USD 17</strong>.</p>
+      <p class="specs">
+        <span>Clase online de 2 horas</span><i>·</i><span>Por Zoom, desde donde estés</span><i>·</i><span>Grabación incluida</span>
+      </p>
     </div>
-
-    <p class="beat" style="margin-top:26px">Y esas horas no son sólo plata. <strong>Son las que no le estás dando a lo que mejora tu negocio, tu salud y la vida de tu familia.</strong></p>
-
-    <div class="ladder">
-      Recuperar una hora por semana es un alivio.<br>
-      Recuperar una por día es otra vida.<br>
-      <span class="hot">Recuperar las cinco es otra persona.</span>
-    </div>
-
-    <p class="beat">Y que quede claro, porque se malinterpreta: <strong>nadie te está pidiendo que aflojes.</strong> Ya estás trabajando menos de lo que creés. La diferencia te la están cobrando.</p>
   </div>
-</section>
+</header>
 
-<!-- ══════════ 5 · QUIÉN TE VA A DAR LA CLASE ══════════ -->
-<section class="sec sec--cream">
+<!-- ═══════════════ PRENSA ═══════════════ -->
+<div class="press-band">
   <div class="wrap">
-    <h2>Quién te va a dar <span class="accent">la clase</span></h2>
-
-    <div class="bio">
-      <img class="bio__ph" src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/nico-bio-card.jpg"
-           alt="Nicolás Fernández Miranda" loading="lazy">
-      <div class="bio__txt">
-        <p class="beat">Soy <strong>Nicolás Fernández Miranda</strong>. Contador público, recibido con medalla al mejor promedio. Lo cuento no como currículum, sino porque hace diez años esa misma cabeza que sacaba las mejores notas <strong>no me alcanzaba para llegar al viernes</strong>.</p>
-        <p class="beat">Trabajaba catorce horas por día. Subí quince kilos, se me caía el pelo, migrañas crónicas, los vínculos que me importaban desmoronados. Y lo peor: <strong>me parecía normal.</strong></p>
-        <p class="beat">Hasta que me agarró una crisis en París y no pude seguir fingiendo. Ahí empecé a estudiar el cerebro en serio.</p>
-      </div>
-    </div>
-
-    <p class="beat">Hoy tengo un máster en neurociencia aplicada al rendimiento, doy clases en la universidad, di dos charlas TEDx, escribí <em>Hackea tu Cerebro</em> —best seller, y está en librerías— y dirijo el Instituto de Productividad, donde un equipo de profesionales acompaña a gente que está exactamente donde yo estaba.</p>
-    <p class="beat"><strong>Y sí: fundé un instituto que se llama “de Productividad” y el título de esta página dice que la productividad te está frenando.</strong> Por eso mismo te lo puedo decir. Nadie que venda productividad te lo va a decir.</p>
-
-    <div class="stats">
-      <div><div class="n">+400</div><div class="l">Personas pasaron por el Instituto</div></div>
-      <div><div class="n">2</div><div class="l">Charlas TEDx</div></div>
-      <div><div class="n">+80</div><div class="l">Empresas asesoradas</div></div>
-    </div>
-
-    <p class="press-label">Su trabajo fue destacado en</p>
+    <p class="label">Su trabajo fue destacado en</p>
     <div class="press">
       <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/CNN.png" alt="CNN" loading="lazy">
       <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-110.svg" alt="Infobae" loading="lazy">
@@ -569,13 +623,178 @@ footer{background:var(--navy-deep);color:#6d8ba3;text-align:center;padding:34px 
       <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/accountlogo.jpg" alt="Ternium" loading="lazy">
     </div>
   </div>
+</div>
+
+<!-- ═══════════════ 2a · ESPEJO · sobre claro ═══════════════
+     Este avatar ya trae subidos los peldaños 1, 2, 4, 8 y 9. Venderle el dolor
+     es gastar página en escalones ya subidos: el espejo va corto y filoso, y el
+     largo se lo lleva el mecanismo (peldaño 3) y la solución distinta (peldaño 5). -->
+<section class="sec sec--light">
+  <div class="wrap">
+    <h2>Abrí la nota del celular <em>donde anotaste tus objetivos.</em></h2>
+
+    <p class="beat">Fijate la fecha.</p>
+    <p class="beat">Ese es el dato. No que no avanzaste — <strong>que el mismo objetivo lleva dos años en la misma lista</strong>, mientras todo lo demás que pasó por tus manos salió en tiempo y forma.</p>
+
+    <div class="quote">
+      <p>Nunca dejaste un mail sin responder. Y hace ocho años que el mismo trámite tuyo está en el cajón.</p>
+      <cite>La bandeja de entrada, impecable. El cajón, intacto.</cite>
+    </div>
+
+    <p class="beat">Y no es carga de trabajo. Celi, que lidera un equipo de 45 personas, abría la computadora apenas se dormían los chicos — <strong>hubiera o no hubiera un deadline.</strong></p>
+
+    <p class="aside">(¿No tenés equipo a cargo? Quedate igual. Es la misma trampa que hace que el proyecto propio lleve dos años en la misma lista, que el libro que ibas a escribir siga en la carpeta, y que el turno médico que sacás para tu hijo en el día lo saques para vos recién cuando ya no te queda opción.)</p>
+
+    <div class="identity">
+      <p class="identity__k">Al parecer sos un</p>
+      <p class="identity__n">responsable <em>mal apuntado</em></p>
+      <p>No sos vago. No te falta disciplina. <strong>No procrastinás: procrastinás una sola categoría de cosas, las tuyas.</strong> Con lo ajeno sos impecable — y ese es exactamente el problema.</p>
+    </div>
+
+    <p class="label" style="margin:44px 0 18px">¿Te reconocés en alguno?</p>
+    <div class="mirrors">
+      <div class="card-l">
+        <h3>Todos dependen de vos.</h3>
+        <p>Tenés equipo, socios o clientes cuyo trabajo depende de tus decisiones. Nunca dejaste caer una entrega de otro. Lo tuyo lleva dos años en la misma lista.</p>
+      </div>
+      <div class="card-l">
+        <h3>Tu operación pasó a ser el motor.</h3>
+        <p>Empezó siendo un engranaje de tu vida. Hoy es lo que la mueve entera, y vos sos la variable de ajuste cada vez que algo tiene que ceder.</p>
+      </div>
+      <div class="card-l">
+        <h3>Ya te llegó la factura.</h3>
+        <p>El análisis que salió mal, el pico de ansiedad, los kilos, el médico. No es una amenaza a futuro: ya pasó, y seguís administrándolo en vez de resolverlo.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ══════════ 6 · CASOS · con video real ══════════ -->
-<section class="sec">
+<!-- ═══════════════ 2b · MECANISMO + ESTUDIOS · sobre navy ═══════════════
+     Peldaño 3: "la razón es algo que no sabía". Es donde está el trabajo real. -->
+<section class="sec sec--dark">
   <div class="wrap">
-    <h2>Gente con tu misma carga, <span class="accent">con nombre y cara</span></h2>
-    <p class="beat">Empresarios, líderes y profesionales con gente y responsabilidades encima. Las entrevistas están publicadas enteras. Hacé clic y escuchalos antes de decidir nada.</p>
+    <h2 style="text-align:center">Eso no es mala suerte. <em>Es el mecanismo.</em></h2>
+
+    <div class="mech">
+      <p>Tu cerebro no jerarquiza por importancia.</p>
+      <p>Jerarquiza por <span class="name">quién está esperando.</span></p>
+    </div>
+
+    <p class="beat beat--center" style="text-align:center">Lo ajeno llega con fecha, con nombre y con alguien del otro lado esperándolo. Lo tuyo llega solo. Y sin nadie esperando, tu cerebro nunca lo sube a la cima de la pila. <strong>Se llama urgencia prestada.</strong></p>
+
+    <div class="insight">
+      <p><strong>Y hay una capa más incómoda, que la dijo un cliente y no nosotros:</strong> «Necesito problemas para que todo el mundo vea que los resuelvo, y con eso valido que soy lo que soy, que soy capaz, que soy importante.» — Francisco, director de operaciones, 80 empleados.</p>
+      <p style="margin-top:12px">No sólo recibís urgencia ajena. <strong>La fabricás</strong>, porque tu identidad depende de ser el que resuelve. Por eso el patrón no cede solo.</p>
+    </div>
+
+    <p class="label press-label--dark" style="margin:40px 0 18px">Y la parte que sí está medida</p>
+    <div class="studies">
+      <div class="card">
+        <p>Un objetivo con el <b>cuándo, dónde y cómo</b> definidos se ejecuta con un efecto de magnitud media-alta (d&nbsp;=&nbsp;.65) frente al mismo objetivo sin eso. Lo ajeno viene con las tres cosas. Lo tuyo, con ninguna.</p>
+        <p class="src">Gollwitzer &amp; Sheeran · meta-análisis de 94 estudios · 2006</p>
+      </div>
+      <div class="card">
+        <p>Pasadas las <b>50 horas semanales</b> tu producción cae fuerte. Después de las 55 se desploma: el que trabaja 70 horas <b>no produce más</b> que el que trabaja 55.</p>
+        <p class="src">John Pencavel · Stanford · The Economic Journal, 2015</p>
+      </div>
+      <div class="card">
+        <p>Después de una interrupción tardás en promedio <b>23 minutos</b> en volver a la tarea. Y no lo sentís: volver se siente igual que trabajar.</p>
+        <p class="src">Gloria Mark · Universidad de California, Irvine · 2008</p>
+      </div>
+    </div>
+
+    <div class="para">
+      <p>Nadie te está pidiendo que aflojes. Al contrario: <strong>que tu operación vuelva a ser un engranaje de tu vida y deje de ser el motor.</strong> Que sigas produciendo, sin ser vos el cuello de botella de lo tuyo.</p>
+    </div>
+
+    <div class="cta-wrap cta-wrap--center">
+      <button class="cta cta--ghost" data-cta>Quiero mi lugar — USD 17</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 3 · LOS 5 MITOS ═══════════════ -->
+<section class="sec sec--light">
+  <div class="wrap">
+    <h2>La productividad es el auto completo. <em>No es pisar más el acelerador.</em></h2>
+    <p class="beat">Service, aceite, gomas, combustible. Tu operación la tenés aceitada al milímetro: sabés cuándo entra cada cosa y qué pasa si no entra. <strong>Con vos manejás sin service hace años</strong> — y encima creyendo cinco cosas que suenan a puro sentido común.</p>
+
+    <div class="myths">
+      <div class="myth">
+        <span class="myth__n">01</span>
+        <div>
+          <h3>«Dormir menos es ganar horas.»</h3>
+          <p>No te acostumbraste. <strong>Se te rompió el instrumento que mide.</strong></p>
+        </div>
+      </div>
+      <div class="myth">
+        <span class="myth__n">02</span>
+        <div>
+          <h3>«Comer bien es privarse, y no tengo tiempo.»</h3>
+          <p>No estás desganado a las cuatro. <strong>Estás sin combustible.</strong></p>
+        </div>
+      </div>
+      <div class="myth">
+        <span class="myth__n">03</span>
+        <div>
+          <h3>«Si no voy al gimnasio tres veces por semana, no sirve.»</h3>
+          <p><strong>Constancia le gana a intensidad. Siempre.</strong></p>
+        </div>
+      </div>
+      <div class="myth">
+        <span class="myth__n">04</span>
+        <div>
+          <h3>«Hacer muchas cosas a la vez es ser productivo.»</h3>
+          <p>No te falta tiempo. <strong>Te falta un día que no se interrumpa solo.</strong></p>
+        </div>
+      </div>
+      <div class="myth">
+        <span class="myth__n">05</span>
+        <div>
+          <h3>«La inteligencia artificial es para técnicos.»</h3>
+          <p>La pregunta no es si la usás. <strong>Es quién maneja.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <p>Cada una es la excusa con la que le explicás a tu cerebro por qué ese service puede esperar un mes más. <strong>¿Cuántas de las cinco te acabás de reconocer?</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 4 · QUIÉN TE VA A DAR LA CLASE · navy ═══════════════ -->
+<section class="sec sec--dark-down">
+  <div class="wrap">
+    <h2>Quién te va a dar <em>la clase</em></h2>
+
+    <div class="bio">
+      <img class="bio__ph" src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/nico-bio-card.jpg"
+           alt="Nicolás Fernández Miranda" loading="lazy">
+      <div class="bio__txt">
+        <p class="beat">Soy <strong>Nicolás Fernández Miranda</strong>. Contador público, recibido con medalla al mejor promedio. Lo cuento no como currículum, sino porque hace diez años esa misma cabeza que sacaba las mejores notas <strong>no me alcanzaba para llegar al viernes</strong>.</p>
+        <p class="beat">Trabajaba catorce horas por día. Subí quince kilos, se me caía el pelo, migrañas crónicas, los vínculos que me importaban desmoronados. Y lo peor: <strong>me parecía normal.</strong> Estaba convencido de que eso era rendir.</p>
+        <p class="beat">Hasta que me agarró una crisis en París y no pude seguir fingiendo. Ahí empecé a estudiar el cerebro en serio.</p>
+      </div>
+    </div>
+
+    <p class="beat">Hoy tengo un máster en neurociencia aplicada al rendimiento, doy clases en la universidad, di dos charlas TEDx, escribí <em>Hackea tu Cerebro</em> —best seller, y está en librerías— y dirijo el Instituto de Productividad, donde un equipo de profesionales acompaña a gente que está exactamente donde yo estaba.</p>
+    <p class="beat"><strong>Y sí: fundé un instituto que se llama «de Productividad» y el título de esta página dice que la productividad te está frenando.</strong> Por eso mismo te lo puedo decir. Nadie que venda productividad te lo va a decir.</p>
+
+    <div class="stats">
+      <div class="stat"><b>+400</b><span>Personas pasaron por el Instituto</span></div>
+      <div class="stat"><b>2</b><span>Charlas TEDx</span></div>
+      <div class="stat"><b>+80</b><span>Empresas asesoradas</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 5 · CASOS + MENÚ DE POSIBILIDADES · navy ═══════════════
+     Elegidos por AFINIDAD DE OFICIO, no por espectacularidad. -->
+<section class="sec sec--dark">
+  <div class="wrap">
+    <h2 style="text-align:center">Gente con tu misma carga, <em>con nombre y cara</em></h2>
+    <p class="beat beat--center" style="text-align:center">Dueños, líderes y profesionales con gente y decisiones encima. Las entrevistas están publicadas enteras. Hacé clic y escuchalos antes de decidir nada.</p>
 
     <div class="casos">
 
@@ -600,7 +819,7 @@ footer{background:var(--navy-deep);color:#6d8ba3;text-align:center;padding:34px 
         <div class="caso__body">
           <p class="caso__who">Celi</p>
           <p class="caso__role">Arquitecta en San Diego · lidera un equipo de 45 · mamá</p>
-          <p class="caso__ab">Se llevaba la computadora a las vacaciones. Hoy es su <b>primer año con actividad física regular</b> desde que tiene hijos.</p>
+          <p class="caso__ab">Se llevaba la computadora a las vacaciones. Hoy es su <b>primer año con actividad física regular</b> desde que tiene hijos, y terminó la ciudadanía de los hijos que llevaba años postergada.</p>
           <p class="caso__q">“Lo debería haber hecho 10 años antes.”</p>
         </div>
       </article>
@@ -626,7 +845,7 @@ footer{background:var(--navy-deep);color:#6d8ba3;text-align:center;padding:34px 
         <div class="caso__body">
           <p class="caso__who">Sol Romero</p>
           <p class="caso__role">Contadora · 10 años en impuestos · compañía de seguros</p>
-          <p class="caso__ab">Al borde del burnout, “corriendo detrás de una zanahoria”. Terminó <b>cambiando de puesto</b> —y la empresa le pagó la capacitación que iba a comprar sola.</p>
+          <p class="caso__ab">Al borde del burnout, “corriendo detrás de una zanahoria”. Terminó <b>cambiando de puesto</b> —y la empresa le pagó la capacitación que ella iba a comprar sola.</p>
           <p class="caso__q">“El hack fue que me ordenó. Me hizo ir tejiendo una red que en serio te contiene.”</p>
         </div>
       </article>
@@ -659,94 +878,182 @@ footer{background:var(--navy-deep);color:#6d8ba3;text-align:center;padding:34px 
 
     </div>
 
-    <p class="beat">No consiguieron más disciplina. No metieron más horas. No dejaron caer nada de nadie. <strong>Le pusieron a lo suyo la única cosa que ya hacía funcionar lo de todos los demás.</strong></p>
-    <div class="cta-wrap"><button class="cta" data-cta>Quiero mi lugar — USD 17 &rarr;</button></div>
-  </div>
-</section>
+    <p class="beat beat--center" style="text-align:center">No consiguieron más disciplina. No metieron más horas. No dejaron caer nada de nadie. <strong>Le pusieron a lo suyo la única cosa que ya hacía funcionar lo de todos los demás.</strong></p>
 
-<!-- ══════════ 7 · QUÉ TE LLEVÁS + PRECIO + GARANTÍA ══════════ -->
-<section class="sec sec--cream">
-  <div class="wrap">
-    <h2>Todo lo que te llevás <span class="accent">por diecisiete dólares</span></h2>
-    <div class="stackbox">
-      <div class="it"><b>Hackea tu Cerebro EN VIVO · 2 horas</b><span>Los cinco pilares del alto rendimiento sostenido, uno por uno, con los micrófonos abiertos en cada uno para mirar tu caso concreto.</span></div>
-      <div class="it"><b>Grabación permanente</b><span>La clase completa, tuya para siempre, en tu mail dentro de las 24 horas.</span></div>
-      <div class="it"><b>Workbook con los accionables</b><span>No son apuntes: es lo que se dijo, ordenado y en formato de hacer, para que el lunes tengas por dónde empezar.</span></div>
-      <div class="it"><b>{{CAPITULO}} — capítulo de «Hackea tu Cerebro»</b><span>El del pilar de descanso, que es el cambio que más aparece en los casos del Instituto.</span></div>
-      <div class="it"><b>La garantía de los 30 días</b><span>Aplicá <strong>una sola cosa</strong> en los próximos 30 días. Si no te devuelve tiempo, escribinos una línea —sin formularios— y te devolvemos los diecisiete dólares. <strong>Te quedás igual con todo.</strong></span></div>
-      <div class="inv"><div class="l">Tu inversión</div><div class="n">USD 17</div></div>
-      <button class="cta" data-cta style="margin-top:18px;box-shadow:none">Quiero mi lugar — USD 17 &rarr;</button>
-      <p style="text-align:center;font-size:13px;color:var(--ink-subtle);margin:12px 0 0">Pago seguro con Stripe o Mercado Pago. El acceso te llega al mail en el momento.</p>
-    </div>
-
-    <div class="realtalk">
-      <p class="t">★ Por qué el precio de diecisiete dólares ★</p>
-      <p>Podría ser gratis. No lo es a propósito: <strong>lo que no te cuesta, no lo accionás.</strong></p>
-      <p>Diecisiete dólares no son una barrera económica — son un filtro de intención. Quiero un grupo chico de gente que ya tomó la decisión de invertir en sí misma, porque el retorno no depende de la clase: <strong>depende de que hagas algo con lo que te llevás.</strong></p>
-      <p>Y con acciones simples, aprendiendo a gestionar tus recursos cognitivos, eso cambia mucho más de lo que suena. Lo viví en carne propia.</p>
+    <!-- ═══ MENÚ DE POSIBILIDADES · paso 4 del protocolo ═══
+         Va JUSTO antes de la oferta: se adelanta al "¿ya vi esto antes?". -->
+    <div class="menu">
+      <p>Ya probaste el planner. Notion. Levantarte a las cinco. La lista de tres cosas. La app que te bloquea el celular. Terapia. <strong>Y contratar a alguien para que te ordene.</strong></p>
+      <p>Y funcionó. <span class="beat-hot">Tres meses.</span> Siempre tres meses.</p>
+      <p>Todas apuntan al mismo lugar: asumen que el problema es que no te esforzás lo suficiente. Y Francisco, que dirige a 80 personas, ya probó la versión más cara de esa idea — contrató un director de operaciones. Sigue igual. <strong>Delegó el seguimiento de lo ajeno, no el de lo suyo.</strong></p>
+      <p>Pensalo al revés. Cuando contrataste un entrenador no fue porque no supieras hacer sentadillas —eso está gratis en YouTube—. Fue porque el martes a las siete <strong>hay alguien esperándote.</strong></p>
+      <p>Y funcionó. Y nunca pensaste que ahí te faltaba carácter.</p>
     </div>
   </div>
 </section>
 
-<!-- ══════════ 8 · DESCALIFICADOR + FAQ + CIERRE ══════════ -->
-<section class="sec">
+<!-- ═══════════════ 6 · CALCULADORA · sobre gris ═══════════════ -->
+<section class="sec sec--gray">
   <div class="wrap">
-    <h2>¿Esta clase <span class="accent">es para vos?</span></h2>
-    <p class="beat">Seamos honestos. Está hecha para tres personas concretas.</p>
+    <h2>Permitime hacer <em>una mirada de contador.</em></h2>
+    <p class="beat">Si tenés un negocio o trabajás con números, esto lo vas a entender rápido. Hagamos la cuenta juntos.</p>
 
-    <div class="person"><div class="tag">Persona 1</div>
-      <h3>Todos dependen de vos. Y lo tuyo hace dos años que espera.</h3>
-      <p>Tenés equipo, socios o clientes cuyo trabajo depende de tus decisiones. Nunca dejaste caer una entrega de otro. Y el mismo objetivo tuyo está en la misma lista, con la misma prioridad, desde hace dos años.</p></div>
+    <div class="calc">
+      <p class="hd">Poné tus números</p>
 
-    <div class="person"><div class="tag">Persona 2</div>
-      <h3>Tu cuerpo ya te pasó la factura.</h3>
-      <p>No es una amenaza a futuro: ya pasó. El análisis que salió mal, el pico de ansiedad, los kilos, el médico que te dijo que así no. Y seguís administrando el problema en vez de resolverlo.</p></div>
+      <label>Veces por día que te interrumpen o te interrumpís <b id="v1">12</b></label>
+      <input type="range" id="i1" min="2" max="40" value="12" step="1">
+      <p class="help">Entre notificaciones, mails, llamadas, tu equipo, clientes y las urgencias que aparecen en el día. Poné el mínimo que se te ocurra.</p>
 
-    <div class="person"><div class="tag">Persona 3</div>
-      <h3>Estás para más y tenés una sensación de insatisfacción.</h3>
-      <p>Llegaste a un buen nivel pero algo no cierra. No te falta capacidad ni oportunidades: te falta el sistema para sostener lo que ya sabés que tendrías que estar haciendo.</p></div>
+      <label>Minutos que te lleva volver a concentrarte <b id="v2">23</b></label>
+      <input type="range" id="i2" min="3" max="30" value="23" step="1">
+      <p class="help">Según el estudio de <strong>Gloria Mark (Universidad de California, Irvine)</strong>, el promedio es de <strong>23 minutos</strong>. Si te parece mucho, bajalo — vas a ver que el número igual sigue siendo grande.</p>
 
-    <p class="beat" style="margin-top:26px"><strong>Si alguna de las tres sos vos, son los diecisiete dólares mejores invertidos de tu año.</strong></p>
+      <label>Cuánto vale una hora tuya</label>
+      <div class="row">
+        <select id="cur" aria-label="Moneda">
+          <option value="USD">USD</option><option value="ARS">ARS</option>
+          <option value="MXN">MXN</option><option value="COP">COP</option>
+          <option value="CLP">CLP</option><option value="PEN">PEN</option>
+          <option value="UYU">UYU</option><option value="EUR">EUR</option>
+        </select>
+        <input type="number" id="ph" value="50" min="1" step="1" aria-label="Precio de tu hora">
+      </div>
+      <p class="help">¿No lo tenés a mano? Poné lo que facturás o cobrás por mes y lo dividimos por 160:
+        <span class="row row--sm">
+          <input type="number" id="mes" placeholder="Tu ingreso mensual" min="1" step="1" aria-label="Ingreso mensual">
+          <button type="button" id="derivar">Calcular mi hora</button>
+        </span>
+      </p>
 
-    <h3 style="margin:44px 0 6px;font-size:23px">Respuestas rápidas</h3>
+      <div class="out">
+        <div class="big" id="plata">USD 12.650</div>
+        <span class="u">de costo de oportunidad al año</span>
+        <p class="oport">(Esto se llama <strong>costo de oportunidad</strong>: no es plata que estás perdiendo. Es plata que <strong>podrías estar ganando</strong>.)</p>
+        <p class="eq" id="eq"></p>
+      </div>
+
+      <div class="nota" id="nota"></div>
+
+      <button class="cta cta--full cta--flat" data-cta style="margin-top:20px">Quiero mi lugar — USD 17</button>
+      <p class="ancla">La clase cuesta <strong>USD 17</strong>.</p>
+    </div>
+
+    <p class="beat">Y esas horas no son sólo plata. <strong>Son las que no le estás dando a lo que hace crecer tu negocio, a tu salud, y a la gente con la que querés estar.</strong></p>
+
+    <!-- La escalera de identidad, con referente explícito y atada al número real
+         que devuelve la calculadora (~1 h/día con los defaults). -->
+    <div class="ladder">
+      Sacarle <b>una hora por semana</b> a lo ajeno y dársela a lo tuyo es un alivio.<br>
+      <b>Una hora por día</b> —que es, más o menos, lo que te acaba de dar la cuenta de arriba— es otro año.<br>
+      <span class="hot">Esa misma hora sostenida durante un año es otra empresa. Y otra persona.</span>
+    </div>
+
+    <p class="beat">Y que quede claro, porque se malinterpreta: <strong>nadie te está pidiendo que aflojes ni que trabajes menos.</strong> Ya estás trabajando menos de lo que creés. La diferencia te la están cobrando.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ 7 · OFERTA · sobre claro ═══════════════ -->
+<section class="sec sec--light">
+  <div class="wrap">
+    <h2>Todo lo que te llevás <em>por diecisiete dólares</em></h2>
+
+    <ul class="stack">
+      <li><b>Hackea tu Cerebro EN VIVO · 2 horas</b><span>Los cinco sistemas del alto rendimiento sostenido, uno por uno, <strong>con los micrófonos abiertos en cada uno</strong> — para que veas cómo se resuelve un caso concreto y no una teoría.</span></li>
+      <li><b>La grabación, tuya para siempre</b><span>En tu mail dentro de las 24 horas, para que si ese día se te cruza una urgencia (te va a cruzar) no pierdas nada.</span></li>
+      <li><b>Workbook con los accionables</b><span>No son apuntes: es lo que se dijo, ordenado y en formato de hacer, para que el lunes tengas por dónde empezar sin volver a pensarlo.</span></li>
+      <li><b>{{CAPITULO}} — capítulo de «Hackea tu Cerebro»</b><span>El del pilar de descanso, que es el cambio que más aparece en los casos del Instituto, para que arranques por el que más mueve la aguja.</span></li>
+    </ul>
+
+    <div class="inv">
+      <p class="l">Tu inversión</p>
+      <p class="n">USD 17</p>
+      <button class="cta" data-cta>
+        <span>Quiero mi lugar — USD 17</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <p class="pay">Pago seguro con Stripe o Mercado Pago. El acceso te llega al mail en el momento.</p>
+    </div>
+
+    <div class="why">
+      <h3>★ Por qué diecisiete dólares ★</h3>
+      <p>Podría ser gratis. <strong>No lo es a propósito: lo que no te cuesta, no lo accionás.</strong></p>
+      <p>Diecisiete dólares no son una barrera económica — <strong>son un filtro de intención.</strong> Quiero un grupo chico, de gente que ya tomó la decisión de invertir en sí misma, porque el retorno no depende de la clase: depende de que hagas algo con lo que te llevás.</p>
+      <p>Y no lo digo desde afuera. Lo viví en carne propia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 8 · DESCALIFICADOR + FAQ ═══════════════ -->
+<section class="sec sec--light" style="padding-top:0">
+  <div class="wrap">
+    <h2>Antes de que pagues, <em>lo que esto no es</em></h2>
+
+    <div class="nope">
+      <p><strong>No es para vos si</strong> buscás una técnica que funcione sin cambiar nada de tu rutina.</p>
+      <p><strong>No es para vos si</strong> lo que querés es trabajar menos. Acá no se trata de aflojar: se trata de dejar de ser el cuello de botella de lo tuyo.</p>
+      <p><strong>No es para vos si</strong> venís a juntar información. Ya tenés más información de la que aplicás — de hecho, ese es el síntoma, no el problema.</p>
+    </div>
+
+    <p class="label" style="text-align:left;margin:0 0 18px">Respuestas rápidas</p>
     <div class="faq">
-      <details><summary>¿Y si ese día no puedo?</summary><p>Te queda la grabación completa para siempre, en tu mail dentro de las 24 horas. Igual te recomiendo venir en vivo: lo único que no se recupera es el bloque de micrófonos abiertos.</p></details>
-      <details><summary>Ya probé el planner, Notion, levantarme a las cinco. ¿Por qué esto sí?</summary><p>Porque todas esas cosas apuntan al mismo lugar: asumen que el problema es que no te esforzás lo suficiente. Pensalo al revés — cuando contrataste un entrenador no fue porque no supieras hacer sentadillas, eso está gratis en YouTube. Fue porque el martes a las siete hay alguien esperándote. Y funcionó. Y nunca pensaste que ahí te faltaba carácter.</p></details>
-      <details><summary>Ya empecé cosas antes y no las terminé.</summary><p>Y tenés razón. Pero fijate: vos cumplís. Con tu cliente, con tu jefe, con tus hijos. Cuando hay alguien del otro lado esperando, llegás siempre. El problema es que para lo tuyo no hay nadie — y tu cerebro no distingue entre "no es importante" y "no hay nadie esperando". Por eso esto es en vivo, con fecha y hora: ese día, del otro lado voy a estar yo.</p></details>
-      <details><summary>¿Es una clase o me van a vender dos horas?</summary><p>Es una clase. Vas a salir entendiendo qué está roto y por qué, aunque no hagas nada más con nosotros. Al final te contamos cómo trabajamos, una sola vez, y ahí decidís vos.</p></details>
-      <details><summary>¿Cómo pago desde mi país?</summary><p>Con tarjeta internacional por Stripe, o en pesos argentinos por Mercado Pago. Si estás en Argentina y no querés pagar dólar tarjeta, usá Mercado Pago.</p></details>
+      <details>
+        <summary>¿Y si ese día no puedo?</summary>
+        <p>Te queda la grabación completa para siempre, en tu mail dentro de las 24 horas. Igual te recomiendo venir en vivo: lo único que no se recupera es el bloque de micrófonos abiertos.</p>
+      </details>
+      <details>
+        <summary>Ya empecé cosas antes y no las terminé.</summary>
+        <p>Y tenés razón. Pero fijate: vos cumplís. Con tu cliente, con tu equipo, con tus hijos. Cuando hay alguien del otro lado esperando, llegás siempre. El problema es que para lo tuyo no hay nadie — y <strong>tu cerebro no distingue entre «no es importante» y «no hay nadie esperando»</strong>. Por eso esto es en vivo, con fecha y hora: ese día, del otro lado voy a estar yo.</p>
+      </details>
+      <details>
+        <summary>Yo ya delegué. Tengo gente que me ordena la agenda.</summary>
+        <p>Francisco también: contrató un director de operaciones para eso, y sigue igual. Delegar funciona con lo ajeno, porque lo ajeno ya tenía a alguien esperándolo. Lo tuyo sigue sin tener a nadie — y esa es la única variable que no se delega.</p>
+      </details>
+      <details>
+        <summary>¿Es una clase o me van a vender dos horas?</summary>
+        <p>Es una clase. Vas a salir entendiendo qué está roto y por qué, aunque no hagas nada más con nosotros. Al final te contamos cómo trabajamos, una sola vez, y ahí decidís vos.</p>
+      </details>
+      <details>
+        <summary>¿Cómo pago desde mi país?</summary>
+        <p>Con tarjeta internacional por Stripe, o en pesos argentinos por Mercado Pago. Si estás en Argentina y no querés pagar dólar tarjeta, usá Mercado Pago.</p>
+      </details>
     </div>
   </div>
 </section>
 
-<!-- ══════════ CIERRE ══════════ -->
-<section class="sec sec--navy">
-  <div class="wrap" style="text-align:center">
-    <h2>Dejá de ser "productivo".<br><span class="accent">Empezá a avanzar.</span></h2>
-    <p class="beat lead">El domingo que viene va a terminar de una de dos maneras.</p>
-    <p class="beat lead">Otra semana planificada que el martes se cae — o la primera en la que lo tuyo también tiene a alguien esperándolo.</p>
+<!-- ═══════════════ CIERRE ═══════════════ -->
+<section class="sec sec--final">
+  <div class="wrap">
+    <h2>Dejá de ser “productivo”. <em>Empezá a avanzar.</em></h2>
 
-    <div class="worst">
-      <strong>¿Peor caso?</strong> Venís, aplicás una sola cosa, no te devuelve tiempo, nos escribís una línea, te devolvemos los diecisiete dólares y te quedás igual con la grabación, con el workbook y con el capítulo del libro.<br><br>
-      <strong>Tu peor caso son diecisiete dólares devueltos y una clase gratis. Tu mejor caso es el número que te dio la calculadora.</strong>
+    <p class="beat">Celi lo dijo en dos entrevistas distintas, con un año de diferencia: <strong>«lo debería haber hecho 10 años antes.»</strong></p>
+    <p class="beat">En algún momento vos también vas a decir esa frase. La única pregunta es <strong>cuántos años vas a poner ahí.</strong></p>
+
+    <div class="close-box">
+      <p>Cada mes que pasa, la lista de lo ajeno crece y la tuya queda igual. <strong>No es neutro: es acumulativo.</strong></p>
+      <p>Del otro lado va a haber una fecha, una hora y alguien esperándote. Que es, exactamente, la única cosa que le falta a lo tuyo.</p>
     </div>
 
-    <div class="cta-wrap"><button class="cta" data-cta>Quiero mi lugar — USD 17 &rarr;</button></div>
-    <p class="sign">Nos vemos en la clase.<br>— Nicolás Fernández Miranda —</p>
+    <button class="cta" data-cta>
+      <span>Quiero mi lugar — USD 17</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+
+    <p class="sign">Nos vemos en la clase.<b>— Nicolás Fernández Miranda —</b></p>
   </div>
 </section>
 
 <div class="legal">
-  <div class="wrap">
+  <div>
     <p><strong>Descargo de responsabilidad:</strong> los resultados que se muestran en esta página son de personas reales del Instituto de Productividad y no son resultados típicos. Los tuyos van a variar y dependen de muchos factores, entre ellos tu situación, tu contexto y el trabajo que le pongas.</p>
     <p>Esta clase es formativa y no reemplaza ninguna consulta médica, psicológica ni nutricional. Si tenés una condición de salud, consultá con un profesional antes de aplicar cambios en tu descanso, tu alimentación o tu actividad física.</p>
     <p>Este sitio no forma parte de Facebook ni de Meta Platforms, Inc., y no está avalado por ellos de ninguna manera.</p>
+    <p>Instituto de Productividad · Nicolás Fernández Miranda</p>
   </div>
 </div>
 
-<footer>Instituto de Productividad · Nicolás Fernández Miranda</footer>
+<div class="sticky" id="sticky"><button class="cta" data-cta>Quiero mi lugar — USD 17</button></div>
 
-<div class="sticky" id="sticky"><button class="cta" data-cta>Quiero mi lugar — USD 17 &rarr;</button></div>
 
 <!-- ══════════ CHECKOUT · modal de 2 pasos ══════════ -->
 <div class="ov" id="ov" role="dialog" aria-modal="true" aria-label="Checkout">
@@ -802,6 +1109,7 @@ footer{background:var(--navy-deep);color:#6d8ba3;text-align:center;padding:34px 
   </div>
 </div>
 
+
 <script>
 /* ═══ CONFIG · completar antes de publicar ═══ */
 var CONFIG = {
@@ -837,19 +1145,29 @@ function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
   tick(); setInterval(tick,1000);
 })();
 
-/* ═══ FECHA EN EL COPY ═══ */
+/* ═══ FECHA EN EL COPY ═══
+   OJO: esto ANTES reescribía document.body.innerHTML, y eso destruía y recreaba
+   todos los nodos del DOM — con lo cual el countdown, que cachea sus elementos,
+   se quedaba apuntando a nodos huérfanos y se congelaba en el primer tick.
+   Ahora se recorren sólo los nodos de texto: los elementos siguen siendo los mismos. */
 (function(){
   var f = new Date(CONFIG.FECHA);
-  var dias=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  var dias=['Domingo','Lunes','Martes','Mi\u00e9rcoles','Jueves','Viernes','S\u00e1bado'];
   var mes=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
   /* Se formatea SIEMPRE en hora de Argentina (UTC-3), no en la del navegador:
-     si no, el que entra desde España o México ve una hora que no es la de la clase. */
+     si no, el que entra desde Espa\u00f1a o M\u00e9xico ve una hora que no es la de la clase. */
   var arg = new Date(f.getTime() + (f.getTimezoneOffset()*6e4) - (3*36e5));
-  var larga = dias[arg.getDay()]+' '+arg.getDate()+' de '+mes[arg.getMonth()];
   function pad2(n){ return n<10?'0'+n:''+n; }
-  document.body.innerHTML = document.body.innerHTML
-    .replace(/\{\{FECHA_LARGA\}\}/g, larga)
-    .replace(/\{\{HORA\}\}/g, arg.getHours()+':'+pad2(arg.getMinutes()));
+  var larga = dias[arg.getDay()]+' '+arg.getDate()+' de '+mes[arg.getMonth()];
+  var hora  = arg.getHours()+':'+pad2(arg.getMinutes());
+
+  var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false), n;
+  while((n = w.nextNode())){
+    if(n.nodeValue.indexOf('{{') === -1) continue;
+    n.nodeValue = n.nodeValue
+      .replace(/\{\{FECHA_LARGA\}\}/g, larga)
+      .replace(/\{\{HORA\}\}/g, hora);
+  }
 })();
 
 /* ═══ MODAL ═══ */
@@ -913,7 +1231,7 @@ function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
 (function(){
   var st=document.getElementById('sticky');
   window.addEventListener('scroll',function(){
-    if(window.scrollY>300) st.setAttribute('data-on',''); else st.removeAttribute('data-on');
+    if(window.scrollY>700) st.setAttribute('data-on',''); else st.removeAttribute('data-on');
   },{passive:true});
 })();
 
@@ -1004,6 +1322,24 @@ function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
   });
 })();
 
+
+/* ═══ PARTÍCULAS DEL HERO ═══
+   Divs con animación CSS, no canvas. Delay negativo aleatorio para que ya estén
+   en movimiento al cargar y no se vea el "arranque". */
+(function(){
+  var c = document.getElementById('particles');
+  if(!c) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  for(var i=0;i<22;i++){
+    var p = document.createElement('div');
+    p.className = 'particle';
+    var s = (3 + Math.random()*5)+'px';
+    p.style.cssText = 'left:'+(Math.random()*100)+'%;width:'+s+';height:'+s+
+      ';animation-duration:'+(10+Math.random()*14)+'s;animation-delay:-'+(Math.random()*12)+'s';
+    c.appendChild(p);
+  }
+})();
+
 </script>
 
 <!-- ═══════════════════════════════════════════════════════════════════════
@@ -1077,7 +1413,7 @@ body.nfm-read [data-ed]{outline:none!important;background:none!important}
   if (location.search.indexOf('noedit') > -1) { var b=document.getElementById('nfm-bar'); if(b) b.remove(); return; }
 
   var KEY='nfm_edits_v3', KEYN='nfm_notas_v3';
-  var SEL='h1,h2,h3,h4,p,li,blockquote,cite,summary,button.cta,.stack b,.item b,.cards .who,.cards .num,.proof .who,.proof .role,.caso__who,.caso__role,.person .tag,.inv .l,.inv .n,.cd__u,.logos span,.stats .n,.stats .l,.specs span,.bump .t,.bump .d';
+  var SEL='h1,h2,h3,h4,p,li,blockquote,cite,summary,button.cta span,.stack b,.stack span,.item b,.caso__who,.caso__role,.inv .l,.inv .n,.cd__u,.stat b,.stat span,.specs span,.bump .t,.bump .d,.identity__k,.identity__n,.myth__n,.hero__tag,.studies .src';
   /* Lo que NO se toca: lo reescribe el JS o es plomería del checkout */
   var SKIP_ID=['cd-d','cd-h','cd-m','cd-s','tb-cd','plata','eq','nota','v1','v2','total'];
   var SKIP_IN=['#nfm-bar','#nfm-note','#nfm-ok','.topbar','.cd','.calc .out','.calc .nota','.calc .help','.modal','.legal','.caso__thumb'];
