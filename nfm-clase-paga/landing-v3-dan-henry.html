@@ -415,6 +415,45 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 .sticky .cta{width:100%; padding:16px; font-size:1rem; box-shadow:none}
 
 
+/* ═══════════════ CUPOS DEL BONUS ═══════════════
+   El ebook completo va sólo para los primeros 100. El contador baja a medida
+   que se acerca la fecha de la clase — ver CONFIG.EBOOK y la nota de honestidad
+   que está al lado del código. Nunca sube: si el visitante vuelve, el número
+   que ve es el mismo o menor, nunca uno mayor. */
+.stack__bonus b{color:var(--orange-text)}
+.cupos{display:inline-flex; align-items:center; gap:7px; margin:10px 0 0;
+  font-family:var(--f-mono); font-size:.68rem; font-weight:500; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--orange-text);
+  background:var(--orange-wash); border:1px solid rgba(255,102,2,.28);
+  border-radius:50px; padding:6px 14px}
+.cupos b{font-family:var(--f-h); font-weight:900; font-size:1.05rem; letter-spacing:0;
+  color:var(--orange); font-variant-numeric:tabular-nums; line-height:1}
+.cupos--out{background:var(--gray-50); border-color:var(--gray-200); color:var(--ink-subtle)}
+.cupos--out b{color:var(--ink-subtle)}
+.cupos__nota{display:block; font-size:.86rem; font-style:italic; color:var(--ink-subtle);
+  margin:9px 0 0; line-height:1.6}
+
+/* ═══════════════ ILUSTRACIONES · Mini Nico ═══════════════
+   Van en los cuatro momentos donde el argumento es abstracto y hoy lo sostiene
+   sólo texto. El placeholder existe para poder ver el ritmo de la página antes
+   de tener los dibujos: se reemplaza el src y listo. */
+.ill{margin:32px auto; max-width:600px}
+.ill img{width:100%; height:auto; border-radius:var(--r-lg); display:block; background:#fff;
+  border:1px solid var(--gray-200)}
+/* El pie va en cuerpo, no en mono en mayúsculas: una línea larga en mono
+   uppercase es justo lo que más cuesta leer en pantalla chica. */
+.ill figcaption{font-size:.92rem; font-style:italic; color:var(--ink-subtle);
+  margin:14px auto 0; line-height:1.6; max-width:30em}
+/* Estado sin imagen todavía */
+.ill--todo{border:1.5px dashed var(--gray-200); border-radius:var(--r-lg); background:var(--gray-50);
+  aspect-ratio:4/3; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:8px; padding:24px; text-align:center}
+.ill--todo b{font-family:var(--f-h); font-weight:800; font-size:.98rem; color:var(--ink-subtle)}
+.ill--todo span{font-size:.88rem; color:var(--ink-subtle); max-width:32em; line-height:1.6}
+.ill--todo em{font-family:var(--f-mono); font-size:.64rem; letter-spacing:.16em; text-transform:uppercase;
+  font-style:normal; color:var(--orange-text)}
+@media(max-width:760px){ .ill{margin:26px auto} }
+
 /* ═══════════════ CHECKOUT · modal de 2 pasos ═══════════════ */
 .ov{position:fixed; inset:0; z-index:9999; background:rgba(8,31,51,.72);
   backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
@@ -449,7 +488,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
   padding:15px 16px; background:var(--gray-50); border-radius:var(--r); margin:0 0 14px}
 .item b{font-family:var(--f-h); font-weight:800; font-size:.96rem; color:var(--ink)}
 .item .p{font-family:var(--f-h); font-weight:800; color:var(--ink)}
-/* Dos bumps, no cuatro: cuatro cajas con flecha roja queman la confianza
+/* Un bump. Nunca cuatro: cuatro cajas con flecha roja queman la confianza
    construida arriba, y este avatar tiene alergia documentada al vendehumo. */
 .bump{border:1.5px dashed var(--orange); background:var(--orange-wash);
   border-radius:var(--r); margin:0 0 11px; transition:background .2s var(--ease)}
@@ -660,6 +699,15 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
       <cite>La bandeja de entrada, impecable. El cajón, intacto.</cite>
     </div>
 
+    <figure class="ill" data-ill="2">
+      <div class="ill--todo">
+        <em>Ilustración 2</em>
+        <b>La bandeja de entrada y el cajón</b>
+        <span>Vacía la bandeja ajena a toda velocidad mientras cierra su propio cajón con la rodilla, sin mirarlo.</span>
+      </div>
+      <figcaption>La bandeja de entrada, impecable. El cajón, intacto.</figcaption>
+    </figure>
+
     <p class="beat">Y no es carga de trabajo. Celi, que lidera un equipo de 45 personas, abría la computadora apenas se dormían los chicos — <strong>hubiera o no hubiera un deadline.</strong></p>
 
     <p class="aside">(¿No tenés equipo a cargo? Quedate igual. Es la misma trampa que hace que el proyecto propio lleve dos años en la misma lista, que el libro que ibas a escribir siga en la carpeta, y que el turno médico que sacás para tu hijo en el día lo saques para vos recién cuando ya no te queda opción.)</p>
@@ -701,6 +749,15 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 
     <p class="beat">Lo ajeno llega con fecha, con nombre y con alguien del otro lado esperándolo. Lo tuyo llega solo. Y sin nadie esperando, tu cerebro nunca lo sube a la cima de la pila. <strong>Se llama urgencia prestada.</strong></p>
 
+    <figure class="ill" data-ill="1">
+      <div class="ill--todo">
+        <em>Ilustración 1</em>
+        <b>La máquina que abre sólo para quien tiene a alguien esperando</b>
+        <span>Máquina clasificadora a manivela: pasan las cajas con una mano esperando; la que no tiene a nadie cae a un pozo lleno de cajas iguales.</span>
+      </div>
+      <figcaption>La compuerta se abre para lo que tiene a alguien esperando. Lo tuyo cae al pozo.</figcaption>
+    </figure>
+
     <div class="insight">
       <p><strong>Y hay una capa más incómoda, que la dijo un cliente y no nosotros:</strong> «Necesito problemas para que todo el mundo vea que los resuelvo, y con eso valido que soy lo que soy, que soy capaz, que soy importante.» — Francisco, director de operaciones, 80 empleados.</p>
       <p style="margin-top:12px">No sólo recibís urgencia ajena. <strong>La fabricás</strong>, porque tu identidad depende de ser el que resuelve. Por eso el patrón no cede solo.</p>
@@ -736,7 +793,16 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 <section class="sec">
   <div class="wrap">
     <h2>La productividad es el auto completo. <em>No es pisar más el acelerador.</em></h2>
-    <p class="beat">Service, aceite, gomas, combustible. Tu operación la tenés aceitada al milímetro: sabés cuándo entra cada cosa y qué pasa si no entra. <strong>Con vos manejás sin service hace años</strong> — y encima creyendo cinco cosas que suenan a puro sentido común.</p>
+    <p class="beat">Tu operación la tenés aceitada al milímetro: sabés cuándo entra cada service y qué pasa si no entra. <strong>Con vos manejás sin service hace años</strong> — y encima creyendo cinco cosas que suenan a puro sentido común.</p>
+
+    <figure class="ill" data-ill="3">
+      <div class="ill--todo">
+        <em>Ilustración 3</em>
+        <b>El auto sobre caballetes con los cinco services vencidos</b>
+        <span>El auto en pana con los cinco services vencidos, y él adentro pisando el acelerador a fondo.</span>
+      </div>
+      <figcaption>Acelerar más no mueve un auto que está sobre caballetes.</figcaption>
+    </figure>
 
     <div class="myths">
       <div class="myth">
@@ -903,6 +969,17 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
     <div class="menu">
       <p>Ya probaste el planner. Notion. Levantarte a las cinco. La lista de tres cosas. La app que te bloquea el celular. Terapia. <strong>Y contratar a alguien para que te ordene.</strong></p>
       <p>Y funcionó. <span class="beat-hot">Tres meses.</span> Siempre tres meses.</p>
+    </div>
+
+    <figure class="ill" data-ill="4">
+      <div class="ill--todo">
+        <em>Ilustración 4</em>
+        <b>La máquina que dura tres meses</b>
+        <span>Rueda-caminadora con un cuadrante de tres marcas y una trampilla en la tercera. Abajo, la pila de las máquinas anteriores.</span>
+      </div>
+      <figcaption>Todos los intentos duraron lo mismo. Eso no es mala suerte: es un patrón.</figcaption>
+    </figure>
+    <div class="menu">
       <p>Todas apuntan al mismo lugar: asumen que el problema es que no te esforzás lo suficiente. Y Francisco, que dirige a 80 personas, ya probó la versión más cara de esa idea — contrató un director de operaciones. Sigue igual. <strong>Delegó el seguimiento de lo ajeno, no el de lo suyo.</strong></p>
       <p>Pensalo al revés. Cuando contrataste un entrenador no fue porque no supieras hacer sentadillas —eso está gratis en YouTube—. Fue porque el martes a las siete <strong>hay alguien esperándote.</strong></p>
       <p>Y funcionó. Y nunca pensaste que ahí te faltaba carácter.</p>
@@ -979,8 +1056,12 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
     <ul class="stack">
       <li><b>Hackea tu Cerebro EN VIVO · 2 horas</b><span>Los cinco sistemas del alto rendimiento sostenido, uno por uno, <strong>con los micrófonos abiertos en cada uno</strong> — para que veas cómo se resuelve un caso concreto y no una teoría.</span></li>
       <li><b>La grabación, tuya para siempre</b><span>En tu mail dentro de las 24 horas, para que si ese día se te cruza una urgencia (te va a cruzar) no pierdas nada.</span></li>
-      <li><b>Workbook con los accionables</b><span>No son apuntes: es lo que se dijo, ordenado y en formato de hacer, para que el lunes tengas por dónde empezar sin volver a pensarlo.</span></li>
+      <li><b>Workbook con los accionables</b><span>No son apuntes: es lo que se dijo, ordenado y en formato de hacer, <strong>para que salgas de la clase con el primer paso ya decidido</strong> y lo puedas aplicar al día siguiente, sin volver a pensarlo.</span></li>
       <li><b>{{CAPITULO}} — capítulo de «Hackea tu Cerebro»</b><span>El del pilar de descanso, que es el cambio que más aparece en los casos del Instituto, para que arranques por el que más mueve la aguja.</span></li>
+      <li class="stack__bonus"><b>El ebook completo, en vez del capítulo suelto</b><span>«Hackea tu Cerebro» entero en digital —el mismo que está en librerías— para que después de la clase tengas los 49 hacks a mano y no dependas de acordarte.
+        <span class="cupos" id="cupos-wrap"><b id="cupos">100</b> disponibles de 100</span>
+        <span class="cupos__nota">Sólo para las primeras 100 personas. Cuando se agotan, la clase sigue igual: el ebook no.</span>
+      </span></li>
     </ul>
 
     <div class="inv">
@@ -1102,23 +1183,15 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
       <p class="privacy">Respetamos tu privacidad. Te escribimos sólo por la clase.</p>
     </div>
 
-    <!-- PASO 2 · ítem + 2 bumps + total -->
+    <!-- PASO 2 · ítem + 1 bump + total.
+         El bump del ebook se sacó cuando el ebook pasó a ser bonus de los primeros
+         100: no se puede regalar y vender lo mismo en la misma página. -->
     <div class="modal__body" id="s2" hidden>
       <button class="back" id="back">&larr; Volver a mis datos</button>
 
       <div class="item"><b>Hackea tu Cerebro EN VIVO</b><span class="p">USD 17</span></div>
 
-      <div class="bump">
-        <label>
-          <input type="checkbox" id="b1" data-price="7">
-          <span>
-            <span class="t">Sumale el libro «Hackea tu Cerebro» en digital — USD 7</span>
-            <span class="d">El libro completo, el mismo que está en librerías. La clase te muestra el mecanismo; el libro te da los 49 hacks.</span>
-          </span>
-        </label>
-      </div>
-
-      <div class="bump">
+            <div class="bump">
         <label>
           <input type="checkbox" id="b2" data-price="7">
           <span>
@@ -1141,10 +1214,22 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 /* ═══ CONFIG · completar antes de publicar ═══ */
 var CONFIG = {
   FECHA: '2026-10-06T19:00:00-03:00',   /* ⚠️ PLACEHOLDER — poner la fecha real */
+
+  /* Bonus del ebook, limitado a 100 unidades.
+     ⚠️ LEER ANTES DE PUBLICAR: hoy el contador baja en función del TIEMPO que
+     falta para la clase, no de las ventas reales. Eso es escasez simulada. Si
+     preferís que sea real, poné REAL:true y actualizá RESTANTES a mano con el
+     número de ventas — el resto del código no cambia. */
+  EBOOK: {
+    TOTAL: 100,
+    PISO: 9,                              /* nunca muestra menos que esto */
+    DESDE: '2026-09-08T00:00:00-03:00',   /* arranque de la campaña */
+    REAL: false,                          /* true = usar RESTANTES, ignorar el reloj */
+    RESTANTES: 100
+  },
   CHECKOUT: {
-    '17': '{{CHECKOUT_17}}',   /* sin bumps  */
-    '24': '{{CHECKOUT_24}}',   /* + 1 bump   */
-    '31': '{{CHECKOUT_31}}'    /* + 2 bumps  */
+    '17': '{{CHECKOUT_17}}',   /* sin bump */
+    '24': '{{CHECKOUT_24}}'    /* + el bump de desintoxicación digital */
   }
 };
 
@@ -1237,13 +1322,16 @@ function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
   });
   document.getElementById('back').addEventListener('click',go1);
 
-  /* total en vivo según bumps */
-  var b1=document.getElementById('b1'), b2=document.getElementById('b2'), out=document.getElementById('total');
+  /* Total en vivo. Recorre los bumps que HAYA: si se agrega o se saca uno del
+     markup, esto no se rompe (antes dependía de los ids b1/b2 y explotaba). */
+  var bumps = [].slice.call(document.querySelectorAll('.bump input[type=checkbox]'));
+  var out = document.getElementById('total');
   function calc(){
-    var t=17 + (b1.checked?+b1.dataset.price:0) + (b2.checked?+b2.dataset.price:0);
-    out.textContent='USD '+t; return t;
+    var t = 17;
+    bumps.forEach(function(b){ if(b.checked) t += +b.getAttribute('data-price') || 0; });
+    out.textContent = 'USD ' + t; return t;
   }
-  b1.addEventListener('change',calc); b2.addEventListener('change',calc);
+  bumps.forEach(function(b){ b.addEventListener('change', calc); });
 
   document.getElementById('pay').addEventListener('click',function(){
     var total=calc(), url=CONFIG.CHECKOUT[String(total)], lead={};
@@ -1559,6 +1647,50 @@ function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
     tryUrl('https://ipwho.is/',      function(j){ return j.country_code; });
     tryUrl('https://ipapi.co/json/', function(j){ return j.country_code; });
   })();
+})();
+
+/* ═══ CUPOS DEL EBOOK ═══
+   Dos modos:
+   · REAL:true  → muestra CONFIG.EBOOK.RESTANTES, que se actualiza a mano con las
+                  ventas de verdad. Es el modo honesto.
+   · REAL:false → el número baja con el reloj, entre DESDE y la fecha de la clase,
+                  con una curva que acelera sobre el final. Es escasez simulada.
+   En los dos casos el número es MONOTÓNICO: se guarda el último visto y nunca se
+   muestra uno mayor. Un contador que sube al recargar es lo que delata que es
+   falso, y este avatar castiga eso más que a nadie. */
+(function(){
+  var el = document.getElementById('cupos'), wrap = document.getElementById('cupos-wrap');
+  if(!el || !wrap) return;
+  var C = CONFIG.EBOOK, K = 'nfm_cupos';
+
+  function calcular(){
+    if(C.REAL) return Math.max(0, Math.min(C.TOTAL, C.RESTANTES|0));
+    var t0 = new Date(C.DESDE).getTime(), t1 = new Date(CONFIG.FECHA).getTime(), now = Date.now();
+    if(!(t1 > t0)) return C.TOTAL;
+    var f = Math.max(0, Math.min(1, (now - t0) / (t1 - t0)));
+    /* curva que acelera sobre el final, como se agota algo de verdad */
+    var v = C.TOTAL - (C.TOTAL - C.PISO) * Math.pow(f, 1.7);
+    /* pequeño temblor por hora, determinístico, para que no baje en escalones
+       perfectos — siempre hacia abajo, nunca hacia arriba */
+    var hora = Math.floor(now / 36e5);
+    var jitter = ((hora * 2654435761) % 3 + 3) % 3;   /* 0, 1 o 2 */
+    return Math.max(C.PISO, Math.round(v) - jitter);
+  }
+
+  function pintar(){
+    var n = calcular();
+    try{
+      var prev = parseInt(localStorage.getItem(K), 10);
+      if(!isNaN(prev) && prev < n) n = prev;       /* nunca sube */
+      localStorage.setItem(K, String(n));
+    }catch(e){}
+    el.textContent = n;
+    wrap.lastChild && (wrap.childNodes[wrap.childNodes.length-1].nodeValue = ' disponibles de ' + C.TOTAL);
+    if(n <= 0){ wrap.classList.add('cupos--out'); el.textContent = '0'; }
+  }
+
+  pintar();
+  setInterval(pintar, 6e4);   /* se refresca solo si alguien deja la pestaña abierta */
 })();
 
 </script>
