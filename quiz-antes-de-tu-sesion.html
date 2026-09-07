@@ -40,7 +40,11 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 
 /* ── escenario ── */
 .stage{position:relative;z-index:2;min-height:100vh;min-height:100dvh;display:flex;padding:56px 18px calc(var(--navh) + 20px)}
-.card{width:100%;max-width:620px;margin:auto;animation:in .4s var(--ease) both}
+.card{width:100%;max-width:620px;margin:auto}
+/* la animacion va en un envoltorio interno, NO en .card: un transform (aunque sea
+   identidad) convierte al elemento en bloque contenedor y el .nav fijo se pegaria
+   al borde de la tarjeta en vez de al del viewport, tapando el contenido */
+.anim{animation:in .4s var(--ease) both}
 @keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 .k{display:inline-flex;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;color:var(--otxt);background:var(--owash);border:1px solid rgba(255,102,2,.24);padding:8px 15px;border-radius:100px;margin-bottom:20px}
@@ -134,9 +138,8 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 .state.on{display:block}
 .state.ok{color:#0e6b3a}
 .state.err{color:var(--otxt)}
-.alt{display:none;margin-top:12px;text-align:center}
-.alt.on{display:block}
-.alt button{background:none;border:none;font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--otxt);cursor:pointer;text-decoration:underline}
+.btn{text-decoration:none}
+.btn.off{opacity:.34;pointer-events:none;box-shadow:none}
 
 /* ── desde tablet para arriba ── */
 @media(min-width:760px){
@@ -166,9 +169,9 @@ const CONFIG = {
   // Mientras esté vacío, el botón copia las respuestas al portapapeles.
   SHEETS_ENDPOINT: "",
 
-  // Opcional: WhatsApp de Pierina (solo dígitos, ej "5491122334455").
-  // Se usa como respaldo si el envío al Sheets falla.
-  WHATSAPP: "",
+  // WhatsApp de Pierina, solo dígitos con código de país.
+  // +54 9 2664 208920  →  5492664208920
+  WHATSAPP: "5492664208920",
 
   GUIA: {
     nombre: "Pierina Monte Riso",
@@ -267,7 +270,7 @@ const PASOS = [
       {tx:'Soy hombre, no tengo hijos', v:'hombre'}
     ]},
 
-  { tipo:'opcion', id:'dolor', col:'Qué le pesa hoy',
+  { tipo:'opcion', id:'dolor', col:'Qué le pesa hoy', wa:'Qué me pesa hoy',
     k:'Contexto · 3 de 3',
     q:'¿Cuál de estas frases <span class="hl">te golpea más</span>?',
     hint:'La que te haga decir "esa soy yo". Si dudás entre dos, elegí la que más te pesa esta semana.',
@@ -294,7 +297,7 @@ const PASOS = [
     hint:'Puede ser algo laboral, personal o de salud. Dos o tres líneas, sin filtro.',
     ph:'Lo que se me viene a la cabeza es…' },
 
-  { tipo:'texto', id:'intentos', col:'Qué ya intentó',
+  { tipo:'texto', id:'intentos', col:'Qué ya intentó', wa:'Qué ya intenté',
     k:'Pregunta 2 de 5',
     q:'¿Qué ya intentaste sola/o, y por qué <span class="hl">no te alcanzó</span>?',
     hint:'Cursos, apps, terapia, levantarte más temprano, fuerza de voluntad. Lo que sea que hayas probado.',
@@ -306,7 +309,7 @@ const PASOS = [
          '<p>Por eso el acompañamiento no suma tareas: <b>saca ruido</b>. Sirve para encontrar lo único que hoy realmente mueve la aguja hacia tu objetivo, y sostener eso hasta que quede instalado.</p>',
     pull:'Enfocarte en lo único que hay que accionar ahora. No en las diez cosas que podrías estar haciendo.' },
 
-  { tipo:'texto', id:'costo', col:'Qué le dolería no resolver',
+  { tipo:'texto', id:'costo', col:'Qué le dolería no resolver', wa:'Qué me dolería no resolver',
     k:'Pregunta 3 de 5',
     q:'Si en 6 meses seguís exactamente igual, ¿qué es lo que más te va a doler <span class="hl">no haber resuelto</span>?',
     hint:'Tomate unos segundos con esta. Suele ser la que más ordena.',
@@ -318,7 +321,7 @@ const PASOS = [
     hint:'Ahora, no en general.',
     min:'Puede esperar', max:'No aguanta más' },
 
-  { tipo:'opcion', id:'freno', col:'Qué la frenaría',
+  { tipo:'opcion', id:'freno', col:'Qué la frenaría', wa:'Qué me podría frenar',
     k:'Pregunta 5 de 5',
     q:'Si mañana te mostraran el paso a paso exacto, ¿qué te frenaría a <span class="hl">decir que sí</span>?',
     hint:'Sé honesta/o. No cambia nada de lo que vamos a hablar: solo hace que lleguemos preparadas.',
@@ -341,7 +344,7 @@ const PASOS = [
   const fill  = document.getElementById('barFill');
   const stepN = document.getElementById('stepN');
   const R = {};
-  let i = 0, enviando = false, enviado = false;
+  let i = 0, enviado = false;
 
   const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const G = CONFIG.GUIA;
@@ -444,20 +447,31 @@ const PASOS = [
           '<input class="inp" id="nom" type="text" autocomplete="name" placeholder="Tu nombre" value="' + esc(R.nombre || '') + '"></div>' +
         '<div class="recap"><h4>Lo que respondiste</h4><dl>' +
           PREG.filter(s => R[s.id] != null).map(s =>
-            '<div><dt>' + esc(s.col) + '</dt><dd>' + esc(textoDe(s)) + '</dd></div>').join('') +
+            '<div><dt>' + esc(etiq(s)) + '</dt><dd>' + esc(textoDe(s)) + '</dd></div>').join('') +
         '</dl></div>' +
         '<div class="state" id="st"></div>' +
-        '<div class="alt" id="alt"><button id="cp">Copiar mis respuestas</button></div>' +
         '<div class="nav"><button class="back" id="bk" aria-label="Volver">←</button>' +
-        '<button class="btn" id="go"' + (R.nombre ? '' : ' disabled') + '>Enviar mis respuestas <span class="ar">&rarr;</span></button></div>';
+        '<a class="btn' + (R.nombre ? '' : ' off') + '" id="go" target="_blank" rel="noopener">' +
+        'Enviar mis respuestas <span class="ar">&rarr;</span></a></div>';
     }
 
     card.innerHTML = h;
-    card.style.animation = 'none'; void card.offsetWidth; card.style.animation = '';
+
+    /* el .nav queda como hijo directo de .card (sin transform encima) para que
+       position:fixed se resuelva contra el viewport en celular */
+    const nv = card.querySelector('.nav');
+    const anim = document.createElement('div');
+    anim.className = 'anim';
+    while(card.firstChild && card.firstChild !== nv) anim.appendChild(card.firstChild);
+    card.insertBefore(anim, nv);
+    anim.style.animation = 'none'; void anim.offsetWidth; anim.style.animation = '';
     window.scrollTo(0,0);
     progreso();
     enganchar();
   }
+
+  /* col = encabezado de la planilla (lo lee Pierina) · wa = como lo lee la persona */
+  function etiq(s){ return s.wa || s.col; }
 
   function textoDe(s){
     const v = R[s.id];
@@ -527,31 +541,36 @@ const PASOS = [
 
     if(p.tipo === 'fin'){
       const nom = document.getElementById('nom');
-      nom.addEventListener('input', () => {
+      const refrescar = () => {
         R.nombre = nom.value;
-        go.disabled = nom.value.trim().length < 2 || enviando || enviado;
-      });
-      document.getElementById('cp').onclick = copiar;
-      go.onclick = enviar;
+        const listo = nom.value.trim().length >= 2;
+        go.classList.toggle('off', !listo);
+        /* sin nombre no hay href: asi el link tampoco se activa con Enter */
+        if(listo) go.href = enlaceWhatsapp(); else go.removeAttribute('href');
+      };
+      nom.addEventListener('input', refrescar);
+      nom.addEventListener('change', refrescar);   /* autocompletar del celular */
+      refrescar();
+      /* el link abre WhatsApp solo; nosotros aprovechamos el clic
+         para mandar las respuestas al Sheets en segundo plano */
+      go.addEventListener('click', alEnviar);
       return;
     }
 
     if(go) go.onclick = () => { if(!go.disabled){ i++; pintar(); } };
   }
 
-  /* ── resumen en texto plano (respaldo) ── */
-  function resumen(){
-    return 'ANTES DE MI SESIÓN — ' + (R.nombre || '') + '\n\n' +
-      PREG.filter(s => R[s.id] != null).map(s => '• ' + s.col + ':\n' + textoDe(s)).join('\n\n');
+  /* ── el mensaje que se le manda a Pierina ── */
+  function mensaje(){
+    return 'Hola Pierina! Soy ' + (R.nombre || '').trim() +
+      '. Completé el ejercicio antes de nuestra sesión:\n\n' +
+      PREG.filter(s => R[s.id] != null)
+          .map(s => '▸ ' + etiq(s) + '\n' + textoDe(s))
+          .join('\n\n');
   }
 
-  function copiar(){
-    const txt = resumen();
-    if(navigator.clipboard){
-      navigator.clipboard.writeText(txt)
-        .then(() => estado('ok', '✓ Copiado — pegáselo a Pierina'))
-        .catch(() => prompt('Copiá tus respuestas:', txt));
-    } else prompt('Copiá tus respuestas:', txt);
+  function enlaceWhatsapp(){
+    return 'https://wa.me/' + CONFIG.WHATSAPP + '?text=' + encodeURIComponent(mensaje());
   }
 
   function estado(clase, txt){
@@ -560,45 +579,23 @@ const PASOS = [
     st.textContent = txt;
   }
 
-  /* ── envío al Google Sheets ── */
-  function enviar(){
-    if(enviando || enviado) return;
-    const go = document.getElementById('go');
+  /* ── al tocar el botón: abre WhatsApp (lo hace el propio link) y,
+        en paralelo, deja las respuestas en el Google Sheets ── */
+  function alEnviar(){
     const nom = document.getElementById('nom');
     R.nombre = (nom.value || '').trim();
     if(R.nombre.length < 2){ nom.focus(); return; }
 
+    estado('ok', '✓ Se abrió WhatsApp — solo tocá enviar');
+
+    if(enviado || !CONFIG.SHEETS_ENDPOINT) return;
+    enviado = true;
     const datos = {fecha:new Date().toISOString(), nombre:R.nombre, origen:location.href};
     PREG.forEach(s => { if(R[s.id] != null) datos[s.id] = textoDe(s); });
-
-    if(!CONFIG.SHEETS_ENDPOINT){
-      copiar();
-      document.getElementById('alt').classList.add('on');
-      return;
-    }
-
-    enviando = true;
-    go.disabled = true;
-    go.innerHTML = 'Enviando…';
-    estado('', '');
-
-    fetch(CONFIG.SHEETS_ENDPOINT, {method:'POST', mode:'no-cors', body:JSON.stringify(datos)})
-      .then(listo).catch(listo);
-
-    /* con mode:no-cors no se puede leer la respuesta: damos por enviado
-       y dejamos a mano el respaldo por si algo falló */
-    function listo(){
-      enviando = false; enviado = true;
-      go.innerHTML = '✓ Enviado';
-      go.disabled = true;
-      estado('ok', '✓ Listo — Pierina ya las tiene');
-      document.getElementById('alt').classList.add('on');
-      if(CONFIG.WHATSAPP){
-        document.getElementById('cp').textContent = 'También enviárselas por WhatsApp';
-        document.getElementById('cp').onclick = () =>
-          window.open('https://wa.me/' + CONFIG.WHATSAPP + '?text=' + encodeURIComponent(resumen()), '_blank', 'noopener');
-      }
-    }
+    try{
+      fetch(CONFIG.SHEETS_ENDPOINT, {method:'POST', mode:'no-cors', keepalive:true,
+        body:JSON.stringify(datos)}).catch(e => console.warn('sheets:', e));
+    }catch(e){ console.warn('sheets:', e); }
   }
 
   pintar();
