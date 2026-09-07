@@ -421,6 +421,16 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
    que está al lado del código. Nunca sube: si el visitante vuelve, el número
    que ve es el mismo o menor, nunca uno mayor. */
 .stack__bonus b{color:var(--orange-text)}
+/* Lo que vas a aprender, dentro del primer ítem del stack. Los ::before del
+   .stack son flechas; acá se pisan con un contador numerado. */
+.stack .what{list-style:none; counter-reset:w; padding:0; margin:16px 0 2px}
+.stack .what li{position:relative; padding:11px 0 11px 32px; border-bottom:none;
+  font-size:.97rem; color:var(--ink-mute); line-height:1.65}
+.stack .what li::before{counter-increment:w; content:counter(w,decimal-leading-zero);
+  position:absolute; left:0; top:14px; font-family:var(--f-mono); font-size:.66rem;
+  font-weight:500; letter-spacing:.07em; color:var(--orange-text)}
+.stack .what b{display:inline; font-family:var(--f-h); font-size:.97rem; font-weight:800;
+  color:var(--ink); margin:0}
 .cupos{display:inline-flex; align-items:center; gap:7px; margin:10px 0 0;
   font-family:var(--f-mono); font-size:.68rem; font-weight:500; letter-spacing:.12em;
   text-transform:uppercase; color:var(--orange-text);
@@ -437,7 +447,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
    Van en los cuatro momentos donde el argumento es abstracto y hoy lo sostiene
    sólo texto. El placeholder existe para poder ver el ritmo de la página antes
    de tener los dibujos: se reemplaza el src y listo. */
-.ill{margin:36px auto; max-width:600px}
+.ill{margin:36px auto; max-width:600px; min-height:430px}
 /* Dos de las cuatro salieron verticales (casi 1:2) y dos apaisadas. Con
    width:100% la vertical daría 600x1200 px — una pantalla y media. Limitando
    por ALTO además de por ancho, la apaisada se topa con el ancho (600x355) y la
@@ -459,7 +469,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 .ill--todo span{font-size:.88rem; color:var(--ink-subtle); max-width:32em; line-height:1.6}
 .ill--todo em{font-family:var(--f-mono); font-size:.64rem; letter-spacing:.16em; text-transform:uppercase;
   font-style:normal; color:var(--orange-text)}
-@media(max-width:760px){ .ill{margin:28px auto} .ill img{max-height:680px} }
+@media(max-width:760px){ .ill{margin:28px auto; min-height:290px} .ill img{max-height:680px} }
 
 /* ═══════════════ CHECKOUT · modal de 2 pasos ═══════════════ */
 .ov{position:fixed; inset:0; z-index:9999; background:rgba(8,31,51,.72);
@@ -599,6 +609,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
   .myth{gap:16px; padding:20px 0}
   .myth__n{font-size:1.6rem; min-width:40px}
   .stack li{padding:18px 0 18px 30px}
+  .stack .what li{padding:10px 0 10px 28px}
   .faq summary{padding:20px 20px}
   .faq p{padding:0 20px 22px}
   .ladder{font-size:1.06rem; text-align:left}
@@ -655,7 +666,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
       </div>
 
       <div class="hero__cta">
-        <button class="cta" data-cta>
+        <button class="cta" data-goto="oferta">
           <span>Quiero mi lugar — USD 17</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
@@ -798,7 +809,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
     </div>
 
     <div class="cta-wrap cta-wrap--center">
-      <button class="cta cta--ghost" data-cta>Quiero mi lugar — USD 17</button>
+      <button class="cta cta--ghost" data-goto="oferta">Quiero mi lugar — USD 17</button>
     </div>
   </div>
 </section>
@@ -1026,7 +1037,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 
       <div class="nota" id="nota"></div>
 
-      <button class="cta cta--full cta--flat" data-cta style="margin-top:20px">Quiero mi lugar — USD 17</button>
+      <button class="cta cta--full cta--flat" data-goto="oferta" style="margin-top:20px">Quiero mi lugar — USD 17</button>
     </div>
 
     <p class="beat">No son horas de trabajo. <strong>Son las que no le estás dando a tu descanso, a entrenar, y a las personas con las que querés estar.</strong></p>
@@ -1042,12 +1053,20 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
 </section>
 
 <!-- ═══════════════ 7 · OFERTA · sobre claro ═══════════════ -->
-<section class="sec">
+<section class="sec" id="oferta">
   <div class="wrap">
     <h2>Todo lo que te llevás <em>por diecisiete dólares</em></h2>
 
     <ul class="stack">
-      <li><b>Hackea tu Cerebro EN VIVO · 2 horas</b><span>Los cinco sistemas del alto rendimiento sostenido, uno por uno, <strong>con los micrófonos abiertos en cada uno</strong> — para que veas cómo se resuelve un caso concreto y no una teoría.</span></li>
+      <li><b>Hackea tu Cerebro EN VIVO · 2 horas</b><span>Los cinco sistemas del alto rendimiento, uno por uno, <strong>con los micrófonos abiertos en cada uno</strong>: en los cinco se resuelve un caso real en vivo, no una teoría. Esto es lo que te llevás de cada uno:</span>
+        <ol class="what">
+          <li><b>Descanso.</b> Cuántas horas necesitás vos —no el promedio— y qué hacer en la hora previa a dormir para que esas horas rindan.</li>
+          <li><b>Alimentación.</b> Qué comer al mediodía para que a las cuatro de la tarde no se te caiga el día. Sin dieta, sin contar calorías y sin cocinar más.</li>
+          <li><b>Movimiento.</b> El mínimo que sí funciona cuando no tenés tiempo para el gimnasio, y en qué momento del día conviene hacerlo.</li>
+          <li><b>Foco y tiempo.</b> Cómo armar una hora del día que no se interrumpa sola, incluso con personas a cargo y el teléfono sonando.</li>
+          <li><b>Inteligencia artificial.</b> Tres tareas de tu semana que le podés delegar hoy, y cómo pedírselo para que salga bien la primera vez.</li>
+        </ol>
+      </li>
       <li><b>La grabación, tuya para siempre</b><span>En tu mail dentro de las 24 horas, para que si ese día se te cruza una urgencia (te va a cruzar) no pierdas nada.</span></li>
       <li><b>Workbook con los accionables</b><span>No son apuntes: es lo que se dijo, ordenado y en formato de hacer, <strong>para que salgas de la clase con el primer paso ya decidido</strong> y lo puedas aplicar al día siguiente, sin volver a pensarlo.</span></li>
       <li class="stack__bonus"><b>El ebook completo de «Hackea tu Cerebro»</b><span>El libro entero en digital, el mismo que está en librerías, para que después de la clase tengas los 49 hacks a mano y no dependas de acordarte.
@@ -1143,7 +1162,7 @@ h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
   </div>
 </div>
 
-<div class="sticky" id="sticky"><button class="cta" data-cta>Quiero mi lugar — USD 17</button></div>
+<div class="sticky" id="sticky"><button class="cta" id="sticky-cta" data-goto="oferta">Quiero mi lugar — USD 17</button></div>
 
 
 <!-- ══════════ CHECKOUT · modal de 2 pasos ══════════ -->
@@ -1285,6 +1304,47 @@ function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
   function close(){ ov.removeAttribute('data-open'); }
 
   [].forEach.call(document.querySelectorAll('[data-cta]'), function(b){ b.addEventListener('click',open); });
+
+  /* La página crece mientras se baja (las ilustraciones son lazy), así que el
+     destino se corre durante el viaje y el scroll queda corto. Después del
+     smooth se corrige un par de veces, y se corta apenas la persona toca algo. */
+  function bajarA(d){
+    var n = 0, iv, cancelado = false;
+    function stop(){ cancelado = true; quitar(); }
+    function quitar(){
+      ['wheel','touchstart','keydown'].forEach(function(e){ window.removeEventListener(e,stop); });
+    }
+    ['wheel','touchstart','keydown'].forEach(function(e){ window.addEventListener(e,stop,{passive:true}); });
+    d.scrollIntoView({behavior:'smooth', block:'start'});
+    iv = setInterval(function(){
+      var t = d.getBoundingClientRect().top;
+      if(cancelado || ++n > 8 || Math.abs(t) < 6){ clearInterval(iv); quitar(); return; }
+      window.scrollBy({top:t, behavior:'smooth'});
+    }, 380);
+  }
+
+  /* Los botones de arriba NO abren el checkout: bajan a la oferta, donde dice
+     qué te llevás por los 17 dólares. Comprar es el paso siguiente, no éste. */
+  [].forEach.call(document.querySelectorAll('[data-goto]'), function(b){
+    b.addEventListener('click', function(){
+      var d = document.getElementById(b.getAttribute('data-goto'));
+      if(!d){ open(); return; }
+      track('Lead',{step:'ver_oferta'});
+      bajarA(d);
+    });
+  });
+
+  /* El sticky es el único que cambia de trabajo: mientras la oferta está más
+     abajo, lleva ahí; una vez que el lector ya la pasó, abre el checkout. */
+  var stb = document.getElementById('sticky-cta'), of = document.getElementById('oferta');
+  if(stb && of){
+    window.addEventListener('scroll', function(){
+      if(of.getBoundingClientRect().top < 120) stb.removeAttribute('data-goto');
+      else stb.setAttribute('data-goto','oferta');
+    },{passive:true});
+  }
+  /* Sin data-goto el handler de arriba cae solo en open(): no hace falta
+     un segundo listener, y así el evento no se dispara dos veces. */
   document.getElementById('x').addEventListener('click',close);
   ov.addEventListener('click',function(e){ if(e.target===ov) close(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
