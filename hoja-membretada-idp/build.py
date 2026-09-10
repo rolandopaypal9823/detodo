@@ -6,6 +6,7 @@ Genera las piezas impresas del Instituto de Productividad para el teatro:
   output/hoja-membretada-idp-carta-renglones.pdf  ídem con renglones suaves para escribir
   output/hoja-membretada-idp-a4.pdf             hoja A4 (21 x 29.7 cm), lisa
   output/hoja-membretada-idp-a4-renglones.pdf   ídem con renglones
+  output/hoja-membretada-idp-*-bn.pdf           las mismas cuatro en blanco y negro
   output/tarjeta-invitacion-idp-90x50-v1.pdf / -v2.pdf   tarjeta 90 x 50 mm, dos textos (ver CARD_VARIANTS)
   output/tarjeta-invitacion-idp-plancha-carta-v1.pdf / -v2.pdf  10 tarjetas en una Carta con marcas de corte
   output/qr-idp-tsl-teatro.svg / .png           el QR solo, por si hace falta en otra pieza
@@ -60,6 +61,7 @@ def b64(path: pathlib.Path, mime: str) -> str:
 
 LOGO_NAVY = b64(ASSETS / "logo-nfm-navy.png", "image/png")
 LOGO_WHITE = b64(ASSETS / "logo-nfm-blanco.png", "image/png")
+LOGO_BLACK = b64(ASSETS / "logo-nfm-negro.png", "image/png")
 
 
 def font_face(family: str, weight: int, file: str) -> str:
@@ -106,7 +108,10 @@ ARROW_SVG = (
 
 # ───────────────────────── HOJA MEMBRETADA ──────────────────────────────────
 
-def letterhead_css(w: float, h: float) -> str:
+def letterhead_css(w: float, h: float, mono: bool = False) -> str:
+    BLUE = "#111111" if mono else globals()["BLUE"]
+    ORANGE = "#555555" if mono else globals()["ORANGE"]
+    BLUE_LIGHT = "#d4d4d4" if mono else globals()["BLUE_LIGHT"]
     return f"""
     {FONTS_CSS}
     @page {{ size: {w}mm {h}mm; margin: 0; }}
@@ -128,9 +133,8 @@ def letterhead_css(w: float, h: float) -> str:
     /* Marca de agua */
     .wm {{ position: absolute; left: 50%; top: 50%; width: 200mm; height: 200mm; transform: translate(-50%, -50%); opacity: 1; }}
 
-    /* Renglones opcionales */
-    .lines {{ position: absolute; left: 20mm; right: 16mm; top: 58mm; bottom: 34mm;
-              background: repeating-linear-gradient(to bottom, transparent 0, transparent calc(8.5mm - 0.25mm), {BLUE_LIGHT} calc(8.5mm - 0.25mm), {BLUE_LIGHT} 8.5mm); }}
+    /* Renglones opcionales (divs reales: los degradados repetidos salen irregulares en PDF) */
+    .line {{ position: absolute; left: 20mm; right: 16mm; height: 0.25mm; background: {BLUE_LIGHT}; }}
 
     /* Pie */
     .footer {{ position: absolute; left: 20mm; right: 16mm; bottom: 12mm; }}
@@ -147,15 +151,24 @@ def letterhead_css(w: float, h: float) -> str:
     """
 
 
-def letterhead_html(w: float, h: float, lines: bool) -> str:
-    wm = ARROW_SVG.format(color="rgba(12,52,82,0.035)")
-    return f"""<!doctype html><html><head><meta charset="utf-8"><style>{letterhead_css(w, h)}</style></head>
+def ruled_lines(h: float, top: float = 58.0, bottom: float = 34.0, step: float = 8.5) -> str:
+    y, out = top + step, []
+    while y <= h - bottom:
+        out.append(f'<div class="line" style="top:{y:.2f}mm"></div>')
+        y += step
+    return "".join(out)
+
+
+def letterhead_html(w: float, h: float, lines: bool, mono: bool = False) -> str:
+    wm = ARROW_SVG.format(color="rgba(0,0,0,0.045)" if mono else "rgba(12,52,82,0.035)")
+    logo = LOGO_BLACK if mono else LOGO_NAVY
+    return f"""<!doctype html><html><head><meta charset="utf-8"><style>{letterhead_css(w, h, mono)}</style></head>
 <body><div class="page">
   <div class="rail"></div>
   <div class="wm">{wm}</div>
-  {'<div class="lines"></div>' if lines else ''}
+  {ruled_lines(h) if lines else ''}
   <div class="header">
-    <img src="{LOGO_NAVY}" alt="Nico Fernández Miranda">
+    <img src="{logo}" alt="Nico Fernández Miranda">
     <div class="inst">Instituto de Productividad</div>
   </div>
   <div class="footer">
@@ -292,9 +305,10 @@ def main():
     jobs = []
     for name, (w, h) in PAGES.items():
         for lines in (False, True):
-            fn = f"hoja-membretada-idp-{name}{'-renglones' if lines else ''}"
-            (src / f"{fn}.html").write_text(letterhead_html(w, h, lines), encoding="utf-8")
-            jobs.append((fn, w, h))
+            for mono in (False, True):
+                fn = f"hoja-membretada-idp-{name}{'-renglones' if lines else ''}{'-bn' if mono else ''}"
+                (src / f"{fn}.html").write_text(letterhead_html(w, h, lines, mono), encoding="utf-8")
+                jobs.append((fn, w, h))
     for v in CARD_VARIANTS:
         (src / f"tarjeta-invitacion-idp-90x50-{v}.html").write_text(card_html(v), encoding="utf-8")
         jobs.append((f"tarjeta-invitacion-idp-90x50-{v}", CARD_W, CARD_H))

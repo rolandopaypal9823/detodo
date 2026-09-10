@@ -10,6 +10,7 @@ Piezas impresas para la charla de Nico en el teatro. Se generan con `python3 bui
 | `hoja-membretada-idp-carta.pdf` | Hoja Carta (21,59 × 27,94 cm), lisa. Esquina superior izquierda libre para pegar la tarjeta. |
 | `hoja-membretada-idp-carta-renglones.pdf` | Misma hoja con renglones suaves cada 8,5 mm para que el público escriba. |
 | `hoja-membretada-idp-a4.pdf` / `-a4-renglones.pdf` | Versiones A4 (21 × 29,7 cm). |
+| `hoja-membretada-idp-*-bn.pdf` | Las mismas cuatro hojas en blanco y negro (logo negro, acentos gris, renglones gris claro). |
 | `tarjeta-invitacion-idp-90x50-v1.pdf` | Tarjeta 90 × 50 mm con QR. Texto: "Gracias por venir". |
 | `tarjeta-invitacion-idp-90x50-v2.pdf` | Ídem. Texto: "Espero que disfrutes la función." |
 | `tarjeta-invitacion-idp-plancha-carta-v1.pdf` / `-v2.pdf` | 10 tarjetas en una Carta con marcas de corte, una plancha por versión. |
