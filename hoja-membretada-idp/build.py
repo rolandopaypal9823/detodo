@@ -28,8 +28,9 @@ WEB_CTA_URL = "mba.nicolasfernandezmiranda.com/idp"
 WEB_CTA_TEXTO = "Información sobre acompañamiento profesional del Instituto de Productividad en nuestra web"
 IG_NICO = "@nicofernandezmiranda"
 IG_IDP = "@institutodeproductividad"
-CARD_HEADLINE = "Siempre hay un siguiente nivel."
-CARD_BODY = "Escaneá el código y conocé el acompañamiento profesional del Instituto de Productividad."
+CARD_HEADLINE = "Gracias por venir"
+CARD_BODY = "Conocé cómo trabajar con Nico Fernández Miranda y el Instituto de Productividad."
+CARD_SIGN = "— Nico y Equipo IDP"
 # ────────────────────────────────────────────────────────────────────────────
 
 BLUE = "#0c3452"
@@ -179,6 +180,7 @@ def card_markup() -> str:
     <div class="c-lbl">Invitación · Instituto de Productividad</div>
     <div class="c-head">{CARD_HEADLINE}</div>
     <div class="c-body">{CARD_BODY}</div>
+    <div class="c-sign">{CARD_SIGN}</div>
   </div>
   <div class="c-right">
     <div class="c-qr"><img src="{QR_DATA}" alt="QR"></div>
@@ -196,6 +198,7 @@ CARD_CSS = f"""
 .c-lbl {{ margin-top: 2.6mm; font-family: 'JetBrains Mono', monospace; font-size: 4.3pt; letter-spacing: 0.18em; text-transform: uppercase; color: {ORANGE}; white-space: nowrap; }}
 .c-head {{ margin-top: 1.4mm; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 9.6pt; line-height: 1.12; letter-spacing: -0.005em; }}
 .c-body {{ margin-top: 1.6mm; font-size: 5.6pt; line-height: 1.38; color: rgba(255,255,255,0.86); }}
+.c-sign {{ margin-top: auto; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 5.6pt; color: {ORANGE}; }}
 .c-right {{ width: 34mm; padding: 4.2mm 4.2mm 4.2mm 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.4mm; }}
 .c-qr {{ width: 30mm; height: 30mm; background: #fff; border-radius: 1.6mm; padding: 2.6mm; }}
 .c-qr img {{ width: 100%; height: 100%; display: block; image-rendering: pixelated; }}
