@@ -152,7 +152,6 @@ def letterhead_html(w: float, h: float, lines: bool) -> str:
   <div class="header">
     <img src="{LOGO_NAVY}" alt="Nico Fernández Miranda">
     <div class="inst">Instituto de Productividad</div>
-    <div class="tag">Neurociencia y Negocios</div>
   </div>
   <div class="footer">
     <div class="rule"></div>
