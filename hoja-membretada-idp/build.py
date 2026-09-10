@@ -86,6 +86,7 @@ qr = segno.make(QR_URL, error="q")
 qr.save(str(OUT / "qr-idp-tsl-teatro.svg"), scale=10, border=2, dark=BLUE, light="#ffffff")
 qr.save(str(OUT / "qr-idp-tsl-teatro.png"), scale=40, border=2, dark=BLUE, light="#ffffff")
 QR_DATA = qr.svg_data_uri(scale=1, border=0, dark=BLUE, light=None)
+QR_DATA_BLACK = qr.svg_data_uri(scale=1, border=0, dark="#111111", light=None)
 
 # ───────────────────────────── ICONOS ───────────────────────────────────────
 ICON_IG = (
@@ -187,54 +188,66 @@ def letterhead_html(w: float, h: float, lines: bool, mono: bool = False) -> str:
 
 # ───────────────────────────── TARJETA ──────────────────────────────────────
 
-def card_markup(v: str = "v1") -> str:
+# Temas: "color" (marca), "bn" (mismo diseño en negro) y "bn-blanco" (fondo blanco, para impresora común)
+CARD_THEMES = {
+    "color":     {"suffix": "",           "bg": BLUE,      "fg": "#ffffff", "fg2": "rgba(255,255,255,0.86)", "muted": "rgba(255,255,255,0.7)", "accent": ORANGE,   "qr_border": "none"},
+    "bn":        {"suffix": "-bn",        "bg": "#111111", "fg": "#ffffff", "fg2": "rgba(255,255,255,0.86)", "muted": "rgba(255,255,255,0.7)", "accent": "#bdbdbd", "qr_border": "none"},
+    "bn-blanco": {"suffix": "-bn-blanco", "bg": "#ffffff", "fg": "#111111", "fg2": "#333333",                "muted": "#666666",               "accent": "#111111", "qr_border": "0.3mm solid #111111"},
+}
+
+
+def card_markup(v: str = "v1", theme: str = "color") -> str:
     """Bloque de la tarjeta (90x50 mm) reutilizable en la pieza suelta y en la plancha."""
     t = CARD_VARIANTS[v]
+    logo = LOGO_WHITE if theme != "bn-blanco" else LOGO_BLACK
+    qr_img = QR_DATA if theme == "color" else QR_DATA_BLACK
     return f"""
 <div class="card">
   <div class="c-rail"></div>
   <div class="c-left">
-    <img class="c-logo" src="{LOGO_WHITE}" alt="Nico Fernández Miranda">
+    <img class="c-logo" src="{logo}" alt="Nico Fernández Miranda">
     <div class="c-lbl">Invitación · Instituto de Productividad</div>
     <div class="c-head">{t["headline"]}</div>
     <div class="c-body">{t["body"]}</div>
     <div class="c-sign">{CARD_SIGN}</div>
   </div>
   <div class="c-right">
-    <div class="c-qr"><img src="{QR_DATA}" alt="QR"></div>
+    <div class="c-qr"><img src="{qr_img}" alt="QR"></div>
     <div class="c-scan">Escaneame</div>
   </div>
 </div>"""
 
 
-CARD_CSS = f"""
-.card {{ position: relative; width: {CARD_W}mm; height: {CARD_H}mm; background: {BLUE}; color: #fff; overflow: hidden;
+def card_css(theme: str = "color") -> str:
+    th = CARD_THEMES[theme]
+    return f"""
+.card {{ position: relative; width: {CARD_W}mm; height: {CARD_H}mm; background: {th["bg"]}; color: {th["fg"]}; overflow: hidden;
          font-family: 'Open Sans', sans-serif; display: flex; -webkit-print-color-adjust: exact; print-color-adjust: exact; }}
-.c-rail {{ position: absolute; left: 0; top: 0; bottom: 0; width: 1.6mm; background: {ORANGE}; }}
+.c-rail {{ position: absolute; left: 0; top: 0; bottom: 0; width: 1.6mm; background: {th["accent"]}; }}
 .c-left {{ flex: 1; padding: 4.2mm 3mm 4.2mm 5.4mm; display: flex; flex-direction: column; min-width: 0; }}
 .c-logo {{ width: 19mm; display: block; }}
-.c-lbl {{ margin-top: 2.6mm; font-family: 'JetBrains Mono', monospace; font-size: 4.3pt; letter-spacing: 0.18em; text-transform: uppercase; color: {ORANGE}; white-space: nowrap; }}
+.c-lbl {{ margin-top: 2.6mm; font-family: 'JetBrains Mono', monospace; font-size: 4.3pt; letter-spacing: 0.18em; text-transform: uppercase; color: {th["accent"]}; white-space: nowrap; }}
 .c-head {{ margin-top: 1.4mm; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 9.2pt; line-height: 1.12; letter-spacing: -0.005em; }}
-.c-body {{ margin-top: 1.4mm; font-size: 5.4pt; line-height: 1.36; color: rgba(255,255,255,0.86); }}
-.c-sign {{ margin-top: auto; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 5.6pt; color: {ORANGE}; }}
+.c-body {{ margin-top: 1.4mm; font-size: 5.4pt; line-height: 1.36; color: {th["fg2"]}; }}
+.c-sign {{ margin-top: auto; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 5.6pt; color: {th["accent"]}; }}
 .c-right {{ width: 34mm; padding: 4.2mm 4.2mm 4.2mm 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.4mm; }}
-.c-qr {{ width: 30mm; height: 30mm; background: #fff; border-radius: 1.6mm; padding: 2.6mm; }}
+.c-qr {{ width: 30mm; height: 30mm; background: #fff; border-radius: 1.6mm; padding: 2.6mm; border: {th["qr_border"]}; }}
 .c-qr img {{ width: 100%; height: 100%; display: block; image-rendering: pixelated; }}
-.c-scan {{ font-family: 'JetBrains Mono', monospace; font-size: 4.6pt; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255,255,255,0.7); }}
+.c-scan {{ font-family: 'JetBrains Mono', monospace; font-size: 4.6pt; letter-spacing: 0.24em; text-transform: uppercase; color: {th["muted"]}; }}
 """
 
 
-def card_html(v: str = "v1") -> str:
+def card_html(v: str = "v1", theme: str = "color") -> str:
     return f"""<!doctype html><html><head><meta charset="utf-8"><style>
     {FONTS_CSS}
     @page {{ size: {CARD_W}mm {CARD_H}mm; margin: 0; }}
     * {{ box-sizing: border-box; margin: 0; padding: 0; }}
     html, body {{ width: {CARD_W}mm; height: {CARD_H}mm; background: #fff; }}
-    {CARD_CSS}
-    </style></head><body>{card_markup(v)}</body></html>"""
+    {card_css(theme)}
+    </style></head><body>{card_markup(v, theme)}</body></html>"""
 
 
-def card_sheet_html(v: str = "v1") -> str:
+def card_sheet_html(v: str = "v1", theme: str = "color") -> str:
     """Plancha Carta con 10 tarjetas (2 x 5) y marcas de corte."""
     w, h = PAGES["carta"]
     cols, rows, gap = 2, 5, 4.0
@@ -243,7 +256,7 @@ def card_sheet_html(v: str = "v1") -> str:
     left = (w - grid_w) / 2
     top = (h - grid_h) / 2
     cards = "".join(
-        f'<div class="slot" style="left:{left + c * (CARD_W + gap)}mm;top:{top + r * (CARD_H + gap)}mm">{card_markup(v)}</div>'
+        f'<div class="slot" style="left:{left + c * (CARD_W + gap)}mm;top:{top + r * (CARD_H + gap)}mm">{card_markup(v, theme)}</div>'
         for r in range(rows) for c in range(cols)
     )
     marks = []
@@ -265,7 +278,7 @@ def card_sheet_html(v: str = "v1") -> str:
     .mk.v {{ width: 0.2mm; height: 5mm; }}
     .mk.h {{ height: 0.2mm; width: 5mm; }}
     .note {{ position: absolute; left: 0; right: 0; bottom: 5mm; text-align: center; font: 6pt 'JetBrains Mono', monospace; color: #999; letter-spacing: 0.15em; }}
-    {CARD_CSS}
+    {card_css(theme)}
     </style></head><body>{cards}{''.join(marks)}
     <div class="note">TARJETA INVITACIÓN IDP · 90 × 50 MM · 10 POR PLANCHA · CORTAR POR LAS MARCAS</div>
     </body></html>"""
@@ -282,11 +295,11 @@ def mockup_html() -> str:
     .stage {{ position: relative; width: {w}mm; height: {h}mm; box-shadow: 0 30px 80px rgba(12,52,82,0.25); }}
     .stage iframe {{ width: {w}mm; height: {h}mm; border: 0; display: block; }}
     .paste {{ position: absolute; left: 12mm; top: 12mm; transform: rotate(-1.5deg); box-shadow: 0 6px 18px rgba(0,0,0,0.28); }}
-    {CARD_CSS}
+    {card_css()}
     </style></head><body>
     <div class="stage">
       <iframe srcdoc='{letterhead_html(w, h, True).replace("'", "&#39;")}'></iframe>
-      <div class="paste">{card_markup()}</div>
+      <div class="paste">{card_markup("v2")}</div>
     </div></body></html>"""
 
 
@@ -310,10 +323,12 @@ def main():
                 (src / f"{fn}.html").write_text(letterhead_html(w, h, lines, mono), encoding="utf-8")
                 jobs.append((fn, w, h))
     for v in CARD_VARIANTS:
-        (src / f"tarjeta-invitacion-idp-90x50-{v}.html").write_text(card_html(v), encoding="utf-8")
-        jobs.append((f"tarjeta-invitacion-idp-90x50-{v}", CARD_W, CARD_H))
-        (src / f"tarjeta-invitacion-idp-plancha-carta-{v}.html").write_text(card_sheet_html(v), encoding="utf-8")
-        jobs.append((f"tarjeta-invitacion-idp-plancha-carta-{v}", *PAGES["carta"]))
+        for theme, th in CARD_THEMES.items():
+            sx = v + th["suffix"]
+            (src / f"tarjeta-invitacion-idp-90x50-{sx}.html").write_text(card_html(v, theme), encoding="utf-8")
+            jobs.append((f"tarjeta-invitacion-idp-90x50-{sx}", CARD_W, CARD_H))
+            (src / f"tarjeta-invitacion-idp-plancha-carta-{sx}.html").write_text(card_sheet_html(v, theme), encoding="utf-8")
+            jobs.append((f"tarjeta-invitacion-idp-plancha-carta-{sx}", *PAGES["carta"]))
     (src / "mockup.html").write_text(mockup_html(), encoding="utf-8")
 
     with sync_playwright() as p:

@@ -13,7 +13,9 @@ Piezas impresas para la charla de Nico en el teatro. Se generan con `python3 bui
 | `hoja-membretada-idp-*-bn.pdf` | Las mismas cuatro hojas en blanco y negro (logo negro, acentos gris, renglones gris claro). |
 | `tarjeta-invitacion-idp-90x50-v1.pdf` | Tarjeta 90 × 50 mm con QR. Texto: "Gracias por venir". |
 | `tarjeta-invitacion-idp-90x50-v2.pdf` | Ídem. Texto: "Espero que disfrutes la función." |
-| `tarjeta-invitacion-idp-plancha-carta-v1.pdf` / `-v2.pdf` | 10 tarjetas en una Carta con marcas de corte, una plancha por versión. |
+| `tarjeta-invitacion-idp-90x50-v2-bn.pdf` | v2 en blanco y negro, mismo diseño (fondo negro). |
+| `tarjeta-invitacion-idp-90x50-v2-bn-blanco.pdf` | v2 en blanco y negro con fondo blanco (menos tinta, impresora común). |
+| `tarjeta-invitacion-idp-plancha-carta-*.pdf` | 10 tarjetas en una Carta con marcas de corte, una plancha por versión y tema. |
 | `qr-idp-tsl-teatro.svg` / `.png` | El QR solo (azul NFM sobre blanco), por si hace falta en otra pieza. |
 | `mockup-hoja-con-tarjeta.png` | Preview de cómo queda la tarjeta pegada en la hoja. |
 
