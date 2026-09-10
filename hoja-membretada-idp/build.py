@@ -6,8 +6,8 @@ Genera las piezas impresas del Instituto de Productividad para el teatro:
   output/hoja-membretada-idp-carta-renglones.pdf  ídem con renglones suaves para escribir
   output/hoja-membretada-idp-a4.pdf             hoja A4 (21 x 29.7 cm), lisa
   output/hoja-membretada-idp-a4-renglones.pdf   ídem con renglones
-  output/tarjeta-invitacion-idp-90x50.pdf       tarjeta tamaño tarjeta personal (90 x 50 mm)
-  output/tarjeta-invitacion-idp-plancha-carta.pdf  10 tarjetas en una Carta con marcas de corte
+  output/tarjeta-invitacion-idp-90x50-v1.pdf / -v2.pdf   tarjeta 90 x 50 mm, dos textos (ver CARD_VARIANTS)
+  output/tarjeta-invitacion-idp-plancha-carta-v1.pdf / -v2.pdf  10 tarjetas en una Carta con marcas de corte
   output/qr-idp-tsl-teatro.svg / .png           el QR solo, por si hace falta en otra pieza
   output/mockup-hoja-con-tarjeta.png            preview de la tarjeta pegada en la esquina
 
@@ -28,9 +28,13 @@ WEB_CTA_URL = "mba.nicolasfernandezmiranda.com/idp"
 WEB_CTA_TEXTO = "Información sobre acompañamiento profesional del Instituto de Productividad en nuestra web"
 IG_NICO = "@nicofernandezmiranda"
 IG_IDP = "@institutodeproductividad"
-CARD_HEADLINE = "Gracias por venir"
-CARD_BODY = "Conocé cómo trabajar con Nico Fernández Miranda y el Instituto de Productividad."
 CARD_SIGN = "— Nico y Equipo IDP"
+CARD_VARIANTS = {
+    "v1": {"headline": "Gracias por venir",
+           "body": "Conocé cómo trabajar con Nico Fernández Miranda y el Instituto de Productividad."},
+    "v2": {"headline": "Espero que disfrutes la función.",
+           "body": "Si querés aplicar herramientas a tu caso específico, conocé cómo ser acompañado por profesionales del Instituto de Productividad."},
+}
 # ────────────────────────────────────────────────────────────────────────────
 
 BLUE = "#0c3452"
@@ -170,16 +174,17 @@ def letterhead_html(w: float, h: float, lines: bool) -> str:
 
 # ───────────────────────────── TARJETA ──────────────────────────────────────
 
-def card_markup() -> str:
+def card_markup(v: str = "v1") -> str:
     """Bloque de la tarjeta (90x50 mm) reutilizable en la pieza suelta y en la plancha."""
+    t = CARD_VARIANTS[v]
     return f"""
 <div class="card">
   <div class="c-rail"></div>
   <div class="c-left">
     <img class="c-logo" src="{LOGO_WHITE}" alt="Nico Fernández Miranda">
     <div class="c-lbl">Invitación · Instituto de Productividad</div>
-    <div class="c-head">{CARD_HEADLINE}</div>
-    <div class="c-body">{CARD_BODY}</div>
+    <div class="c-head">{t["headline"]}</div>
+    <div class="c-body">{t["body"]}</div>
     <div class="c-sign">{CARD_SIGN}</div>
   </div>
   <div class="c-right">
@@ -196,8 +201,8 @@ CARD_CSS = f"""
 .c-left {{ flex: 1; padding: 4.2mm 3mm 4.2mm 5.4mm; display: flex; flex-direction: column; min-width: 0; }}
 .c-logo {{ width: 19mm; display: block; }}
 .c-lbl {{ margin-top: 2.6mm; font-family: 'JetBrains Mono', monospace; font-size: 4.3pt; letter-spacing: 0.18em; text-transform: uppercase; color: {ORANGE}; white-space: nowrap; }}
-.c-head {{ margin-top: 1.4mm; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 9.6pt; line-height: 1.12; letter-spacing: -0.005em; }}
-.c-body {{ margin-top: 1.6mm; font-size: 5.6pt; line-height: 1.38; color: rgba(255,255,255,0.86); }}
+.c-head {{ margin-top: 1.4mm; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 9.2pt; line-height: 1.12; letter-spacing: -0.005em; }}
+.c-body {{ margin-top: 1.4mm; font-size: 5.4pt; line-height: 1.36; color: rgba(255,255,255,0.86); }}
 .c-sign {{ margin-top: auto; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 5.6pt; color: {ORANGE}; }}
 .c-right {{ width: 34mm; padding: 4.2mm 4.2mm 4.2mm 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.4mm; }}
 .c-qr {{ width: 30mm; height: 30mm; background: #fff; border-radius: 1.6mm; padding: 2.6mm; }}
@@ -206,17 +211,17 @@ CARD_CSS = f"""
 """
 
 
-def card_html() -> str:
+def card_html(v: str = "v1") -> str:
     return f"""<!doctype html><html><head><meta charset="utf-8"><style>
     {FONTS_CSS}
     @page {{ size: {CARD_W}mm {CARD_H}mm; margin: 0; }}
     * {{ box-sizing: border-box; margin: 0; padding: 0; }}
     html, body {{ width: {CARD_W}mm; height: {CARD_H}mm; background: #fff; }}
     {CARD_CSS}
-    </style></head><body>{card_markup()}</body></html>"""
+    </style></head><body>{card_markup(v)}</body></html>"""
 
 
-def card_sheet_html() -> str:
+def card_sheet_html(v: str = "v1") -> str:
     """Plancha Carta con 10 tarjetas (2 x 5) y marcas de corte."""
     w, h = PAGES["carta"]
     cols, rows, gap = 2, 5, 4.0
@@ -225,7 +230,7 @@ def card_sheet_html() -> str:
     left = (w - grid_w) / 2
     top = (h - grid_h) / 2
     cards = "".join(
-        f'<div class="slot" style="left:{left + c * (CARD_W + gap)}mm;top:{top + r * (CARD_H + gap)}mm">{card_markup()}</div>'
+        f'<div class="slot" style="left:{left + c * (CARD_W + gap)}mm;top:{top + r * (CARD_H + gap)}mm">{card_markup(v)}</div>'
         for r in range(rows) for c in range(cols)
     )
     marks = []
@@ -290,10 +295,11 @@ def main():
             fn = f"hoja-membretada-idp-{name}{'-renglones' if lines else ''}"
             (src / f"{fn}.html").write_text(letterhead_html(w, h, lines), encoding="utf-8")
             jobs.append((fn, w, h))
-    (src / "tarjeta-invitacion-idp-90x50.html").write_text(card_html(), encoding="utf-8")
-    jobs.append(("tarjeta-invitacion-idp-90x50", CARD_W, CARD_H))
-    (src / "tarjeta-invitacion-idp-plancha-carta.html").write_text(card_sheet_html(), encoding="utf-8")
-    jobs.append(("tarjeta-invitacion-idp-plancha-carta", *PAGES["carta"]))
+    for v in CARD_VARIANTS:
+        (src / f"tarjeta-invitacion-idp-90x50-{v}.html").write_text(card_html(v), encoding="utf-8")
+        jobs.append((f"tarjeta-invitacion-idp-90x50-{v}", CARD_W, CARD_H))
+        (src / f"tarjeta-invitacion-idp-plancha-carta-{v}.html").write_text(card_sheet_html(v), encoding="utf-8")
+        jobs.append((f"tarjeta-invitacion-idp-plancha-carta-{v}", *PAGES["carta"]))
     (src / "mockup.html").write_text(mockup_html(), encoding="utf-8")
 
     with sync_playwright() as p:
