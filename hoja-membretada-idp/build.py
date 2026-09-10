@@ -284,6 +284,57 @@ def card_sheet_html(v: str = "v1", theme: str = "color") -> str:
     </body></html>"""
 
 
+
+def card_sheet6_html(v: str = "v1", theme: str = "color") -> str:
+    """Plancha Carta con 6 tarjetas más grandes (3 x 2, rotadas 90°), con marcas de corte.
+    Cada tarjeta queda de ~111 x 62 mm (escala 1.24 del diseño de 90 x 50)."""
+    w, h = PAGES["carta"]
+    cols, rows, gap, side = 3, 2, 5.0, 10.0
+    slot_w = (w - 2 * side - (cols - 1) * gap) / cols          # ancho del slot = alto de la tarjeta rotada
+    k = slot_w / CARD_H                                         # factor de escala
+    slot_h = CARD_W * k                                         # alto del slot = ancho de la tarjeta rotada
+    grid_w = cols * slot_w + (cols - 1) * gap
+    grid_h = rows * slot_h + (rows - 1) * gap
+    left = (w - grid_w) / 2
+    top = (h - grid_h) / 2
+    cw, ch = CARD_W * k, CARD_H * k                             # tarjeta escalada, sin rotar
+    slots = []
+    for r in range(rows):
+        for c in range(cols):
+            cx = left + c * (slot_w + gap) + slot_w / 2
+            cy = top + r * (slot_h + gap) + slot_h / 2
+            slots.append(
+                f'<div class="cut" style="left:{left + c * (slot_w + gap):.3f}mm;top:{top + r * (slot_h + gap):.3f}mm;width:{slot_w:.3f}mm;height:{slot_h:.3f}mm"></div>'
+                f'<div class="wrap" style="left:{cx - cw / 2:.3f}mm;top:{cy - ch / 2:.3f}mm;width:{cw:.3f}mm;height:{ch:.3f}mm">'
+                f'<div class="sc" style="transform:scale({k:.5f})">{card_markup(v, theme)}</div></div>'
+            )
+    marks = []
+    for c in range(cols):
+        for x in (left + c * (slot_w + gap), left + c * (slot_w + gap) + slot_w):
+            marks.append(f'<div class="mk v" style="left:{x:.3f}mm;top:{top - 6}mm"></div>')
+            marks.append(f'<div class="mk v" style="left:{x:.3f}mm;top:{top + grid_h + 1}mm"></div>')
+    for r in range(rows):
+        for y in (top + r * (slot_h + gap), top + r * (slot_h + gap) + slot_h):
+            marks.append(f'<div class="mk h" style="top:{y:.3f}mm;left:{left - 6}mm"></div>')
+            marks.append(f'<div class="mk h" style="top:{y:.3f}mm;left:{left + grid_w + 1}mm"></div>')
+    return f"""<!doctype html><html><head><meta charset="utf-8"><style>
+    {FONTS_CSS}
+    @page {{ size: {w}mm {h}mm; margin: 0; }}
+    * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    html, body {{ width: {w}mm; height: {h}mm; background: #fff; }}
+    .wrap {{ position: absolute; transform: rotate(90deg); transform-origin: center center; }}
+    .cut {{ position: absolute; outline: 0.15mm dashed #bbb; outline-offset: 0.2mm; }}
+    .sc {{ transform-origin: top left; width: {CARD_W}mm; height: {CARD_H}mm; }}
+    .mk {{ position: absolute; background: #888; }}
+    .mk.v {{ width: 0.2mm; height: 5mm; }}
+    .mk.h {{ height: 0.2mm; width: 5mm; }}
+    .note {{ position: absolute; left: 0; right: 0; bottom: 5mm; text-align: center; font: 6pt 'JetBrains Mono', monospace; color: #999; letter-spacing: 0.15em; }}
+    {card_css(theme)}
+    </style></head><body>{''.join(slots)}{''.join(marks)}
+    <div class="note">TARJETA INVITACIÓN IDP · {CARD_W * k:.0f} × {CARD_H * k:.0f} MM · 6 POR PLANCHA · CORTAR POR LAS MARCAS</div>
+    </body></html>"""
+
+
 # ───────────────────────────── MOCKUP ───────────────────────────────────────
 
 def mockup_html() -> str:
@@ -329,6 +380,8 @@ def main():
             jobs.append((f"tarjeta-invitacion-idp-90x50-{sx}", CARD_W, CARD_H))
             (src / f"tarjeta-invitacion-idp-plancha-carta-{sx}.html").write_text(card_sheet_html(v, theme), encoding="utf-8")
             jobs.append((f"tarjeta-invitacion-idp-plancha-carta-{sx}", *PAGES["carta"]))
+            (src / f"tarjeta-invitacion-idp-plancha6-carta-{sx}.html").write_text(card_sheet6_html(v, theme), encoding="utf-8")
+            jobs.append((f"tarjeta-invitacion-idp-plancha6-carta-{sx}", *PAGES["carta"]))
     (src / "mockup.html").write_text(mockup_html(), encoding="utf-8")
 
     with sync_playwright() as p:
