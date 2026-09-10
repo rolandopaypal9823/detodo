@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrando a la clase en vivo — Nicolás Fernández Miranda</title>
+
+<!-- ===== CONFIG =====
+  ZOOM_LINK -> link de Zoom al que redirige apenas carga la página.
+  No se pide ningún dato: la página redirige sola.
+-->
+
+<!-- Redirección inmediata aunque JavaScript esté desactivado -->
+<meta http-equiv="refresh" content="1;url=https://us06web.zoom.us/j/82405076014?pwd=zjj9IkYia94CNSNVGE4rII3nXHZfLD.1">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --navy:#0c3452;
+    --navy-deep:#082539;
+    --orange:#ff6602;
+    --orange-hover:#ff7d28;
+    --white:#ffffff;
+    --gray:#5a6b7a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    font-family:'Open Sans',sans-serif;
+    background:linear-gradient(160deg,var(--navy) 0%,var(--navy-deep) 100%);
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:20px;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:absolute;width:600px;height:600px;
+    background:radial-gradient(circle,rgba(255,102,2,0.12) 0%,transparent 70%);
+    top:-200px;right:-150px;pointer-events:none;
+  }
+  body::after{
+    content:"";position:absolute;width:500px;height:500px;
+    background:radial-gradient(circle,rgba(255,102,2,0.08) 0%,transparent 70%);
+    bottom:-180px;left:-120px;pointer-events:none;
+  }
+  .card{
+    background:var(--white);
+    border-radius:20px;
+    box-shadow:0 24px 60px rgba(0,0,0,0.35);
+    width:100%;max-width:480px;
+    overflow:hidden;position:relative;z-index:2;
+    animation:rise .5s ease;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  .card-head{background:var(--navy);padding:32px 30px 26px;text-align:center;}
+  .badge{
+    display:inline-flex;align-items:center;gap:7px;
+    background:rgba(255,102,2,0.15);color:var(--orange);
+    font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;
+    letter-spacing:1.2px;text-transform:uppercase;
+    padding:7px 14px;border-radius:30px;margin-bottom:16px;
+  }
+  .badge .dot{
+    width:8px;height:8px;border-radius:50%;background:var(--orange);
+    box-shadow:0 0 0 0 rgba(255,102,2,0.6);animation:pulse-dot 1.6s infinite;
+  }
+  @keyframes pulse-dot{
+    0%{box-shadow:0 0 0 0 rgba(255,102,2,0.6);}
+    70%{box-shadow:0 0 0 9px rgba(255,102,2,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,102,2,0);}
+  }
+  .card-head h1{
+    font-family:'Montserrat',sans-serif;font-weight:800;font-size:23px;
+    color:var(--white);line-height:1.25;margin-bottom:10px;
+  }
+  .card-head h1 .hl{color:var(--orange);}
+  .card-head p{color:#c3d0db;font-size:14.5px;line-height:1.5;}
+  .card-body{padding:28px 30px 30px;text-align:center;}
+  .btn{
+    display:block;width:100%;
+    background:var(--orange);color:var(--white);
+    font-family:'Montserrat',sans-serif;font-weight:800;font-size:16.5px;
+    letter-spacing:.3px;border:none;border-radius:12px;padding:17px;
+    cursor:pointer;text-decoration:none;
+    box-shadow:0 8px 20px rgba(255,102,2,0.35);
+    transition:transform .12s ease, background .15s, box-shadow .2s;
+  }
+  .btn:hover{background:var(--orange-hover);transform:translateY(-2px);box-shadow:0 12px 26px rgba(255,102,2,0.45);}
+  .btn:active{transform:translateY(0) scale(.98);}
+  .spinner{
+    display:inline-block;width:17px;height:17px;
+    border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;
+    border-radius:50%;animation:spin .7s linear infinite;
+    vertical-align:-3px;margin-right:8px;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .reassure{font-size:12.5px;color:var(--gray);margin-top:16px;line-height:1.5;}
+  @media (max-width:520px){
+    .card-head h1{font-size:21px;}
+    .card-head{padding:28px 22px 22px;}
+    .card-body{padding:24px 22px 26px;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="badge"><span class="dot"></span> Clase en vivo</span>
+      <h1>Te estamos llevando a la <span class="hl">clase en vivo</span> con Nico</h1>
+      <p><span class="spinner"></span>Ingresando a Zoom…</p>
+    </div>
+    <div class="card-body">
+      <a class="btn" id="btn-zoom" href="#">Entrar a la clase ahora →</a>
+      <p class="reassure">Si no te redirige automáticamente, tocá el botón.</p>
+    </div>
+  </div>
+
+<script>
+  /* ============================================================
+     CONFIG
+     ============================================================ */
+  var ZOOM_LINK = "https://us06web.zoom.us/j/82405076014?pwd=zjj9IkYia94CNSNVGE4rII3nXHZfLD.1";
+
+  // botón de respaldo por si el navegador bloquea la redirección automática
+  var btn = document.getElementById('btn-zoom');
+  btn.href = ZOOM_LINK;
+
+  // REDIRECCIÓN DIRECTA A ZOOM — sin pedir datos.
+  // replace() evita que el usuario vuelva a esta página con "atrás".
+  window.location.replace(ZOOM_LINK);
+</script>
+</body>
+</html>
