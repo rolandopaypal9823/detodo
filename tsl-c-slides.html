@@ -295,7 +295,10 @@ body.agd-lock .feed{overflow:hidden}
   .bcards{grid-template-columns:repeat(2,1fr)}
   .casos-grid{grid-template-columns:repeat(2,1fr)}
   .incl-feature{grid-template-columns:1fr}
-  .incl-feature__photo{min-height:220px;border-left:0;border-top:1px dashed var(--hair-2);order:-1}
+  /* en celular la franja de 220px dejaba celdas de 152x108: una foto vertical
+     perdia la mitad. Con proporcion cuadrada las celdas quedan casi cuadradas
+     y el recorte baja mucho, sea cual sea la orientacion de la foto. */
+  .incl-feature__photo{min-height:0;aspect-ratio:1/1;max-height:78vh;border-left:0;border-top:1px dashed var(--hair-2);order:-1}
   .incl-feature__body{padding:34px 28px 36px}
   .deck__stage{aspect-ratio:auto}
   .slide{padding:34px 30px}
@@ -310,6 +313,10 @@ body.agd-lock .feed{overflow:hidden}
   .topbar__cta .lbl-full{display:none}
   .topbar__cta .lbl-short{display:inline}
   .btn-lg{font-size:17px;padding:17px 26px;width:100%;max-width:420px}
+  /* el boton fijo de arriba medía 37px: por debajo de los 44px que necesita un dedo */
+  .btn-sm{min-height:44px;padding:12px 20px}
+  /* la letra chica legal y los roles del equipo eran ilegibles en mano */
+  .feat-legal{font-size:12px;line-height:1.65}
   .slide{padding:28px 22px}
   .slide__grid--3,.slide__grid--2{grid-template-columns:1fr}
   .deck__nav{width:38px;height:38px;font-size:16px}

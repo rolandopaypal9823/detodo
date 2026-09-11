@@ -17,3 +17,7 @@
 .nfm-team__bio em{color:var(--nfm-blue);font-style:italic}
 @media(max-width:980px){.nfm-team__grid{grid-template-columns:repeat(2,1fr);gap:20px}}
 @media(max-width:640px){.nfm-team__grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}}
+@media(max-width:640px){
+  /* mayusculas con espaciado a 11.5px no se leen en celular */
+  .nfm-team__role{font-size:.8rem;letter-spacing:.06em}
+}
