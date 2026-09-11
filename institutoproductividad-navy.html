@@ -1759,14 +1759,6 @@ section,.trust,footer.foot{position:relative;z-index:2}
   .agd-card h3{font-family:'Montserrat';font-weight:800;font-size:clamp(19px,2.6vw,24px);color:var(--nfm-blue);line-height:1.2;margin:0 0 18px}
   .agd-opt{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--nfm-blue-light);border-radius:12px;padding:15px 18px;margin-bottom:10px;cursor:pointer;font-family:'Open Sans';font-size:15px;font-weight:600;color:var(--nfm-blue);transition:all .15s}
   .agd-opt:hover{border-color:var(--nfm-orange);background:var(--nfm-orange-wash);transform:translateX(3px)}
-  .agd-lead{font-size:14.5px;color:var(--muted);line-height:1.6;margin:-6px 0 18px}
-  .agd-lead b{color:var(--nfm-blue)}
-  .agd-opt--rich{padding:16px 18px}
-  .agd-opt--rich b{display:block;font-family:'Montserrat';font-weight:800;font-size:15.5px;color:var(--nfm-blue);line-height:1.3;margin-bottom:5px}
-  .agd-opt--rich span{display:block;font-weight:400;font-size:13.5px;color:var(--muted);line-height:1.5}
-  .agd-igual{width:100%;margin-top:4px;font-size:15px;padding:15px 22px}
-  .agd-cerrar{display:block;width:100%;margin-top:8px;background:none;border:0;cursor:pointer;font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mono-grey);padding:12px}
-  .agd-cerrar:hover{color:var(--nfm-blue)}
   .agd-cal{min-height:640px;border-radius:12px;overflow:hidden;border:1px solid var(--hair)}
   .agd-cal iframe{width:100%;min-height:640px;border:0}
   .agd-cal-ph{min-height:640px;display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;color:var(--muted);font-size:14px;background:#f4f6f8}
@@ -1788,33 +1780,13 @@ section,.trust,footer.foot{position:relative;z-index:2}
       <button type="button" class="agd-opt" onclick="agdPick('equipo','Todavía no')">Todavía no, pero voy hacia ahí</button>
     </div>
 
-    <!-- Paso 2 · calificación: qué le está costando sostener lo que ya logró -->
+    <!-- Paso 2 · patrón repetido (reporte 21/7: pregunta de auto-reconocimiento) -->
     <div class="agd-step" data-agd="1">
       <span class="agd-mono">◆ Última pregunta</span>
-      <h3>¿Cuál de estas tres se parece más a tu presente?</h3>
-      <p class="agd-lead">No hay respuesta correcta. Hay una que hace que esta charla te sirva — y una que hace que te haga perder el tiempo.</p>
-      <button type="button" class="agd-opt agd-opt--rich" onclick="agdPick('nivel','Dinero resuelto · sostener lo construido')">
-        <b>El dinero ya dejó de ser mi variable</b>
-        <span>Lo que pesa ahora es sostener lo que construí: la presión, las horas, no poder desconectar del trabajo.</span>
-      </button>
-      <button type="button" class="agd-opt agd-opt--rich" onclick="agdPick('nivel','Buen nivel · lo paga en salud y vinculos')">
-        <b>Tengo una buena carrera y un buen pasar</b>
-        <span>Pero lo estoy pagando en salud, en tiempo y en mis vínculos. Así no se sostiene mucho más.</span>
-      </button>
-      <button type="button" class="agd-opt agd-opt--rich" onclick="agdPick('nivel','Sin piso economico')">
-        <b>Todavía estoy construyendo mi piso económico</b>
-        <span>Hoy llegar a fin de mes sigue siendo parte de la pelea.</span>
-      </button>
-    </div>
-
-    <!-- Paso 2b · para quien todavía pelea el piso económico (filtro honesto) -->
-    <div class="agd-step" data-agd="3">
-      <span class="agd-mono">◆ Seamos honestos</span>
-      <h3>Hoy no es tu momento — y está perfecto.</h3>
-      <p class="agd-lead">El Instituto es un proceso de 6 meses con un equipo detrás: coach dedicada, psicólogos, nutricionistas y sesiones uno a uno. Cuando el piso económico todavía es la pelea del mes, entrar acá te <b>suma</b> presión en lugar de sacártela.</p>
-      <p class="agd-lead">Guardate esto para cuando ese piso esté resuelto. Va a seguir estando — y vas a llegar con la cabeza en otro lado.</p>
-      <button type="button" class="btn btn-ghost-blue agd-igual" onclick="agdIgualAgendar()">Aun así quiero dar el paso <span class="arrow">→</span></button>
-      <button type="button" class="agd-cerrar" onclick="agdClose()">Cerrar</button>
+      <h3>Eso que venís posponiendo… ¿hace cuánto te persigue?</h3>
+      <button type="button" class="agd-opt" onclick="agdPick('patron','Años')">Años — ya me cansé de posponerlo</button>
+      <button type="button" class="agd-opt" onclick="agdPick('patron','Meses')">Unos meses, y va creciendo</button>
+      <button type="button" class="agd-opt" onclick="agdPick('patron','Reciente')">Lo estoy notando recién ahora</button>
     </div>
 
     <!-- Paso 3 · Calendly -->
@@ -1831,15 +1803,11 @@ section,.trust,footer.foot{position:relative;z-index:2}
 var agdData={}, agdSent=false, agdCalLoaded=false;
 function agdSteps(){ return document.querySelectorAll('#agdModal .agd-step'); }
 function agdShow(i){
-  /* por atributo, no por posicion: asi agregar pasos no rompe el orden */
-  agdSteps().forEach(function(s){ s.classList.toggle('active', +s.getAttribute('data-agd')===i); });
+  agdSteps().forEach(function(s,k){ s.classList.toggle('active', k===i); });
   document.getElementById('agdCard').classList.toggle('wide', i===2);
 }
 function agdOpen(origen){
   agdData={origen:origen||'cta'};
-  /* si el calendario quedo vacio (fallo de red la vez anterior) hay que
-     reintentarlo: sin esto se queda pegado con el mensaje de error */
-  if(agdCalLoaded && !document.querySelector("#agdCal iframe, #agdCal .calendly-inline-widget")) agdCalLoaded=false;
   agdSent=false;
   agdShow(0);
   document.getElementById('agdModal').classList.add('open');
@@ -1853,25 +1821,11 @@ function agdClose(){
 function agdPick(key,val){
   agdData[key]=val;
   if(key==='equipo'){ agdShow(1); return; }
-  agdRegistrar();
-  /* filtro economico: a quien todavia pelea el piso le mostramos la pantalla
-     honesta en vez del calendario. Se apaga con CONFIG.FILTRO_ECONOMICO=false */
-  if(key==='nivel' && val.indexOf('Sin piso')===0 && CONFIG.FILTRO_ECONOMICO!==false){
-    agdShow(3); return;
+  agdShow(2);
+  if(!agdSent){
+    agdSent=true;
+    enviarASheets(Object.assign({tipo:'popup_agendar', fuente:getUTM(), url:location.href}, agdData));
   }
-  agdShow(2);
-  agdLoadCalendly();
-}
-function agdRegistrar(){
-  if(agdSent) return;
-  agdSent=true;
-  enviarASheets(Object.assign({tipo:'popup_agendar', fuente:getUTM(), url:location.href}, agdData));
-}
-/* si igual insiste, que agende: queda marcado para quien lo atienda */
-function agdIgualAgendar(){
-  agdData.insistio='si';
-  enviarASheets(Object.assign({tipo:'popup_agendar_insistio', fuente:getUTM(), url:location.href}, agdData));
-  agdShow(2);
   agdLoadCalendly();
 }
 function agdCalUrl(){
@@ -1887,7 +1841,7 @@ function agdLoadCalendly(){
   if(!url){ box.innerHTML='<div class="agd-cal-ph">Pegá tu link en CONFIG.CALENDLY_URL para mostrar el calendario acá.</div>'; return; }
   var utm=getUTM();
   var sep=url.indexOf('?')<0?'?':'&';
-  var full=url+sep+'utm_source='+encodeURIComponent(utm)+'&utm_content='+encodeURIComponent((agdData.equipo||'')+' | '+(agdData.nivel||'')+(agdData.insistio?' | INSISTIO':''))+'&hide_gdpr_banner=1';
+  var full=url+sep+'utm_source='+encodeURIComponent(utm)+'&utm_content='+encodeURIComponent((agdData.equipo||'')+' | '+(agdData.patron||''))+'&hide_gdpr_banner=1';
   agdCalLoaded=true;
   function init(){
     box.innerHTML='';
@@ -1942,11 +1896,6 @@ const CONFIG = {
   // Vimeo: https://player.vimeo.com/video/XXXX · Loom: https://www.loom.com/embed/XXXX).
   // Mientras esté vacío, se muestra el placeholder con el botón de play.
   VIDEO_EMBED_URL: "https://www.loom.com/embed/e6d553bf507a426db5b7d77f479a5f9f?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true",
-
-  // Filtro economico del popup: true = a quien todavia pelea el piso economico
-  // le mostramos la pantalla honesta en vez del calendario (igual puede insistir).
-  // Poné false y agendan todos, sin pantalla intermedia.
-  FILTRO_ECONOMICO: true,
 
   // Base de datos (mismo endpoint que la landing madre para unificar leads).
   SHEETS_ENDPOINT: "",
