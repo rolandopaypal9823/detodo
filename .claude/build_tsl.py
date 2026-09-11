@@ -10,8 +10,14 @@ CASOS  = json.load(open(SCR + "/casos.json", encoding="utf-8"))
 QUIZ   = open(SCR + "/quiz.html", encoding="utf-8").read()
 EQUIPO = open(SCR + "/equipo.html", encoding="utf-8").read()
 EQUIPO_CSS = open(SCR + "/equipo.css", encoding="utf-8").read()
+METODO     = open(SCR + "/metodo.html", encoding="utf-8").read()
+METODO_CSS = open(SCR + "/metodo.css", encoding="utf-8").read()
 
 CALENDLY = "https://calendly.com/nicolasfernandezmiranda/sesion-de-claridad-sma-clon-clon?primary_color=ff4b00"
+CALENDLY_POR_VERSION = {
+    # la version corta apunta a su propio evento de Calendly
+    "corta": "https://calendly.com/nicolasfernandezmiranda/sesion-de-claridad-conf-clon?primary_color=ff4b00",
+}
 
 # ══════════════════════════════════════════════════════════════════ HEAD + CSS
 HEAD = """<!doctype html>
@@ -230,6 +236,7 @@ h1 .hl,.shimmer{color:var(--nfm-orange)}
 .section--navy .deck__hint{color:#7d97ac}
 
 __EQUIPO_CSS__
+__METODO_CSS__
 /* ---------- FEED VERTICAL (version D · tipo TikTok) ---------- */
 body.feed-mode{overflow:hidden}
 body.feed-mode .topbar{position:fixed;top:0;left:0;right:0}
@@ -965,14 +972,15 @@ __CTA__
 
 def build(version, title, rotulo, body):
     out = HEAD.replace('__TITLE__', title).replace('__ROTULO__', rotulo)
-    out = out.replace('__EQUIPO_CSS__', EQUIPO_CSS if version == 'b2' else '')
+    out = out.replace('__EQUIPO_CSS__', EQUIPO_CSS if version in ('b2', 'corta') else '')
+    out = out.replace('__METODO_CSS__', METODO_CSS if version == 'corta' else '')
     out += body
     js = DECK_JS if version == 'slides' else (FEED_JS if version == 'feed' else '')
     pie = FOOTER_JS
     if version == 'feed':               # en el feed cada slide ocupa la pantalla: sin footer
         i = pie.index('<footer class="foot">'); j = pie.index('</footer>') + len('</footer>')
         pie = pie[:i] + pie[j:]
-    out += pie.replace('__CALENDLY__', CALENDLY).replace('__NEURAL__', js + "\n" + NEURAL)
+    out += pie.replace('__CALENDLY__', CALENDLY_POR_VERSION.get(version, CALENDLY)).replace('__NEURAL__', js + "\n" + NEURAL)
     return out
 
 
@@ -989,6 +997,8 @@ corta = (
     hero('corta').replace('__CTA__', cta('hero'))
     + SEC_INCLUYE.replace('__NAVY__', ' section--navy').replace('__CTA__', cta('incluye'))
     + SEC_AVAL.replace('__NAVY__', '').replace('__CTA__', cta('aval', 'Quiero aplicar al Platinum'))
+    + METODO                                    # lo que se aplica: los 5 pilares
+    + EQUIPO.replace('__CTA__', cta('equipo'))  # quienes forman parte del Instituto
     + '\n<div class="quiz-wrap">\n' + QUIZ + '\n</div>\n'
 )
 
@@ -1005,7 +1015,7 @@ b2 = (
     + SEC_RAZON.replace('__CTA__', cta('razon'))
     + SEC_INCLUYE.replace('__NAVY__', '').replace('__CTA__', cta('incluye'))
     + SEC_AVAL.replace('__NAVY__', ' section--navy').replace('__CTA__', cta('aval', 'Quiero aplicar al Platinum'))
-    + EQUIPO
+    + EQUIPO.replace('__CTA__', '')
     + '\n<div class="quiz-wrap">\n' + QUIZ + '\n</div>\n'
 )
 

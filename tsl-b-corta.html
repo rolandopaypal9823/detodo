@@ -213,6 +213,39 @@ h1 .hl,.shimmer{color:var(--nfm-orange)}
 .deck__hint{text-align:center;margin-top:12px;font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mono-grey)}
 .section--navy .deck__hint{color:#7d97ac}
 
+/* ---------- EQUIPO (widget integrado) ---------- */
+/* .nfm-team hereda el padding de .section para igualar al resto */
+.nfm-team__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:44px;text-align:left}
+.nfm-team__card{background:#fff;border-radius:16px;padding:32px 26px 28px;box-shadow:0 12px 34px rgba(12,52,82,.08);border:1px solid var(--hair);transition:transform .25s,box-shadow .25s;display:flex;flex-direction:column}
+.nfm-team__card:hover{transform:translateY(-4px);box-shadow:0 22px 48px rgba(12,52,82,.14)}
+.nfm-team__photo{width:130px;height:130px;border-radius:50%;overflow:hidden;margin:0 auto 20px;position:relative;border:3px solid #fff;box-shadow:0 4px 16px rgba(12,52,82,.14)}
+.nfm-team__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.nfm-team__card:hover .nfm-team__photo{box-shadow:0 4px 16px rgba(12,52,82,.14),0 0 0 4px rgba(255,102,2,.16)}
+.nfm-team__name{font-family:'Montserrat',sans-serif;font-size:1.2rem;font-weight:800;color:var(--nfm-blue);text-align:center;margin:0 0 6px;line-height:1.25}
+.nfm-team__role{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:500;color:var(--nfm-orange-text);text-align:center;text-transform:uppercase;letter-spacing:.1em;margin:0 0 14px;line-height:1.5;min-height:2.2em}
+.nfm-team__divider{width:36px;height:2px;background:var(--nfm-orange);border-radius:2px;margin:0 auto 18px;opacity:.65}
+.nfm-team__bio{font-size:.9rem;color:var(--muted);line-height:1.55;margin:0 0 12px;text-align:left}
+.nfm-team__bio:last-child{margin-bottom:0}
+.nfm-team__list{list-style:none;padding:0;margin:0}
+.nfm-team__list li{position:relative;padding-left:16px;font-size:.85rem;color:var(--muted);line-height:1.5;margin-bottom:6px}
+.nfm-team__list li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--nfm-orange)}
+.nfm-team__bio em{color:var(--nfm-blue);font-style:italic}
+@media(max-width:980px){.nfm-team__grid{grid-template-columns:repeat(2,1fr);gap:20px}}
+@media(max-width:640px){.nfm-team__grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}}
+
+/* ---------- ENFOQUE INTEGRAL / PILARES ---------- */
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:44px}
+@media(min-width:620px) and (max-width:900px){
+  .pillars{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:619px){
+  .pillars{grid-template-columns:repeat(2,1fr)}
+}
+.pill{background:#fff;border:2px solid var(--nfm-blue-light);border-radius:12px;padding:22px 18px;text-align:left;transition:border-color .18s,transform .18s}
+.pill:hover{border-color:var(--nfm-orange);transform:translateY(-3px)}
+.pill .mono{font-family:'JetBrains Mono';text-transform:uppercase;font-size:10px;letter-spacing:.16em;color:var(--nfm-orange-text);display:block;margin-bottom:8px}
+.pill h3{font-weight:800;font-size:15px;color:var(--nfm-blue);margin-bottom:7px}
+.pill p{font-size:13px;color:var(--muted);line-height:1.5}
 
 /* ---------- FEED VERTICAL (version D · tipo TikTok) ---------- */
 body.feed-mode{overflow:hidden}
@@ -422,7 +455,139 @@ body.agd-lock .feed{overflow:hidden}
     </div>
   </div>
 </section>
+<section class="section" id="metodo">
+  <div class="wrap center">
+    <div class="center"><span class="eyebrow">El método</span></div>
+    <h2 class="h2">La productividad es el <span class="hl">auto completo</span>, no pisar más el acelerador.</h2>
+    <p class="lead-2">Service, aceite, gomas: rendir sostenido no es apretar más fuerte, es que todo el sistema funcione. Por eso el método toca las cinco áreas —no una técnica suelta.</p>
 
+    <div class="pillars">
+      <div class="pill"><span class="mono">Pilar 01</span><h3>Descanso y energía</h3><p>La primera palanca: sin energía no hay sistema que se sostenga.</p></div>
+      <div class="pill"><span class="mono">Pilar 02</span><h3>Alimentación</h3><p>Comer para tener claridad mental, no para apagar la ansiedad.</p></div>
+      <div class="pill"><span class="mono">Pilar 03</span><h3>Movimiento</h3><p>Una rutina física que te devuelva energía en lugar de quitártela.</p></div>
+      <div class="pill"><span class="mono">Pilar 04</span><h3>Foco y hábitos</h3><p>Bloques de trabajo profundo y hábitos que no dependen de las ganas.</p></div>
+      <div class="pill"><span class="mono">Pilar 05</span><h3>Mentalidad</h3><p>Desarmar la autoexigencia que te tiene apagando incendios.</p></div>
+    </div>
+  </div>
+</section>
+<section class="section section--navy nfm-team" id="nfm-equipo">
+  <div class="wrap center">
+    <div class="center"><span class="eyebrow">El equipo</span></div>
+    <h2 class="h2">Este es el equipo que te va a estar <span class="hl">esperando del otro lado</span></h2>
+    <p class="lead-2">Acá tenés <b>un profesional por cada frente</b>: coach dedicada, psicólogos, nutricionistas y coaches de alto rendimiento. No es Nico solo: es un equipo que te ve, te sigue y no te deja aflojar. Con nombre y cara, incluso quien te va a atender en la primera charla.</p>
+
+    <div class="nfm-team__grid">
+
+      <!-- 1. NICOLÁS FERNÁNDEZ MIRANDA -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/nico-bio-card.jpg" alt="Nicolás Fernández Miranda" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Nicolás Fernández Miranda</h3>
+        <p class="nfm-team__role">Fundador del Instituto de Productividad</p>
+        <div class="nfm-team__divider"></div>
+        <ul class="nfm-team__list">
+          <li>Diplomaturas en Neurociencia aplicada</li>
+          <li>Máster en Neurociencia aplicada al rendimiento</li>
+          <li>Autor bestseller de <em>Hackea tu Cerebro</em></li>
+          <li>Conferencista TEDx</li>
+          <li>Consultor de más de 80 empresas</li>
+        </ul>
+      </div>
+
+      <!-- 2. AGUSTINA MONTE -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/03/MONTE.jpg" alt="Agustina Monte" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Agustina Monte</h3>
+        <p class="nfm-team__role">Coach Nutricional</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Especializada en salud intestinal y alimentación basada en plantas. Porque no se puede tener claridad mental si el sistema digestivo está inflamado.
+        </p>
+        <ul class="nfm-team__list">
+          <li>Microbiota (Posgrado España)</li>
+          <li>Patologías Digestivas (Inst. Conceptual)</li>
+          <li>Nutrición y rendimiento cognitivo</li>
+        </ul>
+      </div>
+
+      <!-- 3. MARTÍN MONTE -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/MONTE.jpg" alt="Martín Monte" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Martín Monte</h3>
+        <p class="nfm-team__role">Coach de Alto Rendimiento · Liderazgo y equipos</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Coach ejecutivo y organizacional, especializado en deporte de alto rendimiento.
+        </p>
+        <p class="nfm-team__bio">
+          Te ayuda a liderar sin que todo dependa de vos —delegar, priorizar, decidir— y a diseñar una rutina física que te dé energía en lugar de quitártela. Sin necesidad de correr un Ironman.
+        </p>
+      </div>
+
+      <!-- 4. AGOSTINA MAGRA -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/03/AGOS-AMGRA.jpg" alt="Agostina Magra" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Agostina Magra</h3>
+        <p class="nfm-team__role">Accountability Coach</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Coach ontológica con enfoque sistémico. Especializada en Neurociencias Aplicadas y Competencias Directivas.
+        </p>
+        <p class="nfm-team__bio">
+          Te ayuda a cumplir lo que te propusiste, mantenerte enfocado y romper con los ciclos de autosabotaje.
+        </p>
+      </div>
+
+      <!-- 5. PIERINA MONTE RISO -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/pierinaa.jpg" alt="Pierina Monte Riso" loading="lazy">
+        </div>
+        <h3 class="nfm-team__name">Pierina Monte Riso</h3>
+        <p class="nfm-team__role">Client Success Manager</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Es quien sigue tu proceso de punta a punta: si desaparecés una semana, es ella la que te va a buscar —sin culpa y sin sermón. Habla 7 idiomas y estudia un doctorado en Roma.
+        </p>
+        <ul class="nfm-team__list">
+          <li>Coaching ontológico (Axon)</li>
+          <li>Profesora de Gestión del Tiempo</li>
+          <li>Acompaña alumnos en +10 países</li>
+        </ul>
+      </div>
+
+      <!-- 6. SOLEDAD FUNES -->
+      <div class="nfm-team__card">
+        <div class="nfm-team__photo">
+          <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/Captura-de-pantalla-2026-05-18-075350.png" alt="Soledad Funes" loading="lazy" style="object-position:center top;">
+        </div>
+        <h3 class="nfm-team__name">Soledad Funes</h3>
+        <p class="nfm-team__role">Lic. en Psicología · TDAH y Ansiedad</p>
+        <div class="nfm-team__divider"></div>
+        <p class="nfm-team__bio">
+          Acompañamiento 1 a 1 en gestión emocional para profesionales que viven con la cabeza acelerada y no logran bajar las revoluciones.
+        </p>
+        <ul class="nfm-team__list">
+          <li>Gestión de TDA/H en adultos profesionales</li>
+          <li>Manejo de la ansiedad de alto rendimiento</li>
+          <li>Estrategias clínicas para gestión del estrés</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="cta-block">
+      <a href="#" class="btn btn-primary btn-lg" onclick="agdOpen('equipo');return false">Agendar mi entrevista de admisión <span class="arrow">→</span></a>
+    <div class="fine">Sin costo · Entrevista 1 a 1 con el equipo de admisión</div>
+    </div>
+  </div>
+</section>
 <div class="quiz-wrap">
 
 <!-- ═══════════════════════════════════════════════════════
@@ -1433,7 +1598,7 @@ body.agd-lock .feed{overflow:hidden}
    ========================================================================= */
 const CONFIG = {
   // Calendly de la entrevista de admisión (se abre embebido en el popup).
-  CALENDLY_URL: "https://calendly.com/nicolasfernandezmiranda/sesion-de-claridad-sma-clon-clon?primary_color=ff4b00",
+  CALENDLY_URL: "https://calendly.com/nicolasfernandezmiranda/sesion-de-claridad-conf-clon?primary_color=ff4b00",
 };
 
 /* ===== FOTOS REALES DE LOS RECUADROS =====
