@@ -12,6 +12,8 @@ EQUIPO = open(SCR + "/equipo.html", encoding="utf-8").read()
 EQUIPO_CSS = open(SCR + "/equipo.css", encoding="utf-8").read()
 METODO     = open(SCR + "/metodo.html", encoding="utf-8").read()
 METODO_CSS = open(SCR + "/metodo.css", encoding="utf-8").read()
+MAPA       = open(SCR + "/mapa.html", encoding="utf-8").read()
+MAPA_CSS   = open(SCR + "/mapa.css", encoding="utf-8").read()
 
 CALENDLY = "https://calendly.com/nicolasfernandezmiranda/sesion-de-claridad-sma-clon-clon?primary_color=ff4b00"
 CALENDLY_POR_VERSION = {
@@ -808,6 +810,10 @@ FOOTER_JS = """
   .agd-cal{flex:1 1 auto;min-height:380px;display:flex;border-radius:12px;overflow:hidden;border:1px solid var(--hair);background:#f4f6f8}
   /* el hijo se estira solo (align-items:stretch): sin height:100%, que no resuelve dentro de un flex item */
   .agd-cal>*{flex:1 1 auto;width:100%;min-width:0;border:0;display:block}
+  /* el atributo hidden pierde contra un display explicito del autor:
+     sin esto el calendario se veria al mismo tiempo que el mapa */
+  #agdMapa[hidden],#agdHead[hidden],#agdCal[hidden]{display:none!important}
+__MAPA_CSS__
   .agd-ph{display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;color:var(--muted);font-size:14px}
   .agd-ph a{color:var(--nfm-orange-text);font-weight:700}
   body.agd-lock{overflow:hidden}
@@ -822,11 +828,12 @@ FOOTER_JS = """
 <div class="agd-overlay" id="agdModal">
   <div class="agd-card" role="dialog" aria-modal="true" aria-label="Agendar entrevista de admisión">
     <button class="agd-x" type="button" id="agdX" onclick="agdClose()" aria-label="Cerrar">✕</button>
-    <div class="agd-head">
+__MAPA__
+    <div class="agd-head" id="agdHead" hidden>
       <span class="agd-mono">◆ Entrevista de admisión · 1 a 1 · Sin costo</span>
       <h3>Elegí el día y la hora que mejor te queden</h3>
     </div>
-    <div class="agd-cal" id="agdCal"><div class="agd-ph">Cargando calendario…</div></div>
+    <div class="agd-cal" id="agdCal" hidden><div class="agd-ph">Cargando calendario…</div></div>
   </div>
 </div>
 
@@ -867,14 +874,40 @@ function getUTM(){
 function agdOpen(origen){
   var box=document.getElementById('agdCal');
   if(agdCalLoaded && box && !box.querySelector('iframe, .calendly-inline-widget')) agdCalLoaded=false;
+  agdEtapa('mapa');
   document.getElementById('agdModal').classList.add('open');
   document.body.classList.add('agd-lock');
-  agdLoadCalendly();
+  agdPrecargarCalendly();          // el script va bajando mientras leen el mapa
   setTimeout(function(){ try{ document.getElementById('agdX').focus(); }catch(e){} }, 80);
+}
+/* etapa 'mapa' = el recorrido de 3 pasos · etapa 'cal' = el calendario */
+function agdEtapa(cual){
+  var mapa=document.getElementById('agdMapa'),
+      head=document.getElementById('agdHead'),
+      cal =document.getElementById('agdCal');
+  var enMapa = (cual==='mapa');
+  if(mapa) mapa.hidden = !enMapa;
+  if(head) head.hidden = enMapa;
+  if(cal)  cal.hidden  = enMapa;
+  if(mapa && enMapa) mapa.scrollTop = 0;
+}
+function agdAlCalendario(){
+  agdEtapa('cal');
+  agdLoadCalendly();
 }
 function agdClose(){
   document.getElementById('agdModal').classList.remove('open');
   document.body.classList.remove('agd-lock');
+}
+function agdPrecargarCalendly(){
+  if(window.Calendly || document.getElementById('calendly-js')) return;
+  if(!document.getElementById('calendly-css')){
+    var l=document.createElement('link'); l.id='calendly-css'; l.rel='stylesheet';
+    l.href='https://assets.calendly.com/assets/external/widget.css'; document.head.appendChild(l);
+  }
+  var s=document.createElement('script'); s.id='calendly-js';
+  s.src='https://assets.calendly.com/assets/external/widget.js'; s.async=true;
+  document.head.appendChild(s);
 }
 function agdLoadCalendly(){
   if(agdCalLoaded) return;
@@ -987,6 +1020,7 @@ def build(version, title, rotulo, body):
     if version == 'feed':               # en el feed cada slide ocupa la pantalla: sin footer
         i = pie.index('<footer class="foot">'); j = pie.index('</footer>') + len('</footer>')
         pie = pie[:i] + pie[j:]
+    pie = pie.replace('__MAPA__', MAPA).replace('__MAPA_CSS__', MAPA_CSS)
     out += pie.replace('__CALENDLY__', CALENDLY_POR_VERSION.get(version, CALENDLY)).replace('__NEURAL__', js + "\n" + NEURAL)
     return out
 
