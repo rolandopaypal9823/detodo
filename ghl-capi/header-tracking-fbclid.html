@@ -1,0 +1,60 @@
+<!-- ============================================================
+     Captura de fbclid / fbc / fbp para Meta Conversions API (GHL)
+     Pegar en: Funnel/Sitio > Settings > Tracking Code > HEADER
+     DESPUES del codigo base del Pixel de Meta.
+     Requiere en el form de GHL 3 hidden fields con keys:
+       fbclid, fbc, fbp  (mapeados a custom fields del contacto)
+     ============================================================ -->
+<script>
+(function () {
+  var DIAS = 90;
+
+  function getParam(n) {
+    try { return new URLSearchParams(location.search).get(n); } catch (e) { return null; }
+  }
+  function getCookie(n) {
+    var m = document.cookie.match(new RegExp('(?:^|; )' + n + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+  function setCookie(n, v) {
+    var d = new Date(); d.setTime(d.getTime() + DIAS * 864e5);
+    var dom = location.hostname.split('.').slice(-2).join('.');
+    document.cookie = n + '=' + encodeURIComponent(v) + '; expires=' + d.toUTCString() +
+      '; path=/; domain=.' + dom + '; SameSite=Lax';
+  }
+  function guardar(k, v) { try { localStorage.setItem(k, v); } catch (e) {} setCookie(k, v); }
+  function leer(k) {
+    var v = null; try { v = localStorage.getItem(k); } catch (e) {}
+    return v || getCookie(k);
+  }
+
+  // 1) fbclid: si viene en la URL es un click nuevo y pisa al anterior (last click, igual que Meta).
+  //    Si no viene, usamos el guardado (la persona volvio a la pagina sin pasar por el anuncio).
+  var fbclid = getParam('fbclid');
+  if (fbclid) { guardar('nfm_fbclid', fbclid); }
+  else { fbclid = leer('nfm_fbclid') || ''; }
+
+  // 2) fbc y fbp: cookies que setea el Pixel. Si _fbc todavia no existe, la armamos nosotros.
+  var fbc = getCookie('_fbc') || (fbclid ? 'fb.1.' + Date.now() + '.' + fbclid : '');
+  var fbp = getCookie('_fbp') || '';
+  if (fbc) guardar('nfm_fbc', fbc); else fbc = leer('nfm_fbc') || '';
+  if (fbp) guardar('nfm_fbp', fbp); else fbp = leer('nfm_fbp') || '';
+
+  // 3) Metemos los 3 valores en la URL (sin recargar) para que los hidden fields
+  //    del form de GHL, que se autocompletan desde los query params, los lean.
+  try {
+    var url = new URL(location.href), cambio = false;
+    [['fbclid', fbclid], ['fbc', fbc], ['fbp', fbp]].forEach(function (p) {
+      if (p[1] && !url.searchParams.get(p[0])) { url.searchParams.set(p[0], p[1]); cambio = true; }
+    });
+    if (cambio) history.replaceState(null, '', url.toString());
+  } catch (e) {}
+
+  // 4) Si el form NO esta en iframe, tambien rellenamos los inputs directo.
+  document.addEventListener('DOMContentLoaded', function () {
+    [['fbclid', fbclid], ['fbc', fbc], ['fbp', fbp]].forEach(function (p) {
+      document.querySelectorAll('input[name="' + p[0] + '"]').forEach(function (el) { el.value = p[1] || ''; });
+    });
+  });
+})();
+</script>
