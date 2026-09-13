@@ -1,7 +1,18 @@
 // Calendly -> GHL bridge
-// Recibe el webhook de Calendly (invitee.created / invitee.canceled),
-// hace upsert del contacto en GHL por email/telefono y le pone un tag.
-// El tag dispara el workflow de GHL que manda Schedule a Meta CAPI.
+//
+// Modo A (recomendado, sin token de GHL):
+//   Verifica la firma de Calendly y reenvia un JSON limpio, por POST,
+//   a la URL del trigger "Inbound Webhook" de un workflow de GHL.
+//   Adentro del workflow, GHL busca/crea el contacto por email
+//   ({{trigger.body.email}}) y sigue con tag / Meta CAPI.
+//   Variable necesaria: GHL_INBOUND_WEBHOOK_URL
+//
+// Modo B (respaldo, si tu plan de GHL no tiene Inbound Webhook trigger):
+//   La funcion misma hace upsert del contacto y le pone el tag via la
+//   API de GHL (Private Integration token).
+//   Variables necesarias: GHL_API_TOKEN, GHL_LOCATION_ID
+//
+// Si estan las dos, se usa el Modo A.
 
 const crypto = require("crypto");
 
@@ -14,9 +25,8 @@ const env = (k, fallback) => {
 };
 
 // --- Verificacion de firma de Calendly ---------------------------------
-// Header: Calendly-Webhook-Signature: t=<ts>,v1=<hmac_sha256_hex>
 function verifySignature(rawBody, header, signingKey) {
-  if (!signingKey) return true; // sin clave configurada, no verificamos
+  if (!signingKey) return true;
   if (!header) return false;
   const parts = Object.fromEntries(
     header.split(",").map((p) => p.trim().split("=").map((s) => s.trim()))
@@ -48,7 +58,7 @@ function normalizePhone(p) {
   const s = String(p).trim();
   const digits = s.replace(/[^\d]/g, "");
   if (!digits) return "";
-  return s.startsWith("+") ? `+${digits}` : `+${digits}`;
+  return `+${digits}`;
 }
 
 function splitName(invitee) {
@@ -61,8 +71,33 @@ function splitName(invitee) {
   return { firstName, lastName: rest.join(" ") };
 }
 
-// --- Cliente GHL ---------------------------------------------------------
-async function ghl(path, method, body) {
+function buildCleanPayload(eventType, invitee) {
+  const { firstName, lastName } = splitName(invitee);
+  return {
+    event: eventType, // "invitee.created" | "invitee.canceled"
+    email: (invitee.email || "").trim().toLowerCase(),
+    phone: normalizePhone(pickPhone(invitee)),
+    firstName,
+    lastName,
+    startTime: (invitee.scheduled_event && invitee.scheduled_event.start_time) || "",
+    source: "Calendly",
+  };
+}
+
+// --- Modo A: reenviar a un Inbound Webhook de GHL ------------------------
+async function forwardToGhlWebhook(url, payload) {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`GHL webhook -> ${res.status}: ${text.slice(0, 300)}`);
+  return text;
+}
+
+// --- Modo B: API de GHL (respaldo) ---------------------------------------
+async function ghlApi(path, method, body) {
   const res = await fetch(`${GHL_BASE}${path}`, {
     method,
     headers: {
@@ -76,35 +111,33 @@ async function ghl(path, method, body) {
   const text = await res.text();
   let json = {};
   try { json = text ? JSON.parse(text) : {}; } catch { json = { raw: text }; }
-  if (!res.ok) {
-    throw new Error(`GHL ${method} ${path} -> ${res.status}: ${text.slice(0, 300)}`);
-  }
+  if (!res.ok) throw new Error(`GHL ${method} ${path} -> ${res.status}: ${text.slice(0, 300)}`);
   return json;
 }
 
-async function upsertContact({ email, phone, firstName, lastName, customFields }) {
+async function upsertAndTagViaApi(payload) {
   const body = {
     locationId: env("GHL_LOCATION_ID"),
-    email,
-    firstName,
-    lastName,
+    email: payload.email,
+    firstName: payload.firstName,
+    lastName: payload.lastName,
     source: "Calendly",
   };
-  if (phone) body.phone = phone;
-  if (customFields && customFields.length) body.customFields = customFields;
-  const out = await ghl("/contacts/upsert", "POST", body);
-  return out.contact && out.contact.id ? out.contact.id : null;
-}
-
-// Quitamos y volvemos a poner el tag para que el trigger "Tag added"
-// dispare tambien si la persona agenda por segunda vez.
-async function retag(contactId, tag) {
-  try {
-    await ghl(`/contacts/${contactId}/tags`, "DELETE", { tags: [tag] });
-  } catch (e) {
-    // si no tenia el tag, GHL puede devolver error: lo ignoramos
+  if (payload.phone) body.phone = payload.phone;
+  const fechaKey = env("GHL_FIELD_FECHA_AGENDA", "");
+  if (fechaKey && payload.startTime) {
+    body.customFields = [{ key: fechaKey, field_value: payload.startTime }];
   }
-  await ghl(`/contacts/${contactId}/tags`, "POST", { tags: [tag] });
+  const out = await ghlApi("/contacts/upsert", "POST", body);
+  const contactId = out.contact && out.contact.id ? out.contact.id : null;
+  if (!contactId) throw new Error("upsert sin contact.id");
+
+  const tag = payload.event === "invitee.canceled"
+    ? env("GHL_TAG_CANCELO", "cancelo_agenda")
+    : env("GHL_TAG_AGENDO", "agendo");
+  try { await ghlApi(`/contacts/${contactId}/tags`, "DELETE", { tags: [tag] }); } catch {}
+  await ghlApi(`/contacts/${contactId}/tags`, "POST", { tags: [tag] });
+  return contactId;
 }
 
 // --- Handler -------------------------------------------------------------
@@ -132,41 +165,26 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: "Invalid JSON" };
   }
 
-  const eventType = data.event; // "invitee.created" | "invitee.canceled"
+  const eventType = data.event;
   const invitee = data.payload || {};
-  const email = (invitee.email || "").trim().toLowerCase();
-  if (!email) return { statusCode: 200, body: "No email, ignored" };
+  const payload = buildCleanPayload(eventType, invitee);
+  if (!payload.email) return { statusCode: 200, body: "No email, ignored" };
 
-  const { firstName, lastName } = splitName(invitee);
-  const phone = normalizePhone(pickPhone(invitee));
-  const startTime =
-    (invitee.scheduled_event && invitee.scheduled_event.start_time) || "";
-
-  const customFields = [];
-  const fechaKey = env("GHL_FIELD_FECHA_AGENDA", "");
-  if (fechaKey && startTime) customFields.push({ key: fechaKey, field_value: startTime });
-
-  const tagCreated = env("GHL_TAG_AGENDO", "agendo");
-  const tagCanceled = env("GHL_TAG_CANCELO", "cancelo_agenda");
+  const inboundUrl = env("GHL_INBOUND_WEBHOOK_URL", "");
 
   try {
-    const contactId = await upsertContact({ email, phone, firstName, lastName, customFields });
-    if (!contactId) throw new Error("upsert sin contact.id");
-
-    if (eventType === "invitee.created") {
-      await retag(contactId, tagCreated);
-    } else if (eventType === "invitee.canceled") {
-      await retag(contactId, tagCanceled);
+    if (inboundUrl) {
+      await forwardToGhlWebhook(inboundUrl, payload);
+      console.log(JSON.stringify({ ok: true, mode: "forward", ...payload }));
+      return { statusCode: 200, body: JSON.stringify({ ok: true, mode: "forward" }) };
     }
-
-    console.log(JSON.stringify({ ok: true, eventType, email, contactId, startTime }));
-    return { statusCode: 200, body: JSON.stringify({ ok: true, contactId }) };
+    const contactId = await upsertAndTagViaApi(payload);
+    console.log(JSON.stringify({ ok: true, mode: "api", contactId, ...payload }));
+    return { statusCode: 200, body: JSON.stringify({ ok: true, mode: "api", contactId }) };
   } catch (err) {
-    console.error(JSON.stringify({ ok: false, eventType, email, error: err.message }));
-    // 500 hace que Calendly reintente
+    console.error(JSON.stringify({ ok: false, ...payload, error: err.message }));
     return { statusCode: 500, body: JSON.stringify({ ok: false, error: err.message }) };
   }
 };
 
-// exportamos helpers para test local
-exports._internal = { verifySignature, pickPhone, normalizePhone, splitName };
+exports._internal = { verifySignature, pickPhone, normalizePhone, splitName, buildCleanPayload };

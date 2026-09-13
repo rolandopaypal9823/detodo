@@ -1,60 +1,107 @@
 # Puente Calendly -> GHL (Netlify Function)
 
-Cuando alguien agenda en Calendly, esta funcion:
-1. Recibe el webhook `invitee.created` de Calendly.
-2. Hace upsert del contacto en GHL por email (y telefono si viene).
-3. Le pone el tag `agendo` (lo quita y lo vuelve a poner, asi dispara aunque agende dos veces).
-4. El workflow de GHL "CAPI Agenda" (trigger: tag `agendo`) manda `Schedule` a Meta con `{{contact.fbclid}}`.
+Cuando alguien agenda en Calendly, esta funcion verifica que el webhook sea
+realmente de Calendly y te deja elegir uno de dos caminos hacia GHL.
 
-Si cancela (`invitee.canceled`), le pone el tag `cancelo_agenda`.
+## Modo A (recomendado): sin token de GHL
 
-Sin n8n, sin Make. Solo Calendly -> Netlify -> GHL.
+La funcion reenvia, por **POST**, un JSON limpio a la URL del trigger
+"Inbound Webhook" de un workflow tuyo en GHL. Adentro del workflow, GHL
+mismo busca o crea el contacto por email y sigue con el tag / Meta CAPI.
+No necesitas Private Integration token ni Location ID.
 
----
-
-## 1. Deploy en Netlify (5 min)
-
-1. Netlify > Add new site > Import from Git > elegi este repo.
-   - Base directory: `ghl-capi/calendly-netlify`
-   - Build command: (vacio)
-   - Publish directory: `public`
-2. Site settings > Environment variables > agrega las de `.env.example`:
-   - `GHL_API_TOKEN`
-   - `GHL_LOCATION_ID`
-   - `GHL_TAG_AGENDO` = `agendo`
-   - `GHL_TAG_CANCELO` = `cancelo_agenda`
-   - `GHL_FIELD_FECHA_AGENDA` = `fecha_agenda` (opcional, ver paso 2.3)
-   - `CALENDLY_SIGNING_KEY` = una clave larga que inventes (la misma va en el paso 3)
-3. Deploy. La URL del endpoint queda:
-   `https://TU-SITIO.netlify.app/.netlify/functions/calendly-webhook`
-
-## 2. GHL (5 min)
-
-1. **Token**: Settings > Private Integrations > New > scopes `contacts.readonly` y `contacts.write`. Copia el token (empieza con `pit-`) a `GHL_API_TOKEN`.
-2. **Location ID**: Settings > Business Profile > copia el Location ID a `GHL_LOCATION_ID`.
-3. (Opcional) Custom field texto `fecha_agenda` para guardar la fecha/hora de la cita.
-4. **Workflow "CAPI Agenda"**:
-   - Trigger: `Contact Tag` > Tag added > `agendo`
-   - Accion: `Meta conversion API` > Integration > Funnel Event
-     - Facebook Event Name: `Schedule`
-     - Custom Mapping ON > FBCLID: `{{contact.fbclid}}`
-   - Publicar.
-
-## 3. Crear el webhook en Calendly (5 min)
-
-Calendly no deja crear webhooks desde la interfaz: se hace con su API (plan Standard o superior).
-
-1. Calendly > Integrations > API & Webhooks > Personal Access Token > copia el token.
-2. Averigua tu organization URI:
-
-```bash
-curl -s https://api.calendly.com/users/me \
-  -H "Authorization: Bearer CALENDLY_TOKEN" | grep -o '"current_organization":"[^"]*"'
+Payload que reenvia:
+```json
+{
+  "event": "invitee.created",
+  "email": "juan@test.com",
+  "phone": "+5491155551234",
+  "firstName": "Juan",
+  "lastName": "Perez Lopez",
+  "startTime": "2026-09-15T18:00:00.000000Z",
+  "source": "Calendly"
+}
 ```
 
-3. Crea la suscripcion (reemplaza URL, ORG y SIGNING_KEY):
+### Armar el workflow en GHL
+
+1. Workflows > Create Workflow > vacio.
+2. Trigger: **Inbound Webhook** (a veces figura como "Webhook"). Guarda y copia
+   la URL que te da: esa va en `GHL_INBOUND_WEBHOOK_URL`.
+3. Mandale un POST de prueba a esa URL con el JSON de arriba (podes usar el
+   propio Test Events / Postman / curl). GHL usa ese payload de ejemplo para
+   generar los merge fields `{{trigger.body.email}}`, `{{trigger.body.phone}}`, etc.
+4. Accion 1: **Find/Create Contact** (o el nombre equivalente en tu version
+   de GHL) > Email: `{{trigger.body.email}}` > Phone: `{{trigger.body.phone}}`
+   > First name / Last name desde el trigger.
+5. Accion 2 (opcional): **Add Tag** > `agendo` si `{{trigger.body.event}}` es
+   `invitee.created`, o `cancelo_agenda` si es `invitee.canceled`. Usa un
+   If/Else si tu version no deja condicionar el valor del tag directamente.
+6. Accion 3: **Meta conversion API** > Integration > Funnel Event >
+   Facebook Event Name: `Schedule` > Custom Mapping ON > FBCLID:
+   `{{contact.fbclid}}` (ya viene guardado en el contacto desde el registro).
+
+Con esto, un solo workflow reemplaza los dos pasos (tag + workflow de CAPI)
+del diseno anterior.
+
+## Modo B (respaldo): con token de GHL
+
+Si tu plan de GHL no tiene el trigger "Inbound Webhook", dejá
+`GHL_INBOUND_WEBHOOK_URL` vacio y completa en cambio `GHL_API_TOKEN` y
+`GHL_LOCATION_ID`. La funcion hace el upsert del contacto y le pone el tag
+ella misma, llamando a la API de GHL. Ahi si necesitas:
+
+1. **Token**: Settings > Private Integrations > New > scopes `contacts.readonly`
+   y `contacts.write`. Copia el token (empieza con `pit-`).
+2. **Location ID**: Settings > Business Profile > copia el Location ID.
+3. Workflow "CAPI Agenda": Trigger `Contact Tag added: agendo` > Accion
+   Meta conversion API con evento `Schedule` y FBCLID `{{contact.fbclid}}`.
+
+## Deploy en Netlify sin GitHub (Netlify CLI)
+
+Arrastrar el zip a la pantalla de "Deploy manually" de Netlify **no funciona
+para esta funcion**: esa via solo publica archivos estaticos y no lee
+`netlify.toml` ni empaqueta `netlify/functions/`. Hay que usar la CLI:
 
 ```bash
+npm install -g netlify-cli
+netlify login
+# parado adentro de esta carpeta:
+netlify deploy --prod
+```
+
+Elegi "create a new site", publish directory `public`. Al terminar te da
+la URL final, algo como `https://tu-sitio.netlify.app/.netlify/functions/calendly-webhook`.
+
+Las variables de entorno se cargan despues, desde Site settings >
+Environment variables en la web, o con `netlify env:set NOMBRE valor`.
+
+## Crear el token y el webhook en Calendly
+
+Calendly no deja crear webhooks desde la interfaz, solo por API. Necesitas
+un **Personal Access Token** (Integrations > API & Webhooks > "Cree un
+token de acceso personal"). Al crearlo te va a pedir marcar "ambitos"
+(scopes). Marca solo estos dos, dejando el resto sin marcar (principio de
+minimo privilegio, no necesitas mas):
+
+- **Webhooks**: marca las dos opciones que aparezcan adentro (crear/gestionar
+  suscripciones). Es el permiso central, sin esto no podes dar de alta el webhook.
+- **Gestión de usuarios**: marca la opcion de solo lectura ("Ver"). Se usa
+  para el llamado a `/users/me` que te da tu organization URI en el paso
+  siguiente.
+
+No marques Programación, Contactos, Notetaker ni Seguridad y cumplimiento:
+no los usa este flujo. Si algun llamado te da 403 "insufficient scope",
+volves a este token y agregas el permiso puntual que falte.
+
+Con el token creado:
+
+```bash
+# 1) organization URI
+curl -s https://api.calendly.com/users/me \
+  -H "Authorization: Bearer CALENDLY_TOKEN" | grep -o '"current_organization":"[^"]*"'
+
+# 2) crear la suscripcion del webhook (siempre via POST, Calendly nunca usa GET)
 curl -s -X POST https://api.calendly.com/webhook_subscriptions \
   -H "Authorization: Bearer CALENDLY_TOKEN" \
   -H "Content-Type: application/json" \
@@ -67,29 +114,31 @@ curl -s -X POST https://api.calendly.com/webhook_subscriptions \
   }'
 ```
 
-Si responde con `"state":"active"`, quedo.
+Si responde con `"state":"active"`, quedo. Requiere plan Standard de
+Calendly o superior; en planes inferiores la API no deja crear webhooks.
 
-## 4. Prueba (5 min)
+## Prueba
 
-1. Agenda una cita de prueba en Calendly con el mismo email de un contacto que ya tenga `fbclid` cargado.
-2. Netlify > Functions > calendly-webhook > Logs: tiene que aparecer `{"ok":true,...,"contactId":"..."}`.
-3. En GHL, ese contacto tiene que tener el tag `agendo`.
-4. Meta Events Manager > Test Events (con el Test Code puesto en la accion CAPI): aparece `Schedule` con `fbc`.
+1. Agenda una cita de prueba con el mismo email de un contacto que ya
+   tenga `fbclid` cargado.
+2. Netlify > Functions > calendly-webhook > Logs: aparece
+   `{"ok":true,"mode":"forward",...}` (o `"mode":"api"` si usas el Modo B).
+3. En GHL: el contacto se encontro/creo, tiene el tag correspondiente.
+4. Meta Events Manager > Test Events (con el Test Code puesto en la accion
+   CAPI): aparece `Schedule` con `fbc`.
 5. Quita el Test Code de la accion y guarda.
 
 ## Reducir el riesgo de "mail distinto"
 
-El match Calendly -> GHL es por email. Para que la persona no tipee otro mail, prellena el link
-de Calendly que mandas desde GHL:
+El match es por email. Prellena el link de Calendly que mandas desde GHL:
 
 ```
 https://calendly.com/TU-USUARIO/llamada?email={{contact.email}}&name={{contact.first_name}}%20{{contact.last_name}}
 ```
 
-Como respaldo, el upsert tambien manda el telefono si Calendly lo pide en el form.
-
-## Prueba local (sin tocar GHL)
+## Prueba local (sin tocar GHL ni Calendly)
 
 ```bash
 npm test
 ```
+Corre los dos modos con `fetch` mockeado.
