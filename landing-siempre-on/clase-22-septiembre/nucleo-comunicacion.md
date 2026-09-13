@@ -6,8 +6,9 @@
 
 > Cómo se armó: con el MD del Sistema de Comunicación, las 19 llamadas de cierre Platinum (jun-jul 2026),
 > el Cuadro de Consciencia de 14 llamadas Platinum, los 22 casos de éxito con video, el arco biográfico de
-> Nico, la voz de marca y el manual oficial. **Toda cita entre comillas tiene nombre y fuente. Lo que no pude
-> verificar está marcado ⚠️ y no se publica hasta que lo confirmes.**
+> Nico, la voz de marca y el manual oficial. **Toda cita entre comillas tiene nombre y fuente. Los datos
+> biográficos que no estaban en las fuentes de conocimiento (dos charlas TED, autor bestseller, segundo libro
+> en camino, la escena de París con el máster ya hecho) los confirmó Rolando el 13/9 y se toman como canon.**
 
 ---
 
@@ -304,9 +305,10 @@ proceso de mentoría personalizada — gente en la misma situación que quien le
 arquitectos, médicos, contadores, empresarios con equipos a cargo, que sostenían lo que habían construido a
 un costo que ya les estaba cobrando la salud. Muchas de esas entrevistas están grabadas y públicas.
 
-Escribió *Hackea tu cerebro*, donde conecta aprendizaje, bienestar y rendimiento, y está trabajando en su
-segundo libro. Dio charlas TEDx, capacita equipos en empresas como YPF, Samsung y Ternium, y su trabajo fue
-destacado en CNN, Infobae y Endeavor.
+Es autor bestseller con *Hackea tu cerebro*, donde conecta aprendizaje, bienestar y rendimiento. Dio dos
+charlas TED, capacita equipos en empresas como YPF, Samsung y Ternium, y su trabajo fue destacado en CNN,
+Infobae y Endeavor. Y mientras tanto escribe su segundo libro: la prueba de que siguió subiendo de nivel
+sin volver a pagarlo con el cuerpo.
 
 Sigue tomando él mismo las primeras llamadas del Instituto. Y la pregunta que se hizo en París es la primera
 que le hace a cada profesional que entra.
@@ -342,13 +344,13 @@ de lo que no.
 | Mentor en Endeavor | Doc de oferta + logo en tu landing | ✅ Publicable |
 | 7 títulos universitarios | Doc de oferta | ✅ Fuerte. **Listame cuáles** para poder sostenerlo si preguntan. |
 | Logos: CNN, Infobae, Endeavor, Yale, YPF, Samsung, Ternium | Tu landing publicada | ✅ Ya al aire. Confirmá el rol en cada uno (¿charla, capacitación, nota?). |
-| Ironman | Tu landing anterior ("correr un Ironman") | ⚠️ **¿Full o 70.3? ¿Cuál y cuándo?** Es una prueba física del "después" (de +15 kg a Ironman), vale oro si es exacta. |
-| **"Dos charlas TED"** | Vos, hoy. Tu landing anterior decía "disertante TED"; el logo que usás dice **TEDx**. | ⚠️ **No aparece en ninguna fuente de conocimiento.** TED y TEDx no son lo mismo y la gente que sigue a Huberman lo sabe. Si fueron TEDx, se dice TEDx: es una credencial excelente y verificable. **Confirmá: ¿cuántas, cuáles, links?** |
-| **"Autor bestseller"** | Vos, hoy. | ⚠️ **Cero documentación.** ¿Bestseller de qué lista? Si fue #1 en una categoría de Amazon, se dice así, con captura, y es creíble. "Bestseller" a secas, para este avatar, es exactamente la señal de vendehumo que lo espanta. **Sin lista y captura, no lo publico.** |
-| **Segundo libro "pronto a salir"** | Vos, hoy. | ⚠️ Sin fecha ni título documentados. Lo escribí como *"está trabajando en su segundo libro"*, que es cierto y no compromete. Si tenés título y fecha, lo subo. |
-| "Los medios lo llamaban para dar su criterio sobre finanzas" | Vos, hoy. | ⚠️ Coherente con CNN e Infobae, pero **confirmá cuáles medios y en qué rol** (columnista, entrevistado, panelista). |
-| "Ya tenía el máster cuando fue a París y no lo aplicaba" | Vos, hoy. | ⚠️ El doc de oferta dice *"hice un reset estudiando neurociencia"* — como si el máster fuera **después** del burnout. Son dos historias distintas. **Nico tiene que confirmar la cronología**: cambia la escena 3. |
-| El viaje a Europa / París tras "los mejores años de facturación" | Vos, hoy. | ⚠️ La crisis de París está nombrada en todas las fuentes pero **nunca narrada** — el MD lo marca como pendiente #1. Tu versión de hoy es la primera narración. **Que Nico la lea y la corrija con sus palabras** antes de publicar. Mejor todavía: que la grabe (hay un video de YouTube donde la cuenta, minuto ~12, "del agotamiento al protocolo"). |
+| Ironman | Tu landing anterior ("correr un Ironman") | ✅ Publicable. Es la prueba física del "después" (de +15 kg a Ironman). Si me pasás cuál y la distancia, lo hago más concreto. |
+| **Dos charlas TED** | Confirmado por Rolando (13/9) | ✅ Publicable. Se escribe "TED", como confirmaste. Si tenés los links, los sumo a la landing como prueba. |
+| **Autor bestseller** | Confirmado por Rolando (13/9) | ✅ Publicable. |
+| **Segundo libro en camino** | Confirmado por Rolando (13/9) | ✅ Publicable como dato corto: *"escribe su segundo libro"*. Su función es mostrar que Nico sigue subiendo de nivel mientras cuida su bienestar — no es promesa de fecha. |
+| Los medios lo llamaban para dar su criterio sobre finanzas | Confirmado por Rolando (13/9) | ✅ Publicable. |
+| Ya tenía el máster en neurociencia cuando fue a París, y no lo estaba aplicando | Confirmado por Rolando (13/9) | ✅ **Es la versión canon.** Manda sobre el doc de oferta de enero. La escena 3 queda como está. |
+| El viaje a Europa / París tras los mejores años de facturación, y no poder disfrutarlo | Confirmado por Rolando (13/9) | ✅ Publicable. Cierra el pendiente #1 del MD (la bisagra nunca narrada). Sugerencia, no condición: que Nico la grabe en primera persona para el grupo de WhatsApp. |
 
 ---
 
@@ -493,22 +495,17 @@ en el gancho) · ~~hábitos~~ → *sistemas que sostengan*.
 
 ## 10. Lo que necesito de vos para pasar a la landing
 
-En orden de importancia:
+Biografía y credenciales: **cerradas** (confirmadas el 13/9). Queda esto, en orden de importancia:
 
 1. **Nico valida el blur.** ¿Lo que la clase enseña es regulación (esfuerzo regulado = resultado)? Si es
-   otra cosa, decime cuál y reescribo la ecuación, la One Belief y los bullets. Sin esto no puedo cerrar la
-   página: sería prometer una curiosidad que la clase no paga.
-2. **Nico valida la escena de París** y la cronología del máster (¿lo tenía antes o lo hizo después?).
-   Es la primera vez que se narra. Media hora suya con este documento resuelve las dos.
-3. **TEDx vs TED, y cuántas.** Links si hay.
-4. **Bestseller: lista y captura, o no va.**
-5. **Segundo libro:** título y fecha, o queda como "está trabajando en".
-6. **Los 7 títulos universitarios**, listados.
-7. **Ironman:** cuál, cuándo, distancia.
-8. **Medios:** cuáles y en qué rol.
-9. **La foto en conferencia** que va arriba (¿la del TEDx que ya usás?) y **5-6 fotos reales de Nico** para
-   las escenas del GIF — una por era. Las fotos verdaderas convierten más que cualquier ilustración.
-10. **Confirmá que van los 4 testimonios** de la sección 7 (Andrés 2ª, Cristian, Germán, Celi).
+   otra cosa, decime cuál y reescribo la ecuación, la One Belief y los bullets. Es lo único que frena la
+   landing: prometer una curiosidad que la clase no paga es lo peor que le podemos hacer a este avatar.
+2. **5-6 fotos reales de Nico, una por escena**, para el GIF. Las fotos verdaderas convierten más que
+   cualquier ilustración; el GIF va encima de eso.
+3. **La foto en conferencia** que va arriba (¿la del TED que ya usás?).
+4. **Confirmá que van los 4 testimonios** de la sección 7 (Andrés 2ª, Cristian, Germán, Celi).
+5. Opcionales que suman prueba si los tenés a mano: links de las charlas TED, los 7 títulos listados, el
+   Ironman (cuál, distancia).
 
 ---
 
