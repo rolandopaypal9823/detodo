@@ -84,7 +84,7 @@ body{ padding:28px 20px 140px; }
   <div class="help">
     <b>Cómo usar esto:</b>
     <ol>
-      <li>Hacé clic en el recuadro gris de cada escena para subir una foto desde tu compu. La escena 4 lleva dos fotos: la del TED y la del libro.</li>
+      <li>Hacé clic en el recuadro gris de cada escena para subir una foto desde tu compu. Las escenas 1 y 4 llevan dos fotos. Las siete fotos que me pasaste ya están cargadas.</li>
       <li>Editá el título y el texto directamente en los cuadros de abajo.</li>
       <li>Para poner algo en <b>negrita</b>, escribilo entre <code>**dos asteriscos**</code>. Para <i>cursiva</i>, entre <code>*un asterisco*</code>.</li>
       <li>Cuando termines, tocá <b>"Descargar cambios"</b> abajo de todo y mandame ese archivo por acá.</li>
@@ -107,18 +107,18 @@ body{ padding:28px 20px 140px; }
 <script>
 (function(){
 'use strict';
-var KEY='pv22_nico_editor_v2', KEY_VIEJA='pv22_nico_editor_v1';
+var KEY='pv22_nico_editor_v3', KEY_VIEJA='pv22_nico_editor_v1';
 
 var DEFAULTS=[
- {tag:'Escena 1', title:'El contador que llegó rápido', img:null, ph:'Nico en el estudio contable',
+ {tag:'Escena 1 · dos fotos', title:'El contador que llegó rápido', dual:true, img:'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escema1dividanicorecibiendodiploma.jpg', img2:'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escena1estudiocontable-scaled.jpg', ph:'Nico recibiendo el diploma', ph2:'Nico en el estudio contable',
   body:'Nico es contador público. Se recibió con medalla al mejor promedio, abrió su propio estudio y creció rápido: en pocos años asesoraba empresas que manejaban capitales grandes, y los medios lo llamaban para pedirle su lectura sobre finanzas.\n\n**Desde afuera, todo parecía ir muy bien. Por dentro, estaba pagando un precio muy alto por seguir escalando su empresa y su carrera.**'},
- {tag:'Escena 2', title:'El precio por la productividad', img:null, ph:'Nico en el escritorio',
+ {tag:'Escena 2', title:'El precio por la productividad', img:'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escena2-rotated.jpg', ph:'Nico en el escritorio',
   body:'Trabajaba catorce horas por día. Subió más de quince kilos. Empezaron las migrañas, y con las migrañas las pastillas, que tomaba —según sus palabras— como si fueran caramelos. Se le caía el pelo. Necesitaba clonazepam para dormir.\n\nY miraba con envidia a quien cerraba la persiana a las seis y no se llevaba el trabajo a casa: **gente con una vida más simple que la suya, que se había complicado tanto que ya no sabía para qué.**'},
- {tag:'Escena 3', title:'El punto de inflexión en París', img:null, ph:'Nico en París',
+ {tag:'Escena 3', title:'El punto de inflexión en París', img:'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/enparis.jpeg', ph:'Nico en París',
   body:'No fue una crisis: fue un premio. Venía de cerrar los mejores años de facturación de su vida y se pagó el viaje a Europa que siempre había postergado. Y en París se dio cuenta de que no podía disfrutarlo. Estaba en el lugar que había soñado, con la plata que había ganado para eso, y no se sentía bien. **Lo peor: ya tenía un máster en neurociencia y no se lo estaba aplicando a sí mismo.**\n\nVolvió con una sola pregunta: **¿cómo hago para seguir creciendo y, al mismo tiempo, avanzar con lo importante de mi vida?**'},
- {tag:'Escena 4 · dos fotos', title:'La variable para escalar sin agotarse', dual:true, img:null, img2:null, ph:'Nico en la charla TED', ph2:'Nico con el libro',
+ {tag:'Escena 4 · dos fotos', title:'La variable para escalar sin agotarse', dual:true, img:'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/charlated.jpg', img2:'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/hackeatucerebroenmano.jpeg', ph:'Nico en la charla TED', ph2:'Nico con el libro',
   body:'Se convirtió en su propio experimento: aplicó sobre sí mismo lo que había estudiado, midió y corrigió. Empezó a divulgar cómo se relacionan la neurociencia y el rendimiento, sus redes crecieron, y escribió *Hackea tu cerebro*, hoy bestseller.\n\nPasó a asesorar empresas, equipos y profesionales para que produzcan más **cuidando su bienestar al mismo tiempo**. Lo invitaron a dar charlas TED sobre neurociencia aplicada: dio la primera, y hoy ya lleva dos.'},
- {tag:'Escena 5', title:'Hoy', img:null, ph:'El Instituto, foto grupal',
+ {tag:'Escena 5', title:'Hoy', img:'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/ultimaescenainstituto.jpeg', ph:'El Instituto, foto grupal',
   body:'Fundó el Instituto de Productividad, donde **más de 400 empresarios, profesionales y líderes** ya pasaron por un proceso de mentoría personalizada. Sus programas cuentan con el aval de la Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy.\n\nCapacita equipos en YPF, Samsung y Ternium, su trabajo fue destacado en CNN, Infobae y Endeavor, y escribe su segundo libro.\n\n**Este martes 22 de septiembre te va a mostrar cómo usar la neurociencia para escalar tus resultados y avanzar en lo importante de tu vida sin pagar el costo en tu bienestar ni en el tiempo con tu familia. Y sostener lo que ya lograste.**'}
 ];
 

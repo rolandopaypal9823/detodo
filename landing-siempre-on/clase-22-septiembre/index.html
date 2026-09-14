@@ -165,8 +165,11 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-scene > div:last-child{ width:100%; }
 .nfm-scene__dual{ display:grid; grid-template-columns:1fr 1fr; gap:14px; width:100%; max-width:640px; }
 .nfm-scene__dual .nfm-scene__media{ max-width:none; aspect-ratio:1/1; }
+.nfm-scene__media.nfm-scene__media--v{ max-width:440px; aspect-ratio:4/5; }
+.nfm-scene__media.nfm-scene__media--v img{ object-position:center 30%; }
+.nfm-scene__dual .nfm-scene__media.nfm-scene__media--v{ max-width:none; aspect-ratio:1/1; }
 .nfm-scene__media{ width:100%; max-width:560px; border-radius:var(--nfm-r-lg); overflow:hidden; border:1px solid var(--nfm-gray-200); box-shadow:0 24px 60px rgba(12,52,82,0.14); aspect-ratio:4/3; background:var(--nfm-gray-100); position:relative; }
-.nfm-scene__media img{ width:100%; height:100%; object-fit:cover; }
+.nfm-scene__media img{ width:100%; height:100%; object-fit:cover; object-position:center 40%; display:block; }
 .nfm-scene__media .nfm-scene__ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; font-family:var(--nfm-font-h); font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--nfm-ink-subtle); }
 .nfm-scene h3{ font-family:var(--nfm-font-h); text-wrap:balance; font-size:clamp(1.35rem,2.6vw,1.8rem); font-weight:700; letter-spacing:-0.02em; line-height:1.2; margin:0 0 12px; }
 .nfm-scene p{ font-size:1.02rem; color:#2a3f54; line-height:1.72; margin:0 auto 12px; max-width:36em; }
@@ -371,12 +374,14 @@ html, body{ margin:0; padding:0; background:#081F33; }
       <p>Antes de enseñar esto, lo pagó. Esta es la historia, en cinco escenas.</p>
     </div>
 
-    <!-- ⚠️ Cada .nfm-scene__media es el lugar de la foto real de esa escena.
-         Reemplazá el <div class="nfm-scene__ph"> por <img src="..."> cuando tengas la URL.
-         La escena 4 lleva DOS fotos (la del TED y la del libro). -->
+    <!-- Fotos reales de Nico. Las escenas 1 y 4 llevan dos fotos cada una.
+         Si una foto es vertical, el motor de abajo le da un recuadro más alto solo (clase nfm-scene__media--v). -->
 
     <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 1 · Nico en el estudio contable</div></div>
+      <div class="nfm-scene__dual">
+        <div class="nfm-scene__media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escema1dividanicorecibiendodiploma.jpg" alt="Nico recibiendo el diploma" loading="lazy"></div>
+        <div class="nfm-scene__media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escena1estudiocontable-scaled.jpg" alt="Nico en el estudio contable" loading="lazy"></div>
+      </div>
       <div>
         <h3>El contador que llegó rápido</h3>
         <p>Nico es contador público. Se recibió con medalla al mejor promedio, abrió su propio estudio y creció rápido: en pocos años asesoraba empresas que manejaban capitales grandes, y los medios lo llamaban para pedirle su lectura sobre finanzas.</p>
@@ -385,7 +390,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
     </div>
 
     <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 2 · Nico en el escritorio</div></div>
+      <div class="nfm-scene__media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escena2-rotated.jpg" alt="Nico en su escritorio, en la época del estudio" loading="lazy"></div>
       <div>
         <h3>El precio por la productividad</h3>
         <p>Trabajaba catorce horas por día. Subió más de quince kilos. Empezaron las migrañas, y con las migrañas las pastillas, que tomaba —según sus palabras— como si fueran caramelos. Se le caía el pelo. Necesitaba clonazepam para dormir.</p>
@@ -394,7 +399,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
     </div>
 
     <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 3 · Nico en París</div></div>
+      <div class="nfm-scene__media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/enparis.jpeg" alt="Nico en París" loading="lazy"></div>
       <div>
         <h3>El punto de inflexión en París</h3>
         <p>No fue una crisis: fue un premio. Venía de cerrar los mejores años de facturación de su vida y se pagó el viaje a Europa que siempre había postergado. Y en París se dio cuenta de que no podía disfrutarlo. Estaba en el lugar que había soñado, con la plata que había ganado para eso, y no se sentía bien. <strong>Lo peor: ya tenía un máster en neurociencia y no se lo estaba aplicando a sí mismo.</strong></p>
@@ -404,8 +409,8 @@ html, body{ margin:0; padding:0; background:#081F33; }
 
     <div class="nfm-scene nfm-reveal">
       <div class="nfm-scene__dual">
-        <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 4 · Nico en la charla TED</div></div>
-        <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 4 · Nico con el libro</div></div>
+        <div class="nfm-scene__media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/charlated.jpg" alt="Nico en la charla TEDx" loading="lazy"></div>
+        <div class="nfm-scene__media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/hackeatucerebroenmano.jpeg" alt="Nico con su libro Hackea tu cerebro" loading="lazy"></div>
       </div>
       <div>
         <h3>La variable para escalar sin agotarse</h3>
@@ -415,7 +420,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
     </div>
 
     <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 5 · El Instituto, foto grupal</div></div>
+      <div class="nfm-scene__media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/ultimaescenainstituto.jpeg" alt="Alumnos del Instituto de Productividad con Nico" loading="lazy"></div>
       <div>
         <h3>Hoy</h3>
         <p>Fundó el Instituto de Productividad, donde <strong>más de 400 empresarios, profesionales y líderes</strong> ya pasaron por un proceso de mentoría personalizada. Sus programas cuentan con el aval de la Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy.</p>
@@ -617,6 +622,13 @@ function mostrarForm(){
     window.sessionStorage.setItem('nfm_equipo', resp.equipo);
   }catch(err){}
 }
+
+/* ─── fotos de las escenas: si es vertical, recuadro vertical ─── */
+(function(){
+  var ims=document.querySelectorAll('.nfm-scene__media img');
+  function marcar(im){ if(im.naturalWidth && im.naturalHeight>im.naturalWidth*1.05) im.parentNode.classList.add('nfm-scene__media--v'); }
+  for(var i=0;i<ims.length;i++){ if(ims[i].complete) marcar(ims[i]); else ims[i].addEventListener('load', (function(im){ return function(){ marcar(im); }; })(ims[i])); }
+})();
 
 /* ─── partículas / nav / reveal / scroll ─── */
 function makeParticles(id,count){ var c=document.getElementById(id); if(!c) return; for(var i=0;i<count;i++){ var p=document.createElement('div'); p.className=(id==='nfm-particles')?'nfm-particle':'nfm-reg-particle'; var s=(3+Math.random()*5)+'px'; p.style.cssText='left:'+(Math.random()*100)+'%;width:'+s+';height:'+s+';animation-duration:'+(10+Math.random()*14)+'s;animation-delay:-'+(Math.random()*12)+'s'; c.appendChild(p); } }
