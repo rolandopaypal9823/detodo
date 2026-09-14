@@ -53,10 +53,10 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
   Form Builder, agregás cada custom field al form y lo marcás como Hidden. GHL rellena los campos ocultos
   con los parámetros de la URL que tengan el mismo nombre. Las UTM no hace falta crearlas: GHL las captura
   solo.
-- **Thank you page de dos pasos.** Logo, título ("¡Lugar reservado! Ahora, dos pasos para recibir el
+- **Thank you page de tres pasos.** Logo, título ("¡Lugar reservado! Ahora, tres pasos para recibir el
   acceso."), paso 1 "Mirá este video" (Loom), paso 2 "Unite al grupo de WhatsApp para recibir el acceso a
-  la clase" (botón), y la tarjeta con la fecha, el título de la clase, "con Nico Fernández Miranda", hora y
-  Zoom. Nada más. Si la persona eligió C en el quiz, no ve los dos pasos ni la tarjeta: ve "quedaste anotado,
+  la clase" (botón), paso 3 "Hasta el día de la clase, atento al grupo y a tu mail", y la tarjeta con la fecha, el título de la clase, "con Nico Fernández Miranda", hora y
+  Zoom. Nada más. Si la persona eligió C en el quiz, no ve los tres pasos ni la tarjeta: ve "quedaste anotado,
   te avisamos primero". Para probar esa variante sin pasar por el quiz: `thank-you.html?etapa=C`. Si preferís
   que todos vean la página normal, poné `VARIANTE_C: false` en el CONFIG de `thank-you.html` (el popup igual
   se muestra sólo a A/B).

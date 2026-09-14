@@ -133,6 +133,8 @@ html, body{ margin:0; padding:0; background:#081F33; }
   background:rgba(255,255,255,0.04); border:1px solid var(--nfm-hair);
   border-radius:var(--nfm-r-lg); padding:22px;
 }
+.nfm-step__body--txt p{ font-size:1rem; color:var(--nfm-tl); line-height:1.65; margin:0 !important; text-align:center !important; }
+.nfm-step__body--txt strong{ color:#fff; font-weight:600; }
 
 /* botón WhatsApp */
 .nfm-wa-btn{
@@ -227,7 +229,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
       </div>
       <div class="nfm-solo-califica">
-        <h1 class="nfm-rv nfm-rv-1">¡Lugar reservado! Ahora, <span class="acc">dos pasos</span> para recibir el acceso.</h1>
+        <h1 class="nfm-rv nfm-rv-1">¡Lugar reservado! Ahora, <span class="acc">tres pasos</span> para recibir el acceso.</h1>
       </div>
       <div class="nfm-solo-c">
         <h1 class="nfm-rv nfm-rv-1">Listo, quedaste anotado. <span class="acc">Te avisamos primero.</span></h1>
@@ -267,13 +269,24 @@ html, body{ margin:0; padding:0; background:#081F33; }
         </div>
       </div>
 
+      <!-- PASO 3 — Atento al grupo y al mail -->
+      <div class="nfm-step nfm-rv nfm-rv-4">
+        <div class="nfm-step__head">
+          <div class="nfm-step__num">3</div>
+          <h3>Hasta el día de la clase, atento al grupo y a tu mail</h3>
+        </div>
+        <div class="nfm-step__body nfm-step__body--txt">
+          <p>Por ahí van a llegar el acceso y los recordatorios el <strong data-thx-fecha="diaYNumero">martes 22</strong>. Revisá también <strong>spam / promociones</strong>.</p>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- FECHA + TÍTULO DE LA CLASE -->
   <section class="nfm-thx__reminder nfm-solo-califica">
     <div class="nfm-thx__container">
-      <div class="nfm-rem-card nfm-rv nfm-rv-4">
+      <div class="nfm-rem-card nfm-rv nfm-rv-5">
         <div class="nfm-rem-date">
           <p class="dn" data-thx-fecha="diaSemana">Martes</p>
           <p class="dnum" data-thx-fecha="diaNum">22</p>
