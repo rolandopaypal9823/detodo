@@ -79,15 +79,15 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-d1{ transition-delay:.08s } .nfm-d2{ transition-delay:.16s } .nfm-d3{ transition-delay:.24s } .nfm-d4{ transition-delay:.32s }
 
 /* ═══ NAV ═══ */
-.nfm-nav{ position:fixed; top:0; left:0; right:0; z-index:9999; padding:14px 0; background:rgba(8,31,51,0.30); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+.nfm-nav{ position:fixed; top:0; left:0; right:0; z-index:9999; padding:10px 0; background:rgba(8,31,51,0.30); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
   transition:all .3s var(--nfm-ease); border-bottom:1px solid transparent; }
-.nfm-nav.nfm-nav--scrolled{ background:rgba(8,31,51,0.92); padding:9px 0; border-bottom:1px solid var(--nfm-hair); box-shadow:0 6px 30px rgba(0,0,0,0.35); }
+.nfm-nav.nfm-nav--scrolled{ background:rgba(8,31,51,0.92); padding:8px 0; border-bottom:1px solid var(--nfm-hair); box-shadow:0 6px 30px rgba(0,0,0,0.35); }
 .nfm-nav__inner{ display:flex; align-items:center; justify-content:center; }
-.nfm-nav__logo img{ height:64px; width:auto; transition:height .3s var(--nfm-ease); }
-.nfm-nav--scrolled .nfm-nav__logo img{ height:48px; }
+.nfm-nav__logo img{ height:100px; width:auto; transition:height .3s var(--nfm-ease); }
+.nfm-nav--scrolled .nfm-nav__logo img{ height:68px; }
 
 /* ═══ HERO · foto de fondo, todo centrado ═══ */
-.nfm-hero{ padding:100px 16px 0; background:#081F33; }
+.nfm-hero{ padding:132px 16px 0; background:#081F33; }
 .nfm-hero__card{ position:relative; overflow:hidden; border-radius:28px; max-width:1180px; margin:0 auto; min-height:760px; min-height:min(860px, calc(100svh - 120px));
   display:flex; align-items:flex-end; justify-content:center; border:1px solid var(--nfm-hair); box-shadow:0 30px 80px rgba(0,0,0,0.45); background:#0C3452; }
 .nfm-hero__bg{ position:absolute; inset:0; z-index:0; }
@@ -186,10 +186,10 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-map{ max-width:860px; margin:0 auto; background:#fff; border:1px solid var(--nfm-gray-200); border-radius:var(--nfm-r-lg); padding:20px 40px; box-shadow:0 20px 60px rgba(12,52,82,0.07); }
 .nfm-map__item{ display:flex; gap:22px; align-items:center; padding:22px 0; border-bottom:1px solid var(--nfm-gray-200); }
 .nfm-map__item:last-child{ border-bottom:none; }
-.nfm-map__num{ font-family:var(--nfm-font-h); font-size:2rem; font-weight:700; color:transparent; -webkit-text-stroke:1.5px var(--nfm-orange); min-width:52px; line-height:1; }
+.nfm-map__ico{ flex:none; width:48px; height:48px; border-radius:13px; background:rgba(12,52,82,0.05); border:1px solid var(--nfm-gray-200); display:flex; align-items:center; justify-content:center; color:var(--nfm-orange); }
+.nfm-map__ico svg{ width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
 .nfm-map__txt h4{ font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:500; color:var(--nfm-ink); margin:0; letter-spacing:-0.01em; line-height:1.4; }
 .nfm-map__txt h4 b{ font-weight:700; }
-.nfm-map__emoji{ display:inline-block; font-size:1.25em; line-height:1; margin-right:4px; vertical-align:-0.12em; }
 .nfm-learn__cta{ text-align:center; margin-top:44px; }
 
 /* ═══ TESTIMONIOS ═══ */
@@ -228,7 +228,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
 @media (max-width:1024px){ .nfm-map{ padding:16px 30px; } }
 @media (max-width:900px){ .nfm-tst__grid{ grid-template-columns:1fr; max-width:560px; } }
 @media (max-width:768px){
-  .nfm-hero{ padding:86px 12px 0; }
+  .nfm-hero{ padding:106px 12px 0; }
   .nfm-hero__card{ min-height:100vh; min-height:100svh; border-radius:22px; }
   .nfm-hero__inner{ padding:300px 20px 34px; }
   .nfm-hero__cta-wrap .nfm-btn{ width:100%; }
@@ -237,9 +237,9 @@ html, body{ margin:0; padding:0; background:#081F33; }
   .nfm-eq__board{ padding:26px 16px; }
   .nfm-eq__row{ grid-template-columns:1fr auto 1fr auto; gap:8px; font-size:1.05rem; }
   .nfm-quiz{ padding:22px 18px; }
-  .nfm-map{ padding:8px 20px; } .nfm-map__item{ gap:14px; align-items:flex-start; } .nfm-map__num{ font-size:1.5rem; min-width:38px; } .nfm-map__txt h4{ font-size:1.02rem; }
+  .nfm-map{ padding:8px 20px; } .nfm-map__item{ gap:14px; align-items:flex-start; } .nfm-map__ico{ width:42px; height:42px; border-radius:11px; } .nfm-map__ico svg{ width:21px; height:21px; } .nfm-map__txt h4{ font-size:1.02rem; }
   .nfm-proof__row{ gap:22px 30px; } .nfm-proof__logo{ max-height:24px; }
-  .nfm-nav__logo img{ height:48px; }
+  .nfm-nav__logo img{ height:76px; } .nfm-nav--scrolled .nfm-nav__logo img{ height:56px; }
   .nfm-creds{ padding:22px 18px; }
   .nfm-scene{ margin-bottom:48px; gap:18px; }
 }
@@ -422,7 +422,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
         <h3>Hoy</h3>
         <p>Fundó el Instituto de Productividad, donde <strong>más de cuatrocientos profesionales y líderes</strong> pasaron por un proceso de mentoría personalizada: padres y madres, arquitectos, médicos, contadores, empresarios con equipos a cargo, que sostenían lo que habían construido a un costo que ya les estaba cobrando la salud. Muchas de esas entrevistas están grabadas y públicas.</p>
         <p>Es autor bestseller con <em>Hackea tu cerebro</em>, dio dos charlas TED, capacita equipos en empresas como YPF, Samsung y Ternium, y su trabajo fue destacado en CNN, Infobae y Endeavor. Y mientras tanto escribe su segundo libro: <strong>la prueba de que siguió subiendo de nivel sin volver a pagarlo con el cuerpo.</strong></p>
-        <p>La pregunta que se hizo en París es la primera que le hace a cada profesional que entra.</p>
       </div>
     </div>
 
@@ -457,16 +456,17 @@ html, body{ margin:0; padding:0; background:#081F33; }
 <section class="nfm-learn">
   <div class="nfm-container">
     <div class="nfm-learn__head nfm-reveal">
-      <span class="nfm-eyebrow">Lo que vas a ver el <span data-nfm-fecha="corta">22 de septiembre</span></span>
-      <h2>Qué vas a aprender en el Zoom En Vivo</h2>
+      <span class="nfm-eyebrow">Contenido del evento</span>
+      <h2>Qué vas a aprender el <span data-nfm-fecha="abr">22 de Sep.</span> en Vivo</h2>
     </div>
     <div class="nfm-map nfm-reveal nfm-d1">
-      <div class="nfm-map__item"><div class="nfm-map__num">01</div><div class="nfm-map__txt"><h4><span class="nfm-map__emoji" aria-hidden="true">🧠</span> <b>Los 5 pilares del alto rendimiento:</b> lo que todo empresario, líder y profesional necesita para sostener presión sin pagarla con el cuerpo.</h4></div></div>
-      <div class="nfm-map__item"><div class="nfm-map__num">02</div><div class="nfm-map__txt"><h4><span class="nfm-map__emoji" aria-hidden="true">📊</span> <b>Los indicadores de tu cerebro:</b> cómo leer cuándo parar es más productivo que seguir, y cuándo es al revés.</h4></div></div>
-      <div class="nfm-map__item"><div class="nfm-map__num">03</div><div class="nfm-map__txt"><h4><span class="nfm-map__emoji" aria-hidden="true">⚙️</span> <b>Funciones ejecutivas como motor:</b> toma de decisiones, liderazgo efectivo y creatividad bajo exigencia sostenida.</h4></div></div>
-      <div class="nfm-map__item"><div class="nfm-map__num">04</div><div class="nfm-map__txt"><h4><span class="nfm-map__emoji" aria-hidden="true">🤖</span> <b>IA y herramientas que descargan tu cerebro:</b> Claude, Second Brain y otras automatizaciones para delegar en la tecnología, no en más personas.</h4></div></div>
-      <div class="nfm-map__item"><div class="nfm-map__num">05</div><div class="nfm-map__txt"><h4><span class="nfm-map__emoji" aria-hidden="true">🔋</span> <b>Recuperación medible, no "descanso":</b> por qué el fin de semana no te repone y qué hacer distinto para llegar al lunes con el motor entero.</h4></div></div>
-      <div class="nfm-map__item"><div class="nfm-map__num">06</div><div class="nfm-map__txt"><h4><span class="nfm-map__emoji" aria-hidden="true">🎯</span> <b>La variable que decide:</b> por qué sacrificarse y esforzarse no producen resultado, y qué es lo que sí. Se revela en vivo.</h4></div></div>
+      <div class="nfm-map__item"><div class="nfm-map__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10M10 21V10M14 21V10M19 21V10M2.5 10L12 3l9.5 7z"/></svg></div><div class="nfm-map__txt"><h4><b>Los 5 pilares del alto rendimiento:</b> lo que todo empresario, líder y profesional necesita para sostener presión sin pagarla con el cuerpo.</h4></div></div>
+      <div class="nfm-map__item"><div class="nfm-map__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 16.5a8 8 0 1 1 16 0"/><path d="M12 16.5l4.2-5.2"/><circle cx="12" cy="16.5" r="1.4"/><path d="M4 20h16"/></svg></div><div class="nfm-map__txt"><h4><b>Los indicadores de tu cerebro:</b> cómo leer cuándo parar es más productivo que seguir, y cuándo es al revés.</h4></div></div>
+      <div class="nfm-map__item"><div class="nfm-map__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="5.5" r="2.2"/><circle cx="18" cy="5.5" r="2.2"/><circle cx="12" cy="18.5" r="2.2"/><path d="M6 7.7v1.8a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4V7.7M12 13.5v2.8"/></svg></div><div class="nfm-map__txt"><h4><b>Funciones ejecutivas:</b> memoria de trabajo, control inhibitorio y flexibilidad cognitiva. La base de planificar, decidir y liderar bajo presión.</h4></div></div>
+      <div class="nfm-map__item"><div class="nfm-map__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg></div><div class="nfm-map__txt"><h4><b>Gestión de la concentración:</b> todos decimos "no tengo tiempo". ¿Estás seguro? ¿No será que te falta concentración para hacer lo mismo en menos tiempo?</h4></div></div>
+      <div class="nfm-map__item"><div class="nfm-map__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2.5"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 2.5v3.5M15 2.5v3.5M9 18v3.5M15 18v3.5M2.5 9H6M2.5 15H6M18 9h3.5M18 15h3.5"/></svg></div><div class="nfm-map__txt"><h4><b>IA y herramientas que descargan tu cerebro:</b> Claude, un Second Brain y automatizaciones para delegar en la tecnología, no en más personas.</h4></div></div>
+      <div class="nfm-map__item"><div class="nfm-map__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="7" width="17" height="10" rx="2.5"/><path d="M19.5 10.5h1.5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1.5"/><path d="M12 8.5l-2.5 4h4L11 16"/></svg></div><div class="nfm-map__txt"><h4><b>Recuperación medible, no "descanso":</b> por qué el fin de semana no te repone y qué hacer distinto para llegar al lunes con el motor entero.</h4></div></div>
+      <div class="nfm-map__item"><div class="nfm-map__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="11" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><circle cx="12" cy="16" r="1.3"/></svg></div><div class="nfm-map__txt"><h4><b>La variable que decide:</b> por qué sacrificarse y esforzarse no producen resultado, y qué es lo que sí. Se revela en vivo.</h4></div></div>
     </div>
     <div class="nfm-learn__cta nfm-reveal nfm-d2">
       <button class="nfm-btn" data-scroll-to="nfm-registro">RESERVAR MI LUGAR <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
@@ -552,7 +552,8 @@ function partesArg(ts){ var d=new Date(ts+CONFIG.OFFSET_ARG*HORA); return {dow:d
 var TS = tsClase(CONFIG.FECHA), P = partesArg(TS);
 var DIAS_C=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'], MESES_C=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 var FECHAS = { larga: DIAS[P.dow]+' '+P.dia+' de '+MESES[P.mes], corta: P.dia+' de '+MESES[P.mes], hora: pad(P.hh)+':'+pad(P.mm)+' hs (Argentina)',
-               pill: DIAS_C[P.dow]+' '+P.dia+' '+MESES_C[P.mes]+' · '+pad(P.hh)+':'+pad(P.mm)+' hs (Arg) · Zoom' };
+               pill: DIAS_C[P.dow]+' '+P.dia+' '+MESES_C[P.mes]+' · '+pad(P.hh)+':'+pad(P.mm)+' hs (Arg) · Zoom',
+               abr: P.dia+' de '+MESES_C[P.mes].charAt(0).toUpperCase()+MESES_C[P.mes].slice(1)+'.' };
 FECHAS.completa = FECHAS.larga+' · '+FECHAS.hora+' · En vivo por Zoom';
 (function(){ var f=document.querySelectorAll('[data-nfm-fecha]'); for(var i=0;i<f.length;i++){ var k=f[i].getAttribute('data-nfm-fecha'); if(FECHAS[k]!=null) f[i].textContent=FECHAS[k]; } })();
 
@@ -624,7 +625,7 @@ makeParticles('nfm-reg-particles',16);
   window.addEventListener('scroll', function(){ if(nav) nav.classList.toggle('nfm-nav--scrolled', window.scrollY>60); if(st) st.classList.toggle('nfm-sticky--show', window.scrollY>700); }, {passive:true}); })();
 function reveal(){ var els=document.querySelectorAll('.nfm-reveal'), wh=window.innerHeight; for(var i=0;i<els.length;i++){ if(els[i].getBoundingClientRect().top<wh-70) els[i].classList.add('nfm-vis'); } }
 window.addEventListener('scroll', reveal, {passive:true}); window.addEventListener('load', reveal); reveal();
-function scrollToId(id){ var t=document.getElementById(id); if(!t) return; window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-76, behavior:'smooth'}); }
+function scrollToId(id){ var t=document.getElementById(id); if(!t) return; window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-96, behavior:'smooth'}); }
 document.addEventListener('click', function(e){
   var b=e.target.closest?e.target.closest('[data-scroll-to]'):null; if(b){ e.preventDefault(); scrollToId(b.getAttribute('data-scroll-to')); return; }
   var a=e.target.closest?e.target.closest('a[href^="#"]'):null; if(a){ var href=a.getAttribute('href'); if(href.length>1){ e.preventDefault(); scrollToId(href.slice(1)); } }
