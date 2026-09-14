@@ -61,6 +61,13 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
   te avisamos primero". Para probar esa variante sin pasar por el quiz: `thank-you.html?etapa=C`. Si preferís
   que todos vean la página normal, poné `VARIANTE_C: false` en el CONFIG de `thank-you.html` (el popup igual
   se muestra sólo a A/B).
+- **Botón de WhatsApp directo a la app.** En `thank-you.html`, en el CONFIG, la clase tiene un campo
+  `wa_codigo`. Es lo que va después de `https://chat.whatsapp.com/` en el link de invitación del grupo
+  (WhatsApp → el grupo → Invitar mediante link → Copiar link). Con eso cargado, el botón abre la app de
+  WhatsApp de una en iPhone, Android y en el navegador interno de Instagram/Facebook, y si la app no está
+  instalada cae al link web del grupo. Si `wa_codigo` queda vacío, el botón usa el link `wa` (wha.link)
+  como siempre. En escritorio no cambia nada: `chat.whatsapp.com` ya ofrece abrir WhatsApp Desktop o Web.
+  Se apaga con `WA_ABRIR_APP: false`.
 - **Popup post-registro (USD 1 / USD 5):** hay un lugar reservado al final de `thank-you.html`, marcado
   con `POPUP POST-REGISTRO`. Cuando tengas el código, va ahí. Se muestra sólo a quien calificó; los C nunca
   lo ven. Si el popup es un script, envolvelo en `if(window.NFM_CALIFICA){ ... }`.

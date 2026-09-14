@@ -359,8 +359,16 @@ var CONFIG = {
   /* ⚠️ VERSIÓN FIJA · SÓLO la clase del 22 de septiembre · Neurociencia para el Alto Rendimiento Profesional. */
   CLASES: [
     { fecha:'2026-09-22', tema:'AR', utm:'clase-sep22-alto-rendimiento',
-      wa:'https://go.wha.link/clase-22-de-semptiembre-de-neurociencia' }
+      wa:'https://go.wha.link/clase-22-de-semptiembre-de-neurociencia',
+      /* Código del grupo = lo que va después de https://chat.whatsapp.com/ en el link de invitación.
+         Con esto cargado, el botón abre la app de WhatsApp directo (sin pasar por wha.link ni por el
+         navegador). Si queda vacío, el botón usa el link 'wa' de arriba como hasta ahora. */
+      wa_codigo:'' }
   ],
+
+  /* true → en celular, el botón intenta abrir la app de WhatsApp de una (whatsapp:// o intent://) y,
+     si no está instalada, cae al link web. Sólo actúa si la clase tiene wa_codigo cargado. */
+  WA_ABRIR_APP: true,
 
   /* Se usa sólo si la clase activa no tiene el suyo cargado, para que el botón nunca
      quede roto. Ojo: manda al grupo equivocado, así que es red de seguridad, no solución. */
@@ -552,8 +560,9 @@ if(TEST_SIGUIENTE && clase){
 if(clase){
   var COPY   = TEMAS[clase.def.tema] || TEMAS.AR;
   var FECHAS = fechasDe(clase.ts);
-  var WA     = clase.def.wa || CONFIG.GRUPO_FALLBACK;
-  var WA_PROPIO = !!clase.def.wa;
+  var WA_CODIGO = String(clase.def.wa_codigo || '').replace(/^.*chat\.whatsapp\.com\//,'').replace(/[^A-Za-z0-9_-]/g,'');
+  var WA     = WA_CODIGO ? 'https://chat.whatsapp.com/'+WA_CODIGO : (clase.def.wa || CONFIG.GRUPO_FALLBACK);
+  var WA_PROPIO = !!(WA_CODIGO || clase.def.wa);
 
   /* fechas */
   var f = document.querySelectorAll('[data-thx-fecha]'), i;
@@ -572,6 +581,41 @@ if(clase){
   /* grupo de WhatsApp de esta clase */
   var btn = document.getElementById('nfm-thx-wa');
   if(btn) btn.setAttribute('href', WA);
+
+  /* — Abrir la app de WhatsApp de una (sólo celular, sólo con wa_codigo) —
+       iPhone / iPad / webviews de Instagram y Facebook → whatsapp://chat?code=…  y si en 1,5 s la
+         página sigue visible (no hay app), cae al link web.
+       Android con Chrome → intent:// con fallback: Chrome abre la app o, si no está, el link web.
+       Escritorio → no toca nada: chat.whatsapp.com ya ofrece abrir WhatsApp Desktop o Web. — */
+  function nfmWaDestino(ua){
+    if(!WA_CODIGO || !CONFIG.WA_ABRIR_APP) return null;
+    ua = ua || navigator.userAgent || '';
+    var web = 'https://chat.whatsapp.com/'+WA_CODIGO;
+    if(/Android/i.test(ua)){
+      var chromeReal = /Chrome\//i.test(ua) && !/\bwv\b/.test(ua) && !/Instagram|FBAN|FBAV|FB_IAB/i.test(ua);
+      if(chromeReal) return { tipo:'intent', url:'intent://chat?code='+WA_CODIGO+'#Intent;scheme=whatsapp;package=com.whatsapp;S.browser_fallback_url='+encodeURIComponent(web)+';end' };
+      return { tipo:'scheme', url:'whatsapp://chat?code='+WA_CODIGO, fallback:web };
+    }
+    if(/iPhone|iPad|iPod/i.test(ua)) return { tipo:'scheme', url:'whatsapp://chat?code='+WA_CODIGO, fallback:web };
+    return null;
+  }
+  window.NFM_WA_DESTINO = nfmWaDestino;
+  if(btn && nfmWaDestino()){
+    btn.addEventListener('click', function(ev){
+      var d = nfmWaDestino(); if(!d) return;
+      ev.preventDefault();
+      if(d.tipo === 'intent'){ window.location.href = d.url; return; }
+      var seFue = false;
+      function marcar(){ if(document.visibilityState === 'hidden') seFue = true; }
+      document.addEventListener('visibilitychange', marcar);
+      window.addEventListener('pagehide', function(){ seFue = true; });
+      window.location.href = d.url;
+      setTimeout(function(){
+        document.removeEventListener('visibilitychange', marcar);
+        if(!seFue && document.visibilityState !== 'hidden') window.location.href = d.fallback;
+      }, 1500);
+    });
+  }
   if(!WA_PROPIO && window.console && console.warn){
     console.warn('[NFM] La clase del '+isoDe(clase.ts)+' no tiene grupo de WhatsApp propio. '+
                  'El botón está cayendo en GRUPO_FALLBACK: '+CONFIG.GRUPO_FALLBACK);
