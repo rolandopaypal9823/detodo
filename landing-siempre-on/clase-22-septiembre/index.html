@@ -99,16 +99,13 @@ html, body{ margin:0; padding:0; background:#081F33; }
   background:rgba(8,31,51,0.55); border:1px solid rgba(255,255,255,0.18); padding:8px 16px; border-radius:50px; margin-bottom:18px; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); animation:nfm-fu .6s var(--nfm-ease) both; }
 .nfm-hero__tag .nfm-dot{ width:7px; height:7px; }
 .nfm-hero__title{ font-family:var(--nfm-font-h); font-size:clamp(2.05rem,4.8vw,3.6rem); font-weight:700; color:#fff; line-height:1.04; letter-spacing:-0.035em; margin:0 0 10px; text-wrap:balance; text-shadow:0 2px 24px rgba(0,0,0,0.5); animation:nfm-fu .6s .1s var(--nfm-ease) both; }
-.nfm-hero__with{ font-family:var(--nfm-font-h); font-size:clamp(1.05rem,1.8vw,1.3rem); color:var(--nfm-orange); font-weight:600; margin:0 0 22px; animation:nfm-fu .6s .16s var(--nfm-ease) both; }
-.nfm-hero__hook{ font-family:var(--nfm-font-h); font-size:clamp(1.25rem,2.5vw,1.8rem); font-weight:600; color:#fff; line-height:1.25; letter-spacing:-0.015em; margin:0 0 26px; max-width:22em; text-wrap:balance; text-shadow:0 2px 18px rgba(0,0,0,0.45); animation:nfm-fu .6s .22s var(--nfm-ease) both; }
+.nfm-hero__with{ font-family:var(--nfm-font-h); font-size:clamp(1.05rem,1.8vw,1.3rem); color:var(--nfm-orange); font-weight:600; margin:0; animation:nfm-fu .6s .16s var(--nfm-ease) both; }
+.nfm-hero__rule{ display:block; width:44px; height:3px; border-radius:3px; background:var(--nfm-orange); margin:26px auto 18px; animation:nfm-fu .6s .2s var(--nfm-ease) both; }
+.nfm-hero__hook{ font-family:var(--nfm-font-h); font-size:clamp(1.4rem,2.7vw,1.95rem); font-weight:600; color:#fff; line-height:1.22; letter-spacing:-0.02em; margin:0 0 30px; max-width:22em; text-wrap:balance; text-shadow:0 2px 18px rgba(0,0,0,0.45); animation:nfm-fu .6s .22s var(--nfm-ease) both; }
 .nfm-hero__hook .nfm-q, .nfm-hero__hook em{ color:var(--nfm-orange); font-style:normal; }
-.nfm-hero__meta{ display:flex; flex-direction:column; align-items:center; gap:4px; margin:0 0 22px; animation:nfm-fu .6s .28s var(--nfm-ease) both; }
-.nfm-hero__meta-k{ font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-tm); }
-.nfm-hero__meta-v{ font-family:var(--nfm-font-h); font-size:1.05rem; font-weight:600; color:#fff; }
-.nfm-hero__meta-v small{ display:block; font-size:0.85rem; font-weight:500; color:var(--nfm-tl); margin-top:3px; }
+.nfm-hero__pill{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.92rem; font-weight:600; color:#fff; background:rgba(255,255,255,0.08); border:1px solid var(--nfm-hair-strong); padding:9px 18px; border-radius:50px; margin:0 0 18px; animation:nfm-fu .6s .3s var(--nfm-ease) both; }
 .nfm-dot{ width:4px; height:4px; border-radius:50%; background:var(--nfm-orange); display:inline-block; }
-.nfm-cd-label{ font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-ts); margin:0 0 10px; animation:nfm-fu .6s .34s var(--nfm-ease) both; }
-.nfm-cd{ display:flex; justify-content:center; gap:12px; margin:0 0 28px; animation:nfm-fu .6s .38s var(--nfm-ease) both; }
+.nfm-cd{ display:flex; justify-content:center; gap:12px; margin:0 0 26px; animation:nfm-fu .6s .38s var(--nfm-ease) both; }
 .nfm-cd__item{ display:flex; flex-direction:column; align-items:center; min-width:70px; padding:13px 16px; background:rgba(8,31,51,0.45); border:1px solid rgba(255,255,255,0.14); border-radius:var(--nfm-r); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
 .nfm-cd__num{ font-family:var(--nfm-font-h); font-size:1.9rem; font-weight:700; color:var(--nfm-orange); line-height:1; font-variant-numeric:tabular-nums; }
 .nfm-cd__unit{ font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--nfm-tm); margin-top:5px; }
@@ -273,12 +270,9 @@ html, body{ margin:0; padding:0; background:#081F33; }
       <span class="nfm-hero__tag"><span class="nfm-dot"></span> Evento en vivo</span>
       <h1 class="nfm-hero__title">Neurociencia para el Alto Rendimiento Profesional</h1>
       <p class="nfm-hero__with">con Nico Fernández Miranda</p>
-      <p class="nfm-hero__hook">Más <span class="nfm-q">"productivo"</span> sos, <em>menos avanzás en tu vida.</em></p>
-      <div class="nfm-hero__meta">
-        <span class="nfm-hero__meta-k">Fecha</span>
-        <span class="nfm-hero__meta-v"><span data-nfm-fecha="larga">Martes 22 de septiembre</span> · <span data-nfm-fecha="hora">19:00 hs (Argentina)</span><small>En vivo por Zoom</small></span>
-      </div>
-      <p class="nfm-cd-label">El evento comienza en</p>
+      <span class="nfm-hero__rule" aria-hidden="true"></span>
+      <p class="nfm-hero__hook">Más <span class="nfm-q">"productivo"</span> sos,<br><em>menos avanzás en tu vida.</em></p>
+      <p class="nfm-hero__pill" data-nfm-fecha="pill">Mar 22 sep · 19:00 hs (Arg) · Zoom</p>
       <div class="nfm-cd">
         <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-days">00</span><span class="nfm-cd__unit">Días</span></div>
         <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-hours">00</span><span class="nfm-cd__unit">Horas</span></div>
@@ -556,7 +550,9 @@ function ahora(){ var s=qs('nfm_now'); if(s){ var t=Date.parse(s); if(!isNaN(t))
 function tsClase(f){ var p=f.split('-'); return Date.UTC(+p[0],+p[1]-1,+p[2],CONFIG.HORA_CLASE-CONFIG.OFFSET_ARG,CONFIG.MINUTOS_CLASE,0,0); }
 function partesArg(ts){ var d=new Date(ts+CONFIG.OFFSET_ARG*HORA); return {dow:d.getUTCDay(),dia:d.getUTCDate(),mes:d.getUTCMonth(),anio:d.getUTCFullYear(),hh:d.getUTCHours(),mm:d.getUTCMinutes()}; }
 var TS = tsClase(CONFIG.FECHA), P = partesArg(TS);
-var FECHAS = { larga: DIAS[P.dow]+' '+P.dia+' de '+MESES[P.mes], corta: P.dia+' de '+MESES[P.mes], hora: pad(P.hh)+':'+pad(P.mm)+' hs (Argentina)' };
+var DIAS_C=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'], MESES_C=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+var FECHAS = { larga: DIAS[P.dow]+' '+P.dia+' de '+MESES[P.mes], corta: P.dia+' de '+MESES[P.mes], hora: pad(P.hh)+':'+pad(P.mm)+' hs (Argentina)',
+               pill: DIAS_C[P.dow]+' '+P.dia+' '+MESES_C[P.mes]+' · '+pad(P.hh)+':'+pad(P.mm)+' hs (Arg) · Zoom' };
 FECHAS.completa = FECHAS.larga+' · '+FECHAS.hora+' · En vivo por Zoom';
 (function(){ var f=document.querySelectorAll('[data-nfm-fecha]'); for(var i=0;i<f.length;i++){ var k=f[i].getAttribute('data-nfm-fecha'); if(FECHAS[k]!=null) f[i].textContent=FECHAS[k]; } })();
 
