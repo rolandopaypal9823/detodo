@@ -1,0 +1,76 @@
+<!-- ============================================================
+     Thank you page de Calendly -> Inbound Webhook de GHL
+     Pegar en el HEADER de la pagina de gracias (la que Calendly
+     usa como redirect despues de agendar).
+
+     REQUISITOS EN CALENDLY:
+     Event type > Confirmation page > Redirect to an external site
+       - URL: la de esta pagina
+       - Activar "Pass event details to your redirected page"
+
+     REQUISITOS EN GHL:
+     Workflow con trigger "Inbound Webhook". Pegar su URL abajo.
+     ============================================================ -->
+<script>
+(function () {
+  // <<< PEGA ACA LA URL DEL INBOUND WEBHOOK DE GHL >>>
+  var GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/XXXXXXXX";
+
+  var qs = new URLSearchParams(location.search);
+  var email = (qs.get("invitee_email") || "").trim().toLowerCase();
+  if (!email) return; // sin email no hay nada que mandar
+
+  // Evita mandar dos veces si la persona recarga la pagina
+  var uuid = qs.get("invitee_uuid") || email;
+  try {
+    if (localStorage.getItem("nfm_agenda_" + uuid)) return;
+    localStorage.setItem("nfm_agenda_" + uuid, "1");
+  } catch (e) {}
+
+  function getCookie(n) {
+    var m = document.cookie.match(new RegExp('(?:^| )' + n + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : "";
+  }
+  function leer(k, cookieName) {
+    var v = "";
+    try { v = localStorage.getItem(k) || ""; } catch (e) {}
+    return v || getCookie(k) || (cookieName ? getCookie(cookieName) : "");
+  }
+
+  var nombre = (qs.get("invitee_full_name") || "").trim();
+  var partes = nombre ? nombre.split(/\s+/) : [];
+
+  var data = {
+    event: "agenda",
+    email: email,
+    firstName: partes[0] || "",
+    lastName: partes.slice(1).join(" "),
+    phone: qs.get("text_reminder_number") || qs.get("answer_1") || "",
+    startTime: qs.get("event_start_time") || "",
+    eventName: qs.get("event_type_name") || "",
+    // Estos salen del navegador: ya estaban guardados desde el registro
+    fbclid: leer("nfm_fbclid"),
+    fbc: leer("nfm_fbc", "_fbc"),
+    fbp: leer("nfm_fbp", "_fbp"),
+    source: "Calendly"
+  };
+
+  var body = JSON.stringify(data);
+
+  // Envio "fire and forget". No podemos leer la respuesta por CORS,
+  // pero el request igual llega al servidor de GHL.
+  try {
+    fetch(GHL_WEBHOOK_URL, {
+      method: "POST",
+      mode: "no-cors",
+      keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=UTF-8" },
+      body: body
+    });
+  } catch (e) {
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(GHL_WEBHOOK_URL, new Blob([body], { type: "text/plain" }));
+    }
+  }
+})();
+</script>
