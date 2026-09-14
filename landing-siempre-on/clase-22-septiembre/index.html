@@ -137,6 +137,10 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-reg__title span{ color:var(--nfm-orange); }
 .nfm-quiz{ max-width:640px; margin:0 auto; background:#fff; border:1px solid var(--nfm-gray-200); border-radius:18px; box-shadow:0 24px 70px rgba(12,52,82,0.14); padding:32px; }
 .nfm-quiz__step{ display:none; } .nfm-quiz__step.nfm-on{ display:block; }
+.nfm-alerta{ display:flex; align-items:center; gap:12px; background:#FFF4D6; border:1.5px solid #F2B824; border-radius:12px; padding:12px 16px; margin:0 0 20px; color:#5A3D00; }
+.nfm-alerta svg{ flex:none; width:26px; height:26px; fill:#FFD23F; stroke:#8A5A00; stroke-width:1.8; stroke-linejoin:round; stroke-linecap:round; }
+.nfm-alerta p{ margin:0; font-size:0.94rem; line-height:1.45; }
+.nfm-alerta strong{ color:#3D2900; font-weight:700; }
 .nfm-quiz__prog{ display:flex; gap:6px; margin-bottom:22px; }
 .nfm-quiz__prog span{ flex:1; height:4px; border-radius:4px; background:var(--nfm-gray-200); }
 .nfm-quiz__prog span.nfm-done{ background:var(--nfm-orange); }
@@ -325,23 +329,27 @@ html, body{ margin:0; padding:0; background:#081F33; }
     <h2 class="nfm-reg__title nfm-reveal">Reservá tu lugar. <span>Antes, una pregunta.</span></h2>
 
     <div class="nfm-quiz nfm-reveal nfm-d1" id="nfm-quiz">
+      <div class="nfm-alerta" role="note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 9.5v5"/><circle cx="12" cy="17.2" r="0.9" fill="currentColor" stroke="none"/></svg>
+        <p><strong>Clase en vivo exclusiva</strong> para empresarios, líderes y profesionales que trabajan con alta exigencia y presión.</p>
+      </div>
       <div class="nfm-quiz__prog" aria-hidden="true"><span id="nfm-p1"></span><span id="nfm-p2"></span><span id="nfm-p3"></span></div>
 
       <!-- Paso 1 -->
       <div class="nfm-quiz__step nfm-on" data-step="1">
         <p class="nfm-quiz__q">¿En qué etapa estás hoy?</p>
-        <button type="button" class="nfm-opt" data-q="etapa" data-v="A"><span class="nfm-opt__img" hidden><img src="PEGAR-URL" alt=""></span><span class="nfm-opt__t">Construí un sostén económico y una trayectoria que me dan tranquilidad. Lo que me preocupa es lo que me está costando sostenerlo: la presión, el cansancio, la cabeza que no se apaga.</span><span class="nfm-opt__radio"></span></button>
-        <button type="button" class="nfm-opt" data-q="etapa" data-v="B"><span class="nfm-opt__img" hidden><img src="PEGAR-URL" alt=""></span><span class="nfm-opt__t">Tengo una carrera armada y estoy en etapa de seguir creciendo. Pero el crecimiento me está costando desvelos, irritabilidad y tiempo que no tengo para nada más.</span><span class="nfm-opt__radio"></span></button>
-        <button type="button" class="nfm-opt" data-q="etapa" data-v="C"><span class="nfm-opt__img" hidden><img src="PEGAR-URL" alt=""></span><span class="nfm-opt__t">Todavía estoy construyendo mi sostén profesional y económico. Estoy en un punto de partida.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="etapa" data-v="A"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-A-Construi-un-sosten-economico-y-me-preocupa-lo-que-me-cuesta-sostenerlo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Construí un sostén económico y una trayectoria que me dan tranquilidad. Lo que me preocupa es lo que me está costando sostenerlo: la presión, el cansancio, la cabeza que no se apaga.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="etapa" data-v="B"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-B-Tengo-una-carrera-armada-pero-me-cuesta-desvelos-irritabilidad-y-tiempo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Tengo una carrera armada y estoy en etapa de seguir creciendo. Pero el crecimiento me está costando desvelos, irritabilidad y tiempo que no tengo para nada más.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="etapa" data-v="C"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-C-Estoy-construyendo-mi-sosten-profesional-y-economico-Punto-de-partida.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Todavía estoy construyendo mi sostén profesional y económico. Estoy en un punto de partida.</span><span class="nfm-opt__radio"></span></button>
         <div class="nfm-quiz__actions"><button type="button" class="nfm-btn" id="nfm-next1" disabled>Continuar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
       </div>
 
       <!-- Paso 2 -->
       <div class="nfm-quiz__step" data-step="2">
         <p class="nfm-quiz__q">¿Hay gente cuyo trabajo depende de tus decisiones?</p>
-        <button type="button" class="nfm-opt" data-q="equipo" data-v="A"><span class="nfm-opt__img" hidden><img src="PEGAR-URL" alt=""></span><span class="nfm-opt__t">Sí, un equipo o una empresa a cargo.</span><span class="nfm-opt__radio"></span></button>
-        <button type="button" class="nfm-opt" data-q="equipo" data-v="B"><span class="nfm-opt__img" hidden><img src="PEGAR-URL" alt=""></span><span class="nfm-opt__t">Sí, algunas personas.</span><span class="nfm-opt__radio"></span></button>
-        <button type="button" class="nfm-opt" data-q="equipo" data-v="C"><span class="nfm-opt__img" hidden><img src="PEGAR-URL" alt=""></span><span class="nfm-opt__t">Todavía no.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="equipo" data-v="A"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-2-Opcion-A-Tengo-un-equipo-o-una-empresa-a-cargo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Sí, un equipo o una empresa a cargo.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="equipo" data-v="B"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-2-Opcion-B-Algunas-personas-dependen-de-mis-decisiones.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Sí, algunas personas.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="equipo" data-v="C"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-2-Opcion-C-Todavia-nadie-depende-de-mis-decisiones-Trabajo-solo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Todavía no.</span><span class="nfm-opt__radio"></span></button>
         <div class="nfm-quiz__actions"><button type="button" class="nfm-btn" id="nfm-next2" disabled>Ver mi lugar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
       </div>
 
@@ -598,6 +606,8 @@ if(n2) n2.addEventListener('click', function(){ if(resp.etapa && resp.equipo) mo
 function mostrarForm(){
   irPaso(3);
   var califica = (resp.etapa !== 'C');
+  /* nivel: alto = etapa A/B con gente a cargo · medio = etapa A/B sin gente a cargo · bajo = punto de partida */
+  var nivel = !califica ? 'bajo' : (resp.equipo === 'C' ? 'medio' : 'alto');
   var msgOk=document.getElementById('nfm-msg-ok');
   if(msgOk) msgOk.hidden = !califica;
 
@@ -612,6 +622,7 @@ function mostrarForm(){
   p.push('etapa='+resp.etapa);
   p.push('equipo='+resp.equipo);
   p.push('califica='+(califica?'si':'no'));
+  p.push('nivel='+nivel);
   var base=ifr.getAttribute('data-src')||('https://api.leadconnectorhq.com/widget/form/'+CONFIG.FORM_ID);
   ifr.src = base+(base.indexOf('?')===-1?'?':'&')+p.join('&');
   ifr.style.minHeight = CONFIG.FORM_ALTO_MINIMO+'px';
@@ -620,6 +631,7 @@ function mostrarForm(){
     window.sessionStorage.setItem('nfm_clase_fecha', CONFIG.FECHA);
     window.sessionStorage.setItem('nfm_etapa', resp.etapa);
     window.sessionStorage.setItem('nfm_equipo', resp.equipo);
+    window.sessionStorage.setItem('nfm_nivel', nivel);
   }catch(err){}
 }
 

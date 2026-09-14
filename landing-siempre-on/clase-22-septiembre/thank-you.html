@@ -468,9 +468,11 @@ var TEST_SIGUIENTE = /test-?landing-?2/i.test(window.location.href);
    ══════════════════════════════════════════════════════════════════ */
 var ETAPA  = String(qs('etapa')  || ss('nfm_etapa')  || '').toUpperCase();
 var EQUIPO = String(qs('equipo') || ss('nfm_equipo') || '').toUpperCase();
+var NIVEL  = String(qs('nivel')  || ss('nfm_nivel')  || '').toLowerCase();   /* alto · medio · bajo */
 var CALIFICA = (ETAPA !== 'C');
 window.NFM_ETAPA = ETAPA || null;
 window.NFM_EQUIPO = EQUIPO || null;
+window.NFM_NIVEL = NIVEL || null;
 window.NFM_CALIFICA = CALIFICA;
 if(!CALIFICA && CONFIG.VARIANTE_C) document.documentElement.className += ' nfm-etapa-c';
 var NOW_FORZADO = null;
@@ -643,7 +645,8 @@ if(clase){
      Se muestra SÓLO a quien calificó (etapa A o B). Quien eligió C nunca lo ve.
        · Si el popup es HTML: ponerlo adentro del div de abajo (se oculta solo para los C).
        · Si es un script: envolverlo en  if(window.NFM_CALIFICA){ ... }
-       · Datos disponibles: window.NFM_ETAPA ('A'|'B'|'C'|null), window.NFM_EQUIPO, window.NFM_CALIFICA (true/false)
+       · Datos disponibles: window.NFM_ETAPA ('A'|'B'|'C'|null), window.NFM_EQUIPO, window.NFM_CALIFICA (true/false),
+         window.NFM_NIVEL ('alto' = etapa A/B con gente a cargo · 'medio' = A/B sin gente a cargo · 'bajo' = punto de partida)
      ══════════════════════════════════════════════════════════════════ -->
 <div id="nfm-popup-slot" class="nfm-solo-califica">
   <!-- popup acá -->

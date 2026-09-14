@@ -26,10 +26,12 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
 - **Hero centrado con la foto del TED de fondo**, estilo tarjeta: etiqueta "Evento en vivo", título del
   evento, "con Nico Fernández Miranda", el gancho, fecha, contador y botón. Cuando tengas la foto nueva en
   4K, cambiás sólo el `src` de la imagen dentro de `.nfm-hero__bg`. Toda la landing va centrada.
-- **Quiz de dos preguntas antes del form.** Las respuestas viajan al mismo form de siempre como campos
-  extra: `etapa` (A/B/C), `equipo` (A/B/C) y `califica` (`si`/`no`). En la landing todos ven el mismo
-  form: no hay ningún mensaje de "esto no es para vos" (lo sacaste en la revisión). En GHL, filtrá la
-  automatización que manda el `Lead` por CAPI con `califica = si`.
+- **Quiz de dos preguntas antes del form**, con una imagen por opción y un aviso amarillo arriba ("Clase
+  en vivo exclusiva para empresarios, líderes y profesionales…"). Las respuestas viajan al mismo form de
+  siempre como campos extra: `etapa` (A/B/C), `equipo` (A/B/C), `califica` (`si`/`no`) y `nivel`:
+  `alto` = etapa A o B con gente a cargo, `medio` = etapa A o B sin gente a cargo, `bajo` = punto de
+  partida. En la landing todos ven el mismo form. En GHL, mandá el `Lead` por CAPI sólo con
+  `califica = si` (o, si querés apuntar más fino a Platinum, sólo con `nivel = alto`).
 - **Thank you page con dos variantes.** Si la persona eligió C, no ve el grupo de WhatsApp ni la agenda:
   ve "quedaste anotado, te avisamos primero". Si eligió A o B (o si no hay dato), ve todo como siempre.
   Para probar la variante C sin pasar por el quiz: `thank-you.html?etapa=C`. Como en la landing ya no se
