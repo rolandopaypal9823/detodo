@@ -205,10 +205,27 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
 @keyframes nfm-modal-in{ from{ opacity:0; transform:translateY(18px) scale(.98); } to{ opacity:1; transform:none; } }
 @keyframes nfm-modal-bg{ from{ opacity:0; } to{ opacity:1; } }
 @media (max-width:600px){
+  /* en celular el popup ocupa toda la pantalla y el paso 1 entra sin scrollear:
+     título chico, aviso compacto, opciones con foto de 48 px y texto más apretado */
   .nfm-modal{ padding:0; align-items:flex-end; }
-  .nfm-modal__panel{ max-height:100vh; max-height:100dvh; border-radius:22px 22px 0 0; padding:0 14px 22px; }
-  .nfm-modal__top{ margin:0 -14px 2px; }
-  .nfm-modal .nfm-quiz{ padding:16px; }
+  .nfm-modal__panel{ height:100vh; height:100dvh; max-height:100vh; max-height:100dvh; border-radius:0; padding:0 12px 14px; }
+  .nfm-modal__top{ margin:0 -12px 0; padding:6px 8px 2px; }
+  .nfm-modal__close{ width:36px; height:36px; }
+  .nfm-modal .nfm-reg__title{ font-size:1.05rem; line-height:1.2; margin:0 auto 8px !important; }
+  .nfm-modal .nfm-quiz{ padding:12px; }
+  .nfm-modal .nfm-alerta{ padding:8px 10px; gap:8px; margin-bottom:10px; border-radius:10px; }
+  .nfm-modal .nfm-alerta svg{ width:20px; height:20px; }
+  .nfm-modal .nfm-alerta p{ font-size:0.8rem; line-height:1.3; }
+  .nfm-modal .nfm-quiz__prog{ margin-bottom:10px; }
+  .nfm-modal .nfm-quiz__q{ font-size:1.05rem; margin:0 0 10px; }
+  .nfm-modal .nfm-quiz__help{ font-size:0.88rem; margin:-4px 0 10px; }
+  .nfm-modal .nfm-opt{ padding:10px 12px; gap:10px; margin-bottom:8px; }
+  .nfm-modal .nfm-opt__img{ width:48px; height:48px; border-radius:9px; }
+  .nfm-modal .nfm-opt__t{ font-size:0.86rem; line-height:1.35; }
+  .nfm-modal .nfm-opt__radio{ width:18px; height:18px; }
+  .nfm-modal .nfm-quiz__actions{ margin-top:4px; }
+  .nfm-modal .nfm-quiz__actions .nfm-btn{ padding:12px 20px; font-size:0.92rem; }
+  .nfm-modal .nfm-quiz__input{ padding:12px 14px; font-size:0.98rem; margin-bottom:12px; }
 }
 @media (prefers-reduced-motion:reduce){ .nfm-modal__panel, .nfm-modal__bg{ animation:none; } }
 
