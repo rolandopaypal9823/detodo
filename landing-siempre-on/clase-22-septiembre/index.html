@@ -141,13 +141,15 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-quiz__prog span{ flex:1; height:4px; border-radius:4px; background:var(--nfm-gray-200); }
 .nfm-quiz__prog span.nfm-done{ background:var(--nfm-orange); }
 .nfm-quiz__q{ font-family:var(--nfm-font-h); font-size:1.25rem; font-weight:700; color:var(--nfm-ink); letter-spacing:-0.01em; line-height:1.3; margin:0 0 18px; }
-.nfm-opt{ display:flex; gap:14px; align-items:flex-start; width:100%; text-align:left; background:var(--nfm-gray-50); border:1.5px solid var(--nfm-gray-200); border-radius:var(--nfm-r); padding:16px 18px; margin-bottom:10px; cursor:pointer; font-family:var(--nfm-font-b); transition:all .2s var(--nfm-ease); }
+.nfm-opt{ display:flex; gap:14px; align-items:center; width:100%; text-align:left; background:var(--nfm-gray-50); border:1.5px solid var(--nfm-gray-200); border-radius:var(--nfm-r); padding:16px 18px; margin-bottom:10px; cursor:pointer; font-family:var(--nfm-font-b); transition:all .2s var(--nfm-ease); }
 .nfm-opt:hover{ border-color:rgba(255,102,2,0.5); background:#fff; }
 .nfm-opt.nfm-sel{ border-color:var(--nfm-orange); background:rgba(255,102,2,0.06); box-shadow:0 0 0 3px rgba(255,102,2,0.12); }
-.nfm-opt__radio{ flex-shrink:0; width:20px; height:20px; border-radius:50%; border:2px solid var(--nfm-ink-subtle); margin-top:2px; position:relative; }
+.nfm-opt__radio{ flex-shrink:0; width:20px; height:20px; border-radius:50%; border:2px solid var(--nfm-ink-subtle); margin-left:auto; position:relative; }
+.nfm-opt__img{ flex:none; width:68px; height:68px; border-radius:11px; overflow:hidden; background:var(--nfm-gray-200); }
+.nfm-opt__img img{ width:100%; height:100%; object-fit:cover; display:block; }
 .nfm-opt.nfm-sel .nfm-opt__radio{ border-color:var(--nfm-orange); }
 .nfm-opt.nfm-sel .nfm-opt__radio::after{ content:''; position:absolute; inset:4px; border-radius:50%; background:var(--nfm-orange); }
-.nfm-opt__t{ font-size:0.98rem; color:var(--nfm-ink); line-height:1.5; }
+.nfm-opt__t{ font-size:0.98rem; color:var(--nfm-ink); line-height:1.5; flex:1; }
 .nfm-quiz__actions{ display:flex; justify-content:flex-end; margin-top:8px; }
 .nfm-quiz__ok{ text-align:center; font-family:var(--nfm-font-h); font-weight:600; color:var(--nfm-ink); font-size:1.05rem; margin:0 0 16px; }
 .nfm-quiz__ok span{ color:var(--nfm-green); }
@@ -236,7 +238,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
   .nfm-eq, .nfm-reg, .nfm-nico, .nfm-learn, .nfm-tst{ padding:64px 0; } .nfm-final{ padding:72px 0; }
   .nfm-eq__board{ padding:26px 16px; }
   .nfm-eq__row{ grid-template-columns:1fr auto 1fr auto; gap:8px; font-size:1.05rem; }
-  .nfm-quiz{ padding:22px 18px; }
+  .nfm-quiz{ padding:22px 18px; } .nfm-opt{ gap:12px; } .nfm-opt__img{ width:58px; height:58px; border-radius:9px; }
   .nfm-map{ padding:8px 20px; } .nfm-map__item{ gap:14px; align-items:flex-start; } .nfm-map__ico{ width:42px; height:42px; border-radius:11px; } .nfm-map__ico svg{ width:21px; height:21px; } .nfm-map__txt h4{ font-size:1.02rem; }
   .nfm-proof__row{ gap:22px 30px; } .nfm-proof__logo{ max-height:24px; }
   .nfm-nav__logo img{ height:76px; } .nfm-nav--scrolled .nfm-nav__logo img{ height:56px; }
@@ -323,18 +325,18 @@ html, body{ margin:0; padding:0; background:#081F33; }
       <!-- Paso 1 -->
       <div class="nfm-quiz__step nfm-on" data-step="1">
         <p class="nfm-quiz__q">¿En qué etapa estás hoy?</p>
-        <button type="button" class="nfm-opt" data-q="etapa" data-v="A"><span class="nfm-opt__radio"></span><span class="nfm-opt__t">Construí un sostén económico y una trayectoria que me dan tranquilidad. Lo que me preocupa es lo que me está costando sostenerlo: la presión, el cansancio, la cabeza que no se apaga.</span></button>
-        <button type="button" class="nfm-opt" data-q="etapa" data-v="B"><span class="nfm-opt__radio"></span><span class="nfm-opt__t">Tengo una carrera armada y estoy en etapa de seguir creciendo. Pero el crecimiento me está costando desvelos, irritabilidad y tiempo que no tengo para nada más.</span></button>
-        <button type="button" class="nfm-opt" data-q="etapa" data-v="C"><span class="nfm-opt__radio"></span><span class="nfm-opt__t">Todavía estoy construyendo mi sostén profesional y económico. Estoy en un punto de partida.</span></button>
+        <button type="button" class="nfm-opt" data-q="etapa" data-v="A"><span class="nfm-opt__img" hidden><img src="PEGAR-URL" alt=""></span><span class="nfm-opt__t">Construí un sostén económico y una trayectoria que me dan tranquilidad. Lo que me preocupa es lo que me está costando sostenerlo: la presión, el cansancio, la cabeza que no se apaga.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="etapa" data-v="B"><span class="nfm-opt__img" hidden><img src="PEGAR-URL" alt=""></span><span class="nfm-opt__t">Tengo una carrera armada y estoy en etapa de seguir creciendo. Pero el crecimiento me está costando desvelos, irritabilidad y tiempo que no tengo para nada más.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="etapa" data-v="C"><span class="nfm-opt__img" hidden><img src="PEGAR-URL" alt=""></span><span class="nfm-opt__t">Todavía estoy construyendo mi sostén profesional y económico. Estoy en un punto de partida.</span><span class="nfm-opt__radio"></span></button>
         <div class="nfm-quiz__actions"><button type="button" class="nfm-btn" id="nfm-next1" disabled>Continuar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
       </div>
 
       <!-- Paso 2 -->
       <div class="nfm-quiz__step" data-step="2">
         <p class="nfm-quiz__q">¿Hay gente cuyo trabajo depende de tus decisiones?</p>
-        <button type="button" class="nfm-opt" data-q="equipo" data-v="A"><span class="nfm-opt__radio"></span><span class="nfm-opt__t">Sí, un equipo o una empresa a cargo.</span></button>
-        <button type="button" class="nfm-opt" data-q="equipo" data-v="B"><span class="nfm-opt__radio"></span><span class="nfm-opt__t">Sí, algunas personas.</span></button>
-        <button type="button" class="nfm-opt" data-q="equipo" data-v="C"><span class="nfm-opt__radio"></span><span class="nfm-opt__t">Todavía no.</span></button>
+        <button type="button" class="nfm-opt" data-q="equipo" data-v="A"><span class="nfm-opt__img" hidden><img src="PEGAR-URL" alt=""></span><span class="nfm-opt__t">Sí, un equipo o una empresa a cargo.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="equipo" data-v="B"><span class="nfm-opt__img" hidden><img src="PEGAR-URL" alt=""></span><span class="nfm-opt__t">Sí, algunas personas.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="equipo" data-v="C"><span class="nfm-opt__img" hidden><img src="PEGAR-URL" alt=""></span><span class="nfm-opt__t">Todavía no.</span><span class="nfm-opt__radio"></span></button>
         <div class="nfm-quiz__actions"><button type="button" class="nfm-btn" id="nfm-next2" disabled>Ver mi lugar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
       </div>
 
