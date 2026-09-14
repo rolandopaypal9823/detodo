@@ -112,6 +112,22 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-hero__cta-wrap{ width:100%; display:flex; justify-content:center; animation:nfm-fu .6s .44s var(--nfm-ease) both; }
 @keyframes nfm-fu{ from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:none} }
 
+/* ═══ PRENSA · cinta de logos a color ═══ */
+.nfm-proof{ background:#fff; padding:34px 0 30px; border-bottom:1px solid var(--nfm-gray-200); }
+.nfm-proof__label{ text-align:center; font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-ink-subtle); margin:0 0 20px; }
+.nfm-marquee{ overflow:hidden; -webkit-mask-image:linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image:linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.nfm-marquee__track{ display:flex; width:max-content; animation:nfm-marquee 32s linear infinite; }
+.nfm-marquee:hover .nfm-marquee__track{ animation-play-state:paused; }
+.nfm-marquee__set{ display:flex; align-items:center; gap:64px; padding-right:64px; flex:none; }
+.nfm-proof__logo{ height:34px; width:auto; flex:none; display:block; }
+@keyframes nfm-marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+@media (prefers-reduced-motion:reduce){
+  .nfm-marquee{ -webkit-mask-image:none; mask-image:none; }
+  .nfm-marquee__track{ animation:none; width:auto; justify-content:center; }
+  .nfm-marquee__set{ flex-wrap:wrap; justify-content:center; padding-right:0; gap:26px 44px; }
+  .nfm-marquee__set[aria-hidden="true"]{ display:none; }
+}
+
 /* ═══ ECUACIÓN ═══ */
 .nfm-eq{ background:var(--nfm-white); padding:84px 0; text-align:center; }
 .nfm-eq h2{ font-family:var(--nfm-font-h); font-size:clamp(1.5rem,3vw,2.1rem); font-weight:700; color:var(--nfm-ink); letter-spacing:-0.02em; line-height:1.15; margin:0 0 40px; }
@@ -179,15 +195,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-scene p{ font-size:1.02rem; color:#2a3f54; line-height:1.72; margin:0 auto 12px; max-width:36em; }
 .nfm-scene p strong{ color:var(--nfm-ink); font-weight:600; }
 .nfm-scene p:last-child{ margin-bottom:0; }
-.nfm-creds{ max-width:1000px; margin:20px auto 0; background:var(--nfm-gray-50); border:1px solid var(--nfm-gray-200); border-radius:var(--nfm-r-lg); padding:30px 34px; }
-.nfm-creds__t{ font-family:var(--nfm-font-h); font-size:0.72rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-ink-subtle); margin:0 0 16px; text-align:center; }
-.nfm-creds__list{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
-.nfm-creds__list span{ font-family:var(--nfm-font-h); font-size:0.86rem; font-weight:600; color:var(--nfm-ink); background:#fff; border:1px solid var(--nfm-gray-200); border-radius:50px; padding:9px 16px; }
-.nfm-creds__list span b{ color:var(--nfm-orange); font-weight:700; }
-.nfm-proof__label{ text-align:center; font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-ink-subtle); margin:34px 0 18px; }
-.nfm-proof__row{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:26px 44px; }
-.nfm-proof__logo{ max-height:30px; width:auto; filter:grayscale(100%); opacity:0.5; transition:all .25s var(--nfm-ease); }
-.nfm-proof__logo:hover{ filter:grayscale(0%); opacity:1; }
 
 /* ═══ QUÉ VAS A DESCUBRIR ═══ */
 .nfm-learn{ background:var(--nfm-gray-50); padding:96px 0; color:var(--nfm-ink); }
@@ -249,9 +256,8 @@ html, body{ margin:0; padding:0; background:#081F33; }
   .nfm-eq__row{ grid-template-columns:1fr auto 1fr auto; gap:8px; font-size:1.05rem; }
   .nfm-quiz{ padding:22px 18px; } .nfm-opt{ gap:12px; } .nfm-opt__img{ width:58px; height:58px; border-radius:9px; }
   .nfm-map{ padding:8px 20px; } .nfm-map__item{ gap:14px; align-items:flex-start; } .nfm-map__ico{ width:42px; height:42px; border-radius:11px; } .nfm-map__ico svg{ width:21px; height:21px; } .nfm-map__txt h4{ font-size:1.02rem; }
-  .nfm-proof__row{ gap:22px 30px; } .nfm-proof__logo{ max-height:24px; }
+  .nfm-proof{ padding:26px 0 22px; } .nfm-proof__logo{ height:26px; } .nfm-marquee__set{ gap:40px; padding-right:40px; }
   .nfm-nav__logo img{ height:76px; } .nfm-nav--scrolled .nfm-nav__logo img{ height:56px; }
-  .nfm-creds{ padding:22px 18px; }
   .nfm-scene{ margin-bottom:48px; gap:18px; } .nfm-scene__dual{ gap:10px; }
 }
 @media (max-width:480px){ .nfm-container{ padding:0 18px; } .nfm-hero__title{ font-size:1.95rem; } .nfm-btn{ padding:15px 24px; font-size:0.95rem; } .nfm-eq__row{ font-size:0.95rem; } }
@@ -295,6 +301,35 @@ html, body{ margin:0; padding:0; background:#081F33; }
           QUIERO MI LUGAR
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRENSA · cinta de logos ═══ -->
+<section class="nfm-proof" aria-label="Su trabajo fue destacado en">
+  <p class="nfm-proof__label">Su trabajo fue destacado en</p>
+  <div class="nfm-marquee">
+    <div class="nfm-marquee__track">
+      <div class="nfm-marquee__set">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/CNN.png" alt="CNN" class="nfm-proof__logo" loading="lazy">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-110.svg" alt="Infobae" class="nfm-proof__logo" loading="lazy">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-104.svg" alt="Endeavor" class="nfm-proof__logo" loading="lazy">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-105.svg" alt="TED" class="nfm-proof__logo" loading="lazy">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/Yale-Bulldogs-logo.png" alt="Yale" class="nfm-proof__logo" loading="lazy">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/5-1.png" alt="YPF" class="nfm-proof__logo" loading="lazy">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/6-1.png" alt="Samsung" class="nfm-proof__logo" loading="lazy">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/accountlogo.jpg" alt="Ternium" class="nfm-proof__logo" loading="lazy">
+      </div>
+      <div class="nfm-marquee__set" aria-hidden="true">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/CNN.png" alt="CNN" class="nfm-proof__logo" loading="lazy">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-110.svg" alt="Infobae" class="nfm-proof__logo" loading="lazy">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-104.svg" alt="Endeavor" class="nfm-proof__logo" loading="lazy">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-105.svg" alt="TED" class="nfm-proof__logo" loading="lazy">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/Yale-Bulldogs-logo.png" alt="Yale" class="nfm-proof__logo" loading="lazy">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/5-1.png" alt="YPF" class="nfm-proof__logo" loading="lazy">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/6-1.png" alt="Samsung" class="nfm-proof__logo" loading="lazy">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/accountlogo.jpg" alt="Ternium" class="nfm-proof__logo" loading="lazy">
       </div>
     </div>
   </div>
@@ -437,31 +472,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
       </div>
     </div>
 
-    <div class="nfm-creds nfm-reveal">
-      <p class="nfm-creds__t">Credenciales</p>
-      <div class="nfm-creds__list">
-        <span>Contador público · <b>medalla al mejor promedio</b></span>
-        <span><b>Máster</b> en neurociencia</span>
-        <span>Doctorando en administración</span>
-        <span><b>Dos charlas TED</b></span>
-        <span>Autor <b>bestseller</b> · <em>Hackea tu cerebro</em></span>
-        <span>Mentor en <b>Endeavor</b></span>
-        <span>Fundador del <b>Instituto de Productividad</b></span>
-        <span>Aval de la <b>Universidad Nacional de Jujuy</b> · Cs. Económicas</span>
-        <span><b>+400</b> profesionales mentoreados</span>
-      </div>
-      <p class="nfm-proof__label">Su trabajo fue destacado en</p>
-      <div class="nfm-proof__row">
-        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/CNN.png" alt="CNN" class="nfm-proof__logo">
-        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-110.svg" alt="Infobae" class="nfm-proof__logo">
-        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-104.svg" alt="Endeavor" class="nfm-proof__logo">
-        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-105.svg" alt="TED" class="nfm-proof__logo">
-        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/Yale-Bulldogs-logo.png" alt="Yale" class="nfm-proof__logo">
-        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/5-1.png" alt="YPF" class="nfm-proof__logo">
-        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/6-1.png" alt="Samsung" class="nfm-proof__logo">
-        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/accountlogo.jpg" alt="Ternium" class="nfm-proof__logo">
-      </div>
-    </div>
   </div>
 </section>
 

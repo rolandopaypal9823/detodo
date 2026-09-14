@@ -23,6 +23,9 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
 - **Ecuación** con la tercera línea borroneada. Lo que hay debajo del blur es un señuelo (dice "Lo que
   falta"); la variable real no está escrita en ningún lado del código, ni en comentarios. Queda en suspenso
   hasta el vivo.
+- **Cinta de logos de prensa** abajo del hero (CNN, Infobae, Endeavor, TED, Yale, YPF, Samsung, Ternium), a
+  color, desplazándose sola hacia la izquierda. Se frena al pasar el mouse. El bloque de credenciales en
+  chips se sacó.
 - **Hero centrado con la foto del TED de fondo**, estilo tarjeta: etiqueta "Evento en vivo", título del
   evento, "con Nico Fernández Miranda", el gancho, fecha, contador y botón. Cuando tengas la foto nueva en
   4K, cambiás sólo el `src` de la imagen dentro de `.nfm-hero__bg`. Toda la landing va centrada.
