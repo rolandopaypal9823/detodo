@@ -130,28 +130,19 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-eq{ background:var(--nfm-white); padding:84px 0; text-align:center; }
 .nfm-eq .nfm-container{ display:flex; flex-direction:column; align-items:center; }
 .nfm-eq h2{ width:100%; text-align:center !important; }
-.nfm-eq h2{ font-family:var(--nfm-font-h); font-size:clamp(1.5rem,3vw,2.1rem); font-weight:700; color:var(--nfm-ink); letter-spacing:-0.02em; line-height:1.15; margin:0 0 18px; }
-.nfm-eq__sub{ margin:0 auto 36px !important; max-width:36em; font-family:var(--nfm-font-h); font-size:1.08rem; line-height:1.55; color:var(--nfm-ink-mute); text-align:center !important; }
-.nfm-eq__sub strong{ color:var(--nfm-ink); font-weight:700; }
+.nfm-eq h2{ font-family:var(--nfm-font-h); font-size:clamp(1.5rem,3vw,2.1rem); font-weight:700; color:var(--nfm-ink); letter-spacing:-0.02em; line-height:1.15; margin:0 0 40px; }
 .nfm-eq h2 .nfm-q, .nfm-eq h2 em{ color:var(--nfm-orange); font-style:normal; }
 .nfm-eq__cap{ margin:26px auto 0 !important; font-family:var(--nfm-font-h); font-size:1.05rem; color:var(--nfm-ink-mute); max-width:34em; line-height:1.5; text-align:center !important; }
 .nfm-eq__cap strong{ color:var(--nfm-ink); font-weight:700; }
 .nfm-eq__board{ width:100%; max-width:640px; margin:0 auto !important; background:var(--nfm-gray-50); border:1px solid var(--nfm-gray-200); border-radius:var(--nfm-r-lg); padding:36px 28px; box-shadow:0 20px 60px rgba(12,52,82,0.08); }
 .nfm-eq__list{ list-style:none !important; margin:0 auto !important; padding:0 !important; display:flex; flex-direction:column; align-items:center; width:100%; }
-.nfm-eq__list li{ display:block; width:100%; text-align:center !important; padding:11px 0; margin:0 !important; border-bottom:1px dashed var(--nfm-gray-200); font-family:var(--nfm-font-h); font-size:clamp(1.1rem,2.2vw,1.45rem); font-weight:700; color:var(--nfm-ink); line-height:1.2; }
+.nfm-eq__list li{ display:block; width:100%; text-align:center !important; padding:11px 0; margin:0 !important; border-bottom:1px dashed var(--nfm-gray-200); font-family:var(--nfm-font-h); font-size:clamp(1.1rem,2.2vw,1.45rem); font-weight:700; line-height:1.2; }
 .nfm-eq__list li:last-child{ border-bottom:none; }
-.nfm-eq__sum{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px 14px; width:100%; margin:8px auto 0 !important; padding:18px 0 0; border-top:2px solid var(--nfm-ink); font-family:var(--nfm-font-h); font-size:clamp(1.35rem,2.8vw,1.85rem); font-weight:800; color:var(--nfm-ink); }
-.nfm-eq__cost{ display:block; width:100%; margin:10px auto 0 !important; font-family:var(--nfm-font-h); font-size:clamp(1rem,2vw,1.25rem); font-weight:700; color:var(--nfm-red); line-height:1.9; text-align:center !important; }
-.nfm-eq__cost .nfm-eq__op{ color:var(--nfm-red); font-size:1.25em; vertical-align:-0.05em; margin-right:0.35em; }
-.nfm-eq__cg{ display:inline-block; white-space:nowrap; }
-.nfm-eq__cg + .nfm-eq__cg::before{ content:"·"; margin:0 0.45em; opacity:0.55; }
-.nfm-eq__cost .nfm-eq__mark{ display:inline-flex; vertical-align:middle; margin-left:10px; }
-.nfm-eq__sum--yes{ margin-top:30px !important; padding-top:22px; border-top:1px solid var(--nfm-gray-200); color:var(--nfm-orange); font-size:clamp(1.2rem,2.4vw,1.6rem); }
+.nfm-eq__list li s{ text-decoration:line-through !important; text-decoration-color:var(--nfm-red) !important; text-decoration-thickness:3px; color:var(--nfm-ink-mute); }
+.nfm-eq__sum{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px 14px; width:100%; margin:8px auto 0 !important; padding:22px 0 0; border-top:2px solid var(--nfm-ink); font-family:var(--nfm-font-h); font-size:clamp(1.2rem,2.4vw,1.6rem); font-weight:800; color:var(--nfm-orange); }
+.nfm-eq__op{ color:var(--nfm-orange); font-weight:500; font-size:1.15em; line-height:1; }
 .nfm-eq__grp{ display:inline-flex; align-items:center; gap:14px; white-space:nowrap; }
-.nfm-eq__op{ color:var(--nfm-ink-mute); font-weight:500; font-size:1.15em; line-height:1; }
-.nfm-eq__sum--yes .nfm-eq__op{ color:var(--nfm-orange); }
 .nfm-eq__mark{ flex:0 0 auto; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1rem; }
-.nfm-eq__mark--no{ background:rgba(239,68,68,0.10); color:var(--nfm-red); }
 .nfm-eq__mark--yes{ background:rgba(34,197,94,0.12); color:var(--nfm-green); }
 .nfm-eq__blur{ filter:blur(7px); -webkit-filter:blur(7px); color:var(--nfm-orange); user-select:none; -webkit-user-select:none; pointer-events:none; display:inline-block; }
 
@@ -269,14 +260,14 @@ html, body{ margin:0; padding:0; background:#081F33; }
   .nfm-cd{ width:100%; gap:8px; } .nfm-cd__item{ min-width:0; flex:1; padding:11px 8px; } .nfm-cd__num{ font-size:1.5rem; }
   .nfm-eq, .nfm-reg, .nfm-nico, .nfm-learn, .nfm-tst{ padding:64px 0; } .nfm-final{ padding:72px 0; }
   .nfm-eq__board{ padding:26px 16px; }
-  .nfm-eq__list li{ font-size:1.05rem; padding:9px 0; } .nfm-eq__sum{ font-size:1.3rem; gap:8px 10px; } .nfm-eq__sum--yes{ margin-top:22px !important; font-size:1.18rem; } .nfm-eq__grp{ gap:10px; } .nfm-eq__cost{ font-size:0.98rem; } .nfm-eq__cg{ display:block; } .nfm-eq__cg + .nfm-eq__cg::before{ content:none; } .nfm-eq__sub{ font-size:1rem; margin-bottom:28px !important; }
+  .nfm-eq__list li{ font-size:1rem; padding:9px 0; } .nfm-eq__list li s{ text-decoration-thickness:2px; } .nfm-eq__sum{ font-size:1.18rem; gap:8px 10px; } .nfm-eq__grp{ gap:10px; }
   .nfm-quiz{ padding:22px 18px; } .nfm-opt{ gap:12px; } .nfm-opt__img{ width:58px; height:58px; border-radius:9px; }
   .nfm-map{ padding:8px 20px; } .nfm-map__item{ gap:14px; align-items:flex-start; } .nfm-map__ico{ width:42px; height:42px; border-radius:11px; } .nfm-map__ico svg{ width:21px; height:21px; } .nfm-map__txt h4{ font-size:1.02rem; }
   .nfm-proof{ padding:34px 0 30px; } .nfm-proof__label{ padding-bottom:24px; } .nfm-proof__logo{ max-height:26px !important; max-width:130px !important; } .nfm-marquee__set{ gap:40px; padding-right:40px; }
   .nfm-nav__logo img{ height:76px !important; } .nfm-nav--scrolled .nfm-nav__logo img{ height:56px !important; }
   .nfm-scene{ margin-bottom:48px; gap:18px; } .nfm-scene__dual{ gap:10px; }
 }
-@media (max-width:480px){ .nfm-container{ padding:0 18px; } .nfm-hero__title{ font-size:1.95rem; } .nfm-btn{ padding:15px 24px; font-size:0.95rem; } .nfm-eq__list li{ font-size:1rem; } .nfm-eq__sum{ font-size:1.2rem; } .nfm-eq__sum--yes{ font-size:1.1rem; } }
+@media (max-width:480px){ .nfm-container{ padding:0 18px; } .nfm-hero__title{ font-size:1.95rem; } .nfm-btn{ padding:15px 24px; font-size:0.95rem; } .nfm-eq__list li{ font-size:0.94rem; } .nfm-eq__sum{ font-size:1.1rem; } }
 </style>
 
 
@@ -353,25 +344,18 @@ html, body{ margin:0; padding:0; background:#081F33; }
 <section class="nfm-eq">
   <div class="nfm-container nfm-narrow">
     <span class="nfm-eyebrow nfm-reveal">Lo que este evento desarma</span>
-    <h2 class="nfm-reveal nfm-d1">Más <span class="nfm-q">"productivo"</span> sos,<br><em>menos avanzás en tu vida.</em></h2>
-    <p class="nfm-eq__sub nfm-reveal nfm-d1">Por más que escales tu empresa o tu carrera, llega un punto en el que o te estancás, o seguís creciendo pagándolo con vos y con los tuyos.<br><strong>Eso no es ser productivo.</strong></p>
+    <h2 class="nfm-reveal nfm-d1">Más <span class="nfm-q">"productivo"</span> sos,<br><em>más alto el precio que pagás.</em></h2>
     <div class="nfm-eq__board nfm-reveal nfm-d2" aria-label="Ecuación del evento">
       <ul class="nfm-eq__list">
-        <li>Sacrificarse</li>
-        <li>Despertarse a las 5&nbsp;am</li>
-        <li>Exigirte más</li>
-        <li>Otro curso que no terminás</li>
-        <li>Hacerlo todo vos</li>
+        <li><s>Sacrificarse</s></li>
+        <li><s>Despertarse a las 5&nbsp;am</s></li>
+        <li><s>Exigirte más</s></li>
+        <li><s>Otro curso o libro de desarrollo personal</s></li>
+        <li><s>Hacerlo todo vos</s></li>
       </ul>
       <div class="nfm-eq__sum">
-        <span class="nfm-eq__op">=</span><span>resultados</span>
-      </div>
-      <div class="nfm-eq__cost" aria-label="El costo">
-        <span class="nfm-eq__cg"><span class="nfm-eq__op">−</span>tu sueño · tu salud</span><span class="nfm-eq__cg">tu familia · tu humor <span class="nfm-eq__mark nfm-eq__mark--no" aria-label="incorrecto">✕</span></span>
-      </div>
-      <div class="nfm-eq__sum nfm-eq__sum--yes">
         <span class="nfm-eq__blur" aria-hidden="true">Lo que falta</span>
-        <span class="nfm-eq__grp"><span class="nfm-eq__op">=</span><span>resultados sin ese costo</span><span class="nfm-eq__mark nfm-eq__mark--yes" aria-label="correcto">✓</span></span>
+        <span class="nfm-eq__grp"><span class="nfm-eq__op">=</span><span>resultados sostenibles</span><span class="nfm-eq__mark nfm-eq__mark--yes" aria-label="correcto">✓</span></span>
       </div>
     </div>
     <p class="nfm-eq__cap nfm-reveal nfm-d3"><strong>¿Qué dice la neurociencia?</strong><br>Lo vemos en vivo el <span data-nfm-fecha="corta">22 de septiembre</span>.</p>
