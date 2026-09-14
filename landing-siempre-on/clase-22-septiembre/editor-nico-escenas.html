@@ -46,7 +46,7 @@ body{ padding:28px 20px 140px; }
 .field{ margin-top:16px; }
 .field label{ display:block; font-family:var(--fh); font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-subtle); margin-bottom:6px; }
 .f-title{ width:100%; font-family:var(--fh); font-size:1.15rem; font-weight:700; color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:11px 14px; background:#fff; }
-.f-body{ width:100%; min-height:118px; font-family:var(--fb); font-size:0.95rem; line-height:1.65; color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:12px 14px; resize:vertical; background:#fff; }
+.f-body{ width:100%; min-height:118px; overflow:hidden; font-family:var(--fb); font-size:0.95rem; line-height:1.65; color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:12px 14px; resize:vertical; background:#fff; }
 .f-title:focus, .f-body:focus{ outline:none; border-color:var(--orange); box-shadow:0 0 0 3px rgba(255,102,2,0.12); }
 .md-hint{ font-size:0.76rem; color:var(--ink-subtle); margin-top:5px; }
 .md-hint code{ background:#F0F3F8; border-radius:4px; padding:1px 5px; font-family:monospace; }
@@ -180,12 +180,15 @@ function render(){
     if(rm) rm.addEventListener('click', function(e){ e.stopPropagation(); STATE[i].img=null; persist(); render(); });
 
     card.querySelector('.f-title').addEventListener('input', function(e){ STATE[i].title=e.target.value; persist(); });
-    card.querySelector('.f-body').addEventListener('input', function(e){ STATE[i].body=e.target.value; persist(); });
+    var ta=card.querySelector('.f-body');
+    ta.addEventListener('input', function(e){ STATE[i].body=e.target.value; autoAlto(ta); persist(); });
+    autoAlto(ta);
   });
   var conFoto=STATE.filter(function(s){return s.img;}).length;
   document.getElementById('barCount').textContent='6 escenas · '+conFoto+' con foto real';
 }
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+function autoAlto(ta){ ta.style.height='auto'; ta.style.height=(ta.scrollHeight+4)+'px'; }
 
 document.getElementById('btnReset').addEventListener('click', function(){
   if(!confirm('¿Restaurar el texto y las fotos originales? Se pierden tus cambios.')) return;
