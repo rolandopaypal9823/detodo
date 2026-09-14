@@ -186,7 +186,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-quiz__ok span{ color:var(--nfm-green); }
 .nfm-reg__form{ border-radius:14px; overflow:hidden; border:1px solid var(--nfm-gray-200); background:#fff; }
 .nfm-reg__form[hidden]{ display:none !important; }
-.nfm-quiz__ok--c{ color:var(--nfm-ink-mute); font-weight:500; font-size:0.98rem; line-height:1.5; }
 .nfm-reg__form iframe{ width:100%; min-height:729px; border:none; display:block; }
 
 /* ═══ POPUP DE REGISTRO ═══ */
@@ -578,7 +577,6 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
       <!-- Paso 4 · form -->
       <div class="nfm-quiz__step" data-step="4">
         <p class="nfm-quiz__ok" id="nfm-msg-ok" hidden><span>✓</span> Este evento es para vos. Reservá tu lugar.</p>
-        <p class="nfm-quiz__ok nfm-quiz__ok--c" id="nfm-msg-c" hidden>Este evento está armado para otra etapa. Dejá tus datos y te avisamos primero cuando salga el pensado para la tuya.</p>
         <!-- FORM PRINCIPAL · etapa A o B. El src se arma por JS al completar el quiz: lleva UTM + clase + etapa + equipo + nivel + dedicación -->
         <div class="nfm-reg__form" id="nfm-form-principal">
           <iframe
@@ -591,7 +589,7 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
             data-layout-iframe-id="inline-kLh5onxCgHdGDA10c8NU" data-form-id="kLh5onxCgHdGDA10c8NU"
             title="Form AGOSTO NUEVO" style="width:100%;height:100%;border:none;border-radius:15px"></iframe>
         </div>
-        <!-- FORM PARA COMUNIDAD · sólo etapa C (saltea la pregunta del equipo). Mismo mecanismo: src por JS -->
+        <!-- FORM PARA COMUNIDAD · sólo etapa C (saltea la pregunta del equipo), sin mensaje arriba. Mismo mecanismo: src por JS -->
         <div class="nfm-reg__form" id="nfm-form-comunidad" hidden>
           <iframe
             data-src="https://api.leadconnectorhq.com/widget/form/w6wTjXjcIScDip8GuVBr"
@@ -690,7 +688,6 @@ function mostrarForm(){
   /* nivel: alto = etapa A/B con gente a cargo · medio = etapa A/B sin gente a cargo · bajo = C, todavía le cuesta sostenerse económicamente */
   var nivel = !califica ? 'bajo' : (resp.equipo === 'C' ? 'medio' : 'alto');
   var msgOk=document.getElementById('nfm-msg-ok'); if(msgOk) msgOk.hidden = !califica;
-  var msgC=document.getElementById('nfm-msg-c');   if(msgC)  msgC.hidden  = califica;
   var wrapOk=document.getElementById('nfm-form-principal'), wrapC=document.getElementById('nfm-form-comunidad');
   if(wrapOk) wrapOk.hidden = !califica;
   if(wrapC)  wrapC.hidden  = califica;

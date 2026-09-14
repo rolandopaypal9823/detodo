@@ -33,8 +33,7 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
   amarillo arriba ("Clase en vivo exclusiva para empresarios, líderes y profesionales…"). La tercera es
   abierta: "¿A qué te dedicás, específicamente?". Quien elige **A o B** pasa por las tres preguntas y ve el
   **form principal** (`kLh5onxCgHdGDA10c8NU`). Quien elige **C** saltea la pregunta del equipo, responde a
-  qué se dedica y ve el **form para comunidad** (`w6wTjXjcIScDip8GuVBr`), con un mensaje corto de "este
-  evento está armado para otra etapa, te avisamos primero". Los dos forms reciben los mismos campos (ver
+  qué se dedica y ve el **form para comunidad** (`w6wTjXjcIScDip8GuVBr`), sin ningún mensaje arriba. Los dos forms reciben los mismos campos (ver
   tabla abajo); en el de comunidad, `equipo` llega vacío. En GHL, mandá el `Lead` por CAPI sólo con
   `califica = si` (o, si querés apuntar más fino a Platinum, sólo con `nivel = alto`).
 
