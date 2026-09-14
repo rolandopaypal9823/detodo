@@ -29,12 +29,30 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
 - **Hero centrado con la foto del TED de fondo**, estilo tarjeta: etiqueta "Evento en vivo", título del
   evento, "con Nico Fernández Miranda", el gancho, fecha, contador y botón. Cuando tengas la foto nueva en
   4K, cambiás sólo el `src` de la imagen dentro de `.nfm-hero__bg`. Toda la landing va centrada.
-- **Quiz de dos preguntas antes del form**, con una imagen por opción y un aviso amarillo arriba ("Clase
-  en vivo exclusiva para empresarios, líderes y profesionales…"). Las respuestas viajan al mismo form de
-  siempre como campos extra: `etapa` (A/B/C), `equipo` (A/B/C), `califica` (`si`/`no`) y `nivel`:
-  `alto` = etapa A o B con gente a cargo, `medio` = etapa A o B sin gente a cargo, `bajo` = punto de
-  partida. En la landing todos ven el mismo form. En GHL, mandá el `Lead` por CAPI sólo con
-  `califica = si` (o, si querés apuntar más fino a Platinum, sólo con `nivel = alto`).
+- **Quiz de tres preguntas antes del form**, con una imagen por opción en las dos primeras y un aviso
+  amarillo arriba ("Clase en vivo exclusiva para empresarios, líderes y profesionales…"). La tercera es
+  abierta: "¿A qué te dedicás, específicamente?". Las respuestas viajan al mismo form de siempre como
+  campos extra (ver tabla abajo). En la landing todos ven el mismo form. En GHL, mandá el `Lead` por CAPI
+  sólo con `califica = si` (o, si querés apuntar más fino a Platinum, sólo con `nivel = alto`).
+
+  **Campos que llegan al form** (todos van en la URL del iframe, GHL los toma solo si existe un campo
+  oculto con el mismo nombre):
+
+  | Campo | Valores | Qué es |
+  |---|---|---|
+  | `etapa` | `A` / `B` / `C` | Pregunta 1 |
+  | `equipo` | `A` / `B` / `C` | Pregunta 2 |
+  | `dedicacion` | texto libre | Pregunta 3, a qué se dedica |
+  | `califica` | `si` / `no` | `no` sólo si etapa = C |
+  | `nivel` | `alto` / `medio` / `bajo` | alto = A o B con gente a cargo · medio = A o B sin gente a cargo · bajo = C |
+  | `clase_fecha` | `2026-09-22` | Fecha de la clase |
+  | `edicion` | `clase-sep22-alto-rendimiento` | Etiqueta de la edición |
+
+  Cómo crearlos en GoHighLevel: Settings → Custom Fields → Add Field, objeto Contact, tipo Single Line,
+  y el **Unique key** exactamente igual al nombre de la tabla (minúsculas, sin tildes). Después, en el
+  Form Builder, agregás cada custom field al form y lo marcás como Hidden. GHL rellena los campos ocultos
+  con los parámetros de la URL que tengan el mismo nombre. Las UTM no hace falta crearlas: GHL las captura
+  solo.
 - **Thank you page con dos variantes.** Si la persona eligió C, no ve el grupo de WhatsApp ni la agenda:
   ve "quedaste anotado, te avisamos primero". Si eligió A o B (o si no hay dato), ve todo como siempre.
   Para probar la variante C sin pasar por el quiz: `thank-you.html?etapa=C`. Como en la landing ya no se

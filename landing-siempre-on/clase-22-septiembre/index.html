@@ -83,15 +83,15 @@ html, body{ margin:0; padding:0; background:#081F33; }
   transition:all .3s var(--nfm-ease); border-bottom:1px solid transparent; }
 .nfm-nav.nfm-nav--scrolled{ background:rgba(8,31,51,0.92); padding:8px 0; border-bottom:1px solid var(--nfm-hair); box-shadow:0 6px 30px rgba(0,0,0,0.35); }
 .nfm-nav__inner{ display:flex; align-items:center; justify-content:center; }
-.nfm-nav__logo img{ height:100px; width:auto; transition:height .3s var(--nfm-ease); }
-.nfm-nav--scrolled .nfm-nav__logo img{ height:68px; }
+.nfm-nav__logo img{ height:100px !important; max-height:100px; width:auto !important; transition:height .3s var(--nfm-ease); }
+.nfm-nav--scrolled .nfm-nav__logo img{ height:68px !important; }
 
 /* ═══ HERO · foto de fondo, todo centrado ═══ */
 .nfm-hero{ padding:132px 16px 44px; background:#081F33; }
 .nfm-hero__card{ position:relative; overflow:hidden; border-radius:28px; max-width:1180px; margin:0 auto; min-height:760px; min-height:min(860px, calc(100svh - 120px));
   display:flex; align-items:flex-end; justify-content:center; border:1px solid var(--nfm-hair); box-shadow:0 30px 80px rgba(0,0,0,0.45); background:#0C3452; }
 .nfm-hero__bg{ position:absolute; inset:0; z-index:0; }
-.nfm-hero__bg img{ width:100%; height:100%; object-fit:cover; object-position:center 15%; display:block; }
+.nfm-hero__bg img{ width:100% !important; height:100% !important; object-fit:cover; object-position:center 15%; display:block; }
 .nfm-hero__bg::after{ content:''; position:absolute; inset:0; pointer-events:none;
   background:linear-gradient(180deg, rgba(8,31,51,0.30) 0%, rgba(8,31,51,0.08) 28%, rgba(8,31,51,0.70) 52%, rgba(8,31,51,0.95) 72%, #081F33 100%); }
 .nfm-hero__inner{ position:relative; z-index:2; width:100%; max-width:860px; margin:0 auto; padding:250px 28px 52px; text-align:center; display:flex; flex-direction:column; align-items:center; }
@@ -119,7 +119,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-marquee__track{ display:flex; width:max-content; animation:nfm-marquee 32s linear infinite; }
 .nfm-marquee:hover .nfm-marquee__track{ animation-play-state:paused; }
 .nfm-marquee__set{ display:flex; align-items:center; gap:64px; padding-right:64px; flex:none; }
-.nfm-proof__logo{ height:34px; width:auto; flex:none; display:block; }
+.nfm-proof__logo{ height:auto !important; max-height:34px !important; width:auto !important; max-width:170px !important; flex:none; display:block; object-fit:contain; }
 @keyframes nfm-marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 @media (prefers-reduced-motion:reduce){
   .nfm-marquee{ -webkit-mask-image:none; mask-image:none; }
@@ -166,11 +166,15 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-opt.nfm-sel{ border-color:var(--nfm-orange); background:rgba(255,102,2,0.06); box-shadow:0 0 0 3px rgba(255,102,2,0.12); }
 .nfm-opt__radio{ flex-shrink:0; width:20px; height:20px; border-radius:50%; border:2px solid var(--nfm-ink-subtle); margin-left:auto; position:relative; }
 .nfm-opt__img{ flex:none; width:68px; height:68px; border-radius:11px; overflow:hidden; background:var(--nfm-gray-200); }
-.nfm-opt__img img{ width:100%; height:100%; object-fit:cover; display:block; }
+.nfm-opt__img img{ width:100% !important; height:100% !important; object-fit:cover; display:block; }
 .nfm-opt.nfm-sel .nfm-opt__radio{ border-color:var(--nfm-orange); }
 .nfm-opt.nfm-sel .nfm-opt__radio::after{ content:''; position:absolute; inset:4px; border-radius:50%; background:var(--nfm-orange); }
 .nfm-opt__t{ font-size:0.98rem; color:var(--nfm-ink); line-height:1.5; flex:1; }
 .nfm-quiz__actions{ display:flex; justify-content:flex-end; margin-top:8px; }
+.nfm-quiz__help{ font-size:0.94rem; color:var(--nfm-ink-mute); line-height:1.5; margin:-8px 0 14px; }
+.nfm-quiz__input{ width:100%; font-family:var(--nfm-font-b); font-size:1.02rem; color:var(--nfm-ink); background:var(--nfm-gray-50); border:1.5px solid var(--nfm-gray-200); border-radius:var(--nfm-r); padding:16px 18px; margin-bottom:16px; outline:none; transition:border-color .2s, box-shadow .2s; }
+.nfm-quiz__input::placeholder{ color:var(--nfm-ink-subtle); }
+.nfm-quiz__input:focus{ border-color:var(--nfm-orange); background:#fff; box-shadow:0 0 0 3px rgba(255,102,2,0.12); }
 .nfm-quiz__ok{ text-align:center; font-family:var(--nfm-font-h); font-weight:600; color:var(--nfm-ink); font-size:1.05rem; margin:0 0 16px; }
 .nfm-quiz__ok span{ color:var(--nfm-green); }
 .nfm-reg__form{ border-radius:14px; overflow:hidden; border:1px solid var(--nfm-gray-200); background:#fff; }
@@ -189,7 +193,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-scene__media.nfm-scene__media--v img{ object-position:center 30%; }
 .nfm-scene__dual .nfm-scene__media.nfm-scene__media--v{ max-width:none; aspect-ratio:1/1; }
 .nfm-scene__media{ width:100%; max-width:560px; border-radius:var(--nfm-r-lg); overflow:hidden; border:1px solid var(--nfm-gray-200); box-shadow:0 24px 60px rgba(12,52,82,0.14); aspect-ratio:4/3; background:var(--nfm-gray-100); position:relative; }
-.nfm-scene__media img{ width:100%; height:100%; object-fit:cover; object-position:center 40%; display:block; }
+.nfm-scene__media img{ width:100% !important; height:100% !important; max-width:100%; object-fit:cover; object-position:center 40%; display:block; }
 .nfm-scene__media .nfm-scene__ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; font-family:var(--nfm-font-h); font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--nfm-ink-subtle); }
 .nfm-scene h3{ font-family:var(--nfm-font-h); text-wrap:balance; font-size:clamp(1.35rem,2.6vw,1.8rem); font-weight:700; letter-spacing:-0.02em; line-height:1.2; margin:0 0 12px; }
 .nfm-scene p{ font-size:1.02rem; color:#2a3f54; line-height:1.72; margin:0 auto 12px; max-width:36em; }
@@ -256,8 +260,8 @@ html, body{ margin:0; padding:0; background:#081F33; }
   .nfm-eq__row{ grid-template-columns:1fr auto 1fr auto; gap:8px; font-size:1.05rem; }
   .nfm-quiz{ padding:22px 18px; } .nfm-opt{ gap:12px; } .nfm-opt__img{ width:58px; height:58px; border-radius:9px; }
   .nfm-map{ padding:8px 20px; } .nfm-map__item{ gap:14px; align-items:flex-start; } .nfm-map__ico{ width:42px; height:42px; border-radius:11px; } .nfm-map__ico svg{ width:21px; height:21px; } .nfm-map__txt h4{ font-size:1.02rem; }
-  .nfm-proof{ padding:26px 0 22px; } .nfm-proof__logo{ height:26px; } .nfm-marquee__set{ gap:40px; padding-right:40px; }
-  .nfm-nav__logo img{ height:76px; } .nfm-nav--scrolled .nfm-nav__logo img{ height:56px; }
+  .nfm-proof{ padding:26px 0 22px; } .nfm-proof__logo{ max-height:26px !important; max-width:130px !important; } .nfm-marquee__set{ gap:40px; padding-right:40px; }
+  .nfm-nav__logo img{ height:76px !important; } .nfm-nav--scrolled .nfm-nav__logo img{ height:56px !important; }
   .nfm-scene{ margin-bottom:48px; gap:18px; } .nfm-scene__dual{ gap:10px; }
 }
 @media (max-width:480px){ .nfm-container{ padding:0 18px; } .nfm-hero__title{ font-size:1.95rem; } .nfm-btn{ padding:15px 24px; font-size:0.95rem; } .nfm-eq__row{ font-size:0.95rem; } }
@@ -368,7 +372,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 9.5v5"/><circle cx="12" cy="17.2" r="0.9" fill="currentColor" stroke="none"/></svg>
         <p><strong>Clase en vivo exclusiva</strong> para empresarios, líderes y profesionales que trabajan con alta exigencia y presión.</p>
       </div>
-      <div class="nfm-quiz__prog" aria-hidden="true"><span id="nfm-p1"></span><span id="nfm-p2"></span><span id="nfm-p3"></span></div>
+      <div class="nfm-quiz__prog" aria-hidden="true"><span id="nfm-p1"></span><span id="nfm-p2"></span><span id="nfm-p3"></span><span id="nfm-p4"></span></div>
 
       <!-- Paso 1 -->
       <div class="nfm-quiz__step nfm-on" data-step="1">
@@ -385,11 +389,20 @@ html, body{ margin:0; padding:0; background:#081F33; }
         <button type="button" class="nfm-opt" data-q="equipo" data-v="A"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-2-Opcion-A-Tengo-un-equipo-o-una-empresa-a-cargo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Sí, un equipo o una empresa a cargo.</span><span class="nfm-opt__radio"></span></button>
         <button type="button" class="nfm-opt" data-q="equipo" data-v="B"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-2-Opcion-B-Algunas-personas-dependen-de-mis-decisiones.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Sí, algunas personas.</span><span class="nfm-opt__radio"></span></button>
         <button type="button" class="nfm-opt" data-q="equipo" data-v="C"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-2-Opcion-C-Todavia-nadie-depende-de-mis-decisiones-Trabajo-solo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Todavía no.</span><span class="nfm-opt__radio"></span></button>
-        <div class="nfm-quiz__actions"><button type="button" class="nfm-btn" id="nfm-next2" disabled>Ver mi lugar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+        <div class="nfm-quiz__actions"><button type="button" class="nfm-btn" id="nfm-next2" disabled>Continuar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
       </div>
 
       <!-- Paso 3 · form -->
+      <!-- Paso 3 · a qué se dedica (texto libre) -->
       <div class="nfm-quiz__step" data-step="3">
+        <p class="nfm-quiz__q">¿A qué te dedicás, específicamente?</p>
+        <p class="nfm-quiz__help">Este dato le permite a Nico traer ejemplos prácticos aplicados a tu situación.</p>
+        <input type="text" class="nfm-quiz__input" id="nfm-dedicacion" maxlength="120" autocomplete="organization-title" placeholder="Ej.: dueño de una clínica · gerente comercial · abogada con estudio propio">
+        <div class="nfm-quiz__actions"><button type="button" class="nfm-btn" id="nfm-next3" disabled>Ver mi lugar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+      </div>
+
+      <!-- Paso 4 · form -->
+      <div class="nfm-quiz__step" data-step="4">
         <p class="nfm-quiz__ok" id="nfm-msg-ok" hidden><span>✓</span> Este evento es para vos. Reservá tu lugar.</p>
         <div class="nfm-reg__form">
           <!-- El src se arma por JS cuando se completa el quiz: lleva UTM + clase + etapa + equipo -->
@@ -592,8 +605,8 @@ FECHAS.completa = FECHAS.larga+' · '+FECHAS.hora+' · En vivo por Zoom';
 /* ─── QUIZ ───
    Dos preguntas. Las respuestas viajan al form como etapa=A|B|C y equipo=A|B|C,
    y quedan en sessionStorage para que la thank you page sepa a quién le habla. */
-var resp = { etapa:null, equipo:null };
-function marcarProgreso(n){ for(var i=1;i<=3;i++){ var el=document.getElementById('nfm-p'+i); if(el) el.classList.toggle('nfm-done', i<=n); } }
+var resp = { etapa:null, equipo:null, dedicacion:'' };
+function marcarProgreso(n){ for(var i=1;i<=4;i++){ var el=document.getElementById('nfm-p'+i); if(el) el.classList.toggle('nfm-done', i<=n); } }
 function irPaso(n){
   var steps=document.querySelectorAll('.nfm-quiz__step');
   for(var i=0;i<steps.length;i++) steps[i].classList.toggle('nfm-on', steps[i].getAttribute('data-step')===String(n));
@@ -611,10 +624,16 @@ document.addEventListener('click', function(e){
 });
 var n1=document.getElementById('nfm-next1'), n2=document.getElementById('nfm-next2');
 if(n1) n1.addEventListener('click', function(){ if(resp.etapa) irPaso(2); });
-if(n2) n2.addEventListener('click', function(){ if(resp.etapa && resp.equipo) mostrarForm(); });
+if(n2) n2.addEventListener('click', function(){ if(resp.etapa && resp.equipo){ irPaso(3); var inp=document.getElementById('nfm-dedicacion'); if(inp) setTimeout(function(){ inp.focus(); }, 350); } });
+var n3=document.getElementById('nfm-next3'), ded=document.getElementById('nfm-dedicacion');
+if(ded){
+  ded.addEventListener('input', function(){ resp.dedicacion=ded.value.trim(); if(n3) n3.disabled = resp.dedicacion.length<3; });
+  ded.addEventListener('keydown', function(e){ if(e.key==='Enter' && resp.dedicacion.length>=3){ e.preventDefault(); mostrarForm(); } });
+}
+if(n3) n3.addEventListener('click', function(){ if(resp.etapa && resp.equipo && resp.dedicacion.length>=3) mostrarForm(); });
 
 function mostrarForm(){
-  irPaso(3);
+  irPaso(4);
   var califica = (resp.etapa !== 'C');
   /* nivel: alto = etapa A/B con gente a cargo · medio = etapa A/B sin gente a cargo · bajo = punto de partida */
   var nivel = !califica ? 'bajo' : (resp.equipo === 'C' ? 'medio' : 'alto');
@@ -633,6 +652,7 @@ function mostrarForm(){
   p.push('equipo='+resp.equipo);
   p.push('califica='+(califica?'si':'no'));
   p.push('nivel='+nivel);
+  p.push('dedicacion='+encodeURIComponent(resp.dedicacion));
   var base=ifr.getAttribute('data-src')||('https://api.leadconnectorhq.com/widget/form/'+CONFIG.FORM_ID);
   ifr.src = base+(base.indexOf('?')===-1?'?':'&')+p.join('&');
   ifr.style.minHeight = CONFIG.FORM_ALTO_MINIMO+'px';
@@ -642,6 +662,7 @@ function mostrarForm(){
     window.sessionStorage.setItem('nfm_etapa', resp.etapa);
     window.sessionStorage.setItem('nfm_equipo', resp.equipo);
     window.sessionStorage.setItem('nfm_nivel', nivel);
+    window.sessionStorage.setItem('nfm_dedicacion', resp.dedicacion);
   }catch(err){}
 }
 

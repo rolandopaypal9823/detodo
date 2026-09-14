@@ -469,10 +469,12 @@ var TEST_SIGUIENTE = /test-?landing-?2/i.test(window.location.href);
 var ETAPA  = String(qs('etapa')  || ss('nfm_etapa')  || '').toUpperCase();
 var EQUIPO = String(qs('equipo') || ss('nfm_equipo') || '').toUpperCase();
 var NIVEL  = String(qs('nivel')  || ss('nfm_nivel')  || '').toLowerCase();   /* alto · medio · bajo */
+var DEDICACION = String(qs('dedicacion') || ss('nfm_dedicacion') || '');
 var CALIFICA = (ETAPA !== 'C');
 window.NFM_ETAPA = ETAPA || null;
 window.NFM_EQUIPO = EQUIPO || null;
 window.NFM_NIVEL = NIVEL || null;
+window.NFM_DEDICACION = DEDICACION || null;
 window.NFM_CALIFICA = CALIFICA;
 if(!CALIFICA && CONFIG.VARIANTE_C) document.documentElement.className += ' nfm-etapa-c';
 var NOW_FORZADO = null;
