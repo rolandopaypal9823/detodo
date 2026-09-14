@@ -6,10 +6,42 @@ nada, no dependen de ninguna fecha: muestran siempre esa clase y ese grupo de Wh
 | Carpeta | Clase | Tema | Título | Grupo de WhatsApp |
 |---|---|---|---|---|
 | `clase-15-septiembre/` | mar 15 sep, 19:00 | B | Escalá tu vida, no tu cansancio | `clase-15-de-septiembre-de-neurociencia` |
-| `clase-22-septiembre/` | mar 22 sep, 19:00 | A | Cumplís con todos menos con vos | `clase-22-de-semptiembre-de-neurociencia` |
+| `clase-22-septiembre/` | mar 22 sep, 19:00 | Nueva | Neurociencia para el Alto Rendimiento Profesional | `clase-22-de-semptiembre-de-neurociencia` |
 
 En cada carpeta: `index.html` va en la landing de registro, `thank-you.html` en la página de gracias.
 Copiás de marcador a marcador, reemplazando el bloque entero.
+
+---
+
+## La del 22 es distinta: nueva temática y quiz
+
+La carpeta `clase-22-septiembre/` ya **no** es la versión "Cumplís con todos" clavada al 22. Es la landing
+nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
+
+- **Gancho:** *Más "productivo" sos, menos avanzás en tu vida.*
+- **Evento:** *Neurociencia para el Alto Rendimiento Profesional con Nico Fernández Miranda.*
+- **Ecuación** con la tercera línea borroneada. Lo que hay debajo del blur es un señuelo (dice "Lo que
+  falta"); la variable real no está escrita en ningún lado del código, ni en comentarios. Queda en suspenso
+  hasta el vivo.
+- **Quiz de dos preguntas antes del form.** Las respuestas viajan al mismo form de siempre como campos
+  extra: `etapa` (A/B/C), `equipo` (A/B/C) y `califica` (`si`/`no`). Quien elige C ("todavía estoy en un
+  punto de partida") ve un mensaje que le dice que este evento no es para su etapa, pero **igual se
+  registra** para que le avisemos del próximo. En GHL, filtrá la automatización que manda el `Lead` por
+  CAPI con `califica = si`.
+- **Thank you page con dos variantes.** Si la persona eligió C, no ve el grupo de WhatsApp ni la agenda:
+  ve "quedaste anotado, te avisamos primero". Si eligió A o B (o si no hay dato), ve todo como siempre.
+  Para probar la variante C sin pasar por el quiz: `thank-you.html?etapa=C`.
+- **Popup post-registro (USD 1 / USD 5):** hay un lugar reservado al final de `thank-you.html`, marcado
+  con `POPUP POST-REGISTRO`. Cuando tengas el código, va ahí. Se muestra sólo a quien calificó; los C nunca
+  lo ven. Si el popup es un script, envolvelo en `if(window.NFM_CALIFICA){ ... }`.
+- **Las seis escenas de Nico** tienen un recuadro de imagen cada una. Hoy son placeholders grises. En
+  `clase-22-septiembre/prompts-gif-escenas.md` está, escena por escena, qué foto real conviene y un prompt
+  para ChatGPT si no la tenés.
+- El copy completo y sus fundamentos están en `clase-22-septiembre/nucleo-comunicacion.md`.
+
+Lo que **no** cambió: mismo form de GHL (`kLh5onxCgHdGDA10c8NU`), mismos parámetros de siempre
+(`clase_fecha`, `edicion`, UTMs de Meta pasan intactas), sólo `PageView` en el pixel, mismo grupo de WhatsApp
+que ya me pasaste. Campaña por defecto para leads sin UTM: `clase-sep22-alto-rendimiento`.
 
 ---
 
@@ -25,12 +57,16 @@ Son las mismas fechas de arranque de captación que ya habíamos definido:
 
 ## Qué se probó
 
-Las dos versiones se abrieron con el reloj puesto en cuatro momentos distintos —hoy, 5 de septiembre,
-18 de septiembre y 30 de noviembre— y **en los cuatro muestran exactamente lo mismo**: misma fecha,
-mismo tema, misma campaña, mismo grupo. No hay forma de que roten solas.
+La del 15 se abrió con el reloj puesto en cuatro momentos distintos —hoy, 5 de septiembre, 18 de
+septiembre y 30 de noviembre— y **en los cuatro muestra exactamente lo mismo**: misma fecha, mismo tema,
+misma campaña, mismo grupo. No hay forma de que rote sola.
 
-También verificado en las cuatro: sólo `PageView` en el pixel, ningún evento de conversión, y ningún
-placeholder crudo en pantalla.
+La del 22 se probó en escritorio y en celular con los tres caminos del quiz (A, B y C): el form recibe
+`etapa`, `equipo` y `califica` correctos, las UTMs de la URL pasan intactas, la thank you page muestra la
+variante que corresponde según lo que se eligió, y el botón de WhatsApp apunta al grupo del 22.
+
+Verificado en todas: sólo `PageView` en el pixel, ningún evento de conversión, ningún placeholder crudo en
+pantalla, y la página no se desborda a lo ancho en celular.
 
 ---
 

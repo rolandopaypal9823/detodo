@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Genérico a propósito: ver la nota del mismo bloque en index.html -->
-<title>¡Lugar reservado! · Nicolás Fernández Miranda</title>
+<!-- Versión FIJA de la clase del 22 de septiembre: el título puede ser específico -->
+<title>¡Lugar reservado! · Neurociencia para el Alto Rendimiento Profesional · Nicolás Fernández Miranda</title>
 
 <!-- ════════════════════════════════════════════════════════════════
      META PIXEL  ·  En GoHighLevel va en: (página Thank You) Settings → Tracking Code → HEAD
@@ -224,6 +224,24 @@ html, body{ margin:0; padding:0; background:#081F33; }
   .nfm-rem-info{ text-align:center; }
   .nfm-testbar{ font-size:0.6rem; letter-spacing:0.06em; }
 }
+
+/* ── DOS VARIANTES ──
+   .nfm-solo-califica → se ve sólo si la persona calificó en el quiz (etapa A o B, o si no hay dato)
+   .nfm-solo-c        → se ve sólo si eligió la opción C (punto de partida): sin grupo, sin agenda */
+.nfm-solo-c{ display:none; }
+.nfm-etapa-c .nfm-solo-califica{ display:none !important; }
+.nfm-etapa-c .nfm-solo-c{ display:block; }
+.nfm-thx__proximo{ padding:6px 0 56px; }
+.nfm-prox-card{
+  background:var(--nfm-card); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r2); padding:28px 30px;
+}
+.nfm-prox-card h3{ font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:700; color:#fff; margin:0 0 14px; }
+.nfm-prox-card p{ font-size:0.96rem; color:var(--nfm-tl); line-height:1.7; margin:0 0 14px; }
+.nfm-prox-card p:last-child{ margin-bottom:0; }
+.nfm-prox-card strong{ color:#fff; font-weight:600; }
+.nfm-prox-card ul{ margin:0 0 14px; padding-left:20px; }
+.nfm-prox-card li{ font-size:0.96rem; color:var(--nfm-tl); line-height:1.7; margin-bottom:6px; }
+@media (max-width:600px){ .nfm-prox-card{ padding:22px; } }
 </style>
 
 
@@ -244,13 +262,19 @@ html, body{ margin:0; padding:0; background:#081F33; }
       <div class="nfm-thx__check">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
       </div>
-      <h1 class="nfm-rv nfm-rv-1">¡Felicitaciones! Estás a un paso de <span class="acc">asegurar tu lugar.</span></h1>
-      <p class="sub nfm-rv nfm-rv-2">El solo hecho de haber dado este paso ya te diferencia de la mayoría. Ahora seguí estas indicaciones para llegar listo al <strong data-thx-fecha="larga">martes 22 de septiembre</strong>.</p>
+      <div class="nfm-solo-califica">
+        <h1 class="nfm-rv nfm-rv-1">¡Felicitaciones! Estás a un paso de <span class="acc">asegurar tu lugar.</span></h1>
+        <p class="sub nfm-rv nfm-rv-2">El solo hecho de haber dado este paso ya te diferencia de la mayoría. Ahora seguí estas indicaciones para llegar listo al <strong data-thx-fecha="larga">martes 22 de septiembre</strong>.</p>
+      </div>
+      <div class="nfm-solo-c">
+        <h1 class="nfm-rv nfm-rv-1">Listo, quedaste anotado. <span class="acc">Te avisamos primero.</span></h1>
+        <p class="sub nfm-rv nfm-rv-2">Nos contaste que todavía estás construyendo tu sostén profesional. El evento del <strong data-thx-fecha="larga">martes 22 de septiembre</strong> está armado para otra etapa, así que no te vamos a mandar a ese grupo: <strong>te vamos a avisar antes que a nadie cuando salga el evento pensado para la tuya.</strong></p>
+      </div>
     </div>
   </section>
 
   <!-- VIDEO (Loom) -->
-  <section class="nfm-thx__video">
+  <section class="nfm-thx__video nfm-solo-califica">
     <div class="nfm-thx__container">
       <p class="nfm-thx__video-label nfm-rv nfm-rv-2">Mirá este video antes de seguir</p>
       <div class="nfm-thx__video-frame nfm-rv nfm-rv-3">
@@ -262,7 +286,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
   </section>
 
   <!-- STEPS -->
-  <section class="nfm-thx__steps">
+  <section class="nfm-thx__steps nfm-solo-califica">
     <div class="nfm-thx__container">
       <p class="nfm-thx__steps-title nfm-rv nfm-rv-3">Seguí estos pasos para confirmar tu lugar</p>
 
@@ -310,7 +334,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
   </section>
 
   <!-- EVENT REMINDER -->
-  <section class="nfm-thx__reminder">
+  <section class="nfm-thx__reminder nfm-solo-califica">
     <div class="nfm-thx__container">
       <div class="nfm-rem-card nfm-rv nfm-rv-6">
         <div class="nfm-rem-date">
@@ -320,10 +344,24 @@ html, body{ margin:0; padding:0; background:#081F33; }
         </div>
         <div class="nfm-rem-div"></div>
         <div class="nfm-rem-info">
-          <h4 data-thx="claseTitulo">Cumplís con todos menos con vos: la razón neurológica por la que tu cerebro ejecuta lo ajeno y archiva lo tuyo.</h4>
+          <h4 data-thx="claseTitulo">Neurociencia para el Alto Rendimiento Profesional: la variable que decide si lo que hacés se convierte en resultado o en factura.</h4>
           <p class="time"><span data-thx-fecha="hora">19:00 hs (Argentina)</span></p>
           <p class="via">Vía Zoom · El acceso llega al grupo de WhatsApp</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SÓLO OPCIÓN C · qué pasa ahora -->
+  <section class="nfm-thx__proximo nfm-solo-c">
+    <div class="nfm-thx__container">
+      <div class="nfm-prox-card nfm-rv nfm-rv-3">
+        <h3>Qué pasa ahora</h3>
+        <ul>
+          <li><strong>Ya estás en la lista.</strong> Cuando abramos el evento para profesionales en etapa de construcción —primeros años de carrera, en relación de dependencia, sin equipo a cargo todavía— vas a recibir el aviso por mail antes de que salga a público.</li>
+          <li><strong>Revisá tu correo</strong> (incluí <strong>spam / promociones</strong>): ahí va a llegar el aviso y el acceso.</li>
+        </ul>
+        <p>Si en el quiz te equivocaste de opción y sí tenés una empresa, un equipo o una estructura a cargo, escribinos respondiendo el mail de confirmación y te pasamos el acceso a la clase del 22.</p>
       </div>
     </div>
   </section>
@@ -365,9 +403,9 @@ html, body{ margin:0; padding:0; background:#081F33; }
 var CONFIG = {
 
   /* fecha = cuándo es la clase · desde = cuándo la página EMPIEZA a mostrarla (00:00 hs ARG) */
-  /* ⚠️ VERSIÓN FIJA · SÓLO la clase del 22 de septiembre, tema A. */
+  /* ⚠️ VERSIÓN FIJA · SÓLO la clase del 22 de septiembre · Neurociencia para el Alto Rendimiento Profesional. */
   CLASES: [
-    { fecha:'2026-09-22', tema:'A', utm:'clase-sep22-cumplis-con-todos',
+    { fecha:'2026-09-22', tema:'AR', utm:'clase-sep22-alto-rendimiento',
       wa:'https://go.wha.link/clase-22-de-semptiembre-de-neurociencia' }
   ],
 
@@ -392,13 +430,9 @@ var CONFIG = {
    ②  COPY POR TEMÁTICA
    ══════════════════════════════════════════════════════════════════ */
 var TEMAS = {
-  A: {
-    tituloPagina: '¡Lugar reservado! · Cumplís con todos menos con vos — Nicolás Fernández Miranda',
-    claseTitulo: 'Cumplís con todos menos con vos: la razón neurológica por la que tu cerebro ejecuta lo ajeno y archiva lo tuyo.'
-  },
-  B: {
-    tituloPagina: '¡Lugar reservado! · Escalá tu vida, no tu cansancio — Nicolás Fernández Miranda',
-    claseTitulo: 'Escalá tu vida, no tu cansancio: la razón neurológica por la que el que sostiene todo es el último en avanzar.'
+  AR: {
+    tituloPagina: '¡Lugar reservado! · Neurociencia para el Alto Rendimiento Profesional · Nicolás Fernández Miranda',
+    claseTitulo: 'Neurociencia para el Alto Rendimiento Profesional: la variable que decide si lo que hacés se convierte en resultado o en factura.'
   }
 };
 
@@ -418,6 +452,22 @@ function qs(k){
 function ss(k){ try{ return window.sessionStorage.getItem(k); }catch(e){ return null; } }
 
 var TEST_SIGUIENTE = /test-?landing-?2/i.test(window.location.href);
+
+/* ══════════════════════════════════════════════════════════════════
+   ④  ETAPA (viene del quiz de la landing)
+   La landing guarda nfm_etapa / nfm_equipo en sessionStorage al completar el quiz.
+   También se acepta ?etapa=C en la URL (para probar, o si algún día el redirect lo pasa).
+     A / B  → calificó: grupo de WhatsApp, agenda, popup.
+     C      → punto de partida: sin grupo, sin agenda, sin popup. Se le avisa del próximo evento.
+     sin dato → se trata como si calificara (nunca dejamos a nadie sin grupo por un fallo).
+   ══════════════════════════════════════════════════════════════════ */
+var ETAPA  = String(qs('etapa')  || ss('nfm_etapa')  || '').toUpperCase();
+var EQUIPO = String(qs('equipo') || ss('nfm_equipo') || '').toUpperCase();
+var CALIFICA = (ETAPA !== 'C');
+window.NFM_ETAPA = ETAPA || null;
+window.NFM_EQUIPO = EQUIPO || null;
+window.NFM_CALIFICA = CALIFICA;
+if(!CALIFICA) document.documentElement.className += ' nfm-etapa-c';
 var NOW_FORZADO = null;
 function ahora(){
   if(NOW_FORZADO != null) return NOW_FORZADO;
@@ -534,7 +584,7 @@ if(TEST_SIGUIENTE && clase){
 }
 
 if(clase){
-  var COPY   = TEMAS[clase.def.tema] || TEMAS.A;
+  var COPY   = TEMAS[clase.def.tema] || TEMAS.AR;
   var FECHAS = fechasDe(clase.ts);
   var WA     = clase.def.wa || CONFIG.GRUPO_FALLBACK;
   var WA_PROPIO = !!clase.def.wa;
@@ -581,6 +631,18 @@ if(clase){
 }
 })();
 </script>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     POPUP POST-REGISTRO (oferta de asiento USD 1 / USD 5)
+     Pegar acá el código del popup cuando esté.
+     Se muestra SÓLO a quien calificó (etapa A o B). Quien eligió C nunca lo ve.
+       · Si el popup es HTML: ponerlo adentro del div de abajo (se oculta solo para los C).
+       · Si es un script: envolverlo en  if(window.NFM_CALIFICA){ ... }
+       · Datos disponibles: window.NFM_ETAPA ('A'|'B'|'C'|null), window.NFM_EQUIPO, window.NFM_CALIFICA (true/false)
+     ══════════════════════════════════════════════════════════════════ -->
+<div id="nfm-popup-slot" class="nfm-solo-califica">
+  <!-- popup acá -->
+</div>
 <!-- ═══════════ HASTA ACÁ EL CUSTOM CODE DE GHL ═══════════ -->
 </body>
 </html>

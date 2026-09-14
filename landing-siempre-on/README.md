@@ -66,6 +66,10 @@ El cambio de temática lo manda `desde`, no la fecha de la clase.
 | ya corriendo (24 ago) | mar 8 sep | A | Cumplís con todos menos con vos | ✅ cargado |
 | **2 sep, 00:00** | mar 15 sep | B | Escalá tu vida, no tu cansancio | ✅ cargado |
 | **11 sep, 00:00** | mar 22 sep | A | Cumplís con todos menos con vos | ✅ cargado (revisar "semptiembre") |
+
+> ⚠️ **La clase del 22 cambió de temática.** Ya no va con esta versión rotativa: tiene su propia landing
+> fija en `clase-22-septiembre/` (nueva temática, quiz antes del form, thank you page con dos variantes).
+> Ver `LEEME-versiones-fijas.md`. La entrada del 22 en esta versión rotativa quedó vieja y no hay que usarla.
 | **20 sep, 00:00** | ⚠️ octubre, sin cargar | B | — | ⚠️ falta |
 
 ```js
