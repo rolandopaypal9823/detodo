@@ -250,7 +250,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
         </div>
         <div class="nfm-thx__video-frame">
           <div style="position:relative; padding-bottom:56.25%; height:0;">
-            <iframe id="nfm-thx-loom" src="https://www.loom.com/embed/4f2cc1c6518e4134a159b5db19f58b2e" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
+            <iframe id="nfm-thx-loom" src="https://www.loom.com/embed/4f2cc1c6518e4134a159b5db19f58b2e?hideEmbedTopBar=true&hide_share=true&hide_title=true&hide_owner=true" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
           </div>
         </div>
       </div>
@@ -368,6 +368,10 @@ var CONFIG = {
 
   /* Video de bienvenida. Se puede poner uno distinto por clase con loom:'...' */
   LOOM_ID: '4f2cc1c6518e4134a159b5db19f58b2e',
+  /* Qué esconde el reproductor de Loom: barra de arriba (título, dueño, "Watch on Loom", compartir).
+     Comentarios, vistas y emojis NO se manejan acá: se apagan o prenden en Loom, en la configuración
+     del video (Settings → Audience): comentarios OFF, contador de vistas OFF, reacciones con emoji ON. */
+  LOOM_PARAMS: 'hideEmbedTopBar=true&hide_share=true&hide_title=true&hide_owner=true',
 
   HORA_CLASE: 19,
   MINUTOS_CLASE: 0,
@@ -572,7 +576,7 @@ if(clase){
   var loom = document.getElementById('nfm-thx-loom');
   var loomId = clase.def.loom || CONFIG.LOOM_ID;
   if(loom && loomId){
-    var nuevo = 'https://www.loom.com/embed/'+loomId;
+    var nuevo = 'https://www.loom.com/embed/'+loomId+(CONFIG.LOOM_PARAMS ? '?'+CONFIG.LOOM_PARAMS : '');
     if(loom.getAttribute('src') !== nuevo) loom.setAttribute('src', nuevo);
   }
 

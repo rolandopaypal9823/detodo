@@ -54,7 +54,8 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
   con los parámetros de la URL que tengan el mismo nombre. Las UTM no hace falta crearlas: GHL las captura
   solo.
 - **Thank you page de tres pasos.** Logo, título ("¡Lugar reservado! Ahora, tres pasos para recibir el
-  acceso."), paso 1 "Mirá este video" (Loom), paso 2 "Unite al grupo de WhatsApp para recibir el acceso a
+  acceso."), paso 1 "Mirá este video" (Loom sin barra de arriba ni "Watch on Loom"; comentarios y vistas se apagan
+  en la configuración del video en Loom, las reacciones con emoji quedan), paso 2 "Unite al grupo de WhatsApp para recibir el acceso a
   la clase" (botón), paso 3 "Hasta el día de la clase, atento al grupo y a tu mail", y la tarjeta con la fecha, el título de la clase, "con Nico Fernández Miranda", hora y
   Zoom. Nada más. Si la persona eligió C en el quiz, no ve los tres pasos ni la tarjeta: ve "quedaste anotado,
   te avisamos primero". Para probar esa variante sin pasar por el quiz: `thank-you.html?etapa=C`. Si preferís
