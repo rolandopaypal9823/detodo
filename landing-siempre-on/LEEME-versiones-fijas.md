@@ -23,18 +23,25 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
 - **Ecuación** con la tercera línea borroneada. Lo que hay debajo del blur es un señuelo (dice "Lo que
   falta"); la variable real no está escrita en ningún lado del código, ni en comentarios. Queda en suspenso
   hasta el vivo.
+- **Hero centrado con la foto del TED de fondo**, estilo tarjeta: etiqueta "Evento en vivo", título del
+  evento, "con Nico Fernández Miranda", el gancho, fecha, contador y botón. Cuando tengas la foto nueva en
+  4K, cambiás sólo el `src` de la imagen dentro de `.nfm-hero__bg`. Toda la landing va centrada.
 - **Quiz de dos preguntas antes del form.** Las respuestas viajan al mismo form de siempre como campos
-  extra: `etapa` (A/B/C), `equipo` (A/B/C) y `califica` (`si`/`no`). Quien elige C ("todavía estoy en un
-  punto de partida") ve un mensaje que le dice que este evento no es para su etapa, pero **igual se
-  registra** para que le avisemos del próximo. En GHL, filtrá la automatización que manda el `Lead` por
-  CAPI con `califica = si`.
+  extra: `etapa` (A/B/C), `equipo` (A/B/C) y `califica` (`si`/`no`). En la landing todos ven el mismo
+  form: no hay ningún mensaje de "esto no es para vos" (lo sacaste en la revisión). En GHL, filtrá la
+  automatización que manda el `Lead` por CAPI con `califica = si`.
 - **Thank you page con dos variantes.** Si la persona eligió C, no ve el grupo de WhatsApp ni la agenda:
   ve "quedaste anotado, te avisamos primero". Si eligió A o B (o si no hay dato), ve todo como siempre.
-  Para probar la variante C sin pasar por el quiz: `thank-you.html?etapa=C`.
+  Para probar la variante C sin pasar por el quiz: `thank-you.html?etapa=C`. Como en la landing ya no se
+  le avisa a los C que el evento no es para ellos, esta variante puede sorprenderlos: si preferís que
+  todos vean la página normal, poné `VARIANTE_C: false` en el CONFIG de `thank-you.html` (el popup igual
+  se muestra sólo a A/B).
 - **Popup post-registro (USD 1 / USD 5):** hay un lugar reservado al final de `thank-you.html`, marcado
   con `POPUP POST-REGISTRO`. Cuando tengas el código, va ahí. Se muestra sólo a quien calificó; los C nunca
   lo ven. Si el popup es un script, envolvelo en `if(window.NFM_CALIFICA){ ... }`.
-- **Las seis escenas de Nico** tienen un recuadro de imagen cada una. Hoy son placeholders grises. En
+- **"Qué vas a aprender en el Zoom En Vivo"**: seis puntos de una línea, con número y emoji, sin bajadas.
+- **Las seis escenas de Nico** van apiladas y centradas (imagen arriba, texto abajo), sin el rótulo
+  "Escena N". Cada una tiene un recuadro de imagen. Hoy son placeholders grises. En
   `clase-22-septiembre/prompts-gif-escenas.md` está, escena por escena, qué foto real conviene y un prompt
   para ChatGPT si no la tenés.
 - El copy completo y sus fundamentos están en `clase-22-septiembre/nucleo-comunicacion.md`.

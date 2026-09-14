@@ -413,6 +413,11 @@ var CONFIG = {
      quede roto. Ojo: manda al grupo equivocado, así que es red de seguridad, no solución. */
   GRUPO_FALLBACK: 'https://go.wha.link/clase-8-de-septiembre-neurociencia',
 
+  /* Variante para quien eligió C ("punto de partida") en el quiz:
+       true  → no ve el grupo de WhatsApp ni la agenda; ve "te avisamos del próximo evento".
+       false → ve la página normal como todos. El popup igual se muestra sólo a A/B. */
+  VARIANTE_C: true,
+
   /* Video de bienvenida. Se puede poner uno distinto por clase con loom:'...' */
   LOOM_ID: '4f2cc1c6518e4134a159b5db19f58b2e',
 
@@ -467,7 +472,7 @@ var CALIFICA = (ETAPA !== 'C');
 window.NFM_ETAPA = ETAPA || null;
 window.NFM_EQUIPO = EQUIPO || null;
 window.NFM_CALIFICA = CALIFICA;
-if(!CALIFICA) document.documentElement.className += ' nfm-etapa-c';
+if(!CALIFICA && CONFIG.VARIANTE_C) document.documentElement.className += ' nfm-etapa-c';
 var NOW_FORZADO = null;
 function ahora(){
   if(NOW_FORZADO != null) return NOW_FORZADO;

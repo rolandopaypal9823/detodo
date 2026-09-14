@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Más "productivo" sos, menos avanzás en tu vida — Evento en vivo | Nicolás Fernández Miranda</title>
+<title>Neurociencia para el Alto Rendimiento Profesional · Evento en vivo con Nico Fernández Miranda</title>
 <meta name="description" content="Evento en vivo: Neurociencia para el Alto Rendimiento Profesional, con Nico Fernández Miranda. Para líderes, empresarios y profesionales que ya construyeron algo y están pagando el costo de sostenerlo.">
 
 <!-- ════════════════════════════════════════════════════════════════
@@ -82,47 +82,37 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-nav{ position:fixed; top:0; left:0; right:0; z-index:9999; padding:14px 0; background:rgba(8,31,51,0.30); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
   transition:all .3s var(--nfm-ease); border-bottom:1px solid transparent; }
 .nfm-nav.nfm-nav--scrolled{ background:rgba(8,31,51,0.92); padding:9px 0; border-bottom:1px solid var(--nfm-hair); box-shadow:0 6px 30px rgba(0,0,0,0.35); }
-.nfm-nav__inner{ display:flex; align-items:center; justify-content:space-between; }
+.nfm-nav__inner{ display:flex; align-items:center; justify-content:center; }
 .nfm-nav__logo img{ height:64px; width:auto; transition:height .3s var(--nfm-ease); }
 .nfm-nav--scrolled .nfm-nav__logo img{ height:48px; }
-.nfm-nav__cta{ font-family:var(--nfm-font-h); font-size:0.82rem; font-weight:600; color:#fff; background:var(--nfm-orange); border:none; border-radius:50px; padding:11px 24px; cursor:pointer;
-  transition:all .25s var(--nfm-ease); box-shadow:0 4px 18px var(--nfm-orange-glow); }
-.nfm-nav__cta:hover{ background:var(--nfm-orange-hover); transform:translateY(-1px); color:#fff; }
 
-/* ═══ HERO ═══ */
-.nfm-hero{ position:relative; overflow:hidden; padding:128px 0 84px;
-  background:radial-gradient(900px 500px at 78% 12%, rgba(255,102,2,0.16), transparent 60%), radial-gradient(700px 600px at 10% 100%, rgba(26,74,110,0.55), transparent 65%), linear-gradient(160deg,#0C3452 0%,#081F33 100%); }
-.nfm-hero::before{ content:''; position:absolute; inset:0; opacity:0.04; pointer-events:none; z-index:1;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-.nfm-hero__particles{ position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none; }
-.nfm-particle{ position:absolute; bottom:-12px; border-radius:50%; background:rgba(255,102,2,0.35); animation:nfm-float linear infinite; }
-@keyframes nfm-float{ 0%{transform:translateY(0) scale(1);opacity:.55} 100%{transform:translateY(-112vh) scale(.35);opacity:0} }
-.nfm-hero__grid{ position:relative; z-index:2; display:grid; grid-template-columns:1.12fr 0.88fr; gap:52px; align-items:stretch; }
-.nfm-hero__tag{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.74rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--nfm-orange);
-  background:rgba(255,102,2,0.12); border:1px solid rgba(255,102,2,0.34); padding:7px 16px; border-radius:50px; margin-bottom:22px; animation:nfm-fu .6s var(--nfm-ease) both; }
-.nfm-hero__title{ font-family:var(--nfm-font-h); font-size:clamp(2.2rem,4.4vw,3.5rem); font-weight:700; color:#fff; line-height:1.06; letter-spacing:-0.03em; margin:0 0 18px; animation:nfm-fu .6s .12s var(--nfm-ease) both; }
-.nfm-hero__title em{ color:var(--nfm-orange); font-style:normal; }
-.nfm-hero__title .nfm-q{ color:var(--nfm-orange); }
-.nfm-hero__event{ font-family:var(--nfm-font-h); font-size:0.78rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-tm); margin:0 0 8px; animation:nfm-fu .6s .18s var(--nfm-ease) both; }
-.nfm-hero__kicker{ font-family:var(--nfm-font-h); font-size:clamp(1.15rem,1.9vw,1.45rem); font-weight:600; color:#fff; line-height:1.25; letter-spacing:-0.01em; margin:0 0 6px; animation:nfm-fu .6s .2s var(--nfm-ease) both; }
-.nfm-hero__with{ font-family:var(--nfm-font-h); font-size:1rem; color:var(--nfm-orange); font-weight:600; margin:0 0 22px; animation:nfm-fu .6s .24s var(--nfm-ease) both; }
-.nfm-hero__seed{ font-size:1.02rem; color:var(--nfm-tl); line-height:1.65; margin:0 0 26px; max-width:34em; animation:nfm-fu .6s .28s var(--nfm-ease) both; }
-.nfm-hero__seed strong{ color:#fff; font-weight:600; }
-.nfm-hero__date{ font-family:var(--nfm-font-h); font-size:0.95rem; color:var(--nfm-tm); margin:0 0 22px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; animation:nfm-fu .6s .34s var(--nfm-ease) both; }
-.nfm-hero__date strong{ color:#fff; font-weight:600; }
+/* ═══ HERO · foto de fondo, todo centrado ═══ */
+.nfm-hero{ padding:100px 16px 0; background:#081F33; }
+.nfm-hero__card{ position:relative; overflow:hidden; border-radius:28px; max-width:1180px; margin:0 auto; min-height:760px; min-height:min(860px, calc(100svh - 120px));
+  display:flex; align-items:flex-end; justify-content:center; border:1px solid var(--nfm-hair); box-shadow:0 30px 80px rgba(0,0,0,0.45); background:#0C3452; }
+.nfm-hero__bg{ position:absolute; inset:0; z-index:0; }
+.nfm-hero__bg img{ width:100%; height:100%; object-fit:cover; object-position:center 15%; display:block; }
+.nfm-hero__bg::after{ content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, rgba(8,31,51,0.30) 0%, rgba(8,31,51,0.08) 28%, rgba(8,31,51,0.70) 52%, rgba(8,31,51,0.95) 72%, #081F33 100%); }
+.nfm-hero__inner{ position:relative; z-index:2; width:100%; max-width:860px; margin:0 auto; padding:250px 28px 52px; text-align:center; display:flex; flex-direction:column; align-items:center; }
+.nfm-hero__tag{ display:inline-flex; align-items:center; gap:9px; font-family:var(--nfm-font-h); font-size:0.74rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#fff;
+  background:rgba(8,31,51,0.55); border:1px solid rgba(255,255,255,0.18); padding:8px 16px; border-radius:50px; margin-bottom:18px; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); animation:nfm-fu .6s var(--nfm-ease) both; }
+.nfm-hero__tag .nfm-dot{ width:7px; height:7px; }
+.nfm-hero__title{ font-family:var(--nfm-font-h); font-size:clamp(2.05rem,4.8vw,3.6rem); font-weight:700; color:#fff; line-height:1.04; letter-spacing:-0.035em; margin:0 0 10px; text-wrap:balance; text-shadow:0 2px 24px rgba(0,0,0,0.5); animation:nfm-fu .6s .1s var(--nfm-ease) both; }
+.nfm-hero__with{ font-family:var(--nfm-font-h); font-size:clamp(1.05rem,1.8vw,1.3rem); color:var(--nfm-orange); font-weight:600; margin:0 0 22px; animation:nfm-fu .6s .16s var(--nfm-ease) both; }
+.nfm-hero__hook{ font-family:var(--nfm-font-h); font-size:clamp(1.25rem,2.5vw,1.8rem); font-weight:600; color:#fff; line-height:1.25; letter-spacing:-0.015em; margin:0 0 26px; max-width:22em; text-wrap:balance; text-shadow:0 2px 18px rgba(0,0,0,0.45); animation:nfm-fu .6s .22s var(--nfm-ease) both; }
+.nfm-hero__hook .nfm-q, .nfm-hero__hook em{ color:var(--nfm-orange); font-style:normal; }
+.nfm-hero__meta{ display:flex; flex-direction:column; align-items:center; gap:4px; margin:0 0 22px; animation:nfm-fu .6s .28s var(--nfm-ease) both; }
+.nfm-hero__meta-k{ font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-tm); }
+.nfm-hero__meta-v{ font-family:var(--nfm-font-h); font-size:1.05rem; font-weight:600; color:#fff; }
+.nfm-hero__meta-v small{ display:block; font-size:0.85rem; font-weight:500; color:var(--nfm-tl); margin-top:3px; }
 .nfm-dot{ width:4px; height:4px; border-radius:50%; background:var(--nfm-orange); display:inline-block; }
-.nfm-cd-label{ font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-ts); margin:0 0 12px; animation:nfm-fu .6s .4s var(--nfm-ease) both; }
-.nfm-cd{ display:flex; gap:12px; margin-bottom:30px; animation:nfm-fu .6s .44s var(--nfm-ease) both; }
-.nfm-cd__item{ display:flex; flex-direction:column; align-items:center; min-width:66px; padding:13px 16px; background:rgba(255,255,255,0.06); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r); backdrop-filter:blur(8px); }
-.nfm-cd__num{ font-family:var(--nfm-font-h); font-size:1.9rem; font-weight:700; color:var(--nfm-orange); line-height:1; }
+.nfm-cd-label{ font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-ts); margin:0 0 10px; animation:nfm-fu .6s .34s var(--nfm-ease) both; }
+.nfm-cd{ display:flex; justify-content:center; gap:12px; margin:0 0 28px; animation:nfm-fu .6s .38s var(--nfm-ease) both; }
+.nfm-cd__item{ display:flex; flex-direction:column; align-items:center; min-width:70px; padding:13px 16px; background:rgba(8,31,51,0.45); border:1px solid rgba(255,255,255,0.14); border-radius:var(--nfm-r); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+.nfm-cd__num{ font-family:var(--nfm-font-h); font-size:1.9rem; font-weight:700; color:var(--nfm-orange); line-height:1; font-variant-numeric:tabular-nums; }
 .nfm-cd__unit{ font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--nfm-tm); margin-top:5px; }
-.nfm-hero__cta-wrap{ animation:nfm-fu .6s .5s var(--nfm-ease) both; }
-.nfm-hero__micro{ font-size:0.82rem; color:var(--nfm-tm); margin:14px 0 0; }
-.nfm-hero__micro strong{ color:var(--nfm-tl); }
-.nfm-hero__img{ position:relative; height:100%; min-height:580px; border-radius:var(--nfm-r-lg); overflow:hidden; border:1px solid var(--nfm-hair); box-shadow:0 30px 80px rgba(0,0,0,0.45); animation:nfm-fu .7s .3s var(--nfm-ease) both; }
-.nfm-hero__img img{ width:100%; height:100%; object-fit:cover; object-position:center 22%; }
-.nfm-hero__img::after{ content:''; position:absolute; inset:0; background:linear-gradient(to bottom, transparent 45%, rgba(8,31,51,0.85) 100%); pointer-events:none; }
-.nfm-hero__img-cap{ position:absolute; left:20px; bottom:18px; z-index:2; font-family:var(--nfm-font-h); font-size:0.78rem; color:var(--nfm-tl); letter-spacing:0.04em; }
+.nfm-hero__cta-wrap{ width:100%; display:flex; justify-content:center; animation:nfm-fu .6s .44s var(--nfm-ease) both; }
 @keyframes nfm-fu{ from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:none} }
 
 /* ═══ ECUACIÓN ═══ */
@@ -139,22 +129,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-eq__row--secret .nfm-eq__l{ position:relative; }
 .nfm-eq__blur{ filter:blur(7px); -webkit-filter:blur(7px); color:var(--nfm-orange); user-select:none; -webkit-user-select:none; pointer-events:none; display:inline-block; }
 .nfm-eq__row--secret .nfm-eq__r{ color:var(--nfm-orange); }
-.nfm-eq__cap{ margin-top:26px; font-size:0.95rem; color:var(--nfm-ink-mute); line-height:1.6; max-width:34em; margin-left:auto; margin-right:auto; }
-.nfm-eq__cap strong{ color:var(--nfm-ink); }
-
-/* ═══ ESPEJO ═══ */
-.nfm-espejo{ background:linear-gradient(180deg,#0C3452 0%,#081F33 100%); padding:96px 0; color:#fff; }
-.nfm-espejo h2{ font-family:var(--nfm-font-h); font-size:clamp(1.6rem,3.2vw,2.3rem); font-weight:700; line-height:1.15; letter-spacing:-0.02em; margin:0 0 14px; }
-.nfm-espejo h2 em{ color:var(--nfm-orange); font-style:normal; }
-.nfm-espejo__intro{ font-size:1.05rem; color:var(--nfm-tl); line-height:1.7; margin:0 0 34px; }
-.nfm-espejo__intro strong{ color:#fff; }
-.nfm-espejo__item{ display:flex; gap:16px; align-items:flex-start; margin-bottom:16px; background:rgba(255,255,255,0.04); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r); padding:18px 20px; }
-.nfm-espejo__ic{ flex-shrink:0; margin-top:2px; width:24px; height:24px; background:rgba(255,102,2,0.14); border-radius:50%; display:flex; align-items:center; justify-content:center; }
-.nfm-espejo__ic svg{ width:10px; height:10px; stroke:var(--nfm-orange); fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
-.nfm-espejo__item p{ font-size:1rem; color:var(--nfm-tl); line-height:1.6; }
-.nfm-espejo__close{ margin-top:30px; padding:24px 26px; border-left:3px solid var(--nfm-orange); background:rgba(255,102,2,0.08); border-radius:0 var(--nfm-r) var(--nfm-r) 0; }
-.nfm-espejo__close p{ font-size:1.04rem; color:var(--nfm-tl); line-height:1.7; }
-.nfm-espejo__close strong{ color:#fff; }
 
 /* ═══ QUIZ + FORM ═══ */
 .nfm-reg{ position:relative; overflow:hidden; padding:88px 0; background:var(--nfm-gray-50); }
@@ -164,8 +138,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-reg .nfm-container{ position:relative; z-index:1; }
 .nfm-reg__title{ font-family:var(--nfm-font-h); font-size:clamp(1.6rem,3.2vw,2.3rem); font-weight:700; text-align:center; color:var(--nfm-ink); letter-spacing:-0.02em; line-height:1.18; margin:0 auto 14px; max-width:18em; }
 .nfm-reg__title span{ color:var(--nfm-orange); }
-.nfm-reg__sub{ font-size:1.02rem; color:var(--nfm-ink-mute); text-align:center; max-width:680px; margin:0 auto 36px; line-height:1.65; }
-.nfm-reg__sub strong{ color:var(--nfm-ink); font-weight:600; }
 .nfm-quiz{ max-width:640px; margin:0 auto; background:#fff; border:1px solid var(--nfm-gray-200); border-radius:18px; box-shadow:0 24px 70px rgba(12,52,82,0.14); padding:32px; }
 .nfm-quiz__step{ display:none; } .nfm-quiz__step.nfm-on{ display:block; }
 .nfm-quiz__prog{ display:flex; gap:6px; margin-bottom:22px; }
@@ -180,11 +152,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-opt.nfm-sel .nfm-opt__radio::after{ content:''; position:absolute; inset:4px; border-radius:50%; background:var(--nfm-orange); }
 .nfm-opt__t{ font-size:0.98rem; color:var(--nfm-ink); line-height:1.5; }
 .nfm-quiz__actions{ display:flex; justify-content:flex-end; margin-top:8px; }
-.nfm-quiz__msg{ background:rgba(255,102,2,0.06); border:1px solid rgba(255,102,2,0.25); border-radius:var(--nfm-r); padding:22px 24px; margin-bottom:22px; }
-.nfm-quiz__msg h4{ font-family:var(--nfm-font-h); font-size:1.1rem; font-weight:700; color:var(--nfm-ink); margin:0 0 10px; }
-.nfm-quiz__msg p{ font-size:0.96rem; color:var(--nfm-ink-mute); line-height:1.65; margin:0 0 10px; }
-.nfm-quiz__msg p:last-child{ margin-bottom:0; }
-.nfm-quiz__msg strong{ color:var(--nfm-ink); }
 .nfm-quiz__ok{ text-align:center; font-family:var(--nfm-font-h); font-weight:600; color:var(--nfm-ink); font-size:1.05rem; margin:0 0 16px; }
 .nfm-quiz__ok span{ color:var(--nfm-green); }
 .nfm-reg__form{ border-radius:14px; overflow:hidden; border:1px solid var(--nfm-gray-200); background:#fff; }
@@ -195,14 +162,13 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-nico__head{ text-align:center; max-width:720px; margin:0 auto 52px; }
 .nfm-nico__head h2{ font-family:var(--nfm-font-h); font-size:clamp(1.7rem,3.4vw,2.4rem); font-weight:700; letter-spacing:-0.02em; line-height:1.15; margin:0 0 12px; }
 .nfm-nico__head p{ font-size:1.02rem; color:var(--nfm-ink-mute); line-height:1.65; }
-.nfm-scene{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:44px; align-items:center; max-width:1000px; margin:0 auto 64px; }
-.nfm-scene:nth-child(even){ direction:rtl; } .nfm-scene:nth-child(even) > *{ direction:ltr; }
-.nfm-scene__media{ border-radius:var(--nfm-r-lg); overflow:hidden; border:1px solid var(--nfm-gray-200); box-shadow:0 24px 60px rgba(12,52,82,0.14); aspect-ratio:4/3; background:var(--nfm-gray-100); position:relative; }
+.nfm-scene{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:24px; max-width:640px; margin:0 auto 60px; }
+.nfm-scene > div:last-child{ width:100%; }
+.nfm-scene__media{ width:100%; max-width:560px; border-radius:var(--nfm-r-lg); overflow:hidden; border:1px solid var(--nfm-gray-200); box-shadow:0 24px 60px rgba(12,52,82,0.14); aspect-ratio:4/3; background:var(--nfm-gray-100); position:relative; }
 .nfm-scene__media img{ width:100%; height:100%; object-fit:cover; }
 .nfm-scene__media .nfm-scene__ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; font-family:var(--nfm-font-h); font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--nfm-ink-subtle); }
-.nfm-scene__num{ font-family:var(--nfm-font-h); font-size:0.72rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-orange); margin:0 0 10px; }
-.nfm-scene h3{ font-family:var(--nfm-font-h); font-size:clamp(1.3rem,2.4vw,1.7rem); font-weight:700; letter-spacing:-0.02em; line-height:1.2; margin:0 0 12px; }
-.nfm-scene p{ font-size:1.02rem; color:#2a3f54; line-height:1.72; margin:0 0 12px; }
+.nfm-scene h3{ font-family:var(--nfm-font-h); text-wrap:balance; font-size:clamp(1.35rem,2.6vw,1.8rem); font-weight:700; letter-spacing:-0.02em; line-height:1.2; margin:0 0 12px; }
+.nfm-scene p{ font-size:1.02rem; color:#2a3f54; line-height:1.72; margin:0 auto 12px; max-width:36em; }
 .nfm-scene p strong{ color:var(--nfm-ink); font-weight:600; }
 .nfm-scene p:last-child{ margin-bottom:0; }
 .nfm-creds{ max-width:1000px; margin:20px auto 0; background:var(--nfm-gray-50); border:1px solid var(--nfm-gray-200); border-radius:var(--nfm-r-lg); padding:30px 34px; }
@@ -218,14 +184,15 @@ html, body{ margin:0; padding:0; background:#081F33; }
 /* ═══ QUÉ VAS A DESCUBRIR ═══ */
 .nfm-learn{ background:var(--nfm-gray-50); padding:96px 0; color:var(--nfm-ink); }
 .nfm-learn__head{ text-align:center; margin-bottom:48px; }
-.nfm-learn__head h2{ font-family:var(--nfm-font-h); font-size:clamp(1.7rem,3.4vw,2.4rem); font-weight:700; letter-spacing:-0.02em; line-height:1.15; margin:0 0 12px; }
+.nfm-learn__head h2{ font-family:var(--nfm-font-h); text-wrap:balance; font-size:clamp(2rem,4.4vw,3rem); font-weight:700; letter-spacing:-0.02em; line-height:1.15; margin:0 0 12px; }
 .nfm-learn__head p{ font-size:1.02rem; color:var(--nfm-ink-mute); max-width:600px; margin:0 auto; line-height:1.6; }
 .nfm-map{ max-width:860px; margin:0 auto; background:#fff; border:1px solid var(--nfm-gray-200); border-radius:var(--nfm-r-lg); padding:20px 40px; box-shadow:0 20px 60px rgba(12,52,82,0.07); }
-.nfm-map__item{ display:flex; gap:26px; align-items:flex-start; padding:26px 0; border-bottom:1px solid var(--nfm-gray-200); }
+.nfm-map__item{ display:flex; gap:22px; align-items:center; padding:22px 0; border-bottom:1px solid var(--nfm-gray-200); }
 .nfm-map__item:last-child{ border-bottom:none; }
 .nfm-map__num{ font-family:var(--nfm-font-h); font-size:2rem; font-weight:700; color:transparent; -webkit-text-stroke:1.5px var(--nfm-orange); min-width:52px; line-height:1; }
-.nfm-map__txt h4{ font-family:var(--nfm-font-h); font-size:1.14rem; font-weight:700; color:var(--nfm-ink); margin:0 0 6px; letter-spacing:-0.01em; }
-.nfm-map__txt p{ font-size:0.96rem; color:var(--nfm-ink-mute); line-height:1.6; }
+.nfm-map__txt h4{ font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:500; color:var(--nfm-ink); margin:0; letter-spacing:-0.01em; line-height:1.4; }
+.nfm-map__txt h4 b{ font-weight:700; }
+.nfm-map__emoji{ display:inline-block; font-size:1.25em; line-height:1; margin-right:4px; vertical-align:-0.12em; }
 .nfm-learn__cta{ text-align:center; margin-top:44px; }
 
 /* ═══ TESTIMONIOS ═══ */
@@ -234,14 +201,14 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-tst__head h2{ font-family:var(--nfm-font-h); font-size:clamp(1.6rem,3.2vw,2.3rem); font-weight:700; letter-spacing:-0.02em; line-height:1.18; margin:0 0 12px; color:#fff; }
 .nfm-tst__head p{ color:var(--nfm-tm); max-width:600px; margin:0 auto; font-size:1rem; line-height:1.6; }
 .nfm-tst__grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:1000px; margin:0 auto; }
-.nfm-tst__card{ display:flex; flex-direction:column; gap:14px; background:var(--nfm-navy-1); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg); padding:24px; transition:all .25s var(--nfm-ease); }
+.nfm-tst__card{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px; background:var(--nfm-navy-1); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg); padding:24px; transition:all .25s var(--nfm-ease); }
 .nfm-tst__card:hover{ border-color:rgba(255,102,2,0.28); transform:translateY(-4px); }
 .nfm-tst__video{ position:relative; width:100%; aspect-ratio:16/9; border-radius:14px; overflow:hidden; border:1px solid var(--nfm-hair); }
 .nfm-tst__video iframe{ width:100%; height:100%; border:none; display:block; }
 .nfm-tst__card h4{ font-family:var(--nfm-font-h); font-size:1.05rem; font-weight:700; color:#fff; margin:0; }
 .nfm-tst__role{ font-size:0.8rem; color:var(--nfm-tm); margin:-8px 0 0; display:block; }
 .nfm-tst__card p{ font-size:0.94rem; color:var(--nfm-tl); line-height:1.6; font-style:italic; }
-.nfm-insight{ margin:44px auto 0; background:rgba(255,102,2,0.07); border-left:3px solid var(--nfm-orange); border-radius:0 var(--nfm-r) var(--nfm-r) 0; padding:24px 28px; max-width:820px; }
+.nfm-insight{ margin:44px auto 0; text-align:center; background:rgba(255,102,2,0.07); border-top:3px solid var(--nfm-orange); border-radius:var(--nfm-r); padding:24px 28px; max-width:820px; }
 .nfm-insight p{ font-size:1rem; color:var(--nfm-tl); line-height:1.7; }
 .nfm-insight strong{ color:var(--nfm-orange); font-weight:700; }
 
@@ -256,41 +223,32 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-footer{ background:#081F33; padding:34px 0; text-align:center; border-top:1px solid var(--nfm-hair); }
 .nfm-footer p{ font-size:0.8rem; color:var(--nfm-tm); }
 
-.nfm-sticky{ position:fixed; left:0; right:0; bottom:0; z-index:9998; padding:12px 16px calc(12px + env(safe-area-inset-bottom)); background:rgba(8,31,51,0.94); backdrop-filter:blur(10px); border-top:1px solid var(--nfm-hair); transform:translateY(120%); transition:transform .35s var(--nfm-ease); display:none; }
+.nfm-sticky{ position:fixed; left:0; right:0; bottom:0; z-index:9998; padding:12px 16px calc(12px + env(safe-area-inset-bottom)); background:rgba(8,31,51,0.94); backdrop-filter:blur(10px); border-top:1px solid var(--nfm-hair); transform:translateY(120%); transition:transform .35s var(--nfm-ease); }
 .nfm-sticky.nfm-sticky--show{ transform:none; }
-.nfm-sticky .nfm-btn{ width:100%; padding:15px; font-size:1rem; box-shadow:none; }
+.nfm-sticky .nfm-btn{ width:100%; max-width:440px; margin:0 auto; display:flex; padding:15px; font-size:1rem; box-shadow:none; }
 
 /* ═══ RESPONSIVE ═══ */
-@media (max-width:1024px){ .nfm-hero{ padding:116px 0 72px; } .nfm-hero__grid{ gap:40px; } .nfm-map{ padding:16px 30px; } }
-@media (max-width:900px){
-  .nfm-hero{ padding:104px 0 64px; }
-  .nfm-hero__grid{ grid-template-columns:1fr; gap:0; position:static; }
-  .nfm-hero__img-col{ position:absolute; inset:0; z-index:0; }
-  .nfm-hero__img{ width:100%; height:100%; aspect-ratio:auto; border-radius:0; border:none; box-shadow:none; min-height:0; }
-  .nfm-hero__img img{ object-position:center top; filter:brightness(0.62) saturate(1.05); }
-  .nfm-hero__img::after{ background:linear-gradient(180deg, rgba(8,31,51,0.55) 0%, rgba(8,31,51,0.72) 45%, rgba(8,31,51,0.92) 100%); }
-  .nfm-hero__img-cap{ display:none; }
-  .nfm-hero__text-col{ position:relative; z-index:3; }
-  .nfm-hero__title{ text-shadow:0 2px 18px rgba(0,0,0,0.55); }
-  .nfm-cd__item{ background:rgba(8,31,51,0.5); }
-  .nfm-hero__cta-wrap .nfm-btn{ width:100%; }
-  .nfm-scene, .nfm-scene:nth-child(even){ grid-template-columns:1fr; gap:22px; direction:ltr; margin-bottom:48px; }
-  .nfm-tst__grid{ grid-template-columns:1fr; max-width:560px; }
-}
+@media (max-width:1024px){ .nfm-map{ padding:16px 30px; } }
+@media (max-width:900px){ .nfm-tst__grid{ grid-template-columns:1fr; max-width:560px; } }
 @media (max-width:768px){
-  .nfm-eq, .nfm-espejo, .nfm-reg, .nfm-nico, .nfm-learn, .nfm-tst{ padding:64px 0; } .nfm-final{ padding:72px 0; }
+  .nfm-hero{ padding:86px 12px 0; }
+  .nfm-hero__card{ min-height:100vh; min-height:100svh; border-radius:22px; }
+  .nfm-hero__inner{ padding:300px 20px 34px; }
+  .nfm-hero__cta-wrap .nfm-btn{ width:100%; }
+  .nfm-cd{ width:100%; gap:8px; } .nfm-cd__item{ min-width:0; flex:1; padding:11px 8px; } .nfm-cd__num{ font-size:1.5rem; }
+  .nfm-eq, .nfm-reg, .nfm-nico, .nfm-learn, .nfm-tst{ padding:64px 0; } .nfm-final{ padding:72px 0; }
   .nfm-eq__board{ padding:26px 16px; }
   .nfm-eq__row{ grid-template-columns:1fr auto 1fr auto; gap:8px; font-size:1.05rem; }
   .nfm-quiz{ padding:22px 18px; }
-  .nfm-map{ padding:8px 22px; } .nfm-map__item{ gap:18px; } .nfm-map__num{ font-size:1.6rem; min-width:40px; }
+  .nfm-map{ padding:8px 20px; } .nfm-map__item{ gap:14px; align-items:flex-start; } .nfm-map__num{ font-size:1.5rem; min-width:38px; } .nfm-map__txt h4{ font-size:1.02rem; }
   .nfm-proof__row{ gap:22px 30px; } .nfm-proof__logo{ max-height:24px; }
   .nfm-nav__logo img{ height:48px; }
-  .nfm-sticky{ display:block; }
-  .nfm-cd{ gap:8px; } .nfm-cd__item{ min-width:0; flex:1; padding:11px 8px; } .nfm-cd__num{ font-size:1.5rem; }
   .nfm-creds{ padding:22px 18px; }
+  .nfm-scene{ margin-bottom:48px; gap:18px; }
 }
-@media (max-width:480px){ .nfm-container{ padding:0 18px; } .nfm-hero__title{ font-size:1.75rem; } .nfm-btn{ padding:15px 24px; font-size:0.95rem; } .nfm-eq__row{ font-size:0.95rem; } }
+@media (max-width:480px){ .nfm-container{ padding:0 18px; } .nfm-hero__title{ font-size:1.95rem; } .nfm-btn{ padding:15px 24px; font-size:0.95rem; } .nfm-eq__row{ font-size:0.95rem; } }
 </style>
+
 
 
 <div class="nfm-page">
@@ -301,54 +259,37 @@ html, body{ margin:0; padding:0; background:#081F33; }
     <a href="#nfm-hero" class="nfm-nav__logo" aria-label="Nicolás Fernández Miranda">
       <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png" alt="Nicolás Fernández Miranda">
     </a>
-    <button type="button" class="nfm-nav__cta" data-scroll-to="nfm-registro">QUIERO MI LUGAR →</button>
   </div>
 </nav>
 
 <!-- ═══ HERO ═══ -->
 <section class="nfm-hero" id="nfm-hero">
-  <div class="nfm-hero__particles" id="nfm-particles"></div>
-  <div class="nfm-container">
-    <div class="nfm-hero__grid">
-      <div class="nfm-hero__text-col">
-        <span class="nfm-hero__tag">Líderes · Empresarios · Profesionales con trayectoria</span>
-        <h1 class="nfm-hero__title">Más <span class="nfm-q">"productivo"</span> sos, <em>menos avanzás en tu vida.</em></h1>
-        <p class="nfm-hero__event">Evento en vivo</p>
-        <p class="nfm-hero__kicker">Neurociencia para el Alto Rendimiento Profesional</p>
-        <p class="nfm-hero__with">con Nico Fernández Miranda</p>
-        <p class="nfm-hero__seed">
-          Ya construiste algo: una carrera, una empresa, un equipo. Y lo que te está costando sostenerlo no es esfuerzo —
-          <strong>es el descanso, los hobbies, la paciencia, el tiempo con los tuyos, la cabeza que no se apaga.</strong>
-          Hay una variable que explica por qué, y no es ninguna de las que estás mirando.
-        </p>
-        <p class="nfm-hero__date">
-          <span class="nfm-dot"></span> <span data-nfm-fecha="larga">Martes 22 de septiembre</span>
-          <span class="nfm-dot"></span> <strong data-nfm-fecha="hora">19:00 hs (Argentina)</strong>
-          <span class="nfm-dot"></span> En vivo por Zoom
-        </p>
-        <p class="nfm-cd-label">El evento comienza en...</p>
-        <div class="nfm-cd">
-          <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-days">00</span><span class="nfm-cd__unit">Días</span></div>
-          <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-hours">00</span><span class="nfm-cd__unit">Horas</span></div>
-          <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-min">00</span><span class="nfm-cd__unit">Min</span></div>
-          <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-sec">00</span><span class="nfm-cd__unit">Seg</span></div>
-        </div>
-        <div class="nfm-hero__cta-wrap">
-          <button class="nfm-btn" data-scroll-to="nfm-registro">
-            QUIERO MI LUGAR
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-          <p class="nfm-hero__micro">100% gratuito · <strong>Para quienes ya construyeron algo y están pagando el costo de sostenerlo.</strong> No es para quienes recién empiezan.</p>
-        </div>
+  <div class="nfm-hero__card">
+    <div class="nfm-hero__bg">
+      <!-- ⚠️ Foto de fondo: la del TED. Cuando tengas la nueva en 4K, cambiá sólo este src. -->
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/10/tedx-speaking-sVwipZ23.jpg" alt="Nico Fernández Miranda en la charla TED" loading="eager">
+    </div>
+    <div class="nfm-hero__inner">
+      <span class="nfm-hero__tag"><span class="nfm-dot"></span> Evento en vivo</span>
+      <h1 class="nfm-hero__title">Neurociencia para el Alto Rendimiento Profesional</h1>
+      <p class="nfm-hero__with">con Nico Fernández Miranda</p>
+      <p class="nfm-hero__hook">Más <span class="nfm-q">"productivo"</span> sos, <em>menos avanzás en tu vida.</em></p>
+      <div class="nfm-hero__meta">
+        <span class="nfm-hero__meta-k">Fecha</span>
+        <span class="nfm-hero__meta-v"><span data-nfm-fecha="larga">Martes 22 de septiembre</span> · <span data-nfm-fecha="hora">19:00 hs (Argentina)</span><small>En vivo por Zoom</small></span>
       </div>
-      <div class="nfm-hero__img-col">
-        <div class="nfm-hero__img">
-          <picture>
-            <source media="(max-width:900px)" srcset="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/10/conference-speaking-ClThYPd4.jpg">
-            <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/10/tedx-speaking-sVwipZ23.jpg" alt="Nico Fernández Miranda en conferencia" loading="eager">
-          </picture>
-          <span class="nfm-hero__img-cap">Nico Fernández Miranda · en conferencia</span>
-        </div>
+      <p class="nfm-cd-label">El evento comienza en</p>
+      <div class="nfm-cd">
+        <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-days">00</span><span class="nfm-cd__unit">Días</span></div>
+        <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-hours">00</span><span class="nfm-cd__unit">Horas</span></div>
+        <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-min">00</span><span class="nfm-cd__unit">Min</span></div>
+        <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-sec">00</span><span class="nfm-cd__unit">Seg</span></div>
+      </div>
+      <div class="nfm-hero__cta-wrap">
+        <button class="nfm-btn" data-scroll-to="nfm-registro">
+          QUIERO MI LUGAR
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
       </div>
     </div>
   </div>
@@ -373,38 +314,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
         <span class="nfm-eq__mark nfm-eq__mark--yes" aria-label="correcto">✓</span>
       </div>
     </div>
-    <p class="nfm-eq__cap nfm-reveal nfm-d3">
-      La tercera línea no está en ningún libro de productividad, y es la razón por la que los que más se exigen son los que menos avanzan en lo que importa.
-      <strong>Se revela en vivo el <span data-nfm-fecha="corta">22 de septiembre</span>.</strong>
-    </p>
-  </div>
-</section>
-
-<!-- ═══ ESPEJO ═══ -->
-<section class="nfm-espejo">
-  <div class="nfm-container nfm-narrow">
-    <span class="nfm-eyebrow nfm-eyebrow--solid nfm-reveal">¿Te suena?</span>
-    <h2 class="nfm-reveal nfm-d1">Desde afuera es la vida que cualquiera firma.<br><em>Desde adentro, la factura llega todos los días.</em></h2>
-    <p class="nfm-espejo__intro nfm-reveal nfm-d1">
-      No te falta capacidad, no te falta disciplina y no te falta ambición. <strong>Lo que hay es un precio que se está cobrando en otro lado.</strong>
-    </p>
-
-    <div class="nfm-espejo__item nfm-reveal nfm-d1"><div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
-      <p>Estás con tu familia, pero la cabeza está en el Excel. Ellos lo notan antes que vos.</p></div>
-    <div class="nfm-espejo__item nfm-reveal nfm-d1"><div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
-      <p>Te vas de viaje con la plata que ganaste justamente para eso, y no lo podés disfrutar. Volvés más cansado de lo que te fuiste.</p></div>
-    <div class="nfm-espejo__item nfm-reveal nfm-d2"><div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
-      <p>Llegás al lunes con el caballo cansado: el fin de semana no descansó nada, porque la cabeza nunca cerró.</p></div>
-    <div class="nfm-espejo__item nfm-reveal nfm-d2"><div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
-      <p>Te irritás con el equipo por cosas que antes no te movían. Y después te irritás con vos por haberte irritado.</p></div>
-    <div class="nfm-espejo__item nfm-reveal nfm-d2"><div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
-      <p>Sabés exactamente qué tendrías que cambiar. Hace años que lo sabés. Y cada vez que lo intentás, la única respuesta que encontrás es exigirte más.</p></div>
-    <div class="nfm-espejo__item nfm-reveal nfm-d3"><div class="nfm-espejo__ic"><svg viewBox="0 0 10 10"><path d="M1 5h8M6 2l3 3-3 3"/></svg></div>
-      <p>Y el cuerpo ya empezó a avisar: el sueño, la presión, la migraña, el humor corto. Lo estás leyendo como cansancio. No es cansancio.</p></div>
-
-    <div class="nfm-espejo__close nfm-reveal nfm-d3">
-      <p>Si algo de esto te sonó: <strong>no es que te falte esfuerzo.</strong> Es que el esfuerzo no es la variable que decide si lo que hacés se convierte en resultado o en factura. Hay otra. Y es justo la que un profesional exigente nunca mira — <strong>porque nadie se la mostró.</strong></p>
-    </div>
   </div>
 </section>
 
@@ -413,10 +322,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
   <div class="nfm-reg__particles" id="nfm-reg-particles"></div>
   <div class="nfm-container">
     <h2 class="nfm-reg__title nfm-reveal">Reservá tu lugar. <span>Antes, una pregunta.</span></h2>
-    <p class="nfm-reg__sub nfm-reveal nfm-d1">
-      Este evento está pensado para una etapa muy específica: la de quien ya construyó algo —una carrera, una empresa, un equipo, un sostén económico—
-      y descubrió que sostenerlo tiene un precio que se está cobrando en otro lado. <strong>Dos preguntas, treinta segundos.</strong>
-    </p>
 
     <div class="nfm-quiz nfm-reveal nfm-d1" id="nfm-quiz">
       <div class="nfm-quiz__prog" aria-hidden="true"><span id="nfm-p1"></span><span id="nfm-p2"></span><span id="nfm-p3"></span></div>
@@ -441,11 +346,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
 
       <!-- Paso 3 · form -->
       <div class="nfm-quiz__step" data-step="3">
-        <div class="nfm-quiz__msg" id="nfm-msg-c" hidden>
-          <h4>Gracias por la honestidad — te ahorra una hora.</h4>
-          <p>Este evento no va a hablar de cómo arrancar. Va a hablar de gestión personal, delegación y liderazgo para gente que ya está sosteniendo una estructura y necesita seguir haciéndolo sin romperse. Si no estás ahí todavía, vas a escuchar problemas que no son los tuyos.</p>
-          <p><strong>Dejanos tu registro igual:</strong> estamos armando un evento específico para profesionales en etapa de construcción —los primeros años de carrera, en relación de dependencia, sin equipo a cargo todavía— y te vamos a avisar primero.</p>
-        </div>
         <p class="nfm-quiz__ok" id="nfm-msg-ok" hidden><span>✓</span> Este evento es para vos. Reservá tu lugar.</p>
         <div class="nfm-reg__form">
           <!-- El src se arma por JS cuando se completa el quiz: lleva UTM + clase + etapa + equipo -->
@@ -480,7 +380,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
     <div class="nfm-scene nfm-reveal">
       <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 1 · GIF o foto</div></div>
       <div>
-        <p class="nfm-scene__num">Escena 1</p>
         <h3>El contador que llegó rápido</h3>
         <p>Nico es contador público. Se recibió con medalla al mejor promedio, abrió su propio estudio y creció rápido: en pocos años asesoraba empresas que manejaban capitales grandes, y los medios empezaron a llamarlo para pedirle su lectura sobre finanzas.</p>
         <p><strong>Desde afuera, era la carrera que cualquiera firma.</strong></p>
@@ -490,7 +389,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
     <div class="nfm-scene nfm-reveal">
       <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 2 · GIF o foto</div></div>
       <div>
-        <p class="nfm-scene__num">Escena 2</p>
         <h3>El precio</h3>
         <p>Desde adentro, trabajaba catorce horas por día. Subió más de quince kilos. Empezaron las migrañas, y con las migrañas las pastillas, que tomaba —según sus palabras— como si fueran caramelos. Se le caía el pelo. Necesitaba clonazepam para dormir.</p>
         <p>Y miraba con envidia a quien cerraba la persiana a las seis y no se llevaba el trabajo a casa: <strong>gente con una vida más simple que la suya, que se había complicado tanto que ya no sabía para qué.</strong></p>
@@ -500,7 +398,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
     <div class="nfm-scene nfm-reveal">
       <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 3 · GIF o foto</div></div>
       <div>
-        <p class="nfm-scene__num">Escena 3</p>
         <h3>París</h3>
         <p>El punto de inflexión no fue una crisis: fue un premio. Venía de cerrar los mejores años de facturación de su vida, así que se pagó el viaje a Europa que siempre había postergado. Y en París se dio cuenta de que no podía disfrutarlo. Estaba en el lugar que había soñado, con la plata que había ganado para eso, y no se sentía bien.</p>
         <p><strong>Lo peor: ya tenía un máster en neurociencia.</strong> Sabía exactamente cómo funcionaba lo que le estaba pasando. Y no se lo estaba aplicando a sí mismo.</p>
@@ -510,7 +407,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
     <div class="nfm-scene nfm-reveal">
       <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 4 · GIF o foto</div></div>
       <div>
-        <p class="nfm-scene__num">Escena 4</p>
         <h3>La pregunta</h3>
         <p>Volvió obsesionado con una sola pregunta: <strong>¿cómo hago para seguir creciendo —en resultados, en carrera, en empresa— y al mismo tiempo avanzar con lo importante de mi vida?</strong></p>
         <p>Y se encontró con algo incómodo: ni siquiera había definido qué era lo importante. Había optimizado todo, menos eso. Esa pregunta es la que va a desarrollar en vivo el <span data-nfm-fecha="corta">22 de septiembre</span>.</p>
@@ -520,7 +416,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
     <div class="nfm-scene nfm-reveal">
       <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 5 · GIF o foto</div></div>
       <div>
-        <p class="nfm-scene__num">Escena 5</p>
         <h3>El laboratorio</h3>
         <p>Se convirtió en su propio experimento. Aplicó sobre sí mismo lo que había estudiado, midió, se equivocó, volvió a probar. De ahí salió el protocolo que hoy enseña.</p>
         <p><strong>El mismo contador que había desaprobado matemáticas cuatro veces en la facultad</strong> terminó dando clases en la universidad sobre cómo funciona el cerebro que aprende.</p>
@@ -530,7 +425,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
     <div class="nfm-scene nfm-reveal">
       <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 6 · GIF o foto</div></div>
       <div>
-        <p class="nfm-scene__num">Escena 6</p>
         <h3>Hoy</h3>
         <p>Fundó el Instituto de Productividad, donde <strong>más de cuatrocientos profesionales y líderes</strong> pasaron por un proceso de mentoría personalizada: padres y madres, arquitectos, médicos, contadores, empresarios con equipos a cargo, que sostenían lo que habían construido a un costo que ya les estaba cobrando la salud. Muchas de esas entrevistas están grabadas y públicas.</p>
         <p>Es autor bestseller con <em>Hackea tu cerebro</em>, dio dos charlas TED, capacita equipos en empresas como YPF, Samsung y Ternium, y su trabajo fue destacado en CNN, Infobae y Endeavor. Y mientras tanto escribe su segundo libro: <strong>la prueba de que siguió subiendo de nivel sin volver a pagarlo con el cuerpo.</strong></p>
@@ -570,25 +464,15 @@ html, body{ margin:0; padding:0; background:#081F33; }
   <div class="nfm-container">
     <div class="nfm-learn__head nfm-reveal">
       <span class="nfm-eyebrow">Lo que vas a ver el <span data-nfm-fecha="corta">22 de septiembre</span></span>
-      <h2>Cinco cosas que nadie te contó sobre rendir</h2>
-      <p>Ninguna es una técnica más para acumular. Son los cinco puntos donde tu forma de rendir se está cobrando el precio — y por qué.</p>
+      <h2>Qué vas a aprender en el Zoom En Vivo</h2>
     </div>
     <div class="nfm-map nfm-reveal nfm-d1">
-      <div class="nfm-map__item"><div class="nfm-map__num">01</div><div class="nfm-map__txt">
-        <h4>Sacrificarse no es esforzarse. Y esforzarse tampoco es resultado.</h4>
-        <p>Seguro te pasó: los meses en que más te exigiste no fueron los meses en que más avanzaste. La neurociencia no basa los resultados sostenidos en ninguna de esas dos variables. Vas a ver cuál es la que sí — y por qué es justo la que un profesional exigente nunca mira.</p></div></div>
-      <div class="nfm-map__item"><div class="nfm-map__num">02</div><div class="nfm-map__txt">
-        <h4>Tu cerebro no tiene receptores de dolor.</h4>
-        <p>No te puede avisar que lo estás quemando. Te avisan los alrededores —la migraña, el insomnio, el humor corto— y cuando avisan, ya es tarde. Vas a aprender cuáles son los indicadores que sí se leen a tiempo. Ejemplo: te vas de viaje, no lográs desconectar, y cuando querés volver a trabajar sentís que no podés. Eso tiene nombre, y no es "cansancio".</p></div></div>
-      <div class="nfm-map__item"><div class="nfm-map__num">03</div><div class="nfm-map__txt">
-        <h4>Hacer más no es hacer mejor.</h4>
-        <p>Decidir, planificar, pensar en frío, debatir con criterio: son las primeras funciones que se apagan bajo exigencia crónica. Para alguien que tiene que estar fresco para tomar decisiones y liderar gente, no siempre ejecutar es lo que más lo hace avanzar. Vas a aprender a etiquetar lo que sentís y a saber cuándo producir y cuándo parar.</p></div></div>
-      <div class="nfm-map__item"><div class="nfm-map__num">04</div><div class="nfm-map__txt">
-        <h4>El descanso que te tomás no te descansa.</h4>
-        <p>Dejar de trabajar no es desconectar. Si la cabeza sigue con veinte pestañas abiertas, el fin de semana no recupera nada: llegás al lunes con el caballo cansado. Hay una diferencia medible entre descanso y recuperación, y casi nadie que sostiene una estructura la conoce.</p></div></div>
-      <div class="nfm-map__item"><div class="nfm-map__num">05</div><div class="nfm-map__txt">
-        <h4>Nunca definiste qué es lo importante. Por eso lo urgente siempre gana.</h4>
-        <p>Nico se dio cuenta en París de que había optimizado todo menos la pregunta de para qué. Sin ese criterio, ser más productivo es correr más rápido en la dirección que no elegiste. Vas a ver cómo se define — y por qué sin eso ninguna herramienta te sirve.</p></div></div>
+      <div class="nfm-map__item"><div class="nfm-map__num">01</div><div class="nfm-map__txt"><h4><span class="nfm-map__emoji" aria-hidden="true">🧠</span> <b>Los 5 pilares del alto rendimiento:</b> lo que todo empresario, líder y profesional necesita para sostener presión sin pagarla con el cuerpo.</h4></div></div>
+      <div class="nfm-map__item"><div class="nfm-map__num">02</div><div class="nfm-map__txt"><h4><span class="nfm-map__emoji" aria-hidden="true">📊</span> <b>Los indicadores de tu cerebro:</b> cómo leer cuándo parar es más productivo que seguir, y cuándo es al revés.</h4></div></div>
+      <div class="nfm-map__item"><div class="nfm-map__num">03</div><div class="nfm-map__txt"><h4><span class="nfm-map__emoji" aria-hidden="true">⚙️</span> <b>Funciones ejecutivas como motor:</b> toma de decisiones, liderazgo efectivo y creatividad bajo exigencia sostenida.</h4></div></div>
+      <div class="nfm-map__item"><div class="nfm-map__num">04</div><div class="nfm-map__txt"><h4><span class="nfm-map__emoji" aria-hidden="true">🤖</span> <b>IA y herramientas que descargan tu cerebro:</b> Claude, Second Brain y otras automatizaciones para delegar en la tecnología, no en más personas.</h4></div></div>
+      <div class="nfm-map__item"><div class="nfm-map__num">05</div><div class="nfm-map__txt"><h4><span class="nfm-map__emoji" aria-hidden="true">🔋</span> <b>Recuperación medible, no "descanso":</b> por qué el fin de semana no te repone y qué hacer distinto para llegar al lunes con el motor entero.</h4></div></div>
+      <div class="nfm-map__item"><div class="nfm-map__num">06</div><div class="nfm-map__txt"><h4><span class="nfm-map__emoji" aria-hidden="true">🎯</span> <b>La variable que decide:</b> por qué sacrificarse y esforzarse no producen resultado, y qué es lo que sí. Se revela en vivo.</h4></div></div>
     </div>
     <div class="nfm-learn__cta nfm-reveal nfm-d2">
       <button class="nfm-btn" data-scroll-to="nfm-registro">RESERVAR MI LUGAR <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
@@ -636,7 +520,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
 <section class="nfm-final">
   <div class="nfm-container nfm-mid">
     <h2 class="nfm-reveal">El <span data-nfm-fecha="corta">22 de septiembre</span> vas a ver <em>la variable que no estás mirando.</em></h2>
-    <p class="nfm-reveal nfm-d1">Una hora, en vivo. Para dejar de pagar el precio sin bajar el nivel. 100% gratuito.</p>
     <div class="nfm-reveal nfm-d1">
       <button class="nfm-btn" data-scroll-to="nfm-registro">QUIERO MI LUGAR <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
     </div>
@@ -713,8 +596,7 @@ if(n2) n2.addEventListener('click', function(){ if(resp.etapa && resp.equipo) mo
 function mostrarForm(){
   irPaso(3);
   var califica = (resp.etapa !== 'C');
-  var msgC=document.getElementById('nfm-msg-c'), msgOk=document.getElementById('nfm-msg-ok');
-  if(msgC) msgC.hidden = califica;
+  var msgOk=document.getElementById('nfm-msg-ok');
   if(msgOk) msgOk.hidden = !califica;
 
   var ifr=document.getElementById('inline-'+CONFIG.FORM_ID); if(!ifr || ifr.getAttribute('src')) return;
@@ -741,7 +623,7 @@ function mostrarForm(){
 
 /* ─── partículas / nav / reveal / scroll ─── */
 function makeParticles(id,count){ var c=document.getElementById(id); if(!c) return; for(var i=0;i<count;i++){ var p=document.createElement('div'); p.className=(id==='nfm-particles')?'nfm-particle':'nfm-reg-particle'; var s=(3+Math.random()*5)+'px'; p.style.cssText='left:'+(Math.random()*100)+'%;width:'+s+';height:'+s+';animation-duration:'+(10+Math.random()*14)+'s;animation-delay:-'+(Math.random()*12)+'s'; c.appendChild(p); } }
-makeParticles('nfm-particles',22); makeParticles('nfm-reg-particles',16);
+makeParticles('nfm-reg-particles',16);
 (function(){ var nav=document.getElementById('nfm-nav'), st=document.getElementById('nfm-sticky');
   window.addEventListener('scroll', function(){ if(nav) nav.classList.toggle('nfm-nav--scrolled', window.scrollY>60); if(st) st.classList.toggle('nfm-sticky--show', window.scrollY>700); }, {passive:true}); })();
 function reveal(){ var els=document.querySelectorAll('.nfm-reveal'), wh=window.innerHeight; for(var i=0;i<els.length;i++){ if(els[i].getBoundingClientRect().top<wh-70) els[i].classList.add('nfm-vis'); } }
