@@ -1,3 +1,6 @@
+> **Nota (14 sep):** la sección quedó en **cinco escenas** y va con fotos reales de Nico, cargadas desde
+> `editor-nico-escenas.html`. Estos prompts quedan como referencia por si alguna foto falta.
+
 # Prompts para las 6 escenas de Nico (GIF o foto)
 
 La sección "Nicolás Fernández Miranda" de la landing del 22 cuenta la historia en seis escenas. Cada escena

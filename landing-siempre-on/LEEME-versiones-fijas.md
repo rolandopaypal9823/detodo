@@ -40,8 +40,11 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
   con `POPUP POST-REGISTRO`. Cuando tengas el código, va ahí. Se muestra sólo a quien calificó; los C nunca
   lo ven. Si el popup es un script, envolvelo en `if(window.NFM_CALIFICA){ ... }`.
 - **"Qué vas a aprender en el Zoom En Vivo"**: seis puntos de una línea, con número y emoji, sin bajadas.
-- **Las seis escenas de Nico** van apiladas y centradas (imagen arriba, texto abajo), sin el rótulo
-  "Escena N". Cada una tiene un recuadro de imagen. Hoy son placeholders grises. En
+- **Las cinco escenas de Nico** van apiladas y centradas (imagen arriba, texto abajo): el contador que
+  llegó rápido, el precio por la productividad, el punto de inflexión en París, la variable para escalar
+  sin agotarse (con dos fotos: TED y libro) y hoy. Las fotos reales se cargan con
+  `clase-22-septiembre/editor-nico-escenas.html`: Rolando sube las fotos y edita el texto ahí, descarga el
+  archivo y se pasan a la landing. Hoy son placeholders grises. En
   `clase-22-septiembre/prompts-gif-escenas.md` está, escena por escena, qué foto real conviene y un prompt
   para ChatGPT si no la tenés.
 - El copy completo y sus fundamentos están en `clase-22-septiembre/nucleo-comunicacion.md`.

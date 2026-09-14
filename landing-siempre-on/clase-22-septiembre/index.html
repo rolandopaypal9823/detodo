@@ -163,6 +163,8 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-nico__head p{ font-size:1.02rem; color:var(--nfm-ink-mute); line-height:1.65; }
 .nfm-scene{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:24px; max-width:640px; margin:0 auto 60px; }
 .nfm-scene > div:last-child{ width:100%; }
+.nfm-scene__dual{ display:grid; grid-template-columns:1fr 1fr; gap:14px; width:100%; max-width:640px; }
+.nfm-scene__dual .nfm-scene__media{ max-width:none; aspect-ratio:1/1; }
 .nfm-scene__media{ width:100%; max-width:560px; border-radius:var(--nfm-r-lg); overflow:hidden; border:1px solid var(--nfm-gray-200); box-shadow:0 24px 60px rgba(12,52,82,0.14); aspect-ratio:4/3; background:var(--nfm-gray-100); position:relative; }
 .nfm-scene__media img{ width:100%; height:100%; object-fit:cover; }
 .nfm-scene__media .nfm-scene__ph{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:20px; font-family:var(--nfm-font-h); font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--nfm-ink-subtle); }
@@ -243,7 +245,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
   .nfm-proof__row{ gap:22px 30px; } .nfm-proof__logo{ max-height:24px; }
   .nfm-nav__logo img{ height:76px; } .nfm-nav--scrolled .nfm-nav__logo img{ height:56px; }
   .nfm-creds{ padding:22px 18px; }
-  .nfm-scene{ margin-bottom:48px; gap:18px; }
+  .nfm-scene{ margin-bottom:48px; gap:18px; } .nfm-scene__dual{ gap:10px; }
 }
 @media (max-width:480px){ .nfm-container{ padding:0 18px; } .nfm-hero__title{ font-size:1.95rem; } .nfm-btn{ padding:15px 24px; font-size:0.95rem; } .nfm-eq__row{ font-size:0.95rem; } }
 </style>
@@ -366,64 +368,59 @@ html, body{ margin:0; padding:0; background:#081F33; }
     <div class="nfm-nico__head nfm-reveal">
       <span class="nfm-eyebrow">Quién da el evento</span>
       <h2>Nicolás Fernández Miranda</h2>
-      <p>Antes de enseñar esto, lo pagó. Esta es la historia, en seis escenas.</p>
+      <p>Antes de enseñar esto, lo pagó. Esta es la historia, en cinco escenas.</p>
     </div>
 
-    <!-- ⚠️ Cada .nfm-scene__media es el lugar del GIF o la foto real de esa escena.
-         Reemplazá el <div class="nfm-scene__ph"> por <img src="..."> cuando tengas el archivo.
-         Los prompts para generar las escenas están en prompts-gif-escenas.md -->
+    <!-- ⚠️ Cada .nfm-scene__media es el lugar de la foto real de esa escena.
+         Reemplazá el <div class="nfm-scene__ph"> por <img src="..."> cuando tengas la URL.
+         La escena 4 lleva DOS fotos (la del TED y la del libro). -->
 
     <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 1 · GIF o foto</div></div>
+      <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 1 · Nico en el estudio contable</div></div>
       <div>
         <h3>El contador que llegó rápido</h3>
-        <p>Nico es contador público. Se recibió con medalla al mejor promedio, abrió su propio estudio y creció rápido: en pocos años asesoraba empresas que manejaban capitales grandes, y los medios empezaron a llamarlo para pedirle su lectura sobre finanzas.</p>
-        <p><strong>Desde afuera, era la carrera que cualquiera firma.</strong></p>
+        <p>Nico es contador público. Se recibió con medalla al mejor promedio, abrió su propio estudio y creció rápido: en pocos años asesoraba empresas que manejaban capitales grandes, y los medios lo llamaban para pedirle su lectura sobre finanzas.</p>
+        <p><strong>Desde afuera, todo parecía ir muy bien. Por dentro, estaba pagando un precio muy alto por seguir escalando su empresa y su carrera.</strong></p>
       </div>
     </div>
 
     <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 2 · GIF o foto</div></div>
+      <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 2 · Nico en el escritorio</div></div>
       <div>
-        <h3>El precio</h3>
-        <p>Desde adentro, trabajaba catorce horas por día. Subió más de quince kilos. Empezaron las migrañas, y con las migrañas las pastillas, que tomaba —según sus palabras— como si fueran caramelos. Se le caía el pelo. Necesitaba clonazepam para dormir.</p>
+        <h3>El precio por la productividad</h3>
+        <p>Trabajaba catorce horas por día. Subió más de quince kilos. Empezaron las migrañas, y con las migrañas las pastillas, que tomaba —según sus palabras— como si fueran caramelos. Se le caía el pelo. Necesitaba clonazepam para dormir.</p>
         <p>Y miraba con envidia a quien cerraba la persiana a las seis y no se llevaba el trabajo a casa: <strong>gente con una vida más simple que la suya, que se había complicado tanto que ya no sabía para qué.</strong></p>
       </div>
     </div>
 
     <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 3 · GIF o foto</div></div>
+      <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 3 · Nico en París</div></div>
       <div>
-        <h3>París</h3>
-        <p>El punto de inflexión no fue una crisis: fue un premio. Venía de cerrar los mejores años de facturación de su vida, así que se pagó el viaje a Europa que siempre había postergado. Y en París se dio cuenta de que no podía disfrutarlo. Estaba en el lugar que había soñado, con la plata que había ganado para eso, y no se sentía bien.</p>
-        <p><strong>Lo peor: ya tenía un máster en neurociencia.</strong> Sabía exactamente cómo funcionaba lo que le estaba pasando. Y no se lo estaba aplicando a sí mismo.</p>
+        <h3>El punto de inflexión en París</h3>
+        <p>No fue una crisis: fue un premio. Venía de cerrar los mejores años de facturación de su vida y se pagó el viaje a Europa que siempre había postergado. Y en París se dio cuenta de que no podía disfrutarlo. Estaba en el lugar que había soñado, con la plata que había ganado para eso, y no se sentía bien. <strong>Lo peor: ya tenía un máster en neurociencia y no se lo estaba aplicando a sí mismo.</strong></p>
+        <p>Volvió con una sola pregunta: <strong>¿cómo hago para seguir creciendo y, al mismo tiempo, avanzar con lo importante de mi vida?</strong></p>
       </div>
     </div>
 
     <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 4 · GIF o foto</div></div>
+      <div class="nfm-scene__dual">
+        <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 4 · Nico en la charla TED</div></div>
+        <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 4 · Nico con el libro</div></div>
+      </div>
       <div>
-        <h3>La pregunta</h3>
-        <p>Volvió obsesionado con una sola pregunta: <strong>¿cómo hago para seguir creciendo —en resultados, en carrera, en empresa— y al mismo tiempo avanzar con lo importante de mi vida?</strong></p>
-        <p>Y se encontró con algo incómodo: ni siquiera había definido qué era lo importante. Había optimizado todo, menos eso. Esa pregunta es la que va a desarrollar en vivo el <span data-nfm-fecha="corta">22 de septiembre</span>.</p>
+        <h3>La variable para escalar sin agotarse</h3>
+        <p>Se convirtió en su propio experimento: aplicó sobre sí mismo lo que había estudiado, midió y corrigió. Empezó a divulgar cómo se relacionan la neurociencia y el rendimiento, sus redes crecieron, y escribió <em>Hackea tu cerebro</em>, hoy bestseller.</p>
+        <p>Pasó a asesorar empresas, equipos y profesionales para que produzcan más <strong>cuidando su bienestar al mismo tiempo</strong>. Lo invitaron a dar charlas TED sobre neurociencia aplicada: dio la primera, y hoy ya lleva dos.</p>
       </div>
     </div>
 
     <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 5 · GIF o foto</div></div>
-      <div>
-        <h3>El laboratorio</h3>
-        <p>Se convirtió en su propio experimento. Aplicó sobre sí mismo lo que había estudiado, midió, se equivocó, volvió a probar. De ahí salió el protocolo que hoy enseña.</p>
-        <p><strong>El mismo contador que había desaprobado matemáticas cuatro veces en la facultad</strong> terminó dando clases en la universidad sobre cómo funciona el cerebro que aprende.</p>
-      </div>
-    </div>
-
-    <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 6 · GIF o foto</div></div>
+      <div class="nfm-scene__media"><div class="nfm-scene__ph">Escena 5 · El Instituto, foto grupal</div></div>
       <div>
         <h3>Hoy</h3>
-        <p>Fundó el Instituto de Productividad, donde <strong>más de cuatrocientos profesionales y líderes</strong> pasaron por un proceso de mentoría personalizada: padres y madres, arquitectos, médicos, contadores, empresarios con equipos a cargo, que sostenían lo que habían construido a un costo que ya les estaba cobrando la salud. Muchas de esas entrevistas están grabadas y públicas.</p>
-        <p>Es autor bestseller con <em>Hackea tu cerebro</em>, dio dos charlas TED, capacita equipos en empresas como YPF, Samsung y Ternium, y su trabajo fue destacado en CNN, Infobae y Endeavor. Y mientras tanto escribe su segundo libro: <strong>la prueba de que siguió subiendo de nivel sin volver a pagarlo con el cuerpo.</strong></p>
+        <p>Fundó el Instituto de Productividad, donde <strong>más de 400 empresarios, profesionales y líderes</strong> ya pasaron por un proceso de mentoría personalizada. Sus programas cuentan con el aval de la Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy.</p>
+        <p>Capacita equipos en YPF, Samsung y Ternium, su trabajo fue destacado en CNN, Infobae y Endeavor, y escribe su segundo libro.</p>
+        <p><strong>Este <span data-nfm-fecha="larga">martes 22 de septiembre</span> te va a mostrar cómo usar la neurociencia para escalar tus resultados y avanzar en lo importante de tu vida sin pagar el costo en tu bienestar ni en el tiempo con tu familia. Y sostener lo que ya lograste.</strong></p>
       </div>
     </div>
 
@@ -437,6 +434,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
         <span>Autor <b>bestseller</b> · <em>Hackea tu cerebro</em></span>
         <span>Mentor en <b>Endeavor</b></span>
         <span>Fundador del <b>Instituto de Productividad</b></span>
+        <span>Aval de la <b>Universidad Nacional de Jujuy</b> · Cs. Económicas</span>
         <span><b>+400</b> profesionales mentoreados</span>
       </div>
       <p class="nfm-proof__label">Su trabajo fue destacado en</p>

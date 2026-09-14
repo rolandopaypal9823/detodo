@@ -30,6 +30,9 @@ body{ padding:28px 20px 140px; }
 .scene{ background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); padding:24px; margin-bottom:22px; box-shadow:0 10px 30px rgba(12,52,82,0.06); }
 .scene__tag{ font-family:var(--fh); font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--orange); margin:0 0 14px; }
 
+.dual{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.dual .imgslot{ aspect-ratio:1/1; }
+@media (max-width:520px){ .dual{ grid-template-columns:1fr; } }
 .imgslot{ position:relative; width:100%; aspect-ratio:4/3; border-radius:14px; overflow:hidden; background:repeating-linear-gradient(135deg, #EDF1F7 0 12px, #F4F6FA 12px 24px); border:1.5px dashed #C7D2DE; cursor:pointer; display:flex; align-items:center; justify-content:center; text-align:center; transition:border-color .2s, background .2s; }
 .imgslot:hover{ border-color:var(--orange); }
 .imgslot img{ width:100%; height:100%; object-fit:cover; display:block; }
@@ -74,14 +77,14 @@ body{ padding:28px 20px 140px; }
 <div class="wrap">
   <div class="top">
     <h1>Las escenas de Nico</h1>
-    <p>Subí las fotos reales, editá el texto que quieras y al final descargá el archivo para mandármelo de vuelta.</p>
+    <p>Cinco escenas. Subí las fotos reales, editá el texto que quieras y al final descargá el archivo para mandármelo de vuelta.</p>
     <span class="save-tag" id="saveTag"><span class="d"></span>Guardado en este navegador</span>
   </div>
 
   <div class="help">
     <b>Cómo usar esto:</b>
     <ol>
-      <li>Hacé clic en el recuadro gris de cada escena para subir una foto desde tu compu.</li>
+      <li>Hacé clic en el recuadro gris de cada escena para subir una foto desde tu compu. La escena 4 lleva dos fotos: la del TED y la del libro.</li>
       <li>Editá el título y el texto directamente en los cuadros de abajo.</li>
       <li>Para poner algo en <b>negrita</b>, escribilo entre <code>**dos asteriscos**</code>. Para <i>cursiva</i>, entre <code>*un asterisco*</code>.</li>
       <li>Cuando termines, tocá <b>"Descargar cambios"</b> abajo de todo y mandame ese archivo por acá.</li>
@@ -94,7 +97,7 @@ body{ padding:28px 20px 140px; }
 
 <div class="bar">
   <div class="bar-inner">
-    <div class="bar-txt"><b id="barCount">6 escenas</b><span id="barSub">Editá lo que quieras arriba</span></div>
+    <div class="bar-txt"><b id="barCount">5 escenas</b><span id="barSub">Editá lo que quieras arriba</span></div>
     <button class="btn btn-ghost" id="btnReset">Restaurar original</button>
     <button class="btn btn-primary" id="btnDownload">Descargar cambios ⬇</button>
   </div>
@@ -104,33 +107,42 @@ body{ padding:28px 20px 140px; }
 <script>
 (function(){
 'use strict';
-var KEY='pv22_nico_editor_v1';
+var KEY='pv22_nico_editor_v2', KEY_VIEJA='pv22_nico_editor_v1';
 
 var DEFAULTS=[
- {tag:'Escena 1', title:'El contador que llegó rápido', img:null,
-  body:'Nico es contador público. Se recibió con medalla al mejor promedio, abrió su propio estudio y creció rápido: en pocos años asesoraba empresas que manejaban capitales grandes, y los medios empezaron a llamarlo para pedirle su lectura sobre finanzas.\n\n**Desde afuera, era la carrera que cualquiera firma.**'},
- {tag:'Escena 2', title:'El precio', img:null,
-  body:'Desde adentro, trabajaba catorce horas por día. Subió más de quince kilos. Empezaron las migrañas, y con las migrañas las pastillas, que tomaba —según sus palabras— como si fueran caramelos. Se le caía el pelo. Necesitaba clonazepam para dormir.\n\nY miraba con envidia a quien cerraba la persiana a las seis y no se llevaba el trabajo a casa: **gente con una vida más simple que la suya, que se había complicado tanto que ya no sabía para qué.**'},
- {tag:'Escena 3', title:'París', img:null,
-  body:'El punto de inflexión no fue una crisis: fue un premio. Venía de cerrar los mejores años de facturación de su vida, así que se pagó el viaje a Europa que siempre había postergado. Y en París se dio cuenta de que no podía disfrutarlo. Estaba en el lugar que había soñado, con la plata que había ganado para eso, y no se sentía bien.\n\n**Lo peor: ya tenía un máster en neurociencia.** Sabía exactamente cómo funcionaba lo que le estaba pasando. Y no se lo estaba aplicando a sí mismo.'},
- {tag:'Escena 4', title:'La pregunta', img:null,
-  body:'Volvió obsesionado con una sola pregunta: **¿cómo hago para seguir creciendo —en resultados, en carrera, en empresa— y al mismo tiempo avanzar con lo importante de mi vida?**\n\nY se encontró con algo incómodo: ni siquiera había definido qué era lo importante. Había optimizado todo, menos eso. Esa pregunta es la que va a desarrollar en vivo el 22 de septiembre.'},
- {tag:'Escena 5', title:'El laboratorio', img:null,
-  body:'Se convirtió en su propio experimento. Aplicó sobre sí mismo lo que había estudiado, midió, se equivocó, volvió a probar. De ahí salió el protocolo que hoy enseña.\n\n**El mismo contador que había desaprobado matemáticas cuatro veces en la facultad** terminó dando clases en la universidad sobre cómo funciona el cerebro que aprende.'},
- {tag:'Escena 6', title:'Hoy', img:null,
-  body:'Fundó el Instituto de Productividad, donde **más de cuatrocientos profesionales y líderes** pasaron por un proceso de mentoría personalizada: padres y madres, arquitectos, médicos, contadores, empresarios con equipos a cargo, que sostenían lo que habían construido a un costo que ya les estaba cobrando la salud. Muchas de esas entrevistas están grabadas y públicas.\n\nEs autor bestseller con *Hackea tu cerebro*, dio dos charlas TED, capacita equipos en empresas como YPF, Samsung y Ternium, y su trabajo fue destacado en CNN, Infobae y Endeavor. Y mientras tanto escribe su segundo libro: **la prueba de que siguió subiendo de nivel sin volver a pagarlo con el cuerpo.**'}
+ {tag:'Escena 1', title:'El contador que llegó rápido', img:null, ph:'Nico en el estudio contable',
+  body:'Nico es contador público. Se recibió con medalla al mejor promedio, abrió su propio estudio y creció rápido: en pocos años asesoraba empresas que manejaban capitales grandes, y los medios lo llamaban para pedirle su lectura sobre finanzas.\n\n**Desde afuera, todo parecía ir muy bien. Por dentro, estaba pagando un precio muy alto por seguir escalando su empresa y su carrera.**'},
+ {tag:'Escena 2', title:'El precio por la productividad', img:null, ph:'Nico en el escritorio',
+  body:'Trabajaba catorce horas por día. Subió más de quince kilos. Empezaron las migrañas, y con las migrañas las pastillas, que tomaba —según sus palabras— como si fueran caramelos. Se le caía el pelo. Necesitaba clonazepam para dormir.\n\nY miraba con envidia a quien cerraba la persiana a las seis y no se llevaba el trabajo a casa: **gente con una vida más simple que la suya, que se había complicado tanto que ya no sabía para qué.**'},
+ {tag:'Escena 3', title:'El punto de inflexión en París', img:null, ph:'Nico en París',
+  body:'No fue una crisis: fue un premio. Venía de cerrar los mejores años de facturación de su vida y se pagó el viaje a Europa que siempre había postergado. Y en París se dio cuenta de que no podía disfrutarlo. Estaba en el lugar que había soñado, con la plata que había ganado para eso, y no se sentía bien. **Lo peor: ya tenía un máster en neurociencia y no se lo estaba aplicando a sí mismo.**\n\nVolvió con una sola pregunta: **¿cómo hago para seguir creciendo y, al mismo tiempo, avanzar con lo importante de mi vida?**'},
+ {tag:'Escena 4 · dos fotos', title:'La variable para escalar sin agotarse', dual:true, img:null, img2:null, ph:'Nico en la charla TED', ph2:'Nico con el libro',
+  body:'Se convirtió en su propio experimento: aplicó sobre sí mismo lo que había estudiado, midió y corrigió. Empezó a divulgar cómo se relacionan la neurociencia y el rendimiento, sus redes crecieron, y escribió *Hackea tu cerebro*, hoy bestseller.\n\nPasó a asesorar empresas, equipos y profesionales para que produzcan más **cuidando su bienestar al mismo tiempo**. Lo invitaron a dar charlas TED sobre neurociencia aplicada: dio la primera, y hoy ya lleva dos.'},
+ {tag:'Escena 5', title:'Hoy', img:null, ph:'El Instituto, foto grupal',
+  body:'Fundó el Instituto de Productividad, donde **más de 400 empresarios, profesionales y líderes** ya pasaron por un proceso de mentoría personalizada. Sus programas cuentan con el aval de la Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy.\n\nCapacita equipos en YPF, Samsung y Ternium, su trabajo fue destacado en CNN, Infobae y Endeavor, y escribe su segundo libro.\n\n**Este martes 22 de septiembre te va a mostrar cómo usar la neurociencia para escalar tus resultados y avanzar en lo importante de tu vida sin pagar el costo en tu bienestar ni en el tiempo con tu familia. Y sostener lo que ya lograste.**'}
 ];
 
-/* estado inicial: primero el que trae el propio archivo (si es una versión ya descargada),
-   después lo guardado en este navegador, y si no hay nada, los valores de siempre */
+/* estado inicial: 1º lo que trae el propio archivo (si es una versión ya descargada),
+   2º lo guardado en este navegador, 3º las fotos de la versión anterior de seis escenas, 4º los valores de siempre */
 var SEED=null;
 try{ var seedEl=document.getElementById('seed-data'); if(seedEl) SEED=JSON.parse(seedEl.textContent); }catch(e){}
 var STATE=null;
-if(SEED && SEED.length===6){ STATE=SEED; }
-else{
-  try{ var raw=localStorage.getItem(KEY); if(raw) STATE=JSON.parse(raw); }catch(e){}
+if(SEED && SEED.length===5){ STATE=SEED; }
+else{ try{ var raw=localStorage.getItem(KEY); if(raw) STATE=JSON.parse(raw); }catch(e){} }
+if(!STATE || STATE.length!==5){
+  STATE=JSON.parse(JSON.stringify(DEFAULTS));
+  /* migración: las fotos que ya cargaste en la versión de seis escenas */
+  try{
+    var v1=JSON.parse(localStorage.getItem(KEY_VIEJA)||'null');
+    if(v1 && v1.length===6){
+      STATE[0].img=v1[0].img||null;  /* contador */
+      STATE[1].img=v1[1].img||null;  /* precio */
+      STATE[2].img=v1[2].img||null;  /* París */
+      STATE[3].img=v1[4].img||null;  /* TED (era la escena 5) */
+      STATE[4].img=v1[5].img||null;  /* grupal (era la escena 6) */
+    }
+  }catch(e){}
 }
-if(!STATE || STATE.length!==6){ STATE=JSON.parse(JSON.stringify(DEFAULTS)); }
 
 var root=document.getElementById('scenes');
 var saveTag=document.getElementById('saveTag');
@@ -146,46 +158,50 @@ function persist(){
   saveTag.classList.add('show');
   clearTimeout(saveTimer); saveTimer=setTimeout(function(){ saveTag.classList.remove('show'); },1600);
 }
+function slotHtml(sc, i, key, label){
+  var img=sc[key];
+  return '<div class="imgslot'+(img?' has-img':'')+'" data-i="'+i+'" data-k="'+key+'">'+
+    (img
+      ? '<img src="'+img+'" alt=""><span class="chip">Foto cargada</span><button type="button" class="rm" title="Quitar foto">✕</button><div class="edit-hint">Cambiar foto</div>'
+      : '<div class="ph"><b>'+esc(label)+'</b><span>Clic para subir una imagen</span></div>')+
+    '<input type="file" accept="image/*"></div>';
+}
+function bindSlot(slot, i, key){
+  var input=slot.querySelector('input[type=file]');
+  slot.addEventListener('click', function(e){ if(e.target.closest('.rm')) return; input.click(); });
+  input.addEventListener('change', function(){
+    var file=input.files && input.files[0]; if(!file) return;
+    var reader=new FileReader();
+    reader.onload=function(){ STATE[i][key]=reader.result; persist(); render(); };
+    reader.readAsDataURL(file);
+  });
+  var rm=slot.querySelector('.rm');
+  if(rm) rm.addEventListener('click', function(e){ e.stopPropagation(); STATE[i][key]=null; persist(); render(); });
+}
 
 function render(){
   root.innerHTML='';
   STATE.forEach(function(sc, i){
     var card=document.createElement('div'); card.className='scene';
+    var media = sc.dual
+      ? '<div class="dual">'+slotHtml(sc,i,'img',sc.ph||'Foto 1')+slotHtml(sc,i,'img2',sc.ph2||'Foto 2')+'</div>'
+      : slotHtml(sc,i,'img',sc.ph||'Sin foto todavía');
     card.innerHTML=
-      '<p class="scene__tag">'+sc.tag+'</p>'+
-      '<div class="imgslot'+(sc.img?' has-img':'')+'" data-i="'+i+'">'+
-        (sc.img
-          ? '<img src="'+sc.img+'" alt=""><span class="chip">Foto cargada</span><button type="button" class="rm" title="Quitar foto">✕</button><div class="edit-hint">Cambiar foto</div>'
-          : '<div class="ph"><b>Sin foto todavía</b><span>Clic para subir una imagen</span></div>')+
-        '<input type="file" accept="image/*">'+
-      '</div>'+
+      '<p class="scene__tag">'+esc(sc.tag)+'</p>'+ media +
       '<div class="field"><label>Título</label><input class="f-title" type="text" value="'+esc(sc.title)+'"></div>'+
       '<div class="field"><label>Texto</label><textarea class="f-body">'+esc(sc.body)+'</textarea>'+
         '<p class="md-hint">Negrita: <code>**así**</code> · Cursiva: <code>*así*</code></p></div>';
     root.appendChild(card);
-
-    var slot=card.querySelector('.imgslot');
-    var input=card.querySelector('input[type=file]');
-    slot.addEventListener('click', function(e){
-      if(e.target.closest('.rm')) return;
-      input.click();
-    });
-    input.addEventListener('change', function(){
-      var file=input.files && input.files[0]; if(!file) return;
-      var reader=new FileReader();
-      reader.onload=function(){ STATE[i].img=reader.result; persist(); render(); };
-      reader.readAsDataURL(file);
-    });
-    var rm=card.querySelector('.rm');
-    if(rm) rm.addEventListener('click', function(e){ e.stopPropagation(); STATE[i].img=null; persist(); render(); });
-
+    var slots=card.querySelectorAll('.imgslot');
+    for(var k=0;k<slots.length;k++) bindSlot(slots[k], i, slots[k].getAttribute('data-k'));
     card.querySelector('.f-title').addEventListener('input', function(e){ STATE[i].title=e.target.value; persist(); });
     var ta=card.querySelector('.f-body');
     ta.addEventListener('input', function(e){ STATE[i].body=e.target.value; autoAlto(ta); persist(); });
     autoAlto(ta);
   });
-  var conFoto=STATE.filter(function(s){return s.img;}).length;
-  document.getElementById('barCount').textContent='6 escenas · '+conFoto+' con foto real';
+  var total=0, con=0;
+  STATE.forEach(function(sc){ total+=1; if(sc.img) con+=1; if(sc.dual){ total+=1; if(sc.img2) con+=1; } });
+  document.getElementById('barCount').textContent='5 escenas · '+con+' de '+total+' fotos cargadas';
 }
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 function autoAlto(ta){ ta.style.height='auto'; ta.style.height=(ta.scrollHeight+4)+'px'; }
@@ -201,7 +217,6 @@ document.getElementById('btnDownload').addEventListener('click', function(){
     '<script>\n(function(){',
     '<script type="application/json" id="seed-data">'+seedJson+'<\/script>\n<script>\n(function(){'
   );
-  // por si ya había un seed de una descarga anterior, lo reemplazamos en vez de duplicar
   full = full.replace(/<script type="application\/json" id="seed-data">.*?<\/script>\s*(?=<script type="application\/json" id="seed-data">)/s, '');
   var blob=new Blob(['<!doctype html>\n'+full], {type:'text/html'});
   var url=URL.createObjectURL(blob);
