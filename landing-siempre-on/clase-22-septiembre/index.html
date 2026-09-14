@@ -183,6 +183,8 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-quiz__ok{ text-align:center; font-family:var(--nfm-font-h); font-weight:600; color:var(--nfm-ink); font-size:1.05rem; margin:0 0 16px; }
 .nfm-quiz__ok span{ color:var(--nfm-green); }
 .nfm-reg__form{ border-radius:14px; overflow:hidden; border:1px solid var(--nfm-gray-200); background:#fff; }
+.nfm-reg__form[hidden]{ display:none !important; }
+.nfm-quiz__ok--c{ color:var(--nfm-ink-mute); font-weight:500; font-size:0.98rem; line-height:1.5; }
 .nfm-reg__form iframe{ width:100%; min-height:729px; border:none; display:block; }
 
 /* ═══ NICO · ESCENAS ═══ */
@@ -408,8 +410,9 @@ html, body{ margin:0; padding:0; background:#081F33; }
       <!-- Paso 4 · form -->
       <div class="nfm-quiz__step" data-step="4">
         <p class="nfm-quiz__ok" id="nfm-msg-ok" hidden><span>✓</span> Este evento es para vos. Reservá tu lugar.</p>
-        <div class="nfm-reg__form">
-          <!-- El src se arma por JS cuando se completa el quiz: lleva UTM + clase + etapa + equipo -->
+        <p class="nfm-quiz__ok nfm-quiz__ok--c" id="nfm-msg-c" hidden>Este evento está armado para otra etapa. Dejá tus datos y te avisamos primero cuando salga el pensado para la tuya.</p>
+        <!-- FORM PRINCIPAL · etapa A o B. El src se arma por JS al completar el quiz: lleva UTM + clase + etapa + equipo + nivel + dedicación -->
+        <div class="nfm-reg__form" id="nfm-form-principal">
           <iframe
             data-src="https://api.leadconnectorhq.com/widget/form/kLh5onxCgHdGDA10c8NU"
             id="inline-kLh5onxCgHdGDA10c8NU"
@@ -419,6 +422,19 @@ html, body{ margin:0; padding:0; background:#081F33; }
             data-form-name="Form AGOSTO NUEVO" data-height="729"
             data-layout-iframe-id="inline-kLh5onxCgHdGDA10c8NU" data-form-id="kLh5onxCgHdGDA10c8NU"
             title="Form AGOSTO NUEVO" style="width:100%;height:100%;border:none;border-radius:15px"></iframe>
+        </div>
+        <!-- FORM PARA COMUNIDAD · sólo etapa C (saltea la pregunta del equipo). Mismo mecanismo: src por JS -->
+        <div class="nfm-reg__form" id="nfm-form-comunidad" hidden>
+          <iframe
+            data-src="https://api.leadconnectorhq.com/widget/form/w6wTjXjcIScDip8GuVBr"
+            id="inline-w6wTjXjcIScDip8GuVBr"
+            data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value=""
+            data-activation-type="alwaysActivated" data-activation-value=""
+            data-deactivation-type="neverDeactivate" data-deactivation-value=""
+            data-form-name="FORM PARA COMUNIDAD" data-height="620"
+            data-layout-iframe-id="inline-w6wTjXjcIScDip8GuVBr" data-form-id="w6wTjXjcIScDip8GuVBr"
+            data-cookie-consent="true" data-cookie-consent-provider="auto"
+            title="FORM PARA COMUNIDAD" style="width:100%;height:100%;border:none;border-radius:15px"></iframe>
         </div>
       </div>
     </div>
@@ -578,7 +594,8 @@ var CONFIG = {
   FECHA: '2026-09-22',                       // martes 22 de septiembre
   UTM_CLASE: 'clase-sep22-alto-rendimiento', // etiqueta de campaña para leads sin UTM
   HORA_CLASE: 19, MINUTOS_CLASE: 0, OFFSET_ARG: -3,
-  FORM_ID: 'kLh5onxCgHdGDA10c8NU', FORM_ALTO_MINIMO: 729
+  FORM_ID: 'kLh5onxCgHdGDA10c8NU', FORM_ALTO_MINIMO: 729,                 // form principal · etapa A o B
+  FORM_COMUNIDAD_ID: 'w6wTjXjcIScDip8GuVBr', FORM_COMUNIDAD_ALTO_MINIMO: 620 // form para comunidad · etapa C
 };
 
 var DIAS=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
@@ -607,7 +624,9 @@ FECHAS.completa = FECHAS.larga+' · '+FECHAS.hora+' · En vivo por Zoom';
 })();
 
 /* ─── QUIZ ───
-   Dos preguntas. Las respuestas viajan al form como etapa=A|B|C y equipo=A|B|C,
+   Etapa A o B → pregunta del equipo → a qué se dedica → FORM PRINCIPAL.
+   Etapa C     → (saltea el equipo) → a qué se dedica → FORM PARA COMUNIDAD.
+   Las respuestas viajan al form como etapa, equipo, califica, nivel y dedicacion,
    y quedan en sessionStorage para que la thank you page sepa a quién le habla. */
 var resp = { etapa:null, equipo:null, dedicacion:'' };
 function marcarProgreso(n){ for(var i=1;i<=4;i++){ var el=document.getElementById('nfm-p'+i); if(el) el.classList.toggle('nfm-done', i<=n); } }
@@ -627,24 +646,31 @@ document.addEventListener('click', function(e){
   var btn=document.getElementById(q==='etapa'?'nfm-next1':'nfm-next2'); if(btn) btn.disabled=false;
 });
 var n1=document.getElementById('nfm-next1'), n2=document.getElementById('nfm-next2');
-if(n1) n1.addEventListener('click', function(){ if(resp.etapa) irPaso(2); });
-if(n2) n2.addEventListener('click', function(){ if(resp.etapa && resp.equipo){ irPaso(3); var inp=document.getElementById('nfm-dedicacion'); if(inp) setTimeout(function(){ inp.focus(); }, 350); } });
+function irADedicacion(){ irPaso(3); var inp=document.getElementById('nfm-dedicacion'); if(inp) setTimeout(function(){ inp.focus(); }, 350); }
+function equipoListo(){ return resp.etapa==='C' || !!resp.equipo; }
+if(n1) n1.addEventListener('click', function(){ if(!resp.etapa) return; if(resp.etapa==='C'){ resp.equipo=null; irADedicacion(); } else irPaso(2); });
+if(n2) n2.addEventListener('click', function(){ if(resp.etapa && resp.equipo) irADedicacion(); });
 var n3=document.getElementById('nfm-next3'), ded=document.getElementById('nfm-dedicacion');
 if(ded){
   ded.addEventListener('input', function(){ resp.dedicacion=ded.value.trim(); if(n3) n3.disabled = resp.dedicacion.length<3; });
   ded.addEventListener('keydown', function(e){ if(e.key==='Enter' && resp.dedicacion.length>=3){ e.preventDefault(); mostrarForm(); } });
 }
-if(n3) n3.addEventListener('click', function(){ if(resp.etapa && resp.equipo && resp.dedicacion.length>=3) mostrarForm(); });
+if(n3) n3.addEventListener('click', function(){ if(resp.etapa && equipoListo() && resp.dedicacion.length>=3) mostrarForm(); });
 
 function mostrarForm(){
   irPaso(4);
   var califica = (resp.etapa !== 'C');
   /* nivel: alto = etapa A/B con gente a cargo · medio = etapa A/B sin gente a cargo · bajo = C, todavía le cuesta sostenerse económicamente */
   var nivel = !califica ? 'bajo' : (resp.equipo === 'C' ? 'medio' : 'alto');
-  var msgOk=document.getElementById('nfm-msg-ok');
-  if(msgOk) msgOk.hidden = !califica;
+  var msgOk=document.getElementById('nfm-msg-ok'); if(msgOk) msgOk.hidden = !califica;
+  var msgC=document.getElementById('nfm-msg-c');   if(msgC)  msgC.hidden  = califica;
+  var wrapOk=document.getElementById('nfm-form-principal'), wrapC=document.getElementById('nfm-form-comunidad');
+  if(wrapOk) wrapOk.hidden = !califica;
+  if(wrapC)  wrapC.hidden  = califica;
 
-  var ifr=document.getElementById('inline-'+CONFIG.FORM_ID); if(!ifr || ifr.getAttribute('src')) return;
+  var formId = califica ? CONFIG.FORM_ID : CONFIG.FORM_COMUNIDAD_ID;
+  var altoMin = califica ? CONFIG.FORM_ALTO_MINIMO : CONFIG.FORM_COMUNIDAD_ALTO_MINIMO;
+  var ifr=document.getElementById('inline-'+formId); if(!ifr || ifr.getAttribute('src')) return;
   var pasar=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','utm_id','fbclid','gclid','ttclid','ad_id','adset_id','campaign_id','ref'];
   var p=[], i, v, tieneSource=false, tieneCampaign=false;
   for(i=0;i<pasar.length;i++){ v=qs(pasar[i]); if(v){ p.push(encodeURIComponent(pasar[i])+'='+encodeURIComponent(v)); if(pasar[i]==='utm_source') tieneSource=true; if(pasar[i]==='utm_campaign') tieneCampaign=true; } }
@@ -653,18 +679,18 @@ function mostrarForm(){
   p.push('clase_fecha='+CONFIG.FECHA);
   p.push('edicion='+encodeURIComponent(CONFIG.UTM_CLASE));
   p.push('etapa='+resp.etapa);
-  p.push('equipo='+resp.equipo);
+  if(resp.equipo) p.push('equipo='+resp.equipo);
   p.push('califica='+(califica?'si':'no'));
   p.push('nivel='+nivel);
   p.push('dedicacion='+encodeURIComponent(resp.dedicacion));
-  var base=ifr.getAttribute('data-src')||('https://api.leadconnectorhq.com/widget/form/'+CONFIG.FORM_ID);
+  var base=ifr.getAttribute('data-src')||('https://api.leadconnectorhq.com/widget/form/'+formId);
   ifr.src = base+(base.indexOf('?')===-1?'?':'&')+p.join('&');
-  ifr.style.minHeight = CONFIG.FORM_ALTO_MINIMO+'px';
+  ifr.style.minHeight = altoMin+'px';
   try{
     window.sessionStorage.setItem('nfm_clase', CONFIG.UTM_CLASE);
     window.sessionStorage.setItem('nfm_clase_fecha', CONFIG.FECHA);
     window.sessionStorage.setItem('nfm_etapa', resp.etapa);
-    window.sessionStorage.setItem('nfm_equipo', resp.equipo);
+    window.sessionStorage.setItem('nfm_equipo', resp.equipo||'');
     window.sessionStorage.setItem('nfm_nivel', nivel);
     window.sessionStorage.setItem('nfm_dedicacion', resp.dedicacion);
   }catch(err){}

@@ -31,9 +31,12 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
   4K, cambiás sólo el `src` de la imagen dentro de `.nfm-hero__bg`. Toda la landing va centrada.
 - **Quiz de tres preguntas antes del form**, con una imagen por opción en las dos primeras y un aviso
   amarillo arriba ("Clase en vivo exclusiva para empresarios, líderes y profesionales…"). La tercera es
-  abierta: "¿A qué te dedicás, específicamente?". Las respuestas viajan al mismo form de siempre como
-  campos extra (ver tabla abajo). En la landing todos ven el mismo form. En GHL, mandá el `Lead` por CAPI
-  sólo con `califica = si` (o, si querés apuntar más fino a Platinum, sólo con `nivel = alto`).
+  abierta: "¿A qué te dedicás, específicamente?". Quien elige **A o B** pasa por las tres preguntas y ve el
+  **form principal** (`kLh5onxCgHdGDA10c8NU`). Quien elige **C** saltea la pregunta del equipo, responde a
+  qué se dedica y ve el **form para comunidad** (`w6wTjXjcIScDip8GuVBr`), con un mensaje corto de "este
+  evento está armado para otra etapa, te avisamos primero". Los dos forms reciben los mismos campos (ver
+  tabla abajo); en el de comunidad, `equipo` llega vacío. En GHL, mandá el `Lead` por CAPI sólo con
+  `califica = si` (o, si querés apuntar más fino a Platinum, sólo con `nivel = alto`).
 
   **Campos que llegan al form** (todos van en la URL del iframe, GHL los toma solo si existe un campo
   oculto con el mismo nombre):
@@ -41,7 +44,7 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
   | Campo | Valores | Qué es |
   |---|---|---|
   | `etapa` | `A` / `B` / `C` | Pregunta 1 |
-  | `equipo` | `A` / `B` / `C` | Pregunta 2 |
+  | `equipo` | `A` / `B` / `C` · vacío si etapa = C | Pregunta 2 (los C no la ven) |
   | `dedicacion` | texto libre | Pregunta 3, a qué se dedica |
   | `califica` | `si` / `no` | `no` sólo si etapa = C |
   | `nivel` | `alto` / `medio` / `bajo` | alto = A o B con gente a cargo · medio = A o B sin gente a cargo · bajo = C |
