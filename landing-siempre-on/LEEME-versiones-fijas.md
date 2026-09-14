@@ -55,6 +55,13 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
   Form Builder, agregás cada custom field al form y lo marcás como Hidden. GHL rellena los campos ocultos
   con los parámetros de la URL que tengan el mismo nombre. Las UTM no hace falta crearlas: GHL las captura
   solo.
+- **El form se precarga para que no se sienta la espera.** GHL lee etapa, equipo, nivel y dedicación de la
+  URL del iframe, así que la carga definitiva sólo puede empezar cuando esos datos existen. Para acortarla:
+  apenas se abre el popup (o a los 3 s de cargar `index.html`) y al elegir etapa, se carga el form en un
+  iframe invisible para calentar la caché de GHL; y mientras la persona escribe a qué se dedica, el iframe
+  definitivo ya se va cargando con los datos que hay. Al tocar "Ver mi lugar", casi siempre está listo.
+  Efecto secundario: cada carga cuenta como una "vista" del form en las estadísticas de GHL, así que la
+  tasa de conversión "por vista" del form va a verse más baja de lo real. Medí por registros, no por vistas.
 - **Variante con popup (`index-popup.html`).** Misma landing, pero sin el bloque de registro en la página:
   el quiz y el form se abren en un popup al tocar cualquier botón (hero, sección de bullets, cierre y barra
   fija). El popup se cierra sólo con la X: ni el clic afuera ni Escape lo cierran, y la página de atrás no

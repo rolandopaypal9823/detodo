@@ -642,6 +642,7 @@ document.addEventListener('click', function(e){
   for(var i=0;i<hermanos.length;i++) hermanos[i].classList.remove('nfm-sel');
   opt.classList.add('nfm-sel'); resp[q]=v;
   var btn=document.getElementById(q==='etapa'?'nfm-next1':'nfm-next2'); if(btn) btn.disabled=false;
+  if(q==='etapa') calentarForm(v==='C' ? CONFIG.FORM_COMUNIDAD_ID : CONFIG.FORM_ID);
 });
 var n1=document.getElementById('nfm-next1'), n2=document.getElementById('nfm-next2');
 function irADedicacion(){ irPaso(3); var inp=document.getElementById('nfm-dedicacion'); if(inp) setTimeout(function(){ inp.focus(); }, 350); }
@@ -650,24 +651,41 @@ if(n1) n1.addEventListener('click', function(){ if(!resp.etapa) return; if(resp.
 if(n2) n2.addEventListener('click', function(){ if(resp.etapa && resp.equipo) irADedicacion(); });
 var n3=document.getElementById('nfm-next3'), ded=document.getElementById('nfm-dedicacion');
 if(ded){
-  ded.addEventListener('input', function(){ resp.dedicacion=ded.value.trim(); if(n3) n3.disabled = resp.dedicacion.length<3; });
+  ded.addEventListener('input', function(){ resp.dedicacion=ded.value.trim(); if(n3) n3.disabled = resp.dedicacion.length<3;
+    clearTimeout(precargaTimer); if(resp.dedicacion.length>=3) precargaTimer=setTimeout(cargarForm, 700); });
   ded.addEventListener('keydown', function(e){ if(e.key==='Enter' && resp.dedicacion.length>=3){ e.preventDefault(); mostrarForm(); } });
 }
 if(n3) n3.addEventListener('click', function(){ if(resp.etapa && equipoListo() && resp.dedicacion.length>=3) mostrarForm(); });
 
-function mostrarForm(){
-  irPaso(4);
+/* ─── PRECARGA DEL FORM ───
+   El form de GHL lee etapa, equipo, nivel y dedicación de la URL del iframe, así que la carga
+   definitiva sólo puede arrancar cuando esos datos existen. Para que no se sienta la espera:
+     1) calentarForm(): apenas carga la página (3 s después) y al elegir etapa, se carga el form en un
+        iframe invisible de 1×1 px, así el navegador guarda en caché el JS y CSS de GHL. Se saca solo.
+     2) cargarForm(): mientras la persona escribe a qué se dedica, el iframe definitivo se carga con lo
+        que ya hay (700 ms después de la última tecla). Al tocar "Ver mi lugar", si lo escrito no cambió,
+        el form ya está listo; si cambió, se recarga (rápido, porque la caché ya está caliente).
+   Ojo: cada carga cuenta como una "vista" del form en las estadísticas de GHL. */
+var calentados = {}, precargaTimer = null;
+function calentarForm(formId){
+  if(!formId || calentados[formId]) return; calentados[formId] = true;
+  var f=document.createElement('iframe');
+  f.src='https://api.leadconnectorhq.com/widget/form/'+formId+'?nfm_precarga=1';
+  f.setAttribute('aria-hidden','true'); f.setAttribute('tabindex','-1'); f.setAttribute('title','');
+  f.style.cssText='position:absolute;left:-9999px;top:0;width:1px;height:1px;opacity:0;pointer-events:none;border:0;';
+  f.onload=function(){ setTimeout(function(){ if(f.parentNode) f.parentNode.removeChild(f); }, 8000); };
+  document.body.appendChild(f);
+}
+function datosForm(){
   var califica = (resp.etapa !== 'C');
   /* nivel: alto = etapa A/B con gente a cargo · medio = etapa A/B sin gente a cargo · bajo = C, todavía le cuesta sostenerse económicamente */
   var nivel = !califica ? 'bajo' : (resp.equipo === 'C' ? 'medio' : 'alto');
-  var msgOk=document.getElementById('nfm-msg-ok'); if(msgOk) msgOk.hidden = !califica;
-  var wrapOk=document.getElementById('nfm-form-principal'), wrapC=document.getElementById('nfm-form-comunidad');
-  if(wrapOk) wrapOk.hidden = !califica;
-  if(wrapC)  wrapC.hidden  = califica;
-
-  var formId = califica ? CONFIG.FORM_ID : CONFIG.FORM_COMUNIDAD_ID;
-  var altoMin = califica ? CONFIG.FORM_ALTO_MINIMO : CONFIG.FORM_COMUNIDAD_ALTO_MINIMO;
-  var ifr=document.getElementById('inline-'+formId); if(!ifr || ifr.getAttribute('src')) return;
+  return { califica:califica, nivel:nivel, formId: califica ? CONFIG.FORM_ID : CONFIG.FORM_COMUNIDAD_ID, altoMin: califica ? CONFIG.FORM_ALTO_MINIMO : CONFIG.FORM_COMUNIDAD_ALTO_MINIMO };
+}
+function cargarForm(){
+  if(!resp.etapa || !equipoListo() || resp.dedicacion.length<3) return null;
+  var d = datosForm();
+  var ifr=document.getElementById('inline-'+d.formId); if(!ifr) return null;
   var pasar=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','utm_id','fbclid','gclid','ttclid','ad_id','adset_id','campaign_id','ref'];
   var p=[], i, v, tieneSource=false, tieneCampaign=false;
   for(i=0;i<pasar.length;i++){ v=qs(pasar[i]); if(v){ p.push(encodeURIComponent(pasar[i])+'='+encodeURIComponent(v)); if(pasar[i]==='utm_source') tieneSource=true; if(pasar[i]==='utm_campaign') tieneCampaign=true; } }
@@ -677,18 +695,28 @@ function mostrarForm(){
   p.push('edicion='+encodeURIComponent(CONFIG.UTM_CLASE));
   p.push('etapa='+resp.etapa);
   if(resp.equipo) p.push('equipo='+resp.equipo);
-  p.push('califica='+(califica?'si':'no'));
-  p.push('nivel='+nivel);
+  p.push('califica='+(d.califica?'si':'no'));
+  p.push('nivel='+d.nivel);
   p.push('dedicacion='+encodeURIComponent(resp.dedicacion));
-  var base=ifr.getAttribute('data-src')||('https://api.leadconnectorhq.com/widget/form/'+formId);
-  ifr.src = base+(base.indexOf('?')===-1?'?':'&')+p.join('&');
-  ifr.style.minHeight = altoMin+'px';
+  var base=ifr.getAttribute('data-src')||('https://api.leadconnectorhq.com/widget/form/'+d.formId);
+  var url = base+(base.indexOf('?')===-1?'?':'&')+p.join('&');
+  if(ifr.getAttribute('src') !== url){ ifr.src = url; ifr.style.minHeight = d.altoMin+'px'; }
+  return d;
+}
+function mostrarForm(){
+  clearTimeout(precargaTimer);
+  irPaso(4);
+  var d = cargarForm(); if(!d) d = datosForm();
+  var msgOk=document.getElementById('nfm-msg-ok'); if(msgOk) msgOk.hidden = !d.califica;
+  var wrapOk=document.getElementById('nfm-form-principal'), wrapC=document.getElementById('nfm-form-comunidad');
+  if(wrapOk) wrapOk.hidden = !d.califica;
+  if(wrapC)  wrapC.hidden  = d.califica;
   try{
     window.sessionStorage.setItem('nfm_clase', CONFIG.UTM_CLASE);
     window.sessionStorage.setItem('nfm_clase_fecha', CONFIG.FECHA);
     window.sessionStorage.setItem('nfm_etapa', resp.etapa);
     window.sessionStorage.setItem('nfm_equipo', resp.equipo||'');
-    window.sessionStorage.setItem('nfm_nivel', nivel);
+    window.sessionStorage.setItem('nfm_nivel', d.nivel);
     window.sessionStorage.setItem('nfm_dedicacion', resp.dedicacion);
   }catch(err){}
 }
@@ -707,6 +735,7 @@ makeParticles('nfm-reg-particles',16);
   window.addEventListener('scroll', function(){ if(nav) nav.classList.toggle('nfm-nav--scrolled', window.scrollY>60); if(st) st.classList.toggle('nfm-sticky--show', window.scrollY>700); }, {passive:true}); })();
 function reveal(){ var els=document.querySelectorAll('.nfm-reveal'), wh=window.innerHeight; for(var i=0;i<els.length;i++){ if(els[i].getBoundingClientRect().top<wh-70) els[i].classList.add('nfm-vis'); } }
 window.addEventListener('scroll', reveal, {passive:true}); window.addEventListener('load', reveal); reveal();
+setTimeout(function(){ calentarForm(CONFIG.FORM_ID); }, 3000);
 function scrollToId(id){ var t=document.getElementById(id); if(!t) return; window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-96, behavior:'smooth'}); }
 document.addEventListener('click', function(e){
   var b=e.target.closest?e.target.closest('[data-scroll-to]'):null; if(b){ e.preventDefault(); scrollToId(b.getAttribute('data-scroll-to')); return; }
