@@ -1,5 +1,5 @@
 <!-- ============================================================
-     Thank you page de Calendly -> Inbound Webhook de GHL
+     Thank you page de Calendly -> Cloudflare Worker -> GHL
      Pegar en el HEADER de la pagina de gracias (la que Calendly
      usa como redirect despues de agendar).
 
@@ -8,13 +8,13 @@
        - URL: la de esta pagina
        - Activar "Pass event details to your redirected page"
 
-     REQUISITOS EN GHL:
-     Workflow con trigger "Inbound Webhook". Pegar su URL abajo.
+     REQUISITOS: Worker desplegado (ver cloudflare-worker/README.md)
+     Workflow con trigger "Contact Tag > agendo" (gratis).
      ============================================================ -->
 <script>
 (function () {
-  // <<< PEGA ACA LA URL DEL INBOUND WEBHOOK DE GHL >>>
-  var GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/XXXXXXXX";
+  // <<< PEGA ACA LA URL DE TU CLOUDFLARE WORKER >>>
+  var ENDPOINT = "https://tu-worker.tu-cuenta.workers.dev";
 
   var qs = new URLSearchParams(location.search);
   var email = (qs.get("invitee_email") || "").trim().toLowerCase();
@@ -60,7 +60,7 @@
   // Envio "fire and forget". No podemos leer la respuesta por CORS,
   // pero el request igual llega al servidor de GHL.
   try {
-    fetch(GHL_WEBHOOK_URL, {
+    fetch(ENDPOINT, {
       method: "POST",
       mode: "no-cors",
       keepalive: true,
@@ -69,7 +69,7 @@
     });
   } catch (e) {
     if (navigator.sendBeacon) {
-      navigator.sendBeacon(GHL_WEBHOOK_URL, new Blob([body], { type: "text/plain" }));
+      navigator.sendBeacon(ENDPOINT, new Blob([body], { type: "text/plain" }));
     }
   }
 })();

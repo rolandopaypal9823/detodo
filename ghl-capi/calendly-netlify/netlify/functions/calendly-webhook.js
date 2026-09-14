@@ -1,18 +1,21 @@
-// Calendly -> GHL bridge
+// Puente agendas -> GHL (Netlify Function)
 //
-// Modo A (recomendado, sin token de GHL):
-//   Verifica la firma de Calendly y reenvia un JSON limpio, por POST,
-//   a la URL del trigger "Inbound Webhook" de un workflow de GHL.
-//   Adentro del workflow, GHL busca/crea el contacto por email
-//   ({{trigger.body.email}}) y sigue con tag / Meta CAPI.
-//   Variable necesaria: GHL_INBOUND_WEBHOOK_URL
+// Recibe el agendamiento por dos vias:
+//   A) La thank you page de Calendly (JSON simple, desde el navegador)
+//   B) El webhook de Calendly (invitee.created / invitee.canceled)
 //
-// Modo B (respaldo, si tu plan de GHL no tiene Inbound Webhook trigger):
-//   La funcion misma hace upsert del contacto y le pone el tag via la
-//   API de GHL (Private Integration token).
-//   Variables necesarias: GHL_API_TOKEN, GHL_LOCATION_ID
+// En GHL: crea o actualiza el contacto, le guarda el fbclid si vino,
+// y le pone un tag. El tag (trigger GRATIS) dispara el workflow que
+// manda Schedule a Meta CAPI.
 //
-// Si estan las dos, se usa el Modo A.
+// Variables de entorno (Netlify > Site settings > Environment variables):
+//   GHL_API_TOKEN     Private Integration token, empieza con pit-
+//   GHL_LOCATION_ID   Settings > Business Profile
+//   GHL_TAG_AGENDO    default: agendo
+//   GHL_TAG_CANCELO   default: cancelo_agenda
+//   GHL_FIELD_FBCLID  default: fbclid
+//   ALLOWED_ORIGIN    default: *
+//   CALENDLY_SIGNING_KEY  opcional, solo para la via B
 
 const crypto = require("crypto");
 
@@ -24,7 +27,19 @@ const env = (k, fallback) => {
   return v === undefined || v === "" ? fallback : v;
 };
 
-// --- Verificacion de firma de Calendly ---------------------------------
+const corsHeaders = () => ({
+  "Access-Control-Allow-Origin": env("ALLOWED_ORIGIN", "*"),
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Max-Age": "86400",
+});
+
+const reply = (status, body) => ({
+  statusCode: status,
+  headers: { "Content-Type": "application/json", ...corsHeaders() },
+  body: JSON.stringify(body),
+});
+
 function verifySignature(rawBody, header, signingKey) {
   if (!signingKey) return true;
   if (!header) return false;
@@ -32,10 +47,7 @@ function verifySignature(rawBody, header, signingKey) {
     header.split(",").map((p) => p.trim().split("=").map((s) => s.trim()))
   );
   if (!parts.t || !parts.v1) return false;
-  const expected = crypto
-    .createHmac("sha256", signingKey)
-    .update(`${parts.t}.${rawBody}`)
-    .digest("hex");
+  const expected = crypto.createHmac("sha256", signingKey).update(`${parts.t}.${rawBody}`).digest("hex");
   try {
     return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(parts.v1));
   } catch {
@@ -43,61 +55,53 @@ function verifySignature(rawBody, header, signingKey) {
   }
 }
 
-// --- Helpers de datos ----------------------------------------------------
-function pickPhone(invitee) {
-  if (invitee.text_reminder_number) return invitee.text_reminder_number;
-  const qa = invitee.questions_and_answers || [];
-  const hit = qa.find((q) =>
-    /tel|phone|whatsapp|celular|m[oó]vil|n[uú]mero/i.test(q.question || "")
-  );
-  return hit ? hit.answer : "";
-}
-
 function normalizePhone(p) {
   if (!p) return "";
-  const s = String(p).trim();
-  const digits = s.replace(/[^\d]/g, "");
-  if (!digits) return "";
-  return `+${digits}`;
+  const digits = String(p).replace(/[^\d]/g, "");
+  return digits ? `+${digits}` : "";
 }
 
-function splitName(invitee) {
-  if (invitee.first_name || invitee.last_name) {
-    return { firstName: invitee.first_name || "", lastName: invitee.last_name || "" };
+function splitName(full, first, last) {
+  if (first || last) return { firstName: first || "", lastName: last || "" };
+  const n = (full || "").trim();
+  if (!n) return { firstName: "", lastName: "" };
+  const [a, ...rest] = n.split(/\s+/);
+  return { firstName: a, lastName: rest.join(" ") };
+}
+
+// Acepta las dos formas de payload y devuelve una sola
+function parsePayload(data) {
+  if (data && data.event && data.payload && typeof data.payload === "object") {
+    const inv = data.payload;
+    const qa = inv.questions_and_answers || [];
+    const hit = qa.find((q) => /tel|phone|whatsapp|celular|m[oó]vil|n[uú]mero/i.test(q.question || ""));
+    const { firstName, lastName } = splitName(inv.name, inv.first_name, inv.last_name);
+    return {
+      via: "webhook",
+      canceled: data.event === "invitee.canceled",
+      email: (inv.email || "").trim().toLowerCase(),
+      firstName,
+      lastName,
+      phone: normalizePhone(inv.text_reminder_number || (hit ? hit.answer : "")),
+      startTime: (inv.scheduled_event && inv.scheduled_event.start_time) || "",
+      fbclid: "",
+    };
   }
-  const full = (invitee.name || "").trim();
-  if (!full) return { firstName: "", lastName: "" };
-  const [firstName, ...rest] = full.split(/\s+/);
-  return { firstName, lastName: rest.join(" ") };
-}
-
-function buildCleanPayload(eventType, invitee) {
-  const { firstName, lastName } = splitName(invitee);
+  const d = data || {};
+  const { firstName, lastName } = splitName(d.fullName || d.name, d.firstName, d.lastName);
   return {
-    event: eventType, // "invitee.created" | "invitee.canceled"
-    email: (invitee.email || "").trim().toLowerCase(),
-    phone: normalizePhone(pickPhone(invitee)),
+    via: "thankyou",
+    canceled: d.event === "cancelo" || d.event === "invitee.canceled",
+    email: (d.email || "").trim().toLowerCase(),
     firstName,
     lastName,
-    startTime: (invitee.scheduled_event && invitee.scheduled_event.start_time) || "",
-    source: "Calendly",
+    phone: normalizePhone(d.phone),
+    startTime: d.startTime || "",
+    fbclid: d.fbclid || "",
   };
 }
 
-// --- Modo A: reenviar a un Inbound Webhook de GHL ------------------------
-async function forwardToGhlWebhook(url, payload) {
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  const text = await res.text();
-  if (!res.ok) throw new Error(`GHL webhook -> ${res.status}: ${text.slice(0, 300)}`);
-  return text;
-}
-
-// --- Modo B: API de GHL (respaldo) ---------------------------------------
-async function ghlApi(path, method, body) {
+async function ghl(path, method, body) {
   const res = await fetch(`${GHL_BASE}${path}`, {
     method,
     headers: {
@@ -109,82 +113,69 @@ async function ghlApi(path, method, body) {
     body: body ? JSON.stringify(body) : undefined,
   });
   const text = await res.text();
-  let json = {};
-  try { json = text ? JSON.parse(text) : {}; } catch { json = { raw: text }; }
   if (!res.ok) throw new Error(`GHL ${method} ${path} -> ${res.status}: ${text.slice(0, 300)}`);
-  return json;
+  try { return text ? JSON.parse(text) : {}; } catch { return {}; }
 }
 
-async function upsertAndTagViaApi(payload) {
-  const body = {
-    locationId: env("GHL_LOCATION_ID"),
-    email: payload.email,
-    firstName: payload.firstName,
-    lastName: payload.lastName,
-    source: "Calendly",
-  };
-  if (payload.phone) body.phone = payload.phone;
-  const fechaKey = env("GHL_FIELD_FECHA_AGENDA", "");
-  if (fechaKey && payload.startTime) {
-    body.customFields = [{ key: fechaKey, field_value: payload.startTime }];
-  }
-  const out = await ghlApi("/contacts/upsert", "POST", body);
-  const contactId = out.contact && out.contact.id ? out.contact.id : null;
-  if (!contactId) throw new Error("upsert sin contact.id");
-
-  const tag = payload.event === "invitee.canceled"
-    ? env("GHL_TAG_CANCELO", "cancelo_agenda")
-    : env("GHL_TAG_AGENDO", "agendo");
-  try { await ghlApi(`/contacts/${contactId}/tags`, "DELETE", { tags: [tag] }); } catch {}
-  await ghlApi(`/contacts/${contactId}/tags`, "POST", { tags: [tag] });
-  return contactId;
-}
-
-// --- Handler -------------------------------------------------------------
 exports.handler = async (event) => {
+  if (event.httpMethod === "OPTIONS") {
+    return { statusCode: 204, headers: corsHeaders(), body: "" };
+  }
   if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method not allowed" };
+    return reply(405, { ok: false, error: "Method not allowed" });
   }
 
   const rawBody = event.isBase64Encoded
     ? Buffer.from(event.body || "", "base64").toString("utf8")
     : event.body || "";
 
-  const sigHeader =
-    event.headers["calendly-webhook-signature"] ||
-    event.headers["Calendly-Webhook-Signature"];
-
-  if (!verifySignature(rawBody, sigHeader, env("CALENDLY_SIGNING_KEY"))) {
-    return { statusCode: 401, body: "Bad signature" };
-  }
-
   let data;
   try {
     data = JSON.parse(rawBody);
   } catch {
-    return { statusCode: 400, body: "Invalid JSON" };
+    return reply(400, { ok: false, error: "Invalid JSON" });
   }
 
-  const eventType = data.event;
-  const invitee = data.payload || {};
-  const payload = buildCleanPayload(eventType, invitee);
-  if (!payload.email) return { statusCode: 200, body: "No email, ignored" };
+  const p = parsePayload(data);
 
-  const inboundUrl = env("GHL_INBOUND_WEBHOOK_URL", "");
+  // La firma solo aplica a la via B (webhook de Calendly).
+  if (p.via === "webhook") {
+    const sig = event.headers["calendly-webhook-signature"] || event.headers["Calendly-Webhook-Signature"];
+    if (!verifySignature(rawBody, sig, env("CALENDLY_SIGNING_KEY"))) {
+      return reply(401, { ok: false, error: "Bad signature" });
+    }
+  }
+
+  if (!p.email) return reply(200, { ok: true, skipped: "sin email" });
 
   try {
-    if (inboundUrl) {
-      await forwardToGhlWebhook(inboundUrl, payload);
-      console.log(JSON.stringify({ ok: true, mode: "forward", ...payload }));
-      return { statusCode: 200, body: JSON.stringify({ ok: true, mode: "forward" }) };
+    const body = {
+      locationId: env("GHL_LOCATION_ID"),
+      email: p.email,
+      firstName: p.firstName,
+      lastName: p.lastName,
+      source: "Calendly",
+    };
+    if (p.phone) body.phone = p.phone;
+    if (p.fbclid) {
+      body.customFields = [{ key: env("GHL_FIELD_FBCLID", "fbclid"), field_value: p.fbclid }];
     }
-    const contactId = await upsertAndTagViaApi(payload);
-    console.log(JSON.stringify({ ok: true, mode: "api", contactId, ...payload }));
-    return { statusCode: 200, body: JSON.stringify({ ok: true, mode: "api", contactId }) };
+
+    const out = await ghl("/contacts/upsert", "POST", body);
+    const contactId = out.contact && out.contact.id;
+    if (!contactId) throw new Error("upsert sin contact.id");
+
+    const tag = p.canceled ? env("GHL_TAG_CANCELO", "cancelo_agenda") : env("GHL_TAG_AGENDO", "agendo");
+    // Quitar y volver a poner: asi dispara tambien si agenda dos veces
+    try { await ghl(`/contacts/${contactId}/tags`, "DELETE", { tags: [tag] }); } catch {}
+    await ghl(`/contacts/${contactId}/tags`, "POST", { tags: [tag] });
+
+    console.log(JSON.stringify({ ok: true, via: p.via, email: p.email, contactId, tag }));
+    return reply(200, { ok: true, contactId, tag });
   } catch (err) {
-    console.error(JSON.stringify({ ok: false, ...payload, error: err.message }));
-    return { statusCode: 500, body: JSON.stringify({ ok: false, error: err.message }) };
+    console.error(JSON.stringify({ ok: false, via: p.via, email: p.email, error: err.message }));
+    return reply(500, { ok: false, error: err.message });
   }
 };
 
-exports._internal = { verifySignature, pickPhone, normalizePhone, splitName, buildCleanPayload };
+exports._internal = { verifySignature, normalizePhone, splitName, parsePayload };
