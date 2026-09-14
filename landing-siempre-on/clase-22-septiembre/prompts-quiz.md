@@ -15,8 +15,8 @@ estilo, misma luz, distinto momento de vida.
 4. **Misma paleta:** azul profundo, grises fríos, un acento naranja o cálido por imagen. Luz natural o de
    lámpara, nunca neón.
 5. **Estilo foto, no ilustración.** 35 mm, poca profundidad de campo, grano leve. Sin texto en la imagen.
-6. **Ninguna tiene que parecer "peor" que otra.** La C es un punto de partida, no un fracaso: luz de
-   mañana, orden, energía.
+6. **Ninguna tiene que parecer "peor" que otra.** La C no es un fracaso ni una persona joven: es alguien de
+   cualquier edad a quien hoy le cuesta sostenerse económicamente. Luz de mañana, orden, energía.
 
 Bloque de estilo para pegar al principio de cada prompt:
 
@@ -30,7 +30,7 @@ warm orange accent. Must read clearly as a tiny thumbnail: strong silhouette, si
 
 ## Pregunta 1 · ¿En qué etapa estás hoy?
 
-### Opción A · "Construí un sostén económico y una trayectoria… lo que me preocupa es lo que me está costando sostenerlo"
+### Opción A · "Construí un sostén económico y una trayectoria que me dan tranquilidad. Lo que me cuesta es sostenerlo: presión, cansancio, la cabeza que no se apaga"
 
 Lo que tiene que transmitir: *lo logré, y me pesa*. Éxito visible, cuerpo cansado.
 
@@ -43,7 +43,7 @@ family photo turned toward the chair. Warm desk lamp is the only orange accent. 
 he built, and it is heavy.
 ```
 
-### Opción B · "Tengo una carrera armada y estoy en etapa de seguir creciendo… me está costando desvelos, irritabilidad y tiempo"
+### Opción B · "Tengo una carrera armada y estoy en etapa de seguir creciendo. Pero crecer me está costando desvelos, irritabilidad y tiempo"
 
 Lo que tiene que transmitir: *estoy subiendo, y no duermo*. Crecimiento y desvelo en el mismo cuadro.
 
@@ -55,16 +55,20 @@ screen and a bedside clock reading 01:40 in warm orange digits. The other side o
 and asleep, out of focus. Mood: the growth is real, and it is costing the night.
 ```
 
-### Opción C · "Todavía estoy construyendo mi sostén profesional y económico. Estoy en un punto de partida"
+### Opción C · "Todavía me cuesta sostenerme económicamente. Hoy el dinero es lo primero que tengo que resolver"
 
-Lo que tiene que transmitir: *estoy arrancando, con ganas*. Sin lástima: luz, orden, empuje.
+Lo que tiene que transmitir: *hoy el dinero es mi problema principal*, sin importar la edad. Sin lástima: luz, orden, empuje.
+
+> Ojo: la imagen que hoy está cargada para la C muestra a alguien joven arrancando. Con el texto nuevo,
+> conviene una persona de edad indefinida (de espaldas), en un espacio más modesto: escritorio chico en casa,
+> cuentas o una calculadora a la vista. Prompt sugerido abajo.
 
 ```
 [bloque de estilo]
-A young professional in their late 20s seen from behind, at a small tidy desk by a bright window in the
-morning, laptop open, a paper notebook with a hand-drawn plan beside it, a coffee cup, a small plant.
-Clean light, energy, a fresh start. The orange accent is a single sticky note on the wall. Mood:
-beginning, ambitious, nothing heavy yet.
+A person of indeterminate age seen from behind, at a small modest desk at home in the morning, an older
+laptop open, a printed bill and a calculator beside it, a coffee mug. Simple room, clean daylight, no
+luxury of any kind. The orange accent is a single sticky note on the wall. Mood: getting by, working on
+the money first, dignified, not sad.
 ```
 
 ---

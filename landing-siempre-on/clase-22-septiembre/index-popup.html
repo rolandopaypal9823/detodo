@@ -549,9 +549,9 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
       <!-- Paso 1 -->
       <div class="nfm-quiz__step nfm-on" data-step="1">
         <p class="nfm-quiz__q">¿En qué etapa estás hoy?</p>
-        <button type="button" class="nfm-opt" data-q="etapa" data-v="A"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-A-Construi-un-sosten-economico-y-me-preocupa-lo-que-me-cuesta-sostenerlo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Construí un sostén económico y una trayectoria que me dan tranquilidad. Lo que me preocupa es lo que me está costando sostenerlo: la presión, el cansancio, la cabeza que no se apaga.</span><span class="nfm-opt__radio"></span></button>
-        <button type="button" class="nfm-opt" data-q="etapa" data-v="B"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-B-Tengo-una-carrera-armada-pero-me-cuesta-desvelos-irritabilidad-y-tiempo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Tengo una carrera armada y estoy en etapa de seguir creciendo. Pero el crecimiento me está costando desvelos, irritabilidad y tiempo que no tengo para nada más.</span><span class="nfm-opt__radio"></span></button>
-        <button type="button" class="nfm-opt" data-q="etapa" data-v="C"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-C-Estoy-construyendo-mi-sosten-profesional-y-economico-Punto-de-partida.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Todavía estoy construyendo mi sostén profesional y económico. Estoy en un punto de partida.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="etapa" data-v="A"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-A-Construi-un-sosten-economico-y-me-preocupa-lo-que-me-cuesta-sostenerlo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Construí un sostén económico y una trayectoria que me dan tranquilidad. Lo que me cuesta es sostenerlo: presión, cansancio, la cabeza que no se apaga.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="etapa" data-v="B"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-B-Tengo-una-carrera-armada-pero-me-cuesta-desvelos-irritabilidad-y-tiempo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Tengo una carrera armada y estoy en etapa de seguir creciendo. Pero crecer me está costando desvelos, irritabilidad y tiempo.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="etapa" data-v="C"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-C-Estoy-construyendo-mi-sosten-profesional-y-economico-Punto-de-partida.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Todavía me cuesta sostenerme económicamente. Hoy el dinero es lo primero que tengo que resolver.</span><span class="nfm-opt__radio"></span></button>
         <div class="nfm-quiz__actions"><button type="button" class="nfm-btn" id="nfm-next1" disabled>Continuar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
       </div>
 
@@ -666,7 +666,7 @@ if(n3) n3.addEventListener('click', function(){ if(resp.etapa && resp.equipo && 
 function mostrarForm(){
   irPaso(4);
   var califica = (resp.etapa !== 'C');
-  /* nivel: alto = etapa A/B con gente a cargo · medio = etapa A/B sin gente a cargo · bajo = punto de partida */
+  /* nivel: alto = etapa A/B con gente a cargo · medio = etapa A/B sin gente a cargo · bajo = C, todavía le cuesta sostenerse económicamente */
   var nivel = !califica ? 'bajo' : (resp.equipo === 'C' ? 'medio' : 'alto');
   var msgOk=document.getElementById('nfm-msg-ok');
   if(msgOk) msgOk.hidden = !califica;

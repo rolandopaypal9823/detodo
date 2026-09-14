@@ -375,7 +375,7 @@ me está costando sostenerlo: la presión, el cansancio, la cabeza que no se apa
 **B.** Tengo una carrera armada y estoy en etapa de seguir creciendo. Pero el crecimiento me está costando
 desvelos, irritabilidad y tiempo que no tengo para nada más.
 
-**C.** Todavía estoy construyendo mi sostén profesional y económico. Estoy en un punto de partida.
+**C.** Todavía me cuesta sostenerme económicamente. Hoy el dinero es lo primero que tengo que resolver.
 
 ### Pregunta 2 · ¿Hay gente cuyo trabajo depende de tus decisiones?
 

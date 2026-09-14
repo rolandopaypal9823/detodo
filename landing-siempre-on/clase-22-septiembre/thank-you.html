@@ -198,7 +198,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
 
 /* ── DOS VARIANTES ──
    .nfm-solo-califica → se ve sólo si la persona calificó en el quiz (etapa A o B, o si no hay dato)
-   .nfm-solo-c        → se ve sólo si eligió la opción C (punto de partida): sin grupo, sin agenda */
+   .nfm-solo-c        → se ve sólo si eligió la opción C (todavía le cuesta sostenerse económicamente): sin grupo, sin agenda */
 .nfm-solo-c{ display:none; }
 .nfm-etapa-c .nfm-solo-califica{ display:none !important; }
 .nfm-etapa-c .nfm-solo-c{ display:block; }
@@ -313,7 +313,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
     <div class="nfm-thx__container">
       <div class="nfm-prox-card nfm-rv nfm-rv-3">
         <h3>Qué pasa ahora</h3>
-        <p><strong>Ya estás en la lista.</strong> Cuando abramos el evento para profesionales en etapa de construcción vas a recibir el aviso por mail antes de que salga a público. Revisá tu correo, incluido <strong>spam / promociones</strong>.</p>
+        <p><strong>Ya estás en la lista.</strong> Cuando abramos el evento pensado para quienes todavía están construyendo su base económica, vas a recibir el aviso por mail antes de que salga a público. Revisá tu correo, incluido <strong>spam / promociones</strong>.</p>
         <p>Si en el quiz te equivocaste de opción y sí tenés una empresa, un equipo o una estructura a cargo, respondé el mail de confirmación y te pasamos el acceso a la clase del 22.</p>
       </div>
     </div>
@@ -374,7 +374,7 @@ var CONFIG = {
      quede roto. Ojo: manda al grupo equivocado, así que es red de seguridad, no solución. */
   GRUPO_FALLBACK: 'https://go.wha.link/clase-8-de-septiembre-neurociencia',
 
-  /* Variante para quien eligió C ("punto de partida") en el quiz:
+  /* Variante para quien eligió C ("todavía me cuesta sostenerme económicamente") en el quiz:
        true  → no ve el grupo de WhatsApp ni la agenda; ve "te avisamos del próximo evento".
        false → ve la página normal como todos. El popup igual se muestra sólo a A/B. */
   VARIANTE_C: true,
@@ -428,7 +428,7 @@ var TEST_SIGUIENTE = /test-?landing-?2/i.test(window.location.href);
    La landing guarda nfm_etapa / nfm_equipo en sessionStorage al completar el quiz.
    También se acepta ?etapa=C en la URL (para probar, o si algún día el redirect lo pasa).
      A / B  → calificó: grupo de WhatsApp, agenda, popup.
-     C      → punto de partida: sin grupo, sin agenda, sin popup. Se le avisa del próximo evento.
+     C      → todavía le cuesta sostenerse económicamente: sin grupo, sin agenda, sin popup. Se le avisa del próximo evento.
      sin dato → se trata como si calificara (nunca dejamos a nadie sin grupo por un fallo).
    ══════════════════════════════════════════════════════════════════ */
 var ETAPA  = String(qs('etapa')  || ss('nfm_etapa')  || '').toUpperCase();
@@ -649,7 +649,7 @@ if(clase){
        · Si el popup es HTML: ponerlo adentro del div de abajo (se oculta solo para los C).
        · Si es un script: envolverlo en  if(window.NFM_CALIFICA){ ... }
        · Datos disponibles: window.NFM_ETAPA ('A'|'B'|'C'|null), window.NFM_EQUIPO, window.NFM_CALIFICA (true/false),
-         window.NFM_NIVEL ('alto' = etapa A/B con gente a cargo · 'medio' = A/B sin gente a cargo · 'bajo' = punto de partida)
+         window.NFM_NIVEL ('alto' = etapa A/B con gente a cargo · 'medio' = A/B sin gente a cargo · 'bajo' = C, todavía le cuesta sostenerse económicamente)
      ══════════════════════════════════════════════════════════════════ -->
 <div id="nfm-popup-slot" class="nfm-solo-califica">
   <!-- popup acá -->
