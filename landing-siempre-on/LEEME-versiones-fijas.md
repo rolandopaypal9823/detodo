@@ -53,11 +53,12 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
   Form Builder, agregás cada custom field al form y lo marcás como Hidden. GHL rellena los campos ocultos
   con los parámetros de la URL que tengan el mismo nombre. Las UTM no hace falta crearlas: GHL las captura
   solo.
-- **Thank you page con dos variantes.** Si la persona eligió C, no ve el grupo de WhatsApp ni la agenda:
-  ve "quedaste anotado, te avisamos primero". Si eligió A o B (o si no hay dato), ve todo como siempre.
-  Para probar la variante C sin pasar por el quiz: `thank-you.html?etapa=C`. Como en la landing ya no se
-  le avisa a los C que el evento no es para ellos, esta variante puede sorprenderlos: si preferís que
-  todos vean la página normal, poné `VARIANTE_C: false` en el CONFIG de `thank-you.html` (el popup igual
+- **Thank you page de dos pasos.** Logo, título ("¡Lugar reservado! Ahora, dos pasos para recibir el
+  acceso."), paso 1 "Mirá este video" (Loom), paso 2 "Unite al grupo de WhatsApp para recibir el acceso a
+  la clase" (botón), y la tarjeta con la fecha, el título de la clase, "con Nico Fernández Miranda", hora y
+  Zoom. Nada más. Si la persona eligió C en el quiz, no ve los dos pasos ni la tarjeta: ve "quedaste anotado,
+  te avisamos primero". Para probar esa variante sin pasar por el quiz: `thank-you.html?etapa=C`. Si preferís
+  que todos vean la página normal, poné `VARIANTE_C: false` en el CONFIG de `thank-you.html` (el popup igual
   se muestra sólo a A/B).
 - **Popup post-registro (USD 1 / USD 5):** hay un lugar reservado al final de `thank-you.html`, marcado
   con `POPUP POST-REGISTRO`. Cuando tengas el código, va ahí. Se muestra sólo a quien calificó; los C nunca
