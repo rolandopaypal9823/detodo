@@ -53,6 +53,11 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
   Form Builder, agregás cada custom field al form y lo marcás como Hidden. GHL rellena los campos ocultos
   con los parámetros de la URL que tengan el mismo nombre. Las UTM no hace falta crearlas: GHL las captura
   solo.
+- **Variante con popup (`index-popup.html`).** Misma landing, pero sin el bloque de registro en la página:
+  el quiz y el form se abren en un popup al tocar cualquier botón (hero, sección de bullets, cierre y barra
+  fija). El popup se cierra sólo con la X: ni el clic afuera ni Escape lo cierran, y la página de atrás no
+  scrollea mientras está abierto. Todo lo demás es idéntico a `index.html` (mismos campos, mismo form, mismo
+  pixel). Es para test A/B: una página de GHL con `index.html` y otra con `index-popup.html`, misma thank you.
 - **Thank you page de tres pasos.** Logo, título ("¡Lugar reservado! Ahora, tres pasos para recibir el
   acceso."), paso 1 "Mirá este video" (Loom sin barra de arriba ni "Watch on Loom"; comentarios y vistas se apagan
   en la configuración del video en Loom, las reacciones con emoji quedan), paso 2 "Unite al grupo de WhatsApp para recibir el acceso a
