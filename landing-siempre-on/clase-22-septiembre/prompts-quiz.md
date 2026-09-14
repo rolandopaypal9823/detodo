@@ -30,7 +30,7 @@ warm orange accent. Must read clearly as a tiny thumbnail: strong silhouette, si
 
 ## Pregunta 1 · ¿En qué etapa estás hoy?
 
-### Opción A · "Construí un sostén económico y una trayectoria que me dan tranquilidad. Lo que me cuesta es sostenerlo: presión, cansancio, la cabeza que no se apaga"
+### Opción A · "Construí un sostén financiero y una trayectoria que me dan tranquilidad. Lo que me cuesta es sostenerlo: presión, cansancio, la cabeza que no se apaga"
 
 Lo que tiene que transmitir: *lo logré, y me pesa*. Éxito visible, cuerpo cansado.
 
@@ -55,7 +55,7 @@ screen and a bedside clock reading 01:40 in warm orange digits. The other side o
 and asleep, out of focus. Mood: the growth is real, and it is costing the night.
 ```
 
-### Opción C · "Todavía me cuesta sostenerme económicamente. Hoy el dinero es lo primero que tengo que resolver"
+### Opción C · "Todavía me cuesta sostenerme económicamente. Hoy mis finanzas son lo primero que tengo que atender, antes que cualquier otra cosa"
 
 Lo que tiene que transmitir: *hoy el dinero es mi problema principal*, sin importar la edad. Sin lástima: luz, orden, empuje.
 

@@ -369,13 +369,13 @@ llamadas Platinum. Escalones chicos: nadie abandona un quiz de dos preguntas.
 
 ### Pregunta 1 · ¿En qué etapa estás hoy?
 
-**A.** Construí un sostén económico y una trayectoria que me dan tranquilidad. Lo que me preocupa es lo que
+**A.** Construí un sostén financiero y una trayectoria que me dan tranquilidad. Lo que me preocupa es lo que
 me está costando sostenerlo: la presión, el cansancio, la cabeza que no se apaga.
 
 **B.** Tengo una carrera armada y estoy en etapa de seguir creciendo. Pero el crecimiento me está costando
 desvelos, irritabilidad y tiempo que no tengo para nada más.
 
-**C.** Todavía me cuesta sostenerme económicamente. Hoy el dinero es lo primero que tengo que resolver.
+**C.** Todavía me cuesta sostenerme económicamente. Hoy mis finanzas son lo primero que tengo que atender, antes que cualquier otra cosa.
 
 ### Pregunta 2 · ¿Hay gente cuyo trabajo depende de tus decisiones?
 
