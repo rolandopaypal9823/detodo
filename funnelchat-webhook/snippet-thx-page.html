@@ -1,0 +1,37 @@
+<!-- ═══════════════════════════════════════════════════════
+     SNIPPET — pegar en la Thank You Page (Elementor → HTML)
+
+     Agarra TODOS los parámetros que Calendly dejó en la URL
+     y se los manda a la Netlify Function, que los normaliza y
+     los reenvía a FunnelChat. Se dispara una sola vez por
+     persona (aunque refresque la página).
+
+     ⚠️ Reemplazá TU-SITIO por el subdominio real de Netlify.
+     ═══════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  var ENDPOINT = 'https://TU-SITIO.netlify.app/lead';
+
+  // Todo lo que venga en la URL, sin filtrar: la función se encarga de mapear
+  var payload = {};
+  new URLSearchParams(location.search).forEach(function (value, key) {
+    payload[key] = value;
+  });
+  payload.origen = 'thx-agendamiento';
+
+  // Si no vino nada en la URL, no hay a quién escribirle
+  if (Object.keys(payload).length <= 1) return;
+
+  // Evita duplicados si la persona refresca
+  var KEY = 'nfm_lead_' + (payload.invitee_email || payload.invitee_uuid || location.search);
+  try { if (sessionStorage.getItem(KEY)) return; } catch (e) {}
+
+  fetch(ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function () {
+    try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+  }).catch(function () {});
+})();
+</script>

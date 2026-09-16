@@ -1,0 +1,9 @@
+{
+  "name": "funnelchat-webhook",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node test/local.js",
+    "deploy": "npx netlify-cli deploy --prod"
+  }
+}

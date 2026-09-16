@@ -1,0 +1,18 @@
+{
+  "contact_id": "{{contact.id}}",
+  "first_name": "{{contact.first_name}}",
+  "last_name": "{{contact.last_name}}",
+  "full_name": "{{contact.name}}",
+  "email": "{{contact.email}}",
+  "phone": "{{contact.phone}}",
+  "etapa": "{{contact.etapa}}",
+  "equipo": "{{contact.equipo}}",
+  "nivel": "{{contact.nivel}}",
+  "califica": "{{contact.califica}}",
+  "dedicacion": "{{contact.dedicacion}}",
+  "clase_fecha": "{{contact.clase_fecha}}",
+  "edicion": "{{contact.edicion}}",
+  "utm_source": "{{contact.attributionSource.utmSource}}",
+  "utm_campaign": "{{contact.attributionSource.campaign}}",
+  "origen": "webinar-registro"
+}
