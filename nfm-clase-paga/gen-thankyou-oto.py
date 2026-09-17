@@ -81,14 +81,31 @@ body[data-oto-open]{ overflow:hidden; }
   transform:rotate(-45deg); border-radius:1px; }
 .oto__list b{ color:#fff; font-weight:600; }
 
-/* ── el botón de Stripe ──
-   Se dibuja adentro de un iframe propio, así que su color y su texto se
-   configuran en el panel de Stripe, no acá. Lo único que controlamos es el
-   hueco: se reserva el alto para que la tarjeta no salte cuando carga. */
-.oto__buy{ min-height:52px; display:flex; flex-direction:column; justify-content:center; }
-.oto__buy stripe-buy-button{ display:block; width:100%; }
+/* ── los botones ──
+   Son nuestros, no los de Stripe: el clic va a un Payment Link. Eso nos deja
+   dos cosas que con el buy button no teníamos — el diseño (y con él la
+   jerarquía entre el recomendado y el otro) y poder medir el clic, porque el
+   botón de Stripe vive en un iframe del que no sale ningún evento. */
+.oto__buy{ display:flex; flex-direction:column; gap:10px; }
+.oto__cta{ display:flex; align-items:center; justify-content:center; gap:9px;
+  width:100%; text-align:center; cursor:pointer; text-decoration:none;
+  font-family:var(--nfm-font-h); font-size:1rem; font-weight:700; border-radius:50px;
+  padding:16px 20px; border:none; line-height:1.2;
+  transition:transform .22s var(--nfm-ease), box-shadow .22s var(--nfm-ease),
+             background .22s var(--nfm-ease), border-color .22s var(--nfm-ease), color .22s var(--nfm-ease); }
+.oto__cta svg{ width:17px; height:17px; flex-shrink:0; transition:transform .22s var(--nfm-ease); }
+.oto__cta--ghost{ background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.28); }
+.oto__cta--ghost:hover{ border-color:var(--nfm-orange); color:var(--nfm-orange); transform:translateY(-2px); }
+.oto__cta--full{ background:var(--nfm-orange); color:#fff; box-shadow:0 10px 30px var(--nfm-orange-glow); }
+.oto__cta--full:hover{ background:var(--nfm-orange-hover); color:#fff; transform:translateY(-2px);
+  box-shadow:0 14px 38px var(--nfm-orange-glow); }
+.oto__cta:hover svg{ transform:translateX(4px); }
+.oto__cta[aria-disabled="true"]{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
+
+/* Sólo se ve si el link de pago quedó sin cargar. Es una red de seguridad
+   para que nadie publique la página con un botón que no lleva a ningún lado. */
 .oto__buyerr{ display:none; font-size:.8rem; line-height:1.5; text-align:center;
-  color:rgba(255,255,255,.42); margin:0; }
+  color:var(--nfm-amber); margin:0; }
 .oto__buy[data-fallo] .oto__buyerr{ display:block; }
 
 /* ── el pie: pago + la salida ──
@@ -147,12 +164,9 @@ HTML = """
             <li><b>Workbook con el resumen de la clase</b> y los accionables concretos, para que no dependas de tus apuntes.</li>
             <li><b>La grabación, tuya para siempre.</b> Si ese día se te cruza algo, la ves después.</li>
           </ul>
-          <div class="oto__buy" data-oto-buy="1">
-            <stripe-buy-button
-              buy-button-id="{{BTN_1}}"
-              publishable-key="{{PK}}">
-            </stripe-buy-button>
-            <p class="oto__buyerr">No se pudo cargar el botón de pago. Recargá la página e intentá de nuevo.</p>
+          <div class="oto__buy">
+            <a class="oto__cta oto__cta--ghost" href="{{LINK_1}}" data-oto-buy="1">Lo quiero por USD 1</a>
+            <p class="oto__buyerr">Falta cargar el link de pago de este pack.</p>
           </div>
         </div>
 
@@ -167,12 +181,12 @@ HTML = """
             <li><b>Workbook, grabación y material de apoyo</b> de esa sesión.</li>
             <li><b>El libro completo «Hackea tu Cerebro» en ebook</b> — el mismo que está en librerías. <b>Sólo para las primeras 100 personas.</b></li>
           </ul>
-          <div class="oto__buy" data-oto-buy="5">
-            <stripe-buy-button
-              buy-button-id="{{BTN_5}}"
-              publishable-key="{{PK}}">
-            </stripe-buy-button>
-            <p class="oto__buyerr">No se pudo cargar el botón de pago. Recargá la página e intentá de nuevo.</p>
+          <div class="oto__buy">
+            <a class="oto__cta oto__cta--full" href="{{LINK_5}}" data-oto-buy="5">
+              <span>Lo quiero por USD 5</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <p class="oto__buyerr">Falta cargar el link de pago de este pack.</p>
           </div>
         </div>
 
@@ -191,9 +205,6 @@ HTML = """
 #  JS
 # ══════════════════════════════════════════════════════════════════════════
 JS = """
-<!-- Stripe Buy Button · dibuja los dos botones de pago del pop-up -->
-<script async src="https://js.stripe.com/v3/buy-button.js"></script>
-
 <script>
 /* ════════════════════════════════════════════════════════════════════════
    OTO · el pop-up de la thank you
@@ -203,17 +214,17 @@ JS = """
    no cierra clickeando afuera y Escape no hace nada. Para volver a verlo
    mientras se prueba: agregar ?oto=1 a la URL.
 
-   ⚠️ Los botones de pago son de Stripe y viven adentro de un iframe propio:
-      el clic NO llega hasta acá, así que el evento Purchase lo tiene que
-      mandar la página de gracias de cada compra, no esta página.
+   Los botones son nuestros y llevan a un Payment Link de Stripe, así que el
+   clic sí se puede medir (InitiateCheckout). El Purchase lo tiene que mandar
+   igual la página de gracias de cada compra: ese es el único momento en que
+   hay una venta confirmada.
    ════════════════════════════════════════════════════════════════════════ */
 (function(){
 'use strict';
 
 var OTO = {
   DELAY: 900,                    /* que la página pinte antes de taparla */
-  CLAVE: 'nfm_oto_visto',
-  ESPERA_STRIPE: 7000            /* si en 7s no cargó, se avisa en vez de dejar el hueco vacío */
+  CLAVE: 'nfm_oto_visto'
 };
 
 var box = document.getElementById('oto');
@@ -237,11 +248,28 @@ function cerrar(){
   marcar();
 }
 
-/* Acá NO hay un listener sobre los botones de pago, y no es un olvido: el
-   botón de Stripe se dibuja adentro de un iframe, y ni el clic ni el
-   pointerdown salen de ahí. Tampoco hace falta — al pagar, Stripe se lleva a
-   la persona a su checkout. Si vuelve con el botón Atrás sin haber pagado, el
-   pop-up le aparece de nuevo, que es lo que queremos. */
+/* Los botones de pago. Si el link quedó sin cargar, el botón no navega a
+   ningún lado y se avisa arriba del pie — mejor eso que mandar a una URL
+   rota o, peor, que alguien publique la página sin darse cuenta. */
+var PRECIO = { '1':1, '5':5 };
+var botones = box.querySelectorAll('[data-oto-buy]');
+for(var i=0;i<botones.length;i++){
+  (function(a){
+    var pack = a.getAttribute('data-oto-buy');
+    var url  = a.getAttribute('href') || '';
+    if(/^\s*\{\{/.test(url) || !url){
+      a.setAttribute('aria-disabled','true');
+      a.removeAttribute('href');
+      a.closest('.oto__buy').setAttribute('data-fallo','');
+      if(window.console && console.warn) console.warn('[NFM] Falta el Payment Link del pack de USD '+pack);
+      return;
+    }
+    a.addEventListener('click', function(){
+      track('InitiateCheckout', {content_name:'oto_pack_'+pack, value:PRECIO[pack], currency:'USD'});
+      marcar();
+    });
+  })(botones[i]);
+}
 
 /* La salida */
 var no = box.querySelector('[data-oto-no]');
@@ -258,24 +286,12 @@ document.addEventListener('keydown', function(e){
   if(!box.hasAttribute('data-open')) return;
   if(e.key === 'Escape'){ e.preventDefault(); return; }
   if(e.key !== 'Tab') return;
-  var f = box.querySelectorAll('button, [href], input, select, textarea, stripe-buy-button, [tabindex]:not([tabindex="-1"])');
+  var f = box.querySelectorAll('button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
   if(!f.length) return;
   var primero = f[0], ultimo = f[f.length-1];
   if(e.shiftKey && document.activeElement === primero){ e.preventDefault(); ultimo.focus(); }
   else if(!e.shiftKey && document.activeElement === ultimo){ e.preventDefault(); primero.focus(); }
 }, true);
-
-/* Si Stripe no carga (bloqueador, red caída, script caído), el hueco queda
-   vacío y la persona no entiende por qué no puede pagar. Se avisa. */
-if(window.customElements && customElements.whenDefined){
-  var listo = false;
-  customElements.whenDefined('stripe-buy-button').then(function(){ listo = true; });
-  setTimeout(function(){
-    if(listo) return;
-    var h = box.querySelectorAll('.oto__buy');
-    for(var j=0;j<h.length;j++) h[j].setAttribute('data-fallo','');
-  }, OTO.ESPERA_STRIPE);
-}
 
 if(forzado() || !visto()) setTimeout(abrir, OTO.DELAY);
 })();
@@ -283,15 +299,23 @@ if(forzado() || !visto()) setTimeout(abrir, OTO.DELAY);
 """
 
 # ══════════════════════════════════════════════════════════════════════════
-#  Stripe · IDs de los botones
-#  ⚠️ ESTO ES PLATA REAL: la clave es pk_live. Si los dos IDs quedan
-#     cruzados, el Básico cobra 5 y el otro cobra 1. Confirmar contra el
-#     panel de Stripe antes de publicar — es lo único que hay que mirar acá.
+#  Stripe · los Payment Links
+#
+#  Son los `buy.stripe.com/...` de cada producto (en Stripe: el producto →
+#  Payment link → Copiar link). Los botones ya no son los de Stripe, así que
+#  acá va la URL, no el id del buy button.
+#
+#  ⚠️ ESTO ES PLATA REAL. Si los dos links quedan cruzados, el Básico cobra 5
+#     y el otro cobra 1 — ya pasó una vez con los ids de los buy buttons.
+#     Antes de publicar: abrir la página, clickear cada botón y confirmar que
+#     el checkout de Stripe muestra el precio y el nombre que corresponden.
+#
+#  Mientras estén vacíos el botón no navega a ningún lado y la tarjeta avisa
+#  «Falta cargar el link de pago» — a propósito, para que no se publique así.
 # ══════════════════════════════════════════════════════════════════════════
 STRIPE = {
-  'PK'    : 'pk_live_51QoqTa4EXY0lpTArqfyGuVkqUNbebcUt7y7KvitbwxsqAs2IxR7aL9jKsiFnyHnvHGqT8hsK81iiz5ZADFP2TNsL00Ci0loiug',
-  'BTN_1' : 'buy_btn_1UFhOE4EXY0lpTArJSRUYiGI',   # Asiento Premium Básico · USD 1
-  'BTN_5' : 'buy_btn_1UFhJo4EXY0lpTArVIiU2xPY',   # Asiento Premium Hackea tu Productividad · USD 5
+  'LINK_1' : '',   # Asiento Premium Básico · USD 1
+  'LINK_5' : '',   # Asiento Premium · Hackea tu Productividad · USD 5
 }
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -311,14 +335,17 @@ def main():
             raise SystemExit('Ancla que no aparece exactamente una vez en la base: ' + viejo[:60])
         s = s.replace(viejo, nuevo)
 
+    faltan = []
     for k, v in STRIPE.items():
-        s = s.replace('{{' + k + '}}', v)
-
-    sobran = [t for t in ('{{PK}}','{{BTN_1}}','{{BTN_5}}') if t in s]
-    if sobran:
-        raise SystemExit('Quedaron tokens sin reemplazar: ' + ', '.join(sobran))
+        if v:
+            s = s.replace('{{' + k + '}}', v)
+        else:
+            faltan.append(k)
 
     io.open(DST, 'w', encoding='utf-8').write(s)
     print('escrito', DST, len(s), 'bytes')
+    if faltan:
+        print('⚠️  sin Payment Link todavía: ' + ', '.join(faltan) +
+              ' — esos botones quedan desactivados y la tarjeta lo avisa.')
 
 main()
