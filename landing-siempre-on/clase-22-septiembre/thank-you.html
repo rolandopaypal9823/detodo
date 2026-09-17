@@ -180,6 +180,43 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-thx__footer{ padding:30px 0; border-top:1px solid var(--nfm-hair); text-align:center; }
 .nfm-thx__footer p{ font-size:0.8rem; color:var(--nfm-tm); }
 
+/* ── POPUP POST-REGISTRO · asiento USD 1 / USD 5 (sólo A y B) ── */
+.nfm-oferta{ position:fixed; inset:0; z-index:99999; display:flex; align-items:center; justify-content:center; padding:20px; box-sizing:border-box; }
+.nfm-oferta, .nfm-oferta *{ box-sizing:border-box; }
+.nfm-oferta[hidden]{ display:none !important; }
+.nfm-oferta__bg{ position:absolute; inset:0; background:rgba(3,14,26,0.82); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+.nfm-oferta__panel{ position:relative; z-index:1; width:100%; max-width:640px; max-height:calc(100vh - 40px); max-height:calc(100dvh - 40px); overflow-y:auto; -webkit-overflow-scrolling:touch; background:var(--nfm-navy-1); border:1px solid rgba(255,255,255,0.12); border-radius:22px; padding:36px 30px 26px; box-shadow:0 40px 100px rgba(0,0,0,0.6); text-align:center !important; animation:nfm-oferta-in .4s var(--nfm-ease) both; font-family:var(--nfm-font-b); color:#fff; }
+@keyframes nfm-oferta-in{ from{ opacity:0; transform:translateY(18px) scale(.98); } to{ opacity:1; transform:none; } }
+.nfm-oferta__close{ position:absolute; top:12px; right:12px; width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.06); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; z-index:2; }
+.nfm-oferta__close svg{ width:16px !important; height:16px !important; }
+.nfm-oferta__close:hover{ background:rgba(255,255,255,0.12); }
+.nfm-oferta__eyebrow{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.72rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-orange); border:1px solid rgba(255,102,2,0.4); padding:6px 14px; border-radius:50px; margin:0 0 16px; }
+.nfm-oferta__panel h2{ font-family:var(--nfm-font-h); font-size:clamp(1.35rem,3vw,1.85rem); font-weight:700; line-height:1.18; letter-spacing:-0.02em; margin:0 0 12px !important; text-align:center !important; text-wrap:balance; }
+.nfm-oferta__panel h2 .acc{ color:var(--nfm-orange); }
+.nfm-oferta__sub{ font-size:1rem; color:var(--nfm-tm); line-height:1.55; max-width:32em; margin:0 auto 24px !important; text-align:center !important; }
+.nfm-oferta__grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; text-align:center; }
+.nfm-oferta__card{ background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.10); border-radius:16px; padding:22px 18px 18px; display:flex; flex-direction:column; align-items:center; }
+.nfm-oferta__card--top{ border-color:rgba(255,102,2,0.45); background:rgba(255,102,2,0.07); }
+.nfm-oferta__price{ font-family:var(--nfm-font-h); font-size:2rem; font-weight:700; color:#fff; line-height:1; margin:0 0 8px; }
+.nfm-oferta__price small{ font-size:0.95rem; font-weight:600; color:var(--nfm-orange); margin-left:4px; }
+.nfm-oferta__card h3{ font-family:var(--nfm-font-h); font-size:1.05rem; font-weight:700; color:#fff; margin:0 0 8px !important; text-align:center !important; }
+.nfm-oferta__card p{ font-size:0.9rem; color:var(--nfm-tl); line-height:1.5; margin:0 0 16px !important; text-align:center !important; flex:1; }
+.nfm-oferta__btn{ width:100%; display:flex; justify-content:center; min-height:48px; }
+/* esqueleto mientras Stripe dibuja el botón */
+.nfm-oferta__btn::before{ content:'Cargando…'; display:flex; align-items:center; justify-content:center; width:100%; max-width:220px; height:44px; border-radius:8px; background:rgba(255,255,255,0.08); color:var(--nfm-ts); font-size:0.85rem; }
+.nfm-oferta--stripe .nfm-oferta__btn::before{ display:none; }
+.nfm-oferta__skip{ margin:20px auto 0; display:inline-block; background:none; border:none; color:var(--nfm-ts); font-family:var(--nfm-font-b); font-size:0.88rem; text-decoration:underline; text-underline-offset:3px; cursor:pointer; padding:6px 10px; }
+.nfm-oferta__skip:hover{ color:var(--nfm-tm); }
+html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
+@media (max-width:600px){
+  .nfm-oferta{ padding:0; align-items:flex-end; }
+  .nfm-oferta__panel{ max-height:100vh; max-height:100dvh; border-radius:22px 22px 0 0; padding:30px 18px 20px; }
+  .nfm-oferta__grid{ grid-template-columns:1fr; gap:12px; }
+  .nfm-oferta__card{ padding:18px 16px 16px; }
+  .nfm-oferta__price{ font-size:1.7rem; }
+}
+@media (prefers-reduced-motion:reduce){ .nfm-oferta__panel{ animation:none; } }
+
 /* ── BARRA DE MODO PRUEBA ── */
 .nfm-testbar{ background:var(--nfm-orange); color:#fff; font-family:var(--nfm-font-h);
   font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
@@ -652,7 +689,74 @@ if(clase){
          window.NFM_NIVEL ('alto' = etapa A/B con gente a cargo · 'medio' = A/B sin gente a cargo · 'bajo' = C, todavía le cuesta sostenerse económicamente)
      ══════════════════════════════════════════════════════════════════ -->
 <div id="nfm-popup-slot" class="nfm-solo-califica">
-  <!-- popup acá -->
+  <!-- El script de Stripe (buy-button.js) lo inyecta el JS de abajo, sólo si el popup se va a mostrar -->
+
+  <div class="nfm-oferta" id="nfm-oferta" hidden aria-hidden="true">
+    <div class="nfm-oferta__bg"></div>
+    <div class="nfm-oferta__panel" role="dialog" aria-modal="true" aria-labelledby="nfm-oferta-title">
+      <button type="button" class="nfm-oferta__close" id="nfm-oferta-close" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <span class="nfm-oferta__eyebrow">Tu registro ya está hecho</span>
+      <h2 id="nfm-oferta-title">¿Querés <span class="acc">asegurar tu asiento</span> en la clase en vivo?</h2>
+      <p class="nfm-oferta__sub">El cupo del Zoom es limitado y entra primero quien reservó su asiento. Elegí cómo querés asegurarlo para el <strong data-thx-fecha="diaYNumero">martes 22</strong>:</p>
+
+      <div class="nfm-oferta__grid">
+        <!-- ASIENTO USD 1 -->
+        <div class="nfm-oferta__card">
+          <div class="nfm-oferta__price">USD 1</div>
+          <h3>Asiento reservado</h3>
+          <p>Tu lugar queda asegurado, con acceso prioritario al Zoom el día de la clase.</p>
+          <div class="nfm-oferta__btn">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1UFhJo4EXY0lpTArVIiU2xPY"
+              publishable-key="pk_live_51QoqTa4EXY0lpTArqfyGuVkqUNbebcUt7y7KvitbwxsqAs2IxR7aL9jKsiFnyHnvHGqT8hsK81iiz5ZADFP2TNsL00Ci0loiug">
+            </stripe-buy-button>
+          </div>
+        </div>
+        <!-- ASIENTO USD 5 -->
+        <div class="nfm-oferta__card nfm-oferta__card--top">
+          <div class="nfm-oferta__price">USD 5</div>
+          <h3>Asiento + grabación</h3>
+          <p>Lo mismo, más la grabación de la clase para volver a verla cuando quieras.</p>
+          <div class="nfm-oferta__btn">
+            <stripe-buy-button
+              buy-button-id="buy_btn_1UFhOE4EXY0lpTArJSRUYiGI"
+              publishable-key="pk_live_51QoqTa4EXY0lpTArqfyGuVkqUNbebcUt7y7KvitbwxsqAs2IxR7aL9jKsiFnyHnvHGqT8hsK81iiz5ZADFP2TNsL00Ci0loiug">
+            </stripe-buy-button>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="nfm-oferta__skip" id="nfm-oferta-skip">Sigo sin asegurar mi asiento</button>
+    </div>
+  </div>
+
+  <script>
+  /* ── POPUP DE ASIENTO ──
+     Aparece DEMORA_MS después de cargar, sólo a quien calificó (etapa A o B; los C nunca lo ven porque
+     todo el slot está oculto para ellos). Se cierra con la X o con "Sigo sin asegurar mi asiento";
+     el clic en el fondo no lo cierra. Si lo cierran, no vuelve a salir en esa sesión.
+     A cada botón de Stripe le agrega client-reference-id = etapa-nivel-edicion, para ver en Stripe
+     de qué perfil vino cada pago. */
+  (function(){
+    var CFG = { DEMORA_MS: 4000, UNA_VEZ_POR_SESION: true };
+    if(!window.NFM_CALIFICA) return;
+    var el=document.getElementById('nfm-oferta'); if(!el) return;
+    var KEY='nfm_oferta_cerrada';
+    try{ if(CFG.UNA_VEZ_POR_SESION && window.sessionStorage.getItem(KEY)) return; }catch(e){}
+    var st=document.createElement('script'); st.async=true; st.src='https://js.stripe.com/v3/buy-button.js'; document.head.appendChild(st);
+    var ref=[window.NFM_ETAPA||'x', window.NFM_NIVEL||'x', 'sep22'].join('-').replace(/[^A-Za-z0-9_-]/g,'');
+    var botones=el.querySelectorAll('stripe-buy-button');
+    for(var i=0;i<botones.length;i++) botones[i].setAttribute('client-reference-id', ref);
+    function abrir(){ el.hidden=false; el.setAttribute('aria-hidden','false'); document.documentElement.classList.add('nfm-oferta-open'); }
+    function cerrar(){ el.hidden=true; el.setAttribute('aria-hidden','true'); document.documentElement.classList.remove('nfm-oferta-open'); try{ window.sessionStorage.setItem(KEY,'1'); }catch(e){} }
+    var x=document.getElementById('nfm-oferta-close'), skip=document.getElementById('nfm-oferta-skip');
+    if(x) x.addEventListener('click', cerrar);
+    if(skip) skip.addEventListener('click', cerrar);
+    if(window.customElements && customElements.whenDefined){ customElements.whenDefined('stripe-buy-button').then(function(){ el.classList.add('nfm-oferta--stripe'); }); }
+    window.NFM_ABRIR_OFERTA = abrir;
+    setTimeout(abrir, CFG.DEMORA_MS);
+  })();
+  </script>
 </div>
 <!-- ═══════════ HASTA ACÁ EL CUSTOM CODE DE GHL ═══════════ -->
 </body>

@@ -82,9 +82,14 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
   instalada cae al link web del grupo. Si `wa_codigo` queda vacío, el botón usa el link `wa` (wha.link)
   como siempre. En escritorio no cambia nada: `chat.whatsapp.com` ya ofrece abrir WhatsApp Desktop o Web.
   Se apaga con `WA_ABRIR_APP: false`.
-- **Popup post-registro (USD 1 / USD 5):** hay un lugar reservado al final de `thank-you.html`, marcado
-  con `POPUP POST-REGISTRO`. Cuando tengas el código, va ahí. Se muestra sólo a quien calificó; los C nunca
-  lo ven. Si el popup es un script, envolvelo en `if(window.NFM_CALIFICA){ ... }`.
+- **Popup post-registro (asiento USD 1 / USD 5).** Ya está armado al final de `thank-you.html`, dentro del
+  slot `POPUP POST-REGISTRO`. Aparece 4 segundos después de cargar, sólo a quien calificó (A o B); los C
+  nunca lo ven y tampoco descargan el script de Stripe. Dos tarjetas con un botón de Stripe cada una
+  (`buy_btn_1UFhJo…` = USD 1 "Asiento reservado", `buy_btn_1UFhOE…` = USD 5 "Asiento + grabación"). Se
+  cierra con la X o con "Sigo sin asegurar mi asiento"; el clic en el fondo no lo cierra; si lo cierran no
+  vuelve a salir en esa sesión. A cada botón le agrega `client-reference-id = etapa-nivel-sep22` para ver
+  en Stripe de qué perfil vino cada pago. Textos y demora (`DEMORA_MS`) se editan ahí mismo. La página a la
+  que va la persona después de pagar se configura en cada Buy Button dentro de Stripe.
 - **"Qué vas a aprender en el Zoom En Vivo"**: seis puntos de una línea, con número y emoji, sin bajadas.
 - **Las cinco escenas de Nico** van apiladas y centradas (imagen arriba, texto abajo): el contador que
   llegó rápido, el precio por la productividad, el punto de inflexión en París, la variable para escalar
