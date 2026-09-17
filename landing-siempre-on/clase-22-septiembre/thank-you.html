@@ -175,6 +175,9 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-rem-info .con{ font-family:var(--nfm-font-h); font-size:0.92rem; font-weight:600; color:var(--nfm-orange); margin:0 0 10px !important; }
 .nfm-rem-info .time{ font-family:var(--nfm-font-h); font-weight:600; color:#fff; font-size:0.96rem; margin:0 0 4px !important; }
 .nfm-rem-info .via{ font-size:0.85rem; color:var(--nfm-tm); margin:0 !important; }
+.nfm-rem-info .local{ font-family:var(--nfm-font-h); font-size:0.9rem; color:var(--nfm-orange); font-weight:600; margin:0 0 6px !important; }
+.nfm-rem-info .local[hidden]{ display:none !important; }
+.nfm-rem-info .local strong{ color:#fff; }
 
 /* ── FOOTER ── */
 .nfm-thx__footer{ padding:30px 0; border-top:1px solid var(--nfm-hair); text-align:center; }
@@ -339,6 +342,7 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
           <h4 data-thx="claseTitulo">Neurociencia para el Alto Rendimiento Profesional</h4>
           <p class="con">con Nico Fernández Miranda</p>
           <p class="time"><span data-thx-fecha="hora">19:00 hs (Argentina)</span></p>
+          <p class="local" data-nfm-local hidden></p>
           <p class="via">Vía Zoom · El acceso llega al grupo de WhatsApp</p>
         </div>
       </div>
@@ -614,6 +618,26 @@ if(clase){
     if(COPY[kt] != null) e[i].innerHTML = COPY[kt];
   }
   if(COPY.tituloPagina) document.title = COPY.tituloPagina;
+
+/* ─── HORA LOCAL DEL VISITANTE ───
+   Usa la zona horaria del navegador (sin IP, sin permisos, sin servicios externos). Si no es Argentina,
+   escribe en cada [data-nfm-local] a qué hora es la clase en su país. Si es Argentina, no muestra nada. */
+(function(){
+  var els=document.querySelectorAll('[data-nfm-local]'); if(!els.length) return;
+  var tz; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone; }catch(e){}
+  if(!tz || /Argentina|Buenos_Aires|Cordoba|Catamarca|Jujuy|La_Rioja|Mendoza|Rio_Gallegos|Salta|San_Juan|San_Luis|Tucuman|Ushuaia/.test(tz)) return;
+  var PAISES={ 'America/Santiago':'Chile','America/Punta_Arenas':'Chile','America/Bogota':'Colombia','America/Lima':'Perú','America/Mexico_City':'México','America/Monterrey':'México','America/Cancun':'México','America/Tijuana':'México','America/Merida':'México','America/Caracas':'Venezuela','America/Guayaquil':'Ecuador','America/La_Paz':'Bolivia','America/Asuncion':'Paraguay','America/Montevideo':'Uruguay','America/Sao_Paulo':'Brasil','America/Panama':'Panamá','America/Costa_Rica':'Costa Rica','America/Guatemala':'Guatemala','America/El_Salvador':'El Salvador','America/Tegucigalpa':'Honduras','America/Managua':'Nicaragua','America/Santo_Domingo':'República Dominicana','America/Havana':'Cuba','America/Puerto_Rico':'Puerto Rico','America/New_York':'Estados Unidos (Este)','America/Detroit':'Estados Unidos (Este)','America/Chicago':'Estados Unidos (Centro)','America/Denver':'Estados Unidos (Montaña)','America/Phoenix':'Estados Unidos (Arizona)','America/Los_Angeles':'Estados Unidos (Pacífico)','America/Toronto':'Canadá (Este)','America/Vancouver':'Canadá (Pacífico)','Europe/Madrid':'España','Atlantic/Canary':'Canarias','Europe/Lisbon':'Portugal','Europe/London':'Reino Unido','Europe/Dublin':'Irlanda','Europe/Paris':'Francia','Europe/Rome':'Italia','Europe/Berlin':'Alemania','Europe/Amsterdam':'Países Bajos','Europe/Zurich':'Suiza','Europe/Andorra':'Andorra' };
+  var pais=PAISES[tz] || tz.split('/').pop().replace(/_/g,' ');
+  var d=new Date(clase.ts), hora, diaLocal, diaNum;
+  try{
+    hora=new Intl.DateTimeFormat('es',{timeZone:tz,hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d);
+    diaNum=parseInt(new Intl.DateTimeFormat('en',{timeZone:tz,day:'numeric'}).format(d),10);
+    diaLocal=new Intl.DateTimeFormat('es',{timeZone:tz,weekday:'long',day:'numeric'}).format(d);
+  }catch(e){ return; }
+  var txt='En '+pais+' son las <strong>'+hora+' hs</strong>'+(diaNum!==partesArg(clase.ts).dia ? ' del '+diaLocal.replace(',','') : '');
+  for(var i=0;i<els.length;i++){ els[i].innerHTML=txt; els[i].hidden=false; }
+})();
+
 
   /* grupo de WhatsApp de esta clase */
   var btn = document.getElementById('nfm-thx-wa');
