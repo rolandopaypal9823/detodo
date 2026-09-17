@@ -143,11 +143,9 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-eq{ background:var(--nfm-white); padding:84px 0; text-align:center; }
 .nfm-eq .nfm-container{ display:flex; flex-direction:column; align-items:center; }
 .nfm-eq h2{ width:100%; text-align:center !important; }
-.nfm-eq h2{ font-family:var(--nfm-font-h); font-size:clamp(1.5rem,3vw,2.1rem); font-weight:700; color:var(--nfm-ink); letter-spacing:-0.02em; line-height:1.15; margin:0 0 16px; }
-.nfm-eq__sub{ margin:0 auto 36px !important; max-width:32em; font-family:var(--nfm-font-h); font-size:1.08rem; line-height:1.5; color:var(--nfm-ink-mute); text-align:center !important; text-wrap:balance; }
-.nfm-eq__sub strong{ color:var(--nfm-ink); font-weight:700; }
+.nfm-eq h2{ font-family:var(--nfm-font-h); font-size:clamp(1.5rem,3vw,2.1rem); font-weight:700; color:var(--nfm-ink); letter-spacing:-0.02em; line-height:1.15; margin:0 0 40px; }
 .nfm-eq h2 .nfm-q, .nfm-eq h2 em{ color:var(--nfm-orange); font-style:normal; }
-.nfm-eq__cap{ margin:26px auto 0 !important; font-family:var(--nfm-font-h); font-size:1.05rem; color:var(--nfm-ink-mute); max-width:34em; line-height:1.5; text-align:center !important; }
+.nfm-eq__cap{ margin:26px auto 0 !important; font-family:var(--nfm-font-h); font-size:1.05rem; color:var(--nfm-ink-mute); max-width:36em; line-height:1.5; text-align:center !important; text-wrap:balance; }
 .nfm-eq__cap strong{ color:var(--nfm-ink); font-weight:700; }
 .nfm-eq__board{ width:100%; max-width:640px; margin:0 auto !important; background:var(--nfm-gray-50); border:1px solid var(--nfm-gray-200); border-radius:var(--nfm-r-lg); padding:36px 28px; box-shadow:0 20px 60px rgba(12,52,82,0.08); }
 .nfm-eq__list{ list-style:none !important; margin:0 auto !important; padding:0 !important; display:flex; flex-direction:column; align-items:center; width:100%; }
@@ -317,7 +315,7 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
   .nfm-cd{ width:100%; gap:8px; } .nfm-cd__item{ min-width:0; flex:1; padding:11px 8px; } .nfm-cd__num{ font-size:1.5rem; }
   .nfm-eq, .nfm-reg, .nfm-nico, .nfm-learn, .nfm-tst{ padding:64px 0; } .nfm-final{ padding:72px 0; }
   .nfm-eq__board{ padding:26px 16px; }
-  .nfm-eq__sub{ font-size:1rem; margin-bottom:28px !important; } .nfm-eq__list li{ font-size:1rem; padding:9px 0; } .nfm-eq__list li s{ text-decoration-thickness:2px; } .nfm-eq__sum{ font-size:1.18rem; gap:8px 10px; } .nfm-eq__grp{ gap:10px; }
+  .nfm-eq__list li{ font-size:1rem; padding:9px 0; } .nfm-eq__list li s{ text-decoration-thickness:2px; } .nfm-eq__sum{ font-size:1.18rem; gap:8px 10px; } .nfm-eq__grp{ gap:10px; }
   .nfm-quiz{ padding:22px 18px; } .nfm-opt{ gap:12px; } .nfm-opt__img{ width:58px; height:58px; border-radius:9px; }
   .nfm-map{ padding:8px 20px; } .nfm-map__item{ gap:14px; align-items:flex-start; } .nfm-map__ico{ width:42px; height:42px; border-radius:11px; } .nfm-map__ico svg{ width:21px; height:21px; } .nfm-map__txt h4{ font-size:1.02rem; }
   .nfm-proof{ padding:34px 0 30px; } .nfm-proof__label{ padding-bottom:24px; } .nfm-proof__logo{ max-height:26px !important; max-width:130px !important; } .nfm-marquee__set{ gap:40px; padding-right:40px; }
@@ -405,7 +403,6 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
   <div class="nfm-container nfm-narrow">
     <span class="nfm-eyebrow nfm-reveal">Lo que este evento desarma</span>
     <h2 class="nfm-reveal nfm-d1">Más <span class="nfm-q">"productivo"</span> sos,<br><em>más alto el precio que pagás.</em></h2>
-    <p class="nfm-eq__sub nfm-reveal nfm-d1"><strong>Pensalo:</strong> cada nuevo nivel al que llegás te cuesta descanso, salud y tiempo con tu familia.</p>
     <div class="nfm-eq__board nfm-reveal nfm-d2" aria-label="Ecuación del evento">
       <ul class="nfm-eq__list">
         <li><s>Sacrificarse</s></li>
@@ -419,7 +416,7 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
         <span class="nfm-eq__grp"><span class="nfm-eq__op">=</span><span>resultados sostenibles</span><span class="nfm-eq__mark nfm-eq__mark--yes" aria-label="correcto">✓</span></span>
       </div>
     </div>
-    <p class="nfm-eq__cap nfm-reveal nfm-d3"><strong>¿Qué dice la neurociencia?</strong><br>Lo vemos en vivo el <span data-nfm-fecha="corta">22 de septiembre</span>.</p>
+    <p class="nfm-eq__cap nfm-reveal nfm-d3"><strong>¿Qué dice la neurociencia?</strong><br>Lo vemos en vivo el <span data-nfm-fecha="diaYNumero">martes 22</span>: cómo lograr que la productividad sea un medio para un fin, no al revés.</p>
   </div>
 </section>
 
@@ -666,7 +663,8 @@ var TS = tsClase(CONFIG.FECHA), P = partesArg(TS);
 var DIAS_C=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'], MESES_C=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 var FECHAS = { larga: DIAS[P.dow]+' '+P.dia+' de '+MESES[P.mes], corta: P.dia+' de '+MESES[P.mes], hora: pad(P.hh)+':'+pad(P.mm)+' hs (Argentina)',
                pill: DIAS_C[P.dow]+' '+P.dia+' '+MESES_C[P.mes]+' · '+pad(P.hh)+':'+pad(P.mm)+' hs (Arg) · Zoom',
-               abr: P.dia+' de '+MESES_C[P.mes].charAt(0).toUpperCase()+MESES_C[P.mes].slice(1)+'.' };
+               abr: P.dia+' de '+MESES_C[P.mes].charAt(0).toUpperCase()+MESES_C[P.mes].slice(1)+'.',
+               diaYNumero: DIAS[P.dow].toLowerCase()+' '+P.dia };
 FECHAS.completa = FECHAS.larga+' · '+FECHAS.hora+' · En vivo por Zoom';
 (function(){ var f=document.querySelectorAll('[data-nfm-fecha]'); for(var i=0;i<f.length;i++){ var k=f[i].getAttribute('data-nfm-fecha'); if(FECHAS[k]!=null) f[i].textContent=FECHAS[k]; } })();
 
