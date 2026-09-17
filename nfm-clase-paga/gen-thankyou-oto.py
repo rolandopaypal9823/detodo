@@ -98,10 +98,11 @@ body[data-oto-open]{ overflow:hidden; }
 .oto__foot{ position:sticky; bottom:0; margin:0 -34px; padding:16px 34px 20px;
   background:#0B2942; border-top:1px solid rgba(255,255,255,.09); }
 .oto__pay{ font-size:.78rem; color:rgba(255,255,255,.42); margin:0; line-height:1.5; }
-.oto__no{ display:inline-block; margin:10px 0 0; padding:6px 4px; background:none; border:none;
-  font-family:var(--nfm-font-b); font-size:.84rem; color:rgba(255,255,255,.42);
-  text-decoration:underline; text-underline-offset:3px; cursor:pointer; line-height:1.5; }
-.oto__no:hover{ color:rgba(255,255,255,.66); }
+.oto__no{ display:inline-block; margin:12px 0 0; padding:6px 4px; background:none; border:none;
+  font-family:var(--nfm-font-b); font-size:.92rem; font-weight:600; color:rgba(255,255,255,.68);
+  text-decoration:underline; text-underline-offset:3px; cursor:pointer; line-height:1.5;
+  transition:color .2s var(--nfm-ease); }
+.oto__no:hover{ color:#fff; }
 
 @media (max-width:720px){
   .oto{ padding:12px; align-items:flex-start; }
@@ -164,6 +165,7 @@ HTML = """
             <li><b>Todo lo del Básico</b> — workbook y grabación de la clase.</li>
             <li><b>Sesión de 60 minutos de preguntas y respuestas</b> con Nicolás Fernández Miranda y Soledad Funes, psicóloga experta en TDA/H. <b>Tenés a los dos expertos ahí</b> para contestar preguntas sobre tu caso.</li>
             <li><b>Workbook, grabación y material de apoyo</b> de esa sesión.</li>
+            <li><b>El libro completo «Hackea tu Cerebro» en ebook</b> — el mismo que está en librerías. <b>Sólo para las primeras 100 personas.</b></li>
           </ul>
           <div class="oto__buy" data-oto-buy="5">
             <stripe-buy-button
@@ -288,8 +290,8 @@ if(forzado() || !visto()) setTimeout(abrir, OTO.DELAY);
 # ══════════════════════════════════════════════════════════════════════════
 STRIPE = {
   'PK'    : 'pk_live_51QoqTa4EXY0lpTArqfyGuVkqUNbebcUt7y7KvitbwxsqAs2IxR7aL9jKsiFnyHnvHGqT8hsK81iiz5ZADFP2TNsL00Ci0loiug',
-  'BTN_1' : 'buy_btn_1UFhJo4EXY0lpTArVIiU2xPY',   # Asiento Premium Básico · USD 1
-  'BTN_5' : 'buy_btn_1UFhOE4EXY0lpTArJSRUYiGI',   # Asiento Premium Hackea tu Productividad · USD 5
+  'BTN_1' : 'buy_btn_1UFhOE4EXY0lpTArJSRUYiGI',   # Asiento Premium Básico · USD 1
+  'BTN_5' : 'buy_btn_1UFhJo4EXY0lpTArVIiU2xPY',   # Asiento Premium Hackea tu Productividad · USD 5
 }
 
 # ══════════════════════════════════════════════════════════════════════════
