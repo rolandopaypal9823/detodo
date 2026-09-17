@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Neurociencia para el Alto Rendimiento Profesional · Evento en vivo con Nico Fernández Miranda</title>
+<title>Dejá de pagar el sobreprecio de ser "productivo" · Neurociencia para el Alto Rendimiento Profesional · Evento en vivo con Nico Fernández Miranda</title>
 <meta name="description" content="Evento en vivo: Neurociencia para el Alto Rendimiento Profesional, con Nico Fernández Miranda. Para líderes, empresarios y profesionales que ya construyeron algo y están pagando el costo de sostenerlo.">
 
 <!-- ════════════════════════════════════════════════════════════════
@@ -98,8 +98,13 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-hero__tag{ display:inline-flex; align-items:center; gap:9px; font-family:var(--nfm-font-h); font-size:0.74rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#fff;
   background:rgba(8,31,51,0.55); border:1px solid rgba(255,255,255,0.18); padding:8px 16px; border-radius:50px; margin-bottom:18px; backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); animation:nfm-fu .6s var(--nfm-ease) both; }
 .nfm-hero__tag .nfm-dot{ width:7px; height:7px; }
-.nfm-hero__title{ font-family:var(--nfm-font-h); font-size:clamp(2.05rem,4.8vw,3.6rem); font-weight:700; color:#fff; line-height:1.04; letter-spacing:-0.035em; margin:0 0 10px; text-wrap:balance; text-shadow:0 2px 24px rgba(0,0,0,0.5); animation:nfm-fu .6s .1s var(--nfm-ease) both; }
-.nfm-hero__with{ font-family:var(--nfm-font-h); font-size:clamp(1.05rem,1.8vw,1.3rem); color:var(--nfm-orange); font-weight:600; margin:0 0 26px; animation:nfm-fu .6s .16s var(--nfm-ease) both; }
+.nfm-hero__title{ font-family:var(--nfm-font-h); font-size:clamp(1.9rem,4.4vw,3.2rem); font-weight:700; color:#fff; line-height:1.06; letter-spacing:-0.03em; margin:0 auto 18px !important; text-wrap:balance; text-shadow:0 2px 24px rgba(0,0,0,0.5); text-align:center !important; animation:nfm-fu .6s .1s var(--nfm-ease) both; }
+.nfm-hero__title em{ color:var(--nfm-orange); font-style:normal; }
+/* el nombre del evento: segunda lectura, en blanco, con una barrita naranja arriba */
+.nfm-hero__event{ font-family:var(--nfm-font-h); font-size:clamp(1.2rem,2.3vw,1.7rem); font-weight:700; color:#fff; line-height:1.2; letter-spacing:-0.01em; margin:0 auto 12px !important; text-align:center !important; text-wrap:balance; text-shadow:0 2px 18px rgba(0,0,0,0.45); animation:nfm-fu .6s .14s var(--nfm-ease) both; }
+.nfm-hero__event::before{ content:""; display:block; width:44px; height:3px; border-radius:2px; background:var(--nfm-orange); margin:0 auto 12px; }
+.nfm-hero__sub{ font-family:var(--nfm-font-b); font-size:clamp(1rem,1.7vw,1.18rem); color:rgba(255,255,255,0.84); line-height:1.5; max-width:32em; margin:0 auto 14px !important; text-align:center !important; text-wrap:balance; animation:nfm-fu .6s .18s var(--nfm-ease) both; }
+.nfm-hero__with{ font-family:var(--nfm-font-h); font-size:clamp(0.98rem,1.6vw,1.15rem); color:var(--nfm-orange); font-weight:600; margin:0 auto 24px !important; text-align:center !important; animation:nfm-fu .6s .22s var(--nfm-ease) both; }
 .nfm-hero__pill{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.92rem; font-weight:600; color:#fff; background:rgba(255,255,255,0.08); border:1px solid var(--nfm-hair-strong); padding:9px 18px; border-radius:50px; margin:0 0 18px; animation:nfm-fu .6s .3s var(--nfm-ease) both; }
 .nfm-dot{ width:4px; height:4px; border-radius:50%; background:var(--nfm-orange); display:inline-block; }
 .nfm-cd{ display:flex; justify-content:center; gap:12px; margin:0 0 26px; animation:nfm-fu .6s .38s var(--nfm-ease) both; }
@@ -270,7 +275,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
   .nfm-nav__logo img{ height:76px !important; } .nfm-nav--scrolled .nfm-nav__logo img{ height:56px !important; }
   .nfm-scene{ margin-bottom:48px; gap:18px; } .nfm-scene__dual{ gap:10px; }
 }
-@media (max-width:480px){ .nfm-container{ padding:0 18px; } .nfm-hero__title{ font-size:1.95rem; } .nfm-btn{ padding:15px 24px; font-size:0.95rem; } .nfm-eq__list li{ font-size:0.94rem; } .nfm-eq__sum{ font-size:1.1rem; } }
+@media (max-width:480px){ .nfm-container{ padding:0 18px; } .nfm-hero__title{ font-size:1.85rem; } .nfm-hero__event{ font-size:1.15rem; } .nfm-hero__sub{ font-size:0.96rem; } .nfm-btn{ padding:15px 24px; font-size:0.95rem; } .nfm-eq__list li{ font-size:0.94rem; } .nfm-eq__sum{ font-size:1.1rem; } }
 </style>
 
 
@@ -295,7 +300,9 @@ html, body{ margin:0; padding:0; background:#081F33; }
     </div>
     <div class="nfm-hero__inner">
       <span class="nfm-hero__tag"><span class="nfm-dot"></span> Evento en vivo</span>
-      <h1 class="nfm-hero__title">Neurociencia para el Alto Rendimiento Profesional</h1>
+      <h1 class="nfm-hero__title">Dejá de pagar el <em>sobreprecio</em> de ser "productivo".</h1>
+      <p class="nfm-hero__event">Neurociencia para el Alto Rendimiento Profesional</p>
+      <p class="nfm-hero__sub">Seguí escalando sin pagarlo con tu sueño, tu salud ni tiempo con tu familia.</p>
       <p class="nfm-hero__with">con Nico Fernández Miranda</p>
       <p class="nfm-hero__pill" data-nfm-fecha="pill">Mar 22 sep · 19:00 hs (Arg) · Zoom</p>
       <div class="nfm-cd">
