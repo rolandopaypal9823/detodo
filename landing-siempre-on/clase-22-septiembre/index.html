@@ -105,13 +105,14 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-hero__event::before{ content:""; display:block; width:44px; height:3px; border-radius:2px; background:var(--nfm-orange); margin:0 auto 12px; }
 .nfm-hero__sub{ font-family:var(--nfm-font-b); font-size:clamp(1rem,1.7vw,1.18rem); color:rgba(255,255,255,0.84); line-height:1.5; max-width:32em; margin:0 auto 14px !important; text-align:center !important; text-wrap:balance; animation:nfm-fu .6s .18s var(--nfm-ease) both; }
 .nfm-hero__with{ font-family:var(--nfm-font-h); font-size:clamp(0.98rem,1.6vw,1.15rem); color:var(--nfm-orange); font-weight:600; margin:0 auto 24px !important; text-align:center !important; animation:nfm-fu .6s .22s var(--nfm-ease) both; }
-.nfm-hero__local{ font-family:var(--nfm-font-h); font-size:0.9rem; color:rgba(255,255,255,0.78); margin:-6px auto 18px !important; text-align:center !important; animation:nfm-fu .6s .32s var(--nfm-ease) both; }
+/* hora local: segunda línea ADENTRO de la píldora de fecha */
+.nfm-hero__local{ display:block; font-family:var(--nfm-font-h); font-size:0.84rem; font-weight:500; color:rgba(255,255,255,0.78); margin:4px 0 0 !important; text-align:center !important; }
 .nfm-hero__local[hidden]{ display:none !important; }
 .nfm-hero__local strong{ color:#fff; font-weight:700; }
 .nfm-final__local{ font-family:var(--nfm-font-h); font-size:0.9rem; color:var(--nfm-tm); margin:6px auto 0 !important; text-align:center !important; }
 .nfm-final__local[hidden]{ display:none !important; }
 .nfm-final__local strong{ color:#fff; }
-.nfm-hero__pill{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.92rem; font-weight:600; color:#fff; background:rgba(255,255,255,0.08); border:1px solid var(--nfm-hair-strong); padding:9px 18px; border-radius:50px; margin:0 0 18px; animation:nfm-fu .6s .3s var(--nfm-ease) both; }
+.nfm-hero__pill{ display:inline-block; text-align:center !important; line-height:1.35; font-family:var(--nfm-font-h); font-size:0.92rem; font-weight:600; color:#fff; background:rgba(255,255,255,0.08); border:1px solid var(--nfm-hair-strong); padding:9px 18px; border-radius:50px; margin:0 0 18px; animation:nfm-fu .6s .3s var(--nfm-ease) both; }
 .nfm-dot{ width:4px; height:4px; border-radius:50%; background:var(--nfm-orange); display:inline-block; }
 .nfm-cd{ display:flex; justify-content:center; gap:12px; margin:0 0 26px; animation:nfm-fu .6s .38s var(--nfm-ease) both; }
 .nfm-cd__item{ display:flex; flex-direction:column; align-items:center; min-width:70px; padding:13px 16px; background:rgba(8,31,51,0.45); border:1px solid rgba(255,255,255,0.14); border-radius:var(--nfm-r); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
@@ -308,8 +309,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
       <p class="nfm-hero__event">Neurociencia para el Alto Rendimiento Profesional</p>
       <p class="nfm-hero__sub">Seguí escalando sin pagarlo con tu sueño, tu salud ni tiempo con tu familia.</p>
       <p class="nfm-hero__with">con Nico Fernández Miranda</p>
-      <p class="nfm-hero__pill" data-nfm-fecha="pill">Mar 22 sep · 19:00 hs (Arg) · Zoom</p>
-      <p class="nfm-hero__local" data-nfm-local hidden></p>
+      <p class="nfm-hero__pill"><span data-nfm-fecha="pill">Mar 22 sep · 19:00 hs (Arg) · Zoom</span><span class="nfm-hero__local" data-nfm-local hidden></span></p>
       <div class="nfm-cd">
         <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-days">00</span><span class="nfm-cd__unit">Días</span></div>
         <div class="nfm-cd__item"><span class="nfm-cd__num" id="nfm-cd-hours">00</span><span class="nfm-cd__unit">Horas</span></div>
