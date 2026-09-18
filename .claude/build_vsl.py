@@ -15,8 +15,12 @@ HISTORIA = io.open(os.path.join(SCR, "historia.html"), encoding="utf-8").read()
 
 # ─────────────────────────────────────────────── titular (se elige aparte)
 # Mientras no se elija, queda el titular actual de la landing.
-TITULO = None   # ej: 'Dejá de pagar el sobreprecio de ser <span class="shimmer">"productivo"</span>.'
-SUB    = None   # ej: 'Recuperá tu tiempo, tu claridad y avanzá en lo tuyo...'
+TITULO = 'Dejá de pagar el sobreprecio de ser <span class="shimmer">“productivo”</span>.'
+SUB    = ('Recuperá tu tiempo, tu claridad mental y avanzá en lo tuyo — con un '
+          '<b>sistema con base en neurociencia</b>, no con más disciplina.')
+TITLE_TAG = 'Instituto de Productividad · Dejá de pagar el sobreprecio de ser productivo'
+META_DESC = ('Recuperá tu tiempo, tu claridad mental y avanzá en lo tuyo con un sistema con base en '
+             'neurociencia, no con más disciplina. Mirá el video y aplicá a tu entrevista de admisión.')
 
 VTURB_CUENTA = "82529694-4445-4a28-9435-65713f4bcce6"
 VERSIONES = [
@@ -122,6 +126,13 @@ def construir(version, vturb_id):
         s = reemplazar(s,
             'En el <b>Instituto de Productividad</b> no sumamos más apps, más cursos ni más fuerza de voluntad. Entendemos cómo funciona tu cerebro y armamos un sistema a tu medida —para que rendir deje de ser pelearte con vos mismo. <b>Neurociencia aplicada, no más disciplina.</b>',
             SUB, "subtitulo")
+
+    s = reemplazar(s,
+        '<title>Instituto de Productividad · Mirá el video y aplicá</title>',
+        '<title>' + TITLE_TAG + '</title>', "title")
+    s = reemplazar(s,
+        '<meta name="description" content="No te falta información: te falta un método que trabaje a favor de tu cerebro. La razón neurológica por la que tu cerebro cumple con todo el mundo y deja tus objetivos para después — y qué hace el Instituto de Productividad para cambiarlo. Aplicá a tu entrevista de admisión.">',
+        '<meta name="description" content="' + META_DESC + '">', "meta description")
 
     # ═══════════════════════════════════════════ 3) HISTORIA DE NICO
     s = reemplazar(s,
