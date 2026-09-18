@@ -216,6 +216,17 @@ def construir(version, vturb_id):
         '<p>Si no hacés algo distinto, en uno, dos o tres años vas a estar en el mismo lugar. Y eso tiene un precio concreto: <b>potencial que sabés que tenés y no estás dando</b>, oportunidades que pasan de largo, tiempo con tu familia, tu salud.</p>',
         "cierre")
 
+    # ═══════════════════════════════════════════ 4b) FUERA EL EQUIPO
+    # En una VSL para trafico frio es un bloque mas entre el video y el boton;
+    # el equipo vive en la thank you page, que es donde importa quien te atiende.
+    s = cortar(s,
+        '<!-- ============================================================\n     EQUIPO QUE TE ACOMPAÑA (6 miembros) — widget integrado',
+        '</section>\n', "seccion equipo")
+    s = reemplazar(s, '      <a href="#nfm-equipo">Equipo</a>\n', '', "footer link equipo")
+    s = re.sub(r"^\s*\.nfm-team[^\n]*\n", "", s, flags=re.M)
+    s = re.sub(r"^/\* ---------- EQUIPO \(widget integrado\) ---------- \*/\n", "", s, flags=re.M)
+    s = re.sub(r"^/\* \.nfm-team hereda[^\n]*\n", "", s, flags=re.M)
+
     # ═══════════════════════════════════════════ 5) CELULAR
     s = reemplazar(s,
         "  .topbar__cta .lbl-full{display:none}\n  .topbar__cta .lbl-short{display:inline}\n}",
@@ -225,29 +236,15 @@ def construir(version, vturb_id):
         "css celular")
     # que incluye y equipo: en celular pasaban 2.000 y 3.400px apilados a una columna
     s = reemplazar(s,
-        "  .bcards{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}\n"
-        "  .nfm-team__grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}\n",
+        "  .bcards{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}\n",
         "  /* que incluye: dos columnas */\n"
         "  .bcards{grid-template-columns:1fr 1fr;gap:12px}\n"
         "  .bcard__body{padding:12px 12px 14px}\n"
         "  .bcard__body h3{font-size:14px;margin:5px 0 5px}\n"
         "  .bcard__body p{font-size:12.5px}\n"
-        "  /* equipo: dos columnas compactas. Queda foto, nombre, rol y la bio corta;\n"
-        "     las listas de credenciales se pliegan (la historia de arriba ya las cuenta) */\n"
-        "  .nfm-team__grid{grid-template-columns:1fr 1fr;gap:12px}\n"
-        "  .nfm-team__card{padding:18px 12px 16px}\n"
-        "  .nfm-team__photo{width:84px;height:84px;margin-bottom:12px}\n"
-        "  .nfm-team__name{font-size:.98rem}\n"
-        "  .nfm-team__role{font-size:.75rem;letter-spacing:.06em;min-height:0;margin-bottom:10px}\n"
-        "  .nfm-team__divider{margin-bottom:12px}\n"
-        "  .nfm-team__bio{font-size:.8rem;line-height:1.45}\n"
-        "  .nfm-team__bio+.nfm-team__bio,.nfm-team__list{display:none}\n",
+        "",
         "css celular columnas")
-    # roles del equipo (11.5px en mayusculas) y el boton de rehacer el test (35px)
-    s = reemplazar(s,
-        ".nfm-team__role{font-family:'JetBrains Mono',monospace;font-size:.72rem;",
-        ".nfm-team__role{font-family:'JetBrains Mono',monospace;font-size:.78rem;",
-        "rol equipo")
+    # el boton de rehacer el test media 35px
     s = reemplazar(s,
         "  .nfm-cases__retake {\n    background: transparent;",
         "  .nfm-cases__retake {\n    min-height: 44px;\n    background: transparent;",
@@ -261,7 +258,7 @@ def construir(version, vturb_id):
         "rotulo")
 
     # controles finales
-    for prohibido in ("loadVSL", "initVSL", "goFullscreen", "VIDEO_EMBED_URL", "loom.com", "nfm-adm", "Valent"):
+    for prohibido in ("loadVSL", "initVSL", "goFullscreen", "VIDEO_EMBED_URL", "loom.com", "nfm-adm", "Valent", "nfm-team", "nfm-equipo"):
         assert prohibido not in s, "quedo " + prohibido
     assert s.count(vturb_id) == 2, "el ID de vturb tiene que aparecer exactamente 2 veces"
     return s
