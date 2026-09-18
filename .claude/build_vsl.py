@@ -183,10 +183,6 @@ def construir(version, vturb_id):
 
     # Metodo y equipo: leads mas cortos, sin re-explicar el titulo
     s = reemplazar(s,
-        'Service, aceite, gomas: rendir sostenido no es apretar más fuerte, es que todo el sistema funcione. Por eso el método toca las cinco áreas —no una técnica suelta.',
-        'Service, aceite, gomas: no es apretar más fuerte, es que todo el sistema funcione. Por eso el método toca cinco áreas, no una técnica suelta.',
-        "metodo lead")
-    s = reemplazar(s,
         '<p class="lead-2">Acá tenés <b>un profesional por cada frente</b>: coach dedicada, psicólogos, nutricionistas y coaches de alto rendimiento. No es Nico solo: es un equipo que te ve, te sigue y no te deja aflojar. Con nombre y cara, incluso quien te va a atender en la primera charla.</p>',
         '<p class="lead-2">No es Nico solo. Un profesional por cada frente, <b>con nombre y cara</b>.</p>',
         "equipo lead")
@@ -238,6 +234,13 @@ def construir(version, vturb_id):
     s = re.sub(r"^/\* ---------- EQUIPO \(widget integrado\) ---------- \*/\n", "", s, flags=re.M)
     s = re.sub(r"^/\* \.nfm-team hereda[^\n]*\n", "", s, flags=re.M)
 
+    # ═══════════════════════════════════════════ 4c) FUERA EL METODO
+    # Los 5 pilares explicaban que areas toca el sistema, algo que la VSL ya
+    # cuenta; era el bloque que menos empujaba hacia el boton.
+    s = cortar(s, '<!-- ENFOQUE INTEGRAL / PILARES -->\n', '</section>\n', "seccion metodo")
+    s = cortar(s, '/* ---------- ENFOQUE INTEGRAL / PILARES ---------- */\n',
+                  '.pill p{font-size:13px;color:var(--muted);line-height:1.5}\n', "css pilares")
+
     # ═══════════════════════════════════════════ 5) CELULAR
     s = reemplazar(s,
         "  .topbar__cta .lbl-full{display:none}\n  .topbar__cta .lbl-short{display:inline}\n}",
@@ -269,7 +272,7 @@ def construir(version, vturb_id):
         "rotulo")
 
     # controles finales
-    for prohibido in ("loadVSL", "initVSL", "goFullscreen", "VIDEO_EMBED_URL", "loom.com", "nfm-adm", "Valent", "nfm-team", "nfm-equipo"):
+    for prohibido in ("loadVSL", "initVSL", "goFullscreen", "VIDEO_EMBED_URL", "loom.com", "nfm-adm", "Valent", "nfm-team", "nfm-equipo", 'id="metodo"', ".pillars", ".pill{"):
         assert prohibido not in s, "quedo " + prohibido
     assert s.count(vturb_id) == 2, "el ID de vturb tiene que aparecer exactamente 2 veces"
     return s
