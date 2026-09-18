@@ -1,0 +1,172 @@
+<!-- ═══════════ WIDGET · HISTORIA DE NICO (5 escenas) · estética Instituto de Productividad ═══════════
+     Bloque independiente: pegalo tal cual en un Custom Code / HTML embed.
+     Todas las clases empiezan con "nfmh-" para no chocar con los estilos de la página.
+     El botón final es opcional: cambiá el href o borrá el bloque .nfmh-cta. -->
+
+
+<style>
+.nfmh{
+  --nfmh-blue:#0c3452; --nfmh-orange:#ff6602; --nfmh-orange-hi:#ff8124; --nfmh-orange-text:#c04a00; --nfmh-orange-wash:#fff7f2;
+  --nfmh-muted:#33536b; --nfmh-hair:rgba(12,52,82,.10); --nfmh-ease:cubic-bezier(.16,1,.3,1);
+  font-family:'Open Sans',sans-serif; color:var(--nfmh-blue); background:transparent; line-height:1.6;
+  padding:88px 0; -webkit-font-smoothing:antialiased;
+}
+.nfmh, .nfmh *{box-sizing:border-box}
+.nfmh p, .nfmh h2, .nfmh h3{margin:0}
+.nfmh img{max-width:100%;display:block}
+.nfmh-wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+.nfmh-head{text-align:center;margin-bottom:56px}
+.nfmh-eyebrow{display:inline-flex;align-items:center;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.2em;font-size:11px;font-weight:500;color:var(--nfmh-orange-text);background:var(--nfmh-orange-wash);border:1px solid rgba(255,102,2,.22);padding:8px 15px;border-radius:100px;margin-bottom:20px}
+.nfmh-h2{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(28px,4.4vw,46px);line-height:1.06;letter-spacing:-.015em;margin-bottom:22px !important;color:var(--nfmh-blue);text-wrap:balance}
+.nfmh-lead{font-size:clamp(17px,2.2vw,21px);color:var(--nfmh-muted);max-width:780px;margin:0 auto !important;line-height:1.62}
+
+.nfmh-scene{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1000px;margin:0 auto 64px}
+.nfmh-scene:last-of-type{margin-bottom:0}
+.nfmh-scene--rev .nfmh-media-wrap{order:2}
+.nfmh-dual{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.nfmh-media{position:relative;width:100%;aspect-ratio:4/3;border-radius:20px;overflow:hidden;border:1px solid var(--nfmh-hair);box-shadow:0 26px 60px -20px rgba(12,52,82,.28);background:linear-gradient(150deg,#eef3f7,#dae5ee)}
+.nfmh-dual .nfmh-media{aspect-ratio:1/1}
+.nfmh-media.is-v{aspect-ratio:4/5}
+.nfmh-dual .nfmh-media.is-v{aspect-ratio:1/1}
+.nfmh-media img{width:100% !important;height:100% !important;object-fit:cover;object-position:center 35%}
+.nfmh-n{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--nfmh-orange-text);display:block;margin-bottom:10px}
+.nfmh-scene h3{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(22px,2.8vw,30px);line-height:1.12;color:var(--nfmh-blue);letter-spacing:-.01em;margin-bottom:14px;text-wrap:balance}
+.nfmh-scene p{font-size:16px;color:var(--nfmh-muted);line-height:1.7;margin-bottom:12px;text-wrap:pretty}
+.nfmh-scene p:last-child{margin-bottom:0}
+.nfmh-scene p strong{color:var(--nfmh-blue);font-weight:700}
+
+.nfmh-cta{text-align:center;margin-top:56px}
+.nfmh-btn{display:inline-flex;align-items:center;gap:10px;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:800;font-size:19px;padding:20px 40px;border-radius:12px;border:none;cursor:pointer;text-decoration:none;line-height:1.1;text-align:center;background:var(--nfmh-orange);color:#fff !important;box-shadow:0 14px 36px rgba(255,102,2,.32);transition:transform .16s var(--nfmh-ease),box-shadow .16s,background .16s}
+.nfmh-btn:hover{transform:translateY(-2px);background:var(--nfmh-orange-hi);box-shadow:0 20px 48px rgba(255,102,2,.42)}
+
+/* aparición al hacer scroll */
+.nfmh-rv{opacity:0;transform:translateY(26px);transition:opacity .7s var(--nfmh-ease),transform .7s var(--nfmh-ease)}
+.nfmh-rv.in{opacity:1;transform:none}
+
+@media(max-width:900px){
+  .nfmh{padding:62px 0}
+  .nfmh-scene{grid-template-columns:1fr;gap:22px;margin-bottom:52px;text-align:center}
+  .nfmh-scene--rev .nfmh-media-wrap{order:0}
+  .nfmh-media-wrap{max-width:560px;margin:0 auto;width:100%}
+}
+@media(max-width:640px){
+  /* en celular las 5 escenas median 3.800px: fotos menos altas y menos aire, mismo contenido */
+  .nfmh{padding:56px 0}
+  .nfmh-head{margin-bottom:34px}
+  .nfmh-scene{gap:14px;margin-bottom:38px}
+  .nfmh-media{aspect-ratio:16/10}
+  .nfmh-media.is-v{aspect-ratio:1/1}
+  .nfmh-dual{gap:8px}
+  .nfmh-scene h3{font-size:21px;margin-bottom:8px}
+  .nfmh-scene p{font-size:15px;line-height:1.6}
+  .nfmh-cta{margin-top:36px}
+}
+@media(max-width:560px){ .nfmh-btn{font-size:16.5px;padding:17px 22px;width:100%;max-width:360px} }
+@media (prefers-reduced-motion: reduce){ .nfmh-rv{opacity:1;transform:none;transition:none} }
+</style>
+
+<section class="nfmh" id="historia-nico">
+  <div class="nfmh-wrap">
+
+    <div class="nfmh-head">
+      <span class="nfmh-eyebrow">Quién está detrás</span>
+      <h2 class="nfmh-h2">Nicolás Fernández Miranda</h2>
+      <p class="nfmh-lead">Antes de enseñar esto, lo pagó. Esta es la historia, en cinco escenas.</p>
+    </div>
+
+    <!-- ESCENA 01 · dos fotos -->
+    <div class="nfmh-scene nfmh-rv">
+      <div class="nfmh-media-wrap">
+        <div class="nfmh-dual">
+          <div class="nfmh-media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escema1dividanicorecibiendodiploma.jpg" alt="Nico recibiendo el diploma" loading="lazy"></div>
+          <div class="nfmh-media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escena1estudiocontable-scaled.jpg" alt="Nico en el estudio contable" loading="lazy"></div>
+        </div>
+      </div>
+      <div>
+        <span class="nfmh-n">Escena 01</span>
+        <h3>El contador que llegó rápido</h3>
+        <p>Nico es contador público. Se recibió con medalla al mejor promedio, abrió su propio estudio y creció rápido: en pocos años asesoraba empresas que manejaban capitales grandes, y los medios lo llamaban para pedirle su lectura sobre finanzas.</p>
+        <p><strong>Desde afuera, todo parecía ir muy bien. Por dentro, estaba pagando un precio muy alto por seguir escalando su empresa y su carrera.</strong></p>
+      </div>
+    </div>
+
+    <!-- ESCENA 02 -->
+    <div class="nfmh-scene nfmh-scene--rev nfmh-rv">
+      <div class="nfmh-media-wrap">
+        <div class="nfmh-media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escena2-rotated.jpg" alt="Nico en su escritorio, en la época del estudio" loading="lazy"></div>
+      </div>
+      <div>
+        <span class="nfmh-n">Escena 02</span>
+        <h3>El precio por la productividad</h3>
+        <p>Trabajaba catorce horas por día. Subió más de quince kilos. Empezaron las migrañas, y con las migrañas las pastillas, que tomaba —según sus palabras— como si fueran caramelos. Se le caía el pelo. Necesitaba clonazepam para dormir.</p>
+        <p>Y miraba con envidia a quien cerraba la persiana a las seis y no se llevaba el trabajo a casa: <strong>gente con una vida más simple que la suya, que se había complicado tanto que ya no sabía para qué.</strong></p>
+      </div>
+    </div>
+
+    <!-- ESCENA 03 -->
+    <div class="nfmh-scene nfmh-rv">
+      <div class="nfmh-media-wrap">
+        <div class="nfmh-media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/enparis.jpeg" alt="Nico en París" loading="lazy"></div>
+      </div>
+      <div>
+        <span class="nfmh-n">Escena 03</span>
+        <h3>El punto de inflexión en París</h3>
+        <p>No fue una crisis: fue un premio. Venía de cerrar los mejores años de facturación de su vida y se pagó el viaje a Europa que siempre había postergado. Y en París se dio cuenta de que no podía disfrutarlo. <strong>Lo peor: ya tenía un máster en neurociencia y no se lo estaba aplicando a sí mismo.</strong></p>
+        <p>Volvió con una sola pregunta: <strong>¿cómo hago para seguir creciendo y, al mismo tiempo, avanzar con lo importante de mi vida?</strong></p>
+      </div>
+    </div>
+
+    <!-- ESCENA 04 · dos fotos -->
+    <div class="nfmh-scene nfmh-scene--rev nfmh-rv">
+      <div class="nfmh-media-wrap">
+        <div class="nfmh-dual">
+          <div class="nfmh-media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/charlated.jpg" alt="Nico en la charla TEDx" loading="lazy"></div>
+          <div class="nfmh-media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/hackeatucerebroenmano.jpeg" alt="Nico con su libro Hackea tu cerebro" loading="lazy"></div>
+        </div>
+      </div>
+      <div>
+        <span class="nfmh-n">Escena 04</span>
+        <h3>La variable para escalar sin agotarse</h3>
+        <p>Se convirtió en su propio experimento: aplicó sobre sí mismo lo que había estudiado, midió y corrigió. Empezó a divulgar cómo se relacionan la neurociencia y el rendimiento, sus redes crecieron, y escribió <em>Hackea tu cerebro</em>, hoy bestseller.</p>
+        <p>Pasó a asesorar empresas, equipos y profesionales para que produzcan más <strong>cuidando su bienestar al mismo tiempo</strong>. Lo invitaron a dar charlas TED sobre neurociencia aplicada: dio la primera, y hoy ya lleva dos.</p>
+      </div>
+    </div>
+
+    <!-- ESCENA 05 -->
+    <div class="nfmh-scene nfmh-rv">
+      <div class="nfmh-media-wrap">
+        <div class="nfmh-media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/ultimaescenainstituto.jpeg" alt="Alumnos del Instituto de Productividad con Nico" loading="lazy"></div>
+      </div>
+      <div>
+        <span class="nfmh-n">Escena 05</span>
+        <h3>Hoy</h3>
+        <p>Fundó el Instituto de Productividad, donde <strong>más de 400 empresarios, profesionales y líderes</strong> ya pasaron por un proceso de mentoría personalizada. Sus programas cuentan con el aval de la Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy.</p>
+        <p>Capacita equipos en YPF, Samsung y Ternium, su trabajo fue destacado en CNN, Infobae y Endeavor, y escribe su segundo libro.</p>
+        <p><strong>En la entrevista de admisión vemos tu punto A, tu punto B, y si el Instituto es el lugar para construir tu escalera.</strong></p>
+      </div>
+    </div>
+
+    <!-- BOTÓN (opcional) · cambiá el href por tu link o tu disparador de pop-up -->
+    <div class="nfmh-cta nfmh-rv">
+      <a class="nfmh-btn" href="#" onclick="agdOpen('historia');return false">Agendar mi entrevista de admisión →</a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  var root=document.getElementById('historia-nico'); if(!root) return;
+  /* aparición al hacer scroll */
+  var els=root.querySelectorAll('.nfmh-rv');
+  if(window.IntersectionObserver){
+    var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } }); },{rootMargin:'0px 0px -60px 0px'});
+    els.forEach(function(el){ io.observe(el); });
+  } else { els.forEach(function(el){ el.classList.add('in'); }); }
+  /* si una foto es vertical, su recuadro se hace más alto solo */
+  function marcar(im){ if(im.naturalWidth && im.naturalHeight>im.naturalWidth*1.05) im.parentNode.classList.add('is-v'); }
+  root.querySelectorAll('.nfmh-media img').forEach(function(im){ if(im.complete) marcar(im); else im.addEventListener('load',function(){ marcar(im); }); });
+})();
+</script>
+<!-- ═══════════ FIN WIDGET · HISTORIA DE NICO ═══════════ -->
