@@ -416,9 +416,12 @@ var CONFIG = {
   GRUPO_FALLBACK: 'https://go.wha.link/clase-8-de-septiembre-neurociencia',
 
   /* Variante para quien eligió C ("todavía me cuesta sostenerme económicamente") en el quiz:
-       true  → no ve el grupo de WhatsApp ni la agenda; ve "te avisamos del próximo evento".
-       false → ve la página normal como todos. El popup igual se muestra sólo a A/B. */
-  VARIANTE_C: true,
+       true  → no ve el grupo de WhatsApp; ve "te avisamos del próximo evento".
+       false → ve la página normal como todos (video, grupo de WhatsApp, fecha). El popup de asiento
+               igual se muestra sólo a A/B.
+     Los C ya se registran en el form de comunidad y se respeta la redirección de ese form, así que
+     acá no se los rechaza: false. */
+  VARIANTE_C: false,
 
   /* Video de bienvenida. Se puede poner uno distinto por clase con loom:'...' */
   LOOM_ID: '4f2cc1c6518e4134a159b5db19f58b2e',
