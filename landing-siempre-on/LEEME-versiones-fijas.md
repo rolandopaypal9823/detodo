@@ -67,6 +67,12 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
   fija). El popup se cierra sólo con la X: ni el clic afuera ni Escape lo cierran, y la página de atrás no
   scrollea mientras está abierto. Todo lo demás es idéntico a `index.html` (mismos campos, mismo form, mismo
   pixel). Es para test A/B: una página de GHL con `index.html` y otra con `index-popup.html`, misma thank you.
+- **Thank you para los de etapa C (`thank-you-comunidad.html`).** Igual a `thank-you.html`, con el grupo
+  de WhatsApp de la comunidad (`go.wha.link/eVoG1a`) y sin el popup de asiento. Se pone como redirección del
+  form de comunidad en GHL. También tiene el pixel con PageView adentro del custom code.
+- **El contador vive en la barra del logo**, arriba, siempre a la vista mientras se scrollea (logo a la
+  izquierda, "Empieza en" con días · hs · min · seg a la derecha; en celular sin la etiqueta). El hero ya no
+  lo tiene, así queda más liviano.
 - **Thank you page de tres pasos.** Logo, título ("¡Lugar reservado! Ahora, tres pasos para recibir el
   acceso."), paso 1 "Mirá este video" (Loom sin barra de arriba ni "Watch on Loom"; comentarios y vistas se apagan
   en la configuración del video en Loom, las reacciones con emoji quedan), paso 2 "Unite al grupo de WhatsApp para recibir el acceso a
