@@ -236,23 +236,6 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
   .nfm-testbar{ font-size:0.6rem; letter-spacing:0.06em; }
 }
 
-/* ── DOS VARIANTES ──
-   .nfm-solo-califica → se ve sólo si la persona calificó en el quiz (etapa A o B, o si no hay dato)
-   .nfm-solo-c        → se ve sólo si eligió la opción C (todavía le cuesta sostenerse económicamente): sin grupo, sin agenda */
-.nfm-solo-c{ display:none; }
-.nfm-etapa-c .nfm-solo-califica{ display:none !important; }
-.nfm-etapa-c .nfm-solo-c{ display:block; }
-.nfm-thx__proximo{ padding:6px 0 56px; }
-.nfm-prox-card{
-  background:rgba(255,255,255,0.04); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg); padding:28px 30px; text-align:left;
-}
-.nfm-prox-card h3{ font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:700; color:#fff; margin:0 0 14px; }
-.nfm-prox-card p{ font-size:0.96rem; color:var(--nfm-tl); line-height:1.7; margin:0 0 14px !important; }
-.nfm-prox-card p:last-child{ margin-bottom:0 !important; }
-.nfm-prox-card strong{ color:#fff; font-weight:600; }
-.nfm-prox-card ul{ margin:0 0 14px; padding-left:20px; }
-.nfm-prox-card li{ font-size:0.96rem; color:var(--nfm-tl); line-height:1.7; margin-bottom:6px; }
-@media (max-width:600px){ .nfm-prox-card{ padding:22px; } }
 </style>
 
 
@@ -273,18 +256,12 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
       <div class="nfm-thx__check">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
       </div>
-      <div class="nfm-solo-califica">
-        <h1 class="nfm-rv nfm-rv-1">¡Lugar reservado! Ahora, <span class="acc">tres pasos</span> para recibir el acceso.</h1>
-      </div>
-      <div class="nfm-solo-c">
-        <h1 class="nfm-rv nfm-rv-1">Listo, quedaste anotado. <span class="acc">Te avisamos primero.</span></h1>
-        <p class="sub nfm-rv nfm-rv-2">El evento del <strong data-thx-fecha="larga">martes 22 de septiembre</strong> está armado para otra etapa. <strong>Te vamos a avisar antes que a nadie cuando salga el pensado para la tuya.</strong></p>
-      </div>
+      <h1 class="nfm-rv nfm-rv-1">¡Lugar reservado! Ahora, <span class="acc">tres pasos</span> para recibir el acceso.</h1>
     </div>
   </section>
 
   <!-- DOS PASOS -->
-  <section class="nfm-thx__steps nfm-solo-califica">
+  <section class="nfm-thx__steps">
     <div class="nfm-thx__container">
 
       <!-- PASO 1 — Video -->
@@ -329,7 +306,7 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
   </section>
 
   <!-- FECHA + TÍTULO DE LA CLASE -->
-  <section class="nfm-thx__reminder nfm-solo-califica">
+  <section class="nfm-thx__reminder">
     <div class="nfm-thx__container">
       <div class="nfm-rem-card nfm-rv nfm-rv-5">
         <div class="nfm-rem-date">
@@ -345,17 +322,6 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
           <p class="local" data-nfm-local hidden></p>
           <p class="via">Vía Zoom · El acceso llega al grupo de WhatsApp</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SÓLO OPCIÓN C · qué pasa ahora -->
-  <section class="nfm-thx__proximo nfm-solo-c">
-    <div class="nfm-thx__container">
-      <div class="nfm-prox-card nfm-rv nfm-rv-3">
-        <h3>Qué pasa ahora</h3>
-        <p><strong>Ya estás en la lista.</strong> Cuando abramos el evento pensado para quienes todavía están construyendo su base económica, vas a recibir el aviso por mail antes de que salga a público. Revisá tu correo, incluido <strong>spam / promociones</strong>.</p>
-        <p>Si en el quiz te equivocaste de opción y sí tenés una empresa, un equipo o una estructura a cargo, respondé el mail de confirmación y te pasamos el acceso a la clase del 22.</p>
       </div>
     </div>
   </section>
@@ -415,13 +381,6 @@ var CONFIG = {
      quede roto. Ojo: manda al grupo equivocado, así que es red de seguridad, no solución. */
   GRUPO_FALLBACK: 'https://go.wha.link/clase-8-de-septiembre-neurociencia',
 
-  /* Variante para quien eligió C ("todavía me cuesta sostenerme económicamente") en el quiz:
-       true  → no ve el grupo de WhatsApp; ve "te avisamos del próximo evento".
-       false → ve la página normal como todos (video, grupo de WhatsApp, fecha). El popup de asiento
-               igual se muestra sólo a A/B.
-     Los C ya se registran en el form de comunidad y se respeta la redirección de ese form, así que
-     acá no se los rechaza: false. */
-  VARIANTE_C: false,
 
   /* Video de bienvenida. Se puede poner uno distinto por clase con loom:'...' */
   LOOM_ID: '4f2cc1c6518e4134a159b5db19f58b2e',
@@ -471,9 +430,8 @@ var TEST_SIGUIENTE = /test-?landing-?2/i.test(window.location.href);
    ④  ETAPA (viene del quiz de la landing)
    La landing guarda nfm_etapa / nfm_equipo en sessionStorage al completar el quiz.
    También se acepta ?etapa=C en la URL (para probar, o si algún día el redirect lo pasa).
-     A / B  → calificó: grupo de WhatsApp, agenda, popup.
-     C      → todavía le cuesta sostenerse económicamente: sin grupo, sin agenda, sin popup. Se le avisa del próximo evento.
-     sin dato → se trata como si calificara (nunca dejamos a nadie sin grupo por un fallo).
+     La página es la misma para todos. La etapa sólo decide si sale el popup de asiento (A y B sí, C no).
+     A dónde va cada persona después del form lo decide la redirección configurada en cada form de GHL.
    ══════════════════════════════════════════════════════════════════ */
 var ETAPA  = String(qs('etapa')  || ss('nfm_etapa')  || '').toUpperCase();
 var EQUIPO = String(qs('equipo') || ss('nfm_equipo') || '').toUpperCase();
@@ -485,7 +443,6 @@ window.NFM_EQUIPO = EQUIPO || null;
 window.NFM_NIVEL = NIVEL || null;
 window.NFM_DEDICACION = DEDICACION || null;
 window.NFM_CALIFICA = CALIFICA;
-if(!CALIFICA && CONFIG.VARIANTE_C) document.documentElement.className += ' nfm-etapa-c';
 var NOW_FORZADO = null;
 function ahora(){
   if(NOW_FORZADO != null) return NOW_FORZADO;
@@ -709,13 +666,11 @@ if(clase){
 <!-- ══════════════════════════════════════════════════════════════════
      POPUP POST-REGISTRO (oferta de asiento USD 1 / USD 5)
      Pegar acá el código del popup cuando esté.
-     Se muestra SÓLO a quien calificó (etapa A o B). Quien eligió C nunca lo ve.
-       · Si el popup es HTML: ponerlo adentro del div de abajo (se oculta solo para los C).
-       · Si es un script: envolverlo en  if(window.NFM_CALIFICA){ ... }
+     Se muestra SÓLO a quien calificó (etapa A o B): el script de abajo corta con if(!window.NFM_CALIFICA).
        · Datos disponibles: window.NFM_ETAPA ('A'|'B'|'C'|null), window.NFM_EQUIPO, window.NFM_CALIFICA (true/false),
          window.NFM_NIVEL ('alto' = etapa A/B con gente a cargo · 'medio' = A/B sin gente a cargo · 'bajo' = C, todavía le cuesta sostenerse económicamente)
      ══════════════════════════════════════════════════════════════════ -->
-<div id="nfm-popup-slot" class="nfm-solo-califica">
+<div id="nfm-popup-slot">
   <!-- El script de Stripe (buy-button.js) lo inyecta el JS de abajo, sólo si el popup se va a mostrar -->
 
   <div class="nfm-oferta" id="nfm-oferta" hidden aria-hidden="true">

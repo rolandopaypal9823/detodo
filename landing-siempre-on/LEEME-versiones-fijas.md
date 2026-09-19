@@ -71,10 +71,9 @@ nueva para el perfil de líderes, empresarios y profesionales con trayectoria:
   acceso."), paso 1 "Mirá este video" (Loom sin barra de arriba ni "Watch on Loom"; comentarios y vistas se apagan
   en la configuración del video en Loom, las reacciones con emoji quedan), paso 2 "Unite al grupo de WhatsApp para recibir el acceso a
   la clase" (botón), paso 3 "Hasta el día de la clase, atento al grupo y a tu mail", y la tarjeta con la fecha, el título de la clase, "con Nico Fernández Miranda", hora y
-  Zoom. Nada más. Todos ven lo mismo, también los que eligieron C (`VARIANTE_C: false`): ellos se registran en el
-  form de comunidad y se respeta la redirección de ese form, no se los rechaza. Si algún día querés que los C
-  vean "quedaste anotado, te avisamos primero" en vez del grupo, poné `VARIANTE_C: true` (y probalo con
-  `thank-you.html?etapa=C`). El popup de asiento igual se muestra sólo a A/B.
+  Zoom. Nada más. La página es la misma para todos y no redirige a nadie: a dónde va cada persona después de
+  enviar lo decide la redirección configurada en cada form de GHL (el principal y el de comunidad). El popup
+  de asiento se muestra sólo a A/B.
 - **Botón de WhatsApp directo a la app.** En `thank-you.html`, en el CONFIG, la clase tiene un campo
   `wa_codigo`. Es lo que va después de `https://chat.whatsapp.com/` en el link de invitación del grupo
   (WhatsApp → el grupo → Invitar mediante link → Copiar link). Con eso cargado, el botón abre la app de
