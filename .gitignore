@@ -1,0 +1,3 @@
+# cache de Python (lo genera correr los build_*.py)
+__pycache__/
+*.pyc
