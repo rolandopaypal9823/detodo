@@ -274,6 +274,12 @@ def construir(version, vturb_id):
     s = cortar(s, '/* ---------- ENFOQUE INTEGRAL / PILARES ---------- */\n',
                   '.pill p{font-size:13px;color:var(--muted);line-height:1.5}\n', "css pilares")
 
+    # Un solo numero de alumnos en toda la pagina: el mismo que respalda la escalera
+    s = reemplazar(s,
+        '<div class="stat"><div class="n">+2.000</div><div class="l">Alumnos acompañados</div></div>',
+        '<div class="stat"><div class="n">+800</div><div class="l">Alumnos acompañados</div></div>',
+        "trust +800")
+
     # ═══════════════════════════════════════════ 4d) MENOS RUIDO ARRIBA
     # Fuera la cinta que gira (marquee) y la pildora del hero: el titulo y el video
     # ya dicen que es. Los rotulos de seccion quedan como texto mono plano, sin pildora.
@@ -315,6 +321,7 @@ def construir(version, vturb_id):
         assert prohibido not in s, "quedo " + prohibido
     assert s.count(vturb_id) == 2, "el ID de vturb tiene que aparecer exactamente 2 veces"
     assert s.count('id="camino"') == 1 and s.count("data-foto=") == 9 and s.count("vsl-assets/") == 9
+    assert "+2.000" not in s and s.count("+800") == 1 and s.count("más de 800 personas") == 1
     assert s.index('id="camino"') < s.index('id="historia-nico"') < s.index('id="aval"') < s.index('id="nfm-casos"') < s.index('id="agendar"')
     return s
 
