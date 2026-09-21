@@ -4,7 +4,9 @@
 cuerpo, distinto video de vturb) a partir de instituto-booking.html.
 
 Ademas del video, aplica la limpieza de copy (sin conceptos repetidos ni
-subtitulos de relleno), suma la historia de Nico y ajusta el celular.
+subtitulos de relleno), suma la historia de Nico y el widget "El camino"
+(Punto A → Punto B → La Escalera → Como accedes), y ajusta el celular.
+Las fotos del camino viven en /vsl-assets (sacadas del deck "Escala tu vida").
 """
 import io, os, re
 
@@ -12,6 +14,13 @@ BASE = "/home/user/detodo"
 SCR  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tsl-assets")
 ORIGEN = os.path.join(BASE, "instituto-booking.html")
 HISTORIA = io.open(os.path.join(SCR, "historia.html"), encoding="utf-8").read()
+CAMINO   = io.open(os.path.join(SCR, "camino.html"), encoding="utf-8").read()
+# el widget de la historia usaba la misma pildora de fondo naranja que la landing; va plana como el resto
+HISTORIA = re.sub(r"^\.nfmh-eyebrow\{[^\n]*\n",
+    ".nfmh-eyebrow{display:inline-block;font-family:'JetBrains Mono',monospace;text-transform:uppercase;"
+    "letter-spacing:.22em;font-size:11px;font-weight:500;color:var(--nfmh-orange-text);margin-bottom:16px}\n",
+    HISTORIA, flags=re.M)
+assert "border-radius:100px" not in HISTORIA
 
 # ─────────────────────────────────────────────── titular (se elige aparte)
 # Mientras no se elija, queda el titular actual de la landing.
@@ -134,7 +143,16 @@ def construir(version, vturb_id):
         '<meta name="description" content="No te falta información: te falta un método que trabaje a favor de tu cerebro. La razón neurológica por la que tu cerebro cumple con todo el mundo y deja tus objetivos para después — y qué hace el Instituto de Productividad para cambiarlo. Aplicá a tu entrevista de admisión.">',
         '<meta name="description" content="' + META_DESC + '">', "meta description")
 
-    # ═══════════════════════════════════════════ 3) HISTORIA DE NICO
+    # ═══════════════════════════════════════════ 3) EL CAMINO (reemplaza al espejo) + HISTORIA DE NICO
+    # El espejo ("Seamos honestos") queda absorbido por el Punto A: la persona se
+    # identifica una sola vez, y de ahi sale directo al mecanismo.
+    i = s.index("<!-- ESPEJO · Seamos honestos (secretos en la ducha) -->\n")
+    j = s.index("</section>\n", i) + len("</section>\n")
+    s = s[:i] + CAMINO.rstrip() + "\n" + s[j:]
+    for sel in (".ducha", ".think", ".ducha-close", "@media(max-width:640px){.ducha", "/* ---------- ESPEJO"):
+        s = re.sub(r"^" + re.escape(sel) + r"[^\n]*\n", "", s, flags=re.M)
+    assert ".ducha" not in s and "Seamos honestos" not in s.split("<!-- FOOTER -->")[0]
+
     s = reemplazar(s,
         "<!-- AVAL UNIVERSITARIO (3er widget · el diferencial arriba) -->",
         HISTORIA.rstrip() + "\n\n<!-- AVAL UNIVERSITARIO (3er widget · el diferencial arriba) -->",
@@ -157,29 +175,44 @@ def construir(version, vturb_id):
         '<li>250 horas con evaluación y un trabajo final aplicado a tu propia vida o negocio</li>',
         "aval li")
 
-    # La razon real: el segundo parrafo repetia el hero; queda la imagen del entrenador
-    s = reemplazar(s,
-        '<p class="lead-2">La salida no es más información —eso ya lo tenés—. Es entender cómo decide tu cerebro y darle la estructura que le falta: un sistema a tu medida y un equipo que sostiene el proceso con vos. Un entrenador no te enseña a hacer sentadillas: hace que el martes a las 7 estés entrenando. <b>Eso es el Instituto.</b></p>',
-        '<p class="lead-2">Un entrenador no te enseña a hacer sentadillas: hace que el martes a las 7 estés entrenando. <b>Eso es el Instituto.</b></p>',
-        "razon real p2")
-    # Para quien: la tarjeta del medio repetia el parrafo de al lado
-    s = reemplazar(s,
-        '          <div class="fw"><span class="mono">◆ Es para vos si…</span><h3>Cumplís con todos, y tu proyecto no se mueve</h3><p>Sos impecable con los compromisos que tenés con otros, pero el objetivo que es tuyo lleva años en la misma lista. No te falta capacidad: te falta jerarquía.</p></div>\n',
-        "", "para quien card 2")
+    # La razon real / Para quien / Que incluye: fuera enteras. El camino (Punto A → B →
+    # escalera → como accedes) cuenta lo mismo una sola vez y de manera visual.
+    s = cortar(s, "<!-- QUÉ ES / PARA QUIÉN -->\n", "</section>\n", "seccion que es")
+    s = cortar(s, "<!-- QUÉ INCLUYE -->\n", "</section>\n", "seccion incluye")
+    for sel in (".split", ".forwho", ".fw", ".bcard", ".incl-grid", ".ic", ".incl-note",
+                ".photo-slot--sm", '[data-img="coach"]', "@media(max-width:640px){.incl-grid--duo"):
+        # borra la regla de esa clase y sus derivadas (.bcard, .bcards, .bcard__ph...) pero no .icons ni .fwd
+        s = re.sub(r"^" + re.escape(sel) + r"(?:s|__[a-z-]+|--[a-z-]+)?(?=[\s{:.,\[])[^\n]*\n", "", s, flags=re.M)
+    for linea in ("  .incl-grid{grid-template-columns:repeat(2,1fr)}\n", "  .bcards{grid-template-columns:repeat(2,1fr)}\n",
+                  "  .split{grid-template-columns:1fr;gap:32px}\n", "  .incl-grid{grid-template-columns:1fr}\n",
+                  "  .bcards{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}\n"):
+        s = reemplazar(s, linea, "", "css responsive " + linea.strip()[:24])
+    s = reemplazar(s, '      <a href="#incluye">Qué incluye</a>\n', "", "footer link incluye")
+    s = reemplazar(s, '      <a href="#espejo">Seamos honestos</a>\n', '      <a href="#camino">El camino</a>\n', "footer link espejo")
 
-    # Que incluye: lead de relleno y dos tarjetas que repetian al equipo y a los modulos
+    # Fotos: las cuatro de "que incluye" ya no se usan; entran las del camino (una por lugar)
+    s = cortar(s, "  // Recuadro 5 · Comunidad (foto grupal)\n", "  // Recuadro 1 · Aval", "img viejas", incluir_hasta=False)
     s = reemplazar(s,
-        '<p class="lead-2">Todo lo que ponemos del otro lado —dentro de nuestros procesos— para que esta vez tus objetivos sí avancen. Un profesional por cada frente, no un PDF y suerte.</p>',
-        '<p class="lead-2">Un profesional por cada frente, no un PDF y suerte.</p>',
-        "incluye lead")
+        "/* ===== FOTOS REALES DE LOS RECUADROS =====\n   Subí cada foto a tu WordPress (Medios) y pegá el link https entre comillas.\n   Podés poner VARIAS por recuadro y se arma un collage solo (hasta 4). */\n",
+        "/* ===== FOTOS REALES =====\n   Subí cada foto a la biblioteca de medios y pegá el link https entre comillas.\n"
+        "   Las del camino están en la carpeta vsl-assets (sacadas del deck de Nico): un link por lugar.\n"
+        "   El aval admite VARIAS y arma un collage solo (hasta 4). */\n",
+        "img comentario")
     s = reemplazar(s,
-        '<h3>Biblioteca de +20 módulos</h3>\n          <p>El método completo, ordenado y secuencial. Píldoras cortas y accionables, no teoría.</p>',
-        '<h3>Biblioteca de +20 módulos y herramientas</h3>\n          <p>El método completo en píldoras cortas y accionables. Más el Habit Tracker y el Second Brain para sacarte la carga de la cabeza.</p>',
-        "incluye card 02")
-    s = cortar(s,
-        '    <!-- Beneficios sin foto (se quedan como tarjetas de ícono) -->\n',
-        '      <div class="ic"><span class="mk">06</span><div><h3>Método y sistemas listos para usar</h3><p>Biblioteca de módulos accionables + Habit Tracker y Second Brain para sacarte la carga de la cabeza. Copiás, adaptás, aplicás.</p></div></div>\n    </div>\n',
-        "incluye ic cards")
+        '    "https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b6275ecb6db2520210e7a.jpg"\n  ],\n};\n',
+        '    "https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a6b6275ecb6db2520210e7a.jpg"\n  ],\n\n'
+        "  // ── El camino (un link por lugar) ──\n"
+        '  camino_a:   "vsl-assets/a-podio.jpg",                 // Punto A · Mini Nico en el podio, agotado\n'
+        '  camino_b:   "vsl-assets/b-arriba-de-la-pared.jpg",    // Punto B · Mini Nico arriba de la pared, con el mate\n'
+        '  escalera_1: "vsl-assets/escalera-1-parales.jpg",      // 01 · los dos parales (Mente y Cuerpo)\n'
+        '  escalera_2: "vsl-assets/escalera-2-peldano.jpg",      // 02 · el peldaño (Competencias)\n'
+        '  escalera_3: "vsl-assets/escalera-3-completa.jpg",     // 03 · la escalera completa, tocando la X\n'
+        '  pilar_1:    "vsl-assets/acceso-1-conocimiento.jpg",   // Conocimiento destilado · la plataforma\n'
+        '  pilar_2:    "vsl-assets/acceso-2-coach.jpg",          // Un coach que te acompaña · sesión 1 a 1\n'
+        '  pilar_3:    "vsl-assets/acceso-3-equipo.jpg",         // El equipo entero atrás · foto del equipo\n'
+        '  pilar_4:    "vsl-assets/acceso-4-eventos.jpg",        // Eventos presenciales · encuentro en vivo\n'
+        "};\n",
+        "img camino")
 
     # Metodo y equipo: leads mas cortos, sin re-explicar el titulo
     s = reemplazar(s,
@@ -241,6 +274,21 @@ def construir(version, vturb_id):
     s = cortar(s, '/* ---------- ENFOQUE INTEGRAL / PILARES ---------- */\n',
                   '.pill p{font-size:13px;color:var(--muted);line-height:1.5}\n', "css pilares")
 
+    # ═══════════════════════════════════════════ 4d) MENOS RUIDO ARRIBA
+    # Fuera la cinta que gira (marquee) y la pildora del hero: el titulo y el video
+    # ya dicen que es. Los rotulos de seccion quedan como texto mono plano, sin pildora.
+    s = cortar(s, '    <div class="marquee fade-up d5" aria-hidden="true">\n', "      </div>\n    </div>\n", "marquee html")
+    for sel in (".marquee", ".mq-item", "@keyframes marq", "/* ---------- MARQUEE ---------- */"):
+        s = re.sub(r"^" + re.escape(sel) + r"[^\n]*\n", "", s, flags=re.M)
+    s = reemplazar(s, '    <span class="eyebrow fade-up d1">Alto rendimiento con base en neurociencia</span>\n', "", "hero eyebrow")
+    s = re.sub(r"^\.eyebrow\{[^\n]*\n",
+        ".eyebrow{display:inline-block;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.22em;"
+        "font-size:11px;font-weight:500;color:var(--nfm-orange-text);margin-bottom:16px}\n", s, flags=re.M)
+    s = re.sub(r"^\.eyebrow\.on-blue\{[^\n]*\n", ".eyebrow.on-blue{color:#ffd0ac}\n", s, flags=re.M)
+    s = re.sub(r"^\.section--navy \.eyebrow\{[^\n]*\n", ".section--navy .eyebrow{color:#ffd0ac}\n", s, flags=re.M)
+    assert 'class="marquee' not in s and ".marquee" not in s and "mq-item" not in s
+    assert "border-radius:100px" not in re.search(r"^\.eyebrow\{[^\n]*", s, flags=re.M).group(0)
+
     # ═══════════════════════════════════════════ 5) CELULAR
     s = reemplazar(s,
         "  .topbar__cta .lbl-full{display:none}\n  .topbar__cta .lbl-short{display:inline}\n}",
@@ -248,16 +296,6 @@ def construir(version, vturb_id):
         "  .btn-sm{min-height:44px;padding:12px 18px}   /* el boton fijo de arriba media 37px */\n"
         "  .feat-legal{font-size:12px}\n}",
         "css celular")
-    # que incluye y equipo: en celular pasaban 2.000 y 3.400px apilados a una columna
-    s = reemplazar(s,
-        "  .bcards{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}\n",
-        "  /* que incluye: dos columnas */\n"
-        "  .bcards{grid-template-columns:1fr 1fr;gap:12px}\n"
-        "  .bcard__body{padding:12px 12px 14px}\n"
-        "  .bcard__body h3{font-size:14px;margin:5px 0 5px}\n"
-        "  .bcard__body p{font-size:12.5px}\n"
-        "",
-        "css celular columnas")
     # el boton de rehacer el test media 35px
     s = reemplazar(s,
         "  .nfm-cases__retake {\n    background: transparent;",
@@ -272,9 +310,12 @@ def construir(version, vturb_id):
         "rotulo")
 
     # controles finales
-    for prohibido in ("loadVSL", "initVSL", "goFullscreen", "VIDEO_EMBED_URL", "loom.com", "nfm-adm", "Valent", "nfm-team", "nfm-equipo", 'id="metodo"', ".pillars", ".pill{"):
+    for prohibido in ("loadVSL", "initVSL", "goFullscreen", "VIDEO_EMBED_URL", "loom.com", "nfm-adm", "Valent", "nfm-team", "nfm-equipo", 'id="metodo"', ".pillars", ".pill{",
+                      'id="espejo"', 'id="quees"', 'id="incluye"', 'class="marquee', ".bcard", ".ducha", "urgencia prestada", "Recuadro 2"):
         assert prohibido not in s, "quedo " + prohibido
     assert s.count(vturb_id) == 2, "el ID de vturb tiene que aparecer exactamente 2 veces"
+    assert s.count('id="camino"') == 1 and s.count("data-foto=") == 9 and s.count("vsl-assets/") == 9
+    assert s.index('id="camino"') < s.index('id="historia-nico"') < s.index('id="aval"') < s.index('id="nfm-casos"') < s.index('id="agendar"')
     return s
 
 
