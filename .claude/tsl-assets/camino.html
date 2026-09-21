@@ -1,4 +1,4 @@
-<!-- ═══════════ WIDGET · EL CAMINO · Punto A → Punto B → La Escalera → Cómo accedés ═══════════
+<!-- ═══════════ WIDGET · EL CAMINO · Punto A → Punto B → La Escalera → Agendar ═══════════
      El mecanismo único de la VSL, contado en cuatro actos. Todas las clases empiezan con "nfmc-".
      Las fotos se cargan desde IMG (más abajo, en "FOTOS REALES"): un link por lugar. -->
 <style>
@@ -82,19 +82,8 @@
 .nfmc-esc-foot{text-align:center;margin-top:24px;font-size:16px;color:#9fb6c8}
 .nfmc-esc-foot b{color:#fff}
 
-/* — Cómo accedés — */
-.nfmc-pilares{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.nfmc-pilar{background:#fff;border:1px solid var(--hair);border-radius:16px;overflow:hidden;box-shadow:0 12px 32px rgba(12,52,82,.06)}
-.nfmc-pilar figure{aspect-ratio:4/3;background:#e7edf2;overflow:hidden}
-.nfmc-pilar figure img{width:100%;height:100%;object-fit:cover;object-position:center 40%}
-.nfmc-pilar figure.is-empty{display:none}
-.nfmc-pilar div{padding:16px 18px 20px}
-.nfmc-pilar .nfmc-n{display:block;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;color:var(--o-txt);margin-bottom:6px}
-.nfmc-pilar h3{font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;line-height:1.2;margin-bottom:8px}
-.nfmc-pilar p{font-size:14.5px;line-height:1.5;color:var(--muted)}
-
 /* — cierre con pregunta y boton — */
-.nfmc-cierre{max-width:700px;margin:56px auto 0;text-align:center}
+.nfmc-cierre{max-width:700px;margin:0 auto;text-align:center}
 .nfmc-cierre .nfmc-p{margin:0 auto 26px}
 .nfmc-btn{display:inline-flex;align-items:center;gap:10px;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:800;font-size:19px;padding:20px 40px;border-radius:12px;border:none;cursor:pointer;text-decoration:none;line-height:1.1;text-align:center;background:var(--o);color:#fff !important;box-shadow:0 14px 36px rgba(255,102,2,.32);transition:transform .16s var(--ease),box-shadow .16s,background .16s}
 .nfmc-btn:hover{transform:translateY(-2px);background:var(--o-hi);box-shadow:0 20px 48px rgba(255,102,2,.42)}
@@ -112,10 +101,6 @@
   .nfmc-juntas{grid-template-columns:1fr;gap:20px;max-width:520px;text-align:center}
   .nfmc-tres div{padding:14px 16px 16px}
   .nfmc-esc{margin-top:56px;padding-top:44px}
-  .nfmc-pilares{grid-template-columns:1fr 1fr;gap:12px}
-  .nfmc-pilar div{padding:12px 12px 14px}
-  .nfmc-pilar h3{font-size:14.5px}
-  .nfmc-pilar p{font-size:13px}
 }
 @media(max-width:700px){
   .nfmc-ladder{grid-template-columns:1fr 1fr;gap:14px}
@@ -261,45 +246,6 @@
   <!-- ACTO 4 · CÓMO ACCEDÉS -->
   <div class="nfmc-acto nfmc-acc">
     <div class="nfmc-wrap">
-      <div class="nfmc-head">
-        <span class="nfmc-k">Cómo accedés</span>
-        <h2 class="nfmc-h2">Cuatro pilares. <span>Ninguno funciona solo.</span></h2>
-      </div>
-      <div class="nfmc-pilares">
-        <div class="nfmc-pilar">
-          <figure><img data-foto="pilar_1" alt="La plataforma con las unidades" loading="lazy"></figure>
-          <div>
-            <span class="nfmc-n">01</span>
-            <h3>Conocimiento destilado</h3>
-            <p>Nueve unidades con lo que funciona. Y con lo que ya descartamos por vos.</p>
-          </div>
-        </div>
-        <div class="nfmc-pilar">
-          <figure><img data-foto="pilar_2" alt="Sesión uno a uno con el coach" loading="lazy"></figure>
-          <div>
-            <span class="nfmc-n">02</span>
-            <h3>Un coach que te acompaña</h3>
-            <p>Una persona asignada a tu caso, con sesiones uno a uno durante los seis meses.</p>
-          </div>
-        </div>
-        <div class="nfmc-pilar">
-          <figure><img data-foto="pilar_3" alt="El equipo del Instituto" loading="lazy"></figure>
-          <div>
-            <span class="nfmc-n">03</span>
-            <h3>El equipo entero atrás</h3>
-            <p>Ocho especialistas: psicología, nutrición, deporte y gestión. Vos no tenés que saber a quién preguntarle.</p>
-          </div>
-        </div>
-        <div class="nfmc-pilar">
-          <figure><img data-foto="pilar_4" alt="Encuentro presencial del Instituto" loading="lazy"></figure>
-          <div>
-            <span class="nfmc-n">04</span>
-            <h3>Eventos presenciales</h3>
-            <p>Encuentros en vivo con el resto de los alumnos. Es lo que más nos repiten después.</p>
-          </div>
-        </div>
-      </div>
-
       <div class="nfmc-cierre">
         <h3 class="nfmc-h3">¿Cómo armás esta misma escalera, con tus trabas y tus objetivos?</h3>
         <p class="nfmc-p">Agendá una llamada y lo vemos con tu caso: qué paral tenés flojo y qué peldaño te falta.</p>

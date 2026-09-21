@@ -207,10 +207,7 @@ def construir(version, vturb_id):
         '  escalera_1: "vsl-assets/escalera-1-parales.jpg",      // 01 · los dos parales (Mente y Cuerpo)\n'
         '  escalera_2: "vsl-assets/escalera-2-peldano.jpg",      // 02 · el peldaño (Competencias)\n'
         '  escalera_3: "vsl-assets/escalera-3-completa.jpg",     // 03 · la escalera completa, tocando la X\n'
-        '  pilar_1:    "vsl-assets/acceso-1-conocimiento.jpg",   // Conocimiento destilado · la plataforma\n'
-        '  pilar_2:    "vsl-assets/acceso-2-coach.jpg",          // Un coach que te acompaña · sesión 1 a 1\n'
-        '  pilar_3:    "vsl-assets/acceso-3-equipo.jpg",         // El equipo entero atrás · foto del equipo\n'
-        '  pilar_4:    "vsl-assets/acceso-4-eventos.jpg",        // Eventos presenciales · encuentro en vivo\n'
+        '  // (las 4 fotos de los pilares siguen en la carpeta, con nombre acceso-*.jpg, por si vuelven)\n'
         "};\n",
         "img camino")
 
@@ -280,6 +277,21 @@ def construir(version, vturb_id):
         '<div class="stat"><div class="n">+800</div><div class="l">Alumnos acompañados</div></div>',
         "trust +800")
 
+    # ═══════════════════════════════════════════ 4c-bis) FUERA EL CIERRE DE LA PAGINA
+    # Repetia la pregunta del camino con otras palabras. El unico CTA de cierre
+    # queda el del camino, y el link del pie pasa a abrir el panel.
+    s = cortar(s, "<!-- CTA FINAL / AGENDAR -->\n", "</section>\n", "seccion cierre")
+    s = reemplazar(s, '      <a href="#agendar">Agendar entrevista</a>\n',
+        '      <a href="#" onclick="agdOpen(\'pie\');return false">Agendar entrevista</a>\n', "footer link agendar")
+    s = re.sub(r"^\.apply(?=[\s{:.])[^\n]*\n", "", s, flags=re.M)
+    s = re.sub(r"^\.section--navy\.apply[^\n]*\n", "", s, flags=re.M)
+    s = reemplazar(s, "  .apply .btn-lg,.nfm-cases__btn{width:100%;max-width:340px}\n",
+        "  .nfm-cases__btn{width:100%;max-width:340px}\n", "css celular apply")
+    s = reemplazar(s, ".section--navy .h2,.section--navy.apply h2{color:#fff}\n",
+        ".section--navy .h2{color:#fff}\n", "css navy h2")
+    s = reemplazar(s, ".section--navy .h2 .hl,.section--navy.apply h2 .hl{color:var(--nfm-orange)}\n",
+        ".section--navy .h2 .hl{color:var(--nfm-orange)}\n", "css navy hl")
+
     # ═══════════════════════════════════════════ 4d) MENOS RUIDO ARRIBA
     # Fuera la cinta que gira (marquee) y la pildora del hero: el titulo y el video
     # ya dicen que es. Los rotulos de seccion quedan como texto mono plano, sin pildora.
@@ -317,12 +329,13 @@ def construir(version, vturb_id):
 
     # controles finales
     for prohibido in ("loadVSL", "initVSL", "goFullscreen", "VIDEO_EMBED_URL", "loom.com", "nfm-adm", "Valent", "nfm-team", "nfm-equipo", 'id="metodo"', ".pillars", ".pill{",
-                      'id="espejo"', 'id="quees"', 'id="incluye"', 'class="marquee', ".bcard", ".ducha", "urgencia prestada", "Recuadro 2"):
+                      'id="espejo"', 'id="quees"', 'id="incluye"', 'id="agendar"', 'class="marquee', ".bcard", ".ducha",
+                      "urgencia prestada", "Recuadro 2", "Cuatro pilares", "nfmc-pilar", ".apply{", "section apply", "agendarBtn"):
         assert prohibido not in s, "quedo " + prohibido
     assert s.count(vturb_id) == 2, "el ID de vturb tiene que aparecer exactamente 2 veces"
-    assert s.count('id="camino"') == 1 and s.count("data-foto=") == 9 and s.count("vsl-assets/") == 9
+    assert s.count('id="camino"') == 1 and s.count("data-foto=") == 5 and s.count("vsl-assets/") == 5
     assert "+2.000" not in s and s.count("+800") == 1 and s.count("más de 800 personas") == 1
-    assert s.index('id="camino"') < s.index('id="historia-nico"') < s.index('id="aval"') < s.index('id="nfm-casos"') < s.index('id="agendar"')
+    assert s.index('id="camino"') < s.index('id="historia-nico"') < s.index('id="aval"') < s.index('id="nfm-casos"')
     return s
 
 
