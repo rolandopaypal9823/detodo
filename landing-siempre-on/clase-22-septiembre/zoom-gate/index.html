@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrar a la clase en vivo — Nicolás Fernández Miranda</title>
+
+<!-- ===== CONFIG: completá estos valores ===== -->
+<!--
+  ZOOM_LINK       -> link de Zoom al que redirige tras completar
+  APPS_SCRIPT_URL -> URL /exec de tu Google Apps Script
+  REG_KEY         -> clave anti-duplicados (cambiala en cada clase nueva)
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- intl-tel-input (selector de país con banderas + detección por IP) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/css/intlTelInput.css">
+
+<style>
+  :root{
+    --navy:#0c3452;
+    --navy-deep:#082539;
+    --orange:#ff6602;
+    --orange-hover:#ff7d28;
+    --white:#ffffff;
+    --gray:#5a6b7a;
+    --light:#f4f6f8;
+    --border:#dfe5ea;
+    --error:#e03b3b;
+    --ok:#1faa59;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html,body{height:100%;}
+
+  body{
+    font-family:'Open Sans',sans-serif;
+    background:linear-gradient(160deg,var(--navy) 0%,var(--navy-deep) 100%);
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:20px;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  /* Vector de crecimiento sutil de fondo */
+  body::before{
+    content:"";
+    position:absolute;
+    width:600px;height:600px;
+    background:radial-gradient(circle,rgba(255,102,2,0.12) 0%,transparent 70%);
+    top:-200px;right:-150px;
+    pointer-events:none;
+  }
+  body::after{
+    content:"";
+    position:absolute;
+    width:500px;height:500px;
+    background:radial-gradient(circle,rgba(255,102,2,0.08) 0%,transparent 70%);
+    bottom:-180px;left:-120px;
+    pointer-events:none;
+  }
+
+  .card{
+    background:var(--white);
+    border-radius:20px;
+    box-shadow:0 24px 60px rgba(0,0,0,0.35);
+    width:100%;
+    max-width:480px;
+    overflow:hidden;
+    position:relative;
+    z-index:2;
+    animation:rise .5s ease;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+  .card-head{
+    background:var(--navy);
+    padding:32px 30px 26px;
+    text-align:center;
+    position:relative;
+  }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:rgba(255,102,2,0.15);
+    color:var(--orange);
+    font-family:'Montserrat',sans-serif;
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+    padding:7px 14px;
+    border-radius:30px;
+    margin-bottom:16px;
+  }
+  .badge .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--orange);
+    box-shadow:0 0 0 0 rgba(255,102,2,0.6);
+    animation:pulse-dot 1.6s infinite;
+  }
+  @keyframes pulse-dot{
+    0%{box-shadow:0 0 0 0 rgba(255,102,2,0.6);}
+    70%{box-shadow:0 0 0 9px rgba(255,102,2,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,102,2,0);}
+  }
+
+  .card-head h1{
+    font-family:'Montserrat',sans-serif;
+    font-weight:800;
+    font-size:23px;
+    color:var(--white);
+    line-height:1.25;
+    margin-bottom:10px;
+  }
+  .card-head h1 .hl{color:var(--orange);}
+  .card-head p{
+    color:#c3d0db;
+    font-size:14.5px;
+    line-height:1.5;
+  }
+
+  .card-body{padding:28px 30px 30px;}
+
+  .field{margin-bottom:18px;}
+  .field label{
+    display:block;
+    font-family:'Montserrat',sans-serif;
+    font-weight:600;
+    font-size:13px;
+    color:var(--navy);
+    margin-bottom:7px;
+  }
+  .field input{
+    width:100%;
+    padding:14px 15px;
+    border:1.5px solid var(--border);
+    border-radius:11px;
+    font-family:'Open Sans',sans-serif;
+    font-size:15.5px;
+    color:var(--navy);
+    background:var(--light);
+    transition:border-color .15s, background .15s;
+    outline:none;
+  }
+  .field input::placeholder{color:#9aa8b4;}
+  .field input:focus{
+    border-color:var(--orange);
+    background:var(--white);
+  }
+  .field input.err{border-color:var(--error);background:#fdf2f2;}
+
+  .msg{
+    font-size:12.5px;
+    color:var(--error);
+    margin-top:6px;
+    display:none;
+    font-weight:600;
+  }
+  .msg.show{display:block;}
+
+  /* intl-tel-input ocupa el ancho completo */
+  .iti{width:100%;}
+  #telefono{
+    width:100%;
+    padding:14px 15px;
+    border:1.5px solid var(--border);
+    border-radius:11px;
+    font-size:15.5px;
+    background:var(--light);
+    color:var(--navy);
+    outline:none;
+    transition:border-color .15s, background .15s;
+  }
+  #telefono:focus{border-color:var(--orange);background:var(--white);}
+  #telefono.err{border-color:var(--error);background:#fdf2f2;}
+
+  .btn{
+    width:100%;
+    background:var(--orange);
+    color:var(--white);
+    font-family:'Montserrat',sans-serif;
+    font-weight:800;
+    font-size:16.5px;
+    letter-spacing:.3px;
+    border:none;
+    border-radius:12px;
+    padding:17px;
+    margin-top:6px;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(255,102,2,0.35);
+    transition:transform .12s ease, background .15s, box-shadow .2s;
+  }
+  .btn:hover{background:var(--orange-hover);transform:translateY(-2px);box-shadow:0 12px 26px rgba(255,102,2,0.45);}
+  .btn:active{transform:translateY(0) scale(.98);}
+  .btn.loading{pointer-events:none;opacity:.92;}
+
+  /* animación de éxito del botón */
+  @keyframes grow-pop{
+    0%{transform:scale(1);}
+    40%{transform:scale(1.05);}
+    100%{transform:scale(1);}
+  }
+  .btn.pop{animation:grow-pop .45s ease;}
+
+  .reassure{
+    text-align:center;
+    font-size:12.5px;
+    color:var(--gray);
+    margin-top:16px;
+    line-height:1.5;
+  }
+  .reassure svg{vertical-align:-2px;margin-right:4px;}
+
+  .spinner{
+    display:inline-block;
+    width:17px;height:17px;
+    border:2.5px solid rgba(255,255,255,.4);
+    border-top-color:#fff;
+    border-radius:50%;
+    animation:spin .7s linear infinite;
+    vertical-align:-3px;
+    margin-right:8px;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* intl-tel-input dropdown legible */
+  .iti__country-list{font-family:'Open Sans',sans-serif;font-size:14px;}
+  .iti__country.iti__highlight{background:rgba(255,102,2,0.1);}
+
+  @media (max-width:520px){
+    .card-head h1{font-size:21px;}
+    .card-head{padding:28px 22px 22px;}
+    .card-body{padding:24px 22px 26px;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- ESTADO 1: FORM (registro) -->
+    <div class="card-head" id="reg-head">
+      <span class="badge"><span class="dot"></span> Clase en vivo</span>
+      <h1>Estás a <span class="hl">un paso</span>.</h1>
+      <p>Llená estos datos para recibir un <strong style="color:#fff;font-weight:600;">resumen de la clase</strong> apenas termine. Así consolidás lo que aprendiste.</p>
+    </div>
+
+    <div class="card-body" id="reg-form">
+      <div class="field">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" placeholder="Tu nombre" autocomplete="given-name">
+        <div class="msg" id="msg-nombre">Escribí tu nombre para continuar.</div>
+      </div>
+
+      <div class="field">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" placeholder="tucorreo@ejemplo.com" autocomplete="email" inputmode="email">
+        <div class="msg" id="msg-email">Revisá tu correo — parece que falta algo.</div>
+      </div>
+
+      <div class="field">
+        <label for="telefono">Número de WhatsApp</label>
+        <input type="tel" id="telefono" placeholder="Tu número" autocomplete="tel">
+        <div class="msg" id="msg-telefono">Revisá tu número, parece incompleto.</div>
+      </div>
+
+      <button class="btn" id="btn" onclick="enviar()">Entrar a la clase →</button>
+
+      <p class="reassure">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4z" fill="#1faa59" opacity=".9"/></svg>
+        Tus datos están seguros. Los usamos solo para enviarte el resumen.
+      </p>
+    </div>
+
+    <!-- ESTADO 2: YA REGISTRADO (anti-duplicados, se muestra si este navegador ya registró) -->
+    <div id="reg-done" style="display:none;">
+      <div class="card-head">
+        <span class="badge"><span class="dot"></span> Lugar confirmado</span>
+        <h1 id="reg-done-title">¡Ya estás <span class="hl">registrado</span>!</h1>
+        <p>No hace falta registrarte de nuevo. Te llevamos a la clase en <span id="reg-cd" style="color:var(--orange);font-weight:700;">4</span>…</p>
+      </div>
+      <div class="card-body">
+        <button class="btn" id="btn-volver">Entrar a la clase ahora →</button>
+        <p class="reassure">¿No sos vos? <a href="#" id="reset-reg" style="color:var(--orange);font-weight:700;text-decoration:underline;">Registrar a otra persona</a></p>
+      </div>
+    </div>
+  </div>
+
+<!-- intl-tel-input JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/intlTelInput.min.js"></script>
+<script>
+  /* ============================================================
+     CONFIG — completá estos valores
+     ============================================================ */
+  var ZOOM_LINK = "https://us06web.zoom.us/j/82405076014?pwd=zjj9IkYia94CNSNVGE4rII3nXHZfLD.1";
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby_bkbPK1OoemX4AAXHTqvDX3RGUW3aFdm4az6ktUoeFdwmJzuF5T-QJAysAF8SE4uH8w/exec";
+
+  /* clave anti-duplicados — ÚNICA por clase. Cambiala en cada clase nueva
+     (ej: nfm_reg_15jul) para que los registros del evento anterior no
+     saltéen el form del nuevo. */
+  var REG_KEY = "nfm_reg_22sep";
+
+  /* (Opcional) etiqueta de grupo — podés pasar ?grupo=NombreGrupo en la URL
+     y queda registrado en el Sheet para distinguir de qué grupo vino el lead. */
+  var GRUPO = new URLSearchParams(window.location.search).get('grupo') || '';
+
+  /* ============================================================
+     Selector de país: top por volumen arriba, resto alfabético
+     ============================================================ */
+  var telInput = document.querySelector("#telefono");
+  var iti;
+
+  /* País por ZONA HORARIA del navegador: instantáneo, sin pedir permiso y sin depender de ningún
+     servicio externo. La IP (ipapi) queda sólo de respaldo, para cuando la zona no está en la tabla. */
+  var TZ_PAIS = {
+    'America/Argentina':'ar','America/Buenos_Aires':'ar','America/Cordoba':'ar','America/Mendoza':'ar',
+    'America/La_Paz':'bo','America/Santiago':'cl','America/Punta_Arenas':'cl','America/Bogota':'co',
+    'America/Lima':'pe','America/Mexico_City':'mx','America/Monterrey':'mx','America/Cancun':'mx','America/Tijuana':'mx','America/Merida':'mx','America/Chihuahua':'mx','America/Hermosillo':'mx','America/Mazatlan':'mx',
+    'America/Guayaquil':'ec','America/Caracas':'ve','America/Asuncion':'py','America/Montevideo':'uy',
+    'America/Sao_Paulo':'br','America/Panama':'pa','America/Costa_Rica':'cr','America/Guatemala':'gt','America/El_Salvador':'sv',
+    'America/Tegucigalpa':'hn','America/Managua':'ni','America/Santo_Domingo':'do','America/Havana':'cu','America/Puerto_Rico':'pr',
+    'America/New_York':'us','America/Chicago':'us','America/Denver':'us','America/Phoenix':'us','America/Los_Angeles':'us','America/Detroit':'us','America/Miami':'us',
+    'America/Toronto':'ca','America/Vancouver':'ca','Europe/Madrid':'es','Atlantic/Canary':'es','Europe/Lisbon':'pt','Europe/London':'gb','Europe/Dublin':'ie',
+    'Europe/Paris':'fr','Europe/Rome':'it','Europe/Berlin':'de','Europe/Amsterdam':'nl','Europe/Zurich':'ch','Europe/Andorra':'ad'
+  };
+  function paisPorZona(){
+    try{
+      var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      if(TZ_PAIS[tz]) return TZ_PAIS[tz];
+      if(tz.indexOf('America/Argentina/') === 0) return 'ar';
+      // segundo indicio: el idioma del navegador con región (es-BO, es-CL...)
+      var m = /^[a-z]{2}-([A-Z]{2})$/.exec(navigator.language || '');
+      if(m) return m[1].toLowerCase();
+    }catch(e){}
+    return '';
+  }
+  var PAIS_ZONA = paisPorZona();
+
+  /* Una sola consulta a ipapi para todo (antes eran dos): la usa el selector de país sólo si la
+     zona horaria no alcanzó, y la captura de IP/ciudad para el Sheet. Nunca bloquea nada. */
+  var ipDatos = null, ipEsperas = [];
+  try{
+    fetch("https://ipapi.co/json/")
+      .then(function(r){ return r.json(); })
+      .then(function(d){ ipDatos = d || {}; ipEsperas.forEach(function(fn){ fn(ipDatos); }); ipEsperas = []; })
+      .catch(function(){ ipDatos = {}; ipEsperas.forEach(function(fn){ fn(ipDatos); }); ipEsperas = []; });
+  }catch(e){ ipDatos = {}; }
+  function cuandoHayIP(fn){ if(ipDatos) fn(ipDatos); else ipEsperas.push(fn); }
+
+  try {
+    iti = window.intlTelInput(telInput, {
+      // países priorizados arriba (según volumen últimos 30 días)
+      preferredCountries: ['ar','mx','co','cl','pe','es','ec','bo','ve','py'],
+      initialCountry: PAIS_ZONA || "auto",
+      // respaldo por IP: sólo corre si la zona horaria no dio país
+      geoIpLookup: function(callback) {
+        var listo = false;
+        var responder = function(d){ if(listo) return; listo = true; callback(d && d.country_code ? String(d.country_code).toLowerCase() : "ar"); };
+        cuandoHayIP(responder);
+        setTimeout(function(){ responder({}); }, 2500); // si ipapi tarda, Argentina y seguimos
+      },
+      separateDialCode: true,
+      autoPlaceholder: "aggressive",
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/utils.js"
+    });
+  } catch(e){
+    // si el CDN fallara, el campo sigue funcionando como input normal
+    iti = null;
+  }
+
+  /* ============================================================
+     Solo números en el teléfono (bloqueo de letras en tiempo real)
+     ============================================================ */
+  telInput.addEventListener('input', function(){
+    this.value = this.value.replace(/[^\d\s\-\(\)]/g,'');
+  });
+
+  /* ============================================================
+     Validaciones (suave en mail, firme-pero-amable en teléfono)
+     ============================================================ */
+  function validarEmail(v){
+    // formato básico: algo @ algo . algo  (atrapa el error grosero, no es exquisito)
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+  }
+  function soloDigitos(v){
+    return (v.match(/\d/g) || []).length;
+  }
+
+  function marcarError(id){
+    document.getElementById(id).classList.add('err');
+    document.getElementById('msg-'+id).classList.add('show');
+  }
+  function limpiarError(id){
+    document.getElementById(id).classList.remove('err');
+    document.getElementById('msg-'+id).classList.remove('show');
+  }
+  ['nombre','email','telefono'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', function(){ limpiarError(id); });
+  });
+
+  /* ============================================================
+     Metadata automática del navegador (sin pedir nada al usuario)
+     ============================================================ */
+  // Detección simple de tipo de dispositivo
+  function tipoDispositivo(){
+    var ua = navigator.userAgent;
+    if(/Mobi|Android|iPhone|iPod/i.test(ua)) return 'Móvil';
+    if(/iPad|Tablet/i.test(ua)) return 'Tablet';
+    return 'Desktop';
+  }
+  // SO aproximado
+  function sistemaOperativo(){
+    var ua = navigator.userAgent;
+    if(/iPhone|iPad|iPod/i.test(ua)) return 'iOS';
+    if(/Android/i.test(ua)) return 'Android';
+    if(/Windows/i.test(ua)) return 'Windows';
+    if(/Mac/i.test(ua)) return 'macOS';
+    if(/Linux/i.test(ua)) return 'Linux';
+    return 'Otro';
+  }
+  // Navegador aproximado
+  function navegador(){
+    var ua = navigator.userAgent;
+    if(/Edg/i.test(ua)) return 'Edge';
+    if(/OPR|Opera/i.test(ua)) return 'Opera';
+    if(/Chrome/i.test(ua)) return 'Chrome';
+    if(/Safari/i.test(ua)) return 'Safari';
+    if(/Firefox/i.test(ua)) return 'Firefox';
+    return 'Otro';
+  }
+
+  // capturamos la IP por separado (la del país viene de ipapi).
+  // la guardamos apenas carga la página para tenerla lista al enviar.
+  var ipCapturada = '';
+  var ipCiudad = '';
+  var ipRegion = '';
+  var ipOperador = '';
+  cuandoHayIP(function(d){
+    ipCapturada = d.ip || '';
+    ipCiudad = d.city || '';
+    ipRegion = d.region || '';
+    ipOperador = d.org || '';
+  });
+
+  // lee todos los parámetros de la URL (UTMs, grupo, lo que venga)
+  function leerParametrosURL(){
+    var params = new URLSearchParams(window.location.search);
+    var obj = {};
+    params.forEach(function(value, key){ obj[key] = value; });
+    return obj;
+  }
+
+  function recolectarMetadata(){
+    var urlParams = leerParametrosURL();
+    return {
+      dispositivo: tipoDispositivo(),
+      sistemaOperativo: sistemaOperativo(),
+      navegador: navegador(),
+      userAgent: navigator.userAgent || '',
+      idioma: navigator.language || '',
+      zonaHoraria: (Intl.DateTimeFormat().resolvedOptions().timeZone) || '',
+      resolucion: (window.screen.width + 'x' + window.screen.height),
+      ventana: (window.innerWidth + 'x' + window.innerHeight),
+      referrer: document.referrer || 'directo',
+      ip: ipCapturada,
+      ciudad: ipCiudad,
+      region: ipRegion,
+      operador: ipOperador,
+      // UTMs (si vienen en la URL)
+      utm_source: urlParams.utm_source || '',
+      utm_medium: urlParams.utm_medium || '',
+      utm_campaign: urlParams.utm_campaign || '',
+      utm_content: urlParams.utm_content || '',
+      utm_term: urlParams.utm_term || ''
+    };
+  }
+
+  /* ============================================================
+     Envío — desacoplado: captura en paralelo, SIEMPRE entra a Zoom
+     ============================================================ */
+  function enviar(){
+    var nombre = document.getElementById('nombre').value.trim();
+    var email  = document.getElementById('email').value.trim();
+    var telRaw = document.getElementById('telefono').value.trim();
+
+    var ok = true;
+
+    // nombre: solo que no esté vacío
+    if(!nombre){ marcarError('nombre'); ok=false; }
+
+    // email: validación suave
+    if(!validarEmail(email)){ marcarError('email'); ok=false; }
+
+    // teléfono: solo piso universal de 6 dígitos (no asume longitud por país)
+    if(soloDigitos(telRaw) < 6){ marcarError('telefono'); ok=false; }
+
+    if(!ok){
+      // enfocar el primer campo con error
+      var primero = document.querySelector('.err');
+      if(primero) primero.focus();
+      return;
+    }
+
+    // número en formato internacional completo (+código + número)
+    var telFull = telRaw;
+    var pais = '';
+    var codigo = '';
+    if(iti){
+      try{
+        telFull = iti.getNumber() || ('+' + iti.getSelectedCountryData().dialCode + telRaw.replace(/\D/g,''));
+        pais = iti.getSelectedCountryData().name || '';
+        codigo = '+' + (iti.getSelectedCountryData().dialCode || '');
+      }catch(e){}
+    }
+
+    // marca de registro en este navegador (anti-duplicados)
+    try{ localStorage.setItem(REG_KEY, JSON.stringify({ nombre:nombre, email:email, ts:Date.now() })); }catch(e){}
+
+    // feedback visual del botón
+    var btn = document.getElementById('btn');
+    btn.classList.add('pop','loading');
+    btn.innerHTML = '<span class="spinner"></span> Ingresando...';
+
+    // payload
+    var meta = recolectarMetadata();
+    var payload = {
+      nombre: nombre,
+      email: email,
+      telefono: telFull,
+      pais: pais,
+      codigoPais: codigo,
+      grupo: GRUPO,
+      // --- metadata automática ---
+      dispositivo: meta.dispositivo,
+      sistemaOperativo: meta.sistemaOperativo,
+      navegador: meta.navegador,
+      idioma: meta.idioma,
+      zonaHoraria: meta.zonaHoraria,
+      paisZona: PAIS_ZONA,
+      resolucion: meta.resolucion,
+      ventana: meta.ventana,
+      referrer: meta.referrer,
+      ip: meta.ip,
+      ciudad: meta.ciudad,
+      region: meta.region,
+      operador: meta.operador,
+      utm_source: meta.utm_source,
+      utm_medium: meta.utm_medium,
+      utm_campaign: meta.utm_campaign,
+      utm_content: meta.utm_content,
+      utm_term: meta.utm_term,
+      userAgent: meta.userAgent
+    };
+
+    // CAPTURA EN PARALELO — no bloquea la entrada.
+    // no-cors: el navegador no espera respuesta legible, dispara y sigue.
+    // keepalive: el navegador termina de mandar el POST aunque ya estemos yendo a Zoom.
+    try{
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        keepalive: true,
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      }).catch(function(){});
+    }catch(e){}
+
+    // REDIRECCIÓN A ZOOM — inmediata, no espera al Sheet.
+    // pequeño delay solo para que se vea el feedback del botón.
+    setTimeout(function(){
+      window.location.href = ZOOM_LINK;
+    }, 650);
+  }
+
+  /* Enter envía el form */
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ enviar(); }
+  });
+
+  /* ============================================================
+     ANTI-DUPLICADOS — si este navegador ya registró para esta clase,
+     mostramos el estado "ya registrado" y NO volvemos a pedir el form.
+     Resuelve el caso más común: se les cae el Zoom, vuelven al link
+     y se registran de nuevo.
+     ============================================================ */
+  (function(){
+    var data;
+    try{ data = JSON.parse(localStorage.getItem(REG_KEY) || 'null'); }catch(e){ data = null; }
+    if(!data) return;
+
+    var head = document.getElementById('reg-head');
+    var form = document.getElementById('reg-form');
+    var done = document.getElementById('reg-done');
+    if(head) head.style.display = 'none';
+    if(form) form.style.display = 'none';
+    if(done) done.style.display = 'block';
+
+    if(data.nombre){
+      var t = document.getElementById('reg-done-title');
+      if(t) t.innerHTML = '¡Ya estás <span class="hl">registrado</span>, ' + String(data.nombre).replace(/[<>]/g,'') + '!';
+    }
+
+    // auto-ingreso suave con cuenta regresiva (y opción de cancelar)
+    var SEGUNDOS = 4;                 // <-- ajustá acá los segundos antes del auto-ingreso
+    var goZoom = function(){ window.location.href = ZOOM_LINK; };
+    var cdEl = document.getElementById('reg-cd');
+    var timer = setInterval(function(){
+      SEGUNDOS--;
+      if(cdEl) cdEl.textContent = SEGUNDOS;
+      if(SEGUNDOS <= 0){ clearInterval(timer); goZoom(); }
+    }, 1000);
+
+    var bv = document.getElementById('btn-volver');
+    if(bv) bv.addEventListener('click', function(){ clearInterval(timer); goZoom(); });   // "Entrar ahora"
+
+    var rr = document.getElementById('reset-reg');
+    if(rr) rr.addEventListener('click', function(e){
+      e.preventDefault();
+      clearInterval(timer);                 // "No sos vos" -> cancela el auto-ingreso
+      try{ localStorage.removeItem(REG_KEY); }catch(_){}
+      location.reload();
+    });
+  })();
+</script>
+</body>
+</html>
