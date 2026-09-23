@@ -277,6 +277,13 @@ def construir(version, vturb_id):
         '<div class="stat"><div class="n">+800</div><div class="l">Alumnos acompañados</div></div>',
         "trust +800")
 
+    # ═══════════════════════════════════════════ 4c-ter) FUERA EL H1: EL TITULO VA EN EL VIDEO DE VTURB
+    # Nico lo agrega como overlay del propio video; en la landing repetirlo era ruido.
+    s = reemplazar(s,
+        '    <h1 id="heroTitle" style="max-width:24ch;margin-left:auto;margin-right:auto">' + TITULO + '</h1>\n',
+        "", "hero h1")
+    s = re.sub(r"^\.hero h1(?=[\s{.])[^\n]*\n", "", s, flags=re.M)
+
     # ═══════════════════════════════════════════ 4c-bis) FUERA EL CIERRE DE LA PAGINA
     # Repetia la pregunta del camino con otras palabras. El unico CTA de cierre
     # queda el del camino, y el link del pie pasa a abrir el panel.
@@ -330,7 +337,8 @@ def construir(version, vturb_id):
     # controles finales
     for prohibido in ("loadVSL", "initVSL", "goFullscreen", "VIDEO_EMBED_URL", "loom.com", "nfm-adm", "Valent", "nfm-team", "nfm-equipo", 'id="metodo"', ".pillars", ".pill{",
                       'id="espejo"', 'id="quees"', 'id="incluye"', 'id="agendar"', 'class="marquee', ".bcard", ".ducha",
-                      "urgencia prestada", "Recuadro 2", "Cuatro pilares", "nfmc-pilar", ".apply{", "section apply", "agendarBtn"):
+                      "urgencia prestada", "Recuadro 2", "Cuatro pilares", "nfmc-pilar", ".apply{", "section apply", "agendarBtn",
+                      'id="heroTitle"', ".hero h1{"):
         assert prohibido not in s, "quedo " + prohibido
     assert s.count(vturb_id) == 2, "el ID de vturb tiene que aparecer exactamente 2 veces"
     assert s.count('id="camino"') == 1 and s.count("data-foto=") == 5 and s.count("vsl-assets/") == 5
