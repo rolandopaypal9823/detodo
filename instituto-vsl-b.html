@@ -2170,7 +2170,7 @@ const IMG = {
    Cada titulo cargado en Vturb deja su codigo en window.NFM_TITULO (pestaña JS
    de cada titulo en Vturb). Viaja al survey para contar registros y agendas por titulo. */
 function tituloVSL(){
-  var t=window.NFM_TITULO||'';
+  var t=CONFIG.TITULO||window.NFM_TITULO||'';
   if(!t){ try{ t=sessionStorage.getItem('nfm_titulo')||''; }catch(e){} }
   return String(t).replace(/[^a-z0-9_-]/gi,'').slice(0,40);
 }

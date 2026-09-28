@@ -130,7 +130,7 @@ def construir(version, vturb_id):
         "   Cada titulo cargado en Vturb deja su codigo en window.NFM_TITULO (pestaña JS\n"
         "   de cada titulo en Vturb). Viaja al survey para contar registros y agendas por titulo. */\n"
         "function tituloVSL(){\n"
-        "  var t=window.NFM_TITULO||'';\n"
+        "  var t=CONFIG.TITULO||window.NFM_TITULO||'';\n"
         "  if(!t){ try{ t=sessionStorage.getItem('nfm_titulo')||''; }catch(e){} }\n"
         "  return String(t).replace(/[^a-z0-9_-]/gi,'').slice(0,40);\n"
         "}\n\n"
@@ -413,7 +413,72 @@ def construir_simple(version, vturb_id):
     return s
 
 
+import build_vturb_titulos as BVT
+
+# Prueba A/B de titulos: mismo video (B), el titulo escrito en la pagina.
+TITULADAS = [
+    ("instituto-vsl-titulo-1.html", 1),
+    ("instituto-vsl-titulo-2.html", 2),
+]
+VIDEO_TITULADAS = ("B", "6aac5b499de2f947efaa1453")
+
+
+def construir_titulo(n):
+    """Video + historia de Nico + testimonios, con el titulo n escrito arriba del video.
+    Mismo video en las dos, para que lo unico que cambie sea el titulo."""
+    version, vturb_id = VIDEO_TITULADAS
+    codigo, titulo, bajada = BVT.TITULOS[n - 1]
+    s = construir(version, vturb_id)
+
+    # fuera la barra de numeros y el camino (entre el hero y la historia)
+    s = cortar(s, "<!-- TRUST BAR -->\n",
+               "<!-- ═══════════ WIDGET · HISTORIA DE NICO", "trust + camino", incluir_hasta=False)
+    # fuera el aval: desde su comentario hasta donde arranca el widget de testimonios
+    i = s.index("<!-- AVAL UNIVERSITARIO (3er widget · el diferencial arriba) -->\n")
+    j = s.rfind("<!--", 0, s.index("WIDGET — CASOS DE ÉXITO MATCH"))
+    assert i < j
+    s = s[:i] + s[j:]
+    # pie: marca y copyright, sin links a secciones que ya no existen
+    s = cortar(s, '    <div class="links">\n', "    </div>\n", "pie links")
+    # las fotos del camino y del aval ya no se usan
+    s = cortar(s, "  // Recuadro 1 · Aval", "};\n", "img", incluir_hasta=False)
+
+    # el titulo, arriba del video, con el mismo diseño que los titulos de Vturb
+    bloque = "\n".join("    " + l for l in BVT.html(titulo, bajada).split("\n")) + "\n\n"
+    s = reemplazar(s, '    <div class="video-shell fade-up d3">',
+                      bloque + '    <div class="video-shell fade-up d3">', "titulo en el hero")
+    css = BVT.CSS.split("\n", 1)[1]          # sin el @import: la pagina ya carga las fuentes
+    s = reemplazar(s, ".hero{padding:28px 0 36px;position:relative}\n",
+                      ".hero{padding:28px 0 36px;position:relative}\n"
+                      "/* titulo de la prueba A/B (mismo diseño que los titulos de Vturb) */\n" + css + "\n",
+                      "css titulo")
+
+    # etiquetas para separar los leads de cada titulo en GHL
+    s = reemplazar(s, 'VERSION: "vsl-%s",' % version.lower(), 'VERSION: "vsl-titulo-%d",' % n, "version titulo")
+    s = reemplazar(s, '  CAMPO_TITULO: "titulo_vsl",\n',
+                      '  CAMPO_TITULO: "titulo_vsl",\n\n'
+                      '  // Titulo de esta pagina: viaja al survey en titulo_vsl y manda sobre cualquier\n'
+                      '  // titulo que cargues en Vturb para este video.\n'
+                      '  TITULO: "%s",\n' % codigo, "config titulo")
+    s = reemplazar(s, "<title>" + TITLE_TAG + "</title>",
+                      "<title>Instituto de Productividad · Mirá el video</title>", "title tag")
+    s = reemplazar(s, "LANDING · INSTITUTO DE PRODUCTIVIDAD · VSL · VERSIÓN %s\n" % version,
+                      "LANDING · INSTITUTO DE PRODUCTIVIDAD · PRUEBA DE TITULOS · TITULO %d (%s) · VIDEO %s\n"
+                      % (n, codigo, version), "rotulo titulo")
+
+    for prohibido in ('id="camino"', 'id="aval"', 'class="trust', "data-foto=", 'href="#camino"', 'href="#aval"'):
+        assert prohibido not in s, "quedo " + prohibido
+    assert s.count('<h1 class="nfm-tit__t">') == 1 and s.count('TITULO: "%s"' % codigo) == 1
+    assert (s.index('class="hero"') < s.index('class="nfm-tit"') < s.index('id="vslFrame"')
+            < s.index('id="historia-nico"') < s.index('id="nfm-casos"') < s.index('id="agdModal"'))
+    return s
+
+
 if __name__ == "__main__":
+    for fname, n in TITULADAS:
+        html = construir_titulo(n)
+        io.open(os.path.join(BASE, fname), "w", encoding="utf-8").write(html)
+        print("%-28s titulo %d · %d bytes" % (fname, n, len(html)))
     for fname, ver, vid in SIMPLES:
         html = construir_simple(ver, vid)
         io.open(os.path.join(BASE, fname), "w", encoding="utf-8").write(html)
