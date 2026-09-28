@@ -108,6 +108,9 @@ def construir(version, vturb_id):
         "  // En GHL: campo personalizado \"Titulo VSL\" con Query Key igual a este valor.\n"
         "  // Si le pones otra Query Key en GHL, cambiala aca tambien.\n"
         "  CAMPO_TITULO: \"titulo_vsl\",\n\n"
+        "  // Variante de la landing (por ejemplo, con o sin la escalera). Viaja al survey\n"
+        "  // como utm_term. Vacio = no se manda.\n"
+        "  UTM_TERM: \"\",\n\n"
         "  // Base de datos (mismo endpoint que la landing madre para unificar leads)." % version.lower(),
         "config VERSION")
     s = cortar(s,
@@ -122,7 +125,8 @@ def construir(version, vturb_id):
         "  var full=url+sep+'utm_source='+encodeURIComponent(getUTM());",
         "  var full=url+sep+'utm_source='+encodeURIComponent(getUTM())+'&utm_content='+encodeURIComponent(CONFIG.VERSION||'');\n"
         "  var titulo=tituloVSL();\n"
-        "  if(titulo && CONFIG.CAMPO_TITULO) full+='&'+CONFIG.CAMPO_TITULO+'='+encodeURIComponent(titulo);",
+        "  if(titulo && CONFIG.CAMPO_TITULO) full+='&'+CONFIG.CAMPO_TITULO+'='+encodeURIComponent(titulo);\n"
+        "  if(CONFIG.UTM_TERM) full+='&utm_term='+encodeURIComponent(CONFIG.UTM_TERM);",
         "survey utm_content + titulo")
     s = reemplazar(s,
         "/* ---------- UTM / Sheets ---------- */\nfunction getUTM(){",
@@ -460,6 +464,7 @@ def construir_titulo(n):
                       '  // Titulo de esta pagina: viaja al survey en titulo_vsl y manda sobre cualquier\n'
                       '  // titulo que cargues en Vturb para este video.\n'
                       '  TITULO: "%s",\n' % codigo, "config titulo")
+    s = reemplazar(s, 'UTM_TERM: "",', 'UTM_TERM: "sin-escalera",', "utm_term sin escalera")
     s = reemplazar(s, "<title>" + TITLE_TAG + "</title>",
                       "<title>Instituto de Productividad · Mirá el video</title>", "title tag")
     s = reemplazar(s, "LANDING · INSTITUTO DE PRODUCTIVIDAD · VSL · VERSIÓN %s\n" % version,
@@ -527,7 +532,47 @@ def construir_ab():
     return s
 
 
+ESCALERA_ARCHIVO = "instituto-vsl-titulo-2-escalera.html"
+
+
+def construir_titulo_escalera():
+    """La pagina del titulo 2 mas la escalera del camino (la estructura y la pregunta
+    con el boton), sin el Punto A ni el Punto B. Orden: video, escalera, historia, testimonios."""
+    s = construir_titulo(2)
+    codigo = BVT.TITULOS[1][0]
+
+    esc = cortar(CAMINO, "  <!-- ACTO 1 · PUNTO A -->\n", "  <!-- ACTO 3 · LA ESTRUCTURA -->\n",
+                 "actos A y B", incluir_hasta=False)
+    esc = reemplazar(esc, "WIDGET · EL CAMINO · Punto A → Punto B → La Escalera → Agendar",
+                          "WIDGET · LA ESCALERA · La estructura → Agendar", "rotulo escalera")
+    esc = reemplazar(esc, "agdOpen('camino')", "agdOpen('escalera')", "origen escalera")
+    assert "PUNTO A" not in esc and "PUNTO B" not in esc and esc.count("data-foto=") == 3
+
+    s = reemplazar(s, "<!-- ═══════════ WIDGET · HISTORIA DE NICO",
+                      esc.rstrip() + "\n\n<!-- ═══════════ WIDGET · HISTORIA DE NICO", "escalera antes de la historia")
+    s = reemplazar(s, "const IMG = {\n};\n",
+        "const IMG = {\n"
+        "  // ── La escalera (un link por lugar) ──\n"
+        '  escalera_1: "vsl-assets/escalera-1-parales.jpg",      // los dos parales (Mente y Cuerpo)\n'
+        '  escalera_2: "vsl-assets/escalera-2-peldano.jpg",      // el peldaño (Competencias)\n'
+        '  escalera_3: "vsl-assets/escalera-3-completa.jpg",     // la escalera completa, tocando la X\n'
+        "};\n", "img escalera")
+    s = reemplazar(s, 'VERSION: "vsl-titulo-2",', 'VERSION: "vsl-titulo-2-escalera",', "version escalera")
+    s = reemplazar(s, 'UTM_TERM: "sin-escalera",', 'UTM_TERM: "escalera",', "utm_term escalera")
+    s = reemplazar(s, "PRUEBA DE TITULOS · TITULO 2 (%s)" % codigo,
+                      "PRUEBA DE TITULOS · TITULO 2 (%s) + ESCALERA" % codigo, "rotulo pagina")
+
+    assert s.count('data-foto="escalera_') == 3 and s.count("vsl-assets/") == 3
+    assert s.count('class="nfmc-acto nfmc-mec"') == 1 and 'nfmc-acto nfmc-a"' not in s
+    assert (s.index('class="nfm-tit"') < s.index('id="vslFrame"') < s.index('id="camino"')
+            < s.index('id="historia-nico"') < s.index('id="nfm-casos"'))
+    return s
+
+
 if __name__ == "__main__":
+    html = construir_titulo_escalera()
+    io.open(os.path.join(BASE, ESCALERA_ARCHIVO), "w", encoding="utf-8").write(html)
+    print("%-28s titulo 2 + escalera · %d bytes" % (ESCALERA_ARCHIVO, len(html)))
     html = construir_ab()
     io.open(os.path.join(BASE, AB_ARCHIVO), "w", encoding="utf-8").write(html)
     print("%-28s titulos 1 y 2 al azar · %d bytes" % (AB_ARCHIVO, len(html)))

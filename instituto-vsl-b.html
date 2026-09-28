@@ -699,7 +699,7 @@ section,.trust,footer.foot{position:relative;z-index:2}
 </section>
 
 <script>
-/* Fotos del camino: un link por lugar, desde IMG. Si falta, el recuadro se esconde. */
+/* Fotos del camino: un link por lugar, desde IMG. Si falta o no carga, el recuadro se esconde. */
 (function(){
   function cargar(){
     var imgs=document.querySelectorAll('.nfmc img[data-foto]');
@@ -707,7 +707,10 @@ section,.trust,footer.foot{position:relative;z-index:2}
       var img=imgs[i], key=img.getAttribute('data-foto');
       var v=(typeof IMG!=='undefined')?IMG[key]:'';
       if(Object.prototype.toString.call(v)==='[object Array]') v=v[0];
-      if(v && typeof v==='string' && v.trim()){ img.src=v.trim(); }
+      if(v && typeof v==='string' && v.trim()){
+        img.onerror=function(){ var f=this.closest('figure'); if(f) f.classList.add('is-empty'); };
+        img.src=v.trim();
+      }
       else { var f=img.closest('figure'); if(f) f.classList.add('is-empty'); }
     }
   }
@@ -2018,6 +2021,7 @@ function agdCargarSurvey(){
   var full=url+sep+'utm_source='+encodeURIComponent(getUTM())+'&utm_content='+encodeURIComponent(CONFIG.VERSION||'');
   var titulo=tituloVSL();
   if(titulo && CONFIG.CAMPO_TITULO) full+='&'+CONFIG.CAMPO_TITULO+'='+encodeURIComponent(titulo);
+  if(CONFIG.UTM_TERM) full+='&utm_term='+encodeURIComponent(CONFIG.UTM_TERM);
 
   if(CONFIG.REDIRECCION_EN_PANEL){
     /* La redirección de GHL ocurre adentro del iframe: sea al calendario o a la
@@ -2134,6 +2138,10 @@ const CONFIG = {
   // En GHL: campo personalizado "Titulo VSL" con Query Key igual a este valor.
   // Si le pones otra Query Key en GHL, cambiala aca tambien.
   CAMPO_TITULO: "titulo_vsl",
+
+  // Variante de la landing (por ejemplo, con o sin la escalera). Viaja al survey
+  // como utm_term. Vacio = no se manda.
+  UTM_TERM: "",
 
   // Base de datos (mismo endpoint que la landing madre para unificar leads).
   SHEETS_ENDPOINT: "",

@@ -258,7 +258,7 @@
 </section>
 
 <script>
-/* Fotos del camino: un link por lugar, desde IMG. Si falta, el recuadro se esconde. */
+/* Fotos del camino: un link por lugar, desde IMG. Si falta o no carga, el recuadro se esconde. */
 (function(){
   function cargar(){
     var imgs=document.querySelectorAll('.nfmc img[data-foto]');
@@ -266,7 +266,10 @@
       var img=imgs[i], key=img.getAttribute('data-foto');
       var v=(typeof IMG!=='undefined')?IMG[key]:'';
       if(Object.prototype.toString.call(v)==='[object Array]') v=v[0];
-      if(v && typeof v==='string' && v.trim()){ img.src=v.trim(); }
+      if(v && typeof v==='string' && v.trim()){
+        img.onerror=function(){ var f=this.closest('figure'); if(f) f.classList.add('is-empty'); };
+        img.src=v.trim();
+      }
       else { var f=img.closest('figure'); if(f) f.classList.add('is-empty'); }
     }
   }

@@ -732,6 +732,7 @@ function agdCargarSurvey(){
   var full=url+sep+'utm_source='+encodeURIComponent(getUTM())+'&utm_content='+encodeURIComponent(CONFIG.VERSION||'');
   var titulo=tituloVSL();
   if(titulo && CONFIG.CAMPO_TITULO) full+='&'+CONFIG.CAMPO_TITULO+'='+encodeURIComponent(titulo);
+  if(CONFIG.UTM_TERM) full+='&utm_term='+encodeURIComponent(CONFIG.UTM_TERM);
 
   if(CONFIG.REDIRECCION_EN_PANEL){
     /* La redirección de GHL ocurre adentro del iframe: sea al calendario o a la
@@ -843,6 +844,10 @@ const CONFIG = {
   // En GHL: campo personalizado "Titulo VSL" con Query Key igual a este valor.
   // Si le pones otra Query Key en GHL, cambiala aca tambien.
   CAMPO_TITULO: "titulo_vsl",
+
+  // Variante de la landing (por ejemplo, con o sin la escalera). Viaja al survey
+  // como utm_term. Vacio = no se manda.
+  UTM_TERM: "",
 
   // Base de datos (mismo endpoint que la landing madre para unificar leads).
   SHEETS_ENDPOINT: "",

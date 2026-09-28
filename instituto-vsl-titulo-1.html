@@ -1712,6 +1712,7 @@ function agdCargarSurvey(){
   var full=url+sep+'utm_source='+encodeURIComponent(getUTM())+'&utm_content='+encodeURIComponent(CONFIG.VERSION||'');
   var titulo=tituloVSL();
   if(titulo && CONFIG.CAMPO_TITULO) full+='&'+CONFIG.CAMPO_TITULO+'='+encodeURIComponent(titulo);
+  if(CONFIG.UTM_TERM) full+='&utm_term='+encodeURIComponent(CONFIG.UTM_TERM);
 
   if(CONFIG.REDIRECCION_EN_PANEL){
     /* La redirección de GHL ocurre adentro del iframe: sea al calendario o a la
@@ -1827,6 +1828,10 @@ const CONFIG = {
   // Titulo de esta pagina: viaja al survey en titulo_vsl y manda sobre cualquier
   // titulo que cargues en Vturb para este video.
   TITULO: "t1-sobreprecio",
+
+  // Variante de la landing (por ejemplo, con o sin la escalera). Viaja al survey
+  // como utm_term. Vacio = no se manda.
+  UTM_TERM: "sin-escalera",
 
   // Base de datos (mismo endpoint que la landing madre para unificar leads).
   SHEETS_ENDPOINT: "",
