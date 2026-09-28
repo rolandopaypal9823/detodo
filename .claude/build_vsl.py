@@ -474,7 +474,63 @@ def construir_titulo(n):
     return s
 
 
+AB_ARCHIVO = "instituto-vsl-ab-titulos.html"
+
+
+def construir_ab():
+    """Una sola pagina con los titulos 1 y 2: a cada persona le toca uno al azar
+    (50/50) y lo sigue viendo si vuelve. Parte de la pagina del titulo 1."""
+    s = construir_titulo(1)
+    t1, t2 = BVT.TITULOS[0], BVT.TITULOS[1]
+    variantes = '{"1":"%s","2":"%s"}' % (t1[0], t2[0])
+
+    # 1) el sorteo corre en el <head>, antes de que se dibuje nada: no hay parpadeo
+    sorteo = (
+        "<!-- PRUEBA A/B DE TITULOS · a cada persona le toca un titulo al azar (50/50)\n"
+        "     y lo sigue viendo si vuelve. Para ver uno a mano: agregá ?titulo=1 o ?titulo=2 a la URL. -->\n"
+        "<script>\n"
+        "(function(){\n"
+        "  var VARIANTES=%s;\n"
+        "  var v=null;\n"
+        "  try{ var q=new URLSearchParams(location.search).get('titulo'); if(q && VARIANTES[q]) v=q; }catch(e){}\n"
+        "  if(!v){ try{ v=localStorage.getItem('nfm_ab_titulo'); }catch(e){} }\n"
+        "  if(!v || !VARIANTES[v]) v = Math.random()<0.5 ? '1' : '2';\n"
+        "  try{ localStorage.setItem('nfm_ab_titulo', v); }catch(e){}\n"
+        "  document.documentElement.setAttribute('data-titulo', v);\n"
+        "  window.NFM_AB = {variante:v, codigo:VARIANTES[v]};\n"
+        "})();\n"
+        "</script>\n"
+    ) % variantes
+    s = reemplazar(s, "<!-- End Meta Pixel Code -->\n", "<!-- End Meta Pixel Code -->\n\n" + sorteo, "sorteo en head")
+
+    # 2) los dos titulos en el hero; el CSS muestra solo el que toco (sin JS se ve el 1)
+    bloque1 = "\n".join("    " + l for l in BVT.html(t1[1], t1[2]).split("\n"))
+    bloque2 = "\n".join("    " + l for l in BVT.html(t2[1], t2[2]).split("\n"))
+    assert s.count(bloque1) == 1
+    s = s.replace(bloque1,
+        bloque1.replace('<div class="nfm-tit">', '<div class="nfm-tit" data-variante="1">', 1) + "\n" +
+        bloque2.replace('<div class="nfm-tit">', '<div class="nfm-tit" data-variante="2">', 1))
+    s = reemplazar(s, "/* titulo de la prueba A/B (mismo diseño que los titulos de Vturb) */\n",
+        "/* titulo de la prueba A/B (mismo diseño que los titulos de Vturb) */\n"
+        "html[data-titulo=\"2\"] .nfm-tit[data-variante=\"1\"],\n"
+        "html:not([data-titulo=\"2\"]) .nfm-tit[data-variante=\"2\"]{display:none}\n", "css variantes")
+
+    # 3) lo que viaja a GHL: la pagina en utm_content, el titulo que vio en titulo_vsl
+    s = reemplazar(s, 'VERSION: "vsl-titulo-1",', 'VERSION: "vsl-ab",', "version ab")
+    s = reemplazar(s, '  TITULO: "%s",\n' % t1[0],
+        '  TITULO: (window.NFM_AB && window.NFM_AB.codigo) || "%s",\n' % t1[0], "config titulo ab")
+    s = reemplazar(s, "PRUEBA DE TITULOS · TITULO 1 (%s)" % t1[0],
+                      "PRUEBA A/B DE TITULOS EN UNA SOLA PAGINA (1 y 2)", "rotulo ab")
+
+    assert s.count('<h1 class="nfm-tit__t">') == 2 and s.count('<div class="nfm-tit" data-variante=') == 2
+    assert s.index("window.NFM_AB = {") < s.index("<body")
+    return s
+
+
 if __name__ == "__main__":
+    html = construir_ab()
+    io.open(os.path.join(BASE, AB_ARCHIVO), "w", encoding="utf-8").write(html)
+    print("%-28s titulos 1 y 2 al azar · %d bytes" % (AB_ARCHIVO, len(html)))
     for fname, n in TITULADAS:
         html = construir_titulo(n)
         io.open(os.path.join(BASE, fname), "w", encoding="utf-8").write(html)
