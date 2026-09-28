@@ -1,0 +1,30 @@
+{
+ "ante": "Para quienes tienen gente a cargo",
+ "titulos": [
+  {
+   "codigo": "t1-sobreprecio",
+   "titulo": "Experto en Neurociencia revela: 5 claves para dejar de pagar <span>el sobreprecio de ser “productivo”</span>",
+   "bajada": null
+  },
+  {
+   "codigo": "t2-sueno-salud-familia",
+   "titulo": "Experto en Neurociencia revela: 5 claves para rendir más <span>sin pagarlo con tu sueño, tu salud y tu familia</span>",
+   "bajada": null
+  },
+  {
+   "codigo": "t3-deja-para-el-final",
+   "titulo": "Magíster en Neurociencias te explica por qué tu cerebro le cumple a cualquiera <span>y a vos te deja para el final</span>",
+   "bajada": null
+  },
+  {
+   "codigo": "t4-te-cobra-sobreprecio",
+   "titulo": "Experto en Productividad y Neurociencia revela por qué ser “productivo” <span>te está cobrando un sobreprecio</span> en tu cuerpo, tu tiempo y tu salud mental",
+   "bajada": "Y las 5 claves para dejar de pagarlo."
+  },
+  {
+   "codigo": "t5-sin-sumar-cansancio",
+   "titulo": "Experto en Productividad y Neurociencia te explica 5 claves para <span>cumplir con todo sin sumar más cansancio</span>",
+   "bajada": "Y recuperar tu tiempo, tu descanso y tu claridad mental, sin soltar nada de lo que construiste."
+  }
+ ]
+}

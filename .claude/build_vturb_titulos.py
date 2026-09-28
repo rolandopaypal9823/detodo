@@ -73,4 +73,28 @@ if __name__ == "__main__":
                     % (codigo, i, codigo, html(t, b)))
     prev.append('</div></body></html>')
     io.open(os.path.join(BASE, "vista-previa-titulos.html"), "w", encoding="utf-8").write("\n".join(prev))
+    # instrucciones para usar los titulos como imagen (vturb-titulos/png/celular/titulo-N.png)
+    import re as _re
+    txt = ["TITULOS EN PNG PARA VTURB · VSL Instituto de Productividad",
+           "Las imagenes son titulo-1.png a titulo-5.png, con fondo transparente.",
+           "Todas tienen el mismo ancho, asi el titulo sale del mismo tamaño en las cinco.",
+           "",
+           "DOS FORMAS DE CARGARLAS",
+           "",
+           "A) La simple: en Vturb, Headline > Imagen, y subis el PNG.",
+           "   Contra: GHL no se entera de que titulo vio cada persona (no llega titulo_vsl).",
+           "",
+           "B) La recomendada: subis el PNG a la galeria de GHL, copias su link y en Vturb",
+           "   usas Headline > Codigo. En HTML pegas la linea de abajo cambiando PEGAR-LINK",
+           "   por el link del PNG. En JS pegas el bloque de ese titulo. El CSS queda vacio.",
+           "   Asi el titulo_vsl sigue llegando a GHL, y el tope de 560px evita que en",
+           "   computadora la imagen quede gigante.",
+           ""]
+    for i, (codigo, t, bj) in enumerate(TITULOS, 1):
+        alt = _re.sub(r"<[^>]+>", "", t).replace('"', "'")
+        txt += ["=" * 70, "TITULO %d · titulo-%d.png · codigo: %s" % (i, i, codigo), "=" * 70, "",
+                "----- HTML -----",
+                '<img src="PEGAR-LINK" alt="%s" style="display:block;width:100%%;max-width:560px;height:auto;margin:0 auto">' % alt,
+                "", "----- JS -----", js(codigo), "", ""]
+    io.open(os.path.join(BASE, "vturb-titulos-png.txt"), "w", encoding="utf-8").write("\n".join(txt))
     print("ok · %d titulos" % len(TITULOS))

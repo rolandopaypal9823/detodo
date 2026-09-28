@@ -1,0 +1,79 @@
+TITULOS EN PNG PARA VTURB · VSL Instituto de Productividad
+Las imagenes son titulo-1.png a titulo-5.png, con fondo transparente.
+Todas tienen el mismo ancho, asi el titulo sale del mismo tamaño en las cinco.
+
+DOS FORMAS DE CARGARLAS
+
+A) La simple: en Vturb, Headline > Imagen, y subis el PNG.
+   Contra: GHL no se entera de que titulo vio cada persona (no llega titulo_vsl).
+
+B) La recomendada: subis el PNG a la galeria de GHL, copias su link y en Vturb
+   usas Headline > Codigo. En HTML pegas la linea de abajo cambiando PEGAR-LINK
+   por el link del PNG. En JS pegas el bloque de ese titulo. El CSS queda vacio.
+   Asi el titulo_vsl sigue llegando a GHL, y el tope de 560px evita que en
+   computadora la imagen quede gigante.
+
+======================================================================
+TITULO 1 · titulo-1.png · codigo: t1-sobreprecio
+======================================================================
+
+----- HTML -----
+<img src="PEGAR-LINK" alt="Experto en Neurociencia revela: 5 claves para dejar de pagar el sobreprecio de ser “productivo”" style="display:block;width:100%;max-width:560px;height:auto;margin:0 auto">
+
+----- JS -----
+// Deja el codigo de este titulo en la pagina: viaja al survey como titulo_vsl
+window.NFM_TITULO = 't1-sobreprecio';
+try { sessionStorage.setItem('nfm_titulo', 't1-sobreprecio'); } catch (e) {}
+
+
+======================================================================
+TITULO 2 · titulo-2.png · codigo: t2-sueno-salud-familia
+======================================================================
+
+----- HTML -----
+<img src="PEGAR-LINK" alt="Experto en Neurociencia revela: 5 claves para rendir más sin pagarlo con tu sueño, tu salud y tu familia" style="display:block;width:100%;max-width:560px;height:auto;margin:0 auto">
+
+----- JS -----
+// Deja el codigo de este titulo en la pagina: viaja al survey como titulo_vsl
+window.NFM_TITULO = 't2-sueno-salud-familia';
+try { sessionStorage.setItem('nfm_titulo', 't2-sueno-salud-familia'); } catch (e) {}
+
+
+======================================================================
+TITULO 3 · titulo-3.png · codigo: t3-deja-para-el-final
+======================================================================
+
+----- HTML -----
+<img src="PEGAR-LINK" alt="Magíster en Neurociencias te explica por qué tu cerebro le cumple a cualquiera y a vos te deja para el final" style="display:block;width:100%;max-width:560px;height:auto;margin:0 auto">
+
+----- JS -----
+// Deja el codigo de este titulo en la pagina: viaja al survey como titulo_vsl
+window.NFM_TITULO = 't3-deja-para-el-final';
+try { sessionStorage.setItem('nfm_titulo', 't3-deja-para-el-final'); } catch (e) {}
+
+
+======================================================================
+TITULO 4 · titulo-4.png · codigo: t4-te-cobra-sobreprecio
+======================================================================
+
+----- HTML -----
+<img src="PEGAR-LINK" alt="Experto en Productividad y Neurociencia revela por qué ser “productivo” te está cobrando un sobreprecio en tu cuerpo, tu tiempo y tu salud mental" style="display:block;width:100%;max-width:560px;height:auto;margin:0 auto">
+
+----- JS -----
+// Deja el codigo de este titulo en la pagina: viaja al survey como titulo_vsl
+window.NFM_TITULO = 't4-te-cobra-sobreprecio';
+try { sessionStorage.setItem('nfm_titulo', 't4-te-cobra-sobreprecio'); } catch (e) {}
+
+
+======================================================================
+TITULO 5 · titulo-5.png · codigo: t5-sin-sumar-cansancio
+======================================================================
+
+----- HTML -----
+<img src="PEGAR-LINK" alt="Experto en Productividad y Neurociencia te explica 5 claves para cumplir con todo sin sumar más cansancio" style="display:block;width:100%;max-width:560px;height:auto;margin:0 auto">
+
+----- JS -----
+// Deja el codigo de este titulo en la pagina: viaja al survey como titulo_vsl
+window.NFM_TITULO = 't5-sin-sumar-cansancio';
+try { sessionStorage.setItem('nfm_titulo', 't5-sin-sumar-cansancio'); } catch (e) {}
+
