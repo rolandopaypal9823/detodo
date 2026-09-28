@@ -18,7 +18,9 @@ CSS = """@import url('%s');
 @media (max-width:400px){.nfm-tit .nfm-tit__t{font-size:18px}.nfm-tit .nfm-tit__k{letter-spacing:.1em}}
 @media (min-width:768px){.nfm-tit .nfm-tit__t{font-size:24px}.nfm-tit .nfm-tit__b{font-size:16px}}""" % FUENTES
 
-ANTE = "Para quienes tienen gente a cargo"
+# Identidad (profesionales, lideres, empresarios) + el filtro del video (0:54: sin gente a cargo, no es para vos)
+ANTE = "Profesionales, líderes y empresarios con equipo a cargo"
+ANTE_PNG = "Profesionales, líderes y empresarios<br>con equipo a cargo"   # en la imagen, corte en dos lineas
 TITULOS = [
     ("t1-sobreprecio",
      "Experto en Neurociencia revela: 5 claves para dejar de pagar <span>el sobreprecio de ser “productivo”</span>", None),
@@ -97,4 +99,7 @@ if __name__ == "__main__":
                 '<img src="PEGAR-LINK" alt="%s" style="display:block;width:100%%;max-width:560px;height:auto;margin:0 auto">' % alt,
                 "", "----- JS -----", js(codigo), "", ""]
     io.open(os.path.join(BASE, "vturb-titulos-png.txt"), "w", encoding="utf-8").write("\n".join(txt))
+    import json as _json
+    io.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "titulos.json"), "w", encoding="utf-8").write(_json.dumps(
+        {"ante": ANTE_PNG, "titulos": [{"codigo": c, "titulo": t, "bajada": bj} for c, t, bj in TITULOS]}, ensure_ascii=False, indent=1))
     print("ok · %d titulos" % len(TITULOS))

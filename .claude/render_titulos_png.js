@@ -27,7 +27,7 @@ const FORMATOS = {
       await p.setContent(`<!doctype html><html><head><meta charset="utf-8"><style>${FACE}
         html,body{margin:0;background:transparent}
         .tit{box-sizing:border-box;width:${m.w}px;padding:${m.pad}px ${m.pad * 2}px ${m.pad}px;text-align:center;color:#0c3452}
-        .k{font:500 ${m.k}px/1.2 J,monospace;letter-spacing:.12em;text-transform:uppercase;color:#c04a00;margin:0 0 ${Math.round(m.k * .55)}px}
+        .k{font:500 ${m.k}px/1.3 J,monospace;letter-spacing:.1em;text-transform:uppercase;color:#c04a00;margin:0 0 ${Math.round(m.k * .55)}px}
         .t{font:900 ${m.t}px/1.14 M,sans-serif;letter-spacing:-.012em;margin:0;text-wrap:balance}
         .t span{color:#ff6602}
         .b{font:400 ${m.b}px/1.4 O,sans-serif;color:#33536b;margin:${Math.round(m.b * .45)}px auto 0;max-width:30em;text-wrap:balance}
