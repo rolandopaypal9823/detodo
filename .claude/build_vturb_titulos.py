@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Genera los titulos para cargar en Vturb (Headlines > Codigo: HTML, CSS y JS)
-y una vista previa local. El tamaño de letra depende del ancho del recuadro del
-titulo (unidades cqi), no del ancho de la ventana: la vista previa de Vturb
-muestra un celular dentro de la ventana de la computadora."""
+y una vista previa local. Sin container queries: Vturb mete el titulo en una caja
+que se ajusta al contenido, y container-type la dejaba en ancho cero."""
 import io, os
 
 BASE = "/home/user/detodo/vturb-titulos"
 FUENTES = "https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Open+Sans:wght@400&family=JetBrains+Mono:wght@500&display=swap"
 
 CSS = """@import url('%s');
-.nfm-tit{container-type:inline-size;box-sizing:border-box;width:100%%;max-width:680px;margin:0 auto;padding:4px 12px 14px;text-align:center;font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;color:#0c3452}
+.nfm-tit{display:block;box-sizing:border-box;width:100%%;max-width:680px;margin:0 auto;padding:4px 12px 14px;text-align:center;font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;color:#0c3452}
 .nfm-tit *{box-sizing:border-box}
-.nfm-tit__k{margin:0 0 8px;font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#c04a00}
-.nfm-tit .nfm-tit__t{margin:0;font-weight:900;font-size:19px;font-size:clamp(17px,5.4cqi,28px);line-height:1.18;letter-spacing:-.01em;color:#0c3452;text-wrap:balance;overflow-wrap:break-word;hyphens:none}
+.nfm-tit .nfm-tit__k{margin:0 0 8px;font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#c04a00}
+.nfm-tit .nfm-tit__t{margin:0;font-weight:900;font-size:20px;line-height:1.18;letter-spacing:-.01em;color:#0c3452;text-wrap:balance;overflow-wrap:break-word;hyphens:none}
 .nfm-tit .nfm-tit__t span{color:#ff6602}
-.nfm-tit .nfm-tit__b{margin:8px auto 0;max-width:58ch;font-family:'Open Sans',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;font-size:14px;font-size:clamp(14px,3.3cqi,16px);font-weight:400;line-height:1.5;color:#33536b}
-@container (max-width:420px){.nfm-tit__k{letter-spacing:.12em}}""" % FUENTES
+.nfm-tit .nfm-tit__b{margin:8px auto 0;max-width:58ch;font-family:'Open Sans',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;font-size:15px;font-weight:400;line-height:1.5;color:#33536b}
+@media (max-width:400px){.nfm-tit .nfm-tit__t{font-size:18px}.nfm-tit .nfm-tit__k{letter-spacing:.1em}}
+@media (min-width:768px){.nfm-tit .nfm-tit__t{font-size:24px}.nfm-tit .nfm-tit__b{font-size:16px}}""" % FUENTES
 
 ANTE = "Para quienes tienen gente a cargo"
 TITULOS = [
