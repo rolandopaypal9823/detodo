@@ -10,12 +10,12 @@ BASE = "/home/user/detodo/vturb-titulos"
 FUENTES = "https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Open+Sans:wght@400&family=JetBrains+Mono:wght@500&display=swap"
 
 CSS = """@import url('%s');
-.nfm-tit{container-type:inline-size;box-sizing:border-box;width:100%%;max-width:780px;margin:0 auto;padding:6px 12px 16px;text-align:center;font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;color:#0c3452}
+.nfm-tit{container-type:inline-size;box-sizing:border-box;width:100%%;max-width:680px;margin:0 auto;padding:4px 12px 14px;text-align:center;font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;color:#0c3452}
 .nfm-tit *{box-sizing:border-box}
-.nfm-tit__k{margin:0 0 10px;font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#c04a00}
-.nfm-tit__t{margin:0;font-weight:900;font-size:22px;font-size:clamp(19px,6.4cqi,36px);line-height:1.14;letter-spacing:-.015em;color:#0c3452;text-wrap:balance;overflow-wrap:break-word;hyphens:none}
-.nfm-tit__t span{color:#ff6602}
-.nfm-tit__b{margin:10px auto 0;max-width:58ch;font-family:'Open Sans',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;font-size:15px;font-size:clamp(15px,3.6cqi,18px);font-weight:400;line-height:1.5;color:#33536b}
+.nfm-tit__k{margin:0 0 8px;font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#c04a00}
+.nfm-tit .nfm-tit__t{margin:0;font-weight:900;font-size:19px;font-size:clamp(17px,5.4cqi,28px);line-height:1.18;letter-spacing:-.01em;color:#0c3452;text-wrap:balance;overflow-wrap:break-word;hyphens:none}
+.nfm-tit .nfm-tit__t span{color:#ff6602}
+.nfm-tit .nfm-tit__b{margin:8px auto 0;max-width:58ch;font-family:'Open Sans',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;font-size:14px;font-size:clamp(14px,3.3cqi,16px);font-weight:400;line-height:1.5;color:#33536b}
 @container (max-width:420px){.nfm-tit__k{letter-spacing:.12em}}""" % FUENTES
 
 ANTE = "Para quienes tienen gente a cargo"
@@ -53,7 +53,7 @@ if __name__ == "__main__":
     out = ["TITULOS PARA VTURB · VSL Instituto de Productividad",
            "Cargalos en Vturb: Editar > Headlines > Agregar Headline > Codigo.",
            "En cada uno pegás su HTML, el CSS (es el mismo para los cinco) y su JS.",
-           "Si ya los cargaste, reemplazá solo el CSS: el HTML y el JS no cambiaron.",
+           "Si ya los cargaste, reemplazá TODO el CSS por el de este archivo: el HTML y el JS no cambiaron.",
            "Cargá los mismos cinco en el video A y en el video B.", ""]
     for i, (codigo, t, b) in enumerate(TITULOS, 1):
         out += ["=" * 70, "TITULO %d · codigo: %s" % (i, codigo), "=" * 70, "",
