@@ -147,11 +147,9 @@ section,.trust,footer.foot{position:relative;z-index:2}
 .topbar__cta{flex:0 0 auto}
 
 /* ---------- HERO ---------- */
-.hero{padding:64px 0 40px;position:relative}
+.hero{padding:28px 0 36px;position:relative}
 .hero .eyebrow{margin-bottom:24px}
 @keyframes shimmer{to{background-position:200% center}}
-.hero .sub{font-size:clamp(16px,2.1vw,20px);color:var(--muted);max-width:680px;margin:0 auto;text-align:center;line-height:1.55}
-.hero .sub b{color:var(--nfm-blue);font-weight:800}
 /* ---------- HERO SPLIT (1er widget: copy + foto comunidad) ---------- */
 .hero-split{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
 .hero-copy{text-align:left}
@@ -178,7 +176,7 @@ section,.trust,footer.foot{position:relative;z-index:2}
 
 
 /* ---------- VIDEO VSL (frame con acentos + glow) ---------- */
-.video-shell{position:relative;margin:40px auto 0;max-width:900px;border-radius:14px;padding:10px;background:linear-gradient(180deg,rgba(12,52,82,.05),rgba(12,52,82,.01));border:1px solid var(--hair-2);box-shadow:0 40px 90px -22px rgba(12,52,82,.34)}
+.video-shell{position:relative;margin:0 auto;max-width:900px;border-radius:14px;padding:10px;background:linear-gradient(180deg,rgba(12,52,82,.05),rgba(12,52,82,.01));border:1px solid var(--hair-2);box-shadow:0 40px 90px -22px rgba(12,52,82,.34)}
 .video-shell::before{content:"";position:absolute;inset:-2px;border-radius:16px;background:radial-gradient(60% 60% at 50% 0%, var(--glow), transparent 70%);z-index:-1;filter:blur(18px);opacity:.85}
 .video-inner{position:relative;border-radius:11px;overflow:hidden;background:var(--nfm-blue-dark)}
 .video-vturb{position:relative;width:100%}
@@ -409,9 +407,7 @@ section,.trust,footer.foot{position:relative;z-index:2}
 <!-- HERO (video-first) -->
 <section class="hero">
   <div class="wrap center">
-    <p class="sub fade-up d2" style="margin-left:auto;margin-right:auto">Recuperá tu tiempo, tu claridad mental y avanzá en lo tuyo — con un <b>sistema con base en neurociencia</b>, no con más disciplina.</p>
-
-    <div class="video-shell fade-up d3" style="margin-top:32px">
+    <div class="video-shell fade-up d3">
       <div class="video-inner">
         <!-- VSL · vturb. Para cambiar el video: reemplazá el ID en las DOS lineas marcadas -->
         <div class="video-vturb" id="vslFrame">
@@ -2020,6 +2016,8 @@ function agdCargarSurvey(){
   agdLoaded=true;
   var sep=url.indexOf('?')<0?'?':'&';
   var full=url+sep+'utm_source='+encodeURIComponent(getUTM())+'&utm_content='+encodeURIComponent(CONFIG.VERSION||'');
+  var titulo=tituloVSL();
+  if(titulo && CONFIG.CAMPO_TITULO) full+='&'+CONFIG.CAMPO_TITULO+'='+encodeURIComponent(titulo);
 
   if(CONFIG.REDIRECCION_EN_PANEL){
     /* La redirección de GHL ocurre adentro del iframe: sea al calendario o a la
@@ -2132,6 +2130,11 @@ const CONFIG = {
   // que VSL genero cada lead.
   VERSION: "vsl-b",
 
+  // Campo del survey de GHL que recibe el titulo de Vturb que vio la persona.
+  // En GHL: campo personalizado "Titulo VSL" con Query Key igual a este valor.
+  // Si le pones otra Query Key en GHL, cambiala aca tambien.
+  CAMPO_TITULO: "titulo_vsl",
+
   // Base de datos (mismo endpoint que la landing madre para unificar leads).
   SHEETS_ENDPOINT: "",
 
@@ -2162,6 +2165,15 @@ const IMG = {
 };
 /* ===================== FIN DE LO QUE TENÉS QUE EDITAR ===================== */
 
+
+/* ---------- Titulo de Vturb que vio esta persona ----------
+   Cada titulo cargado en Vturb deja su codigo en window.NFM_TITULO (pestaña JS
+   de cada titulo en Vturb). Viaja al survey para contar registros y agendas por titulo. */
+function tituloVSL(){
+  var t=window.NFM_TITULO||'';
+  if(!t){ try{ t=sessionStorage.getItem('nfm_titulo')||''; }catch(e){} }
+  return String(t).replace(/[^a-z0-9_-]/gi,'').slice(0,40);
+}
 
 /* ---------- UTM / Sheets ---------- */
 function getUTM(){

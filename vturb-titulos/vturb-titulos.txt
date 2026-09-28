@@ -1,0 +1,121 @@
+TITULOS PARA VTURB · VSL Instituto de Productividad
+Cargalos en Vturb: Editar > Headlines > Agregar Headline > Codigo.
+En cada uno pegás su HTML, el CSS (es el mismo para los cinco) y su JS.
+Cargá los mismos cinco en el video A y en el video B.
+
+======================================================================
+TITULO 1 · codigo: t1-sobreprecio
+======================================================================
+
+----- HTML -----
+<div class="nfm-tit">
+  <p class="nfm-tit__k">Para quienes tienen gente a cargo</p>
+  <h1 class="nfm-tit__t">Experto en Neurociencia revela: 5 claves para dejar de pagar <span>el sobreprecio de ser “productivo”</span></h1>
+</div>
+
+----- CSS -----
+.nfm-tit{max-width:780px;margin:0 auto;padding:6px 14px 18px;text-align:center;font-family:'Montserrat',sans-serif;color:#0c3452}
+.nfm-tit__k{margin:0 0 10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#c04a00}
+.nfm-tit__t{margin:0;font-weight:900;font-size:clamp(20px,4.2vw,36px);line-height:1.14;letter-spacing:-.015em;color:#0c3452;text-wrap:balance}
+.nfm-tit__t span{color:#ff6602}
+.nfm-tit__b{margin:10px auto 0;max-width:58ch;font-family:'Open Sans',sans-serif;font-size:clamp(15px,1.9vw,18px);font-weight:400;line-height:1.5;color:#33536b}
+
+----- JS -----
+// Deja el codigo de este titulo en la pagina: viaja al survey como titulo_vsl
+window.NFM_TITULO = 't1-sobreprecio';
+try { sessionStorage.setItem('nfm_titulo', 't1-sobreprecio'); } catch (e) {}
+
+
+======================================================================
+TITULO 2 · codigo: t2-sueno-salud-familia
+======================================================================
+
+----- HTML -----
+<div class="nfm-tit">
+  <p class="nfm-tit__k">Para quienes tienen gente a cargo</p>
+  <h1 class="nfm-tit__t">Experto en Neurociencia revela: 5 claves para rendir más <span>sin pagarlo con tu sueño, tu salud y tu familia</span></h1>
+</div>
+
+----- CSS -----
+.nfm-tit{max-width:780px;margin:0 auto;padding:6px 14px 18px;text-align:center;font-family:'Montserrat',sans-serif;color:#0c3452}
+.nfm-tit__k{margin:0 0 10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#c04a00}
+.nfm-tit__t{margin:0;font-weight:900;font-size:clamp(20px,4.2vw,36px);line-height:1.14;letter-spacing:-.015em;color:#0c3452;text-wrap:balance}
+.nfm-tit__t span{color:#ff6602}
+.nfm-tit__b{margin:10px auto 0;max-width:58ch;font-family:'Open Sans',sans-serif;font-size:clamp(15px,1.9vw,18px);font-weight:400;line-height:1.5;color:#33536b}
+
+----- JS -----
+// Deja el codigo de este titulo en la pagina: viaja al survey como titulo_vsl
+window.NFM_TITULO = 't2-sueno-salud-familia';
+try { sessionStorage.setItem('nfm_titulo', 't2-sueno-salud-familia'); } catch (e) {}
+
+
+======================================================================
+TITULO 3 · codigo: t3-deja-para-el-final
+======================================================================
+
+----- HTML -----
+<div class="nfm-tit">
+  <p class="nfm-tit__k">Para quienes tienen gente a cargo</p>
+  <h1 class="nfm-tit__t">Magíster en Neurociencias te explica por qué tu cerebro le cumple a cualquiera <span>y a vos te deja para el final</span></h1>
+</div>
+
+----- CSS -----
+.nfm-tit{max-width:780px;margin:0 auto;padding:6px 14px 18px;text-align:center;font-family:'Montserrat',sans-serif;color:#0c3452}
+.nfm-tit__k{margin:0 0 10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#c04a00}
+.nfm-tit__t{margin:0;font-weight:900;font-size:clamp(20px,4.2vw,36px);line-height:1.14;letter-spacing:-.015em;color:#0c3452;text-wrap:balance}
+.nfm-tit__t span{color:#ff6602}
+.nfm-tit__b{margin:10px auto 0;max-width:58ch;font-family:'Open Sans',sans-serif;font-size:clamp(15px,1.9vw,18px);font-weight:400;line-height:1.5;color:#33536b}
+
+----- JS -----
+// Deja el codigo de este titulo en la pagina: viaja al survey como titulo_vsl
+window.NFM_TITULO = 't3-deja-para-el-final';
+try { sessionStorage.setItem('nfm_titulo', 't3-deja-para-el-final'); } catch (e) {}
+
+
+======================================================================
+TITULO 4 · codigo: t4-te-cobra-sobreprecio
+======================================================================
+
+----- HTML -----
+<div class="nfm-tit">
+  <p class="nfm-tit__k">Para quienes tienen gente a cargo</p>
+  <h1 class="nfm-tit__t">Experto en Productividad y Neurociencia revela por qué ser “productivo” <span>te está cobrando un sobreprecio</span> en tu cuerpo, tu tiempo y tu salud mental</h1>
+  <p class="nfm-tit__b">Y las 5 claves para dejar de pagarlo.</p>
+</div>
+
+----- CSS -----
+.nfm-tit{max-width:780px;margin:0 auto;padding:6px 14px 18px;text-align:center;font-family:'Montserrat',sans-serif;color:#0c3452}
+.nfm-tit__k{margin:0 0 10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#c04a00}
+.nfm-tit__t{margin:0;font-weight:900;font-size:clamp(20px,4.2vw,36px);line-height:1.14;letter-spacing:-.015em;color:#0c3452;text-wrap:balance}
+.nfm-tit__t span{color:#ff6602}
+.nfm-tit__b{margin:10px auto 0;max-width:58ch;font-family:'Open Sans',sans-serif;font-size:clamp(15px,1.9vw,18px);font-weight:400;line-height:1.5;color:#33536b}
+
+----- JS -----
+// Deja el codigo de este titulo en la pagina: viaja al survey como titulo_vsl
+window.NFM_TITULO = 't4-te-cobra-sobreprecio';
+try { sessionStorage.setItem('nfm_titulo', 't4-te-cobra-sobreprecio'); } catch (e) {}
+
+
+======================================================================
+TITULO 5 · codigo: t5-sin-sumar-cansancio
+======================================================================
+
+----- HTML -----
+<div class="nfm-tit">
+  <p class="nfm-tit__k">Para quienes tienen gente a cargo</p>
+  <h1 class="nfm-tit__t">Experto en Productividad y Neurociencia te explica 5 claves para <span>cumplir con todo sin sumar más cansancio</span></h1>
+  <p class="nfm-tit__b">Y recuperar tu tiempo, tu descanso y tu claridad mental, sin soltar nada de lo que construiste.</p>
+</div>
+
+----- CSS -----
+.nfm-tit{max-width:780px;margin:0 auto;padding:6px 14px 18px;text-align:center;font-family:'Montserrat',sans-serif;color:#0c3452}
+.nfm-tit__k{margin:0 0 10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#c04a00}
+.nfm-tit__t{margin:0;font-weight:900;font-size:clamp(20px,4.2vw,36px);line-height:1.14;letter-spacing:-.015em;color:#0c3452;text-wrap:balance}
+.nfm-tit__t span{color:#ff6602}
+.nfm-tit__b{margin:10px auto 0;max-width:58ch;font-family:'Open Sans',sans-serif;font-size:clamp(15px,1.9vw,18px);font-weight:400;line-height:1.5;color:#33536b}
+
+----- JS -----
+// Deja el codigo de este titulo en la pagina: viaja al survey como titulo_vsl
+window.NFM_TITULO = 't5-sin-sumar-cansancio';
+try { sessionStorage.setItem('nfm_titulo', 't5-sin-sumar-cansancio'); } catch (e) {}
+

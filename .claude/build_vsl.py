@@ -104,6 +104,10 @@ def construir(version, vturb_id):
         "  // Etiqueta de esta version: viaja al survey como utm_content para saber\n"
         "  // que VSL genero cada lead.\n"
         "  VERSION: \"vsl-%s\",\n\n"
+        "  // Campo del survey de GHL que recibe el titulo de Vturb que vio la persona.\n"
+        "  // En GHL: campo personalizado \"Titulo VSL\" con Query Key igual a este valor.\n"
+        "  // Si le pones otra Query Key en GHL, cambiala aca tambien.\n"
+        "  CAMPO_TITULO: \"titulo_vsl\",\n\n"
         "  // Base de datos (mismo endpoint que la landing madre para unificar leads)." % version.lower(),
         "config VERSION")
     s = cortar(s,
@@ -116,8 +120,22 @@ def construir(version, vturb_id):
         "init")
     s = reemplazar(s,
         "  var full=url+sep+'utm_source='+encodeURIComponent(getUTM());",
-        "  var full=url+sep+'utm_source='+encodeURIComponent(getUTM())+'&utm_content='+encodeURIComponent(CONFIG.VERSION||'');",
-        "survey utm_content")
+        "  var full=url+sep+'utm_source='+encodeURIComponent(getUTM())+'&utm_content='+encodeURIComponent(CONFIG.VERSION||'');\n"
+        "  var titulo=tituloVSL();\n"
+        "  if(titulo && CONFIG.CAMPO_TITULO) full+='&'+CONFIG.CAMPO_TITULO+'='+encodeURIComponent(titulo);",
+        "survey utm_content + titulo")
+    s = reemplazar(s,
+        "/* ---------- UTM / Sheets ---------- */\nfunction getUTM(){",
+        "/* ---------- Titulo de Vturb que vio esta persona ----------\n"
+        "   Cada titulo cargado en Vturb deja su codigo en window.NFM_TITULO (pestaña JS\n"
+        "   de cada titulo en Vturb). Viaja al survey para contar registros y agendas por titulo. */\n"
+        "function tituloVSL(){\n"
+        "  var t=window.NFM_TITULO||'';\n"
+        "  if(!t){ try{ t=sessionStorage.getItem('nfm_titulo')||''; }catch(e){} }\n"
+        "  return String(t).replace(/[^a-z0-9_-]/gi,'').slice(0,40);\n"
+        "}\n\n"
+        "/* ---------- UTM / Sheets ---------- */\nfunction getUTM(){",
+        "funcion tituloVSL")
 
     # el titulo letra por letra: en celular retrasaba la lectura del titular
     s = cortar(s,
@@ -283,6 +301,18 @@ def construir(version, vturb_id):
         '    <h1 id="heroTitle" style="max-width:24ch;margin-left:auto;margin-right:auto">' + TITULO + '</h1>\n',
         "", "hero h1")
     s = re.sub(r"^\.hero h1(?=[\s{.])[^\n]*\n", "", s, flags=re.M)
+    # La bajada tambien vive en Vturb: si el subtitulo quedaba en la pagina, aparecia
+    # ARRIBA del titulo del player.
+    s = reemplazar(s,
+        '    <p class="sub fade-up d2" style="margin-left:auto;margin-right:auto">' + SUB + '</p>\n\n',
+        "", "hero sub")
+    s = re.sub(r"^\.hero \.sub[^\n]*\n", "", s, flags=re.M)
+    s = reemplazar(s, '    <div class="video-shell fade-up d3" style="margin-top:32px">',
+                      '    <div class="video-shell fade-up d3">', "video-shell margen")
+    s = reemplazar(s, ".hero{padding:64px 0 40px;position:relative}",
+                      ".hero{padding:28px 0 36px;position:relative}", "hero padding")
+    s = re.sub(r"^(\.video-shell\{position:relative;)margin:40px auto 0;", r"\1margin:0 auto;", s, flags=re.M)
+    assert ".video-shell{position:relative;margin:0 auto;" in s
 
     # ═══════════════════════════════════════════ 4c-bis) FUERA EL CIERRE DE LA PAGINA
     # Repetia la pregunta del camino con otras palabras. El unico CTA de cierre
@@ -338,16 +368,56 @@ def construir(version, vturb_id):
     for prohibido in ("loadVSL", "initVSL", "goFullscreen", "VIDEO_EMBED_URL", "loom.com", "nfm-adm", "Valent", "nfm-team", "nfm-equipo", 'id="metodo"', ".pillars", ".pill{",
                       'id="espejo"', 'id="quees"', 'id="incluye"', 'id="agendar"', 'class="marquee', ".bcard", ".ducha",
                       "urgencia prestada", "Recuadro 2", "Cuatro pilares", "nfmc-pilar", ".apply{", "section apply", "agendarBtn",
-                      'id="heroTitle"', ".hero h1{"):
+                      'id="heroTitle"', ".hero h1{", 'class="sub fade-up', ".hero .sub{"):
         assert prohibido not in s, "quedo " + prohibido
     assert s.count(vturb_id) == 2, "el ID de vturb tiene que aparecer exactamente 2 veces"
     assert s.count('id="camino"') == 1 and s.count("data-foto=") == 5 and s.count("vsl-assets/") == 5
     assert "+2.000" not in s and s.count("+800") == 1 and s.count("más de 800 personas") == 1
+    assert s.count("tituloVSL()") == 2 and "CAMPO_TITULO: \"titulo_vsl\"" in s
     assert s.index('id="camino"') < s.index('id="historia-nico"') < s.index('id="aval"') < s.index('id="nfm-casos"')
     return s
 
 
+SIMPLES = [
+    ("instituto-vsl-simple-a.html", "A", "6aad0c7e4524b264a54cbbb3"),
+    ("instituto-vsl-simple-b.html", "B", "6aac5b499de2f947efaa1453"),
+]
+
+
+def construir_simple(version, vturb_id):
+    """La misma VSL reducida a lo minimo: el video y la historia de Nico.
+    Conserva el pixel, la barra de arriba, el panel del survey y la variable del titulo."""
+    s = construir(version, vturb_id)
+
+    # fuera la barra de numeros y el widget del camino (todo lo que hay entre el hero y la historia)
+    s = cortar(s, "<!-- TRUST BAR -->\n",
+               "<!-- ═══════════ WIDGET · HISTORIA DE NICO", "trust + camino", incluir_hasta=False)
+    # fuera el aval y los casos (todo lo que hay entre la historia y el panel del survey)
+    s = cortar(s, "<!-- AVAL UNIVERSITARIO (3er widget · el diferencial arriba) -->\n",
+               "<!-- ═══ PANEL DE APLICACIÓN", "aval + casos", incluir_hasta=False)
+    # pie: queda la marca y el copyright, sin links a secciones que ya no existen
+    s = cortar(s, '    <div class="links">\n', "    </div>\n", "pie links")
+    # las fotos del camino y del aval ya no se usan en esta version
+    s = cortar(s, "  // Recuadro 1 · Aval", "};\n", "img", incluir_hasta=False)
+    # etiqueta propia para distinguir sus leads de los de la VSL completa
+    s = reemplazar(s, 'VERSION: "vsl-%s",' % version.lower(),
+                      'VERSION: "vsl-simple-%s",' % version.lower(), "version simple")
+    s = reemplazar(s, "LANDING · INSTITUTO DE PRODUCTIVIDAD · VSL · VERSIÓN %s\n" % version,
+                      "LANDING · INSTITUTO DE PRODUCTIVIDAD · VSL SIMPLE (video + historia) · VERSIÓN %s\n" % version,
+                      "rotulo simple")
+
+    for prohibido in ('id="camino"', 'id="aval"', 'id="nfm-casos"', 'class="trust', "data-foto=", 'href="#camino"', 'href="#aval"'):
+        assert prohibido not in s, "quedo " + prohibido
+    assert s.count('id="historia-nico"') == 1 and s.count("vid-" + vturb_id) == 1
+    assert s.index('class="hero"') < s.index('id="historia-nico"') < s.index('id="agdModal"')
+    return s
+
+
 if __name__ == "__main__":
+    for fname, ver, vid in SIMPLES:
+        html = construir_simple(ver, vid)
+        io.open(os.path.join(BASE, fname), "w", encoding="utf-8").write(html)
+        print("%-28s version %s · vturb %s · %d bytes" % (fname, ver, vid, len(html)))
     for fname, ver, vid in VERSIONES:
         html = construir(ver, vid)
         io.open(os.path.join(BASE, fname), "w", encoding="utf-8").write(html)
