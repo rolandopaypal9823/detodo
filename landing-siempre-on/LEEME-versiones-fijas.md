@@ -7,11 +7,21 @@ nada, no dependen de ninguna fecha: muestran siempre esa clase y ese grupo de Wh
 |---|---|---|---|---|
 | `clase-15-septiembre/` | mar 15 sep, 19:00 | B | Escalá tu vida, no tu cansancio | `clase-15-de-septiembre-de-neurociencia` |
 | `clase-22-septiembre/` | mar 22 sep, 19:00 | Nueva | Neurociencia para el Alto Rendimiento Profesional | `clase-22-de-semptiembre-de-neurociencia` |
+| `clase-6-octubre/` | mar 6 oct, 19:00 | Nueva (misma que la del 22) | Neurociencia para el Alto Rendimiento Profesional | `clase-de-neurociencia-6-10` |
 
 En cada carpeta: `index.html` va en la landing de registro, `thank-you.html` en la página de gracias.
 Copiás de marcador a marcador, reemplazando el bloque entero.
 
 ---
+
+## La del 6 de octubre es la del 22 con otra fecha
+
+`clase-6-octubre/` es una copia exacta de `clase-22-septiembre/` con tres cambios: fecha (`2026-10-06`, y todos
+los textos que dicen "martes 6 de octubre"), UTM/edición (`clase-oct06-alto-rendimiento`) y el grupo de
+WhatsApp de la thank you (`go.wha.link/clase-de-neurociencia-6-10`). Trae también la thank you de comunidad
+(mismo grupo de comunidad de siempre), el gate de Zoom (clave anti-duplicados `nfm_reg_6oct`; el link de Zoom
+hay que confirmarlo) y los tres mails con la fecha nueva (el link de agendar `webinar-calendar1` y el Zoom
+`zoom-nfm.netlify.app` quedaron igual: revisalos). Todo lo que sigue abajo vale para las dos carpetas.
 
 ## La del 22 es distinta: nueva temática y quiz
 
