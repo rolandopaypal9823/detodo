@@ -3,7 +3,7 @@
 # (rama claude/nueva-landing-form-7ajo0h, landing-siempre-on/clase-6-octubre/index.html)
 # + funciones, motor y pixel de hackea-tu-cerebro-gira-2026.html.
 # Antes de correrlo: git show origin/claude/nueva-landing-form-7ajo0h:landing-siempre-on/clase-6-octubre/index.html > <ruta de W>
-import io, re, base64
+import io, re
 W = io.open('/tmp/claude-0/-home-user-detodo/9d0166ff-9878-57c8-9b0f-5de407c74f9b/scratchpad/webinar/index.html', encoding='utf-8').read().split('\n')
 G = io.open('/home/user/detodo/hackea-tu-cerebro-gira-2026.html', encoding='utf-8').read()
 GL = G.split('\n')
@@ -80,7 +80,7 @@ ICO = {
  'habitos': '<svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10M10 21V10M14 21V10M19 21V10M2.5 10L12 3l9.5 7z"/></svg>',
  'manana': '<svg viewBox="0 0 24 24"><circle cx="6" cy="5.5" r="2.2"/><circle cx="18" cy="5.5" r="2.2"/><circle cx="12" cy="18.5" r="2.2"/><path d="M6 7.7v1.8a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4V7.7M12 13.5v2.8"/></svg>',
 }
-FOTO = 'data:image/jpeg;base64,' + base64.b64encode(open('/home/user/detodo/gira-assets/nico-retrato.jpg', 'rb').read()).decode()
+FOTO = 'https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6abebcf18807113c2d2770f2.jpeg'   # foto de Nico solo, en la galeria de GHL
 FLECHA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'
 
 def item(ico, titulo, texto):
@@ -198,7 +198,7 @@ body = '''<div class="nfm-page">
 <section class="nfm-who">
   <div class="nfm-container">
     <div class="nfm-who__grid">
-      <!-- Foto: retrato de Nico (deck "Escala tu vida"), incrustada. Si la subis a la galeria de GHL, cambia el src por el link. -->
+      <!-- Foto de Nico solo (galeria de GHL). Para cambiarla, reemplaza el link del src. -->
       <div class="nfm-who__photo nfm-reveal"><img src="''' + FOTO + '''" alt="Nicolás Fernández Miranda" loading="lazy"></div>
       <div class="nfm-reveal nfm-d1">
         <span class="nfm-eyebrow nfm-eyebrow--solid">Quién está en escena</span>
