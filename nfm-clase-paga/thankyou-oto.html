@@ -3,16 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Genérico a propósito: ver la nota del mismo bloque en index.html -->
-<title>¡Lugar reservado! · Nicolás Fernández Miranda</title>
+<!-- Versión FIJA de la clase del 6 de octubre: el título puede ser específico -->
+<title>¡Lugar reservado! · Neurociencia para el Alto Rendimiento Profesional · Nicolás Fernández Miranda</title>
+
+<!-- El pixel de Meta (PageView) va ADENTRO del custom code, más abajo, para que viaje con el pegado. -->
+</head>
+<body>
+
+<!-- ═══════════ DESDE ACÁ EMPIEZA LO QUE VA EN EL CUSTOM CODE DE GHL ═══════════ -->
 
 <!-- ════════════════════════════════════════════════════════════════
-     META PIXEL  ·  En GoHighLevel va en: (página Thank You) Settings → Tracking Code → HEAD
-     Incluye SÓLO PageView. La conversión (Lead / CompleteRegistration) la manda
-     GoHighLevel por la API de Conversiones, filtrada por la respuesta del form.
-     ⚠️ NO agregues acá fbq('track','Lead') ni 'CompleteRegistration': el pixel y la
-        CAPI no se deduplican solas si no comparten event_id, así que Meta contaría
-        dos veces cada registro.
+     META PIXEL · sólo PageView · va acá adentro para que viaje con el custom code.
+     ⚠️ NO lo pongas también en Settings → Tracking Code → HEAD de esta página, o Meta
+        contaría dos PageView por visita.
+     ⚠️ NO agregues fbq('track','Lead') ni 'CompleteRegistration': la conversión la manda
+        GoHighLevel por la API de Conversiones, filtrada por la respuesta del form. Si el
+        pixel también la mandara, sin event_id compartido, Meta contaría dos veces cada registro.
      ════════════════════════════════════════════════════════════════ -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -23,16 +29,15 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1203017011123382');
-fbq('track', 'PageView');
+if(!window.__nfm_pixel_thx){
+  window.__nfm_pixel_thx = true;
+  fbq('init', '1203017011123382');
+  fbq('track', 'PageView');
+}
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1203017011123382&ev=PageView&noscript=1"/></noscript>
 <!-- End Meta Pixel Code -->
-</head>
-<body>
-
-<!-- ═══════════ DESDE ACÁ EMPIEZA LO QUE VA EN EL CUSTOM CODE DE GHL ═══════════ -->
 
 <style>
 /* ════════════════════════════════════════════════════════════════
@@ -75,7 +80,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
 }
 .nfm-thx img{ max-width:100%; height:auto; display:block; }
 .nfm-thx a{ text-decoration:none; color:inherit; }
-.nfm-thx p{ margin:0; }
+.nfm-thx p{ margin:0 !important; }
 
 .nfm-thx__container{ max-width:720px; margin:0 auto; padding:0 24px; }
 .nfm-thx .acc{ color:var(--nfm-orange); }
@@ -93,10 +98,10 @@ html, body{ margin:0; padding:0; background:#081F33; }
 /* ── NAV ── */
 .nfm-thx__nav{ padding:18px 0; border-bottom:1px solid var(--nfm-hair); }
 .nfm-thx__nav-inner{ display:flex; align-items:center; justify-content:center; }
-.nfm-thx__nav img{ height:72px; width:auto; }
+.nfm-thx__nav img{ height:72px !important; max-height:72px !important; width:auto !important; }
 
 /* ── HERO CONFIRMACIÓN ── */
-.nfm-thx__hero{ padding:56px 0 36px; text-align:center; }
+.nfm-thx__hero{ padding:56px 0 30px; text-align:center !important; }
 .nfm-thx__check{
   width:84px; height:84px; margin:0 auto 26px; border-radius:50%;
   background:rgba(34,197,94,0.10); border:2px solid rgba(34,197,94,0.28);
@@ -107,45 +112,34 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-thx__check svg path{ stroke-dasharray:40; animation:nfm-check .6s .3s ease both; }
 .nfm-thx__hero h1{
   font-family:var(--nfm-font-h); font-size:clamp(1.7rem,4vw,2.3rem); font-weight:700;
-  line-height:1.16; letter-spacing:-0.02em; margin:0 0 14px;
+  line-height:1.16; letter-spacing:-0.02em; margin:0 0 14px !important; text-align:center !important; text-wrap:balance;
 }
-.nfm-thx__hero .sub{ font-size:1.05rem; color:var(--nfm-tm); max-width:520px; margin:0 auto; line-height:1.6; }
+.nfm-thx__hero .sub{ font-size:1.05rem; color:var(--nfm-tm); max-width:520px; margin:0 auto !important; line-height:1.6; text-align:center !important; }
 .nfm-thx__hero .sub strong{ color:var(--nfm-tl); font-weight:600; }
 
 /* ── VIDEO (Loom) ── */
-.nfm-thx__video{ padding:6px 0 14px; }
-.nfm-thx__video-label{
-  font-family:var(--nfm-font-h); font-size:0.8rem; font-weight:600; letter-spacing:0.16em;
-  text-transform:uppercase; text-align:center; color:var(--nfm-orange); margin:0 0 18px;
-}
 .nfm-thx__video-frame{
   border-radius:var(--nfm-r-lg); overflow:hidden; background:#000;
   border:1px solid var(--nfm-hair); box-shadow:0 24px 60px rgba(0,0,0,0.45);
 }
 
 /* ── STEPS ── */
-.nfm-thx__steps{ padding:28px 0 16px; }
-.nfm-thx__steps-title{
-  font-family:var(--nfm-font-h); font-size:0.8rem; font-weight:600; letter-spacing:0.16em;
-  text-transform:uppercase; text-align:center; color:var(--nfm-orange); margin:0 0 34px;
-}
-.nfm-step{ margin-bottom:22px; }
-.nfm-step__head{ display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+.nfm-thx__steps{ padding:6px 0 10px; }
+.nfm-step{ margin:0 0 34px; text-align:center !important; }
+.nfm-step__head{ display:flex; flex-direction:column; align-items:center; gap:12px; margin-bottom:16px; text-align:center !important; }
 .nfm-step__num{
-  width:32px; height:32px; flex-shrink:0; border-radius:9px;
+  width:36px; height:36px; flex-shrink:0; border-radius:10px;
   background:rgba(255,102,2,0.12); border:1px solid rgba(255,102,2,0.28);
   display:flex; align-items:center; justify-content:center;
   font-family:var(--nfm-font-h); font-weight:700; font-size:0.92rem; color:var(--nfm-orange);
 }
-.nfm-step__head h3{ font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:700; color:#fff; margin:0; }
-.nfm-step__head h3 .tag{ color:var(--nfm-orange); font-size:0.78em; font-weight:700; }
+.nfm-step__head h3{ font-family:var(--nfm-font-h); font-size:clamp(1.15rem,2.4vw,1.4rem); font-weight:700; color:#fff; margin:0 !important; line-height:1.25; text-align:center !important; max-width:26em; }
 .nfm-step__body{
   background:rgba(255,255,255,0.04); border:1px solid var(--nfm-hair);
-  border-radius:var(--nfm-r-lg); padding:28px;
+  border-radius:var(--nfm-r-lg); padding:22px;
 }
-.nfm-step__body p{ font-size:0.96rem; color:var(--nfm-tl); line-height:1.7; margin:0 0 16px; }
-.nfm-step__body p:last-child{ margin-bottom:0; }
-.nfm-step__body strong{ color:#fff; font-weight:600; }
+.nfm-step__body--txt p{ font-size:1rem; color:var(--nfm-tl); line-height:1.65; margin:0 !important; text-align:center !important; }
+.nfm-step__body--txt strong{ color:#fff; font-weight:600; }
 
 /* botón WhatsApp */
 .nfm-wa-btn{
@@ -153,7 +147,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
   font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:700; color:#fff;
   background:var(--nfm-wa); border:none; border-radius:50px; padding:19px 28px; cursor:pointer;
   position:relative; overflow:hidden; transition:transform .25s var(--nfm-ease), box-shadow .25s var(--nfm-ease), background .25s var(--nfm-ease);
-  box-shadow:0 8px 28px rgba(37,211,102,0.28); margin:4px 0 6px;
+  box-shadow:0 8px 28px rgba(37,211,102,0.28); margin:0;
 }
 .nfm-wa-btn::before{
   content:''; position:absolute; inset:0;
@@ -161,36 +155,10 @@ html, body{ margin:0; padding:0; background:#081F33; }
   background-size:200% 100%; animation:nfm-shimmer 3s infinite;
 }
 .nfm-wa-btn:hover{ background:#20BD5C; transform:translateY(-2px); box-shadow:0 12px 36px rgba(37,211,102,0.4); color:#fff; }
-.nfm-wa-btn svg{ width:24px; height:24px; flex-shrink:0; position:relative; z-index:1; }
-.nfm-step__micro{ font-size:0.8rem; color:var(--nfm-tm); text-align:center; margin-top:12px !important; }
-
-/* ── WARNING (amber) ── */
-.nfm-warn{
-  display:flex; gap:16px; align-items:flex-start;
-  background:rgba(255,176,32,0.08); border:1px solid rgba(255,176,32,0.32);
-  border-radius:var(--nfm-r); padding:20px 22px; margin-top:18px;
-}
-.nfm-warn__ic{
-  flex-shrink:0; width:34px; height:34px; border-radius:9px;
-  background:rgba(255,176,32,0.16); display:flex; align-items:center; justify-content:center; font-size:1.1rem;
-}
-.nfm-warn__txt strong{ color:var(--nfm-amber); }
-.nfm-warn__txt p{ font-size:0.92rem; color:var(--nfm-tl); line-height:1.65; margin:0; }
-.nfm-warn__title{ font-family:var(--nfm-font-h); font-weight:700; color:var(--nfm-amber); display:block; margin-bottom:4px; font-size:0.95rem; }
-
-/* ── DISCLAIMER correo/recursos ── */
-.nfm-disclaimer{
-  display:flex; gap:14px; align-items:flex-start;
-  margin:26px 0 0; padding:18px 20px;
-  background:rgba(255,255,255,0.03); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r);
-}
-.nfm-disclaimer__ic{ flex-shrink:0; width:30px; height:30px; border-radius:8px;
-  background:rgba(255,102,2,0.10); display:flex; align-items:center; justify-content:center; font-size:0.95rem; }
-.nfm-disclaimer p{ font-size:0.85rem; color:var(--nfm-tm); line-height:1.6; margin:0; }
-.nfm-disclaimer strong{ color:var(--nfm-tl); font-weight:600; }
+.nfm-wa-btn svg{ width:24px !important; height:24px !important; flex-shrink:0; position:relative; z-index:1; }
 
 /* ── EVENT REMINDER ── */
-.nfm-thx__reminder{ padding:30px 0 56px; }
+.nfm-thx__reminder{ padding:10px 0 56px; }
 .nfm-rem-card{
   background:var(--nfm-navy-1); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg);
   padding:30px 32px; display:flex; align-items:center; justify-content:center; gap:30px;
@@ -200,14 +168,90 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-rem-date .dnum{ font-family:var(--nfm-font-h); font-size:3rem; font-weight:700; line-height:1; margin:0; }
 .nfm-rem-date .dm{ font-family:var(--nfm-font-h); font-size:0.82rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--nfm-tm); margin:2px 0 0; }
 .nfm-rem-div{ width:1px; align-self:stretch; background:var(--nfm-hair); }
-.nfm-rem-info{ text-align:left; }
-.nfm-rem-info h4{ font-family:var(--nfm-font-h); font-size:1.08rem; font-weight:700; color:#fff; margin:0 0 8px; line-height:1.3; letter-spacing:-0.01em; }
-.nfm-rem-info .time{ font-family:var(--nfm-font-h); font-weight:600; color:#fff; font-size:0.96rem; margin:0 0 4px; }
-.nfm-rem-info .via{ font-size:0.85rem; color:var(--nfm-tm); margin:0; }
+.nfm-rem-info{ text-align:left !important; }
+.nfm-rem-info p, .nfm-rem-info h4{ text-align:left !important; }
+.nfm-rem-date p{ text-align:center !important; }
+.nfm-rem-info h4{ font-family:var(--nfm-font-h); font-size:1.15rem; font-weight:700; color:#fff; margin:0 0 4px !important; line-height:1.3; letter-spacing:-0.01em; }
+.nfm-rem-info .con{ font-family:var(--nfm-font-h); font-size:0.92rem; font-weight:600; color:var(--nfm-orange); margin:0 0 10px !important; }
+.nfm-rem-info .time{ font-family:var(--nfm-font-h); font-weight:600; color:#fff; font-size:0.96rem; margin:0 0 4px !important; }
+.nfm-rem-info .via{ font-size:0.85rem; color:var(--nfm-tm); margin:0 !important; }
+.nfm-rem-info .local{ font-family:var(--nfm-font-h); font-size:0.9rem; color:var(--nfm-orange); font-weight:600; margin:0 0 6px !important; }
+.nfm-rem-info .local[hidden]{ display:none !important; }
+.nfm-rem-info .local strong{ color:#fff; }
 
 /* ── FOOTER ── */
 .nfm-thx__footer{ padding:30px 0; border-top:1px solid var(--nfm-hair); text-align:center; }
 .nfm-thx__footer p{ font-size:0.8rem; color:var(--nfm-tm); }
+
+/* ── POPUP POST-REGISTRO · asiento USD 1 / USD 5 (sólo A y B) ── */
+.nfm-oferta{ position:fixed; inset:0; z-index:99999; display:flex; align-items:center; justify-content:center; padding:20px; box-sizing:border-box; }
+.nfm-oferta, .nfm-oferta *{ box-sizing:border-box; }
+.nfm-oferta[hidden]{ display:none !important; }
+.nfm-oferta__bg{ position:absolute; inset:0; background:rgba(3,14,26,0.82); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+.nfm-oferta__panel{ position:relative; z-index:1; width:100%; max-width:640px; max-height:calc(100vh - 40px); max-height:calc(100dvh - 40px); overflow-y:auto; -webkit-overflow-scrolling:touch; background:var(--nfm-navy-1); border:1px solid rgba(255,255,255,0.12); border-radius:22px; padding:36px 30px 26px; box-shadow:0 40px 100px rgba(0,0,0,0.6); text-align:center !important; animation:nfm-oferta-in .4s var(--nfm-ease) both; font-family:var(--nfm-font-b); color:#fff; }
+@keyframes nfm-oferta-in{ from{ opacity:0; transform:translateY(18px) scale(.98); } to{ opacity:1; transform:none; } }
+.nfm-oferta__close{ position:absolute; top:12px; right:12px; width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.06); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; z-index:2; }
+.nfm-oferta__close svg{ width:16px !important; height:16px !important; }
+.nfm-oferta__close:hover{ background:rgba(255,255,255,0.12); }
+.nfm-oferta__eyebrow{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.72rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-orange); border:1px solid rgba(255,102,2,0.4); padding:6px 14px; border-radius:50px; margin:0 0 16px; }
+.nfm-oferta__panel h2{ font-family:var(--nfm-font-h); font-size:clamp(1.35rem,3vw,1.85rem); font-weight:700; line-height:1.18; letter-spacing:-0.02em; margin:0 0 12px !important; text-align:center !important; text-wrap:balance; }
+.nfm-oferta__panel h2 .acc{ color:var(--nfm-orange); }
+.nfm-oferta__sub{ font-size:1rem; color:var(--nfm-tm); line-height:1.55; max-width:32em; margin:0 auto 24px !important; text-align:center !important; }
+.nfm-oferta__grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; text-align:center; }
+.nfm-oferta__card{ background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.10); border-radius:16px; padding:22px 18px 18px; display:flex; flex-direction:column; align-items:center; }
+.nfm-oferta__card--top{ border-color:rgba(255,102,2,0.45); background:rgba(255,102,2,0.07); }
+.nfm-oferta__price{ font-family:var(--nfm-font-h); font-size:2rem; font-weight:700; color:#fff; line-height:1; margin:0 0 8px; }
+.nfm-oferta__price small{ font-size:0.95rem; font-weight:600; color:var(--nfm-orange); margin-left:4px; }
+.nfm-oferta__card h3{ font-family:var(--nfm-font-h); font-size:1.05rem; font-weight:700; color:#fff; margin:0 0 8px !important; text-align:center !important; }
+.nfm-oferta__card p{ font-size:0.9rem; color:var(--nfm-tl); line-height:1.5; margin:0 0 16px !important; text-align:center !important; flex:1; }
+/* Botón propio (va a un Payment Link de Stripe). El buy button de Stripe se
+   dibuja en un iframe con ancho mínimo propio: en dos columnas de celular no
+   entraba, y encima su color salía del panel de Stripe, así que los dos packs
+   quedaban iguales y se perdía la jerarquía. */
+.nfm-oferta__btn{ width:100%; display:flex; flex-direction:column; gap:8px; }
+.nfm-oferta__cta{ display:flex; align-items:center; justify-content:center; gap:8px; width:100%;
+  font-family:var(--nfm-font-h); font-size:0.98rem; font-weight:700; line-height:1.2;
+  border:none; border-radius:50px; padding:14px 16px; cursor:pointer; text-decoration:none;
+  transition:transform .22s var(--nfm-ease), box-shadow .22s var(--nfm-ease), background .22s var(--nfm-ease), border-color .22s var(--nfm-ease), color .22s var(--nfm-ease); }
+.nfm-oferta__cta--ghost{ background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,0.28); }
+.nfm-oferta__cta--ghost:hover{ border-color:var(--nfm-orange); color:var(--nfm-orange); transform:translateY(-2px); }
+.nfm-oferta__cta--full{ background:var(--nfm-orange); color:#fff; box-shadow:0 8px 24px var(--nfm-orange-glow); }
+.nfm-oferta__cta--full:hover{ background:var(--nfm-orange-hover); color:#fff; transform:translateY(-2px); box-shadow:0 12px 32px var(--nfm-orange-glow); }
+.nfm-oferta__cta[aria-disabled="true"]{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
+.nfm-oferta__err{ display:none; font-size:0.76rem; line-height:1.4; color:var(--nfm-amber); margin:0 !important; }
+.nfm-oferta__btn[data-fallo] .nfm-oferta__err{ display:block; }
+
+/* La tercera opción. Es una opción de verdad, no una puerta de servicio:
+   mismo ancho y misma forma que los otros botones, sólo más callada. */
+.nfm-oferta__skip{ display:block; width:100%; max-width:440px; margin:20px auto 0;
+  background:none; border:1px solid rgba(255,255,255,0.22); border-radius:50px;
+  color:var(--nfm-tm); font-family:var(--nfm-font-b); font-size:0.95rem; font-weight:500;
+  padding:13px 18px; cursor:pointer; line-height:1.4; text-align:center;
+  transition:border-color .2s var(--nfm-ease), color .2s var(--nfm-ease); }
+.nfm-oferta__skip:hover{ border-color:rgba(255,255,255,0.45); color:#fff; }
+html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
+@media (max-width:600px){
+  .nfm-oferta{ padding:0; align-items:flex-end; }
+  .nfm-oferta__panel{ max-height:100vh; max-height:100dvh; border-radius:22px 22px 0 0; padding:22px 12px 16px; }
+  /* Las dos opciones quedan lado a lado también en celular. Apiladas, la
+     segunda caía abajo del pliegue: había que scrollear adentro del pop-up
+     para enterarse de que existía. Se comprime todo lo demás para que las
+     dos entren con la salida a la vista. */
+  .nfm-oferta__grid{ grid-template-columns:1fr 1fr; gap:9px; }
+  .nfm-oferta__card{ padding:16px 11px 14px; }
+  .nfm-oferta__price{ font-size:1.5rem; margin-bottom:6px; }
+  .nfm-oferta__price small{ font-size:0.8rem; }
+  .nfm-oferta__card h3{ font-size:0.9rem; margin-bottom:6px !important; line-height:1.25; }
+  .nfm-oferta__card p{ font-size:0.79rem; line-height:1.42; margin-bottom:12px !important; }
+  .nfm-oferta__cta{ font-size:0.85rem; padding:12px 8px; gap:5px; }
+  .nfm-oferta__cta svg{ display:none; }
+  .nfm-oferta__eyebrow{ font-size:0.62rem; padding:5px 11px; margin-bottom:12px; }
+  .nfm-oferta__panel h2{ font-size:1.16rem; margin-bottom:8px !important; }
+  .nfm-oferta__sub{ font-size:0.87rem; line-height:1.45; margin-bottom:16px !important; }
+  .nfm-oferta__close{ top:10px; right:10px; width:34px; height:34px; }
+  .nfm-oferta__skip{ font-size:0.9rem; padding:12px 14px; margin-top:16px; }
+}
+@media (prefers-reduced-motion:reduce){ .nfm-oferta__panel{ animation:none; } }
 
 /* ── BARRA DE MODO PRUEBA ── */
 .nfm-testbar{ background:var(--nfm-orange); color:#fff; font-family:var(--nfm-font-h);
@@ -216,138 +260,15 @@ html, body{ margin:0; padding:0; background:#081F33; }
 
 /* ── RESPONSIVE ── */
 @media (max-width:600px){
-  .nfm-thx__nav img{ height:58px; }
-  .nfm-step__body{ padding:22px; }
+  .nfm-thx__nav img{ height:58px !important; max-height:58px !important; }
+  .nfm-step__body{ padding:16px; }
   .nfm-wa-btn{ font-size:1rem; padding:17px 22px; }
   .nfm-rem-card{ flex-direction:column; gap:18px; text-align:center; padding:28px 24px; }
   .nfm-rem-div{ width:60px; height:1px; align-self:center; }
-  .nfm-rem-info{ text-align:center; }
+  .nfm-rem-info, .nfm-rem-info p, .nfm-rem-info h4{ text-align:center !important; }
   .nfm-testbar{ font-size:0.6rem; letter-spacing:0.06em; }
 }
 
-/* ════════════════════════════════════════════════════════════════
-   OTO · el pop-up de la oferta única
-   No tiene X y no se cierra clickeando afuera ni con Escape: las
-   únicas tres salidas son los dos botones de pago y el link gris de
-   abajo. Eso es a propósito — es una decisión, no un banner.
-   ════════════════════════════════════════════════════════════════ */
-.oto{ position:fixed; inset:0; z-index:99999;
-  display:flex; align-items:center; justify-content:center; padding:20px;
-  background:rgba(4,14,24,.88); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
-  /* Oculto con visibility y no con display:none, a propósito: los botones de
-     Stripe viven dentro de un iframe y necesitan que el nodo tenga layout para
-     medirse. Con display:none aparecen con 0 de alto la primera vez. */
-  visibility:hidden; opacity:0; pointer-events:none;
-  transition:opacity .32s var(--nfm-ease), visibility 0s .32s; }
-.oto[data-open]{ visibility:visible; opacity:1; pointer-events:auto;
-  transition:opacity .32s var(--nfm-ease); }
-.oto *, .oto *::before, .oto *::after{ box-sizing:border-box; }
-body[data-oto-open]{ overflow:hidden; }
-
-.oto__box{ width:100%; max-width:860px; max-height:92vh; overflow-y:auto;
-  border-radius:var(--nfm-r-lg); padding:30px 34px 0;
-  font-family:var(--nfm-font-b); text-align:center; color:#fff;
-  background:linear-gradient(180deg,#143A5C 0%,#0B2942 100%);
-  border:1px solid rgba(255,255,255,.10); box-shadow:0 40px 110px rgba(0,0,0,.6); }
-.oto[data-open] .oto__box{ animation:oto-in .42s var(--nfm-ease) both; }
-@keyframes oto-in{ from{ opacity:0; transform:translateY(22px) scale(.975) } to{ opacity:1; transform:none } }
-
-.oto__eyebrow{ display:inline-block; font-family:var(--nfm-font-h); font-size:.66rem; font-weight:700;
-  letter-spacing:.16em; text-transform:uppercase; color:var(--nfm-orange);
-  border:1px solid rgba(255,102,2,.35); border-radius:50px; padding:6px 15px; margin:0 0 14px; }
-.oto__box h2{ font-family:var(--nfm-font-h); font-size:clamp(1.35rem,3.2vw,1.8rem); font-weight:700;
-  line-height:1.2; letter-spacing:-.02em; margin:0 0 10px; color:#fff; }
-.oto__box h2 em{ font-style:normal; color:var(--nfm-orange); }
-.oto__lead{ font-size:.97rem; color:rgba(255,255,255,.66); line-height:1.55; margin:0 auto 22px; max-width:40em; }
-.oto__lead strong{ color:#fff; font-weight:600; }
-
-/* ── las dos tarjetas ── */
-.oto__packs{ display:grid; grid-template-columns:1fr 1fr; gap:16px; text-align:left; }
-.oto__pack{ position:relative; display:flex; flex-direction:column; padding:24px 22px 22px;
-  border-radius:var(--nfm-r-lg); background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.09);
-  transition:transform .25s var(--nfm-ease), border-color .25s var(--nfm-ease); }
-.oto__pack:hover{ transform:translateY(-3px); border-color:rgba(255,102,2,.4); }
-.oto__pack--hot{ border-color:rgba(255,102,2,.45); background:rgba(255,102,2,.07);
-  box-shadow:0 18px 46px rgba(255,102,2,.14); }
-.oto__badge{ position:absolute; top:0; left:50%; transform:translate(-50%,-50%);
-  background:var(--nfm-orange); color:#fff; white-space:nowrap;
-  font-family:var(--nfm-font-h); font-size:.6rem; font-weight:700; letter-spacing:.14em;
-  text-transform:uppercase; padding:7px 15px; border-radius:50px;
-  box-shadow:0 8px 22px var(--nfm-orange-glow); }
-.oto__name{ font-family:var(--nfm-font-h); font-size:.66rem; font-weight:700; letter-spacing:.14em;
-  text-transform:uppercase; color:rgba(255,255,255,.66); margin:0 0 8px; line-height:1.5; }
-.oto__pack--hot .oto__name{ color:var(--nfm-orange); }
-.oto__price{ font-family:var(--nfm-font-h); font-size:2.1rem; font-weight:700; line-height:1;
-  letter-spacing:-.03em; color:#fff; margin:0 0 16px; }
-.oto__list{ list-style:none; padding:0; margin:0 0 20px; flex:1; }
-.oto__list li{ position:relative; padding:0 0 11px 24px; font-size:.9rem; line-height:1.55;
-  color:rgba(255,255,255,.66); }
-.oto__list li:last-child{ padding-bottom:0; }
-.oto__list li::before{ content:''; position:absolute; left:0; top:6px; width:13px; height:7px;
-  border-left:2px solid var(--nfm-orange); border-bottom:2px solid var(--nfm-orange);
-  transform:rotate(-45deg); border-radius:1px; }
-.oto__list b{ color:#fff; font-weight:600; }
-
-/* ── los botones ──
-   Son nuestros, no los de Stripe: el clic va a un Payment Link. Eso nos deja
-   dos cosas que con el buy button no teníamos — el diseño (y con él la
-   jerarquía entre el recomendado y el otro) y poder medir el clic, porque el
-   botón de Stripe vive en un iframe del que no sale ningún evento. */
-.oto__buy{ display:flex; flex-direction:column; gap:10px; }
-.oto__cta{ display:flex; align-items:center; justify-content:center; gap:9px;
-  width:100%; text-align:center; cursor:pointer; text-decoration:none;
-  font-family:var(--nfm-font-h); font-size:1rem; font-weight:700; border-radius:50px;
-  padding:16px 20px; border:none; line-height:1.2;
-  transition:transform .22s var(--nfm-ease), box-shadow .22s var(--nfm-ease),
-             background .22s var(--nfm-ease), border-color .22s var(--nfm-ease), color .22s var(--nfm-ease); }
-.oto__cta svg{ width:17px; height:17px; flex-shrink:0; transition:transform .22s var(--nfm-ease); }
-.oto__cta--ghost{ background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.28); }
-.oto__cta--ghost:hover{ border-color:var(--nfm-orange); color:var(--nfm-orange); transform:translateY(-2px); }
-.oto__cta--full{ background:var(--nfm-orange); color:#fff; box-shadow:0 10px 30px var(--nfm-orange-glow); }
-.oto__cta--full:hover{ background:var(--nfm-orange-hover); color:#fff; transform:translateY(-2px);
-  box-shadow:0 14px 38px var(--nfm-orange-glow); }
-.oto__cta:hover svg{ transform:translateX(4px); }
-.oto__cta[aria-disabled="true"]{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
-
-/* Sólo se ve si el link de pago quedó sin cargar. Es una red de seguridad
-   para que nadie publique la página con un botón que no lleva a ningún lado. */
-.oto__buyerr{ display:none; font-size:.8rem; line-height:1.5; text-align:center;
-  color:var(--nfm-amber); margin:0; }
-.oto__buy[data-fallo] .oto__buyerr{ display:block; }
-
-/* ── el pie: pago + la salida ──
-   Queda pegado abajo de la caja. Con listas largas o pantallas bajas el
-   contenido scrollea por detrás, pero la salida nunca se esconde: quitarle
-   la X al pop-up no es lo mismo que esconder la puerta. */
-.oto__foot{ position:sticky; bottom:0; margin:0 -34px; padding:16px 34px 20px;
-  background:#0B2942; border-top:1px solid rgba(255,255,255,.09); }
-.oto__pay{ font-size:.78rem; color:rgba(255,255,255,.42); margin:0; line-height:1.5; }
-.oto__no{ display:inline-block; margin:12px 0 0; padding:6px 4px; background:none; border:none;
-  font-family:var(--nfm-font-b); font-size:.92rem; font-weight:600; color:rgba(255,255,255,.68);
-  text-decoration:underline; text-underline-offset:3px; cursor:pointer; line-height:1.5;
-  transition:color .2s var(--nfm-ease); }
-.oto__no:hover{ color:#fff; }
-
-@media (max-width:720px){
-  .oto{ padding:12px; align-items:flex-start; }
-  .oto__box{ padding:26px 18px 0; max-height:96vh; margin:8px 0; }
-  .oto__foot{ margin:0 -18px; padding:14px 18px 18px; }
-  /* Apiladas, el de USD 5 caía debajo del pliegue: había que scrollear adentro
-     del pop-up para encontrar el que queremos vender. Va primero. */
-  .oto__packs{ grid-template-columns:1fr; gap:28px; padding-top:14px; }
-  .oto__pack--hot{ order:-1; }
-  .oto__pack{ padding:24px 20px 22px; }
-  .oto__price{ font-size:2rem; }
-  .oto__eyebrow{ margin-bottom:12px; }
-  .oto__box h2{ font-size:1.24rem; line-height:1.26; }
-  .oto__lead{ font-size:.9rem; margin-bottom:18px; }
-  .oto__list li{ font-size:.88rem; }
-}
-@media (prefers-reduced-motion:reduce){
-  .oto, .oto[data-open] .oto__box{ transition:none; animation:none; }
-  .oto__pack:hover{ transform:none; }
-}
 </style>
 
 
@@ -368,84 +289,70 @@ body[data-oto-open]{ overflow:hidden; }
       <div class="nfm-thx__check">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
       </div>
-      <h1 class="nfm-rv nfm-rv-1">¡Felicitaciones! Estás a un paso de <span class="acc">asegurar tu lugar.</span></h1>
-      <p class="sub nfm-rv nfm-rv-2">El solo hecho de haber dado este paso ya te diferencia de la mayoría. Ahora seguí estas indicaciones para llegar listo al <strong data-thx-fecha="larga">martes 15 de septiembre</strong>.</p>
+      <h1 class="nfm-rv nfm-rv-1">¡Lugar reservado! Ahora, <span class="acc">tres pasos</span> para recibir el acceso.</h1>
     </div>
   </section>
 
-  <!-- VIDEO (Loom) -->
-  <section class="nfm-thx__video">
-    <div class="nfm-thx__container">
-      <p class="nfm-thx__video-label nfm-rv nfm-rv-2">Mirá este video antes de seguir</p>
-      <div class="nfm-thx__video-frame nfm-rv nfm-rv-3">
-        <div style="position:relative; padding-bottom:56.25%; height:0;">
-          <iframe id="nfm-thx-loom" src="https://www.loom.com/embed/4f2cc1c6518e4134a159b5db19f58b2e" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STEPS -->
+  <!-- DOS PASOS -->
   <section class="nfm-thx__steps">
     <div class="nfm-thx__container">
-      <p class="nfm-thx__steps-title nfm-rv nfm-rv-3">Seguí estos pasos para confirmar tu lugar</p>
 
-      <!-- PASO 1 — WhatsApp -->
-      <div class="nfm-step nfm-rv nfm-rv-4">
+      <!-- PASO 1 — Video -->
+      <div class="nfm-step nfm-rv nfm-rv-2">
         <div class="nfm-step__head">
           <div class="nfm-step__num">1</div>
-          <h3>Unite al grupo de WhatsApp <span class="tag">(OBLIGATORIO)</span></h3>
+          <h3>Mirá este video</h3>
         </div>
-        <div class="nfm-step__body">
-          <p>Este es el <strong>único canal oficial</strong> de la clase. Si no estás adentro, no vas a poder acceder el <strong data-thx-fecha="diaSemanaMin">martes</strong>. Ahí te vamos a compartir todo lo importante: el acceso, los recordatorios y los recursos previos.</p>
-          <a href="https://go.wha.link/clase-15-de-septiembre-de-neurociencia" id="nfm-thx-wa" class="nfm-wa-btn" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            UNIRME AL GRUPO DE WHATSAPP
-          </a>
-          <p class="nfm-step__micro">Solo los que estén dentro van a ser tomados en cuenta para la clase en vivo.</p>
-        </div>
-      </div>
-
-      <!-- PASO 2 — Revisá la descripción + agendá (WARNING) -->
-      <div class="nfm-step nfm-rv nfm-rv-5">
-        <div class="nfm-step__head">
-          <div class="nfm-step__num">2</div>
-          <h3>Revisá la descripción del grupo y agendá la clase</h3>
-        </div>
-        <div class="nfm-step__body">
-          <p>Apenas entres al grupo, abrí la <strong>descripción del grupo</strong>. Ahí te dejamos el link para agregar la clase a tu <strong>Google Calendar</strong> con un solo clic.</p>
-          <div class="nfm-warn">
-            <div class="nfm-warn__ic">⚠️</div>
-            <div class="nfm-warn__txt">
-              <span class="nfm-warn__title">No te saltees este paso</span>
-              <p>Agendarla ahora es la forma más simple de que <strong>no se te escape</strong> y asistas sí o sí el <strong data-thx-fecha="diaYNumero">martes 15</strong>. Te va a llegar el recordatorio solo, en tu calendario, el día de la clase.</p>
-            </div>
+        <div class="nfm-thx__video-frame">
+          <div style="position:relative; padding-bottom:56.25%; height:0;">
+            <iframe id="nfm-thx-loom" src="https://www.loom.com/embed/4f2cc1c6518e4134a159b5db19f58b2e?hideEmbedTopBar=true&hide_share=true&hide_title=true&hide_owner=true" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
           </div>
         </div>
       </div>
 
-      <!-- DISCLAIMER — correo + recursos -->
-      <div class="nfm-disclaimer nfm-rv nfm-rv-5">
-        <div class="nfm-disclaimer__ic">📩</div>
-        <p>En los próximos días vas a recibir por <strong>mail y por el grupo</strong> los recursos previos a la clase, pensados para que llegues con el nivel de base necesario. Revisá tu correo (incluí <strong>spam / promociones</strong>) y mantenete atento al grupo.</p>
+      <!-- PASO 2 — WhatsApp -->
+      <div class="nfm-step nfm-rv nfm-rv-3">
+        <div class="nfm-step__head">
+          <div class="nfm-step__num">2</div>
+          <h3>Unite al grupo de WhatsApp para recibir el acceso a la clase</h3>
+        </div>
+        <div class="nfm-step__body">
+          <a href="https://go.wha.link/clase-de-neurociencia-6-10" id="nfm-thx-wa" class="nfm-wa-btn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            UNIRME AL GRUPO DE WHATSAPP
+          </a>
+        </div>
+      </div>
+
+      <!-- PASO 3 — Atento al grupo y al mail -->
+      <div class="nfm-step nfm-rv nfm-rv-4">
+        <div class="nfm-step__head">
+          <div class="nfm-step__num">3</div>
+          <h3>Hasta el día de la clase, atento al grupo y a tu mail</h3>
+        </div>
+        <div class="nfm-step__body nfm-step__body--txt">
+          <p>Por ahí van a llegar el acceso y los recordatorios el <strong data-thx-fecha="diaYNumero">martes 6</strong>. Revisá también <strong>spam / promociones</strong>.</p>
+        </div>
       </div>
 
     </div>
   </section>
 
-  <!-- EVENT REMINDER -->
+  <!-- FECHA + TÍTULO DE LA CLASE -->
   <section class="nfm-thx__reminder">
     <div class="nfm-thx__container">
-      <div class="nfm-rem-card nfm-rv nfm-rv-6">
+      <div class="nfm-rem-card nfm-rv nfm-rv-5">
         <div class="nfm-rem-date">
           <p class="dn" data-thx-fecha="diaSemana">Martes</p>
-          <p class="dnum" data-thx-fecha="diaNum">15</p>
-          <p class="dm" data-thx-fecha="mesAnio">Septiembre 2026</p>
+          <p class="dnum" data-thx-fecha="diaNum">6</p>
+          <p class="dm" data-thx-fecha="mesAnio">Octubre 2026</p>
         </div>
         <div class="nfm-rem-div"></div>
         <div class="nfm-rem-info">
-          <h4 data-thx="claseTitulo">Escalá tu vida, no tu cansancio: la razón neurológica por la que el que sostiene todo es el último en avanzar.</h4>
+          <h4 data-thx="claseTitulo">Neurociencia para el Alto Rendimiento Profesional</h4>
+          <p class="con">con Nico Fernández Miranda</p>
           <p class="time"><span data-thx-fecha="hora">19:00 hs (Argentina)</span></p>
+          <p class="local" data-nfm-local hidden></p>
           <p class="via">Vía Zoom · El acceso llega al grupo de WhatsApp</p>
         </div>
       </div>
@@ -460,61 +367,6 @@ body[data-oto-open]{ overflow:hidden; }
   </footer>
 
 </div><!-- /.nfm-thx -->
-
-  <!-- ═══════════ OTO · pop-up de la oferta única ═══════════ -->
-  <div class="oto" id="oto" role="dialog" aria-modal="true" aria-labelledby="oto-t" aria-hidden="true">
-    <div class="oto__box">
-
-      <span class="oto__eyebrow">Sólo aparece esta vez</span>
-      <h2 id="oto-t">Tu lugar ya está reservado.<br>Antes de entrar al grupo, <em>elegí con qué asiento la hacés.</em></h2>
-      <p class="oto__lead">Esto es opcional y <strong>no vuelve a aparecer</strong>. La clase gratis la tenés igual, elijas lo que elijas.</p>
-
-      <div class="oto__packs">
-
-        <!-- USD 1 -->
-        <div class="oto__pack">
-          <p class="oto__name">Asiento Premium Básico</p>
-          <p class="oto__price">USD 1</p>
-          <ul class="oto__list">
-            <li><b>Workbook con el resumen de la clase</b> y los accionables concretos, para que no dependas de tus apuntes.</li>
-            <li><b>La grabación, tuya para siempre.</b> Si ese día se te cruza algo, la ves después.</li>
-          </ul>
-          <div class="oto__buy">
-            <a class="oto__cta oto__cta--ghost" href="{{LINK_1}}" data-oto-buy="1">Lo quiero por USD 1</a>
-            <p class="oto__buyerr">Falta cargar el link de pago de este pack.</p>
-          </div>
-        </div>
-
-        <!-- USD 5 -->
-        <div class="oto__pack oto__pack--hot">
-          <span class="oto__badge">Recomendado</span>
-          <p class="oto__name">Asiento Premium · Hackea tu Productividad</p>
-          <p class="oto__price">USD 5</p>
-          <ul class="oto__list">
-            <li><b>Todo lo del Básico</b> — workbook y grabación de la clase.</li>
-            <li><b>Sesión de 60 minutos de preguntas y respuestas</b> con Nicolás Fernández Miranda y Soledad Funes, psicóloga experta en TDA/H. <b>Tenés a los dos expertos ahí</b> para contestar preguntas sobre tu caso.</li>
-            <li><b>Workbook, grabación y material de apoyo</b> de esa sesión.</li>
-            <li><b>El libro completo «Hackea tu Cerebro» en ebook</b> — el mismo que está en librerías. <b>Sólo para las primeras 100 personas.</b></li>
-          </ul>
-          <div class="oto__buy">
-            <a class="oto__cta oto__cta--full" href="{{LINK_5}}" data-oto-buy="5">
-              <span>Lo quiero por USD 5</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <p class="oto__buyerr">Falta cargar el link de pago de este pack.</p>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="oto__foot">
-        <p class="oto__pay">Pago seguro con Stripe. El acceso te llega al mail en el momento.</p>
-        <button class="oto__no" data-oto-no>Solo quiero unirme a la clase gratis, sin la grabación y sin el workbook.</button>
-      </div>
-
-    </div>
-  </div>
-
 
 
 <script>
@@ -544,18 +396,31 @@ body[data-oto-open]{ overflow:hidden; }
 var CONFIG = {
 
   /* fecha = cuándo es la clase · desde = cuándo la página EMPIEZA a mostrarla (00:00 hs ARG) */
-  /* ⚠️ VERSIÓN FIJA · SÓLO la clase del 15 de septiembre, tema B. */
+  /* ⚠️ VERSIÓN FIJA · SÓLO la clase del 6 de octubre · Neurociencia para el Alto Rendimiento Profesional. */
   CLASES: [
-    { fecha:'2026-09-15', tema:'B', utm:'clase-sep15-escala-tu-vida',
-      wa:'https://go.wha.link/clase-15-de-septiembre-de-neurociencia' }
+    { fecha:'2026-10-06', tema:'AR', utm:'clase-oct06-alto-rendimiento',
+      wa:'https://go.wha.link/clase-de-neurociencia-6-10',
+      /* Código del grupo = lo que va después de https://chat.whatsapp.com/ en el link de invitación.
+         Con esto cargado, el botón abre la app de WhatsApp directo (sin pasar por wha.link ni por el
+         navegador). Si queda vacío, el botón usa el link 'wa' de arriba como hasta ahora. */
+      wa_codigo:'' }
   ],
+
+  /* true → en celular, el botón intenta abrir la app de WhatsApp de una (whatsapp:// o intent://) y,
+     si no está instalada, cae al link web. Sólo actúa si la clase tiene wa_codigo cargado. */
+  WA_ABRIR_APP: true,
 
   /* Se usa sólo si la clase activa no tiene el suyo cargado, para que el botón nunca
      quede roto. Ojo: manda al grupo equivocado, así que es red de seguridad, no solución. */
-  GRUPO_FALLBACK: 'https://go.wha.link/clase-8-de-septiembre-neurociencia',
+  GRUPO_FALLBACK: 'https://go.wha.link/clase-de-neurociencia-6-10',
+
 
   /* Video de bienvenida. Se puede poner uno distinto por clase con loom:'...' */
   LOOM_ID: '4f2cc1c6518e4134a159b5db19f58b2e',
+  /* Qué esconde el reproductor de Loom: barra de arriba (título, dueño, "Watch on Loom", compartir).
+     Comentarios, vistas y emojis NO se manejan acá: se apagan o prenden en Loom, en la configuración
+     del video (Settings → Audience): comentarios OFF, contador de vistas OFF, reacciones con emoji ON. */
+  LOOM_PARAMS: 'hideEmbedTopBar=true&hide_share=true&hide_title=true&hide_owner=true',
 
   HORA_CLASE: 19,
   MINUTOS_CLASE: 0,
@@ -571,13 +436,9 @@ var CONFIG = {
    ②  COPY POR TEMÁTICA
    ══════════════════════════════════════════════════════════════════ */
 var TEMAS = {
-  A: {
-    tituloPagina: '¡Lugar reservado! · Cumplís con todos menos con vos — Nicolás Fernández Miranda',
-    claseTitulo: 'Cumplís con todos menos con vos: la razón neurológica por la que tu cerebro ejecuta lo ajeno y archiva lo tuyo.'
-  },
-  B: {
-    tituloPagina: '¡Lugar reservado! · Escalá tu vida, no tu cansancio — Nicolás Fernández Miranda',
-    claseTitulo: 'Escalá tu vida, no tu cansancio: la razón neurológica por la que el que sostiene todo es el último en avanzar.'
+  AR: {
+    tituloPagina: '¡Lugar reservado! · Neurociencia para el Alto Rendimiento Profesional · Nicolás Fernández Miranda',
+    claseTitulo: 'Neurociencia para el Alto Rendimiento Profesional'
   }
 };
 
@@ -597,6 +458,24 @@ function qs(k){
 function ss(k){ try{ return window.sessionStorage.getItem(k); }catch(e){ return null; } }
 
 var TEST_SIGUIENTE = /test-?landing-?2/i.test(window.location.href);
+
+/* ══════════════════════════════════════════════════════════════════
+   ④  ETAPA (viene del quiz de la landing)
+   La landing guarda nfm_etapa / nfm_equipo en sessionStorage al completar el quiz.
+   También se acepta ?etapa=C en la URL (para probar, o si algún día el redirect lo pasa).
+     La página es la misma para todos. La etapa sólo decide si sale el popup de asiento (A y B sí, C no).
+     A dónde va cada persona después del form lo decide la redirección configurada en cada form de GHL.
+   ══════════════════════════════════════════════════════════════════ */
+var ETAPA  = String(qs('etapa')  || ss('nfm_etapa')  || '').toUpperCase();
+var EQUIPO = String(qs('equipo') || ss('nfm_equipo') || '').toUpperCase();
+var NIVEL  = String(qs('nivel')  || ss('nfm_nivel')  || '').toLowerCase();   /* alto · medio · bajo */
+var DEDICACION = String(qs('dedicacion') || ss('nfm_dedicacion') || '');
+var CALIFICA = (ETAPA !== 'C');
+window.NFM_ETAPA = ETAPA || null;
+window.NFM_EQUIPO = EQUIPO || null;
+window.NFM_NIVEL = NIVEL || null;
+window.NFM_DEDICACION = DEDICACION || null;
+window.NFM_CALIFICA = CALIFICA;
 var NOW_FORZADO = null;
 function ahora(){
   if(NOW_FORZADO != null) return NOW_FORZADO;
@@ -713,10 +592,11 @@ if(TEST_SIGUIENTE && clase){
 }
 
 if(clase){
-  var COPY   = TEMAS[clase.def.tema] || TEMAS.A;
+  var COPY   = TEMAS[clase.def.tema] || TEMAS.AR;
   var FECHAS = fechasDe(clase.ts);
-  var WA     = clase.def.wa || CONFIG.GRUPO_FALLBACK;
-  var WA_PROPIO = !!clase.def.wa;
+  var WA_CODIGO = String(clase.def.wa_codigo || '').replace(/^.*chat\.whatsapp\.com\//,'').replace(/[^A-Za-z0-9_-]/g,'');
+  var WA     = WA_CODIGO ? 'https://chat.whatsapp.com/'+WA_CODIGO : (clase.def.wa || CONFIG.GRUPO_FALLBACK);
+  var WA_PROPIO = !!(WA_CODIGO || clase.def.wa);
 
   /* fechas */
   var f = document.querySelectorAll('[data-thx-fecha]'), i;
@@ -732,9 +612,64 @@ if(clase){
   }
   if(COPY.tituloPagina) document.title = COPY.tituloPagina;
 
+/* ─── HORA LOCAL DEL VISITANTE ───
+   Usa la zona horaria del navegador (sin IP, sin permisos, sin servicios externos). Si no es Argentina,
+   escribe en cada [data-nfm-local] a qué hora es la clase en su país. Si es Argentina, no muestra nada. */
+(function(){
+  var els=document.querySelectorAll('[data-nfm-local]'); if(!els.length) return;
+  var tz; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone; }catch(e){}
+  if(!tz || /Argentina|Buenos_Aires|Cordoba|Catamarca|Jujuy|La_Rioja|Mendoza|Rio_Gallegos|Salta|San_Juan|San_Luis|Tucuman|Ushuaia/.test(tz)) return;
+  var PAISES={ 'America/Santiago':'Chile','America/Punta_Arenas':'Chile','America/Bogota':'Colombia','America/Lima':'Perú','America/Mexico_City':'México','America/Monterrey':'México','America/Cancun':'México','America/Tijuana':'México','America/Merida':'México','America/Caracas':'Venezuela','America/Guayaquil':'Ecuador','America/La_Paz':'Bolivia','America/Asuncion':'Paraguay','America/Montevideo':'Uruguay','America/Sao_Paulo':'Brasil','America/Panama':'Panamá','America/Costa_Rica':'Costa Rica','America/Guatemala':'Guatemala','America/El_Salvador':'El Salvador','America/Tegucigalpa':'Honduras','America/Managua':'Nicaragua','America/Santo_Domingo':'República Dominicana','America/Havana':'Cuba','America/Puerto_Rico':'Puerto Rico','America/New_York':'Estados Unidos (Este)','America/Detroit':'Estados Unidos (Este)','America/Chicago':'Estados Unidos (Centro)','America/Denver':'Estados Unidos (Montaña)','America/Phoenix':'Estados Unidos (Arizona)','America/Los_Angeles':'Estados Unidos (Pacífico)','America/Toronto':'Canadá (Este)','America/Vancouver':'Canadá (Pacífico)','Europe/Madrid':'España','Atlantic/Canary':'Canarias','Europe/Lisbon':'Portugal','Europe/London':'Reino Unido','Europe/Dublin':'Irlanda','Europe/Paris':'Francia','Europe/Rome':'Italia','Europe/Berlin':'Alemania','Europe/Amsterdam':'Países Bajos','Europe/Zurich':'Suiza','Europe/Andorra':'Andorra' };
+  var pais=PAISES[tz] || tz.split('/').pop().replace(/_/g,' ');
+  var d=new Date(clase.ts), hora, diaLocal, diaNum;
+  try{
+    hora=new Intl.DateTimeFormat('es',{timeZone:tz,hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d);
+    diaNum=parseInt(new Intl.DateTimeFormat('en',{timeZone:tz,day:'numeric'}).format(d),10);
+    diaLocal=new Intl.DateTimeFormat('es',{timeZone:tz,weekday:'long',day:'numeric'}).format(d);
+  }catch(e){ return; }
+  var txt='En '+pais+' son las <strong>'+hora+' hs</strong>'+(diaNum!==partesArg(clase.ts).dia ? ' del '+diaLocal.replace(',','') : '');
+  for(var i=0;i<els.length;i++){ els[i].innerHTML=txt; els[i].hidden=false; }
+})();
+
+
   /* grupo de WhatsApp de esta clase */
   var btn = document.getElementById('nfm-thx-wa');
   if(btn) btn.setAttribute('href', WA);
+
+  /* — Abrir la app de WhatsApp de una (sólo celular, sólo con wa_codigo) —
+       iPhone / iPad / webviews de Instagram y Facebook → whatsapp://chat?code=…  y si en 1,5 s la
+         página sigue visible (no hay app), cae al link web.
+       Android con Chrome → intent:// con fallback: Chrome abre la app o, si no está, el link web.
+       Escritorio → no toca nada: chat.whatsapp.com ya ofrece abrir WhatsApp Desktop o Web. — */
+  function nfmWaDestino(ua){
+    if(!WA_CODIGO || !CONFIG.WA_ABRIR_APP) return null;
+    ua = ua || navigator.userAgent || '';
+    var web = 'https://chat.whatsapp.com/'+WA_CODIGO;
+    if(/Android/i.test(ua)){
+      var chromeReal = /Chrome\//i.test(ua) && !/\bwv\b/.test(ua) && !/Instagram|FBAN|FBAV|FB_IAB/i.test(ua);
+      if(chromeReal) return { tipo:'intent', url:'intent://chat?code='+WA_CODIGO+'#Intent;scheme=whatsapp;package=com.whatsapp;S.browser_fallback_url='+encodeURIComponent(web)+';end' };
+      return { tipo:'scheme', url:'whatsapp://chat?code='+WA_CODIGO, fallback:web };
+    }
+    if(/iPhone|iPad|iPod/i.test(ua)) return { tipo:'scheme', url:'whatsapp://chat?code='+WA_CODIGO, fallback:web };
+    return null;
+  }
+  window.NFM_WA_DESTINO = nfmWaDestino;
+  if(btn && nfmWaDestino()){
+    btn.addEventListener('click', function(ev){
+      var d = nfmWaDestino(); if(!d) return;
+      ev.preventDefault();
+      if(d.tipo === 'intent'){ window.location.href = d.url; return; }
+      var seFue = false;
+      function marcar(){ if(document.visibilityState === 'hidden') seFue = true; }
+      document.addEventListener('visibilitychange', marcar);
+      window.addEventListener('pagehide', function(){ seFue = true; });
+      window.location.href = d.url;
+      setTimeout(function(){
+        document.removeEventListener('visibilitychange', marcar);
+        if(!seFue && document.visibilityState !== 'hidden') window.location.href = d.fallback;
+      }, 1500);
+    });
+  }
   if(!WA_PROPIO && window.console && console.warn){
     console.warn('[NFM] La clase del '+isoDe(clase.ts)+' no tiene grupo de WhatsApp propio. '+
                  'El botón está cayendo en GRUPO_FALLBACK: '+CONFIG.GRUPO_FALLBACK);
@@ -744,7 +679,7 @@ if(clase){
   var loom = document.getElementById('nfm-thx-loom');
   var loomId = clase.def.loom || CONFIG.LOOM_ID;
   if(loom && loomId){
-    var nuevo = 'https://www.loom.com/embed/'+loomId;
+    var nuevo = 'https://www.loom.com/embed/'+loomId+(CONFIG.LOOM_PARAMS ? '?'+CONFIG.LOOM_PARAMS : '');
     if(loom.getAttribute('src') !== nuevo) loom.setAttribute('src', nuevo);
   }
 
@@ -761,97 +696,114 @@ if(clase){
 })();
 </script>
 
-<script>
-/* ════════════════════════════════════════════════════════════════════════
-   OTO · el pop-up de la thank you
-   ────────────────────────────────────────────────────────────────────────
-   Se muestra una vez por sesión y se cierra por una de tres salidas: pagar
-   el Básico, pagar el de Hackea tu Productividad, o el link gris. No hay X,
-   no cierra clickeando afuera y Escape no hace nada. Para volver a verlo
-   mientras se prueba: agregar ?oto=1 a la URL.
+<!-- ══════════════════════════════════════════════════════════════════
+     POPUP POST-REGISTRO (oferta de asiento USD 1 / USD 5)
+     Pegar acá el código del popup cuando esté.
+     Se muestra SÓLO a quien calificó (etapa A o B): el script de abajo corta con if(!window.NFM_CALIFICA).
+       · Datos disponibles: window.NFM_ETAPA ('A'|'B'|'C'|null), window.NFM_EQUIPO, window.NFM_CALIFICA (true/false),
+         window.NFM_NIVEL ('alto' = etapa A/B con gente a cargo · 'medio' = A/B sin gente a cargo · 'bajo' = C, todavía le cuesta sostenerse económicamente)
+     ══════════════════════════════════════════════════════════════════ -->
+<div id="nfm-popup-slot">
 
-   Los botones son nuestros y llevan a un Payment Link de Stripe, así que el
-   clic sí se puede medir (InitiateCheckout). El Purchase lo tiene que mandar
-   igual la página de gracias de cada compra: ese es el único momento en que
-   hay una venta confirmada.
-   ════════════════════════════════════════════════════════════════════════ */
-(function(){
-'use strict';
+  <div class="nfm-oferta" id="nfm-oferta" hidden aria-hidden="true">
+    <div class="nfm-oferta__bg"></div>
+    <div class="nfm-oferta__panel" role="dialog" aria-modal="true" aria-labelledby="nfm-oferta-title">
+      <button type="button" class="nfm-oferta__close" id="nfm-oferta-close" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <span class="nfm-oferta__eyebrow">Tu registro ya está hecho</span>
+      <h2 id="nfm-oferta-title">¿Querés <span class="acc">asegurar tu asiento</span> en la clase en vivo?</h2>
+      <p class="nfm-oferta__sub">El cupo del Zoom es limitado y entra primero quien reservó su asiento. Elegí cómo querés asegurarlo para el <strong data-thx-fecha="diaYNumero">martes 6</strong>:</p>
 
-var OTO = {
-  DELAY: 900,                    /* que la página pinte antes de taparla */
-  CLAVE: 'nfm_oto_visto'
-};
+      <div class="nfm-oferta__grid">
+        <!-- ASIENTO USD 1 -->
+        <div class="nfm-oferta__card">
+          <div class="nfm-oferta__price">USD 1</div>
+          <h3>Asiento reservado</h3>
+          <p>Tu lugar queda asegurado, con acceso prioritario al Zoom el día de la clase.</p>
+          <div class="nfm-oferta__btn">
+            <a class="nfm-oferta__cta nfm-oferta__cta--ghost" href="{{LINK_1}}" data-oferta-buy="1">Lo quiero</a>
+            <p class="nfm-oferta__err">Falta cargar el link de pago.</p>
+          </div>
+        </div>
+        <!-- ASIENTO USD 5 -->
+        <div class="nfm-oferta__card nfm-oferta__card--top">
+          <div class="nfm-oferta__price">USD 5</div>
+          <h3>Asiento + grabación</h3>
+          <p>Lo mismo, más la grabación de la clase para volver a verla cuando quieras.</p>
+          <div class="nfm-oferta__btn">
+            <a class="nfm-oferta__cta nfm-oferta__cta--full" href="{{LINK_5}}" data-oferta-buy="5">
+              <span>Lo quiero</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <p class="nfm-oferta__err">Falta cargar el link de pago.</p>
+          </div>
+        </div>
+      </div>
 
-var box = document.getElementById('oto');
-if(!box) return;
+      <button type="button" class="nfm-oferta__skip" id="nfm-oferta-skip">No, gracias. Entro a la clase gratis.</button>
+    </div>
+  </div>
 
-function forzado(){ return /[?&]oto=1/.test(window.location.search); }
-function visto(){ try{ return sessionStorage.getItem(OTO.CLAVE) === '1'; }catch(e){ return false; } }
-function marcar(){ try{ sessionStorage.setItem(OTO.CLAVE,'1'); }catch(e){} }
-function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
+  <script>
+  /* ── POPUP DE ASIENTO ──
+     Aparece DEMORA_MS después de cargar, sólo a quien calificó (etapa A o B; los C nunca lo ven).
+     Tres salidas, todas a la vista: los dos botones, la X de arriba y «No, gracias». El clic en el
+     fondo no cierra. Si lo cierran, no vuelve a salir en esa sesión.
 
-function abrir(){
-  box.setAttribute('data-open','');
-  box.removeAttribute('aria-hidden');
-  document.body.setAttribute('data-oto-open','');
-  track('ViewContent', {content_name:'oto_thankyou'});
-}
-function cerrar(){
-  box.removeAttribute('data-open');
-  box.setAttribute('aria-hidden','true');
-  document.body.removeAttribute('data-oto-open');
-  marcar();
-}
+     ⚠️ LINKS · son los Payment Links de Stripe (buy.stripe.com/...), uno por pack.
+        ESTO ES PLATA REAL: si quedan cruzados, el de USD 1 cobra 5 y el de USD 5 cobra 1.
+        Ya pasó dos veces con los ids de los buy buttons. Antes de publicar: abrir la página,
+        clickear cada botón y confirmar en el checkout de Stripe el precio y el nombre.
+        Mientras estén vacíos el botón no navega y la tarjeta avisa, a propósito.
 
-/* Los botones de pago. Si el link quedó sin cargar, el botón no navega a
-   ningún lado y se avisa arriba del pie — mejor eso que mandar a una URL
-   rota o, peor, que alguien publique la página sin darse cuenta. */
-var PRECIO = { '1':1, '5':5 };
-var botones = box.querySelectorAll('[data-oto-buy]');
-for(var i=0;i<botones.length;i++){
-  (function(a){
-    var pack = a.getAttribute('data-oto-buy');
-    var url  = a.getAttribute('href') || '';
-    if(/^\s*\{\{/.test(url) || !url){
-      a.setAttribute('aria-disabled','true');
-      a.removeAttribute('href');
-      a.closest('.oto__buy').setAttribute('data-fallo','');
-      if(window.console && console.warn) console.warn('[NFM] Falta el Payment Link del pack de USD '+pack);
-      return;
+     A cada link se le agrega ?client_reference_id=etapa-nivel-edicion, que es como el Payment Link
+     recibe lo que antes le pasábamos al buy button por atributo: sirve para ver en Stripe de qué
+     perfil vino cada pago. */
+  (function(){
+    var CFG = {
+      DEMORA_MS: 1500,
+      UNA_VEZ_POR_SESION: true,
+      LINKS: { '1':'{{LINK_1}}', '5':'{{LINK_5}}' },
+      PRECIO: { '1':1, '5':5 }
+    };
+    if(!window.NFM_CALIFICA) return;
+    var el=document.getElementById('nfm-oferta'); if(!el) return;
+    var KEY='nfm_oferta_cerrada';
+    try{ if(CFG.UNA_VEZ_POR_SESION && window.sessionStorage.getItem(KEY)) return; }catch(e){}
+
+    function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
+    var ref=[window.NFM_ETAPA||'x', window.NFM_NIVEL||'x', 'oct06'].join('-').replace(/[^A-Za-z0-9_-]/g,'');
+
+    var botones=el.querySelectorAll('[data-oferta-buy]');
+    for(var i=0;i<botones.length;i++){
+      (function(a){
+        var pack=a.getAttribute('data-oferta-buy');
+        var url=CFG.LINKS[pack]||'';
+        if(/^\s*\{\{/.test(url) || !url){
+          a.setAttribute('aria-disabled','true');
+          a.removeAttribute('href');
+          a.parentNode.setAttribute('data-fallo','');
+          if(window.console && console.warn) console.warn('[NFM] Falta el Payment Link del pack de USD '+pack);
+          return;
+        }
+        a.setAttribute('href', url + (url.indexOf('?')>-1 ? '&' : '?') + 'client_reference_id=' + encodeURIComponent(ref));
+        a.addEventListener('click', function(){
+          track('InitiateCheckout', {content_name:'oferta_asiento_'+pack, value:CFG.PRECIO[pack], currency:'USD'});
+          try{ window.sessionStorage.setItem(KEY,'1'); }catch(e){}
+        });
+      })(botones[i]);
     }
-    a.addEventListener('click', function(){
-      track('InitiateCheckout', {content_name:'oto_pack_'+pack, value:PRECIO[pack], currency:'USD'});
-      marcar();
-    });
-  })(botones[i]);
-}
 
-/* La salida */
-var no = box.querySelector('[data-oto-no]');
-if(no) no.addEventListener('click', function(){
-  track('Lead', {content_name:'oto_rechazado'});
-  cerrar();
-});
-
-/* Sin X, sin click afuera, sin Escape. Y el foco no se escapa de la caja
-   mientras está abierta: con teclado o con lector de pantalla las opciones
-   siguen siendo las mismas tres. */
-box.addEventListener('click', function(e){ e.stopPropagation(); });
-document.addEventListener('keydown', function(e){
-  if(!box.hasAttribute('data-open')) return;
-  if(e.key === 'Escape'){ e.preventDefault(); return; }
-  if(e.key !== 'Tab') return;
-  var f = box.querySelectorAll('button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-  if(!f.length) return;
-  var primero = f[0], ultimo = f[f.length-1];
-  if(e.shiftKey && document.activeElement === primero){ e.preventDefault(); ultimo.focus(); }
-  else if(!e.shiftKey && document.activeElement === ultimo){ e.preventDefault(); primero.focus(); }
-}, true);
-
-if(forzado() || !visto()) setTimeout(abrir, OTO.DELAY);
-})();
-</script>
+    function abrir(){ el.hidden=false; el.setAttribute('aria-hidden','false'); document.documentElement.classList.add('nfm-oferta-open');
+      track('ViewContent', {content_name:'oferta_asiento'}); }
+    function cerrar(){ el.hidden=true; el.setAttribute('aria-hidden','true'); document.documentElement.classList.remove('nfm-oferta-open'); try{ window.sessionStorage.setItem(KEY,'1'); }catch(e){} }
+    var x=document.getElementById('nfm-oferta-close'), skip=document.getElementById('nfm-oferta-skip');
+    if(x) x.addEventListener('click', cerrar);
+    if(skip) skip.addEventListener('click', function(){ track('Lead',{content_name:'oferta_rechazada'}); cerrar(); });
+    window.NFM_ABRIR_OFERTA = abrir;
+    setTimeout(abrir, CFG.DEMORA_MS);
+  })();
+  </script>
+</div>
 <!-- ═══════════ HASTA ACÁ EL CUSTOM CODE DE GHL ═══════════ -->
 </body>
 </html>
