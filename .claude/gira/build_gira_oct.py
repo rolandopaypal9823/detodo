@@ -3,7 +3,7 @@
 # (rama claude/nueva-landing-form-7ajo0h, landing-siempre-on/clase-6-octubre/index.html)
 # + funciones, motor y pixel de hackea-tu-cerebro-gira-2026.html.
 # Antes de correrlo: git show origin/claude/nueva-landing-form-7ajo0h:landing-siempre-on/clase-6-octubre/index.html > <ruta de W>
-import io, re
+import io, re, base64
 W = io.open('/tmp/claude-0/-home-user-detodo/9d0166ff-9878-57c8-9b0f-5de407c74f9b/scratchpad/webinar/index.html', encoding='utf-8').read().split('\n')
 G = io.open('/home/user/detodo/hackea-tu-cerebro-gira-2026.html', encoding='utf-8').read()
 GL = G.split('\n')
@@ -31,6 +31,10 @@ txt = txt.replace('.nfm-eq, .nfm-reg, .nfm-nico, .nfm-learn, .nfm-tst{ padding:6
 
 # ── CSS de la gira que la de webinars no tiene: funciones, numeros y preguntas
 fx = '\n'.join(entre(GL, 'FUNCIONES  (ocupa el lugar del formulario)', 'EL SHOW / MECANISMO'))
+# el reset de la landing de webinars (.nfm-page p{margin:0}) le gana a estos margenes: van con !important
+for regla in ('margin:0 auto 44px', 'margin:32px auto 0', 'margin:0 0 8px', 'margin:0 0 20px'):
+    assert fx.count(regla + ';') == 1, regla
+    fx = fx.replace(regla + ';', regla + ' !important;')
 stats = '\n'.join(entre(GL, '.nfm-stats{', '.nfm-insight{'))
 faq = '\n'.join(entre(GL, '.nfm-faq{', '/* ════════════════ CTA FINAL'))
 extra = '''
@@ -54,7 +58,7 @@ extra = '''
   .nfm-stat{ display:flex; align-items:center; gap:16px; text-align:left; padding:16px 20px; }
   .nfm-stat b{ flex:0 0 auto; font-size:1.55rem; margin:0; }
   .nfm-stat span{ font-size:0.9rem; }
-  .nfm-who__grid{ grid-template-columns:1fr; gap:24px; }
+  .nfm-who__grid{ grid-template-columns:1fr; gap:24px; text-align:center; }
   .nfm-who__photo{ aspect-ratio:4/3; max-width:420px; width:100%; margin:0 auto; }
   .nfm-who .nfm-eyebrow, .nfm-who h2, .nfm-who p{ text-align:center; margin-left:auto; margin-right:auto; }
   .nfm-faq__item summary{ padding:18px 20px; font-size:0.94rem; }
@@ -76,6 +80,7 @@ ICO = {
  'habitos': '<svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10M10 21V10M14 21V10M19 21V10M2.5 10L12 3l9.5 7z"/></svg>',
  'manana': '<svg viewBox="0 0 24 24"><circle cx="6" cy="5.5" r="2.2"/><circle cx="18" cy="5.5" r="2.2"/><circle cx="12" cy="18.5" r="2.2"/><path d="M6 7.7v1.8a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4V7.7M12 13.5v2.8"/></svg>',
 }
+FOTO = 'data:image/jpeg;base64,' + base64.b64encode(open('/home/user/detodo/gira-assets/nico-retrato.jpg', 'rb').read()).decode()
 FLECHA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'
 
 def item(ico, titulo, texto):
@@ -193,7 +198,8 @@ body = '''<div class="nfm-page">
 <section class="nfm-who">
   <div class="nfm-container">
     <div class="nfm-who__grid">
-      <div class="nfm-who__photo nfm-reveal"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/hackeatucerebroenmano.jpeg" alt="Nico con su libro Hackea tu cerebro" loading="lazy"></div>
+      <!-- Foto: retrato de Nico (deck "Escala tu vida"), incrustada. Si la subis a la galeria de GHL, cambia el src por el link. -->
+      <div class="nfm-who__photo nfm-reveal"><img src="''' + FOTO + '''" alt="Nicolás Fernández Miranda" loading="lazy"></div>
       <div class="nfm-reveal nfm-d1">
         <span class="nfm-eyebrow nfm-eyebrow--solid">Quién está en escena</span>
         <h2>Nicolás Fernández Miranda</h2>
