@@ -188,31 +188,32 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-oferta, .nfm-oferta *{ box-sizing:border-box; }
 .nfm-oferta[hidden]{ display:none !important; }
 .nfm-oferta__bg{ position:absolute; inset:0; background:rgba(3,14,26,0.82); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
-.nfm-oferta__panel{ position:relative; z-index:1; width:100%; max-width:640px; max-height:calc(100vh - 40px); max-height:calc(100dvh - 40px); overflow-y:auto; -webkit-overflow-scrolling:touch; background:var(--nfm-navy-1); border:1px solid rgba(255,255,255,0.12); border-radius:22px; padding:30px 30px 0; box-shadow:0 40px 100px rgba(0,0,0,0.6); text-align:center !important; animation:nfm-oferta-in .4s var(--nfm-ease) both; font-family:var(--nfm-font-b); color:#fff; }
+.nfm-oferta__panel{ position:relative; z-index:1; width:100%; max-width:760px; max-height:calc(100vh - 32px); max-height:calc(100dvh - 32px); overflow-y:auto; -webkit-overflow-scrolling:touch; background:var(--nfm-navy-1); border:1px solid rgba(255,255,255,0.12); border-radius:22px; padding:20px 28px 0; box-shadow:0 40px 100px rgba(0,0,0,0.6); text-align:center !important; animation:nfm-oferta-in .4s var(--nfm-ease) both; font-family:var(--nfm-font-b); color:#fff; }
 @keyframes nfm-oferta-in{ from{ opacity:0; transform:translateY(18px) scale(.98); } to{ opacity:1; transform:none; } }
-.nfm-oferta__close{ position:absolute; top:12px; right:12px; width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.06); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; z-index:2; }
+.nfm-oferta__xwrap{ position:sticky; top:0; height:0; display:flex; justify-content:flex-end; z-index:3; margin:0 -14px 0 0; }
+.nfm-oferta__close{ position:relative; margin-top:-8px; width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.06); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; z-index:2; }
 .nfm-oferta__close svg{ width:16px !important; height:16px !important; }
 .nfm-oferta__close:hover{ background:rgba(255,255,255,0.12); }
-.nfm-oferta__eyebrow{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.72rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-orange); border:1px solid rgba(255,102,2,0.4); padding:6px 14px; border-radius:50px; margin:0 0 16px; }
-.nfm-oferta__panel h2{ font-family:var(--nfm-font-h); font-size:clamp(1.35rem,3vw,1.85rem); font-weight:700; line-height:1.18; letter-spacing:-0.02em; margin:0 0 12px !important; text-align:center !important; text-wrap:balance; }
+.nfm-oferta__eyebrow{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-orange); border:1px solid rgba(255,102,2,0.4); padding:5px 13px; border-radius:50px; margin:0 0 12px; }
+.nfm-oferta__panel h2{ font-family:var(--nfm-font-h); font-size:clamp(1.3rem,2.4vw,1.5rem); font-weight:700; line-height:1.18; letter-spacing:-0.02em; margin:0 0 8px !important; text-align:center !important; text-wrap:balance; }
 .nfm-oferta__panel h2 .acc{ color:var(--nfm-orange); }
-.nfm-oferta__sub{ font-size:1rem; color:var(--nfm-tm); line-height:1.55; max-width:32em; margin:0 auto 24px !important; text-align:center !important; }
+.nfm-oferta__sub{ font-size:0.94rem; color:var(--nfm-tm); line-height:1.5; max-width:44em; margin:0 auto 14px !important; text-align:center !important; }
 .nfm-oferta__grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; text-align:center; margin-top:12px; }
-.nfm-oferta__card{ position:relative; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.10); border-radius:16px; padding:22px 18px 18px; display:flex; flex-direction:column; align-items:center; }
+.nfm-oferta__card{ position:relative; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.10); border-radius:16px; padding:20px 18px 18px; display:flex; flex-direction:column; align-items:center; }
 .nfm-oferta__card--top{ border-color:rgba(255,102,2,0.45); background:rgba(255,102,2,0.07); }
-.nfm-oferta__price{ font-family:var(--nfm-font-h); font-size:2rem; font-weight:700; color:#fff; line-height:1; margin:0 0 8px; }
+.nfm-oferta__price{ font-family:var(--nfm-font-h); font-size:1.9rem; font-weight:700; color:#fff; line-height:1; margin:0 0 10px; }
 .nfm-oferta__price small{ font-size:0.95rem; font-weight:600; color:var(--nfm-orange); margin-left:4px; }
 .nfm-oferta__card h3{ font-family:var(--nfm-font-h); font-size:1.05rem; font-weight:700; color:#fff; margin:0 0 8px !important; text-align:center !important; }
 .nfm-oferta__badge{ position:absolute; top:0; left:50%; transform:translate(-50%,-50%); background:var(--nfm-orange); color:#fff; white-space:nowrap; font-family:var(--nfm-font-h); font-size:0.58rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:6px 14px; border-radius:50px; box-shadow:0 8px 22px var(--nfm-orange-glow); }
 .nfm-oferta__name{ font-family:var(--nfm-font-h); font-size:0.64rem; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:var(--nfm-tm); margin:0 0 7px !important; line-height:1.5; text-align:center !important; }
 .nfm-oferta__card--top .nfm-oferta__name{ color:var(--nfm-orange); }
-.nfm-oferta__list{ list-style:none; padding:0; margin:0 0 16px; flex:1; text-align:left; width:100%; }
-.nfm-oferta__list li{ position:relative; padding:0 0 10px 21px; font-size:0.84rem; line-height:1.5; color:var(--nfm-tm); }
+.nfm-oferta__list{ list-style:none; padding:0; margin:0 0 14px; flex:1; text-align:left; width:100%; }
+.nfm-oferta__list li{ position:relative; padding:0 0 8px 20px; font-size:0.82rem; line-height:1.45; color:var(--nfm-tm); }
 .nfm-oferta__list li:last-child{ padding-bottom:0; }
 .nfm-oferta__list li::before{ content:''; position:absolute; left:0; top:6px; width:11px; height:6px; border-left:2px solid var(--nfm-orange); border-bottom:2px solid var(--nfm-orange); transform:rotate(-45deg); border-radius:1px; }
 .nfm-oferta__list b{ color:#fff; font-weight:600; }
 .nfm-oferta__pago{ font-size:0.78rem; color:var(--nfm-ts); line-height:1.5; margin:0 !important; text-align:center !important; }
-.nfm-oferta__foot{ position:sticky; bottom:0; margin:16px -30px 0; padding:14px 30px 12px; background:var(--nfm-navy-1); border-top:1px solid rgba(255,255,255,0.09); }
+.nfm-oferta__foot{ margin:12px -28px 0; padding:12px 28px 16px; border-top:1px solid rgba(255,255,255,0.09); }
 /* Botón propio (va a un Payment Link de Stripe). El buy button de Stripe se
    dibuja en un iframe con ancho mínimo propio: en dos columnas de celular no
    entraba, y encima su color salía del panel de Stripe, así que los dos packs
@@ -222,9 +223,11 @@ html, body{ margin:0; padding:0; background:#081F33; }
   font-family:var(--nfm-font-h); font-size:0.98rem; font-weight:700; line-height:1.2;
   border:none; border-radius:50px; padding:14px 16px; cursor:pointer; text-decoration:none;
   transition:transform .22s var(--nfm-ease), box-shadow .22s var(--nfm-ease), background .22s var(--nfm-ease), border-color .22s var(--nfm-ease), color .22s var(--nfm-ease); }
+.nfm-oferta__cta svg{ width:16px !important; height:16px !important; flex:0 0 16px; }
+.nfm-oferta__cta{ white-space:nowrap; }
 .nfm-oferta__cta--ghost{ background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,0.28); }
 .nfm-oferta__cta--ghost:hover{ border-color:var(--nfm-orange); color:var(--nfm-orange); transform:translateY(-2px); }
-.nfm-oferta__cta--full{ background:var(--nfm-orange); color:#fff; box-shadow:0 8px 24px var(--nfm-orange-glow); }
+.nfm-oferta__cta--full{ background:var(--nfm-orange); color:#fff; border:1.5px solid transparent; box-shadow:0 8px 24px var(--nfm-orange-glow); }
 .nfm-oferta__cta--full:hover{ background:var(--nfm-orange-hover); color:#fff; transform:translateY(-2px); box-shadow:0 12px 32px var(--nfm-orange-glow); }
 .nfm-oferta__cta[aria-disabled="true"]{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
 .nfm-oferta__err{ display:none; font-size:0.76rem; line-height:1.4; color:var(--nfm-amber); margin:0 !important; }
@@ -242,7 +245,7 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
 @media (max-width:600px){
   .nfm-oferta{ padding:0; align-items:flex-end; }
   .nfm-oferta__panel{ max-height:100vh; max-height:100dvh; border-radius:22px 22px 0 0; padding:22px 12px 0; }
-  .nfm-oferta__foot{ margin:14px -12px 0; padding:12px 12px 10px; }
+  .nfm-oferta__foot{ margin:12px -12px 0; padding:12px 12px 18px; }
   /* Las dos opciones quedan lado a lado también en celular. Apiladas, la
      segunda caía abajo del pliegue: había que scrollear adentro del pop-up
      para enterarse de que existía. Se comprime todo lo demás para que las
@@ -258,14 +261,16 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
   .nfm-oferta__list li{ font-size:0.72rem; line-height:1.4; padding:0 0 8px 16px; }
   .nfm-oferta__list li::before{ width:9px; height:5px; top:5px; }
   .nfm-oferta__pago{ font-size:0.7rem; margin-top:12px !important; }
-  .nfm-oferta__cta{ font-size:0.85rem; padding:12px 8px; gap:5px; }
+  .nfm-oferta__cta{ font-size:0.85rem; padding:12px 6px; gap:5px; }
   .nfm-oferta__cta svg{ display:none; }
   .nfm-oferta__eyebrow{ font-size:0.62rem; padding:5px 11px; margin-bottom:12px; }
   .nfm-oferta__panel h2{ font-size:1.16rem; margin-bottom:8px !important; }
   .nfm-oferta__sub{ font-size:0.87rem; line-height:1.45; margin-bottom:16px !important; }
-  .nfm-oferta__close{ top:10px; right:10px; width:34px; height:34px; }
+  .nfm-oferta__xwrap{ margin-right:-2px; }
+  .nfm-oferta__close{ margin-top:-8px; width:34px; height:34px; }
   .nfm-oferta__skip{ font-size:0.86rem; padding:11px 12px; margin-top:8px; }
 }
+@media (max-width:380px){ .nfm-oferta__cta{ font-size:0.74rem; padding:11px 4px; letter-spacing:-0.01em; } }
 @media (prefers-reduced-motion:reduce){ .nfm-oferta__panel{ animation:none; } }
 
 /* ── BARRA DE MODO PRUEBA ── */
@@ -723,7 +728,7 @@ if(clase){
   <div class="nfm-oferta" id="nfm-oferta" hidden aria-hidden="true">
     <div class="nfm-oferta__bg"></div>
     <div class="nfm-oferta__panel" role="dialog" aria-modal="true" aria-labelledby="nfm-oferta-title">
-      <button type="button" class="nfm-oferta__close" id="nfm-oferta-close" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div class="nfm-oferta__xwrap"><button type="button" class="nfm-oferta__close" id="nfm-oferta-close" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
       <span class="nfm-oferta__eyebrow">Sólo aparece esta vez</span>
       <h2 id="nfm-oferta-title">Tu lugar ya está reservado.<br>Antes de entrar al grupo, <span class="acc">elegí con qué asiento la hacés.</span></h2>
       <p class="nfm-oferta__sub">Esto es opcional y <strong>no vuelve a aparecer</strong>. La clase gratis la tenés igual, elijas lo que elijas.</p>
