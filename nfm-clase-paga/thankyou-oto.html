@@ -188,14 +188,14 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-oferta, .nfm-oferta *{ box-sizing:border-box; }
 .nfm-oferta[hidden]{ display:none !important; }
 .nfm-oferta__bg{ position:absolute; inset:0; background:rgba(3,14,26,0.82); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
-.nfm-oferta__panel{ position:relative; z-index:1; width:100%; max-width:760px; max-height:calc(100vh - 32px); max-height:calc(100dvh - 32px); overflow-y:auto; -webkit-overflow-scrolling:touch; background:var(--nfm-navy-1); border:1px solid rgba(255,255,255,0.12); border-radius:22px; padding:20px 28px 0; box-shadow:0 40px 100px rgba(0,0,0,0.6); text-align:center !important; animation:nfm-oferta-in .4s var(--nfm-ease) both; font-family:var(--nfm-font-b); color:#fff; }
+.nfm-oferta__panel{ position:relative; z-index:1; width:100%; max-width:760px; max-height:calc(100vh - 32px); max-height:calc(100dvh - 32px); overflow-y:auto; -webkit-overflow-scrolling:touch; background:var(--nfm-navy-1); border:1px solid rgba(255,255,255,0.12); border-radius:22px; padding:22px 28px 0; box-shadow:0 40px 100px rgba(0,0,0,0.6); text-align:center !important; animation:nfm-oferta-in .4s var(--nfm-ease) both; font-family:var(--nfm-font-b); color:#fff; }
 @keyframes nfm-oferta-in{ from{ opacity:0; transform:translateY(18px) scale(.98); } to{ opacity:1; transform:none; } }
 .nfm-oferta__xwrap{ position:sticky; top:0; height:0; display:flex; justify-content:flex-end; z-index:3; margin:0 -14px 0 0; }
 .nfm-oferta__close{ position:relative; margin-top:-8px; width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.06); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; z-index:2; }
 .nfm-oferta__close svg{ width:16px !important; height:16px !important; }
 .nfm-oferta__close:hover{ background:rgba(255,255,255,0.12); }
 .nfm-oferta__eyebrow{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-orange); border:1px solid rgba(255,102,2,0.4); padding:5px 13px; border-radius:50px; margin:0 0 12px; }
-.nfm-oferta__panel h2{ font-family:var(--nfm-font-h); font-size:clamp(1.3rem,2.4vw,1.5rem); font-weight:700; line-height:1.18; letter-spacing:-0.02em; margin:0 0 8px !important; text-align:center !important; text-wrap:balance; }
+.nfm-oferta__panel h2{ font-family:var(--nfm-font-h); font-size:clamp(1.3rem,2.6vw,1.62rem); font-weight:700; line-height:1.18; letter-spacing:-0.02em; margin:8px 0 6px !important; text-align:center !important; text-wrap:balance; }
 .nfm-oferta__panel h2 .acc{ color:var(--nfm-orange); }
 .nfm-oferta__sub{ font-size:0.94rem; color:var(--nfm-tm); line-height:1.5; max-width:44em; margin:0 auto 14px !important; text-align:center !important; }
 .nfm-oferta__grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; text-align:center; margin-top:12px; }
@@ -212,6 +212,13 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-oferta__list li:last-child{ padding-bottom:0; }
 .nfm-oferta__list li::before{ content:''; position:absolute; left:0; top:6px; width:11px; height:6px; border-left:2px solid var(--nfm-orange); border-bottom:2px solid var(--nfm-orange); transform:rotate(-45deg); border-radius:1px; }
 .nfm-oferta__list b{ color:#fff; font-weight:600; }
+/* El ebook: el ítem que tiene que llamar la atención. Sin negrita a propósito —
+   el peso lo pone el fondo naranja y el latido, no la letra. */
+.nfm-oferta__list li.nfm-oferta__hot{ margin-top:4px; padding:10px 12px 10px 12px; border-radius:12px; color:var(--nfm-tl);
+  background:rgba(255,102,2,0.13); border:1px solid rgba(255,102,2,0.55); animation:nfm-latido 2.2s ease-in-out infinite; }
+.nfm-oferta__list li.nfm-oferta__hot::before{ display:none; }
+.nfm-oferta__hot-t{ display:block; font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--nfm-orange); margin-bottom:3px; }
+@keyframes nfm-latido{ 0%,100%{ box-shadow:0 0 0 0 rgba(255,102,2,0.45); } 50%{ box-shadow:0 0 0 7px rgba(255,102,2,0); } }
 .nfm-oferta__pago{ font-size:0.78rem; color:var(--nfm-ts); line-height:1.5; margin:0 !important; text-align:center !important; }
 .nfm-oferta__foot{ margin:12px -28px 0; padding:12px 28px 16px; border-top:1px solid rgba(255,255,255,0.09); }
 /* Botón propio (va a un Payment Link de Stripe). El buy button de Stripe se
@@ -237,11 +244,27 @@ html, body{ margin:0; padding:0; background:#081F33; }
    mismo ancho y misma forma que los otros botones, sólo más callada. */
 .nfm-oferta__skip{ display:block; width:100%; max-width:440px; margin:10px auto 0;
   background:none; border:1px solid rgba(255,255,255,0.22); border-radius:50px;
-  color:var(--nfm-tm); font-family:var(--nfm-font-b); font-size:0.95rem; font-weight:500;
+  color:var(--nfm-tl); font-family:var(--nfm-font-b); font-size:0.95rem; font-weight:700;
   padding:13px 18px; cursor:pointer; line-height:1.4; text-align:center;
   transition:border-color .2s var(--nfm-ease), color .2s var(--nfm-ease); }
 .nfm-oferta__skip:hover{ border-color:rgba(255,255,255,0.45); color:#fff; }
 html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
+/* Cuando cierran el pop-up queda esto abajo a la derecha, para volver a abrirlo. */
+.nfm-oferta__fab{ position:fixed; right:16px; bottom:18px; z-index:9990; display:flex; align-items:center; gap:9px;
+  height:52px; padding:0 18px 0 14px; border-radius:50px; border:none; cursor:pointer;
+  background:var(--nfm-orange); color:#fff; font-family:var(--nfm-font-h); font-size:0.86rem; font-weight:700;
+  box-shadow:0 12px 32px var(--nfm-orange-glow), 0 0 0 0 rgba(255,102,2,0.5);
+  animation:nfm-fab-in .4s var(--nfm-ease) both, nfm-latido 2.6s 1s ease-in-out infinite;
+  transition:transform .22s var(--nfm-ease), background .22s var(--nfm-ease); }
+.nfm-oferta__fab[hidden]{ display:none !important; }
+.nfm-oferta__fab:hover{ background:var(--nfm-orange-hover); transform:translateY(-2px); }
+.nfm-oferta__fab svg{ width:22px !important; height:22px !important; flex-shrink:0; }
+@keyframes nfm-fab-in{ from{ opacity:0; transform:translateY(14px) scale(.9); } to{ opacity:1; transform:none; } }
+@media (max-width:600px){
+  .nfm-oferta__fab{ right:12px; bottom:14px; width:52px; height:52px; padding:0; justify-content:center; border-radius:50%; }
+  .nfm-oferta__fab span{ display:none; }
+  .nfm-oferta__fab svg{ width:24px !important; height:24px !important; }
+}
 @media (max-width:600px){
   .nfm-oferta{ padding:0; align-items:flex-end; }
   .nfm-oferta__panel{ max-height:100vh; max-height:100dvh; border-radius:22px 22px 0 0; padding:22px 12px 0; }
@@ -260,6 +283,9 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
   .nfm-oferta__list{ margin-bottom:12px; }
   .nfm-oferta__list li{ font-size:0.72rem; line-height:1.4; padding:0 0 8px 16px; }
   .nfm-oferta__list li::before{ width:9px; height:5px; top:5px; }
+  .nfm-oferta__list li.nfm-oferta__hot{ padding:8px 9px; }
+  .nfm-oferta__hot-t{ font-size:0.58rem; letter-spacing:0.09em; }
+  .nfm-oferta__panel h2{ margin-top:4px !important; padding:0 34px; }
   .nfm-oferta__pago{ font-size:0.7rem; margin-top:12px !important; }
   .nfm-oferta__cta{ font-size:0.85rem; padding:12px 6px; gap:5px; }
   .nfm-oferta__cta svg{ display:none; }
@@ -271,7 +297,7 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
   .nfm-oferta__skip{ font-size:0.86rem; padding:11px 12px; margin-top:8px; }
 }
 @media (max-width:380px){ .nfm-oferta__cta{ font-size:0.74rem; padding:11px 4px; letter-spacing:-0.01em; } }
-@media (prefers-reduced-motion:reduce){ .nfm-oferta__panel{ animation:none; } }
+@media (prefers-reduced-motion:reduce){ .nfm-oferta__panel, .nfm-oferta__list li.nfm-oferta__hot, .nfm-oferta__fab{ animation:none; } }
 
 /* ── BARRA DE MODO PRUEBA ── */
 .nfm-testbar{ background:var(--nfm-orange); color:#fff; font-family:var(--nfm-font-h);
@@ -729,9 +755,7 @@ if(clase){
     <div class="nfm-oferta__bg"></div>
     <div class="nfm-oferta__panel" role="dialog" aria-modal="true" aria-labelledby="nfm-oferta-title">
       <div class="nfm-oferta__xwrap"><button type="button" class="nfm-oferta__close" id="nfm-oferta-close" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-      <span class="nfm-oferta__eyebrow">Sólo aparece esta vez</span>
-      <h2 id="nfm-oferta-title">Tu lugar ya está reservado.<br>Antes de entrar al grupo, <span class="acc">elegí con qué asiento la hacés.</span></h2>
-      <p class="nfm-oferta__sub">Esto es opcional y <strong>no vuelve a aparecer</strong>. La clase gratis la tenés igual, elijas lo que elijas.</p>
+      <h2 id="nfm-oferta-title">¿Querés <span class="acc">añadir beneficios</span> a tu asiento?</h2>
 
       <div class="nfm-oferta__grid">
 
@@ -756,13 +780,13 @@ if(clase){
           <div class="nfm-oferta__price">USD 5</div>
           <ul class="nfm-oferta__list">
             <li><b>Todo lo del Básico</b> — workbook y grabación de la clase.</li>
-            <li><b>Sesión de 60 minutos de preguntas y respuestas</b> con Nicolás Fernández Miranda y Soledad Funes, psicóloga experta en TDA/H. <b>Tenés a los dos expertos ahí</b> para contestar preguntas sobre tu caso.</li>
-            <li><b>Workbook, grabación y material de apoyo</b> de esa sesión.</li>
-            <li><b>El libro completo «Hackea tu Cerebro» en ebook</b> — el mismo que está en librerías. <b>Sólo para las primeras 100 personas.</b></li>
+            <li><b>Sesión grupal de Q&amp;A</b> con Nicolás Fernández Miranda y Soledad Funes, psicóloga experta en TDA/H.</li>
+            <li><b>Acceso al curso El ABC del Alto Rendimiento:</b> 6 módulos en video — mindset, hábitos, sueño y descanso, ejercicio y alimentación, concentración y memoria.</li>
+            <li class="nfm-oferta__hot"><span class="nfm-oferta__hot-t">Hackea tu Cerebro · versión ebook</span>Sólo <span data-oferta-cupos>50</span> unidades disponibles. Acceso inmediato al libro completo, con sus <span data-oferta-hacks>49</span> hacks.</li>
           </ul>
           <div class="nfm-oferta__btn">
             <a class="nfm-oferta__cta nfm-oferta__cta--full" href="https://buy.stripe.com/6oUcMY6WX04W5Wa8mTcbC03" data-oferta-buy="5">
-              <span>Lo quiero por USD 5</span>
+              <span>Lo quiero todo por USD 5</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
             <p class="nfm-oferta__err">Falta cargar el link de pago.</p>
@@ -772,11 +796,15 @@ if(clase){
       </div>
 
       <div class="nfm-oferta__foot">
-        <p class="nfm-oferta__pago">Pago seguro con Stripe. El acceso te llega al mail en el momento.</p>
         <button type="button" class="nfm-oferta__skip" id="nfm-oferta-skip">Solo quiero unirme a la clase gratis, sin la grabación y sin el workbook.</button>
       </div>
     </div>
   </div>
+
+  <button type="button" class="nfm-oferta__fab" id="nfm-oferta-fab" hidden aria-label="Volver a ver la oferta de asiento">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a1.5 1.5 0 0 0 0 3V15a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a1.5 1.5 0 0 0 0-3V9z"/><path d="M13 7v10" stroke-dasharray="2 2"/></svg>
+    <span>Asiento Premium</span>
+  </button>
 
   <script>
   /* ── POPUP DE ASIENTO ──
@@ -797,6 +825,10 @@ if(clase){
     var CFG = {
       DEMORA_MS: 1500,
       UNA_VEZ_POR_SESION: true,
+      /* El ebook. CUPOS es lo que dice el pop-up; HACKS es el número de hacks del
+         libro — ⚠️ no lo pude verificar contra el libro, confirmar antes de publicar. */
+      CUPOS: 50,
+      HACKS: 49,
       LINKS: { '1':'https://buy.stripe.com/28E14g0yzdVM84i9qXcbC02',
                '5':'https://buy.stripe.com/6oUcMY6WX04W5Wa8mTcbC03' },
       PRECIO: { '1':1, '5':5 }
@@ -804,9 +836,12 @@ if(clase){
     if(!window.NFM_CALIFICA) return;
     var el=document.getElementById('nfm-oferta'); if(!el) return;
     var KEY='nfm_oferta_cerrada';
-    try{ if(CFG.UNA_VEZ_POR_SESION && window.sessionStorage.getItem(KEY)) return; }catch(e){}
+    var yaCerrado=false; try{ yaCerrado = CFG.UNA_VEZ_POR_SESION && !!window.sessionStorage.getItem(KEY); }catch(e){}
 
     function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
+    var ec=el.querySelector('[data-oferta-cupos]'); if(ec) ec.textContent=CFG.CUPOS;
+    var eh=el.querySelector('[data-oferta-hacks]'); if(eh) eh.textContent=CFG.HACKS;
+    var fab=document.getElementById('nfm-oferta-fab');
     var ref=[window.NFM_ETAPA||'x', window.NFM_NIVEL||'x', 'oct06'].join('-').replace(/[^A-Za-z0-9_-]/g,'');
 
     var botones=el.querySelectorAll('[data-oferta-buy]');
@@ -829,14 +864,20 @@ if(clase){
       })(botones[i]);
     }
 
+    /* Al cerrar (X o «no, gracias») el pop-up no desaparece del todo: queda un
+       botoncito redondo abajo a la derecha que lo vuelve a abrir. Y si ya lo
+       habían cerrado en esta sesión, al recargar aparece el botoncito, no el pop-up. */
     function abrir(){ el.hidden=false; el.setAttribute('aria-hidden','false'); document.documentElement.classList.add('nfm-oferta-open');
-      track('ViewContent', {content_name:'oferta_asiento'}); }
-    function cerrar(){ el.hidden=true; el.setAttribute('aria-hidden','true'); document.documentElement.classList.remove('nfm-oferta-open'); try{ window.sessionStorage.setItem(KEY,'1'); }catch(e){} }
+      if(fab) fab.hidden=true; track('ViewContent', {content_name:'oferta_asiento'}); }
+    function cerrar(){ el.hidden=true; el.setAttribute('aria-hidden','true'); document.documentElement.classList.remove('nfm-oferta-open');
+      if(fab) fab.hidden=false; try{ window.sessionStorage.setItem(KEY,'1'); }catch(e){} }
     var x=document.getElementById('nfm-oferta-close'), skip=document.getElementById('nfm-oferta-skip');
     if(x) x.addEventListener('click', cerrar);
     if(skip) skip.addEventListener('click', function(){ track('Lead',{content_name:'oferta_rechazada'}); cerrar(); });
+    if(fab) fab.addEventListener('click', function(){ track('ViewContent',{content_name:'oferta_asiento_reabierta'}); abrir(); });
     window.NFM_ABRIR_OFERTA = abrir;
-    setTimeout(abrir, CFG.DEMORA_MS);
+    if(yaCerrado){ if(fab) fab.hidden=false; }
+    else setTimeout(abrir, CFG.DEMORA_MS);
   })();
   </script>
 </div>

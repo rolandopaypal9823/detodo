@@ -44,7 +44,7 @@ p{ margin:0; }
 .nfm-oferta__close svg{ width:16px; height:16px; }
 .nfm-oferta__eyebrow{ display:inline-block; font-family:var(--fh); font-size:.68rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
   color:var(--orange); border:1px solid rgba(255,102,2,.4); padding:5px 13px; border-radius:50px; margin:0 0 12px; }
-.nfm-oferta__panel h2{ font-family:var(--fh); font-size:clamp(1.3rem,2.4vw,1.5rem); font-weight:700; line-height:1.18; letter-spacing:-.02em; margin:0 0 8px; text-wrap:balance; }
+.nfm-oferta__panel h2{ font-family:var(--fh); font-size:clamp(1.3rem,2.6vw,1.62rem); font-weight:700; line-height:1.18; letter-spacing:-.02em; margin:8px 0 6px; text-wrap:balance; }
 .nfm-oferta__panel h2 .acc{ color:var(--orange); }
 .nfm-oferta__sub{ font-size:.94rem; color:var(--tm); line-height:1.5; max-width:44em; margin:0 auto 14px; }
 .nfm-oferta__sub strong{ color:var(--tl); font-weight:600; }
@@ -62,6 +62,10 @@ p{ margin:0; }
 .nfm-oferta__list li:last-child{ padding-bottom:0; }
 .nfm-oferta__list li::before{ content:''; position:absolute; left:0; top:6px; width:11px; height:6px; border-left:2px solid var(--orange); border-bottom:2px solid var(--orange); transform:rotate(-45deg); border-radius:1px; }
 .nfm-oferta__list b{ color:#fff; font-weight:600; }
+.nfm-oferta__list li.nfm-oferta__hot{ margin-top:4px; padding:10px 12px; border-radius:12px; color:var(--tl); background:rgba(255,102,2,.13); border:1px solid rgba(255,102,2,.55); animation:latido 2.2s ease-in-out infinite; }
+.nfm-oferta__list li.nfm-oferta__hot::before{ display:none; }
+.nfm-oferta__hot-t{ display:block; font-family:var(--fh); font-size:.7rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--orange); margin-bottom:3px; }
+@keyframes latido{ 0%,100%{ box-shadow:0 0 0 0 rgba(255,102,2,.45); } 50%{ box-shadow:0 0 0 7px rgba(255,102,2,0); } }
 .nfm-oferta__btn{ width:100%; display:flex; flex-direction:column; gap:8px; }
 .nfm-oferta__cta{ display:flex; align-items:center; justify-content:center; gap:8px; width:100%; font-family:var(--fh); font-size:.98rem; font-weight:700; line-height:1.2;
   border:none; border-radius:50px; padding:14px 16px; text-decoration:none; white-space:nowrap; }
@@ -71,7 +75,7 @@ p{ margin:0; }
 .nfm-oferta__foot{ margin:12px -28px 0; padding:12px 28px 16px; border-top:1px solid rgba(255,255,255,.09); }
 .nfm-oferta__pago{ font-size:.78rem; color:var(--ts); line-height:1.5; margin:0; }
 .nfm-oferta__skip{ display:block; width:100%; max-width:440px; margin:10px auto 0; background:none; border:1px solid rgba(255,255,255,.22); border-radius:50px;
-  color:var(--tm); font-family:var(--fb); font-size:.95rem; font-weight:500; padding:13px 18px; line-height:1.4; text-align:center; }
+  color:var(--tl); font-family:var(--fb); font-size:.95rem; font-weight:700; padding:13px 18px; line-height:1.4; text-align:center; }
 @media (max-width:600px){
   .escena{ padding:12px 8px 290px; }
   .nfm-oferta__panel{ padding:22px 12px 0; }
@@ -83,7 +87,9 @@ p{ margin:0; }
   .nfm-oferta__list li{ font-size:.72rem; line-height:1.4; padding:0 0 8px 16px; }
   .nfm-oferta__cta{ font-size:.85rem; padding:12px 6px; gap:5px; }
   .nfm-oferta__cta svg{ display:none; }
-  .nfm-oferta__panel h2{ font-size:1.16rem; }
+  .nfm-oferta__panel h2{ font-size:1.16rem; padding:0 34px; }
+  .nfm-oferta__list li.nfm-oferta__hot{ padding:8px 9px; }
+  .nfm-oferta__hot-t{ font-size:.58rem; letter-spacing:.09em; }
   .nfm-oferta__sub{ font-size:.87rem; }
   .nfm-oferta__foot{ margin:12px -12px 0; padding:12px 12px 18px; }
   .nfm-oferta__skip{ font-size:.86rem; padding:11px 12px; }
@@ -109,6 +115,8 @@ li[data-borrado]::before{ opacity:.3; }
 li[data-borrado] .li-x{ opacity:1; text-decoration:none; color:var(--orange); border-color:var(--orange); }
 li[data-borrado] .li-x::after{ content:'↶'; }
 li:not([data-borrado]) .li-x::after{ content:'×'; }
+
+.nfm-oferta__list li.nfm-oferta__hot .li-x{ top:8px; right:8px; }
 
 /* ── barra flotante ── */
 .barra{ position:fixed; left:0; right:0; bottom:0; z-index:50; background:rgba(8,31,51,.94); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
@@ -140,9 +148,7 @@ li:not([data-borrado]) .li-x::after{ content:'×'; }
   <div class="nfm-oferta__panel">
     <div class="nfm-oferta__xwrap"><button type="button" class="nfm-oferta__close" aria-label="Cerrar" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
 
-    <span class="nfm-oferta__eyebrow" data-edit="Etiqueta de arriba">Sólo aparece esta vez</span>
-    <h2 data-edit="Título">Tu lugar ya está reservado.<br>Antes de entrar al grupo, <span class="acc">elegí con qué asiento la hacés.</span></h2>
-    <p class="nfm-oferta__sub" data-edit="Bajada">Esto es opcional y <strong>no vuelve a aparecer</strong>. La clase gratis la tenés igual, elijas lo que elijas.</p>
+    <h2 data-edit="Título">¿Querés <span class="acc">añadir beneficios</span> a tu asiento?</h2>
 
     <div class="nfm-oferta__grid">
 
@@ -164,19 +170,18 @@ li:not([data-borrado]) .li-x::after{ content:'×'; }
         <div class="nfm-oferta__price" data-edit="USD 5 · precio">USD 5</div>
         <ul class="nfm-oferta__list" data-lista="USD 5">
           <li data-edit="USD 5 · ítem 1"><b>Todo lo del Básico</b> — workbook y grabación de la clase.</li>
-          <li data-edit="USD 5 · ítem 2"><b>Sesión de 60 minutos de preguntas y respuestas</b> con Nicolás Fernández Miranda y Soledad Funes, psicóloga experta en TDA/H. <b>Tenés a los dos expertos ahí</b> para contestar preguntas sobre tu caso.</li>
-          <li data-edit="USD 5 · ítem 3"><b>Workbook, grabación y material de apoyo</b> de esa sesión.</li>
-          <li data-edit="USD 5 · ítem 4"><b>El libro completo «Hackea tu Cerebro» en ebook</b> — el mismo que está en librerías. <b>Sólo para las primeras 100 personas.</b></li>
+          <li data-edit="USD 5 · ítem 2"><b>Sesión grupal de Q&amp;A</b> con Nicolás Fernández Miranda y Soledad Funes, psicóloga experta en TDA/H.</li>
+          <li data-edit="USD 5 · ítem 3"><b>Acceso al curso El ABC del Alto Rendimiento:</b> 6 módulos en video — mindset, hábitos, sueño y descanso, ejercicio y alimentación, concentración y memoria.</li>
+          <li class="nfm-oferta__hot" data-edit="USD 5 · ítem 4 (ebook)"><span class="nfm-oferta__hot-t">Hackea tu Cerebro · versión ebook</span>Sólo 50 unidades disponibles. Acceso inmediato al libro completo, con sus 49 hacks.</li>
         </ul>
         <div class="nfm-oferta__btn">
-          <a class="nfm-oferta__cta nfm-oferta__cta--full"><span data-edit="USD 5 · botón">Lo quiero por USD 5</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a class="nfm-oferta__cta nfm-oferta__cta--full"><span data-edit="USD 5 · botón">Lo quiero todo por USD 5</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
 
     </div>
 
     <div class="nfm-oferta__foot">
-      <p class="nfm-oferta__pago" data-edit="Línea de pago">Pago seguro con Stripe. El acceso te llega al mail en el momento.</p>
       <button type="button" class="nfm-oferta__skip" data-edit="Salida (no, gracias)">Solo quiero unirme a la clase gratis, sin la grabación y sin el workbook.</button>
     </div>
   </div>
@@ -199,7 +204,7 @@ li:not([data-borrado]) .li-x::after{ content:'×'; }
 <script>
 (function(){
 'use strict';
-var KEY = 'nfm_popup_edit_v1';
+var KEY = 'nfm_popup_edit_v2';
 
 /* ── serializar: texto con marcas para negrita y naranja, así me llega
       exactamente qué va en negrita y qué va en color ── */
