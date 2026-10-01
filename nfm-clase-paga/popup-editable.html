@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pop-up de asiento · versión editable</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════════════════
+   POP-UP DE ASIENTO · VERSIÓN EDITABLE
+   Mismo pop-up que está en thankyou-oto.html, pero cada texto se
+   puede escribir encima y cada ítem se puede borrar. El botón de
+   abajo copia SÓLO lo que cambió, en un formato que yo leo directo.
+   ════════════════════════════════════════════════════════════════ */
+:root{
+  --navy-deep:#081F33; --navy:#0C3452; --navy-1:#0E2E4A; --navy-2:#143A5C;
+  --orange:#FF6602; --orange-hover:#FF8033; --orange-glow:rgba(255,102,2,.30); --amber:#FFB020;
+  --tl:rgba(255,255,255,.87); --tm:rgba(255,255,255,.60); --ts:rgba(255,255,255,.42);
+  --fh:'Space Grotesk',sans-serif; --fb:'DM Sans',sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; background:#081F33; }
+body{ font-family:var(--fb); color:#fff; line-height:1.6; -webkit-font-smoothing:antialiased;
+  background:radial-gradient(800px 420px at 50% -5%, rgba(255,102,2,.14), transparent 62%),
+             linear-gradient(180deg,#0C3452 0%,#081F33 38%,#081F33 100%); min-height:100vh; }
+p{ margin:0; }
+
+/* ── aviso de arriba ── */
+.ayuda{ max-width:760px; margin:0 auto; padding:22px 20px 0; font-size:.88rem; color:var(--tm); line-height:1.6; }
+.ayuda b{ color:#fff; font-weight:600; }
+.ayuda kbd{ font-family:var(--fh); font-size:.72rem; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14);
+  border-radius:6px; padding:2px 7px; color:#fff; }
+
+/* ── el pop-up, tal cual ── */
+.escena{ padding:18px 16px 280px; display:flex; justify-content:center; }
+.nfm-oferta__panel{ position:relative; width:100%; max-width:760px; background:var(--navy-1); border:1px solid rgba(255,255,255,.12);
+  border-radius:22px; padding:20px 28px 0; box-shadow:0 40px 100px rgba(0,0,0,.6); text-align:center; }
+.nfm-oferta__xwrap{ height:0; display:flex; justify-content:flex-end; margin:0 -14px 0 0; }
+.nfm-oferta__close{ position:relative; margin-top:-8px; width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06); color:#fff; display:flex; align-items:center; justify-content:center; padding:0; }
+.nfm-oferta__close svg{ width:16px; height:16px; }
+.nfm-oferta__eyebrow{ display:inline-block; font-family:var(--fh); font-size:.68rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--orange); border:1px solid rgba(255,102,2,.4); padding:5px 13px; border-radius:50px; margin:0 0 12px; }
+.nfm-oferta__panel h2{ font-family:var(--fh); font-size:clamp(1.3rem,2.4vw,1.5rem); font-weight:700; line-height:1.18; letter-spacing:-.02em; margin:0 0 8px; text-wrap:balance; }
+.nfm-oferta__panel h2 .acc{ color:var(--orange); }
+.nfm-oferta__sub{ font-size:.94rem; color:var(--tm); line-height:1.5; max-width:44em; margin:0 auto 14px; }
+.nfm-oferta__sub strong{ color:var(--tl); font-weight:600; }
+.nfm-oferta__grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; text-align:center; margin-top:12px; }
+.nfm-oferta__card{ position:relative; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.10); border-radius:16px; padding:20px 18px 18px;
+  display:flex; flex-direction:column; align-items:center; }
+.nfm-oferta__card--top{ border-color:rgba(255,102,2,.45); background:rgba(255,102,2,.07); }
+.nfm-oferta__badge{ position:absolute; top:0; left:50%; transform:translate(-50%,-50%); background:var(--orange); color:#fff; white-space:nowrap;
+  font-family:var(--fh); font-size:.58rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:6px 14px; border-radius:50px; box-shadow:0 8px 22px var(--orange-glow); }
+.nfm-oferta__name{ font-family:var(--fh); font-size:.64rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--tm); margin:0 0 7px; line-height:1.5; }
+.nfm-oferta__card--top .nfm-oferta__name{ color:var(--orange); }
+.nfm-oferta__price{ font-family:var(--fh); font-size:1.9rem; font-weight:700; color:#fff; line-height:1; margin:0 0 10px; }
+.nfm-oferta__list{ list-style:none; padding:0; margin:0 0 14px; flex:1; text-align:left; width:100%; }
+.nfm-oferta__list li{ position:relative; padding:0 0 8px 20px; font-size:.82rem; line-height:1.45; color:var(--tm); }
+.nfm-oferta__list li:last-child{ padding-bottom:0; }
+.nfm-oferta__list li::before{ content:''; position:absolute; left:0; top:6px; width:11px; height:6px; border-left:2px solid var(--orange); border-bottom:2px solid var(--orange); transform:rotate(-45deg); border-radius:1px; }
+.nfm-oferta__list b{ color:#fff; font-weight:600; }
+.nfm-oferta__btn{ width:100%; display:flex; flex-direction:column; gap:8px; }
+.nfm-oferta__cta{ display:flex; align-items:center; justify-content:center; gap:8px; width:100%; font-family:var(--fh); font-size:.98rem; font-weight:700; line-height:1.2;
+  border:none; border-radius:50px; padding:14px 16px; text-decoration:none; white-space:nowrap; }
+.nfm-oferta__cta svg{ width:16px; height:16px; flex:0 0 16px; }
+.nfm-oferta__cta--ghost{ background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.28); }
+.nfm-oferta__cta--full{ background:var(--orange); color:#fff; border:1.5px solid transparent; box-shadow:0 8px 24px var(--orange-glow); }
+.nfm-oferta__foot{ margin:12px -28px 0; padding:12px 28px 16px; border-top:1px solid rgba(255,255,255,.09); }
+.nfm-oferta__pago{ font-size:.78rem; color:var(--ts); line-height:1.5; margin:0; }
+.nfm-oferta__skip{ display:block; width:100%; max-width:440px; margin:10px auto 0; background:none; border:1px solid rgba(255,255,255,.22); border-radius:50px;
+  color:var(--tm); font-family:var(--fb); font-size:.95rem; font-weight:500; padding:13px 18px; line-height:1.4; text-align:center; }
+@media (max-width:600px){
+  .escena{ padding:12px 8px 290px; }
+  .nfm-oferta__panel{ padding:22px 12px 0; }
+  .nfm-oferta__grid{ grid-template-columns:1fr 1fr; gap:9px; }
+  .nfm-oferta__card{ padding:16px 11px 14px; }
+  .nfm-oferta__price{ font-size:1.5rem; margin-bottom:6px; }
+  .nfm-oferta__name{ font-size:.55rem; letter-spacing:.1em; margin-bottom:6px; }
+  .nfm-oferta__badge{ font-size:.52rem; letter-spacing:.1em; padding:5px 10px; }
+  .nfm-oferta__list li{ font-size:.72rem; line-height:1.4; padding:0 0 8px 16px; }
+  .nfm-oferta__cta{ font-size:.85rem; padding:12px 6px; gap:5px; }
+  .nfm-oferta__cta svg{ display:none; }
+  .nfm-oferta__panel h2{ font-size:1.16rem; }
+  .nfm-oferta__sub{ font-size:.87rem; }
+  .nfm-oferta__foot{ margin:12px -12px 0; padding:12px 12px 18px; }
+  .nfm-oferta__skip{ font-size:.86rem; padding:11px 12px; }
+}
+
+/* ── lo editable ── */
+[data-edit]{ outline:1.5px dashed transparent; outline-offset:4px; border-radius:6px; cursor:text; transition:outline-color .15s; }
+body.editando [data-edit]:hover{ outline-color:rgba(255,255,255,.3); }
+body.editando [data-edit]:focus{ outline:1.5px solid rgba(255,255,255,.55); }
+[data-edit][data-cambiado]{ outline-color:var(--orange) !important; outline-style:solid; }
+.nfm-oferta__cta[data-edit]{ cursor:text; }
+body:not(.editando) [data-edit]{ outline:none !important; cursor:default; }
+
+/* borrar / restaurar ítems */
+.nfm-oferta__list li{ padding-right:22px; }
+.li-x{ position:absolute; right:0; top:2px; width:18px; height:18px; border-radius:50%; border:1px solid rgba(255,255,255,.2); background:rgba(0,0,0,.25);
+  color:var(--ts); font-size:11px; line-height:1; display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:0; transition:opacity .15s; }
+.nfm-oferta__list li:hover .li-x{ opacity:1; }
+body:not(.editando) .li-x{ display:none; }
+.li-x:hover{ color:#fff; border-color:var(--orange); }
+li[data-borrado]{ opacity:.35; text-decoration:line-through; }
+li[data-borrado]::before{ opacity:.3; }
+li[data-borrado] .li-x{ opacity:1; text-decoration:none; color:var(--orange); border-color:var(--orange); }
+li[data-borrado] .li-x::after{ content:'↶'; }
+li:not([data-borrado]) .li-x::after{ content:'×'; }
+
+/* ── barra flotante ── */
+.barra{ position:fixed; left:0; right:0; bottom:0; z-index:50; background:rgba(8,31,51,.94); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border-top:1px solid rgba(255,255,255,.1); padding:12px 16px calc(12px + env(safe-area-inset-bottom)); }
+.barra__in{ max-width:760px; margin:0 auto; display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:center; }
+.barra button{ font-family:var(--fh); font-weight:700; font-size:.86rem; border-radius:50px; padding:11px 16px; cursor:pointer; border:1.5px solid rgba(255,255,255,.22);
+  background:transparent; color:#fff; transition:all .2s var(--ease); }
+.barra button:hover{ border-color:#fff; }
+.barra button.pri{ background:var(--orange); border-color:var(--orange); box-shadow:0 8px 24px var(--orange-glow); }
+.barra button.pri:hover{ background:var(--orange-hover); }
+.barra .estado{ width:100%; text-align:center; font-size:.78rem; color:var(--tm); margin-top:4px; min-height:1.2em; }
+.barra .estado b{ color:var(--orange); }
+.nota{ max-width:760px; margin:0 auto 10px; display:none; }
+.nota[data-on]{ display:block; }
+.nota textarea{ width:100%; min-height:72px; font-family:var(--fb); font-size:.9rem; color:#fff; background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.18); border-radius:12px; padding:10px 12px; resize:vertical; }
+.nota textarea::placeholder{ color:var(--ts); }
+</style>
+</head>
+<body class="editando">
+
+<div class="ayuda">
+  <b>Hacé clic en cualquier texto y escribí encima.</b> Lo que cambiaste queda con borde naranja.
+  Para borrar un ítem de la lista, pasá el mouse por encima y tocá la <kbd>×</kbd> (se puede deshacer con <kbd>↶</kbd>).
+  Cuando termines: <b>Copiar mis correcciones</b> y pegámelo en el chat. Se guarda solo en este navegador, podés cerrar y seguir después.
+</div>
+
+<div class="escena">
+  <div class="nfm-oferta__panel">
+    <div class="nfm-oferta__xwrap"><button type="button" class="nfm-oferta__close" aria-label="Cerrar" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+
+    <span class="nfm-oferta__eyebrow" data-edit="Etiqueta de arriba">Sólo aparece esta vez</span>
+    <h2 data-edit="Título">Tu lugar ya está reservado.<br>Antes de entrar al grupo, <span class="acc">elegí con qué asiento la hacés.</span></h2>
+    <p class="nfm-oferta__sub" data-edit="Bajada">Esto es opcional y <strong>no vuelve a aparecer</strong>. La clase gratis la tenés igual, elijas lo que elijas.</p>
+
+    <div class="nfm-oferta__grid">
+
+      <div class="nfm-oferta__card">
+        <p class="nfm-oferta__name" data-edit="USD 1 · nombre del pack">Asiento Premium Básico</p>
+        <div class="nfm-oferta__price" data-edit="USD 1 · precio">USD 1</div>
+        <ul class="nfm-oferta__list" data-lista="USD 1">
+          <li data-edit="USD 1 · ítem 1"><b>Workbook con el resumen de la clase</b> y los accionables concretos, para que no dependas de tus apuntes.</li>
+          <li data-edit="USD 1 · ítem 2"><b>La grabación, tuya para siempre.</b> Si ese día se te cruza algo, la ves después.</li>
+        </ul>
+        <div class="nfm-oferta__btn">
+          <a class="nfm-oferta__cta nfm-oferta__cta--ghost" data-edit="USD 1 · botón">Lo quiero por USD 1</a>
+        </div>
+      </div>
+
+      <div class="nfm-oferta__card nfm-oferta__card--top">
+        <span class="nfm-oferta__badge" data-edit="USD 5 · sello">Recomendado</span>
+        <p class="nfm-oferta__name" data-edit="USD 5 · nombre del pack">Asiento Premium · Hackea tu Productividad</p>
+        <div class="nfm-oferta__price" data-edit="USD 5 · precio">USD 5</div>
+        <ul class="nfm-oferta__list" data-lista="USD 5">
+          <li data-edit="USD 5 · ítem 1"><b>Todo lo del Básico</b> — workbook y grabación de la clase.</li>
+          <li data-edit="USD 5 · ítem 2"><b>Sesión de 60 minutos de preguntas y respuestas</b> con Nicolás Fernández Miranda y Soledad Funes, psicóloga experta en TDA/H. <b>Tenés a los dos expertos ahí</b> para contestar preguntas sobre tu caso.</li>
+          <li data-edit="USD 5 · ítem 3"><b>Workbook, grabación y material de apoyo</b> de esa sesión.</li>
+          <li data-edit="USD 5 · ítem 4"><b>El libro completo «Hackea tu Cerebro» en ebook</b> — el mismo que está en librerías. <b>Sólo para las primeras 100 personas.</b></li>
+        </ul>
+        <div class="nfm-oferta__btn">
+          <a class="nfm-oferta__cta nfm-oferta__cta--full"><span data-edit="USD 5 · botón">Lo quiero por USD 5</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="nfm-oferta__foot">
+      <p class="nfm-oferta__pago" data-edit="Línea de pago">Pago seguro con Stripe. El acceso te llega al mail en el momento.</p>
+      <button type="button" class="nfm-oferta__skip" data-edit="Salida (no, gracias)">Solo quiero unirme a la clase gratis, sin la grabación y sin el workbook.</button>
+    </div>
+  </div>
+</div>
+
+<div class="barra">
+  <div class="nota" id="nota">
+    <textarea id="nota-txt" placeholder="Comentarios que no son un cambio de texto: «este ítem va primero», «sacá el sello», «el botón más corto»…"></textarea>
+  </div>
+  <div class="barra__in">
+    <button class="pri" id="b-copiar">Copiar mis correcciones</button>
+    <button id="b-nota">Nota</button>
+    <button id="b-todo">Copiar todo</button>
+    <button id="b-modo">Modo lectura</button>
+    <button id="b-reset">Descartar</button>
+    <div class="estado" id="estado"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var KEY = 'nfm_popup_edit_v1';
+
+/* ── serializar: texto con marcas para negrita y naranja, así me llega
+      exactamente qué va en negrita y qué va en color ── */
+function ser(el){
+  var out = '';
+  el.childNodes.forEach(function(n){
+    if(n.nodeType === 3){ out += n.nodeValue; return; }
+    if(n.nodeType !== 1) return;
+    var t = n.tagName;
+    if(t === 'BR'){ out += ' / '; return; }
+    if(t === 'B' || t === 'STRONG'){ out += '**' + ser(n) + '**'; return; }
+    if(n.classList && n.classList.contains('acc')){ out += '[[' + ser(n) + ']]'; return; }
+    if(t === 'SVG' || n.classList && n.classList.contains('li-x')) return;
+    out += ser(n);
+  });
+  return out;
+}
+function norm(s){ return s.replace(/\s+/g,' ').replace(/\*\*\s+/g,'** ').trim(); }
+
+var nodos = [].slice.call(document.querySelectorAll('[data-edit]'));
+var ORIG = {};
+nodos.forEach(function(n){ ORIG[n.getAttribute('data-edit')] = norm(ser(n)); });
+
+/* ── editable ── */
+nodos.forEach(function(n){
+  n.setAttribute('contenteditable','true');
+  n.setAttribute('spellcheck','true');
+  n.addEventListener('input', function(){ marcar(n); guardar(); });
+  n.addEventListener('keydown', function(e){
+    /* Enter en una sola línea = salir, no partir el bloque */
+    if(e.key === 'Enter' && n.tagName !== 'H2' && n.tagName !== 'LI'){ e.preventDefault(); n.blur(); }
+  });
+  /* pegar como texto plano */
+  n.addEventListener('paste', function(e){
+    e.preventDefault();
+    var t = (e.clipboardData || window.clipboardData).getData('text');
+    document.execCommand('insertText', false, t);
+  });
+});
+/* los <a> no navegan acá */
+[].forEach.call(document.querySelectorAll('a.nfm-oferta__cta'), function(a){ a.addEventListener('click', function(e){ e.preventDefault(); }); });
+
+function marcar(n){
+  var id = n.getAttribute('data-edit');
+  if(norm(ser(n)) !== ORIG[id]) n.setAttribute('data-cambiado',''); else n.removeAttribute('data-cambiado');
+}
+
+/* ── borrar / restaurar ítems ── */
+[].forEach.call(document.querySelectorAll('.nfm-oferta__list li'), function(li){
+  var x = document.createElement('span'); x.className = 'li-x'; x.setAttribute('contenteditable','false'); x.title = 'Borrar este ítem';
+  x.addEventListener('mousedown', function(e){ e.preventDefault(); });
+  x.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    if(li.hasAttribute('data-borrado')){ li.removeAttribute('data-borrado'); li.setAttribute('contenteditable','true'); }
+    else{ li.setAttribute('data-borrado',''); li.setAttribute('contenteditable','false'); }
+    guardar(); estado();
+  });
+  li.appendChild(x);
+});
+
+/* ── persistencia ── */
+function guardar(){
+  var d = { textos:{}, borrados:[], nota: document.getElementById('nota-txt').value };
+  nodos.forEach(function(n){ var id = n.getAttribute('data-edit'); if(n.hasAttribute('data-cambiado')) d.textos[id] = n.innerHTML; });
+  [].forEach.call(document.querySelectorAll('li[data-borrado]'), function(li){ d.borrados.push(li.getAttribute('data-edit')); });
+  try{ localStorage.setItem(KEY, JSON.stringify(d)); }catch(e){}
+  estado();
+}
+function cargar(){
+  var d; try{ d = JSON.parse(localStorage.getItem(KEY) || 'null'); }catch(e){}
+  if(!d) return;
+  nodos.forEach(function(n){ var id = n.getAttribute('data-edit'); if(d.textos && d.textos[id] != null){ n.innerHTML = d.textos[id]; marcar(n); } });
+  (d.borrados || []).forEach(function(id){ var li = document.querySelector('li[data-edit="'+id+'"]'); if(li){ li.setAttribute('data-borrado',''); li.setAttribute('contenteditable','false'); } });
+  if(d.nota){ document.getElementById('nota-txt').value = d.nota; document.getElementById('nota').setAttribute('data-on',''); }
+  /* el innerHTML restaurado puede traer la × vieja: se limpia y se vuelve a poner */
+  [].forEach.call(document.querySelectorAll('.li-x'), function(x){ x.remove(); });
+  [].forEach.call(document.querySelectorAll('.nfm-oferta__list li'), function(li){
+    var x = document.createElement('span'); x.className='li-x'; x.setAttribute('contenteditable','false');
+    x.addEventListener('mousedown', function(e){ e.preventDefault(); });
+    x.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation();
+      if(li.hasAttribute('data-borrado')){ li.removeAttribute('data-borrado'); li.setAttribute('contenteditable','true'); }
+      else{ li.setAttribute('data-borrado',''); li.setAttribute('contenteditable','false'); }
+      guardar(); estado(); });
+    li.appendChild(x);
+  });
+}
+
+/* ── exportar ── */
+function cambios(){
+  var out = [], borr = [];
+  nodos.forEach(function(n){
+    var id = n.getAttribute('data-edit'), ahora = norm(ser(n));
+    if(n.closest && n.closest('li[data-borrado]')){ return; }
+    if(ahora !== ORIG[id]) out.push({ id:id, antes:ORIG[id], ahora:ahora });
+  });
+  [].forEach.call(document.querySelectorAll('li[data-borrado]'), function(li){ borr.push({ id:li.getAttribute('data-edit'), era:ORIG[li.getAttribute('data-edit')] }); });
+  return { textos:out, borrados:borr, nota: document.getElementById('nota-txt').value.trim() };
+}
+function md(soloCambios){
+  var c = cambios(), L = [];
+  L.push('# Correcciones · Pop-up de asiento');
+  L.push('Leyenda: **negrita** · [[naranja]] · " / " = salto de línea');
+  L.push('');
+  if(soloCambios){
+    L.push(c.textos.length + ' cambio(s) · ' + c.borrados.length + ' ítem(s) borrado(s)' + (c.nota ? ' · 1 nota' : ''));
+    L.push('');
+    if(!c.textos.length && !c.borrados.length && !c.nota){ L.push('_(sin cambios todavía)_'); }
+    c.textos.forEach(function(t){
+      L.push('**[' + t.id + ']**');
+      L.push('- Antes: `' + t.antes + '`');
+      L.push('- Ahora: `' + t.ahora + '`');
+      L.push('');
+    });
+    c.borrados.forEach(function(b){
+      L.push('**[' + b.id + ']** → BORRAR');
+      L.push('- Era: `' + b.era + '`');
+      L.push('');
+    });
+  }else{
+    L.push('Texto completo, tal cual está ahora:');
+    L.push('');
+    nodos.forEach(function(n){
+      var id = n.getAttribute('data-edit');
+      var b = n.closest && n.closest('li[data-borrado]');
+      L.push('**[' + id + ']**' + (b ? ' → BORRADO' : ''));
+      L.push('`' + norm(ser(n)) + '`');
+      L.push('');
+    });
+  }
+  if(c.nota){ L.push('## Notas'); c.nota.split('\n').forEach(function(l){ if(l.trim()) L.push('- ' + l.trim()); }); L.push(''); }
+  return L.join('\n');
+}
+function copiar(txt, msg){
+  function ok(){ document.getElementById('estado').innerHTML = '<b>Copiado.</b> ' + msg; }
+  function fallback(){ window.prompt('Copiá esto:', txt); ok(); }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok, fallback); } else fallback();
+}
+function estado(){
+  var c = cambios(); var e = document.getElementById('estado');
+  if(!c.textos.length && !c.borrados.length && !c.nota){ e.textContent = 'Sin cambios todavía.'; return; }
+  e.innerHTML = '<b>' + c.textos.length + '</b> cambio(s) · <b>' + c.borrados.length + '</b> borrado(s)' + (c.nota ? ' · <b>1</b> nota' : '') + ' — pendientes de copiar.';
+}
+
+document.getElementById('b-copiar').addEventListener('click', function(){ copiar(md(true), 'Pegámelo en el chat.'); });
+document.getElementById('b-todo').addEventListener('click', function(){ copiar(md(false), 'Es el texto completo, por si lo querés entero.'); });
+document.getElementById('b-nota').addEventListener('click', function(){ var n = document.getElementById('nota'); if(n.hasAttribute('data-on')) n.removeAttribute('data-on'); else { n.setAttribute('data-on',''); document.getElementById('nota-txt').focus(); } });
+document.getElementById('nota-txt').addEventListener('input', guardar);
+document.getElementById('b-modo').addEventListener('click', function(){
+  var on = document.body.classList.toggle('editando');
+  nodos.forEach(function(n){ n.setAttribute('contenteditable', on && !(n.closest && n.closest('li[data-borrado]')) ? 'true' : 'false'); });
+  this.textContent = on ? 'Modo lectura' : 'Volver a editar';
+});
+document.getElementById('b-reset').addEventListener('click', function(){
+  if(!confirm('¿Borrar todos tus cambios y volver al original?')) return;
+  try{ localStorage.removeItem(KEY); }catch(e){}
+  location.reload();
+});
+
+cargar(); estado();
+})();
+</script>
+</body>
+</html>
