@@ -1,4 +1,4 @@
-# Mails de la clase del 6 de octubre · Neurociencia para el Alto Rendimiento Profesional
+# Mails de la clase del 7 de octubre · Neurociencia para el Alto Rendimiento Profesional
 
 Tres mails en HTML, listos para pegar en GHL (Marketing → Emails → Templates → **Code editor** / HTML).
 Usan `{{contact.first_name}}` para el nombre. GHL agrega solo el pie de baja (unsubscribe) al enviar.
@@ -10,9 +10,9 @@ Links que llevan:
 
 | # | Archivo | Cuándo se manda | Asunto | Texto de vista previa |
 |---|---|---|---|---|
-| 1 | `01-bienvenida-confirmacion.html` | Al instante, al registrarse (workflow del form) | Tu lugar está reservado · martes 6, 19:00 hs (Argentina) | Unite al grupo y agendala. Un minuto. |
-| 2 | `02-recordatorio-24h.html` | Lunes 5 de octubre a las 19:00 hs (Argentina) | Mañana a esta hora estamos en vivo | Martes 6, 19:00 hs (Argentina). Guardá el link. |
-| 3 | `03-30-minutos-antes.html` | Martes 6 a las 18:30 hs (Argentina) | Empezamos en 30 minutos | Este es el link. Entrá cinco minutos antes. |
+| 1 | `01-bienvenida-confirmacion.html` | Al instante, al registrarse (workflow del form) | Tu lugar está reservado · miércoles 7, 19:00 hs (Argentina) | Unite al grupo y agendala. Un minuto. |
+| 2 | `02-recordatorio-24h.html` | Miércoles 7 de octubre a las 19:00 hs (Argentina) | Mañana a esta hora estamos en vivo | Miércoles 7, 19:00 hs (Argentina). Guardá el link. |
+| 3 | `03-30-minutos-antes.html` | Miércoles 7 a las 18:30 hs (Argentina) | Empezamos en 30 minutos | Este es el link. Entrá cinco minutos antes. |
 
 Remitente sugerido: **Nico Fernández Miranda** (respuestas a la casilla que mira el equipo).
 
@@ -23,17 +23,17 @@ Colombia/Perú/Ecuador 17:00 · México 16:00). Si cambia la hora de la clase, c
 
 ### 1 · Bienvenida y confirmación
 Hola {{contact.first_name}},
-Martes 6 de octubre, 19:00 hs (Argentina), en vivo por Zoom.
+Miércoles 7 de octubre, 19:00 hs (Argentina), en vivo por Zoom.
 Dos cosas ahora, tardan un minuto:
 → Unite al grupo de WhatsApp: https://go.wha.link/clase-de-neurociencia-6-10
 → Agendala: https://nicolasfernandezmiranda.com/webinar-calendar1
-Por el grupo llega el acceso el martes. Si no estás, no te llega.
-Nos vemos el martes.
+Por el grupo llega el acceso el miércoles. Si no estás, no te llega.
+Nos vemos el miércoles.
 Nico
 
 ### 2 · 24 horas antes
 Hola {{contact.first_name}},
-Martes 6, 19:00 hs (Argentina). Este es el link, guardalo: https://zoom-nfm.netlify.app/
+Miércoles 7, 19:00 hs (Argentina). Este es el link, guardalo: https://zoom-nfm.netlify.app/
 Si todavía no estás en el grupo de WhatsApp, entrá hoy, ahí aviso cuando abro la sala:
 https://go.wha.link/clase-de-neurociencia-6-10
 Bloqueá una hora y media. Celular lejos.
