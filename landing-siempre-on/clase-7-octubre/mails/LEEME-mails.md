@@ -4,8 +4,8 @@ Tres mails en HTML, listos para pegar en GHL (Marketing → Emails → Templates
 Usan `{{contact.first_name}}` para el nombre. GHL agrega solo el pie de baja (unsubscribe) al enviar.
 
 Links que llevan:
-- Grupo de WhatsApp: `https://go.wha.link/clase-de-neurociencia-6-10`
-- Agendar: `https://nicolasfernandezmiranda.com/webinar-calendar1`
+- Grupo de WhatsApp: `https://go.wha.link/b6G3Ld`
+- Agendar: `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Neurociencia%20para%20el%20Alto%20Rendimiento%20Profesional%20%C2%B7%20Clase%20en%20vivo%20con%20Nico%20Fern%C3%A1ndez%20Miranda&dates=20261007T220000Z%2F20261007T233000Z&details=Entr%C3%A1%20a%20la%20clase%20ac%C3%A1%3A%20https%3A%2F%2Fzoom-nfm.netlify.app%2F%0A%0AMi%C3%A9rcoles%207%20de%20octubre%20%C2%B7%2019%3A00%20hs%20%28Argentina%29%20%C2%B7%20en%20vivo%20por%20Zoom.%0AEntr%C3%A1%20cinco%20minutos%20antes.%20Anotador%20a%20mano.%20Celular%20en%20otra%20habitaci%C3%B3n.%0A%0AGrupo%20de%20WhatsApp%20%28avisos%20y%20acceso%29%3A%20https%3A%2F%2Fgo.wha.link%2Fb6G3Ld&location=https%3A%2F%2Fzoom-nfm.netlify.app%2F&ctz=America%2FArgentina%2FBuenos_Aires`
 - Clase (Zoom): `https://zoom-nfm.netlify.app/`
 
 | # | Archivo | Cuándo se manda | Asunto | Texto de vista previa |
@@ -25,8 +25,8 @@ Colombia/Perú/Ecuador 17:00 · México 16:00). Si cambia la hora de la clase, c
 Hola {{contact.first_name}},
 Miércoles 7 de octubre, 19:00 hs (Argentina), en vivo por Zoom.
 Dos cosas ahora, tardan un minuto:
-→ Unite al grupo de WhatsApp: https://go.wha.link/clase-de-neurociencia-6-10
-→ Agendala: https://nicolasfernandezmiranda.com/webinar-calendar1
+→ Unite al grupo de WhatsApp: https://go.wha.link/b6G3Ld
+→ Agendala: https://calendar.google.com/calendar/render?action=TEMPLATE&text=Neurociencia%20para%20el%20Alto%20Rendimiento%20Profesional%20%C2%B7%20Clase%20en%20vivo%20con%20Nico%20Fern%C3%A1ndez%20Miranda&dates=20261007T220000Z%2F20261007T233000Z&details=Entr%C3%A1%20a%20la%20clase%20ac%C3%A1%3A%20https%3A%2F%2Fzoom-nfm.netlify.app%2F%0A%0AMi%C3%A9rcoles%207%20de%20octubre%20%C2%B7%2019%3A00%20hs%20%28Argentina%29%20%C2%B7%20en%20vivo%20por%20Zoom.%0AEntr%C3%A1%20cinco%20minutos%20antes.%20Anotador%20a%20mano.%20Celular%20en%20otra%20habitaci%C3%B3n.%0A%0AGrupo%20de%20WhatsApp%20%28avisos%20y%20acceso%29%3A%20https%3A%2F%2Fgo.wha.link%2Fb6G3Ld&location=https%3A%2F%2Fzoom-nfm.netlify.app%2F&ctz=America%2FArgentina%2FBuenos_Aires
 Por el grupo llega el acceso el miércoles. Si no estás, no te llega.
 Nos vemos el miércoles.
 Nico
@@ -35,7 +35,7 @@ Nico
 Hola {{contact.first_name}},
 Miércoles 7, 19:00 hs (Argentina). Este es el link, guardalo: https://zoom-nfm.netlify.app/
 Si todavía no estás en el grupo de WhatsApp, entrá hoy, ahí aviso cuando abro la sala:
-https://go.wha.link/clase-de-neurociencia-6-10
+https://go.wha.link/b6G3Ld
 Bloqueá una hora y media. Celular lejos.
 Nos vemos mañana.
 Nico

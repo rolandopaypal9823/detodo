@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Instituto de Productividad//Clase 7 oct//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:clase-7-oct-2026@nicolasfernandezmiranda.com
+DTSTAMP:20261002T120000Z
+DTSTART:20261007T220000Z
+DTEND:20261007T233000Z
+SUMMARY:Neurociencia para el Alto Rendimiento Profesional · Clase en vivo con Nico Fernández Miranda
+DESCRIPTION:Entrá a la clase acá: https://zoom-nfm.netlify.app/\n\nMiércoles 7 de octubre · 19:00 hs (Argentina) · en vivo por Zoom.\nEntrá cinco minutos antes. Anotador a mano. Celular en otra habitación.\n\nGrupo de WhatsApp (avisos y acceso): https://go.wha.link/b6G3Ld
+LOCATION:https://zoom-nfm.netlify.app/
+URL:https://zoom-nfm.netlify.app/
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:La clase empieza en 30 minutos
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Mañana a esta hora: clase en vivo con Nico
+END:VALARM
+END:VEVENT
+END:VCALENDAR
