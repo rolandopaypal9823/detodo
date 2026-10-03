@@ -363,7 +363,7 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
           <h3>Unite al grupo de WhatsApp para recibir el acceso a la clase</h3>
         </div>
         <div class="nfm-step__body">
-          <a href="https://go.wha.link/clase-de-neurociencia-6-10" id="nfm-thx-wa" class="nfm-wa-btn" target="_blank" rel="noopener">
+          <a href="https://go.wha.link/b6G3Ld" id="nfm-thx-wa" class="nfm-wa-btn" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             UNIRME AL GRUPO DE WHATSAPP
           </a>
@@ -445,7 +445,7 @@ var CONFIG = {
   /* ⚠️ VERSIÓN FIJA · SÓLO la clase del 7 de octubre · Neurociencia para el Alto Rendimiento Profesional. */
   CLASES: [
     { fecha:'2026-10-07', tema:'AR', utm:'clase-oct07-alto-rendimiento',
-      wa:'https://go.wha.link/clase-de-neurociencia-6-10',
+      wa:'https://go.wha.link/b6G3Ld',
       /* Código del grupo = lo que va después de https://chat.whatsapp.com/ en el link de invitación.
          Con esto cargado, el botón abre la app de WhatsApp directo (sin pasar por wha.link ni por el
          navegador). Si queda vacío, el botón usa el link 'wa' de arriba como hasta ahora. */
@@ -458,7 +458,7 @@ var CONFIG = {
 
   /* Se usa sólo si la clase activa no tiene el suyo cargado, para que el botón nunca
      quede roto. Ojo: manda al grupo equivocado, así que es red de seguridad, no solución. */
-  GRUPO_FALLBACK: 'https://go.wha.link/clase-de-neurociencia-6-10',
+  GRUPO_FALLBACK: 'https://go.wha.link/b6G3Ld',
 
 
   /* Video de bienvenida. Se puede poner uno distinto por clase con loom:'...' */
@@ -781,7 +781,7 @@ if(clase){
           <ul class="nfm-oferta__list">
             <li><b>Todo lo del Básico</b> — workbook y grabación de la clase.</li>
             <li><b>Acceso al curso El ABC del Alto Rendimiento:</b> 6 módulos en video — mindset, hábitos, sueño y descanso, ejercicio y alimentación, concentración y memoria.</li>
-            <li class="nfm-oferta__hot"><span class="nfm-oferta__hot-t">Hackea tu Cerebro · versión ebook</span>Sólo <span data-oferta-cupos>50</span> unidades disponibles. Acceso inmediato al libro completo, con sus <span data-oferta-hacks>49</span> hacks.</li>
+            <li class="nfm-oferta__hot"><span class="nfm-oferta__hot-t">Hackea tu Cerebro · versión ebook</span>Sólo <span data-oferta-cupos>50</span> unidades disponibles. Acceso inmediato al libro completo.</li>
           </ul>
           <div class="nfm-oferta__btn">
             <a class="nfm-oferta__cta nfm-oferta__cta--full" href="https://buy.stripe.com/6oUcMY6WX04W5Wa8mTcbC03" data-oferta-buy="5">
@@ -824,10 +824,8 @@ if(clase){
     var CFG = {
       DEMORA_MS: 1500,
       UNA_VEZ_POR_SESION: true,
-      /* El ebook. CUPOS es lo que dice el pop-up; HACKS es el número de hacks del
-         libro — ⚠️ no lo pude verificar contra el libro, confirmar antes de publicar. */
+      /* El ebook: las unidades que dice el pop-up. */
       CUPOS: 50,
-      HACKS: 49,
       LINKS: { '1':'https://buy.stripe.com/28E14g0yzdVM84i9qXcbC02',
                '5':'https://buy.stripe.com/6oUcMY6WX04W5Wa8mTcbC03' },
       PRECIO: { '1':1, '5':5 }
@@ -839,7 +837,6 @@ if(clase){
 
     function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
     var ec=el.querySelector('[data-oferta-cupos]'); if(ec) ec.textContent=CFG.CUPOS;
-    var eh=el.querySelector('[data-oferta-hacks]'); if(eh) eh.textContent=CFG.HACKS;
     var fab=document.getElementById('nfm-oferta-fab');
     var ref=[window.NFM_ETAPA||'x', window.NFM_NIVEL||'x', 'oct07'].join('-').replace(/[^A-Za-z0-9_-]/g,'');
 
