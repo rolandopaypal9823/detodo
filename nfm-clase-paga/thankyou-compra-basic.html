@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Versión FIJA de la clase del 7 de octubre: el título puede ser específico -->
-<title>¡Lugar reservado! · Neurociencia para el Alto Rendimiento Profesional · Nicolás Fernández Miranda</title>
+<title>¡Pago confirmado! · Asiento Premium Básico · Nicolás Fernández Miranda</title>
 
 <!-- El pixel de Meta (PageView) va ADENTRO del custom code, más abajo, para que viaje con el pegado. -->
 </head>
@@ -33,6 +33,10 @@ if(!window.__nfm_pixel_thx){
   window.__nfm_pixel_thx = true;
   fbq('init', '1203017011123382');
   fbq('track', 'PageView');
+  /* Purchase · USD 1 · se manda UNA vez por sesión: si recargan, no se cuenta dos veces. */
+  var k='nfm_purchase_asiento_basic', ya=false;
+  try{ ya = !!sessionStorage.getItem(k); }catch(e){}
+  if(!ya){ fbq('track','Purchase',{value:1, currency:'USD', content_name:'asiento_basic'}); try{ sessionStorage.setItem(k,'1'); }catch(e){} }
 }
 </script>
 <noscript><img height="1" width="1" style="display:none"
@@ -183,121 +187,17 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-thx__footer{ padding:30px 0; border-top:1px solid var(--nfm-hair); text-align:center; }
 .nfm-thx__footer p{ font-size:0.8rem; color:var(--nfm-tm); }
 
-/* ── POPUP POST-REGISTRO · asiento USD 1 / USD 5 (sólo A y B) ── */
-.nfm-oferta{ position:fixed; inset:0; z-index:99999; display:flex; align-items:center; justify-content:center; padding:20px; box-sizing:border-box; }
-.nfm-oferta, .nfm-oferta *{ box-sizing:border-box; }
-.nfm-oferta[hidden]{ display:none !important; }
-.nfm-oferta__bg{ position:absolute; inset:0; background:rgba(3,14,26,0.82); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
-.nfm-oferta__panel{ position:relative; z-index:1; width:100%; max-width:760px; max-height:calc(100vh - 32px); max-height:calc(100dvh - 32px); overflow-y:auto; -webkit-overflow-scrolling:touch; background:var(--nfm-navy-1); border:1px solid rgba(255,255,255,0.12); border-radius:22px; padding:22px 28px 0; box-shadow:0 40px 100px rgba(0,0,0,0.6); text-align:center !important; animation:nfm-oferta-in .4s var(--nfm-ease) both; font-family:var(--nfm-font-b); color:#fff; }
-@keyframes nfm-oferta-in{ from{ opacity:0; transform:translateY(18px) scale(.98); } to{ opacity:1; transform:none; } }
-.nfm-oferta__xwrap{ position:sticky; top:0; height:0; display:flex; justify-content:flex-end; z-index:3; margin:0 -14px 0 0; }
-.nfm-oferta__close{ position:relative; margin-top:-8px; width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,0.14); background:rgba(255,255,255,0.06); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; z-index:2; }
-.nfm-oferta__close svg{ width:16px !important; height:16px !important; }
-.nfm-oferta__close:hover{ background:rgba(255,255,255,0.12); }
-.nfm-oferta__eyebrow{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-orange); border:1px solid rgba(255,102,2,0.4); padding:5px 13px; border-radius:50px; margin:0 0 12px; }
-.nfm-oferta__panel h2{ font-family:var(--nfm-font-h); font-size:clamp(1.3rem,2.6vw,1.62rem); font-weight:700; line-height:1.18; letter-spacing:-0.02em; margin:8px 0 6px !important; text-align:center !important; text-wrap:balance; }
-.nfm-oferta__panel h2 .acc{ color:var(--nfm-orange); }
-.nfm-oferta__sub{ font-size:0.94rem; color:var(--nfm-tm); line-height:1.5; max-width:44em; margin:0 auto 14px !important; text-align:center !important; }
-.nfm-oferta__grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; text-align:center; margin-top:12px; }
-.nfm-oferta__card{ position:relative; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.10); border-radius:16px; padding:20px 18px 18px; display:flex; flex-direction:column; align-items:center; }
-.nfm-oferta__card--top{ border-color:rgba(255,102,2,0.45); background:rgba(255,102,2,0.07); }
-.nfm-oferta__price{ font-family:var(--nfm-font-h); font-size:1.9rem; font-weight:700; color:#fff; line-height:1; margin:0 0 10px; }
-.nfm-oferta__price small{ font-size:0.95rem; font-weight:600; color:var(--nfm-orange); margin-left:4px; }
-.nfm-oferta__card h3{ font-family:var(--nfm-font-h); font-size:1.05rem; font-weight:700; color:#fff; margin:0 0 8px !important; text-align:center !important; }
-.nfm-oferta__badge{ position:absolute; top:0; left:50%; transform:translate(-50%,-50%); background:var(--nfm-orange); color:#fff; white-space:nowrap; font-family:var(--nfm-font-h); font-size:0.58rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:6px 14px; border-radius:50px; box-shadow:0 8px 22px var(--nfm-orange-glow); }
-.nfm-oferta__name{ font-family:var(--nfm-font-h); font-size:0.64rem; font-weight:700; letter-spacing:0.13em; text-transform:uppercase; color:var(--nfm-tm); margin:0 0 7px !important; line-height:1.5; text-align:center !important; }
-.nfm-oferta__card--top .nfm-oferta__name{ color:var(--nfm-orange); }
-.nfm-oferta__list{ list-style:none; padding:0; margin:0 0 14px; flex:1; text-align:left; width:100%; }
-.nfm-oferta__list li{ position:relative; padding:0 0 8px 20px; font-size:0.82rem; line-height:1.45; color:var(--nfm-tm); }
-.nfm-oferta__list li:last-child{ padding-bottom:0; }
-.nfm-oferta__list li::before{ content:''; position:absolute; left:0; top:6px; width:11px; height:6px; border-left:2px solid var(--nfm-orange); border-bottom:2px solid var(--nfm-orange); transform:rotate(-45deg); border-radius:1px; }
-.nfm-oferta__list b{ color:#fff; font-weight:600; }
-/* El ebook: el ítem que tiene que llamar la atención. Sin negrita a propósito —
-   el peso lo pone el fondo naranja y el latido, no la letra. */
-.nfm-oferta__list li.nfm-oferta__hot{ margin-top:4px; padding:10px 12px 10px 12px; border-radius:12px; color:var(--nfm-tl);
-  background:rgba(255,102,2,0.13); border:1px solid rgba(255,102,2,0.55); animation:nfm-latido 2.2s ease-in-out infinite; }
-.nfm-oferta__list li.nfm-oferta__hot::before{ display:none; }
-.nfm-oferta__hot-t{ display:block; font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--nfm-orange); margin-bottom:3px; }
-@keyframes nfm-latido{ 0%,100%{ box-shadow:0 0 0 0 rgba(255,102,2,0.45); } 50%{ box-shadow:0 0 0 7px rgba(255,102,2,0); } }
-.nfm-oferta__pago{ font-size:0.78rem; color:var(--nfm-ts); line-height:1.5; margin:0 !important; text-align:center !important; }
-.nfm-oferta__foot{ margin:12px -28px 0; padding:12px 28px 16px; border-top:1px solid rgba(255,255,255,0.09); }
-/* Botón propio (va a un Payment Link de Stripe). El buy button de Stripe se
-   dibuja en un iframe con ancho mínimo propio: en dos columnas de celular no
-   entraba, y encima su color salía del panel de Stripe, así que los dos packs
-   quedaban iguales y se perdía la jerarquía. */
-.nfm-oferta__btn{ width:100%; display:flex; flex-direction:column; gap:8px; }
-.nfm-oferta__cta{ display:flex; align-items:center; justify-content:center; gap:8px; width:100%;
-  font-family:var(--nfm-font-h); font-size:0.98rem; font-weight:700; line-height:1.2;
-  border:none; border-radius:50px; padding:14px 16px; cursor:pointer; text-decoration:none;
-  transition:transform .22s var(--nfm-ease), box-shadow .22s var(--nfm-ease), background .22s var(--nfm-ease), border-color .22s var(--nfm-ease), color .22s var(--nfm-ease); }
-.nfm-oferta__cta svg{ width:16px !important; height:16px !important; flex:0 0 16px; }
-.nfm-oferta__cta{ white-space:nowrap; }
-.nfm-oferta__cta--ghost{ background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,0.28); }
-.nfm-oferta__cta--ghost:hover{ border-color:var(--nfm-orange); color:var(--nfm-orange); transform:translateY(-2px); }
-.nfm-oferta__cta--full{ background:var(--nfm-orange); color:#fff; border:1.5px solid transparent; box-shadow:0 8px 24px var(--nfm-orange-glow); }
-.nfm-oferta__cta--full:hover{ background:var(--nfm-orange-hover); color:#fff; transform:translateY(-2px); box-shadow:0 12px 32px var(--nfm-orange-glow); }
-.nfm-oferta__cta[aria-disabled="true"]{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
-.nfm-oferta__err{ display:none; font-size:0.76rem; line-height:1.4; color:var(--nfm-amber); margin:0 !important; }
-.nfm-oferta__btn[data-fallo] .nfm-oferta__err{ display:block; }
-
-/* La tercera opción. Es una opción de verdad, no una puerta de servicio:
-   mismo ancho y misma forma que los otros botones, sólo más callada. */
-.nfm-oferta__skip{ display:block; width:100%; max-width:440px; margin:10px auto 0;
-  background:none; border:1px solid rgba(255,255,255,0.22); border-radius:50px;
-  color:var(--nfm-tl); font-family:var(--nfm-font-b); font-size:0.95rem; font-weight:700;
-  padding:13px 18px; cursor:pointer; line-height:1.4; text-align:center;
-  transition:border-color .2s var(--nfm-ease), color .2s var(--nfm-ease); }
-.nfm-oferta__skip:hover{ border-color:rgba(255,255,255,0.45); color:#fff; }
-html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
-/* Cuando cierran el pop-up queda esto abajo a la derecha, para volver a abrirlo. */
-.nfm-oferta__fab{ position:fixed; right:16px; bottom:18px; z-index:9990; display:flex; align-items:center; gap:9px;
-  height:52px; padding:0 18px 0 14px; border-radius:50px; border:none; cursor:pointer;
-  background:var(--nfm-orange); color:#fff; font-family:var(--nfm-font-h); font-size:0.86rem; font-weight:700;
-  box-shadow:0 12px 32px var(--nfm-orange-glow), 0 0 0 0 rgba(255,102,2,0.5);
-  animation:nfm-fab-in .4s var(--nfm-ease) both, nfm-latido 2.6s 1s ease-in-out infinite;
-  transition:transform .22s var(--nfm-ease), background .22s var(--nfm-ease); }
-.nfm-oferta__fab[hidden]{ display:none !important; }
-.nfm-oferta__fab:hover{ background:var(--nfm-orange-hover); transform:translateY(-2px); }
-.nfm-oferta__fab svg{ width:22px !important; height:22px !important; flex-shrink:0; }
-@keyframes nfm-fab-in{ from{ opacity:0; transform:translateY(14px) scale(.9); } to{ opacity:1; transform:none; } }
-@media (max-width:600px){
-  .nfm-oferta__fab{ right:12px; bottom:14px; width:52px; height:52px; padding:0; justify-content:center; border-radius:50%; }
-  .nfm-oferta__fab span{ display:none; }
-  .nfm-oferta__fab svg{ width:24px !important; height:24px !important; }
-}
-@media (max-width:600px){
-  .nfm-oferta{ padding:0; align-items:flex-end; }
-  .nfm-oferta__panel{ max-height:100vh; max-height:100dvh; border-radius:22px 22px 0 0; padding:22px 12px 0; }
-  .nfm-oferta__foot{ margin:12px -12px 0; padding:12px 12px 18px; }
-  /* Las dos opciones quedan lado a lado también en celular. Apiladas, la
-     segunda caía abajo del pliegue: había que scrollear adentro del pop-up
-     para enterarse de que existía. Se comprime todo lo demás para que las
-     dos entren con la salida a la vista. */
-  .nfm-oferta__grid{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:9px; }
-  .nfm-oferta__card{ padding:16px 11px 14px; }
-  .nfm-oferta__price{ font-size:1.5rem; margin-bottom:6px; }
-  .nfm-oferta__price small{ font-size:0.8rem; }
-  .nfm-oferta__card h3{ font-size:0.9rem; margin-bottom:6px !important; line-height:1.25; }
-  .nfm-oferta__name{ font-size:0.55rem; letter-spacing:0.1em; margin-bottom:6px !important; }
-  .nfm-oferta__badge{ font-size:0.52rem; letter-spacing:0.1em; padding:5px 10px; }
-  .nfm-oferta__list{ margin-bottom:12px; }
-  .nfm-oferta__list li{ font-size:0.72rem; line-height:1.4; padding:0 0 8px 16px; }
-  .nfm-oferta__list li::before{ width:9px; height:5px; top:5px; }
-  .nfm-oferta__list li.nfm-oferta__hot{ padding:8px 9px; }
-  .nfm-oferta__hot-t{ font-size:0.58rem; letter-spacing:0.09em; }
-  .nfm-oferta__panel h2{ margin-top:4px !important; padding:0 34px; }
-  .nfm-oferta__pago{ font-size:0.7rem; margin-top:12px !important; }
-  .nfm-oferta__cta{ font-size:0.82rem; line-height:1.15; padding:9px 6px; gap:5px; white-space:normal; min-height:52px; }
-  .nfm-oferta__cta svg{ display:none; }
-  .nfm-oferta__eyebrow{ font-size:0.62rem; padding:5px 11px; margin-bottom:12px; }
-  .nfm-oferta__panel h2{ font-size:1.16rem; margin-bottom:8px !important; }
-  .nfm-oferta__sub{ font-size:0.87rem; line-height:1.45; margin-bottom:16px !important; }
-  .nfm-oferta__xwrap{ margin-right:-2px; }
-  .nfm-oferta__close{ margin-top:-8px; width:34px; height:34px; }
-  .nfm-oferta__skip{ font-size:0.86rem; padding:11px 12px; margin-top:8px; }
-}
-@media (max-width:380px){ .nfm-oferta__cta{ font-size:0.76rem; padding:9px 4px; letter-spacing:-0.01em; } }
-@media (prefers-reduced-motion:reduce){ .nfm-oferta__panel, .nfm-oferta__list li.nfm-oferta__hot, .nfm-oferta__fab{ animation:none; } }
+/* ── PASO 3 · beneficios ── */
+.nfm-ben-txt{ font-size:1rem; color:var(--nfm-tl); line-height:1.65; margin:0 !important; text-align:center !important; }
+.nfm-ben-txt strong{ color:#fff; font-weight:600; }
+.nfm-ben-btn{ display:flex; align-items:center; justify-content:center; gap:12px; width:100%; margin:16px 0 0;
+  font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:700; color:#fff; background:var(--nfm-orange);
+  border:none; border-radius:50px; padding:19px 28px; cursor:pointer; box-shadow:0 8px 28px var(--nfm-orange-glow);
+  transition:transform .25s var(--nfm-ease), box-shadow .25s var(--nfm-ease), background .25s var(--nfm-ease); }
+.nfm-ben-btn:hover{ background:var(--nfm-orange-hover); transform:translateY(-2px); box-shadow:0 12px 36px var(--nfm-orange-glow); color:#fff; }
+.nfm-ben-btn svg{ width:20px !important; height:20px !important; flex-shrink:0; }
+.nfm-ben-micro{ font-size:.82rem; color:var(--nfm-tm); text-align:center !important; margin:12px 0 0 !important; line-height:1.5; }
+@media (max-width:600px){ .nfm-ben-btn{ font-size:1rem; padding:17px 22px; } }
 
 /* ── BARRA DE MODO PRUEBA ── */
 .nfm-testbar{ background:var(--nfm-orange); color:#fff; font-family:var(--nfm-font-h);
@@ -335,7 +235,7 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
       <div class="nfm-thx__check">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
       </div>
-      <h1 class="nfm-rv nfm-rv-1">¡Lugar reservado! Ahora, <span class="acc">tres pasos</span> para recibir el acceso.</h1>
+      <h1 class="nfm-rv nfm-rv-1">¡Pago confirmado! Ahora, <span class="acc">tres pasos</span> para tener todo listo.</h1>
     </div>
   </section>
 
@@ -370,14 +270,19 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
         </div>
       </div>
 
-      <!-- PASO 3 — Atento al grupo y al mail -->
+      <!-- PASO 3 — Beneficios -->
       <div class="nfm-step nfm-rv nfm-rv-4">
         <div class="nfm-step__head">
           <div class="nfm-step__num">3</div>
-          <h3>Hasta el día de la clase, atento al grupo y a tu mail</h3>
+          <h3>Tus beneficios, desbloqueados</h3>
         </div>
-        <div class="nfm-step__body nfm-step__body--txt">
-          <p>Por ahí van a llegar el acceso y los recordatorios el <strong data-thx-fecha="diaYNumero">miércoles 7</strong>. Revisá también <strong>spam / promociones</strong>.</p>
+        <div class="nfm-step__body">
+          <p class="nfm-ben-txt">El <strong>workbook</strong> con el resumen y los accionables, y la <strong>grabación</strong> de la clase. Van a estar en tu portal el <strong>jueves 8 de octubre a las 12:00 hs (Argentina)</strong>.</p>
+          <a href="https://clase-beneficios.netlify.app/asiento-basic" class="nfm-ben-btn" target="_blank" rel="noopener">
+            VER MIS BENEFICIOS
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <p class="nfm-ben-micro">Guardá ese link: es tu acceso. Te lo mandamos también por mail.</p>
         </div>
       </div>
 
@@ -483,7 +388,7 @@ var CONFIG = {
    ══════════════════════════════════════════════════════════════════ */
 var TEMAS = {
   AR: {
-    tituloPagina: '¡Lugar reservado! · Neurociencia para el Alto Rendimiento Profesional · Nicolás Fernández Miranda',
+    tituloPagina: '¡Pago confirmado! · Asiento Premium Básico · Nicolás Fernández Miranda',
     claseTitulo: 'Neurociencia para el Alto Rendimiento Profesional'
   }
 };
@@ -742,144 +647,6 @@ if(clase){
 })();
 </script>
 
-<!-- ══════════════════════════════════════════════════════════════════
-     POPUP POST-REGISTRO (oferta de asiento USD 1 / USD 5)
-     Pegar acá el código del popup cuando esté.
-     Se muestra SÓLO a quien calificó (etapa A o B): el script de abajo corta con if(!window.NFM_CALIFICA).
-       · Datos disponibles: window.NFM_ETAPA ('A'|'B'|'C'|null), window.NFM_EQUIPO, window.NFM_CALIFICA (true/false),
-         window.NFM_NIVEL ('alto' = etapa A/B con gente a cargo · 'medio' = A/B sin gente a cargo · 'bajo' = C, todavía le cuesta sostenerse económicamente)
-     ══════════════════════════════════════════════════════════════════ -->
-<div id="nfm-popup-slot">
-
-  <div class="nfm-oferta" id="nfm-oferta" hidden aria-hidden="true">
-    <div class="nfm-oferta__bg"></div>
-    <div class="nfm-oferta__panel" role="dialog" aria-modal="true" aria-labelledby="nfm-oferta-title">
-      <div class="nfm-oferta__xwrap"><button type="button" class="nfm-oferta__close" id="nfm-oferta-close" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-      <h2 id="nfm-oferta-title">¿Querés <span class="acc">añadir beneficios</span> a tu asiento?</h2>
-
-      <div class="nfm-oferta__grid">
-
-        <!-- ASIENTO USD 1 -->
-        <div class="nfm-oferta__card">
-          <p class="nfm-oferta__name">Asiento Premium Básico</p>
-          <div class="nfm-oferta__price">USD 1</div>
-          <ul class="nfm-oferta__list">
-            <li><b>Workbook con el resumen de la clase</b> y los accionables concretos, para que no dependas de tus apuntes.</li>
-            <li><b>La grabación, tuya para siempre.</b> Si ese día se te cruza algo, la ves después.</li>
-          </ul>
-          <div class="nfm-oferta__btn">
-            <a class="nfm-oferta__cta nfm-oferta__cta--ghost" href="https://buy.stripe.com/28E14g0yzdVM84i9qXcbC02" data-oferta-buy="1">Lo quiero por USD 1</a>
-            <p class="nfm-oferta__err">Falta cargar el link de pago.</p>
-          </div>
-        </div>
-
-        <!-- ASIENTO USD 5 -->
-        <div class="nfm-oferta__card nfm-oferta__card--top">
-          <span class="nfm-oferta__badge">Recomendado</span>
-          <p class="nfm-oferta__name">Asiento Premium · Hackea tu Productividad</p>
-          <div class="nfm-oferta__price">USD 5</div>
-          <ul class="nfm-oferta__list">
-            <li><b>Todo lo del Básico</b> — workbook y grabación de la clase.</li>
-            <li><b>Acceso al curso El ABC del Alto Rendimiento:</b> 6 módulos en video — mindset, hábitos, sueño y descanso, ejercicio y alimentación, concentración y memoria.</li>
-            <li class="nfm-oferta__hot"><span class="nfm-oferta__hot-t">Hackea tu Cerebro · versión ebook</span>Sólo <span data-oferta-cupos>50</span> unidades disponibles. Acceso inmediato al libro completo, con sus <span data-oferta-hacks>49</span> hacks.</li>
-          </ul>
-          <div class="nfm-oferta__btn">
-            <a class="nfm-oferta__cta nfm-oferta__cta--full" href="https://buy.stripe.com/6oUcMY6WX04W5Wa8mTcbC03" data-oferta-buy="5">
-              <span>Lo quiero todo por USD 5</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <p class="nfm-oferta__err">Falta cargar el link de pago.</p>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="nfm-oferta__foot">
-        <button type="button" class="nfm-oferta__skip" id="nfm-oferta-skip">Solo quiero unirme a la clase gratis, sin la grabación y sin el workbook.</button>
-      </div>
-    </div>
-  </div>
-
-  <button type="button" class="nfm-oferta__fab" id="nfm-oferta-fab" hidden aria-label="Volver a ver la oferta de asiento">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1.5a1.5 1.5 0 0 0 0 3V15a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1.5a1.5 1.5 0 0 0 0-3V9z"/><path d="M13 7v10" stroke-dasharray="2 2"/></svg>
-    <span>Asiento Premium</span>
-  </button>
-
-  <script>
-  /* ── POPUP DE ASIENTO ──
-     Aparece DEMORA_MS después de cargar, sólo a quien calificó (etapa A o B; los C nunca lo ven).
-     Tres salidas, todas a la vista: los dos botones, la X de arriba y «No, gracias». El clic en el
-     fondo no cierra. Si lo cierran, no vuelve a salir en esa sesión.
-
-     ⚠️ LINKS · son los Payment Links de Stripe (buy.stripe.com/...), uno por pack.
-        ESTO ES PLATA REAL: si quedan cruzados, el de USD 1 cobra 5 y el de USD 5 cobra 1.
-        Ya pasó dos veces con los ids de los buy buttons. Antes de publicar: abrir la página,
-        clickear cada botón y confirmar en el checkout de Stripe el precio y el nombre.
-        Mientras estén vacíos el botón no navega y la tarjeta avisa, a propósito.
-
-     A cada link se le agrega ?client_reference_id=etapa-nivel-edicion, que es como el Payment Link
-     recibe lo que antes le pasábamos al buy button por atributo: sirve para ver en Stripe de qué
-     perfil vino cada pago. */
-  (function(){
-    var CFG = {
-      DEMORA_MS: 1500,
-      UNA_VEZ_POR_SESION: true,
-      /* El ebook. CUPOS es lo que dice el pop-up; HACKS es el número de hacks del
-         libro — ⚠️ no lo pude verificar contra el libro, confirmar antes de publicar. */
-      CUPOS: 50,
-      HACKS: 49,
-      LINKS: { '1':'https://buy.stripe.com/28E14g0yzdVM84i9qXcbC02',
-               '5':'https://buy.stripe.com/6oUcMY6WX04W5Wa8mTcbC03' },
-      PRECIO: { '1':1, '5':5 }
-    };
-    if(!window.NFM_CALIFICA) return;
-    var el=document.getElementById('nfm-oferta'); if(!el) return;
-    var KEY='nfm_oferta_cerrada';
-    var yaCerrado=false; try{ yaCerrado = CFG.UNA_VEZ_POR_SESION && !!window.sessionStorage.getItem(KEY); }catch(e){}
-
-    function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
-    var ec=el.querySelector('[data-oferta-cupos]'); if(ec) ec.textContent=CFG.CUPOS;
-    var eh=el.querySelector('[data-oferta-hacks]'); if(eh) eh.textContent=CFG.HACKS;
-    var fab=document.getElementById('nfm-oferta-fab');
-    var ref=[window.NFM_ETAPA||'x', window.NFM_NIVEL||'x', 'oct07'].join('-').replace(/[^A-Za-z0-9_-]/g,'');
-
-    var botones=el.querySelectorAll('[data-oferta-buy]');
-    for(var i=0;i<botones.length;i++){
-      (function(a){
-        var pack=a.getAttribute('data-oferta-buy');
-        var url=CFG.LINKS[pack]||'';
-        if(/^\s*\{\{/.test(url) || !url){
-          a.setAttribute('aria-disabled','true');
-          a.removeAttribute('href');
-          a.parentNode.setAttribute('data-fallo','');
-          if(window.console && console.warn) console.warn('[NFM] Falta el Payment Link del pack de USD '+pack);
-          return;
-        }
-        a.setAttribute('href', url + (url.indexOf('?')>-1 ? '&' : '?') + 'client_reference_id=' + encodeURIComponent(ref));
-        a.addEventListener('click', function(){
-          track('InitiateCheckout', {content_name:'oferta_asiento_'+pack, value:CFG.PRECIO[pack], currency:'USD'});
-          try{ window.sessionStorage.setItem(KEY,'1'); }catch(e){}
-        });
-      })(botones[i]);
-    }
-
-    /* Al cerrar (X o «no, gracias») el pop-up no desaparece del todo: queda un
-       botoncito redondo abajo a la derecha que lo vuelve a abrir. Y si ya lo
-       habían cerrado en esta sesión, al recargar aparece el botoncito, no el pop-up. */
-    function abrir(){ el.hidden=false; el.setAttribute('aria-hidden','false'); document.documentElement.classList.add('nfm-oferta-open');
-      if(fab) fab.hidden=true; track('ViewContent', {content_name:'oferta_asiento'}); }
-    function cerrar(){ el.hidden=true; el.setAttribute('aria-hidden','true'); document.documentElement.classList.remove('nfm-oferta-open');
-      if(fab) fab.hidden=false; try{ window.sessionStorage.setItem(KEY,'1'); }catch(e){} }
-    var x=document.getElementById('nfm-oferta-close'), skip=document.getElementById('nfm-oferta-skip');
-    if(x) x.addEventListener('click', cerrar);
-    if(skip) skip.addEventListener('click', function(){ track('Lead',{content_name:'oferta_rechazada'}); cerrar(); });
-    if(fab) fab.addEventListener('click', function(){ track('ViewContent',{content_name:'oferta_asiento_reabierta'}); abrir(); });
-    window.NFM_ABRIR_OFERTA = abrir;
-    if(yaCerrado){ if(fab) fab.hidden=false; }
-    else setTimeout(abrir, CFG.DEMORA_MS);
-  })();
-  </script>
-</div>
 <!-- ═══════════ HASTA ACÁ EL CUSTOM CODE DE GHL ═══════════ -->
 </body>
 </html>
