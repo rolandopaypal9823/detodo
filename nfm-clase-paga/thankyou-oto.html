@@ -273,7 +273,7 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
      segunda caía abajo del pliegue: había que scrollear adentro del pop-up
      para enterarse de que existía. Se comprime todo lo demás para que las
      dos entren con la salida a la vista. */
-  .nfm-oferta__grid{ grid-template-columns:1fr 1fr; gap:9px; }
+  .nfm-oferta__grid{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:9px; }
   .nfm-oferta__card{ padding:16px 11px 14px; }
   .nfm-oferta__price{ font-size:1.5rem; margin-bottom:6px; }
   .nfm-oferta__price small{ font-size:0.8rem; }
@@ -287,7 +287,7 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
   .nfm-oferta__hot-t{ font-size:0.58rem; letter-spacing:0.09em; }
   .nfm-oferta__panel h2{ margin-top:4px !important; padding:0 34px; }
   .nfm-oferta__pago{ font-size:0.7rem; margin-top:12px !important; }
-  .nfm-oferta__cta{ font-size:0.85rem; padding:12px 6px; gap:5px; }
+  .nfm-oferta__cta{ font-size:0.82rem; line-height:1.15; padding:9px 6px; gap:5px; white-space:normal; min-height:52px; }
   .nfm-oferta__cta svg{ display:none; }
   .nfm-oferta__eyebrow{ font-size:0.62rem; padding:5px 11px; margin-bottom:12px; }
   .nfm-oferta__panel h2{ font-size:1.16rem; margin-bottom:8px !important; }
@@ -296,7 +296,7 @@ html.nfm-oferta-open, html.nfm-oferta-open body{ overflow:hidden !important; }
   .nfm-oferta__close{ margin-top:-8px; width:34px; height:34px; }
   .nfm-oferta__skip{ font-size:0.86rem; padding:11px 12px; margin-top:8px; }
 }
-@media (max-width:380px){ .nfm-oferta__cta{ font-size:0.74rem; padding:11px 4px; letter-spacing:-0.01em; } }
+@media (max-width:380px){ .nfm-oferta__cta{ font-size:0.76rem; padding:9px 4px; letter-spacing:-0.01em; } }
 @media (prefers-reduced-motion:reduce){ .nfm-oferta__panel, .nfm-oferta__list li.nfm-oferta__hot, .nfm-oferta__fab{ animation:none; } }
 
 /* ── BARRA DE MODO PRUEBA ── */
@@ -780,7 +780,6 @@ if(clase){
           <div class="nfm-oferta__price">USD 5</div>
           <ul class="nfm-oferta__list">
             <li><b>Todo lo del Básico</b> — workbook y grabación de la clase.</li>
-            <li><b>Sesión grupal de Q&amp;A</b> con Nicolás Fernández Miranda y Soledad Funes, psicóloga experta en TDA/H.</li>
             <li><b>Acceso al curso El ABC del Alto Rendimiento:</b> 6 módulos en video — mindset, hábitos, sueño y descanso, ejercicio y alimentación, concentración y memoria.</li>
             <li class="nfm-oferta__hot"><span class="nfm-oferta__hot-t">Hackea tu Cerebro · versión ebook</span>Sólo <span data-oferta-cupos>50</span> unidades disponibles. Acceso inmediato al libro completo, con sus <span data-oferta-hacks>49</span> hacks.</li>
           </ul>

@@ -79,14 +79,15 @@ p{ margin:0; }
 @media (max-width:600px){
   .escena{ padding:12px 8px 290px; }
   .nfm-oferta__panel{ padding:22px 12px 0; }
-  .nfm-oferta__grid{ grid-template-columns:1fr 1fr; gap:9px; }
+  .nfm-oferta__grid{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:9px; }
   .nfm-oferta__card{ padding:16px 11px 14px; }
   .nfm-oferta__price{ font-size:1.5rem; margin-bottom:6px; }
   .nfm-oferta__name{ font-size:.55rem; letter-spacing:.1em; margin-bottom:6px; }
   .nfm-oferta__badge{ font-size:.52rem; letter-spacing:.1em; padding:5px 10px; }
   .nfm-oferta__list li{ font-size:.72rem; line-height:1.4; padding:0 0 8px 16px; }
-  .nfm-oferta__cta{ font-size:.85rem; padding:12px 6px; gap:5px; }
+  .nfm-oferta__cta{ font-size:.82rem; line-height:1.15; padding:9px 6px; gap:5px; white-space:normal; min-height:52px; }
   .nfm-oferta__cta svg{ display:none; }
+  @media (max-width:380px){ .nfm-oferta__cta{ font-size:.76rem; padding:9px 4px; } }
   .nfm-oferta__panel h2{ font-size:1.16rem; padding:0 34px; }
   .nfm-oferta__list li.nfm-oferta__hot{ padding:8px 9px; }
   .nfm-oferta__hot-t{ font-size:.58rem; letter-spacing:.09em; }
@@ -170,9 +171,8 @@ li:not([data-borrado]) .li-x::after{ content:'×'; }
         <div class="nfm-oferta__price" data-edit="USD 5 · precio">USD 5</div>
         <ul class="nfm-oferta__list" data-lista="USD 5">
           <li data-edit="USD 5 · ítem 1"><b>Todo lo del Básico</b> — workbook y grabación de la clase.</li>
-          <li data-edit="USD 5 · ítem 2"><b>Sesión grupal de Q&amp;A</b> con Nicolás Fernández Miranda y Soledad Funes, psicóloga experta en TDA/H.</li>
-          <li data-edit="USD 5 · ítem 3"><b>Acceso al curso El ABC del Alto Rendimiento:</b> 6 módulos en video — mindset, hábitos, sueño y descanso, ejercicio y alimentación, concentración y memoria.</li>
-          <li class="nfm-oferta__hot" data-edit="USD 5 · ítem 4 (ebook)"><span class="nfm-oferta__hot-t">Hackea tu Cerebro · versión ebook</span>Sólo 50 unidades disponibles. Acceso inmediato al libro completo, con sus 49 hacks.</li>
+          <li data-edit="USD 5 · ítem 2"><b>Acceso al curso El ABC del Alto Rendimiento:</b> 6 módulos en video — mindset, hábitos, sueño y descanso, ejercicio y alimentación, concentración y memoria.</li>
+          <li class="nfm-oferta__hot" data-edit="USD 5 · ítem 3 (ebook)"><span class="nfm-oferta__hot-t">Hackea tu Cerebro · versión ebook</span>Sólo 50 unidades disponibles. Acceso inmediato al libro completo, con sus 49 hacks.</li>
         </ul>
         <div class="nfm-oferta__btn">
           <a class="nfm-oferta__cta nfm-oferta__cta--full"><span data-edit="USD 5 · botón">Lo quiero todo por USD 5</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
@@ -204,7 +204,7 @@ li:not([data-borrado]) .li-x::after{ content:'×'; }
 <script>
 (function(){
 'use strict';
-var KEY = 'nfm_popup_edit_v2';
+var KEY = 'nfm_popup_edit_v3';
 
 /* ── serializar: texto con marcas para negrita y naranja, así me llega
       exactamente qué va en negrita y qué va en color ── */
