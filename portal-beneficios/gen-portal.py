@@ -1,0 +1,351 @@
+# -*- coding: utf-8 -*-
+"""Genera el portal de beneficios de la clase.
+
+   Un solo sitio en Netlify (clase-beneficios.netlify.app) con dos páginas:
+     /asiento-basic   → USD 1 · la clase (workbook + grabación)
+     /premium-htc     → USD 5 · lo mismo + el ebook + el curso ABC
+
+   Las dos salen de la misma plantilla: cambia el contenido, no el esqueleto.
+   Correr desde la raíz del repo:  python3 portal-beneficios/gen-portal.py
+"""
+import io, os
+
+RAIZ = 'portal-beneficios'
+
+# ══════════════════════════════════════════════════════════════════════════
+#  CONFIG · lo único que hay que tocar cuando cambie algo
+# ══════════════════════════════════════════════════════════════════════════
+CFG = {
+  'CLASE'  : '2026-10-07',                  # el día de la clase (se escribe solo: «miércoles 7 de octubre»)
+  'LISTO'  : '2026-10-08T12:00:00-03:00',   # cuándo aparecen workbook y grabación (hora Argentina)
+  # Los links de la clase. Vacíos hasta que existan: mientras tanto el portal
+  # muestra «lo estamos subiendo», nunca un botón que no lleva a ningún lado.
+  'WORKBOOK_URL'  : '',
+  'GRABACION_URL' : '',
+  # Lo del asiento de USD 5
+  'LIBRO_URL' : 'https://drive.google.com/file/d/1M2AGlaIzwFDei7b2NeBQmLqcf6LtA4PY/view?usp=sharing',
+  'ABC_URL'   : 'https://abc-altorendimiento-nfm.netlify.app/',
+  'LOGO'      : 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png',
+}
+
+PAGINAS = {
+  'asiento-basic': {
+    'titulo'  : 'Asiento Premium Básico',
+    'eyebrow' : 'Asiento Premium Básico',
+    'premium' : False,
+  },
+  'premium-htc': {
+    'titulo'  : 'Asiento Premium · Hackea tu Productividad',
+    'eyebrow' : 'Asiento Premium · Hackea tu Productividad',
+    'premium' : True,
+  },
+}
+
+# ══════════════════════════════════════════════════════════════════════════
+#  PLANTILLA
+# ══════════════════════════════════════════════════════════════════════════
+CSS = """
+:root{
+  --navy-deep:#081F33; --navy:#0C3452; --navy-1:#0E2E4A; --navy-2:#143A5C;
+  --orange:#FF6602; --orange-hover:#FF8033; --orange-glow:rgba(255,102,2,.30); --green:#22C55E;
+  --tl:rgba(255,255,255,.87); --tm:rgba(255,255,255,.62); --ts:rgba(255,255,255,.42); --hair:rgba(255,255,255,.09);
+  --fh:'Space Grotesk',sans-serif; --fb:'DM Sans',sans-serif; --r:14px; --r-lg:22px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; background:#081F33; }
+body{ font-family:var(--fb); color:#fff; line-height:1.6; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden;
+  background:radial-gradient(800px 420px at 50% -5%, rgba(255,102,2,.14), transparent 62%), linear-gradient(180deg,#0C3452 0%,#081F33 38%,#081F33 100%); min-height:100vh; }
+p{ margin:0; } img{ max-width:100%; height:auto; display:block; } a{ color:inherit; text-decoration:none; }
+.wrap{ max-width:720px; margin:0 auto; padding:0 22px; }
+
+.nav{ padding:18px 0; border-bottom:1px solid var(--hair); }
+.nav .wrap{ display:flex; justify-content:center; }
+.nav img{ height:64px; width:auto; }
+
+.hero{ padding:46px 0 26px; text-align:center; }
+.eyebrow{ display:inline-block; font-family:var(--fh); font-size:.68rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--orange);
+  border:1px solid rgba(255,102,2,.4); padding:6px 14px; border-radius:50px; margin:0 0 16px; }
+h1{ font-family:var(--fh); font-size:clamp(1.7rem,4vw,2.3rem); font-weight:700; line-height:1.14; letter-spacing:-.02em; margin:0 0 12px; text-wrap:balance; }
+h1 .acc{ color:var(--orange); }
+.hero .sub{ font-size:1.02rem; color:var(--tm); max-width:34em; margin:0 auto; }
+
+.cards{ display:flex; flex-direction:column; gap:18px; padding:8px 0 56px; }
+.card{ background:rgba(255,255,255,.04); border:1px solid var(--hair); border-radius:var(--r-lg); padding:28px; position:relative; overflow:hidden; }
+.card--hot{ border-color:rgba(255,102,2,.42); background:rgba(255,102,2,.06); }
+.card__k{ font-family:var(--fh); font-size:.66rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--orange); margin:0 0 8px; }
+.card h2{ font-family:var(--fh); font-size:clamp(1.25rem,2.6vw,1.55rem); font-weight:700; line-height:1.2; letter-spacing:-.015em; margin:0 0 8px; }
+.card .txt{ font-size:.98rem; color:var(--tm); line-height:1.6; max-width:40em; }
+.card .txt b{ color:#fff; font-weight:600; }
+
+/* el contador */
+.cd{ display:flex; gap:10px; justify-content:center; margin:22px 0 6px; }
+.cd div{ flex:1; max-width:120px; background:rgba(0,0,0,.22); border:1px solid var(--hair); border-radius:var(--r); padding:14px 6px 10px; text-align:center; }
+.cd b{ display:block; font-family:var(--fh); font-size:clamp(1.6rem,5vw,2.3rem); font-weight:700; line-height:1; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+.cd span{ display:block; font-family:var(--fh); font-size:.6rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ts); margin-top:6px; }
+.cd-local{ text-align:center; font-size:.84rem; color:var(--ts); margin:10px 0 0; }
+.cd-local b{ color:var(--tm); font-weight:600; }
+.cd-local[hidden]{ display:none; }
+.card[data-listo] .cd, .card[data-listo] .cd-local, .card[data-listo] .cd-nota{ display:none; }
+
+/* los ítems de la clase */
+.items{ list-style:none; padding:0; margin:22px 0 0; display:flex; flex-direction:column; gap:10px; }
+.item{ display:flex; align-items:center; gap:14px; padding:16px 18px; border-radius:var(--r); background:rgba(0,0,0,.18); border:1px solid var(--hair); }
+.item__ic{ flex:0 0 40px; width:40px; height:40px; border-radius:10px; background:rgba(255,102,2,.12); border:1px solid rgba(255,102,2,.28); display:flex; align-items:center; justify-content:center; }
+.item__ic svg{ width:20px; height:20px; color:var(--orange); }
+.item__t{ flex:1; min-width:0; }
+.item__t b{ display:block; font-family:var(--fh); font-size:1rem; font-weight:700; }
+.item__t span{ display:block; font-size:.88rem; color:var(--tm); line-height:1.45; }
+.item__st{ flex:0 0 auto; font-family:var(--fh); font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ts);
+  border:1px solid var(--hair); border-radius:50px; padding:7px 12px; white-space:nowrap; }
+.item__st--pronto{ color:var(--tm); }
+.item .btn{ flex:0 0 auto; }
+.item [data-cuando-listo]{ display:none; }
+.card[data-listo] .item [data-cuando-listo]{ display:inline-flex; }
+.card[data-listo] .item [data-antes]{ display:none; }
+
+/* botones */
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:9px; font-family:var(--fh); font-size:.98rem; font-weight:700; line-height:1.2;
+  color:#fff; background:var(--orange); border:1.5px solid transparent; border-radius:50px; padding:14px 22px; cursor:pointer; white-space:nowrap;
+  box-shadow:0 8px 24px var(--orange-glow); transition:transform .22s var(--ease), background .22s var(--ease), box-shadow .22s var(--ease); }
+.btn:hover{ background:var(--orange-hover); transform:translateY(-2px); box-shadow:0 12px 32px var(--orange-glow); }
+.btn svg{ width:16px; height:16px; flex:0 0 16px; transition:transform .22s var(--ease); }
+.btn:hover svg{ transform:translateX(3px); }
+.btn--sm{ font-size:.86rem; padding:11px 16px; }
+.btn--w{ width:100%; margin-top:18px; }
+.card .btn--w{ display:flex; }
+
+.foot{ padding:26px 0 40px; border-top:1px solid var(--hair); text-align:center; }
+.foot p{ font-size:.82rem; color:var(--ts); line-height:1.6; }
+.foot p+p{ margin-top:6px; }
+
+@media (max-width:600px){
+  .nav img{ height:54px; }
+  .hero{ padding:34px 0 20px; }
+  .card{ padding:22px 18px; }
+  .cd{ gap:7px; }
+  .cd div{ padding:12px 4px 9px; }
+  .item{ flex-wrap:wrap; gap:12px; padding:14px; }
+  .item__t{ flex:1 1 160px; }
+  .item__st, .item .btn{ margin-left:54px; }
+  .item__ic + .item__t + .item__st, .item__ic + .item__t + .btn{ margin-left:0; }
+}
+@media (prefers-reduced-motion:reduce){ .btn, .btn svg{ transition:none; } }
+"""
+
+ICO_DOC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>'
+ICO_PLAY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>'
+ICO_ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'
+ICO_DL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M6 11l6 6 6-6M4 20h16"/></svg>'
+
+def item(key, ico, titulo, bajada):
+    return f"""
+        <li class="item" data-item="{key}">
+          <div class="item__ic">{ico}</div>
+          <div class="item__t"><b>{titulo}</b><span>{bajada}</span></div>
+          <span class="item__st" data-antes>Disponible el <span data-fecha="listoCorta"></span></span>
+          <a class="btn btn--sm" data-cuando-listo data-link="{key}" href="#" target="_blank" rel="noopener">Abrir {ICO_ARROW}</a>
+          <span class="item__st item__st--pronto" data-cuando-listo data-sinlink="{key}">Lo estamos subiendo · volvé en un rato</span>
+        </li>"""
+
+def pagina(slug, pg):
+    premium = pg['premium']
+    extra = ''
+    if premium:
+        extra = f"""
+      <!-- EL LIBRO -->
+      <section class="card card--hot">
+        <p class="card__k">Incluido en tu asiento</p>
+        <h2>Hackea tu Cerebro · versión ebook</h2>
+        <p class="txt">El libro completo, el mismo que está en librerías. Es tuyo: descargalo y guardalo donde quieras.</p>
+        <a class="btn btn--w" href="{CFG['LIBRO_URL']}" target="_blank" rel="noopener">Descargar el libro {ICO_DL}</a>
+      </section>
+
+      <!-- EL ABC -->
+      <section class="card">
+        <p class="card__k">Incluido en tu asiento</p>
+        <h2>El ABC del Alto Rendimiento</h2>
+        <p class="txt">El curso completo en video: <b>6 módulos</b> — mindset, hábitos, sueño y descanso, ejercicio y alimentación, concentración y memoria. Entrá cuando quieras, el acceso no vence.</p>
+        <a class="btn btn--w" href="{CFG['ABC_URL']}" target="_blank" rel="noopener">Entrar al curso {ICO_ARROW}</a>
+      </section>"""
+
+    return f"""<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>{pg['titulo']} · Tus beneficios · Nicolás Fernández Miranda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>{CSS}</style>
+</head>
+<body>
+
+  <nav class="nav"><div class="wrap"><a href="https://nicolasfernandezmiranda.com" aria-label="Nicolás Fernández Miranda"><img src="{CFG['LOGO']}" alt="Nicolás Fernández Miranda"></a></div></nav>
+
+  <header class="hero">
+    <div class="wrap">
+      <span class="eyebrow">{pg['eyebrow']}</span>
+      <h1>Tu asiento está <span class="acc">confirmado.</span></h1>
+      <p class="sub" data-sub>Acá está todo lo que incluye. Lo que todavía no está disponible, tiene fecha y hora.</p>
+    </div>
+  </header>
+
+  <main class="wrap cards">
+
+    <!-- LA CLASE -->
+    <section class="card" id="clase">
+      <p class="card__k">Tu clase</p>
+      <h2 data-fecha="claseLarga">—</h2>
+      <p class="txt cd-nota">El <b>workbook</b> con el resumen y los accionables, y la <b>grabación completa</b>, van a estar acá el <b data-fecha="listoLarga">—</b>.</p>
+      <p class="txt" data-cuando-listo-txt hidden>Ya está disponible lo de la clase. Si algo todavía no aparece, lo estamos subiendo.</p>
+
+      <div class="cd" aria-live="polite">
+        <div><b id="cd-d">00</b><span>días</span></div>
+        <div><b id="cd-h">00</b><span>horas</span></div>
+        <div><b id="cd-m">00</b><span>min</span></div>
+        <div><b id="cd-s">00</b><span>seg</span></div>
+      </div>
+      <p class="cd-local" data-local hidden></p>
+
+      <ul class="items">{item('workbook', ICO_DOC, 'Workbook', 'Resumen de la clase y accionables concretos, en formato de hacer.')}{item('grabacion', ICO_PLAY, 'Grabación', 'La clase completa, tuya para siempre.')}
+      </ul>
+    </section>
+{extra}
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p>Si algo no carga, respondé el mail con el que te llegó este acceso y lo resolvemos.</p>
+      <p>© Nicolás Fernández Miranda · Instituto de Productividad</p>
+    </div>
+  </footer>
+
+<script>
+(function(){{
+'use strict';
+var CFG = {{
+  CLASE: '{CFG['CLASE']}',
+  LISTO: '{CFG['LISTO']}',
+  LINKS: {{ workbook: '{CFG['WORKBOOK_URL']}', grabacion: '{CFG['GRABACION_URL']}' }}
+}};
+var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+var MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+function pad(n){{ return n<10?'0'+n:''+n; }}
+function qs(k){{ var m=new RegExp('[?&]'+k+'=([^&#]*)').exec(location.search); return m?decodeURIComponent(m[1]):null; }}
+/* ?nfm_now=2026-10-08T12:01:00-03:00 simula otra hora, para probar el estado «listo» */
+function ahora(){{ var s=qs('nfm_now'); if(s){{ var t=Date.parse(s); if(!isNaN(t)) return t; }} return Date.now(); }}
+
+/* fechas en hora Argentina, se lea desde donde se lea */
+var OFF=-3;
+function arg(ts){{ var d=new Date(ts+OFF*3600000); return {{dow:d.getUTCDay(),dia:d.getUTCDate(),mes:d.getUTCMonth(),hh:d.getUTCHours(),mm:d.getUTCMinutes()}}; }}
+var pC=CFG.CLASE.split('-'), tsClase=Date.UTC(+pC[0],+pC[1]-1,+pC[2],12-OFF);
+var tsListo=Date.parse(CFG.LISTO);
+var c=arg(tsClase), l=arg(tsListo);
+var F={{
+  claseLarga: DIAS[c.dow].charAt(0).toUpperCase()+DIAS[c.dow].slice(1)+' '+c.dia+' de '+MESES[c.mes],
+  listoLarga: DIAS[l.dow]+' '+l.dia+' de '+MESES[l.mes]+' a las '+pad(l.hh)+':'+pad(l.mm)+' hs (Argentina)',
+  listoCorta: l.dia+'/'+(l.mes+1)+' · '+pad(l.hh)+':'+pad(l.mm)
+}};
+[].forEach.call(document.querySelectorAll('[data-fecha]'), function(e){{ var k=e.getAttribute('data-fecha'); if(F[k]) e.textContent=F[k]; }});
+
+/* hora local, si no es Argentina */
+(function(){{
+  var el=document.querySelector('[data-local]'); if(!el) return;
+  var tz; try{{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone; }}catch(e){{ return; }}
+  if(!tz || /Argentina|Buenos_Aires|Cordoba|Mendoza|Salta|Tucuman|Jujuy|Catamarca|La_Rioja|Rio_Gallegos|San_Juan|San_Luis|Ushuaia/.test(tz)) return;
+  try{{
+    var d=new Date(tsListo);
+    var hora=new Intl.DateTimeFormat('es',{{timeZone:tz,hour:'2-digit',minute:'2-digit',hourCycle:'h23'}}).format(d);
+    var dia=new Intl.DateTimeFormat('es',{{timeZone:tz,weekday:'long',day:'numeric'}}).format(d);
+    el.innerHTML='En tu zona horaria: <b>'+dia.replace(',','')+', '+hora+' hs</b>';
+    el.hidden=false;
+  }}catch(e){{}}
+}})();
+
+/* el contador, y el cambio de estado cuando llega */
+var card=document.getElementById('clase');
+var E={{d:document.getElementById('cd-d'),h:document.getElementById('cd-h'),m:document.getElementById('cd-m'),s:document.getElementById('cd-s')}};
+function listo(){{
+  card.setAttribute('data-listo','');
+  var t=card.querySelector('[data-cuando-listo-txt]'); if(t) t.hidden=false;
+  var sub=document.querySelector('[data-sub]'); if(sub) sub.textContent='Acá está todo lo que incluye tu asiento.';
+  ['workbook','grabacion'].forEach(function(k){{
+    var url=(CFG.LINKS[k]||'').trim();
+    var a=card.querySelector('[data-link="'+k+'"]'), s=card.querySelector('[data-sinlink="'+k+'"]');
+    if(url){{ a.setAttribute('href',url); if(s) s.style.display='none'; }}
+    else {{ if(a) a.style.display='none'; }}
+  }});
+}}
+function tick(){{
+  var r=tsListo-ahora();
+  if(r<=0){{ listo(); return; }}
+  var d=Math.floor(r/86400000), h=Math.floor(r%86400000/3600000), m=Math.floor(r%3600000/60000), s=Math.floor(r%60000/1000);
+  E.d.textContent=pad(d); E.h.textContent=pad(h); E.m.textContent=pad(m); E.s.textContent=pad(s);
+  setTimeout(tick, 1000-(Date.now()%1000));
+}}
+tick();
+}})();
+</script>
+</body>
+</html>
+"""
+
+RAIZ_HTML = f"""<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex, nofollow">
+<title>Beneficios de la clase · Nicolás Fernández Miranda</title>
+<style>body{{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#081F33;color:#fff;font-family:'DM Sans',system-ui,sans-serif;text-align:center;padding:24px}}
+p{{max-width:30em;line-height:1.6;color:rgba(255,255,255,.7)}} b{{color:#fff}}</style></head>
+<body><p><b>Tu acceso está en el mail.</b><br>Abrí el link que te mandamos después de la compra: ahí están tus beneficios.</p></body></html>
+"""
+
+ROBOTS = "User-agent: *\nDisallow: /\n"
+
+README = """# Portal de beneficios de la clase
+
+Un solo sitio en Netlify. Dos páginas, una por asiento:
+
+| Asiento | URL | Qué tiene |
+|---|---|---|
+| Básico · USD 1 | `clase-beneficios.netlify.app/asiento-basic` | La clase: workbook + grabación (con contador hasta que estén) |
+| Hackea tu Productividad · USD 5 | `clase-beneficios.netlify.app/premium-htc` | Lo mismo + el ebook de «Hackea tu Cerebro» + el curso El ABC del Alto Rendimiento |
+
+La raíz (`/`) no lista nada: dice que el acceso llegó por mail. Y `robots.txt` pide no indexar.
+
+## Deploy
+
+Arrastrar la carpeta `portal-beneficios` entera a Netlify (Sites → Add new site → Deploy manually),
+o conectarla al repo con *publish directory* = `portal-beneficios`. Nombre del sitio: `clase-beneficios`.
+Las URLs salen solas de la estructura de carpetas (`asiento-basic/index.html` → `/asiento-basic`).
+
+## Cuando estén el workbook y la grabación
+
+Editar `CFG` en `gen-portal.py` — `WORKBOOK_URL` y `GRABACION_URL` — y correr
+`python3 portal-beneficios/gen-portal.py` desde la raíz del repo. Mientras estén vacíos, después
+de la fecha el portal dice «lo estamos subiendo» en vez de mostrar un botón que no lleva a ningún lado.
+
+Para probar el estado «ya disponible» sin esperar: agregar `?nfm_now=2026-10-08T12:01:00-03:00` a la URL.
+
+## Ojo
+
+Estas páginas no tienen contraseña: quien tenga el link, entra. Es el mismo criterio que el curso ABC.
+Si algún día hace falta cerrarlas, lo más simple es la protección por contraseña de Netlify (plan pago) o
+mover los archivos pesados a links que caduquen.
+"""
+
+def main():
+    os.makedirs(RAIZ, exist_ok=True)
+    for slug, pg in PAGINAS.items():
+        d = os.path.join(RAIZ, slug); os.makedirs(d, exist_ok=True)
+        out = pagina(slug, pg)
+        io.open(os.path.join(d, 'index.html'), 'w', encoding='utf-8').write(out)
+        print('escrito', os.path.join(d, 'index.html'), len(out), 'bytes')
+    io.open(os.path.join(RAIZ, 'index.html'), 'w', encoding='utf-8').write(RAIZ_HTML)
+    io.open(os.path.join(RAIZ, 'robots.txt'), 'w', encoding='utf-8').write(ROBOTS)
+    io.open(os.path.join(RAIZ, 'README.md'), 'w', encoding='utf-8').write(README)
+    faltan = [k for k in ('WORKBOOK_URL','GRABACION_URL') if not CFG[k]]
+    if faltan: print('⚠️  sin link todavía:', ', '.join(faltan), '— después de la fecha el portal dirá «lo estamos subiendo».')
+
+main()
