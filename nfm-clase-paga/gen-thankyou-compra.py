@@ -28,7 +28,7 @@ TIERS = {
     'portal'  : 'https://clase-beneficios.netlify.app/asiento-basic',
     'content' : 'asiento_basic',
     'texto'   : 'El <strong>workbook</strong> con el resumen y los accionables, y la <strong>grabación</strong> de la clase. '
-                'Van a estar en tu portal el <strong>jueves 8 de octubre a las 12:00 hs (Argentina)</strong>.',
+                'Todo queda en tu portal.',
   },
   'premium': {
     'archivo' : 'nfm-clase-paga/thankyou-compra-premium.html',
@@ -36,8 +36,8 @@ TIERS = {
     'valor'   : 5,
     'portal'  : 'https://clase-beneficios.netlify.app/premium-htc',
     'content' : 'asiento_premium_htc',
-    'texto'   : 'El ebook de <strong>Hackea tu Cerebro</strong> y el curso <strong>El ABC del Alto Rendimiento</strong> ya están disponibles. '
-                'El workbook y la grabación de la clase, el <strong>jueves 8 de octubre a las 12:00 hs (Argentina)</strong>.',
+    'texto'   : 'El ebook de <strong>Hackea tu Cerebro</strong>, el curso <strong>El ABC del Alto Rendimiento</strong>, '
+                'y el workbook y la grabación de la clase. Todo queda en tu portal.',
   },
 }
 

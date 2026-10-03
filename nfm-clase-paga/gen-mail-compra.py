@@ -17,7 +17,6 @@ import io
 LOGO   = 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png'
 WA     = 'https://go.wha.link/clase-de-neurociencia-6-10'
 CLASE  = 'Miércoles 7 de octubre · 19:00 hs (Argentina) · vía Zoom'
-LISTO  = 'jueves 8 de octubre a las 12:00 hs (Argentina)'
 
 TIERS = {
   'basic': {
@@ -29,7 +28,7 @@ TIERS = {
       ('Workbook', 'Resumen de la clase y accionables concretos.'),
       ('Grabación', 'La clase completa, tuya para siempre.'),
     ],
-    'nota'    : f'El workbook y la grabación van a estar en tu portal el <strong style="color:#ffffff;">{LISTO}</strong>.',
+    'nota'    : '',
   },
   'premium': {
     'archivo' : 'nfm-clase-paga/mail-compra-premium.html',
@@ -42,7 +41,7 @@ TIERS = {
       ('Workbook', 'Resumen de la clase y accionables concretos.'),
       ('Grabación', 'La clase completa, tuya para siempre.'),
     ],
-    'nota'    : f'El libro y el curso ya están. El workbook y la grabación de la clase, el <strong style="color:#ffffff;">{LISTO}</strong>.',
+    'nota'    : 'El libro y el curso <strong style="color:#ffffff;">ya están disponibles</strong> en tu portal.',
   },
 }
 
@@ -64,6 +63,8 @@ def fila(titulo, bajada):
 
 def mail(t):
     items = ''.join(fila(a, b) for a, b in t['items'])
+    nota = (f'<!-- nota -->\n            <p style="margin:12px 0 24px; padding:14px 16px; background:#0B2440; border:1px solid #1C3D5E; border-radius:12px; font-family:{FONT_B}; font-size:14px; line-height:1.55; color:#B8C4D0;">{t["nota"]}</p>'
+            if t['nota'] else '<div style="height:14px; line-height:14px; font-size:0;">&nbsp;</div>')
     return f"""<!-- ASUNTO SUGERIDO: {t['asunto']} -->
 <!-- PREHEADER (lo que se ve en la bandeja debajo del asunto): Tu acceso a los beneficios del {t['nombre']}. -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -121,8 +122,7 @@ def mail(t):
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 6px;">{items}
             </table>
 
-            <!-- nota -->
-            <p style="margin:12px 0 24px; padding:14px 16px; background:#0B2440; border:1px solid #1C3D5E; border-radius:12px; font-family:{FONT_B}; font-size:14px; line-height:1.55; color:#B8C4D0;">{t['nota']}</p>
+            {nota}
 
             <!-- BOTÓN (a prueba de Outlook) -->
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center">
