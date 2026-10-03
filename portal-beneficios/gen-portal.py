@@ -78,15 +78,8 @@ h1 .acc{ color:var(--orange); }
 .card .txt{ font-size:.98rem; color:var(--tm); line-height:1.6; max-width:40em; }
 .card .txt b{ color:#fff; font-weight:600; }
 
-/* el contador */
-.cd{ display:flex; gap:10px; justify-content:center; margin:22px 0 6px; }
-.cd div{ flex:1; max-width:120px; background:rgba(0,0,0,.22); border:1px solid var(--hair); border-radius:var(--r); padding:14px 6px 10px; text-align:center; }
-.cd b{ display:block; font-family:var(--fh); font-size:clamp(1.6rem,5vw,2.3rem); font-weight:700; line-height:1; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
-.cd span{ display:block; font-family:var(--fh); font-size:.6rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ts); margin-top:6px; }
-.cd-local{ text-align:center; font-size:.84rem; color:var(--ts); margin:10px 0 0; }
-.cd-local b{ color:var(--tm); font-weight:600; }
-.cd-local[hidden]{ display:none; }
-.card[data-listo] .cd, .card[data-listo] .cd-local, .card[data-listo] .cd-nota{ display:none; }
+/* el estado «listo» esconde la nota previa */
+.card[data-listo] .cd-nota{ display:none; }
 
 /* los ítems de la clase */
 .items{ list-style:none; padding:0; margin:22px 0 0; display:flex; flex-direction:column; gap:10px; }
@@ -143,7 +136,7 @@ def item(key, ico, titulo, bajada):
         <li class="item" data-item="{key}">
           <div class="item__ic">{ico}</div>
           <div class="item__t"><b>{titulo}</b><span>{bajada}</span></div>
-          <span class="item__st" data-antes>Disponible el <span data-fecha="listoCorta"></span></span>
+          <span class="item__st" data-antes>Después de la clase</span>
           <a class="btn btn--sm" data-cuando-listo data-link="{key}" href="#" target="_blank" rel="noopener">Abrir {ICO_ARROW}</a>
           <span class="item__st item__st--pronto" data-cuando-listo data-sinlink="{key}">Lo estamos subiendo · volvé en un rato</span>
         </li>"""
@@ -189,7 +182,7 @@ def pagina(slug, pg):
     <div class="wrap">
       <span class="eyebrow">{pg['eyebrow']}</span>
       <h1>Tu asiento está <span class="acc">confirmado.</span></h1>
-      <p class="sub" data-sub>Acá está todo lo que incluye. Lo que todavía no está disponible, tiene fecha y hora.</p>
+      <p class="sub" data-sub>Acá está todo lo que incluye tu asiento.</p>
     </div>
   </header>
 
@@ -199,16 +192,8 @@ def pagina(slug, pg):
     <section class="card" id="clase">
       <p class="card__k">Tu clase</p>
       <h2 data-fecha="claseLarga">—</h2>
-      <p class="txt cd-nota">El <b>workbook</b> con el resumen y los accionables, y la <b>grabación completa</b>, van a estar acá el <b data-fecha="listoLarga">—</b>.</p>
+      <p class="txt cd-nota">El <b>workbook</b> con el resumen y los accionables, y la <b>grabación completa</b>, van a estar acá <b>después de la clase del <span data-fecha="claseDia"></span></b>.</p>
       <p class="txt" data-cuando-listo-txt hidden>Ya está disponible lo de la clase. Si algo todavía no aparece, lo estamos subiendo.</p>
-
-      <div class="cd" aria-live="polite">
-        <div><b id="cd-d">00</b><span>días</span></div>
-        <div><b id="cd-h">00</b><span>horas</span></div>
-        <div><b id="cd-m">00</b><span>min</span></div>
-        <div><b id="cd-s">00</b><span>seg</span></div>
-      </div>
-      <p class="cd-local" data-local hidden></p>
 
       <ul class="items">{item('workbook', ICO_DOC, 'Workbook', 'Resumen de la clase y accionables concretos, en formato de hacer.')}{item('grabacion', ICO_PLAY, 'Grabación', 'La clase completa, tuya para siempre.')}
       </ul>
@@ -243,31 +228,16 @@ var OFF=-3;
 function arg(ts){{ var d=new Date(ts+OFF*3600000); return {{dow:d.getUTCDay(),dia:d.getUTCDate(),mes:d.getUTCMonth(),hh:d.getUTCHours(),mm:d.getUTCMinutes()}}; }}
 var pC=CFG.CLASE.split('-'), tsClase=Date.UTC(+pC[0],+pC[1]-1,+pC[2],12-OFF);
 var tsListo=Date.parse(CFG.LISTO);
-var c=arg(tsClase), l=arg(tsListo);
+var c=arg(tsClase);
 var F={{
   claseLarga: DIAS[c.dow].charAt(0).toUpperCase()+DIAS[c.dow].slice(1)+' '+c.dia+' de '+MESES[c.mes],
-  listoLarga: DIAS[l.dow]+' '+l.dia+' de '+MESES[l.mes]+' a las '+pad(l.hh)+':'+pad(l.mm)+' hs (Argentina)',
-  listoCorta: l.dia+'/'+(l.mes+1)+' · '+pad(l.hh)+':'+pad(l.mm)
+  claseDia: DIAS[c.dow]
 }};
 [].forEach.call(document.querySelectorAll('[data-fecha]'), function(e){{ var k=e.getAttribute('data-fecha'); if(F[k]) e.textContent=F[k]; }});
 
-/* hora local, si no es Argentina */
-(function(){{
-  var el=document.querySelector('[data-local]'); if(!el) return;
-  var tz; try{{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone; }}catch(e){{ return; }}
-  if(!tz || /Argentina|Buenos_Aires|Cordoba|Mendoza|Salta|Tucuman|Jujuy|Catamarca|La_Rioja|Rio_Gallegos|San_Juan|San_Luis|Ushuaia/.test(tz)) return;
-  try{{
-    var d=new Date(tsListo);
-    var hora=new Intl.DateTimeFormat('es',{{timeZone:tz,hour:'2-digit',minute:'2-digit',hourCycle:'h23'}}).format(d);
-    var dia=new Intl.DateTimeFormat('es',{{timeZone:tz,weekday:'long',day:'numeric'}}).format(d);
-    el.innerHTML='En tu zona horaria: <b>'+dia.replace(',','')+', '+hora+' hs</b>';
-    el.hidden=false;
-  }}catch(e){{}}
-}})();
-
-/* el contador, y el cambio de estado cuando llega */
+/* El cambio de estado a la hora configurada (LISTO). No se muestra ninguna
+   hora: la página sólo dice «después de la clase». */
 var card=document.getElementById('clase');
-var E={{d:document.getElementById('cd-d'),h:document.getElementById('cd-h'),m:document.getElementById('cd-m'),s:document.getElementById('cd-s')}};
 function listo(){{
   card.setAttribute('data-listo','');
   var t=card.querySelector('[data-cuando-listo-txt]'); if(t) t.hidden=false;
@@ -282,9 +252,7 @@ function listo(){{
 function tick(){{
   var r=tsListo-ahora();
   if(r<=0){{ listo(); return; }}
-  var d=Math.floor(r/86400000), h=Math.floor(r%86400000/3600000), m=Math.floor(r%3600000/60000), s=Math.floor(r%60000/1000);
-  E.d.textContent=pad(d); E.h.textContent=pad(h); E.m.textContent=pad(m); E.s.textContent=pad(s);
-  setTimeout(tick, 1000-(Date.now()%1000));
+  setTimeout(tick, Math.min(r, 60000));   /* vuelve a mirar cada minuto, o justo cuando llega */
 }}
 tick();
 }})();
