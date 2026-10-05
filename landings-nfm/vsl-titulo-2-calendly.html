@@ -1582,7 +1582,7 @@ section,.trust,footer.foot{position:relative;z-index:2}
 </script>
 
 
-<!-- ═══ PANEL DE APLICACIÓN · survey de GHL embebido (el video sigue sonando) ═══
+<!-- ═══ PANEL DE AGENDA · calendario de Calendly embebido (el video sigue sonando) ═══
      · En desktop el panel entra por la derecha y empuja la página: el video queda a la vista
        y se puede seguir usando (pausar, adelantar) porque el panel no bloquea la página.
      · En mobile sube como hoja inferior; el audio del video sigue corriendo.
@@ -1609,15 +1609,16 @@ section,.trust,footer.foot{position:relative;z-index:2}
   .agd-x:focus-visible{outline:3px solid var(--nfm-orange);outline-offset:2px}
   .agd-body{flex:1 1 auto;display:flex;flex-direction:column;overflow-y:auto;
     -webkit-overflow-scrolling:touch;padding:8px 14px 10px}
-  /* el iframe ocupa todo el alto libre del panel y hace su propio scroll:
-     el botón de enviar siempre queda alcanzable, con o sin auto-alto de GHL */
-  .agd-body iframe{flex:1 1 auto;width:100%;min-height:460px;border:0;display:block}
-  /* cuando el alto lo maneja form_embed.js, el iframe no debe encogerse */
-  .agd-body iframe.agd-frame--auto{flex:0 0 auto;min-height:660px}
+  /* el calendario ocupa todo el alto libre del panel y hace su propio scroll:
+     el botón de confirmar de Calendly siempre queda alcanzable */
+  .agd-cal{position:relative;flex:1 1 auto;min-width:300px;min-height:520px}
+  .agd-cal::before{content:"Cargando el calendario…";position:absolute;top:56px;left:0;right:0;
+    text-align:center;color:var(--muted);font-size:14px}
+  .agd-cal iframe{position:relative;z-index:1;display:block;width:100%;height:100%;border:0}
   .agd-ph{min-height:340px;display:flex;align-items:center;justify-content:center;text-align:center;
     padding:28px;color:var(--muted);font-size:14px;background:#f4f6f8;border-radius:12px;margin-top:8px}
   .agd-ph a{color:var(--nfm-orange-text);font-weight:700}
-  /* respaldo: sólo se muestra si el formulario no llegó a cargar */
+  /* respaldo: sólo se muestra si el calendario no llegó a cargar */
   .agd-alt{display:none;flex:0 0 auto;text-align:center;margin-top:12px;font-family:'JetBrains Mono',monospace;
     font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mono-grey);text-decoration:none}
   .agd-alt.is-on{display:block}
@@ -1639,29 +1640,30 @@ section,.trust,footer.foot{position:relative;z-index:2}
     .agd-head h3{font-size:17px}
     .agd-mono{margin-bottom:6px}
     .agd-body{padding:6px 10px 8px}
+    .agd-cal{min-height:440px}
     .agd-drawer.open .agd-panel{transform:none}
     body.agd-lock{overflow:hidden}
   }
 </style>
 
 <div class="agd-drawer" id="agdModal">
-  <aside class="agd-panel" role="dialog" aria-label="Aplicación al Instituto de Productividad">
+  <aside class="agd-panel" role="dialog" aria-label="Agendá tu entrevista con el Instituto de Productividad">
     <header class="agd-head">
       <div>
         <span class="agd-mono">◆ Aplicación</span>
-        <h3>Contanos tu caso y elegí el día de tu entrevista</h3>
+        <h3>Elegí el día y el horario de tu entrevista</h3>
       </div>
       <button class="agd-x" type="button" id="agdX" onclick="agdClose()" aria-label="Cerrar">✕</button>
     </header>
     <div class="agd-body" id="agdBody">
-      <div class="agd-ph">Cargando el formulario…</div>
+      <div class="agd-ph">Cargando el calendario…</div>
     </div>
   </aside>
 </div>
 
 <script>
-/* ---------- Panel de aplicación: survey de GHL embebido (sin redirigir) ---------- */
-var agdLoaded=false, agdAbierto=false;
+/* ---------- Panel de agenda: calendario de Calendly embebido (sin redirigir) ---------- */
+var agdLoaded=false, agdAbierto=false, agdCalListo=false;
 
 function agdEsDesktop(){ return window.matchMedia('(min-width:1080px)').matches; }
 
@@ -1671,7 +1673,7 @@ function agdOpen(origen){
   document.getElementById('agdModal').classList.add('open');
   document.body.classList.add('agd-open');
   if(!agdEsDesktop()) document.body.classList.add('agd-lock');
-  agdCargarSurvey();
+  agdCargarCalendario();
   /* En desktop el video queda a la vista: solo movemos la página si se salió de pantalla */
   if(agdEsDesktop()){
     var v=document.getElementById('vslFrame');
@@ -1699,65 +1701,64 @@ function agdClose(){
   setTimeout(function(){ try{ window.dispatchEvent(new Event('resize')); }catch(e){} },460);
 }
 
-function agdCargarSurvey(){
+/* UTM que viajan a Calendly: los de la URL de la página + la versión y el título de
+   esta VSL, para contar agendas por video y por título. */
+function agdUTM(){
+  var p=new URLSearchParams(location.search), u={};
+  if(p.get('utm_source'))   u.utmSource=p.get('utm_source');
+  if(p.get('utm_medium'))   u.utmMedium=p.get('utm_medium');
+  if(p.get('utm_campaign')) u.utmCampaign=p.get('utm_campaign');
+  if(CONFIG.VERSION)        u.utmContent=CONFIG.VERSION;
+  var titulo=tituloVSL();
+  if(titulo)                u.utmTerm=titulo;
+  return u;
+}
+
+function agdCargarCalendario(){
   if(agdLoaded) return;
   var box=document.getElementById('agdBody'); if(!box) return;
-  var url=CONFIG.SURVEY_URL;
+  var url=CONFIG.CALENDLY_URL;
   if(!url){
-    box.innerHTML='<div class="agd-ph">Pegá el link del survey en <b>CONFIG.SURVEY_URL</b> para mostrarlo acá.</div>';
+    box.innerHTML='<div class="agd-ph">Pegá el link de Calendly en <b>CONFIG.CALENDLY_URL</b> para mostrarlo acá.</div>';
     return;
   }
   agdLoaded=true;
-  var sep=url.indexOf('?')<0?'?':'&';
-  var full=url+sep+'utm_source='+encodeURIComponent(getUTM())+'&utm_content='+encodeURIComponent(CONFIG.VERSION||'');
-  var titulo=tituloVSL();
-  if(titulo && CONFIG.CAMPO_TITULO) full+='&'+CONFIG.CAMPO_TITULO+'='+encodeURIComponent(titulo);
+  var utm=agdUTM(), q=[], claves={utmSource:'utm_source',utmMedium:'utm_medium',utmCampaign:'utm_campaign',utmContent:'utm_content',utmTerm:'utm_term'};
+  for(var k in utm) q.push(claves[k]+'='+encodeURIComponent(utm[k]));
+  var full=url+(q.length?(url.indexOf('?')<0?'?':'&')+q.join('&'):'');
 
-  if(CONFIG.REDIRECCION_EN_PANEL){
-    /* La redirección de GHL ocurre adentro del iframe: sea al calendario o a la
-       página de descalificado, la persona llega a donde el survey decidió, sin
-       salir de la landing. Sin sandbox (para no bloquear nada) y sin
-       form_embed.js (que es el que llevaría la página entera). El alto lo
-       resuelve el layout: el iframe ocupa todo el panel y scrollea solo. */
-    box.innerHTML='<iframe id="agdFrame" src="'+full+'" allow="payment" '+
-                  'title="Aplicación al Instituto de Productividad" '+
-                  'scrolling="auto" style="border:none;width:100%;"></iframe>'+
-                  '<a class="agd-alt" href="'+full+'" target="_blank" rel="noopener">Abrir en una pestaña →</a>';
-  }else{
-    /* MODO CLÁSICO (por defecto) · form_embed.js le da el alto automático y GHL
-       hace su propia redirección, respetando toda su lógica condicional. */
-    box.innerHTML='<iframe id="agdFrame" class="agd-frame--auto" src="'+full+'" allow="payment" '+
-                  'title="Aplicación al Instituto de Productividad" '+
-                  'scrolling="no" style="border:none;width:100%;"></iframe>'+
-                  '<a class="agd-alt" href="'+full+'" target="_blank" rel="noopener">Abrir en una pestaña →</a>';
-    if(!document.getElementById('ghl-embed-js')){
-      var sc=document.createElement('script');
-      sc.id='ghl-embed-js'; sc.src='https://link.msgsndr.com/js/form_embed.js'; sc.async=true;
-      document.head.appendChild(sc);
-    }
+  box.innerHTML='<div class="agd-cal" id="agdCal"></div>'+
+                '<a class="agd-alt" href="'+full.replace(/&/g,'&amp;')+'" target="_blank" rel="noopener">Abrir el calendario en una pestaña →</a>';
+  var alt=box.querySelector('.agd-alt');
+  function respaldo(){ if(alt) alt.classList.add('is-on'); }
+
+  function iniciar(){
+    try{
+      window.Calendly.initInlineWidget({ url:url, parentElement:document.getElementById('agdCal'), utm:utm });
+    }catch(e){ respaldo(); }
+  }
+  if(window.Calendly && window.Calendly.initInlineWidget){ iniciar(); }
+  else{
+    var sc=document.createElement('script');
+    sc.src='https://assets.calendly.com/assets/external/widget.js'; sc.async=true;
+    sc.onload=iniciar; sc.onerror=respaldo;
+    document.head.appendChild(sc);
   }
 
-  /* respaldo: si el formulario no llegó a cargar, ofrecemos abrirlo en una pestaña */
-  var fr0=document.getElementById('agdFrame'), alt=box.querySelector('.agd-alt'), cargo=false;
-  if(fr0) fr0.addEventListener('load',function(){ cargo=true; });
-  setTimeout(function(){ if(!cargo && alt) alt.classList.add('is-on'); }, 7000);
+  /* respaldo: si el calendario no llegó a cargar, ofrecemos abrirlo en una pestaña */
+  setTimeout(function(){ if(!agdCalListo) respaldo(); }, 8000);
 }
 
-/* En modo panel replicamos lo único útil de form_embed.js: el alto automático.
-   No interceptamos ni redirigimos nada — el destino lo decide siempre GHL. */
+/* Eventos que manda Calendly desde su iframe: confirma que cargó y avisa cuando
+   la persona agenda (Meta Pixel "Schedule" + registro en Sheets). */
 window.addEventListener('message', function(ev){
-  if(!CONFIG.REDIRECCION_EN_PANEL) return;
-  if(!/leadconnectorhq|msgsndr|gohighlevel/i.test(ev.origin||'')) return;
-  var fr=document.getElementById('agdFrame'); if(!fr) return;
-  var d=ev.data, txt='';
-  try{ txt=(typeof d==='string')?d:JSON.stringify(d); }catch(e){ return; }
-  if(typeof d==='string'){ try{ d=JSON.parse(d); }catch(e){ d={}; } }
-  if(!d || typeof d!=='object') d={};
-  var h=(d.height||d.frameHeight) || (txt.match(/"(?:height|frameHeight)"\s*:\s*"?(\d+)/)||[])[1];
-  if(h && +h>200){
-    var libre=fr.parentNode ? fr.parentNode.clientHeight : 0;
-    if(+h > libre){ fr.style.flex='0 0 auto'; fr.style.height=(+h)+'px'; }
-    else { fr.style.flex=''; fr.style.height=''; }
+  if(!/^https:\/\/([a-z0-9-]+\.)*calendly\.com$/i.test(ev.origin||'')) return;
+  var d=ev.data;
+  if(!d || typeof d.event!=='string' || d.event.indexOf('calendly.')!==0) return;
+  agdCalListo=true;
+  if(d.event==='calendly.event_scheduled'){
+    if(CONFIG.PIXEL_AGENDA && typeof window.fbq==='function'){ try{ fbq('track','Schedule'); }catch(e){} }
+    enviarASheets({tipo:'agendado', version:CONFIG.VERSION, titulo:tituloVSL(), fuente:getUTM(), url:location.href});
   }
 }, false);
 
@@ -1794,38 +1795,21 @@ window.addEventListener('DOMContentLoaded',function(){
    ⚙️  CONFIG — EDITÁ SOLO ESTO
    ========================================================================= */
 const CONFIG = {
-  // Survey de GoHighLevel que se abre EMBEBIDO en el panel lateral (nunca redirige).
-  // Al enviarlo, GHL sigue al calendario DENTRO del mismo iframe: la persona no se va
-  // de la página y el video sigue sonando.
-  SURVEY_URL: "https://api.leadconnectorhq.com/widget/survey/of5CdYfnDItzOsvtJ7lz",
+  // Calendario de Calendly que se abre EMBEBIDO en el panel lateral (nunca redirige).
+  // La persona elige día y horario sin irse de la página, y el video sigue sonando.
+  CALENDLY_URL: "https://calendly.com/nicolasfernandezmiranda/sesion-de-claridad-conf-clon",
 
-  // ── Qué pasa al enviar el survey ────────────────────────────────────────
-  // El survey de GHL decide solo a dónde va cada persona: los que califican al
-  // calendario, y los que la lógica condicional descalifica a su propia página.
-  // Nosotros NO tocamos ese destino nunca: lo respetamos tal cual.
-  //
-  // false (por defecto) → GHL redirige la página entera. La persona sale de la
-  //                       landing, pero llega siempre a donde corresponde.
-  //                       Es el camino probado.
-  // true                → la redirección ocurre DENTRO del panel: la persona no
-  //                       sale de la landing y el video sigue sonando.
-  //                       Requiere que las páginas de destino se dejen mostrar
-  //                       embebidas. Probalo en la página publicada antes de
-  //                       dejarlo prendido.
-  REDIRECCION_EN_PANEL: false,
+  // Cuando alguien confirma la reunión en Calendly se dispara el evento "Schedule"
+  // del Meta Pixel. Si ya medís las agendas con la integración de Meta dentro de
+  // Calendly, ponelo en false para no contarlas dos veces.
+  PIXEL_AGENDA: true,
 
-
-  // Etiqueta de esta version: viaja al survey como utm_content para saber
-  // que VSL genero cada lead.
+  // Etiqueta de esta version: viaja a Calendly como utm_content para saber
+  // que VSL genero cada agenda.
   VERSION: "vsl-titulo-2",
 
-  // Campo del survey de GHL que recibe el titulo de Vturb que vio la persona.
-  // En GHL: campo personalizado "Titulo VSL" con Query Key igual a este valor.
-  // Si le pones otra Query Key en GHL, cambiala aca tambien.
-  CAMPO_TITULO: "titulo_vsl",
-
-  // Titulo de esta pagina: viaja al survey en titulo_vsl y manda sobre cualquier
-  // titulo que cargues en Vturb para este video.
+  // Titulo de esta pagina: viaja a Calendly como utm_term (Calendly no recibe
+  // campos propios por URL) y manda sobre cualquier titulo que cargues en Vturb.
   TITULO: "t2-sueno-salud-familia",
 
   // Base de datos (mismo endpoint que la landing madre para unificar leads).
@@ -1846,7 +1830,7 @@ const IMG = {
 
 /* ---------- Titulo de Vturb que vio esta persona ----------
    Cada titulo cargado en Vturb deja su codigo en window.NFM_TITULO (pestaña JS
-   de cada titulo en Vturb). Viaja al survey para contar registros y agendas por titulo. */
+   de cada titulo en Vturb). Viaja a Calendly para contar agendas por titulo. */
 function tituloVSL(){
   var t=CONFIG.TITULO||window.NFM_TITULO||'';
   if(!t){ try{ t=sessionStorage.getItem('nfm_titulo')||''; }catch(e){} }
