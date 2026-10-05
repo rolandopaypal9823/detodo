@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema Done For You para reparadores de crédito — Flowscale</title>
+<meta name="description" content="Instalamos el sistema completo de adquisición de clientes para tu compañía de reparación de crédito: ads, landing, CRM, agenda y seguimiento conectados. Agenda tu llamada de estrategia.">
+
+<!-- Meta Pixel Code — inicializado aquí (no solo confiando en el tracking
+     de sitio de GHL) porque el elemento "Custom Code" de GHL renderiza esta
+     página completa dentro de su propio iframe, y el fbq() de la página
+     padre no es visible en esta ventana separada. Esta página SÍ dispara su
+     propio PageView (a diferencia del patrón "no duplicar" de otras
+     páginas del sitio) porque este Custom Code es el contenido completo de
+     la página — no hay un PageView externo del que depender.
+     -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1192208512892781');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Caveat:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --crema:#F7F1E6;
+    --arena:#E8DAC6;
+    --espresso:#2A211A;
+    --taupe:#A2907F;
+    --terracota:#C0674A;
+    --salmon:#E8A98C;
+    --azul:#5F7382;
+    --shadow: 0 20px 50px -20px rgba(42,33,26,0.28);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background:var(--crema);
+    color:var(--espresso);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Playfair Display',serif;font-weight:500;margin:0;}
+  .cursive{font-family:'Caveat',cursive;font-weight:700;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  .container{max-width:720px;margin:0 auto;padding:0 24px;}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--terracota);color:var(--crema);border:none;
+    padding:17px 28px;border-radius:10px;font-family:'Inter',sans-serif;
+    font-weight:600;font-size:14.5px;letter-spacing:.4px;text-transform:uppercase;
+    cursor:pointer;transition:transform .15s ease, background .2s ease;
+    box-shadow:0 12px 26px -10px rgba(192,103,74,0.55);
+    text-decoration:none;
+  }
+  .btn:hover{background:#a85940;transform:translateY(-2px);}
+  .btn:active{transform:translateY(0);}
+  .btn.outline{background:transparent;color:var(--terracota);border:1.5px solid var(--terracota);box-shadow:none;}
+  .btn.outline:hover{background:rgba(192,103,74,0.08);}
+  .btn.block{width:100%;padding:16px;}
+
+  .eyebrow{
+    display:block;font-size:12px;font-weight:600;letter-spacing:1.8px;
+    text-transform:uppercase;color:var(--taupe);margin-bottom:14px;
+  }
+
+  .topbar{background:var(--espresso);color:var(--crema);padding:12px 0;text-align:center;}
+  .topbar span{font-size:11.5px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;opacity:.85;}
+
+  /* HERO */
+  .hero{padding:52px 0 40px;text-align:center;background:var(--crema);}
+  .hero h1{font-size:clamp(26px,4.6vw,38px);line-height:1.22;margin:0 0 16px;}
+  .hero h1 .accent{color:var(--terracota);}
+  .hero p.lead{font-size:16px;color:var(--espresso);opacity:.82;max-width:520px;margin:0 auto 30px;}
+
+  .video-wrap{
+    width:100%;border-radius:16px;overflow:hidden;
+    box-shadow:var(--shadow);border:1px solid rgba(42,33,26,0.1);
+    margin-bottom:28px;background:var(--espresso);
+  }
+
+  .hero-note{margin-top:16px;font-size:13px;color:var(--taupe);}
+
+  /* BENEFITS STRIP */
+  .benefits{background:var(--arena);padding:52px 0;}
+  .benefits .section-head{text-align:center;margin:0 auto 34px;max-width:560px;}
+  .benefits .section-head h2{font-size:26px;}
+  .benefits .section-head p{font-size:14.5px;color:var(--espresso);opacity:.78;margin-top:10px;}
+  .benefit-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .benefit-card{background:var(--crema);border-radius:14px;padding:22px 20px;border:1px solid rgba(42,33,26,0.08);}
+  .benefit-card .num{font-family:'Playfair Display',serif;font-size:22px;color:var(--terracota);margin-bottom:8px;display:block;}
+  .benefit-card h3{font-size:16px;margin-bottom:6px;}
+  .benefit-card p{font-size:13.5px;color:var(--espresso);opacity:.78;margin:0;}
+
+  /* QUOTE / POSITIONING */
+  .quote-section{background:var(--espresso);color:var(--crema);padding:56px 0;text-align:center;}
+  .quote-section .container{max-width:600px;}
+  .quote-section p.big{font-family:'Playfair Display',serif;font-size:clamp(20px,3.4vw,27px);line-height:1.35;margin:0 0 18px;}
+  .quote-section p.small{font-size:14.5px;color:var(--salmon);opacity:.95;margin:0;}
+  .quote-section .accent-dark{color:var(--salmon);font-family:'Caveat',cursive;font-weight:700;font-size:1.15em;}
+
+  /* CLIENTE IDEAL */
+  .fit{padding:56px 0;background:var(--crema);}
+  .fit .section-head{text-align:center;max-width:560px;margin:0 auto 30px;}
+  .fit .section-head h2{font-size:26px;}
+  .fit-list{display:flex;flex-direction:column;gap:12px;max-width:560px;margin:0 auto 34px;}
+  .fit-item{display:flex;align-items:flex-start;gap:12px;background:var(--arena);border-radius:12px;padding:15px 18px;}
+  .fit-item .check{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--terracota);color:var(--crema);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;margin-top:1px;}
+  .fit-item p{margin:0;font-size:14.5px;}
+  .fit-cta{text-align:center;}
+
+  /* WIZARD */
+  #formulario{scroll-margin-top:24px;padding:56px 0 60px;background:var(--arena);}
+  .form-intro{text-align:center;margin-bottom:24px;max-width:560px;margin-left:auto;margin-right:auto;}
+  .form-intro h2{font-size:26px;margin-bottom:8px;}
+  .form-intro p{font-size:14.5px;color:var(--espresso);opacity:.78;margin:0;}
+
+  .wizard{
+    background:var(--crema);border-radius:20px;width:100%;box-shadow:var(--shadow);
+    overflow:hidden;position:relative;border:1px solid rgba(42,33,26,0.08);
+  }
+  .wizard-head{padding:22px 26px 0;}
+  .wizard-progress-wrap{padding:0 26px;margin-top:14px;}
+  .wizard-progress-track{height:6px;background:var(--arena);border-radius:10px;overflow:hidden;}
+  .wizard-progress-fill{height:100%;width:0%;background:var(--terracota);transition:width .35s ease;}
+  .wizard-step-label{font-size:11.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--taupe);}
+  .wizard-body{padding:28px 26px 24px;min-height:290px;}
+  .step{display:none;animation:fadeIn .3s ease;}
+  .step.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .step h3{font-size:19px;margin:0 0 18px;line-height:1.32;}
+  .field input[type=text],
+  .field input[type=email],
+  .field input[type=tel]{
+    width:100%;padding:14px 16px;border-radius:10px;border:1.5px solid var(--arena);font-size:15px;
+    font-family:inherit;background:var(--crema);color:var(--espresso);
+  }
+  .field input:focus{outline:none;border-color:var(--terracota);}
+  .phone-row{display:flex;align-items:center;gap:10px;}
+  .phone-prefix{font-size:15px;font-weight:600;color:var(--taupe);padding:0 4px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option{
+    display:flex;align-items:flex-start;gap:12px;padding:15px 16px;border:1.5px solid var(--arena);border-radius:12px;
+    cursor:pointer;transition:border .15s ease, background .15s ease;background:var(--crema);
+  }
+  .option:hover{border-color:var(--terracota);}
+  .option.selected{border-color:var(--terracota);background:rgba(192,103,74,0.08);}
+  .option input{margin-top:3px;accent-color:var(--terracota);width:16px;height:16px;flex-shrink:0;}
+  .option span{font-size:14.5px;color:var(--espresso);}
+  .error-msg{color:#a4402f;font-size:13px;margin-top:10px;display:none;}
+  .wizard-footer{display:flex;flex-direction:column;align-items:center;padding:0 26px 26px;gap:10px;}
+  .wizard-footer .btn{width:100%;padding:15px;}
+  .link-back{background:none;border:none;color:var(--taupe);font-size:14px;cursor:pointer;font-weight:600;padding:8px;align-self:center;order:2;}
+  #nextBtn{order:1;}
+
+  .result{text-align:center;padding:10px 4px 4px;}
+  .result .icon{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:26px;}
+  .result.qualified .icon{background:rgba(192,103,74,0.14);color:var(--terracota);}
+  .result.disqualified .icon{background:var(--arena);color:var(--taupe);}
+  .result h3{margin:0 0 8px;font-size:20px;}
+  .result p{color:var(--espresso);opacity:.78;font-size:14.5px;margin:0 0 20px;}
+  .alt-offer{background:var(--arena);border-radius:14px;padding:20px;margin-top:6px;text-align:left;}
+  .alt-offer h4{margin:0 0 8px;font-size:15px;font-family:'Inter',sans-serif;font-weight:600;}
+  .alt-offer p{margin:0 0 14px;font-size:13.5px;}
+
+  footer{padding:36px 0 28px;text-align:center;background:var(--espresso);color:var(--crema);}
+  footer .brand-line{font-family:'Caveat',cursive;font-weight:700;font-size:20px;color:var(--salmon);margin-bottom:6px;}
+  footer .copy{font-size:12px;opacity:.7;}
+  footer .fine{max-width:560px;margin:14px auto 0;font-size:10.5px;opacity:.55;line-height:1.6;}
+
+  @media (max-width:600px){
+    .benefit-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:480px){
+    .wizard-body{padding:22px 18px 18px;}
+    .wizard-footer{padding:0 18px 20px;}
+
+    /* Hero más liviano en móvil: menos aire, textos más cortos y con
+       menos peso visual antes de llegar al video, que es lo que vende. */
+    .topbar{padding:9px 0;}
+    .topbar span{font-size:10px;letter-spacing:1px;}
+    .hero{padding:32px 0 26px;}
+    .hero .container{padding:0 20px;}
+    .eyebrow{font-size:10.5px;letter-spacing:1px;line-height:1.5;margin-bottom:12px;max-width:300px;margin-left:auto;margin-right:auto;}
+    .hero h1{font-size:23px;line-height:1.28;margin-bottom:12px;}
+    .hero p.lead{font-size:14px;line-height:1.55;margin-bottom:22px;max-width:320px;margin-left:auto;margin-right:auto;}
+    .video-wrap{margin-bottom:20px;}
+    .hero-note{font-size:11.5px;margin-top:12px;max-width:280px;margin-left:auto;margin-right:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"><span>Flowscale · Sistemas de adquisición de clientes</span></div>
+
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">Reparadores de crédito en EE. UU. · $5,000–$10,000+/mes</span>
+    <h1>Deja de ser el <span class="cursive accent">cuello de botella</span> de tu compañía de reparación de crédito</h1>
+    <p class="lead">Instalamos el sistema que atrae prospectos, convierte su atención en llamadas calificadas y organiza el seguimiento — para que crezcas sin operar tú mismo cada parte del embudo.</p>
+
+    <div class="video-wrap">
+      <!-- El wrapper reserva la proporción 16:9 (padding 56.25%) antes de
+           que cargue el script del player, para que el layout no colapse
+           mientras carga. Vturb ya envía su propio evento de % de
+           reproducción al Meta Pixel local inicializado en el <head>. -->
+      <vturb-smartplayer id="vid-6ab1fbade7e798d6050df145" style="display: block; margin: 0 auto; width: 100%; "><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 56.25% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer>
+      <script type="text/javascript">
+        var s=document.createElement("script");
+        s.src="https://scripts.converteai.net/10da18d5-3f8e-414f-b134-bf64c6b2b3ab/players/6ab1fbade7e798d6050df145/v4/player.js",
+        s.async=!0,document.head.appendChild(s);
+      </script>
+    </div>
+
+    <a class="btn" href="#formulario">Agenda tu llamada de estrategia</a>
+    <div class="hero-note">Completa una breve aplicación para confirmar si este sistema encaja con la etapa actual de tu negocio.</div>
+  </div>
+</section>
+
+<section class="benefits">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Qué instalamos</span>
+      <h2>Un sistema conectado, no piezas sueltas</h2>
+      <p>No recibes un anuncio aislado, una página suelta o un CRM vacío. Recibes el embudo completo, listo para operar.</p>
+    </div>
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <span class="num">01</span>
+        <h3>Estrategia + anuncios</h3>
+        <p>Campañas en Facebook e Instagram dirigidas a tu cliente ideal.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="num">02</span>
+        <h3>Landing + VSL</h3>
+        <p>Una página que presenta tu oferta y filtra al prospecto correcto.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="num">03</span>
+        <h3>CRM + agenda</h3>
+        <p>Automatizaciones, recordatorios y calendario conectado a tu equipo.</p>
+      </div>
+      <div class="benefit-card">
+        <span class="num">04</span>
+        <h3>Control de leads</h3>
+        <p>Visibilidad total de cada oportunidad y qué acción sigue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section">
+  <div class="container">
+    <p class="big">No vendemos anuncios aislados, una página suelta ni un CRM vacío.</p>
+    <p class="small">Instalamos un <span class="accent-dark">sistema conectado</span> que te ayuda a dejar de depender de procesos manuales y a operar la adquisición de clientes con estructura.</p>
+  </div>
+</section>
+
+<section class="fit">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Es para ti si...</span>
+      <h2>Este sistema fue diseñado para tu etapa</h2>
+    </div>
+    <div class="fit-list">
+      <div class="fit-item"><span class="check">✓</span><p>Operas una compañía de reparación de crédito en Estados Unidos.</p></div>
+      <div class="fit-item"><span class="check">✓</span><p>Facturas aproximadamente entre $5,000 y $10,000 al mes o más.</p></div>
+      <div class="fit-item"><span class="check">✓</span><p>Ya tienes clientes y una oferta que el mercado ha validado.</p></div>
+      <div class="fit-item"><span class="check">✓</span><p>Hoy dependes demasiado de referidos, mensajes manuales o esfuerzos inconsistentes.</p></div>
+      <div class="fit-item"><span class="check">✓</span><p>Tienes capacidad para atender nuevas llamadas y estás dispuesto a invertir en crecimiento.</p></div>
+    </div>
+    <div class="fit-cta">
+      <a class="btn outline" href="#formulario">Ver si encajo →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EMBEDDED WIZARD ===================== -->
+<section id="formulario">
+  <div class="container">
+    <div class="form-intro">
+      <span class="eyebrow">Aplicación de 4 preguntas · menos de 1 minuto</span>
+      <h2>Agenda tu llamada de estrategia</h2>
+      <p>Responde estas preguntas para confirmar si este sistema encaja con tu negocio antes de acceder al calendario.</p>
+    </div>
+    <div class="wizard">
+    <div class="wizard-head">
+      <span class="wizard-step-label" id="stepLabel">Paso 1 de 8</span>
+    </div>
+    <div class="wizard-progress-wrap">
+      <div class="wizard-progress-track"><div class="wizard-progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <div class="wizard-body" id="wizardBody">
+
+      <!-- STEP 1: Facturación (GATE) -->
+      <div class="step active" data-step="1">
+        <h3>¿Cuánto factura actualmente tu compañía de reparación de crédito al mes?</h3>
+        <div class="options" data-group="facturacion">
+          <label class="option"><input type="radio" name="facturacion" value="Menos de $5,000" data-qualifies="no"><span>Menos de $5,000</span></label>
+          <label class="option"><input type="radio" name="facturacion" value="$5,000 a $10,000" data-qualifies="yes"><span>$5,000 a $10,000</span></label>
+          <label class="option"><input type="radio" name="facturacion" value="$10,001 a $20,000" data-qualifies="yes"><span>$10,001 a $20,000</span></label>
+          <label class="option"><input type="radio" name="facturacion" value="Más de $20,000" data-qualifies="yes"><span>Más de $20,000</span></label>
+        </div>
+        <div class="error-msg" id="err1">Selecciona una opción para continuar.</div>
+      </div>
+
+      <!-- STEP 2: Clientes activos -->
+      <div class="step" data-step="2">
+        <h3>¿Cuántos clientes activos atiende tu negocio actualmente?</h3>
+        <div class="options" data-group="clientes">
+          <label class="option"><input type="radio" name="clientes" value="0 a 5 clientes"><span>0 a 5 clientes</span></label>
+          <label class="option"><input type="radio" name="clientes" value="6 a 15 clientes"><span>6 a 15 clientes</span></label>
+          <label class="option"><input type="radio" name="clientes" value="16 a 30 clientes"><span>16 a 30 clientes</span></label>
+          <label class="option"><input type="radio" name="clientes" value="Más de 30 clientes"><span>Más de 30 clientes</span></label>
+        </div>
+        <div class="error-msg" id="err2">Selecciona una opción para continuar.</div>
+      </div>
+
+      <!-- STEP 3: Mayor obstáculo -->
+      <div class="step" data-step="3">
+        <h3>¿Cuál es hoy tu mayor obstáculo para crecer?</h3>
+        <div class="options" data-group="obstaculo">
+          <label class="option"><input type="radio" name="obstaculo" value="No genero suficientes oportunidades calificadas"><span>No genero suficientes oportunidades calificadas</span></label>
+          <label class="option"><input type="radio" name="obstaculo" value="Dependo de referidos o contenido orgánico"><span>Dependo de referidos o contenido orgánico</span></label>
+          <label class="option"><input type="radio" name="obstaculo" value="Tengo leads, pero el seguimiento es manual o desorganizado"><span>Tengo leads, pero el seguimiento es manual o desorganizado</span></label>
+          <label class="option"><input type="radio" name="obstaculo" value="Yo sigo siendo el cuello de botella de casi todo el proceso"><span>Yo sigo siendo el cuello de botella de casi todo el proceso</span></label>
+        </div>
+        <div class="error-msg" id="err3">Selecciona una opción para continuar.</div>
+      </div>
+
+      <!-- STEP 4: Timeline (no descalifica: solo define la prioridad) -->
+      <div class="step" data-step="4">
+        <h3>Si confirmamos que este sistema encaja con tu negocio, ¿qué tan pronto estás listo para implementarlo e invertir en tu crecimiento?</h3>
+        <div class="options" data-group="timeline">
+          <label class="option"><input type="radio" name="timeline" value="Inmediatamente"><span>Inmediatamente</span></label>
+          <label class="option"><input type="radio" name="timeline" value="En los próximos 30 días"><span>En los próximos 30 días</span></label>
+          <label class="option"><input type="radio" name="timeline" value="En 1 a 3 meses"><span>En 1 a 3 meses</span></label>
+          <label class="option"><input type="radio" name="timeline" value="Solo estoy explorando opciones"><span>Solo estoy explorando opciones</span></label>
+        </div>
+        <div class="error-msg" id="err4">Selecciona una opción para continuar.</div>
+      </div>
+
+      <!-- STEP 5: Nombre -->
+      <div class="step" data-step="5">
+        <h3>¿Cuál es tu nombre completo?</h3>
+        <div class="field">
+          <input type="text" id="fullName" placeholder="Ingresa aquí" autocomplete="name">
+          <div class="error-msg" id="err5">Por favor ingresa tu nombre completo.</div>
+        </div>
+      </div>
+
+      <!-- STEP 6: Correo -->
+      <div class="step" data-step="6">
+        <h3>¿Cuál es tu correo electrónico?</h3>
+        <div class="field">
+          <input type="email" id="email" placeholder="tucorreo@email.com" autocomplete="email">
+          <div class="error-msg" id="err6">Ingresa un correo electrónico válido.</div>
+        </div>
+      </div>
+
+      <!-- STEP 7: Teléfono -->
+      <div class="step" data-step="7">
+        <h3>¿Cuál es tu número de teléfono?</h3>
+        <div class="field">
+          <div class="phone-row">
+            <span class="phone-prefix">+1</span>
+            <input type="tel" id="phone" placeholder="(555) 123 4567" autocomplete="tel">
+          </div>
+          <div class="error-msg" id="err7">Ingresa un número de teléfono válido.</div>
+        </div>
+      </div>
+
+      <!-- STEP 8: Empresa -->
+      <div class="step" data-step="8">
+        <h3>¿Cuál es el nombre de tu empresa?</h3>
+        <div class="field">
+          <input type="text" id="empresa" placeholder="Nombre de tu compañía" autocomplete="organization">
+          <div class="error-msg" id="err8">Por favor ingresa el nombre de tu empresa.</div>
+        </div>
+      </div>
+
+      <!-- RESULT: QUALIFIED -->
+      <div class="step" data-step="qualified">
+        <div class="result qualified">
+          <div class="icon">✓</div>
+          <h3>Gracias, <span id="qualifiedName">amig@</span>. Tu negocio encaja con este sistema</h3>
+          <p>Te estamos abriendo el calendario en una pestaña nueva para que elijas el horario que mejor te funcione. Si no se abrió, usa el botón.</p>
+          <a class="btn block" id="bookingLinkBtn" href="#" target="_blank" rel="noopener">Elegir horario →</a>
+        </div>
+      </div>
+
+      <!-- RESULT: DISQUALIFIED -->
+      <div class="step" data-step="disqualified">
+        <div class="result disqualified">
+          <div class="icon">ℹ</div>
+          <h3>Gracias por tu tiempo, <span id="disqualifiedName">amig@</span></h3>
+          <p>Por ahora este sistema está pensado para negocios en una etapa distinta. Queremos entender mejor tu caso antes de recomendarte un siguiente paso.</p>
+          <div class="alt-offer">
+            <h4>Sigamos por WhatsApp</h4>
+            <p>Te abrimos WhatsApp automáticamente para contarnos tu caso directamente. Si no se abrió, usa el botón.</p>
+            <a class="btn block" id="altOfferBtn" href="#" target="_blank" rel="noopener">Continuar en WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="wizard-footer" id="wizardFooter">
+      <button class="link-back" id="backBtn" style="visibility:hidden;">← Atrás</button>
+      <button class="btn" id="nextBtn">Continuar →</button>
+    </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="brand-line">simpleza, seguridad &amp; joy</div>
+    <div class="copy">© <span id="year"></span> Flowscale. Sistema implementado por Flowscale.</div>
+    <p class="fine">Instalamos el sistema y simplificamos tu operación de adquisición de clientes. No garantizamos una cifra específica de leads, clientes o ingresos: el resultado también depende de tu oferta, presupuesto publicitario, mercado, seguimiento comercial y capacidad de cierre.</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- CONFIG — completar antes de publicar ---------- */
+var GHL_BOOKING_URL = 'https://api.leadconnectorhq.com/widget/booking/gnrTz48kz29L1ifiSn0B';
+var DISQUALIFIED_WHATSAPP_NUMBER = '14243132147'; // formato: código país + número, sin + ni espacios
+// Inbound Webhook del workflow de la cuenta nueva: crea/actualiza el
+// contacto con todas las respuestas del quiz.
+var GHL_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/zos8yS6edLzzrWczWWHh/webhook-trigger/29facbf5-f915-46ce-afba-2db10a3e2a33';
+// Avisa al canal de Discord del equipo apenas alguien termina el quiz. El
+// aviso de "agendó" lo manda GHL por separado, cuando la persona reserva.
+var DISCORD_WEBHOOK_URL = 'https://flowscale-hooks.netlify.app/hooks/ghl-discord?oferta=dfy&tipo=registro';
+
+// Fire-and-forget: ninguno de los dos avisos puede bloquear ni romper el
+// flujo del visitante, así que se disparan sin esperar respuesta y el error
+// queda solo en consola.
+function postJson(url, payload, label){
+  try {
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function(err){ console.warn(label + ' failed', err); });
+  } catch (e) { console.warn(label + ' failed', e); }
+}
+
+// Punto medio del rango de facturación seleccionado — usado como valor
+// estimado en el evento de conversión de Meta, para que la optimización
+// priorice leads de negocios más grandes, no solo volumen.
+function estimatedValueFromFacturacion(facturacion){
+  if (facturacion === '$5,000 a $10,000') return 7500;
+  if (facturacion === '$10,001 a $20,000') return 15000;
+  if (facturacion === 'Más de $20,000') return 25000;
+  return 0;
+}
+
+// GHL renderiza el "Custom Code" dentro de su propio iframe, así que el
+// fbq() de la página padre no es visible aquí. Los iframes same-origin
+// pueden alcanzarlo vía window.parent, así que se intenta eso antes de
+// usar el fbq local (con try/catch por si el padre fuera cross-origin).
+function getMetaPixel(){
+  if (typeof fbq === 'function') return fbq;
+  try {
+    if (window.parent && window.parent !== window && typeof window.parent.fbq === 'function') {
+      return window.parent.fbq;
+    }
+  } catch (e) { /* cross-origin parent, no se puede alcanzar su fbq */ }
+  return null;
+}
+
+function buildDisqualifiedWhatsAppUrl(firstName){
+  var msg = 'Hola, soy ' + (firstName || '') + ', acabo de registrarme.';
+  if (answers.obstaculo) msg += ' Mi mayor obstáculo es: ' + answers.obstaculo + '.';
+  if (answers.facturacion) msg += ' Mi facturación actual es: ' + answers.facturacion + '.';
+  msg += '\n\n¿Cuál es el siguiente paso para empezar?';
+  return 'https://wa.me/' + DISQUALIFIED_WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg);
+}
+
+var STEP_ORDER = ['1','2','3','4','5','6','7','8'];
+
+var wizardBody = document.getElementById('wizardBody');
+var steps = Array.prototype.slice.call(wizardBody.querySelectorAll('.step'));
+var stepLabel = document.getElementById('stepLabel');
+var progressFill = document.getElementById('progressFill');
+var backBtn = document.getElementById('backBtn');
+var nextBtn = document.getElementById('nextBtn');
+var wizardFooter = document.getElementById('wizardFooter');
+
+var currentIndex = 0;
+var answers = {
+  facturacion:'', facturacionQualifies:true,
+  clientes:'', obstaculo:'',
+  timeline:'',
+  qualifies:null, prioridad:''
+};
+
+function showStep(key){
+  steps.forEach(function(s){ s.classList.toggle('active', s.dataset.step === key); });
+  var idx = STEP_ORDER.indexOf(key);
+  if(idx > -1){
+    currentIndex = idx;
+    stepLabel.textContent = 'Paso ' + (idx+1) + ' de ' + STEP_ORDER.length;
+    progressFill.style.width = (((idx+1)/STEP_ORDER.length)*100) + '%';
+    backBtn.style.visibility = idx === 0 ? 'hidden' : 'visible';
+    wizardFooter.style.display = 'flex';
+    nextBtn.textContent = idx === STEP_ORDER.length - 1 ? 'Ver resultado →' : 'Continuar →';
+  } else {
+    progressFill.style.width = '100%';
+    stepLabel.textContent = key === 'qualified' ? '¡Listo!' : 'Resultado';
+    wizardFooter.style.display = 'none';
+  }
+  clearErrors();
+}
+
+function clearErrors(){
+  wizardBody.querySelectorAll('.error-msg').forEach(function(e){ e.style.display = 'none'; });
+}
+
+function showError(id){
+  var el = document.getElementById(id);
+  if(el) el.style.display = 'block';
+}
+
+function validateStep(key){
+  clearErrors();
+  if(key === '1'){
+    var c1 = wizardBody.querySelector('input[name="facturacion"]:checked');
+    if(!c1){ showError('err1'); return false; }
+    answers.facturacion = c1.value;
+    answers.facturacionQualifies = c1.dataset.qualifies !== 'no';
+    return true;
+  }
+  if(key === '2'){
+    var c2 = wizardBody.querySelector('input[name="clientes"]:checked');
+    if(!c2){ showError('err2'); return false; }
+    answers.clientes = c2.value;
+    return true;
+  }
+  if(key === '3'){
+    var c3 = wizardBody.querySelector('input[name="obstaculo"]:checked');
+    if(!c3){ showError('err3'); return false; }
+    answers.obstaculo = c3.value;
+    return true;
+  }
+  if(key === '4'){
+    var c4 = wizardBody.querySelector('input[name="timeline"]:checked');
+    if(!c4){ showError('err4'); return false; }
+    answers.timeline = c4.value;
+    return true;
+  }
+  if(key === '5'){
+    var v5 = document.getElementById('fullName').value.trim();
+    if(v5.length < 3){ showError('err5'); return false; }
+    return true;
+  }
+  if(key === '6'){
+    var v6 = document.getElementById('email').value.trim();
+    var ok6 = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v6);
+    if(!ok6){ showError('err6'); return false; }
+    return true;
+  }
+  if(key === '7'){
+    var v7 = document.getElementById('phone').value.trim();
+    if(v7.replace(/\D/g,'').length < 7){ showError('err7'); return false; }
+    return true;
+  }
+  if(key === '8'){
+    var v8 = document.getElementById('empresa').value.trim();
+    if(v8.length < 2){ showError('err8'); return false; }
+    return true;
+  }
+  return true;
+}
+
+wizardBody.querySelectorAll('.options').forEach(function(group){
+  group.addEventListener('change', function(){
+    group.querySelectorAll('.option').forEach(function(opt){
+      opt.classList.toggle('selected', opt.querySelector('input').checked);
+    });
+    // Auto-avanza al seleccionar, así el visitante no tiene que presionar
+    // "Continuar" en preguntas de opción única — mantiene el flujo ágil.
+    setTimeout(goNext, 280);
+  });
+});
+
+function goNext(){
+  var key = STEP_ORDER[currentIndex];
+  if(!validateStep(key)) return;
+  if(currentIndex < STEP_ORDER.length - 1){
+    showStep(STEP_ORDER[currentIndex + 1]);
+  } else {
+    finishFlow();
+  }
+}
+
+function goBack(){
+  if(currentIndex > 0){
+    showStep(STEP_ORDER[currentIndex - 1]);
+  }
+}
+
+// Prioridad para que ventas ajuste el guión de la llamada. El timeline ya
+// no descalifica: todos los que facturan $5k+ van al calendario.
+function prioridadFromTimeline(timeline){
+  if (timeline === 'Inmediatamente' || timeline === 'En los próximos 30 días') return 'alta';
+  if (timeline === 'Solo estoy explorando opciones') return 'explorando';
+  return 'seguimiento';
+}
+
+function finishFlow(){
+  var fullName = document.getElementById('fullName').value.trim();
+  var firstName = fullName.split(' ')[0] || fullName;
+  var email = document.getElementById('email').value.trim();
+  var phoneRaw = document.getElementById('phone').value.trim();
+  var fullPhone = '+1' + phoneRaw.replace(/\D/g,'');
+  var empresa = document.getElementById('empresa').value.trim();
+
+  // Único filtro: facturación mínima ($5k+).
+  answers.qualifies = answers.facturacionQualifies;
+  answers.prioridad = answers.qualifies ? prioridadFromTimeline(answers.timeline) : 'no_califica';
+
+  var payload = {
+    firstName: firstName,
+    fullName: fullName,
+    email: email,
+    phone: fullPhone,
+    empresa: empresa,
+    facturacion: answers.facturacion,
+    clientes: answers.clientes,
+    obstaculo: answers.obstaculo,
+    timeline: answers.timeline,
+    valorEstimado: estimatedValueFromFacturacion(answers.facturacion),
+    califica: answers.qualifies ? 'si' : 'no',
+    prioridad: answers.prioridad,
+    source: 'index-dfy-reparadores-credito'
+  };
+
+  // GHL guarda el contacto; Discord le avisa al equipo en el momento.
+  postJson(GHL_WEBHOOK_URL, payload, 'GHL webhook');
+  postJson(DISCORD_WEBHOOK_URL, payload, 'Discord webhook');
+
+  if(answers.qualifies){
+    document.getElementById('qualifiedName').textContent = firstName;
+    var params = new URLSearchParams({
+      first_name: firstName,
+      full_name: fullName,
+      email: email,
+      phone: fullPhone
+    });
+    var bookingUrl = GHL_BOOKING_URL + '?' + params.toString();
+    document.getElementById('bookingLinkBtn').href = bookingUrl;
+    showStep('qualified');
+
+    // Meta Pixel: solo dispara para leads calificados ($5k+), justo al
+    // llegar a esta pantalla, ANTES de pasar al calendario de GHL. Lleva el
+    // valor estimado según el rango de facturación para que Meta priorice
+    // negocios más grandes, no solo volumen. El evento de la cita agendada
+    // ("Schedule") lo envía el calendario de GHL cuando la persona confirma.
+    var pixel = getMetaPixel();
+    if (pixel) {
+      pixel('track', 'Lead', {
+        value: estimatedValueFromFacturacion(answers.facturacion),
+        currency: 'USD'
+      });
+    }
+    window.open(bookingUrl, '_blank');
+  } else {
+    // No califica: sin eventos de pixel, directo a WhatsApp.
+    document.getElementById('disqualifiedName').textContent = firstName;
+    var waUrl = buildDisqualifiedWhatsAppUrl(firstName);
+    document.getElementById('altOfferBtn').href = waUrl;
+    showStep('disqualified');
+    window.open(waUrl, '_blank');
+  }
+}
+
+nextBtn.addEventListener('click', goNext);
+backBtn.addEventListener('click', goBack);
+
+showStep('1');
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && wizardBody.contains(document.activeElement)){
+    var active = document.activeElement;
+    if(active && active.tagName === 'INPUT' && active.type !== 'radio'){
+      e.preventDefault();
+      goNext();
+    }
+  }
+});
+</script>
+
+</body>
+</html>
