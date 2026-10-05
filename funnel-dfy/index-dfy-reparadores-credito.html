@@ -300,7 +300,7 @@ fbq('track', 'PageView');
     </div>
     <div class="wizard">
     <div class="wizard-head">
-      <span class="wizard-step-label" id="stepLabel">Paso 1 de 8</span>
+      <span class="wizard-step-label" id="stepLabel">Paso 1 de 9</span>
     </div>
     <div class="wizard-progress-wrap">
       <div class="wizard-progress-track"><div class="wizard-progress-fill" id="progressFill"></div></div>
@@ -386,12 +386,24 @@ fbq('track', 'PageView');
         </div>
       </div>
 
-      <!-- STEP 8: Empresa -->
+      <!-- STEP 8: Instagram -->
       <div class="step" data-step="8">
+        <h3>¿Cuál es tu usuario de Instagram?</h3>
+        <div class="field">
+          <div class="phone-row">
+            <span class="phone-prefix">@</span>
+            <input type="text" id="instagram" placeholder="tuusuario" autocomplete="off" autocapitalize="off" spellcheck="false">
+          </div>
+          <div class="error-msg" id="err8">Ingresa tu usuario de Instagram.</div>
+        </div>
+      </div>
+
+      <!-- STEP 9: Empresa -->
+      <div class="step" data-step="9">
         <h3>¿Cuál es el nombre de tu empresa?</h3>
         <div class="field">
           <input type="text" id="empresa" placeholder="Nombre de tu compañía" autocomplete="organization">
-          <div class="error-msg" id="err8">Por favor ingresa el nombre de tu empresa.</div>
+          <div class="error-msg" id="err9">Por favor ingresa el nombre de tu empresa.</div>
         </div>
       </div>
 
@@ -495,7 +507,7 @@ function buildDisqualifiedWhatsAppUrl(firstName){
   return 'https://wa.me/' + DISQUALIFIED_WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg);
 }
 
-var STEP_ORDER = ['1','2','3','4','5','6','7','8'];
+var STEP_ORDER = ['1','2','3','4','5','6','7','8','9'];
 
 var wizardBody = document.getElementById('wizardBody');
 var steps = Array.prototype.slice.call(wizardBody.querySelectorAll('.step'));
@@ -584,8 +596,12 @@ function validateStep(key){
     return true;
   }
   if(key === '8'){
-    var v8 = document.getElementById('empresa').value.trim();
-    if(v8.length < 2){ showError('err8'); return false; }
+    if(!/^[a-z0-9._]{1,30}$/.test(normalizeInstagram(document.getElementById('instagram').value))){ showError('err8'); return false; }
+    return true;
+  }
+  if(key === '9'){
+    var v9 = document.getElementById('empresa').value.trim();
+    if(v9.length < 2){ showError('err9'); return false; }
     return true;
   }
   return true;
@@ -626,6 +642,16 @@ function prioridadFromTimeline(timeline){
   return 'seguimiento';
 }
 
+// Acepta "@usuario", "usuario" o el link del perfil y deja solo el usuario,
+// para que Discord pueda armar instagram.com/usuario.
+function normalizeInstagram(raw){
+  return String(raw || '').trim()
+    .replace(/^https?:\/\/(www\.)?instagram\.com\//i, '')
+    .replace(/^@+/, '')
+    .split(/[\/?#\s]/)[0]
+    .toLowerCase();
+}
+
 function finishFlow(){
   var fullName = document.getElementById('fullName').value.trim();
   var firstName = fullName.split(' ')[0] || fullName;
@@ -633,6 +659,7 @@ function finishFlow(){
   var phoneRaw = document.getElementById('phone').value.trim();
   var fullPhone = '+1' + phoneRaw.replace(/\D/g,'');
   var empresa = document.getElementById('empresa').value.trim();
+  var instagram = normalizeInstagram(document.getElementById('instagram').value);
 
   // Único filtro: facturación mínima ($5k+).
   answers.qualifies = answers.facturacionQualifies;
@@ -644,6 +671,8 @@ function finishFlow(){
     email: email,
     phone: fullPhone,
     empresa: empresa,
+    instagram: instagram,
+    instagramUrl: 'https://instagram.com/' + instagram,
     facturacion: answers.facturacion,
     clientes: answers.clientes,
     obstaculo: answers.obstaculo,
