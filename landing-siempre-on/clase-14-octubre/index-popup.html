@@ -30,6 +30,8 @@ src="https://www.facebook.com/tr?id=1203017011123382&ev=PageView&noscript=1"
 <body>
 
 <!-- ═══════════ DESDE ACÁ EMPIEZA LO QUE VA EN EL CUSTOM CODE DE GHL ═══════════ -->
+<!-- VARIANTE POPUP · el quiz + form no está en la página: se abre en un popup al tocar cualquier botón.
+     El popup se cierra SÓLO con la X (no con clic afuera ni con Escape). Para test A/B contra index.html. -->
 
 <style>
 /* ════════════════════════════════════════════════════════════════
@@ -202,6 +204,47 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-reg__form[hidden]{ display:none !important; }
 .nfm-reg__form iframe{ width:100%; min-height:729px; border:none; display:block; }
 
+/* ═══ POPUP DE REGISTRO ═══ */
+.nfm-modal, .nfm-modal *{ box-sizing:border-box; }
+.nfm-modal{ position:fixed; inset:0; z-index:99999; display:flex; align-items:center; justify-content:center; padding:20px; }
+.nfm-modal[hidden]{ display:none !important; }
+.nfm-modal__bg{ position:absolute; inset:0; background:rgba(8,31,51,0.84); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); animation:nfm-modal-bg .25s ease both; }
+.nfm-modal__panel{ position:relative; z-index:1; width:100%; max-width:680px; max-height:calc(100vh - 40px); max-height:calc(100dvh - 40px); overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; background:var(--nfm-gray-50); border-radius:22px; padding:0 24px 28px; box-shadow:0 40px 100px rgba(0,0,0,0.5); animation:nfm-modal-in .35s var(--nfm-ease) both; text-align:center; }
+/* la X va en una barra pegajosa: siempre visible aunque se scrollee adentro del popup */
+.nfm-modal__top{ position:sticky; top:0; z-index:3; display:flex; justify-content:flex-end; margin:0 -24px 2px; padding:10px 12px 6px; background:linear-gradient(to bottom, var(--nfm-gray-50) 72%, rgba(244,246,250,0)); }
+.nfm-modal__close{ position:relative; width:40px; height:40px; border-radius:50%; border:1px solid var(--nfm-gray-200); background:#fff; color:var(--nfm-ink); cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:2; padding:0; box-shadow:0 4px 14px rgba(12,52,82,0.12); }
+.nfm-modal__close svg{ width:18px !important; height:18px !important; }
+.nfm-modal__close:hover{ background:var(--nfm-gray-100); }
+.nfm-modal .nfm-reg__title{ font-size:clamp(1.35rem,2.6vw,1.8rem); margin:0 auto 16px !important; text-align:center !important; }
+.nfm-modal .nfm-quiz{ box-shadow:none; padding:24px; text-align:left; margin:0 auto; }
+html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
+@keyframes nfm-modal-in{ from{ opacity:0; transform:translateY(18px) scale(.98); } to{ opacity:1; transform:none; } }
+@keyframes nfm-modal-bg{ from{ opacity:0; } to{ opacity:1; } }
+@media (max-width:600px){
+  /* en celular el popup ocupa toda la pantalla y el paso 1 entra sin scrollear:
+     título chico, aviso compacto, opciones con foto de 48 px y texto más apretado */
+  .nfm-modal{ padding:0; align-items:flex-end; }
+  .nfm-modal__panel{ height:100vh; height:100dvh; max-height:100vh; max-height:100dvh; border-radius:0; padding:0 12px 14px; }
+  .nfm-modal__top{ margin:0 -12px 0; padding:6px 8px 2px; }
+  .nfm-modal__close{ width:36px; height:36px; }
+  .nfm-modal .nfm-reg__title{ font-size:1.05rem; line-height:1.2; margin:0 auto 8px !important; }
+  .nfm-modal .nfm-quiz{ padding:12px; }
+  .nfm-modal .nfm-alerta{ padding:8px 10px; gap:8px; margin-bottom:10px; border-radius:10px; }
+  .nfm-modal .nfm-alerta svg{ width:20px; height:20px; }
+  .nfm-modal .nfm-alerta p{ font-size:0.8rem; line-height:1.3; }
+  .nfm-modal .nfm-quiz__prog{ margin-bottom:10px; }
+  .nfm-modal .nfm-quiz__q{ font-size:1.05rem; margin:0 0 10px; }
+  .nfm-modal .nfm-quiz__help{ font-size:0.88rem; margin:-4px 0 10px; }
+  .nfm-modal .nfm-opt{ padding:10px 12px; gap:10px; margin-bottom:8px; }
+  .nfm-modal .nfm-opt__img{ width:48px; height:48px; border-radius:9px; }
+  .nfm-modal .nfm-opt__t{ font-size:0.86rem; line-height:1.35; }
+  .nfm-modal .nfm-opt__radio{ width:18px; height:18px; }
+  .nfm-modal .nfm-quiz__actions{ margin-top:4px; }
+  .nfm-modal .nfm-quiz__actions .nfm-btn{ padding:12px 20px; font-size:0.92rem; }
+  .nfm-modal .nfm-quiz__input{ padding:12px 14px; font-size:0.98rem; margin-bottom:12px; }
+}
+@media (prefers-reduced-motion:reduce){ .nfm-modal__panel, .nfm-modal__bg{ animation:none; } }
+
 /* ═══ NICO · ESCENAS ═══ */
 .nfm-nico{ background:var(--nfm-white); padding:96px 0; color:var(--nfm-ink); }
 .nfm-nico__head{ text-align:center; max-width:720px; margin:0 auto 52px; }
@@ -324,7 +367,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
       <p class="nfm-hero__with">con Nico Fernández Miranda</p>
       <p class="nfm-hero__pill"><span data-nfm-fecha="pill">Mié 14 oct · 19:00 hs (Arg) · Zoom</span><span class="nfm-hero__local" data-nfm-local hidden></span></p>
       <div class="nfm-hero__cta-wrap">
-        <button class="nfm-btn" data-scroll-to="nfm-registro">
+        <button class="nfm-btn" data-abrir-registro>
           QUIERO MI LUGAR
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
@@ -397,78 +440,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
 </section>
 
 <!-- ═══ QUIZ + REGISTRO ═══ -->
-<section class="nfm-reg" id="nfm-registro">
-  <div class="nfm-reg__particles" id="nfm-reg-particles"></div>
-  <div class="nfm-container">
-    <h2 class="nfm-reg__title nfm-reveal">Reservá tu lugar. <span>Antes, una pregunta.</span></h2>
-
-    <div class="nfm-quiz nfm-reveal nfm-d1" id="nfm-quiz">
-      <div class="nfm-alerta" role="note">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 9.5v5"/><circle cx="12" cy="17.2" r="0.9" fill="currentColor" stroke="none"/></svg>
-        <p><strong>Clase en vivo exclusiva</strong> para empresarios, líderes y profesionales que trabajan con alta exigencia y presión.</p>
-      </div>
-      <div class="nfm-quiz__prog" aria-hidden="true"><span id="nfm-p1"></span><span id="nfm-p2"></span><span id="nfm-p3"></span><span id="nfm-p4"></span></div>
-
-      <!-- Paso 1 -->
-      <div class="nfm-quiz__step nfm-on" data-step="1">
-        <p class="nfm-quiz__q">¿En qué etapa estás hoy?</p>
-        <button type="button" class="nfm-opt" data-q="etapa" data-v="A"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-A-Construi-un-sosten-economico-y-me-preocupa-lo-que-me-cuesta-sostenerlo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Construí un sostén financiero y una trayectoria que me dan tranquilidad. Lo que me cuesta es sostenerlo: presión, cansancio, la cabeza que no se apaga.</span><span class="nfm-opt__radio"></span></button>
-        <button type="button" class="nfm-opt" data-q="etapa" data-v="B"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-B-Tengo-una-carrera-armada-pero-me-cuesta-desvelos-irritabilidad-y-tiempo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Tengo una carrera armada y estoy en etapa de seguir creciendo. Pero crecer me está costando desvelos, irritabilidad y tiempo.</span><span class="nfm-opt__radio"></span></button>
-        <button type="button" class="nfm-opt" data-q="etapa" data-v="C"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-C-Estoy-construyendo-mi-sosten-profesional-y-economico-Punto-de-partida.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Todavía me cuesta sostenerme económicamente. Hoy mis finanzas son lo primero que tengo que atender, antes que cualquier otra cosa.</span><span class="nfm-opt__radio"></span></button>
-        <div class="nfm-quiz__actions"><button type="button" class="nfm-btn" id="nfm-next1" disabled>Continuar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
-      </div>
-
-      <!-- Paso 2 -->
-      <div class="nfm-quiz__step" data-step="2">
-        <p class="nfm-quiz__q">¿Hay gente cuyo trabajo depende de tus decisiones?</p>
-        <button type="button" class="nfm-opt" data-q="equipo" data-v="A"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-2-Opcion-A-Tengo-un-equipo-o-una-empresa-a-cargo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Sí, un equipo o una empresa a cargo.</span><span class="nfm-opt__radio"></span></button>
-        <button type="button" class="nfm-opt" data-q="equipo" data-v="B"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-2-Opcion-B-Algunas-personas-dependen-de-mis-decisiones.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Sí, algunas personas.</span><span class="nfm-opt__radio"></span></button>
-        <button type="button" class="nfm-opt" data-q="equipo" data-v="C"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-2-Opcion-C-Todavia-nadie-depende-de-mis-decisiones-Trabajo-solo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Todavía no.</span><span class="nfm-opt__radio"></span></button>
-        <div class="nfm-quiz__actions"><button type="button" class="nfm-btn" id="nfm-next2" disabled>Continuar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
-      </div>
-
-      <!-- Paso 3 · form -->
-      <!-- Paso 3 · a qué se dedica (texto libre) -->
-      <div class="nfm-quiz__step" data-step="3">
-        <p class="nfm-quiz__q">¿A qué te dedicás, específicamente?</p>
-        <p class="nfm-quiz__help">Este dato le permite a Nico traer ejemplos prácticos aplicados a tu situación.</p>
-        <input type="text" class="nfm-quiz__input" id="nfm-dedicacion" maxlength="120" autocomplete="organization-title" placeholder="Ej.: dueño de una clínica · gerente comercial · abogada con estudio propio">
-        <div class="nfm-quiz__actions"><button type="button" class="nfm-btn" id="nfm-next3" disabled>Ver mi lugar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
-      </div>
-
-      <!-- Paso 4 · form -->
-      <div class="nfm-quiz__step" data-step="4">
-        <p class="nfm-quiz__ok" id="nfm-msg-ok" hidden><span>✓</span> Este evento es para vos. Reservá tu lugar.</p>
-        <!-- FORM PRINCIPAL · etapa A o B. El src se arma por JS al completar el quiz: lleva UTM + clase + etapa + equipo + nivel + dedicación -->
-        <div class="nfm-reg__form" id="nfm-form-principal">
-          <iframe
-            data-src="https://api.leadconnectorhq.com/widget/form/kLh5onxCgHdGDA10c8NU"
-            id="inline-kLh5onxCgHdGDA10c8NU"
-            data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value=""
-            data-activation-type="alwaysActivated" data-activation-value=""
-            data-deactivation-type="neverDeactivate" data-deactivation-value=""
-            data-form-name="Form AGOSTO NUEVO" data-height="729"
-            data-layout-iframe-id="inline-kLh5onxCgHdGDA10c8NU" data-form-id="kLh5onxCgHdGDA10c8NU"
-            title="Form AGOSTO NUEVO" style="width:100%;height:100%;border:none;border-radius:15px"></iframe>
-        </div>
-        <!-- FORM PARA COMUNIDAD · sólo etapa C (saltea la pregunta del equipo), sin mensaje arriba. Mismo mecanismo: src por JS -->
-        <div class="nfm-reg__form" id="nfm-form-comunidad" hidden>
-          <iframe
-            data-src="https://api.leadconnectorhq.com/widget/form/w6wTjXjcIScDip8GuVBr"
-            id="inline-w6wTjXjcIScDip8GuVBr"
-            data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value=""
-            data-activation-type="alwaysActivated" data-activation-value=""
-            data-deactivation-type="neverDeactivate" data-deactivation-value=""
-            data-form-name="FORM PARA COMUNIDAD" data-height="620"
-            data-layout-iframe-id="inline-w6wTjXjcIScDip8GuVBr" data-form-id="w6wTjXjcIScDip8GuVBr"
-            data-cookie-consent="true" data-cookie-consent-provider="auto"
-            title="FORM PARA COMUNIDAD" style="width:100%;height:100%;border:none;border-radius:15px"></iframe>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ═══ NICO · LAS ESCENAS ═══ -->
 <section class="nfm-nico" id="nfm-nico">
   <div class="nfm-container">
@@ -553,7 +524,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
       <div class="nfm-map__item"><div class="nfm-map__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="11" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><circle cx="12" cy="16" r="1.3"/></svg></div><div class="nfm-map__txt"><h4><b>La variable que decide:</b> por qué sacrificarse y esforzarse no producen resultado, y qué es lo que sí. Se revela en vivo.</h4></div></div>
     </div>
     <div class="nfm-learn__cta nfm-reveal nfm-d2">
-      <button class="nfm-btn" data-scroll-to="nfm-registro">RESERVAR MI LUGAR <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      <button class="nfm-btn" data-abrir-registro>RESERVAR MI LUGAR <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
     </div>
   </div>
 </section>
@@ -599,7 +570,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
   <div class="nfm-container nfm-mid">
     <h2 class="nfm-reveal">El <span data-nfm-fecha="corta">14 de octubre</span> vas a ver <em>la variable que no estás mirando.</em></h2>
     <div class="nfm-reveal nfm-d1">
-      <button class="nfm-btn" data-scroll-to="nfm-registro">QUIERO MI LUGAR <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      <button class="nfm-btn" data-abrir-registro>QUIERO MI LUGAR <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
     </div>
     <div class="nfm-reveal nfm-d2"><p class="nfm-final__date"><span class="nfm-dot"></span><span data-nfm-fecha="completa">Miércoles 14 de octubre · 19:00 hs (Argentina) · En vivo por Zoom</span></p><p class="nfm-final__local" data-nfm-local hidden></p></div>
   </div>
@@ -607,10 +578,83 @@ html, body{ margin:0; padding:0; background:#081F33; }
 
 <footer class="nfm-footer"><div class="nfm-container"><p>© Nicolás Fernández Miranda · Instituto de Productividad · Todos los derechos reservados.</p></div></footer>
 
-<div class="nfm-sticky" id="nfm-sticky"><button class="nfm-btn" data-scroll-to="nfm-registro">Reservá tu lugar</button></div>
+<div class="nfm-sticky" id="nfm-sticky"><button class="nfm-btn" data-abrir-registro>Reservá tu lugar</button></div>
+
+
+<!-- ═══ POPUP DE REGISTRO (quiz + form) ═══ -->
+<div class="nfm-modal" id="nfm-modal" hidden aria-hidden="true">
+  <div class="nfm-modal__bg" id="nfm-modal-bg"></div>
+  <div class="nfm-modal__panel" id="nfm-modal-panel" role="dialog" aria-modal="true" aria-labelledby="nfm-modal-title">
+    <div class="nfm-modal__top"><button type="button" class="nfm-modal__close" id="nfm-modal-close" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <h2 class="nfm-reg__title" id="nfm-modal-title">Reservá tu lugar. <span>Antes, una pregunta.</span></h2>
+    <div class="nfm-quiz" id="nfm-quiz">
+      <div class="nfm-alerta" role="note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 9.5v5"/><circle cx="12" cy="17.2" r="0.9" fill="currentColor" stroke="none"/></svg>
+        <p><strong>Clase en vivo exclusiva</strong> para empresarios, líderes y profesionales que trabajan con alta exigencia y presión.</p>
+      </div>
+      <div class="nfm-quiz__prog" aria-hidden="true"><span id="nfm-p1"></span><span id="nfm-p2"></span><span id="nfm-p3"></span><span id="nfm-p4"></span></div>
+
+      <!-- Paso 1 -->
+      <div class="nfm-quiz__step nfm-on" data-step="1">
+        <p class="nfm-quiz__q">¿En qué etapa estás hoy?</p>
+        <button type="button" class="nfm-opt" data-q="etapa" data-v="A"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-A-Construi-un-sosten-economico-y-me-preocupa-lo-que-me-cuesta-sostenerlo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Construí un sostén financiero y una trayectoria que me dan tranquilidad. Lo que me cuesta es sostenerlo: presión, cansancio, la cabeza que no se apaga.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="etapa" data-v="B"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-B-Tengo-una-carrera-armada-pero-me-cuesta-desvelos-irritabilidad-y-tiempo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Tengo una carrera armada y estoy en etapa de seguir creciendo. Pero crecer me está costando desvelos, irritabilidad y tiempo.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="etapa" data-v="C"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-1-Opcion-C-Estoy-construyendo-mi-sosten-profesional-y-economico-Punto-de-partida.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Todavía me cuesta sostenerme económicamente. Hoy mis finanzas son lo primero que tengo que atender, antes que cualquier otra cosa.</span><span class="nfm-opt__radio"></span></button>
+        <div class="nfm-quiz__actions"><button type="button" class="nfm-btn" id="nfm-next1" disabled>Continuar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+      </div>
+
+      <!-- Paso 2 -->
+      <div class="nfm-quiz__step" data-step="2">
+        <p class="nfm-quiz__q">¿Hay gente cuyo trabajo depende de tus decisiones?</p>
+        <button type="button" class="nfm-opt" data-q="equipo" data-v="A"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-2-Opcion-A-Tengo-un-equipo-o-una-empresa-a-cargo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Sí, un equipo o una empresa a cargo.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="equipo" data-v="B"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-2-Opcion-B-Algunas-personas-dependen-de-mis-decisiones.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Sí, algunas personas.</span><span class="nfm-opt__radio"></span></button>
+        <button type="button" class="nfm-opt" data-q="equipo" data-v="C"><span class="nfm-opt__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/Pregunta-2-Opcion-C-Todavia-nadie-depende-de-mis-decisiones-Trabajo-solo.png" alt="" loading="lazy"></span><span class="nfm-opt__t">Todavía no.</span><span class="nfm-opt__radio"></span></button>
+        <div class="nfm-quiz__actions"><button type="button" class="nfm-btn" id="nfm-next2" disabled>Continuar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+      </div>
+
+      <!-- Paso 3 · form -->
+      <!-- Paso 3 · a qué se dedica (texto libre) -->
+      <div class="nfm-quiz__step" data-step="3">
+        <p class="nfm-quiz__q">¿A qué te dedicás, específicamente?</p>
+        <p class="nfm-quiz__help">Este dato le permite a Nico traer ejemplos prácticos aplicados a tu situación.</p>
+        <input type="text" class="nfm-quiz__input" id="nfm-dedicacion" maxlength="120" autocomplete="organization-title" placeholder="Ej.: dueño de una clínica · gerente comercial · abogada con estudio propio">
+        <div class="nfm-quiz__actions"><button type="button" class="nfm-btn" id="nfm-next3" disabled>Ver mi lugar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button></div>
+      </div>
+
+      <!-- Paso 4 · form -->
+      <div class="nfm-quiz__step" data-step="4">
+        <p class="nfm-quiz__ok" id="nfm-msg-ok" hidden><span>✓</span> Este evento es para vos. Reservá tu lugar.</p>
+        <!-- FORM PRINCIPAL · etapa A o B. El src se arma por JS al completar el quiz: lleva UTM + clase + etapa + equipo + nivel + dedicación -->
+        <div class="nfm-reg__form" id="nfm-form-principal">
+          <iframe
+            data-src="https://api.leadconnectorhq.com/widget/form/kLh5onxCgHdGDA10c8NU"
+            id="inline-kLh5onxCgHdGDA10c8NU"
+            data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value=""
+            data-activation-type="alwaysActivated" data-activation-value=""
+            data-deactivation-type="neverDeactivate" data-deactivation-value=""
+            data-form-name="Form AGOSTO NUEVO" data-height="729"
+            data-layout-iframe-id="inline-kLh5onxCgHdGDA10c8NU" data-form-id="kLh5onxCgHdGDA10c8NU"
+            title="Form AGOSTO NUEVO" style="width:100%;height:100%;border:none;border-radius:15px"></iframe>
+        </div>
+        <!-- FORM PARA COMUNIDAD · sólo etapa C (saltea la pregunta del equipo), sin mensaje arriba. Mismo mecanismo: src por JS -->
+        <div class="nfm-reg__form" id="nfm-form-comunidad" hidden>
+          <iframe
+            data-src="https://api.leadconnectorhq.com/widget/form/w6wTjXjcIScDip8GuVBr"
+            id="inline-w6wTjXjcIScDip8GuVBr"
+            data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value=""
+            data-activation-type="alwaysActivated" data-activation-value=""
+            data-deactivation-type="neverDeactivate" data-deactivation-value=""
+            data-form-name="FORM PARA COMUNIDAD" data-height="620"
+            data-layout-iframe-id="inline-w6wTjXjcIScDip8GuVBr" data-form-id="w6wTjXjcIScDip8GuVBr"
+            data-cookie-consent="true" data-cookie-consent-provider="auto"
+            title="FORM PARA COMUNIDAD" style="width:100%;height:100%;border:none;border-radius:15px"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 </div><!-- /.nfm-page -->
-
 
 <script>
 (function(){
@@ -683,7 +727,7 @@ function irPaso(n){
   var steps=document.querySelectorAll('.nfm-quiz__step');
   for(var i=0;i<steps.length;i++) steps[i].classList.toggle('nfm-on', steps[i].getAttribute('data-step')===String(n));
   marcarProgreso(n);
-  var q=document.getElementById('nfm-quiz'); if(q && n>1){ var top=q.getBoundingClientRect().top+window.scrollY-90; window.scrollTo({top:top,behavior:'smooth'}); }
+  var panel=document.getElementById('nfm-modal-panel'); if(panel && n>1){ try{ panel.scrollTo({top:0,behavior:'smooth'}); }catch(err){ panel.scrollTop=0; } }
 }
 document.addEventListener('click', function(e){
   var opt=e.target.closest ? e.target.closest('.nfm-opt') : null;
@@ -711,7 +755,7 @@ if(n3) n3.addEventListener('click', function(){ if(resp.etapa && equipoListo() &
 /* ─── PRECARGA DEL FORM ───
    El form de GHL lee etapa, equipo, nivel y dedicación de la URL del iframe, así que la carga
    definitiva sólo puede arrancar cuando esos datos existen. Para que no se sienta la espera:
-     1) calentarForm(): apenas carga la página (3 s después) y al elegir etapa, se carga el form en un
+     1) calentarForm(): apenas se abre el popup y al elegir etapa, se carga el form en un
         iframe invisible de 1×1 px, así el navegador guarda en caché el JS y CSS de GHL. Se saca solo.
      2) cargarForm(): mientras la persona escribe a qué se dedica, el iframe definitivo se carga con lo
         que ya hay (700 ms después de la última tecla). Al tocar "Ver mi lugar", si lo escrito no cambió,
@@ -781,15 +825,42 @@ function mostrarForm(){
 
 /* ─── partículas / nav / reveal / scroll ─── */
 function makeParticles(id,count){ var c=document.getElementById(id); if(!c) return; for(var i=0;i<count;i++){ var p=document.createElement('div'); p.className=(id==='nfm-particles')?'nfm-particle':'nfm-reg-particle'; var s=(3+Math.random()*5)+'px'; p.style.cssText='left:'+(Math.random()*100)+'%;width:'+s+';height:'+s+';animation-duration:'+(10+Math.random()*14)+'s;animation-delay:-'+(Math.random()*12)+'s'; c.appendChild(p); } }
-makeParticles('nfm-reg-particles',16);
 (function(){ var nav=document.getElementById('nfm-nav'), st=document.getElementById('nfm-sticky');
   window.addEventListener('scroll', function(){ if(nav) nav.classList.toggle('nfm-nav--scrolled', window.scrollY>60); if(st) st.classList.toggle('nfm-sticky--show', window.scrollY>700); }, {passive:true}); })();
 function reveal(){ var els=document.querySelectorAll('.nfm-reveal'), wh=window.innerHeight; for(var i=0;i<els.length;i++){ if(els[i].getBoundingClientRect().top<wh-70) els[i].classList.add('nfm-vis'); } }
 window.addEventListener('scroll', reveal, {passive:true}); window.addEventListener('load', reveal); reveal();
-setTimeout(function(){ calentarForm(CONFIG.FORM_ID); }, 3000);
 function scrollToId(id){ var t=document.getElementById(id); if(!t) return; window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-96, behavior:'smooth'}); }
+/* ─── POPUP DE REGISTRO ───
+   Se abre con cualquier botón [data-abrir-registro]. Se cierra SÓLO con la X: ni clic en el fondo
+   ni Escape lo cierran. Mientras está abierto, la página de atrás no scrollea. */
+var modal=document.getElementById('nfm-modal'), modalPanel=document.getElementById('nfm-modal-panel'), modalClose=document.getElementById('nfm-modal-close'), scrollGuardado=0;
+/* el tráiler: un clic adentro del iframe le saca el foco a la página; así sabemos que lo pusieron a andar */
+var trailer=document.getElementById('nfm-trailer-video'), trailerTocado=false;
+window.addEventListener('blur', function(){ setTimeout(function(){ if(trailer && document.activeElement===trailer) trailerTocado=true; }, 0); });
+function cortarTrailer(){ if(trailer && trailerTocado){ trailer.src=trailer.src; trailerTocado=false; } }
+function abrirRegistro(){
+  if(!modal) return;
+  cortarTrailer();
+  scrollGuardado=window.scrollY||0;
+  modal.hidden=false; modal.setAttribute('aria-hidden','false');
+  document.documentElement.classList.add('nfm-modal-open');
+  document.body.style.position='fixed'; document.body.style.top=(-scrollGuardado)+'px'; document.body.style.left='0'; document.body.style.right='0'; document.body.style.width='100%';
+  if(modalPanel) modalPanel.scrollTop=0;
+  calentarForm(CONFIG.FORM_ID);
+  var primero=modal.querySelector('.nfm-quiz__step.nfm-on .nfm-opt, .nfm-quiz__step.nfm-on input, .nfm-quiz__step.nfm-on iframe');
+  setTimeout(function(){ if(primero && primero.focus) primero.focus({preventScroll:true}); }, 380);
+}
+function cerrarRegistro(){
+  if(!modal) return;
+  modal.hidden=true; modal.setAttribute('aria-hidden','true');
+  document.documentElement.classList.remove('nfm-modal-open');
+  document.body.style.position=''; document.body.style.top=''; document.body.style.left=''; document.body.style.right=''; document.body.style.width='';
+  window.scrollTo(0, scrollGuardado);
+}
+if(modalClose) modalClose.addEventListener('click', cerrarRegistro);
+document.addEventListener('keydown', function(e){ if(e.key==='Escape' && modal && !modal.hidden){ e.preventDefault(); } });
 document.addEventListener('click', function(e){
-  var b=e.target.closest?e.target.closest('[data-scroll-to]'):null; if(b){ e.preventDefault(); scrollToId(b.getAttribute('data-scroll-to')); return; }
+  var ab=e.target.closest?e.target.closest('[data-abrir-registro]'):null; if(ab){ e.preventDefault(); abrirRegistro(); return; }
   var a=e.target.closest?e.target.closest('a[href^="#"]'):null; if(a){ var href=a.getAttribute('href'); if(href.length>1){ e.preventDefault(); scrollToId(href.slice(1)); } }
 });
 })();
