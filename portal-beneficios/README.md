@@ -1,31 +1,23 @@
-# Portal de beneficios de la clase
+# Baúl de beneficios · clase del miércoles 14 de octubre
 
-Un solo sitio en Netlify. Dos páginas, una por asiento:
+Dos sitios en Netlify, uno por asiento. Cada carpeta se sube sola (Add new site → Deploy manually → arrastrar la carpeta):
 
-| Asiento | URL | Qué tiene |
+| Carpeta | Sitio en Netlify | Asiento |
 |---|---|---|
-| Básico · USD 1 | `clase-beneficios.netlify.app/asiento-basic` | La clase: workbook + grabación («después de la clase» hasta que estén) |
-| Hackea tu Productividad · USD 5 | `clase-beneficios.netlify.app/premium-htc` | Lo mismo + el ebook de «Hackea tu Cerebro» + el curso El ABC del Alto Rendimiento |
+| `asiento-basic-14/` | `asiento-basic-14.netlify.app` | Básico · USD 1 — workbook + grabación |
+| `asiento-premium-14/` | `asiento-premium-14.netlify.app` | Hackea tu Productividad · USD 5 — lo mismo + ebook + curso ABC |
 
-La raíz (`/`) no lista nada: dice que el acceso llegó por mail. Y `robots.txt` pide no indexar.
-
-## Deploy
-
-Arrastrar la carpeta `portal-beneficios` entera a Netlify (Sites → Add new site → Deploy manually),
-o conectarla al repo con *publish directory* = `portal-beneficios`. Nombre del sitio: `clase-beneficios`.
-Las URLs salen solas de la estructura de carpetas (`asiento-basic/index.html` → `/asiento-basic`).
+El nombre del sitio en Netlify tiene que ser exactamente ese: las thank you de compra y los mails apuntan ahí.
 
 ## Cuando estén el workbook y la grabación
 
-Editar `CFG` en `gen-portal.py` — `WORKBOOK_URL` y `GRABACION_URL` — y correr
-`python3 portal-beneficios/gen-portal.py` desde la raíz del repo. El portal no muestra ninguna hora
-(dice «después de la clase del miércoles»); por dentro cambia de estado en `LISTO`. Mientras los links
-estén vacíos, después de esa hora dice «lo estamos subiendo» en vez de mostrar un botón roto.
+Editar `CFG` en `gen-portal.py` — `WORKBOOK_URL` y `GRABACION_URL` — correr
+`python3 portal-beneficios/gen-portal.py` desde la raíz del repo, y volver a subir las dos carpetas.
+La página no muestra ninguna hora (dice «después de la clase del miércoles»); por dentro cambia de estado en `LISTO`
+(jueves 15 a las 12:00, hora Argentina). Sin links cargados, a esa hora dice «lo estamos subiendo», nunca un botón roto.
 
-Para probar el estado «ya disponible» sin esperar: agregar `?nfm_now=2026-10-08T12:01:00-03:00` a la URL.
+Para probar el estado «ya disponible» sin esperar: agregar `?nfm_now=2026-10-15T12:01:00-03:00` a la URL.
 
 ## Ojo
 
-Estas páginas no tienen contraseña: quien tenga el link, entra. Es el mismo criterio que el curso ABC.
-Si algún día hace falta cerrarlas, lo más simple es la protección por contraseña de Netlify (plan pago) o
-mover los archivos pesados a links que caduquen.
+Sin contraseña: quien tenga el link entra. Llevan noindex y robots.txt para que no las levante Google.

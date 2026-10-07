@@ -157,15 +157,15 @@ h1 .acc{ color:var(--orange); }
 (function(){
 'use strict';
 var CFG = {
-  CLASE: '2026-10-07',
-  LISTO: '2026-10-08T12:00:00-03:00',
+  CLASE: '2026-10-14',
+  LISTO: '2026-10-15T12:00:00-03:00',
   LINKS: { workbook: '', grabacion: '' }
 };
 var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 var MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 function pad(n){ return n<10?'0'+n:''+n; }
 function qs(k){ var m=new RegExp('[?&]'+k+'=([^&#]*)').exec(location.search); return m?decodeURIComponent(m[1]):null; }
-/* ?nfm_now=2026-10-08T12:01:00-03:00 simula otra hora, para probar el estado «listo» */
+/* ?nfm_now=2026-10-15T12:01:00-03:00 simula otra hora, para probar el estado «listo» */
 function ahora(){ var s=qs('nfm_now'); if(s){ var t=Date.parse(s); if(!isNaN(t)) return t; } return Date.now(); }
 
 /* fechas en hora Argentina, se lea desde donde se lea */

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """Genera el portal de beneficios de la clase.
 
-   Un solo sitio en Netlify (clase-beneficios.netlify.app) con dos páginas:
-     /asiento-basic   → USD 1 · la clase (workbook + grabación)
-     /premium-htc     → USD 5 · lo mismo + el ebook + el curso ABC
+   Dos sitios en Netlify, uno por asiento (cada carpeta se sube sola):
+     asiento-basic-14.netlify.app    → USD 1 · la clase (workbook + grabación)
+     asiento-premium-14.netlify.app  → USD 5 · lo mismo + el ebook + el curso ABC
 
    Las dos salen de la misma plantilla: cambia el contenido, no el esqueleto.
    Correr desde la raíz del repo:  python3 portal-beneficios/gen-portal.py
@@ -16,8 +16,8 @@ RAIZ = 'portal-beneficios'
 #  CONFIG · lo único que hay que tocar cuando cambie algo
 # ══════════════════════════════════════════════════════════════════════════
 CFG = {
-  'CLASE'  : '2026-10-07',                  # el día de la clase (se escribe solo: «miércoles 7 de octubre»)
-  'LISTO'  : '2026-10-08T12:00:00-03:00',   # cuándo aparecen workbook y grabación (hora Argentina)
+  'CLASE'  : '2026-10-14',                  # el día de la clase (se escribe solo: «miércoles 14 de octubre»)
+  'LISTO'  : '2026-10-15T12:00:00-03:00',   # cuándo aparecen workbook y grabación (hora Argentina)
   # Los links de la clase. Vacíos hasta que existan: mientras tanto el portal
   # muestra «lo estamos subiendo», nunca un botón que no lleva a ningún lado.
   'WORKBOOK_URL'  : '',
@@ -29,12 +29,12 @@ CFG = {
 }
 
 PAGINAS = {
-  'asiento-basic': {
+  'asiento-basic-14': {
     'titulo'  : 'Asiento Premium Básico',
     'eyebrow' : 'Asiento Premium Básico',
     'premium' : False,
   },
-  'premium-htc': {
+  'asiento-premium-14': {
     'titulo'  : 'Asiento Premium · Hackea tu Productividad',
     'eyebrow' : 'Asiento Premium · Hackea tu Productividad',
     'premium' : True,
@@ -220,7 +220,7 @@ var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 var MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 function pad(n){{ return n<10?'0'+n:''+n; }}
 function qs(k){{ var m=new RegExp('[?&]'+k+'=([^&#]*)').exec(location.search); return m?decodeURIComponent(m[1]):null; }}
-/* ?nfm_now=2026-10-08T12:01:00-03:00 simula otra hora, para probar el estado «listo» */
+/* ?nfm_now=2026-10-15T12:01:00-03:00 simula otra hora, para probar el estado «listo» */
 function ahora(){{ var s=qs('nfm_now'); if(s){{ var t=Date.parse(s); if(!isNaN(t)) return t; }} return Date.now(); }}
 
 /* fechas en hora Argentina, se lea desde donde se lea */
@@ -271,36 +271,29 @@ p{{max-width:30em;line-height:1.6;color:rgba(255,255,255,.7)}} b{{color:#fff}}</
 
 ROBOTS = "User-agent: *\nDisallow: /\n"
 
-README = """# Portal de beneficios de la clase
+README = """# Baúl de beneficios · clase del miércoles 14 de octubre
 
-Un solo sitio en Netlify. Dos páginas, una por asiento:
+Dos sitios en Netlify, uno por asiento. Cada carpeta se sube sola (Add new site → Deploy manually → arrastrar la carpeta):
 
-| Asiento | URL | Qué tiene |
+| Carpeta | Sitio en Netlify | Asiento |
 |---|---|---|
-| Básico · USD 1 | `clase-beneficios.netlify.app/asiento-basic` | La clase: workbook + grabación (con contador hasta que estén) |
-| Hackea tu Productividad · USD 5 | `clase-beneficios.netlify.app/premium-htc` | Lo mismo + el ebook de «Hackea tu Cerebro» + el curso El ABC del Alto Rendimiento |
+| `asiento-basic-14/` | `asiento-basic-14.netlify.app` | Básico · USD 1 — workbook + grabación |
+| `asiento-premium-14/` | `asiento-premium-14.netlify.app` | Hackea tu Productividad · USD 5 — lo mismo + ebook + curso ABC |
 
-La raíz (`/`) no lista nada: dice que el acceso llegó por mail. Y `robots.txt` pide no indexar.
-
-## Deploy
-
-Arrastrar la carpeta `portal-beneficios` entera a Netlify (Sites → Add new site → Deploy manually),
-o conectarla al repo con *publish directory* = `portal-beneficios`. Nombre del sitio: `clase-beneficios`.
-Las URLs salen solas de la estructura de carpetas (`asiento-basic/index.html` → `/asiento-basic`).
+El nombre del sitio en Netlify tiene que ser exactamente ese: las thank you de compra y los mails apuntan ahí.
 
 ## Cuando estén el workbook y la grabación
 
-Editar `CFG` en `gen-portal.py` — `WORKBOOK_URL` y `GRABACION_URL` — y correr
-`python3 portal-beneficios/gen-portal.py` desde la raíz del repo. Mientras estén vacíos, después
-de la fecha el portal dice «lo estamos subiendo» en vez de mostrar un botón que no lleva a ningún lado.
+Editar `CFG` en `gen-portal.py` — `WORKBOOK_URL` y `GRABACION_URL` — correr
+`python3 portal-beneficios/gen-portal.py` desde la raíz del repo, y volver a subir las dos carpetas.
+La página no muestra ninguna hora (dice «después de la clase del miércoles»); por dentro cambia de estado en `LISTO`
+(jueves 15 a las 12:00, hora Argentina). Sin links cargados, a esa hora dice «lo estamos subiendo», nunca un botón roto.
 
-Para probar el estado «ya disponible» sin esperar: agregar `?nfm_now=2026-10-08T12:01:00-03:00` a la URL.
+Para probar el estado «ya disponible» sin esperar: agregar `?nfm_now=2026-10-15T12:01:00-03:00` a la URL.
 
 ## Ojo
 
-Estas páginas no tienen contraseña: quien tenga el link, entra. Es el mismo criterio que el curso ABC.
-Si algún día hace falta cerrarlas, lo más simple es la protección por contraseña de Netlify (plan pago) o
-mover los archivos pesados a links que caduquen.
+Sin contraseña: quien tenga el link entra. Llevan noindex y robots.txt para que no las levante Google.
 """
 
 def main():
@@ -309,9 +302,8 @@ def main():
         d = os.path.join(RAIZ, slug); os.makedirs(d, exist_ok=True)
         out = pagina(slug, pg)
         io.open(os.path.join(d, 'index.html'), 'w', encoding='utf-8').write(out)
+        io.open(os.path.join(d, 'robots.txt'), 'w', encoding='utf-8').write(ROBOTS)
         print('escrito', os.path.join(d, 'index.html'), len(out), 'bytes')
-    io.open(os.path.join(RAIZ, 'index.html'), 'w', encoding='utf-8').write(RAIZ_HTML)
-    io.open(os.path.join(RAIZ, 'robots.txt'), 'w', encoding='utf-8').write(ROBOTS)
     io.open(os.path.join(RAIZ, 'README.md'), 'w', encoding='utf-8').write(README)
     faltan = [k for k in ('WORKBOOK_URL','GRABACION_URL') if not CFG[k]]
     if faltan: print('⚠️  sin link todavía:', ', '.join(faltan), '— después de la fecha el portal dirá «lo estamos subiendo».')

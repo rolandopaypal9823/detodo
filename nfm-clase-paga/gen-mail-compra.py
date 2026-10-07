@@ -15,15 +15,15 @@
 import io
 
 LOGO   = 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png'
-WA     = 'https://go.wha.link/b6G3Ld'
-CLASE  = 'Miércoles 7 de octubre · 19:00 hs (Argentina) · vía Zoom'
+WA     = 'https://go.wha.link/clase-de-neurociencia-14-10'
+CLASE  = 'Miércoles 14 de octubre · 19:00 hs (Argentina) · vía Zoom'
 
 TIERS = {
   'basic': {
     'archivo' : 'nfm-clase-paga/mail-compra-basic.html',
     'asunto'  : 'Tu asiento está confirmado — acá está tu acceso',
     'nombre'  : 'Asiento Premium Básico',
-    'portal'  : 'https://clase-beneficios.netlify.app/asiento-basic',
+    'portal'  : 'https://asiento-basic-14.netlify.app',
     'items'   : [
       ('Workbook', 'Resumen de la clase y accionables concretos.'),
       ('Grabación', 'La clase completa, tuya para siempre.'),
@@ -34,7 +34,7 @@ TIERS = {
     'archivo' : 'nfm-clase-paga/mail-compra-premium.html',
     'asunto'  : 'Tu asiento está confirmado — el libro y el curso ya están disponibles',
     'nombre'  : 'Asiento Premium · Hackea tu Productividad',
-    'portal'  : 'https://clase-beneficios.netlify.app/premium-htc',
+    'portal'  : 'https://asiento-premium-14.netlify.app',
     'items'   : [
       ('Hackea tu Cerebro · versión ebook', 'El libro completo, para descargar ahora.'),
       ('El ABC del Alto Rendimiento', 'El curso en video, 6 módulos. Disponible ahora.'),

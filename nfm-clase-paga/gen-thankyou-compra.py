@@ -25,7 +25,7 @@ TIERS = {
     'archivo' : 'nfm-clase-paga/thankyou-compra-basic.html',
     'nombre'  : 'Asiento Premium Básico',
     'valor'   : 1,
-    'portal'  : 'https://clase-beneficios.netlify.app/asiento-basic',
+    'portal'  : 'https://asiento-basic-14.netlify.app',
     'content' : 'asiento_basic',
     'texto'   : 'El <strong>workbook</strong> con el resumen y los accionables, y la <strong>grabación</strong> de la clase. '
                 'Todo queda en tu portal.',
@@ -34,7 +34,7 @@ TIERS = {
     'archivo' : 'nfm-clase-paga/thankyou-compra-premium.html',
     'nombre'  : 'Asiento Premium · Hackea tu Productividad',
     'valor'   : 5,
-    'portal'  : 'https://clase-beneficios.netlify.app/premium-htc',
+    'portal'  : 'https://asiento-premium-14.netlify.app',
     'content' : 'asiento_premium_htc',
     'texto'   : 'El ebook de <strong>Hackea tu Cerebro</strong>, el curso <strong>El ABC del Alto Rendimiento</strong>, '
                 'y el workbook y la grabación de la clase. Todo queda en tu portal.',
