@@ -56,6 +56,11 @@ h1 .acc{ color:var(--orange); }
 .item__st{ flex:0 0 auto; font-family:var(--fh); font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ts);
   border:1px solid var(--hair); border-radius:50px; padding:7px 12px; white-space:nowrap; }
 .item__st--pronto{ color:var(--tm); }
+.item{ flex-wrap:wrap; }
+.item__video{ flex:0 0 100%; margin-top:4px; }
+.item__video[hidden]{ display:none; }
+.vbox{ position:relative; width:100%; height:0; padding-bottom:56.25%; border-radius:12px; overflow:hidden; background:#000; box-shadow:0 0 0 1px var(--hair); }
+.vbox iframe{ position:absolute; top:0; left:0; width:100%; height:100%; border:0; display:block; }
 .item .btn{ flex:0 0 auto; }
 .item [data-cuando-listo]{ display:none; }
 .card[data-listo] .item [data-cuando-listo]{ display:inline-flex; }
@@ -159,7 +164,8 @@ h1 .acc{ color:var(--orange); }
 var CFG = {
   CLASE: '2026-10-14',
   LISTO: '2026-10-15T12:00:00-03:00',
-  LINKS: { workbook: '', grabacion: '' }
+  LINKS: { workbook: '', grabacion: '' },
+  LOOM:  { grabacion: '' }
 };
 var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 var MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
@@ -187,12 +193,18 @@ function listo(){
   card.setAttribute('data-listo','');
   var t=card.querySelector('[data-cuando-listo-txt]'); if(t) t.hidden=false;
   var sub=document.querySelector('[data-sub]'); if(sub) sub.textContent='Acá está todo lo que incluye tu asiento.';
+  var todo=true;
   ['workbook','grabacion'].forEach(function(k){
-    var url=(CFG.LINKS[k]||'').trim();
-    var a=card.querySelector('[data-link="'+k+'"]'), s=card.querySelector('[data-sinlink="'+k+'"]');
-    if(url){ a.setAttribute('href',url); if(s) s.style.display='none'; }
-    else { if(a) a.style.display='none'; }
+    var url=(CFG.LINKS[k]||'').trim(), loom=((CFG.LOOM||{})[k]||'').trim();
+    var a=card.querySelector('[data-link="'+k+'"]'), s=card.querySelector('[data-sinlink="'+k+'"]'), v=card.querySelector('[data-video="'+k+'"]');
+    if(loom && v){   /* el video se ve acá mismo: sin botón */
+      var f=v.querySelector('iframe'); if(f && !f.getAttribute('src')) f.setAttribute('src', f.getAttribute('data-src'));
+      v.hidden=false; if(a) a.style.display='none'; if(s) s.style.display='none';
+    }
+    else if(url){ a.setAttribute('href',url); if(s) s.style.display='none'; }
+    else { todo=false; if(a) a.style.display='none'; }
   });
+  if(todo && t) t.textContent='Ya están el workbook y la grabación completa de la clase.';
 }
 function tick(){
   var r=tsListo-ahora();

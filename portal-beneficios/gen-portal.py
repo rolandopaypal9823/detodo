@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Genera el portal de beneficios de la clase.
+"""Genera el portal de beneficios de la clase, una edición por clase.
 
-   Dos sitios en Netlify, uno por asiento (cada carpeta se sube sola):
-     asiento-basic-14.netlify.app    → USD 1 · la clase (workbook + grabación)
-     asiento-premium-14.netlify.app  → USD 5 · lo mismo + el ebook + el curso ABC
+   Clase del 7 de octubre · portal-beneficios/clase-7-oct/ → clase-beneficios.netlify.app
+     /asiento-basic   → USD 1 · la clase (workbook + grabación)
+     /premium-htc     → USD 5 · lo mismo + el ebook + el curso ABC
+   Clase del 14 de octubre · un sitio por asiento (cada carpeta se sube sola):
+     asiento-basic-14.netlify.app    → USD 1
+     asiento-premium-14.netlify.app  → USD 5
 
    Las dos salen de la misma plantilla: cambia el contenido, no el esqueleto.
    Correr desde la raíz del repo:  python3 portal-beneficios/gen-portal.py
@@ -15,31 +18,43 @@ RAIZ = 'portal-beneficios'
 # ══════════════════════════════════════════════════════════════════════════
 #  CONFIG · lo único que hay que tocar cuando cambie algo
 # ══════════════════════════════════════════════════════════════════════════
-CFG = {
-  'CLASE'  : '2026-10-14',                  # el día de la clase (se escribe solo: «miércoles 14 de octubre»)
-  'LISTO'  : '2026-10-15T12:00:00-03:00',   # cuándo aparecen workbook y grabación (hora Argentina)
-  # Los links de la clase. Vacíos hasta que existan: mientras tanto el portal
-  # muestra «lo estamos subiendo», nunca un botón que no lleva a ningún lado.
-  'WORKBOOK_URL'  : '',
-  'GRABACION_URL' : '',
+COMUN = {
   # Lo del asiento de USD 5
   'LIBRO_URL' : 'https://drive.google.com/file/d/1M2AGlaIzwFDei7b2NeBQmLqcf6LtA4PY/view?usp=sharing',
   'ABC_URL'   : 'https://abc-altorendimiento-nfm.netlify.app/',
   'LOGO'      : 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png',
 }
+BASIC   = { 'titulo':'Asiento Premium Básico', 'eyebrow':'Asiento Premium Básico', 'premium':False }
+PREMIUM = { 'titulo':'Asiento Premium · Hackea tu Productividad', 'eyebrow':'Asiento Premium · Hackea tu Productividad', 'premium':True }
 
-PAGINAS = {
-  'asiento-basic-14': {
-    'titulo'  : 'Asiento Premium Básico',
-    'eyebrow' : 'Asiento Premium Básico',
-    'premium' : False,
+# Por edición: el día, cuándo aparece lo de la clase (hora Argentina) y los links.
+# Links vacíos = todavía no está: el portal dice «lo estamos subiendo», nunca un botón roto.
+# GRABACION_LOOM = el código del video de Loom (lo que va después de /embed/): la grabación
+# se ve adentro del portal. Si no hay Loom, GRABACION_URL es un link común.
+EDICIONES = [
+  { # clase del miércoles 7 · un sitio con dos rutas: clase-beneficios.netlify.app/asiento-basic y /premium-htc
+    'carpeta'        : 'portal-beneficios/clase-7-oct',
+    'un_sitio'       : True,
+    'CLASE'          : '2026-10-07',
+    'LISTO'          : '2026-10-07T21:00:00-03:00',
+    'WORKBOOK_URL'   : 'https://drive.google.com/file/d/1b4-HRL0BZKePblPdMzSFNwBjEF4OGj4N/view?usp=sharing',
+    'GRABACION_LOOM' : '323726c4dd324cb9af2d8eaffbb4b220',
+    'GRABACION_URL'  : '',
+    'paginas'        : { 'asiento-basic': BASIC, 'premium-htc': PREMIUM },
   },
-  'asiento-premium-14': {
-    'titulo'  : 'Asiento Premium · Hackea tu Productividad',
-    'eyebrow' : 'Asiento Premium · Hackea tu Productividad',
-    'premium' : True,
+  { # clase del miércoles 14 · un sitio por asiento
+    'carpeta'        : 'portal-beneficios',
+    'un_sitio'       : False,
+    'CLASE'          : '2026-10-14',
+    'LISTO'          : '2026-10-15T12:00:00-03:00',
+    'WORKBOOK_URL'   : '',
+    'GRABACION_LOOM' : '',
+    'GRABACION_URL'  : '',
+    'paginas'        : { 'asiento-basic-14': BASIC, 'asiento-premium-14': PREMIUM },
   },
-}
+]
+CFG = {}   # la edición que se está generando (la llena main)
+LOOM_PARAMS = 'hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true&hide_speed=true'
 
 # ══════════════════════════════════════════════════════════════════════════
 #  PLANTILLA
@@ -92,6 +107,11 @@ h1 .acc{ color:var(--orange); }
 .item__st{ flex:0 0 auto; font-family:var(--fh); font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ts);
   border:1px solid var(--hair); border-radius:50px; padding:7px 12px; white-space:nowrap; }
 .item__st--pronto{ color:var(--tm); }
+.item{ flex-wrap:wrap; }
+.item__video{ flex:0 0 100%; margin-top:4px; }
+.item__video[hidden]{ display:none; }
+.vbox{ position:relative; width:100%; height:0; padding-bottom:56.25%; border-radius:12px; overflow:hidden; background:#000; box-shadow:0 0 0 1px var(--hair); }
+.vbox iframe{ position:absolute; top:0; left:0; width:100%; height:100%; border:0; display:block; }
 .item .btn{ flex:0 0 auto; }
 .item [data-cuando-listo]{ display:none; }
 .card[data-listo] .item [data-cuando-listo]{ display:inline-flex; }
@@ -131,14 +151,17 @@ ICO_PLAY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wi
 ICO_ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'
 ICO_DL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M6 11l6 6 6-6M4 20h16"/></svg>'
 
-def item(key, ico, titulo, bajada):
+def item(key, ico, titulo, bajada, loom=''):
+    video = (f"""
+          <div class="item__video" data-video="{key}" hidden><div class="vbox"><iframe data-src="https://www.loom.com/embed/{loom}?{LOOM_PARAMS}" title="{titulo} de la clase" frameborder="0" allow="fullscreen; picture-in-picture" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div></div>"""
+             if loom else '')
     return f"""
         <li class="item" data-item="{key}">
           <div class="item__ic">{ico}</div>
           <div class="item__t"><b>{titulo}</b><span>{bajada}</span></div>
           <span class="item__st" data-antes>Después de la clase</span>
           <a class="btn btn--sm" data-cuando-listo data-link="{key}" href="#" target="_blank" rel="noopener">Abrir {ICO_ARROW}</a>
-          <span class="item__st item__st--pronto" data-cuando-listo data-sinlink="{key}">Lo estamos subiendo · volvé en un rato</span>
+          <span class="item__st item__st--pronto" data-cuando-listo data-sinlink="{key}">Lo estamos subiendo · volvé en un rato</span>{video}
         </li>"""
 
 def pagina(slug, pg):
@@ -195,7 +218,7 @@ def pagina(slug, pg):
       <p class="txt cd-nota">El <b>workbook</b> con el resumen y los accionables, y la <b>grabación completa</b>, van a estar acá <b>después de la clase del <span data-fecha="claseDia"></span></b>.</p>
       <p class="txt" data-cuando-listo-txt hidden>Ya está disponible lo de la clase. Si algo todavía no aparece, lo estamos subiendo.</p>
 
-      <ul class="items">{item('workbook', ICO_DOC, 'Workbook', 'Resumen de la clase y accionables concretos, en formato de hacer.')}{item('grabacion', ICO_PLAY, 'Grabación', 'La clase completa, tuya para siempre.')}
+      <ul class="items">{item('workbook', ICO_DOC, 'Workbook', 'Resumen de la clase y accionables concretos, en formato de hacer.')}{item('grabacion', ICO_PLAY, 'Grabación', 'La clase completa, tuya para siempre.', CFG['GRABACION_LOOM'])}
       </ul>
     </section>
 {extra}
@@ -214,7 +237,8 @@ def pagina(slug, pg):
 var CFG = {{
   CLASE: '{CFG['CLASE']}',
   LISTO: '{CFG['LISTO']}',
-  LINKS: {{ workbook: '{CFG['WORKBOOK_URL']}', grabacion: '{CFG['GRABACION_URL']}' }}
+  LINKS: {{ workbook: '{CFG['WORKBOOK_URL']}', grabacion: '{CFG['GRABACION_URL']}' }},
+  LOOM:  {{ grabacion: '{CFG['GRABACION_LOOM']}' }}
 }};
 var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 var MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
@@ -242,12 +266,18 @@ function listo(){{
   card.setAttribute('data-listo','');
   var t=card.querySelector('[data-cuando-listo-txt]'); if(t) t.hidden=false;
   var sub=document.querySelector('[data-sub]'); if(sub) sub.textContent='Acá está todo lo que incluye tu asiento.';
+  var todo=true;
   ['workbook','grabacion'].forEach(function(k){{
-    var url=(CFG.LINKS[k]||'').trim();
-    var a=card.querySelector('[data-link="'+k+'"]'), s=card.querySelector('[data-sinlink="'+k+'"]');
-    if(url){{ a.setAttribute('href',url); if(s) s.style.display='none'; }}
-    else {{ if(a) a.style.display='none'; }}
+    var url=(CFG.LINKS[k]||'').trim(), loom=((CFG.LOOM||{{}})[k]||'').trim();
+    var a=card.querySelector('[data-link="'+k+'"]'), s=card.querySelector('[data-sinlink="'+k+'"]'), v=card.querySelector('[data-video="'+k+'"]');
+    if(loom && v){{   /* el video se ve acá mismo: sin botón */
+      var f=v.querySelector('iframe'); if(f && !f.getAttribute('src')) f.setAttribute('src', f.getAttribute('data-src'));
+      v.hidden=false; if(a) a.style.display='none'; if(s) s.style.display='none';
+    }}
+    else if(url){{ a.setAttribute('href',url); if(s) s.style.display='none'; }}
+    else {{ todo=false; if(a) a.style.display='none'; }}
   }});
+  if(todo && t) t.textContent='Ya están el workbook y la grabación completa de la clase.';
 }}
 function tick(){{
   var r=tsListo-ahora();
@@ -296,16 +326,40 @@ Para probar el estado «ya disponible» sin esperar: agregar `?nfm_now=2026-10-1
 Sin contraseña: quien tenga el link entra. Llevan noindex y robots.txt para que no las levante Google.
 """
 
+README_7 = """# Baúl de beneficios · clase del miércoles 7 de octubre
+
+Un solo sitio en Netlify (`clase-beneficios.netlify.app`) con dos páginas, como se subió para el 7:
+
+| Ruta | Asiento |
+|---|---|
+| `/asiento-basic` | Básico · USD 1 — workbook + grabación |
+| `/premium-htc` | Hackea tu Productividad · USD 5 — lo mismo + ebook + curso ABC |
+
+Para actualizarlo: Netlify → el sitio → Deploys → arrastrar la carpeta `clase-7-oct` entera.
+(Si en vez de un sitio subiste cada asiento como sitio aparte, arrastrá `asiento-basic` y `premium-htc`
+cada una a su sitio: las dos páginas funcionan solas.)
+
+Ya está todo cargado: workbook (Drive) y grabación (Loom, se ve adentro del portal).
+"""
+
 def main():
-    os.makedirs(RAIZ, exist_ok=True)
-    for slug, pg in PAGINAS.items():
-        d = os.path.join(RAIZ, slug); os.makedirs(d, exist_ok=True)
-        out = pagina(slug, pg)
-        io.open(os.path.join(d, 'index.html'), 'w', encoding='utf-8').write(out)
-        io.open(os.path.join(d, 'robots.txt'), 'w', encoding='utf-8').write(ROBOTS)
-        print('escrito', os.path.join(d, 'index.html'), len(out), 'bytes')
-    io.open(os.path.join(RAIZ, 'README.md'), 'w', encoding='utf-8').write(README)
-    faltan = [k for k in ('WORKBOOK_URL','GRABACION_URL') if not CFG[k]]
-    if faltan: print('⚠️  sin link todavía:', ', '.join(faltan), '— después de la fecha el portal dirá «lo estamos subiendo».')
+    global CFG
+    for ed in EDICIONES:
+        CFG = dict(COMUN, **ed)
+        raiz = ed['carpeta']; os.makedirs(raiz, exist_ok=True)
+        for slug, pg in ed['paginas'].items():
+            d = os.path.join(raiz, slug); os.makedirs(d, exist_ok=True)
+            out = pagina(slug, pg)
+            io.open(os.path.join(d, 'index.html'), 'w', encoding='utf-8').write(out)
+            io.open(os.path.join(d, 'robots.txt'), 'w', encoding='utf-8').write(ROBOTS)
+            print('escrito', os.path.join(d, 'index.html'), len(out), 'bytes')
+        if ed['un_sitio']:
+            io.open(os.path.join(raiz, 'index.html'), 'w', encoding='utf-8').write(RAIZ_HTML)
+            io.open(os.path.join(raiz, 'robots.txt'), 'w', encoding='utf-8').write(ROBOTS)
+            io.open(os.path.join(raiz, 'README.md'), 'w', encoding='utf-8').write(README_7)
+        else:
+            io.open(os.path.join(raiz, 'README.md'), 'w', encoding='utf-8').write(README)
+        faltan = [k for k in ('WORKBOOK_URL','GRABACION') if not (CFG.get(k) or CFG.get(k+'_URL') or CFG.get(k+'_LOOM'))]
+        if faltan: print('   ⚠️  clase', ed['CLASE'], '· sin link todavía:', ', '.join(faltan), '— después de LISTO dirá «lo estamos subiendo».')
 
 main()
