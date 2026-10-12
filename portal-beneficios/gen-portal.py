@@ -4,9 +4,9 @@
    Clase del 7 de octubre · portal-beneficios/clase-7-oct/ → clase-beneficios.netlify.app
      /asiento-basic   → USD 1 · la clase (workbook + grabación)
      /premium-htc     → USD 5 · lo mismo + el ebook + el curso ABC
-   Clase del 14 de octubre · un sitio por asiento (cada carpeta se sube sola):
-     asiento-basic-14.netlify.app    → USD 1
-     asiento-premium-14.netlify.app  → USD 5
+   Clase del 20 de octubre · un sitio por asiento (cada carpeta se sube sola):
+     asiento-basic-20.netlify.app    → USD 1
+     asiento-premium-20.netlify.app  → USD 5
 
    Las dos salen de la misma plantilla: cambia el contenido, no el esqueleto.
    Correr desde la raíz del repo:  python3 portal-beneficios/gen-portal.py
@@ -42,15 +42,15 @@ EDICIONES = [
     'GRABACION_URL'  : '',
     'paginas'        : { 'asiento-basic': BASIC, 'premium-htc': PREMIUM },
   },
-  { # clase del miércoles 14 · un sitio por asiento
+  { # clase del martes 20 · un sitio por asiento
     'carpeta'        : 'portal-beneficios',
     'un_sitio'       : False,
-    'CLASE'          : '2026-10-14',
-    'LISTO'          : '2026-10-15T12:00:00-03:00',
+    'CLASE'          : '2026-10-20',
+    'LISTO'          : '2026-10-21T12:00:00-03:00',
     'WORKBOOK_URL'   : '',
     'GRABACION_LOOM' : '',
     'GRABACION_URL'  : '',
-    'paginas'        : { 'asiento-basic-14': BASIC, 'asiento-premium-14': PREMIUM },
+    'paginas'        : { 'asiento-basic-20': BASIC, 'asiento-premium-20': PREMIUM },
   },
 ]
 CFG = {}   # la edición que se está generando (la llena main)
@@ -244,7 +244,7 @@ var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 var MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 function pad(n){{ return n<10?'0'+n:''+n; }}
 function qs(k){{ var m=new RegExp('[?&]'+k+'=([^&#]*)').exec(location.search); return m?decodeURIComponent(m[1]):null; }}
-/* ?nfm_now=2026-10-15T12:01:00-03:00 simula otra hora, para probar el estado «listo» */
+/* ?nfm_now=2026-10-21T12:01:00-03:00 simula otra hora, para probar el estado «listo» */
 function ahora(){{ var s=qs('nfm_now'); if(s){{ var t=Date.parse(s); if(!isNaN(t)) return t; }} return Date.now(); }}
 
 /* fechas en hora Argentina, se lea desde donde se lea */
@@ -301,14 +301,14 @@ p{{max-width:30em;line-height:1.6;color:rgba(255,255,255,.7)}} b{{color:#fff}}</
 
 ROBOTS = "User-agent: *\nDisallow: /\n"
 
-README = """# Baúl de beneficios · clase del miércoles 14 de octubre
+README = """# Baúl de beneficios · clase del martes 20 de octubre
 
 Dos sitios en Netlify, uno por asiento. Cada carpeta se sube sola (Add new site → Deploy manually → arrastrar la carpeta):
 
 | Carpeta | Sitio en Netlify | Asiento |
 |---|---|---|
-| `asiento-basic-14/` | `asiento-basic-14.netlify.app` | Básico · USD 1 — workbook + grabación |
-| `asiento-premium-14/` | `asiento-premium-14.netlify.app` | Hackea tu Productividad · USD 5 — lo mismo + ebook + curso ABC |
+| `asiento-basic-20/` | `asiento-basic-20.netlify.app` | Básico · USD 1 — workbook + grabación |
+| `asiento-premium-20/` | `asiento-premium-20.netlify.app` | Hackea tu Productividad · USD 5 — lo mismo + ebook + curso ABC |
 
 El nombre del sitio en Netlify tiene que ser exactamente ese: las thank you de compra y los mails apuntan ahí.
 
@@ -316,10 +316,10 @@ El nombre del sitio en Netlify tiene que ser exactamente ese: las thank you de c
 
 Editar `CFG` en `gen-portal.py` — `WORKBOOK_URL` y `GRABACION_URL` — correr
 `python3 portal-beneficios/gen-portal.py` desde la raíz del repo, y volver a subir las dos carpetas.
-La página no muestra ninguna hora (dice «después de la clase del miércoles»); por dentro cambia de estado en `LISTO`
-(jueves 15 a las 12:00, hora Argentina). Sin links cargados, a esa hora dice «lo estamos subiendo», nunca un botón roto.
+La página no muestra ninguna hora (dice «después de la clase del martes»); por dentro cambia de estado en `LISTO`
+(miércoles 21 a las 12:00, hora Argentina). Sin links cargados, a esa hora dice «lo estamos subiendo», nunca un botón roto.
 
-Para probar el estado «ya disponible» sin esperar: agregar `?nfm_now=2026-10-15T12:01:00-03:00` a la URL.
+Para probar el estado «ya disponible» sin esperar: agregar `?nfm_now=2026-10-21T12:01:00-03:00` a la URL.
 
 ## Ojo
 

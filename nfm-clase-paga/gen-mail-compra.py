@@ -5,7 +5,7 @@
    con respaldo, un ancho de 600px y un botón «a prueba de Outlook». Nada de
    CSS externo, flex ni grid: los clientes de mail los rompen.
 
-   Sale : nfm-clase-paga/mail-compra-{basic,premium}.html           confirmación de compra · clase del 14
+   Sale : nfm-clase-paga/mail-compra-{basic,premium}.html           confirmación de compra · clase del 20
           nfm-clase-paga/mail-compra-generico-{basic,premium}.html  confirmación de compra sin fecha ni clase
           nfm-clase-paga/mail-grabacion-7oct-{basic,premium}.html   aviso: ya está la grabación (clase del 7)
 
@@ -17,7 +17,7 @@ import io
 
 LOGO   = 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png'
 WA     = 'https://go.wha.link/clase-de-neurociencia-14-10'
-CLASE  = 'Miércoles 14 de octubre · 19:00 hs (Argentina) · vía Zoom'
+CLASE  = 'Martes 20 de octubre · 19:00 hs (Argentina) · vía Zoom'
 
 ITEMS_BASIC = [
   ('Workbook', 'Resumen de la clase y accionables concretos.'),
@@ -42,7 +42,7 @@ TIERS = {
     'archivo' : 'nfm-clase-paga/mail-compra-basic.html',
     'asunto'  : 'Tu asiento está confirmado — acá está tu acceso',
     'nombre'  : 'Asiento Premium Básico',
-    'portal'  : 'https://asiento-basic-14.netlify.app',
+    'portal'  : 'https://asiento-basic-20.netlify.app',
     'items'   : ITEMS_BASIC,
     'nota'    : '',
   },
@@ -50,7 +50,7 @@ TIERS = {
     'archivo' : 'nfm-clase-paga/mail-compra-premium.html',
     'asunto'  : 'Tu asiento está confirmado — el libro y el curso ya están disponibles',
     'nombre'  : 'Asiento Premium · Hackea tu Productividad',
-    'portal'  : 'https://asiento-premium-14.netlify.app',
+    'portal'  : 'https://asiento-premium-20.netlify.app',
     'items'   : ITEMS_PREMIUM,
     'nota'    : NOTA_PREMIUM,
   },
