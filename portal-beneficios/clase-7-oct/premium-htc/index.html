@@ -143,6 +143,7 @@ h1 .acc{ color:var(--orange); }
         <a class="btn btn--w" href="https://drive.google.com/file/d/1M2AGlaIzwFDei7b2NeBQmLqcf6LtA4PY/view?usp=sharing" target="_blank" rel="noopener">Descargar el libro <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M6 11l6 6 6-6M4 20h16"/></svg></a>
       </section>
 
+
       <!-- EL ABC -->
       <section class="card">
         <p class="card__k">Incluido en tu asiento</p>
@@ -172,7 +173,7 @@ var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 var MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 function pad(n){ return n<10?'0'+n:''+n; }
 function qs(k){ var m=new RegExp('[?&]'+k+'=([^&#]*)').exec(location.search); return m?decodeURIComponent(m[1]):null; }
-/* ?nfm_now=2026-10-21T12:01:00-03:00 simula otra hora, para probar el estado «listo» */
+/* ?nfm_now=2026-10-22T12:01:00-03:00 simula otra hora, para probar el estado «listo» */
 function ahora(){ var s=qs('nfm_now'); if(s){ var t=Date.parse(s); if(!isNaN(t)) return t; } return Date.now(); }
 
 /* fechas en hora Argentina, se lea desde donde se lea */

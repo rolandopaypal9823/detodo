@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Asiento Premium · Hackea tu Productividad · Tus beneficios · Nicolás Fernández Miranda</title>
+<title>Asiento Premium Básico · Tus beneficios · Nicolás Fernández Miranda</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -101,7 +101,7 @@ h1 .acc{ color:var(--orange); }
 
   <header class="hero">
     <div class="wrap">
-      <span class="eyebrow">Asiento Premium · Hackea tu Productividad</span>
+      <span class="eyebrow">Asiento Premium Básico</span>
       <h1>Tu asiento está <span class="acc">confirmado.</span></h1>
       <p class="sub" data-sub>Acá está todo lo que incluye tu asiento.</p>
     </div>
@@ -134,21 +134,6 @@ h1 .acc{ color:var(--orange); }
       </ul>
     </section>
 
-      <!-- EL LIBRO -->
-      <section class="card card--hot">
-        <p class="card__k">Incluido en tu asiento</p>
-        <h2>Hackea tu Cerebro · versión ebook</h2>
-        <p class="txt">El libro completo, el mismo que está en librerías. Es tuyo: descargalo y guardalo donde quieras.</p>
-        <a class="btn btn--w" href="https://drive.google.com/file/d/1M2AGlaIzwFDei7b2NeBQmLqcf6LtA4PY/view?usp=sharing" target="_blank" rel="noopener">Descargar el libro <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M6 11l6 6 6-6M4 20h16"/></svg></a>
-      </section>
-
-      <!-- EL ABC -->
-      <section class="card">
-        <p class="card__k">Incluido en tu asiento</p>
-        <h2>El ABC del Alto Rendimiento</h2>
-        <p class="txt">El curso completo en video: <b>6 módulos</b> — mindset, hábitos, sueño y descanso, ejercicio y alimentación, concentración y memoria. Entrá cuando quieras, el acceso no vence.</p>
-        <a class="btn btn--w" href="https://abc-altorendimiento-nfm.netlify.app/" target="_blank" rel="noopener">Entrar al curso <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      </section>
   </main>
 
   <footer class="foot">
@@ -162,8 +147,8 @@ h1 .acc{ color:var(--orange); }
 (function(){
 'use strict';
 var CFG = {
-  CLASE: '2026-10-20',
-  LISTO: '2026-10-21T12:00:00-03:00',
+  CLASE: '2026-10-21',
+  LISTO: '2026-10-22T12:00:00-03:00',
   LINKS: { workbook: '', grabacion: '' },
   LOOM:  { grabacion: '' }
 };
@@ -171,7 +156,7 @@ var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 var MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 function pad(n){ return n<10?'0'+n:''+n; }
 function qs(k){ var m=new RegExp('[?&]'+k+'=([^&#]*)').exec(location.search); return m?decodeURIComponent(m[1]):null; }
-/* ?nfm_now=2026-10-21T12:01:00-03:00 simula otra hora, para probar el estado «listo» */
+/* ?nfm_now=2026-10-22T12:01:00-03:00 simula otra hora, para probar el estado «listo» */
 function ahora(){ var s=qs('nfm_now'); if(s){ var t=Date.parse(s); if(!isNaN(t)) return t; } return Date.now(); }
 
 /* fechas en hora Argentina, se lea desde donde se lea */

@@ -5,7 +5,7 @@
    con respaldo, un ancho de 600px y un botón «a prueba de Outlook». Nada de
    CSS externo, flex ni grid: los clientes de mail los rompen.
 
-   Sale : nfm-clase-paga/mail-compra-{basic,premium}.html           confirmación de compra · clase del 20
+   Sale : nfm-clase-paga/mail-compra-{basic,premium}.html           confirmación de compra · clase del 21
           nfm-clase-paga/mail-compra-generico-{basic,premium}.html  confirmación de compra sin fecha ni clase
           nfm-clase-paga/mail-grabacion-7oct-{basic,premium}.html   aviso: ya está la grabación (clase del 7)
 
@@ -17,7 +17,7 @@ import io
 
 LOGO   = 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png'
 WA     = 'https://go.wha.link/clase-de-neurociencia-14-10'
-CLASE  = 'Martes 20 de octubre · 19:00 hs (Argentina) · vía Zoom'
+CLASE  = 'Miércoles 21 de octubre · 19:00 hs (Argentina) · vía Zoom'
 
 ITEMS_BASIC = [
   ('Workbook', 'Resumen de la clase y accionables concretos.'),
@@ -25,9 +25,15 @@ ITEMS_BASIC = [
 ]
 ITEMS_PREMIUM = [
   ('Hackea tu Cerebro · versión ebook', 'El libro completo, para descargar ahora.'),
+  ('Mini curso de Concentración, Sueño y Memoria', 'En video. Disponible ahora.'),
+] + ITEMS_BASIC
+NOTA_PREMIUM = 'El libro y el mini curso <strong style="color:#ffffff;">ya están disponibles</strong> en tu portal.'
+# Lo que compraron los de la clase del 7 (portal clase-beneficios): el curso ABC completo.
+ITEMS_PREMIUM_7 = [
+  ('Hackea tu Cerebro · versión ebook', 'El libro completo, para descargar ahora.'),
   ('El ABC del Alto Rendimiento', 'El curso en video, 6 módulos. Disponible ahora.'),
 ] + ITEMS_BASIC
-NOTA_PREMIUM = 'El libro y el curso <strong style="color:#ffffff;">ya están disponibles</strong> en tu portal.'
+NOTA_PREMIUM_7 = 'El libro y el curso <strong style="color:#ffffff;">ya están disponibles</strong> en tu portal.'
 
 # Lo que cambia de un mail a otro. Lo que no se pone, sale como el de compra.
 COMPRA = {
@@ -42,15 +48,15 @@ TIERS = {
     'archivo' : 'nfm-clase-paga/mail-compra-basic.html',
     'asunto'  : 'Tu asiento está confirmado — acá está tu acceso',
     'nombre'  : 'Asiento Premium Básico',
-    'portal'  : 'https://asiento-basic-20.netlify.app',
+    'portal'  : 'https://asiento-basic-21.netlify.app',
     'items'   : ITEMS_BASIC,
     'nota'    : '',
   },
   'premium': {
     'archivo' : 'nfm-clase-paga/mail-compra-premium.html',
-    'asunto'  : 'Tu asiento está confirmado — el libro y el curso ya están disponibles',
+    'asunto'  : 'Tu asiento está confirmado — el libro y el mini curso ya están disponibles',
     'nombre'  : 'Asiento Premium · Hackea tu Productividad',
-    'portal'  : 'https://asiento-premium-20.netlify.app',
+    'portal'  : 'https://asiento-premium-21.netlify.app',
     'items'   : ITEMS_PREMIUM,
     'nota'    : NOTA_PREMIUM,
   },
@@ -75,6 +81,8 @@ GENERICOS = {
   'premium': dict(TIERS['premium'], **{
     'archivo' : 'nfm-clase-paga/mail-compra-generico-premium.html',
     'asunto'  : 'Pago confirmado — acá está tu acceso',
+    'items'   : ITEMS_PREMIUM_7,
+    'nota'    : NOTA_PREMIUM_7,
     'portal'  : PORTAL_7['premium'],
     'h1'      : 'Pago <span style="color:#FF6602;">confirmado.</span>',
     'bajada'  : 'Acá está tu acceso. Esto es lo que incluye tu asiento:',

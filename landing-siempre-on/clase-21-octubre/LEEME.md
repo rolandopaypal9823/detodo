@@ -1,4 +1,4 @@
-# Landing de registro · clase del martes 20 de octubre · 19:00 hs (Argentina)
+# Landing de registro · clase del miércoles 21 de octubre · 19:00 hs (Argentina)
 
 Dos variantes, las mismas del 7 (`landing-siempre-on/clase-7-octubre/`, rama `claude/nueva-landing-form-7ajo0h`):
 
@@ -9,7 +9,7 @@ Dos variantes, las mismas del 7 (`landing-siempre-on/clase-7-octubre/`, rama `cl
 
 Cambios respecto de la del 7, iguales en las dos:
 
-1. **Fecha y UTM:** `2026-10-20`, todos los textos que decían «miércoles 7» o «miércoles 14» y `clase-oct20-alto-rendimiento`
+1. **Fecha y UTM:** `2026-10-21`, todos los textos que decían «miércoles 7», «miércoles 14» o «martes 20» y `clase-oct21-alto-rendimiento`
    (va en el `utm_campaign` de los leads sin UTM, en `edicion` y en `clase_fecha` del form).
 2. **Tráiler de autoridad (Loom)** debajo de la cinta «Su trabajo fue destacado en». El video son los
    conductores de TV presentando a Nico, sus credenciales, el libro, el TEDx y testimonios: es la cinta de

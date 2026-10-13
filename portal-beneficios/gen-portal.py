@@ -4,9 +4,9 @@
    Clase del 7 de octubre · portal-beneficios/clase-7-oct/ → clase-beneficios.netlify.app
      /asiento-basic   → USD 1 · la clase (workbook + grabación)
      /premium-htc     → USD 5 · lo mismo + el ebook + el curso ABC
-   Clase del 20 de octubre · un sitio por asiento (cada carpeta se sube sola):
-     asiento-basic-20.netlify.app    → USD 1
-     asiento-premium-20.netlify.app  → USD 5
+   Clase del 21 de octubre · un sitio por asiento (cada carpeta se sube sola):
+     asiento-basic-21.netlify.app    → USD 1
+     asiento-premium-21.netlify.app  → USD 5 · lo mismo + el ebook + el mini curso
 
    Las dos salen de la misma plantilla: cambia el contenido, no el esqueleto.
    Correr desde la raíz del repo:  python3 portal-beneficios/gen-portal.py
@@ -22,6 +22,9 @@ COMUN = {
   # Lo del asiento de USD 5
   'LIBRO_URL' : 'https://drive.google.com/file/d/1M2AGlaIzwFDei7b2NeBQmLqcf6LtA4PY/view?usp=sharing',
   'ABC_URL'   : 'https://abc-altorendimiento-nfm.netlify.app/',
+  # Mini curso de Concentración, Sueño y Memoria (USD 5 desde la clase del 21).
+  # ⚠️ Hasta tener su link propio apunta al curso ABC, que tiene esos módulos.
+  'MINI_URL'  : 'https://abc-altorendimiento-nfm.netlify.app/',
   'LOGO'      : 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png',
 }
 BASIC   = { 'titulo':'Asiento Premium Básico', 'eyebrow':'Asiento Premium Básico', 'premium':False }
@@ -41,16 +44,18 @@ EDICIONES = [
     'GRABACION_LOOM' : '323726c4dd324cb9af2d8eaffbb4b220',
     'GRABACION_URL'  : '',
     'paginas'        : { 'asiento-basic': BASIC, 'premium-htc': PREMIUM },
+    'curso'          : 'abc',     # el USD 5 de esta clase traía el curso ABC completo
   },
-  { # clase del martes 20 · un sitio por asiento
+  { # clase del miércoles 21 · un sitio por asiento
     'carpeta'        : 'portal-beneficios',
     'un_sitio'       : False,
-    'CLASE'          : '2026-10-20',
-    'LISTO'          : '2026-10-21T12:00:00-03:00',
+    'CLASE'          : '2026-10-21',
+    'LISTO'          : '2026-10-22T12:00:00-03:00',
     'WORKBOOK_URL'   : '',
     'GRABACION_LOOM' : '',
     'GRABACION_URL'  : '',
-    'paginas'        : { 'asiento-basic-20': BASIC, 'asiento-premium-20': PREMIUM },
+    'paginas'        : { 'asiento-basic-21': BASIC, 'asiento-premium-21': PREMIUM },
+    'curso'          : 'mini',    # desde el 21, el USD 5 trae el mini curso
   },
 ]
 CFG = {}   # la edición que se está generando (la llena main)
@@ -164,6 +169,26 @@ def item(key, ico, titulo, bajada, loom=''):
           <span class="item__st item__st--pronto" data-cuando-listo data-sinlink="{key}">Lo estamos subiendo · volvé en un rato</span>{video}
         </li>"""
 
+def tarjeta_curso():
+    """La tarjeta del curso del asiento de USD 5: depende de la edición."""
+    if CFG['curso'] == 'abc':
+        return f"""
+      <!-- EL ABC -->
+      <section class="card">
+        <p class="card__k">Incluido en tu asiento</p>
+        <h2>El ABC del Alto Rendimiento</h2>
+        <p class="txt">El curso completo en video: <b>6 módulos</b> — mindset, hábitos, sueño y descanso, ejercicio y alimentación, concentración y memoria. Entrá cuando quieras, el acceso no vence.</p>
+        <a class="btn btn--w" href="{CFG['ABC_URL']}" target="_blank" rel="noopener">Entrar al curso {ICO_ARROW}</a>
+      </section>"""
+    return f"""
+      <!-- EL MINI CURSO -->
+      <section class="card">
+        <p class="card__k">Incluido en tu asiento</p>
+        <h2>Mini curso de Concentración, Sueño y Memoria</h2>
+        <p class="txt">En video, para ver cuando quieras. El acceso no vence.</p>
+        <a class="btn btn--w" href="{CFG['MINI_URL']}" target="_blank" rel="noopener">Entrar al mini curso {ICO_ARROW}</a>
+      </section>"""
+
 def pagina(slug, pg):
     premium = pg['premium']
     extra = ''
@@ -177,13 +202,7 @@ def pagina(slug, pg):
         <a class="btn btn--w" href="{CFG['LIBRO_URL']}" target="_blank" rel="noopener">Descargar el libro {ICO_DL}</a>
       </section>
 
-      <!-- EL ABC -->
-      <section class="card">
-        <p class="card__k">Incluido en tu asiento</p>
-        <h2>El ABC del Alto Rendimiento</h2>
-        <p class="txt">El curso completo en video: <b>6 módulos</b> — mindset, hábitos, sueño y descanso, ejercicio y alimentación, concentración y memoria. Entrá cuando quieras, el acceso no vence.</p>
-        <a class="btn btn--w" href="{CFG['ABC_URL']}" target="_blank" rel="noopener">Entrar al curso {ICO_ARROW}</a>
-      </section>"""
+{tarjeta_curso()}"""
 
     return f"""<!DOCTYPE html>
 <html lang="es">
@@ -244,7 +263,7 @@ var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 var MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 function pad(n){{ return n<10?'0'+n:''+n; }}
 function qs(k){{ var m=new RegExp('[?&]'+k+'=([^&#]*)').exec(location.search); return m?decodeURIComponent(m[1]):null; }}
-/* ?nfm_now=2026-10-21T12:01:00-03:00 simula otra hora, para probar el estado «listo» */
+/* ?nfm_now=2026-10-22T12:01:00-03:00 simula otra hora, para probar el estado «listo» */
 function ahora(){{ var s=qs('nfm_now'); if(s){{ var t=Date.parse(s); if(!isNaN(t)) return t; }} return Date.now(); }}
 
 /* fechas en hora Argentina, se lea desde donde se lea */
@@ -301,14 +320,14 @@ p{{max-width:30em;line-height:1.6;color:rgba(255,255,255,.7)}} b{{color:#fff}}</
 
 ROBOTS = "User-agent: *\nDisallow: /\n"
 
-README = """# Baúl de beneficios · clase del martes 20 de octubre
+README = """# Baúl de beneficios · clase del miércoles 21 de octubre
 
 Dos sitios en Netlify, uno por asiento. Cada carpeta se sube sola (Add new site → Deploy manually → arrastrar la carpeta):
 
 | Carpeta | Sitio en Netlify | Asiento |
 |---|---|---|
-| `asiento-basic-20/` | `asiento-basic-20.netlify.app` | Básico · USD 1 — workbook + grabación |
-| `asiento-premium-20/` | `asiento-premium-20.netlify.app` | Hackea tu Productividad · USD 5 — lo mismo + ebook + curso ABC |
+| `asiento-basic-21/` | `asiento-basic-21.netlify.app` | Básico · USD 1 — workbook + grabación |
+| `asiento-premium-21/` | `asiento-premium-21.netlify.app` | Hackea tu Productividad · USD 5 — lo mismo + ebook + mini curso de concentración, sueño y memoria |
 
 El nombre del sitio en Netlify tiene que ser exactamente ese: las thank you de compra y los mails apuntan ahí.
 
@@ -316,10 +335,10 @@ El nombre del sitio en Netlify tiene que ser exactamente ese: las thank you de c
 
 Editar `CFG` en `gen-portal.py` — `WORKBOOK_URL` y `GRABACION_URL` — correr
 `python3 portal-beneficios/gen-portal.py` desde la raíz del repo, y volver a subir las dos carpetas.
-La página no muestra ninguna hora (dice «después de la clase del martes»); por dentro cambia de estado en `LISTO`
-(miércoles 21 a las 12:00, hora Argentina). Sin links cargados, a esa hora dice «lo estamos subiendo», nunca un botón roto.
+La página no muestra ninguna hora (dice «después de la clase del miércoles»); por dentro cambia de estado en `LISTO`
+(jueves 22 a las 12:00, hora Argentina). Sin links cargados, a esa hora dice «lo estamos subiendo», nunca un botón roto.
 
-Para probar el estado «ya disponible» sin esperar: agregar `?nfm_now=2026-10-21T12:01:00-03:00` a la URL.
+Para probar el estado «ya disponible» sin esperar: agregar `?nfm_now=2026-10-22T12:01:00-03:00` a la URL.
 
 ## Ojo
 
