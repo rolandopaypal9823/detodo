@@ -16,7 +16,7 @@
 import io
 
 LOGO   = 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png'
-WA     = 'https://go.wha.link/clase-de-neurociencia-14-10'
+WA     = 'https://go.wha.link/clase-de-neurociencia-21-10'
 CLASE  = 'Miércoles 21 de octubre · 19:00 hs (Argentina) · vía Zoom'
 
 ITEMS_BASIC = [
