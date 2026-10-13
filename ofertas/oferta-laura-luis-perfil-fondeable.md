@@ -1,119 +1,62 @@
-# Oferta: Laura Lejarde & Luis, reparación de crédito para dueños de negocio que buscan funding
+# Oferta: Perfil Fondeable™
 
-> Basado en la llamada del 13 de octubre de 2026 (Samy + Laura + Luis).
-> Embudo: **webinar (one to many) → llamada agendada**.
+## Posicionamiento (mensaje de marketing)
 
----
+**Laura y Luis ayudan a dueños de negocio que facturan unos $10,000 al mes a convertir un crédito personal de 600 en un Perfil Fondeable™: el perfil que el banco necesita ver para aprobarles el capital con el que van a escalar su negocio, de forma 100% legal y transparente.**
 
-## 1. ¿QUIÉN ES? (avatar único)
+Mensaje central:
+> *"Tu negocio ya demostró que funciona. Lo que te está frenando no es el negocio, es tu perfil. Antes de volver a aplicar a funding, hazlo fondeable."*
 
-**Dueño de negocio de servicios en EE. UU. que factura alrededor de $10,000 al mes y quiere funding para crecer, pero el banco lo niega por su crédito personal.**
-
-- **Perfil:** dueño de un negocio propio y operativo de servicios: construcción, remodelación, handyman, limpieza, landscaping, transporte, contratistas. *(El patrón real de los mejores clientes: Jean Carlos, su hermano y David Ortiz.)*
-- **Facturación:** unos **$8,000–$12,000 al mes**, con el foco del mensaje en **~$10K/mes**.
-- **Equipo:** trabaja solo o con **2 a 5 personas**.
-- **Crédito personal:** entre **580 y 650**, por collections, inquiries, cuentas cargadas a pérdidas (charge-offs) o pagos atrasados. No es un crédito "destruido": está **lastimado**.
-- **Ya intentó:** aplicó a un préstamo, a una línea de crédito o a tarjetas de negocio y **lo negaron o le ofrecieron montos ridículos con intereses altísimos**.
-- **Nivel de conciencia:** alto. Ya sabe que *buen crédito = acceso a capital*. No hay que convencerlo de que el crédito importa.
-- **Desconfía:** ya le pagó a otra compañía que no dio resultados o que desapareció. Busca a alguien **legal, transparente y que dé la cara**.
-- **Puede invertir:** tiene flujo de caja para pagar el servicio (los mejores clientes pagaron más de $1,000).
-
-**Fuera del mensaje, por decisión de Laura:**
-- La palabra "inmigrantes" en anuncios y en la landing (atrae a perfiles con ITIN que necesitan construir crédito, no repararlo).
-- Empleados que buscan carro o casa. Pueden ser un segundo embudo más adelante, no ahora.
-- Personas sin negocio activo o sin capacidad de inversión.
+Lo que los diferencia: no venden "reparación de crédito" genérica, venden **acceso a capital**. El crédito es el medio y el funding es el fin. Trabajan con métodos legales, explican cada paso y acompañan al cliente hasta que está listo para aplicar.
 
 ---
 
-## 2. ¿QUÉ PROBLEMA TIENE? (uno solo)
+## 1. ¿Quién es?
 
-**Su negocio llegó a un techo y no puede escalar por falta de capital, porque su crédito personal le está cerrando las puertas del funding.**
+Dueño de un negocio de servicios en Estados Unidos (construcción, remodelación, limpieza, landscaping, transporte o contratista) que:
 
-Cómo lo vive en sus palabras:
-- *"Tengo más trabajo del que puedo tomar, pero no puedo contratar a otros 3 porque no tengo cómo pagarles mientras entra el dinero."*
-- *"Necesito comprar material, equipo o una troca, y no tengo el capital por adelantado."*
-- *"Quiero invertir en publicidad para traer más clientes, pero no tengo con qué."*
-- *"Fui al banco, aplicé y me dijeron que no. Por unos collections viejos."*
-- *"Ya le pagué a alguien para que me arreglara el crédito y nunca vi resultados."*
-
-**El costo de no resolverlo:** sigue facturando lo mismo mes tras mes, trabajando de más, rechazando trabajos y viendo cómo la competencia con capital le gana contratos.
+- Factura entre **$8,000 y $12,000 al mes** y tiene de **2 a 5 empleados** o trabaja con ayudantes.
+- Tiene un crédito personal entre **580 y 650**, afectado por collections, inquiries, cuentas cargadas a pérdidas o pagos atrasados.
+- Ya aplicó a un préstamo, a una línea de crédito o a tarjetas de negocio y **lo negaron**, o le ofrecieron montos bajos con intereses altos.
+- Sabe que con buen crédito puede conseguir funding. No hay que convencerlo de eso.
+- Desconfía de las compañías de crédito porque escuchó, o vivió, que cobran y no dan resultados.
+- Tiene flujo de caja para invertir en resolverlo.
 
 ---
 
-## 3. ¿CÓMO SE LO RESOLVEMOS? (mecanismo único)
+## 2. ¿Qué problema tiene?
 
-### Nombre del mecanismo: **"Perfil Fondeable™"**
+**Su negocio llegó a un techo y no puede escalar por falta de capital, porque su crédito personal le cierra las puertas del funding.**
 
-> *"No reparamos tu crédito por repararlo. Te armamos un **Perfil Fondeable**: el perfil exacto que el banco quiere ver para aprobar tu funding, antes de que vuelvas a aplicar."*
+Cómo se ve en su día a día:
+- Tiene más trabajo del que puede tomar, pero no puede contratar a más gente porque no tiene cómo cubrir la nómina mientras le pagan.
+- No puede comprar el material, el equipo o el vehículo que necesita para tomar proyectos más grandes.
+- No tiene capital para invertir en publicidad y traer más clientes.
+- Cada vez que aplica y lo niegan suma un inquiry, que le baja el puntaje todavía más.
 
-**Por qué este nombre:**
-- **Habla el idioma del avatar.** No quiere "subir puntos", quiere *fondos*. El nombre conecta el crédito con el resultado que busca: capital para su negocio.
-- **Es diferente.** No compite con "reparación de crédito" genérica ni con el "perfil platino" de otro cliente de Samy.
-- **Implica preparación antes de aplicar.** Cada aplicación que niegan deja un inquiry. Con el Perfil Fondeable aplica una sola vez, preparado.
-- **Es fácil de repetir en un anuncio, un webinar o un cierre:** *"¿Tu perfil ya es fondeable?"*
-
-### Los 3 pasos del Perfil Fondeable
-
-1. **Diagnóstico de Fondeabilidad.** Revisamos los 3 reportes y vemos exactamente qué está viendo el banco y por qué te niega: collections, inquiries, charge-offs, utilización o errores de reporte.
-2. **Limpieza legal.** Disputamos de forma **legal y documentada** todo lo inexacto, no verificable o incorrecto, apoyados en la ley (FCRA). Sin atajos ni trucos que te pongan en riesgo. *(Ejemplo real: Jean Carlos tenía collections e inquiries y su perfil quedó limpio en unos 22 días. Es un caso individual, no una promesa.)*
-3. **Blindaje pre-aplicación.** Optimizamos utilización, historial y estructura del perfil, y te decimos **cuándo y cómo aplicar** para llegar al banco con un perfil fondeable y no quemar más inquiries.
-
-**Promesa central (sin prometer resultados):**
-> Ayudamos a dueños de negocio que facturan unos $10K al mes a convertir un crédito de 600 en un **Perfil Fondeable** para que puedan aplicar al capital que necesitan para crecer, de forma 100% legal.
-
-**Diferenciales de Laura y Luis:**
-- Referentes en la comunidad: los recomiendan porque hacen el proceso **legal, transparente y correcto**.
-- Conocen las leyes de crédito a fondo.
-- Están presentes durante todo el proceso, no desaparecen después de cobrar.
-- Ellos mismos entienden el mundo del funding (el cliente puede autofondearse después).
+**El costo de no resolverlo:** factura lo mismo mes tras mes, rechaza trabajos, depende de financiamientos caros y ve cómo competidores con capital le ganan los contratos.
 
 ---
 
-## 4. MENSAJE DE MARKETING (para guionizar)
+## 3. ¿Cómo se lo solucionamos? El mecanismo Perfil Fondeable™
 
-**Hooks de anuncio (invitación al webinar):**
-- "Si tu negocio factura $10,000 al mes y el banco te negó el préstamo, el problema no es tu negocio. Es tu perfil."
-- "Tienes más trabajo del que puedes tomar, pero no tienes capital para contratar. Esto es lo que el banco ve cuando te dice que no."
-- "Antes de volver a aplicar a funding, mira esta clase. Cada vez que te niegan te cuesta puntos."
-- "¿Tu crédito es fondeable? En una hora te enseño cómo saberlo."
+El banco no evalúa cuánto factura tu negocio: evalúa tu perfil personal. El Perfil Fondeable prepara ese perfil **antes** de que apliques, para que llegues una sola vez y bien preparado.
 
-**Título del webinar (sugerido):**
-**"Perfil Fondeable: cómo preparar tu crédito para que el banco diga SÍ al capital de tu negocio"**
-*Clase en vivo de 1 hora para dueños de negocio que facturan $8K–$12K al mes.*
+**Paso 1: Diagnóstico de Fondeabilidad.**
+Analizamos tus 3 reportes de crédito (Equifax, Experian y TransUnion) desde la mirada del banco: qué ve, qué le preocupa y qué te está costando la aprobación.
 
-**Estructura del webinar (60 min):**
-1. Quiénes son Laura y Luis, y por qué confiar en ellos (legal, transparente, casos reales).
-2. Por qué el banco te dice que no, aunque tu negocio factura (lo que el banco ve vs. lo que tú ves).
-3. Los 3 errores que queman tu perfil (aplicar sin preparar, inquiries, pagarle a compañías sin resultados).
-4. El método Perfil Fondeable en 3 pasos.
-5. Casos: Jean Carlos y David (con su permiso).
-6. CTA: **agenda tu Diagnóstico de Fondeabilidad gratuito.**
+**Paso 2: Limpieza legal.**
+Disputamos con las agencias y los acreedores todo lo inexacto, incompleto o no verificable, amparados en la Fair Credit Reporting Act (FCRA). Todo es documentado y transparente, sin atajos que te pongan en riesgo.
 
-**CTA del embudo:** "Agenda tu Diagnóstico de Fondeabilidad" → llamada con closer.
+**Paso 3: Blindaje pre-aplicación.**
+Optimizamos la utilización de tus tarjetas, tu historial y la estructura de tu perfil. Además, te indicamos cuándo y dónde aplicar para no seguir acumulando inquiries ni rechazos.
+
+**Resultado que busca el cliente:** pasar de un perfil que el banco rechaza a un perfil fondeable, con acceso a capital para contratar, comprar equipo e invertir en crecer.
 
 ---
 
-## 5. CUMPLIMIENTO (no negociable)
+## Embudo
+Anuncio → webinar de 1 hora *"Perfil Fondeable: cómo preparar tu crédito para que el banco le diga SÍ al capital de tu negocio"* → CTA: **Agenda tu Diagnóstico de Fondeabilidad** → llamada con closer.
 
-- **No garantizar** puntajes, aumentos ni montos de funding (CROA lo prohíbe y Meta lo penaliza).
-- No cobrar por adelantado antes de prestar el servicio, si aplica la ley CROA o la estatal.
-- Los casos de éxito se presentan como **individuales**, con permiso del cliente.
-- Nada de "borramos todo" ni "100% garantizado". Usar: *"disputamos legalmente lo inexacto o no verificable"*.
-
----
-
-## 6. NOMBRES ALTERNATIVOS (si Laura prefiere otro)
-
-| Nombre | Ángulo |
-|---|---|
-| **Perfil Fondeable™** *(recomendado)* | Crédito = acceso a capital |
-| Método Banco-Listo | Llegar preparado al banco |
-| Sistema Crédito-Capital | Puente entre crédito y fondos |
-| Ruta al Sí del Banco | Dejar de recibir "no" |
-
----
-
-## Pendientes
-- [ ] Laura y Luis revisan y aprueban (o ajustan) este documento.
-- [ ] Guionizar 2 anuncios y la landing del webinar.
-- [ ] Accesos: dominio (GoDaddy) y GoHighLevel.
+## Cumplimiento
+No prometer puntajes, aumentos ni montos de funding específicos (CROA y políticas de Meta). Usar siempre "disputamos legalmente lo inexacto o no verificable".
