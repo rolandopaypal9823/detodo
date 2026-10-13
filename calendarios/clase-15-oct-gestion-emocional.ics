@@ -1,0 +1,25 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Instituto de Productividad//Clase 15 oct//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:clase-15-oct-2026-gestion-emocional@nicolasfernandezmiranda.com
+DTSTAMP:20261013T120000Z
+DTSTART:20261015T220000Z
+DTEND:20261015T233000Z
+SUMMARY:Gestión emocional y control del autosabotaje para profesionales · con la psicóloga Soledad Funes
+DESCRIPTION:Clase en vivo: Gestión emocional y control del autosabotaje para profesionales\, con la psicóloga Soledad Funes.\n\nJueves 15 de octubre · 19:00 hs (Argentina) · en vivo por Zoom.\nEl link de acceso llega por el grupo de WhatsApp. Entrá cinco minutos antes.
+LOCATION:Online · Zoom (el link llega por WhatsApp)
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:La clase empieza en 30 minutos
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Mañana a esta hora: clase en vivo con Soledad Funes
+END:VALARM
+END:VEVENT
+END:VCALENDAR
