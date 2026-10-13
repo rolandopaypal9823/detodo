@@ -33,10 +33,10 @@ if(!window.__nfm_pixel_thx){
   window.__nfm_pixel_thx = true;
   fbq('init', '1203017011123382');
   fbq('track', 'PageView');
-  /* Purchase · USD 5 · se manda UNA vez por sesión: si recargan, no se cuenta dos veces. */
+  /* Purchase · USD 9 · se manda UNA vez por sesión: si recargan, no se cuenta dos veces. */
   var k='nfm_purchase_asiento_premium_htc', ya=false;
   try{ ya = !!sessionStorage.getItem(k); }catch(e){}
-  if(!ya){ fbq('track','Purchase',{value:5, currency:'USD', content_name:'asiento_premium_htc'}); try{ sessionStorage.setItem(k,'1'); }catch(e){} }
+  if(!ya){ fbq('track','Purchase',{value:9, currency:'USD', content_name:'asiento_premium_htc'}); try{ sessionStorage.setItem(k,'1'); }catch(e){} }
 }
 </script>
 <noscript><img height="1" width="1" style="display:none"
@@ -277,7 +277,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
           <h3>Tus beneficios, desbloqueados</h3>
         </div>
         <div class="nfm-step__body">
-          <p class="nfm-ben-txt">El ebook de <strong>Hackea tu Cerebro</strong>, el <strong>mini curso de Concentración, Sueño y Memoria</strong>, y el workbook y la grabación de la clase. Todo queda en tu portal.</p>
+          <p class="nfm-ben-txt">El ebook de <strong>Hackea tu Cerebro</strong>, el curso <strong>El ABC del Alto Rendimiento</strong>, y el workbook y la grabación de la clase. Todo queda en tu portal.</p>
           <a href="https://asiento-premium-21.netlify.app" class="nfm-ben-btn" target="_blank" rel="noopener">
             VER MIS BENEFICIOS
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>

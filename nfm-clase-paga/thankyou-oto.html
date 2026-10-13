@@ -183,7 +183,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-thx__footer{ padding:30px 0; border-top:1px solid var(--nfm-hair); text-align:center; }
 .nfm-thx__footer p{ font-size:0.8rem; color:var(--nfm-tm); }
 
-/* ── POPUP POST-REGISTRO · asiento USD 1 / USD 5 (sólo A y B) ── */
+/* ── POPUP POST-REGISTRO · asiento USD 5 / USD 9 (sólo A y B) ── */
 .nfm-oferta{ position:fixed; inset:0; z-index:99999; display:flex; align-items:center; justify-content:center; padding:20px; box-sizing:border-box; }
 .nfm-oferta, .nfm-oferta *{ box-sizing:border-box; }
 .nfm-oferta[hidden]{ display:none !important; }
@@ -743,7 +743,7 @@ if(clase){
 </script>
 
 <!-- ══════════════════════════════════════════════════════════════════
-     POPUP POST-REGISTRO (oferta de asiento USD 1 / USD 5)
+     POPUP POST-REGISTRO (oferta de asiento USD 5 / USD 9)
      Pegar acá el código del popup cuando esté.
      Se muestra SÓLO a quien calificó (etapa A o B): el script de abajo corta con if(!window.NFM_CALIFICA).
        · Datos disponibles: window.NFM_ETAPA ('A'|'B'|'C'|null), window.NFM_EQUIPO, window.NFM_CALIFICA (true/false),
@@ -759,33 +759,33 @@ if(clase){
 
       <div class="nfm-oferta__grid">
 
-        <!-- ASIENTO USD 1 -->
+        <!-- ASIENTO USD 5 -->
         <div class="nfm-oferta__card">
           <p class="nfm-oferta__name">Asiento Premium Básico</p>
-          <div class="nfm-oferta__price">USD 1</div>
+          <div class="nfm-oferta__price">USD 5</div>
           <ul class="nfm-oferta__list">
             <li><b>Workbook con el resumen de la clase</b> y los accionables concretos, para que no dependas de tus apuntes.</li>
             <li><b>La grabación, tuya para siempre.</b> Si ese día se te cruza algo, la ves después.</li>
           </ul>
           <div class="nfm-oferta__btn">
-            <a class="nfm-oferta__cta nfm-oferta__cta--ghost" href="https://buy.stripe.com/28E14g0yzdVM84i9qXcbC02" data-oferta-buy="1">Lo quiero por USD 1</a>
+            <a class="nfm-oferta__cta nfm-oferta__cta--ghost" href="#" data-oferta-buy="5">Lo quiero por USD 5</a>
             <p class="nfm-oferta__err">Falta cargar el link de pago.</p>
           </div>
         </div>
 
-        <!-- ASIENTO USD 5 -->
+        <!-- ASIENTO USD 9 -->
         <div class="nfm-oferta__card nfm-oferta__card--top">
           <span class="nfm-oferta__badge">Recomendado</span>
           <p class="nfm-oferta__name">Asiento Premium · Hackea tu Productividad</p>
-          <div class="nfm-oferta__price">USD 5</div>
+          <div class="nfm-oferta__price">USD 9</div>
           <ul class="nfm-oferta__list">
             <li><b>Todo lo del Básico</b> — workbook y grabación de la clase.</li>
-            <li><b>Mini curso de Concentración, Sueño y Memoria</b> — en video, para ver cuando quieras.</li>
+            <li><b>Acceso al curso El ABC del Alto Rendimiento:</b> 6 módulos en video — mindset, hábitos, sueño y descanso, ejercicio y alimentación, concentración y memoria.</li>
             <li class="nfm-oferta__hot"><span class="nfm-oferta__hot-t">Hackea tu Cerebro · versión ebook</span>Sólo <span data-oferta-cupos>50</span> unidades disponibles. Acceso inmediato al libro completo.</li>
           </ul>
           <div class="nfm-oferta__btn">
-            <a class="nfm-oferta__cta nfm-oferta__cta--full" href="https://buy.stripe.com/6oUcMY6WX04W5Wa8mTcbC03" data-oferta-buy="5">
-              <span>Lo quiero todo por USD 5</span>
+            <a class="nfm-oferta__cta nfm-oferta__cta--full" href="#" data-oferta-buy="9">
+              <span>Lo quiero todo por USD 9</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
             <p class="nfm-oferta__err">Falta cargar el link de pago.</p>
@@ -812,7 +812,7 @@ if(clase){
      fondo no cierra. Si lo cierran, no vuelve a salir en esa sesión.
 
      ⚠️ LINKS · son los Payment Links de Stripe (buy.stripe.com/...), uno por pack.
-        ESTO ES PLATA REAL: si quedan cruzados, el de USD 1 cobra 5 y el de USD 5 cobra 1.
+        ESTO ES PLATA REAL: si quedan cruzados, el de USD 5 cobra 9 y el de USD 9 cobra 5.
         Ya pasó dos veces con los ids de los buy buttons. Antes de publicar: abrir la página,
         clickear cada botón y confirmar en el checkout de Stripe el precio y el nombre.
         Mientras estén vacíos el botón no navega y la tarjeta avisa, a propósito.
@@ -826,9 +826,10 @@ if(clase){
       UNA_VEZ_POR_SESION: true,
       /* El ebook: las unidades que dice el pop-up. */
       CUPOS: 50,
-      LINKS: { '1':'https://buy.stripe.com/28E14g0yzdVM84i9qXcbC02',
-               '5':'https://buy.stripe.com/6oUcMY6WX04W5Wa8mTcbC03' },
-      PRECIO: { '1':1, '5':5 }
+      /* ⚠️ Links nuevos de USD 5 y USD 9: todavía no existen. Vacíos = el botón no cobra y avisa. */
+      LINKS: { '5':'',
+               '9':'' },
+      PRECIO: { '5':5, '9':9 }
     };
     if(!window.NFM_CALIFICA) return;
     var el=document.getElementById('nfm-oferta'); if(!el) return;

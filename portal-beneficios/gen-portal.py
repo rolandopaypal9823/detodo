@@ -5,8 +5,8 @@
      /asiento-basic   → USD 1 · la clase (workbook + grabación)
      /premium-htc     → USD 5 · lo mismo + el ebook + el curso ABC
    Clase del 21 de octubre · un sitio por asiento (cada carpeta se sube sola):
-     asiento-basic-21.netlify.app    → USD 1
-     asiento-premium-21.netlify.app  → USD 5 · lo mismo + el ebook + el mini curso
+     asiento-basic-21.netlify.app    → USD 5
+     asiento-premium-21.netlify.app  → USD 9 · lo mismo + el ebook + el curso ABC
 
    Las dos salen de la misma plantilla: cambia el contenido, no el esqueleto.
    Correr desde la raíz del repo:  python3 portal-beneficios/gen-portal.py
@@ -55,7 +55,7 @@ EDICIONES = [
     'GRABACION_LOOM' : '',
     'GRABACION_URL'  : '',
     'paginas'        : { 'asiento-basic-21': BASIC, 'asiento-premium-21': PREMIUM },
-    'curso'          : 'mini',    # desde el 21, el USD 5 trae el mini curso
+    'curso'          : 'abc',     # el asiento de USD 9 trae el curso ABC completo
   },
 ]
 CFG = {}   # la edición que se está generando (la llena main)
@@ -326,8 +326,8 @@ Dos sitios en Netlify, uno por asiento. Cada carpeta se sube sola (Add new site 
 
 | Carpeta | Sitio en Netlify | Asiento |
 |---|---|---|
-| `asiento-basic-21/` | `asiento-basic-21.netlify.app` | Básico · USD 1 — workbook + grabación |
-| `asiento-premium-21/` | `asiento-premium-21.netlify.app` | Hackea tu Productividad · USD 5 — lo mismo + ebook + mini curso de concentración, sueño y memoria |
+| `asiento-basic-21/` | `asiento-basic-21.netlify.app` | Básico · USD 5 — workbook + grabación |
+| `asiento-premium-21/` | `asiento-premium-21.netlify.app` | Hackea tu Productividad · USD 9 — lo mismo + ebook + curso ABC |
 
 El nombre del sitio en Netlify tiene que ser exactamente ese: las thank you de compra y los mails apuntan ahí.
 

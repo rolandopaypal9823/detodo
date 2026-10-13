@@ -25,9 +25,9 @@ ITEMS_BASIC = [
 ]
 ITEMS_PREMIUM = [
   ('Hackea tu Cerebro · versión ebook', 'El libro completo, para descargar ahora.'),
-  ('Mini curso de Concentración, Sueño y Memoria', 'En video. Disponible ahora.'),
+  ('El ABC del Alto Rendimiento', 'El curso en video, 6 módulos. Disponible ahora.'),
 ] + ITEMS_BASIC
-NOTA_PREMIUM = 'El libro y el mini curso <strong style="color:#ffffff;">ya están disponibles</strong> en tu portal.'
+NOTA_PREMIUM = 'El libro y el curso <strong style="color:#ffffff;">ya están disponibles</strong> en tu portal.'
 # Lo que compraron los de la clase del 7 (portal clase-beneficios): el curso ABC completo.
 ITEMS_PREMIUM_7 = [
   ('Hackea tu Cerebro · versión ebook', 'El libro completo, para descargar ahora.'),
@@ -54,7 +54,7 @@ TIERS = {
   },
   'premium': {
     'archivo' : 'nfm-clase-paga/mail-compra-premium.html',
-    'asunto'  : 'Tu asiento está confirmado — el libro y el mini curso ya están disponibles',
+    'asunto'  : 'Tu asiento está confirmado — el libro y el curso ya están disponibles',
     'nombre'  : 'Asiento Premium · Hackea tu Productividad',
     'portal'  : 'https://asiento-premium-21.netlify.app',
     'items'   : ITEMS_PREMIUM,

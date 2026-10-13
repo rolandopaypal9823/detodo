@@ -9,8 +9,8 @@
      - evento Purchase del pixel, una vez por sesión
 
    Entra : nfm-clase-paga/thankyou-oto.html
-   Sale  : nfm-clase-paga/thankyou-compra-basic.html    (USD 1)
-           nfm-clase-paga/thankyou-compra-premium.html  (USD 5)
+   Sale  : nfm-clase-paga/thankyou-compra-basic.html    (USD 5)
+           nfm-clase-paga/thankyou-compra-premium.html  (USD 9)
 
    Correr desde la raíz del repo:  python3 nfm-clase-paga/gen-thankyou-compra.py
    En Stripe: cada Payment Link → «Después del pago» → redirigir a la URL de
@@ -24,7 +24,7 @@ TIERS = {
   'basic': {
     'archivo' : 'nfm-clase-paga/thankyou-compra-basic.html',
     'nombre'  : 'Asiento Premium Básico',
-    'valor'   : 1,
+    'valor'   : 5,
     'portal'  : 'https://asiento-basic-21.netlify.app',
     'content' : 'asiento_basic',
     'texto'   : 'El <strong>workbook</strong> con el resumen y los accionables, y la <strong>grabación</strong> de la clase. '
@@ -33,10 +33,10 @@ TIERS = {
   'premium': {
     'archivo' : 'nfm-clase-paga/thankyou-compra-premium.html',
     'nombre'  : 'Asiento Premium · Hackea tu Productividad',
-    'valor'   : 5,
+    'valor'   : 9,
     'portal'  : 'https://asiento-premium-21.netlify.app',
     'content' : 'asiento_premium_htc',
-    'texto'   : 'El ebook de <strong>Hackea tu Cerebro</strong>, el <strong>mini curso de Concentración, Sueño y Memoria</strong>, '
+    'texto'   : 'El ebook de <strong>Hackea tu Cerebro</strong>, el curso <strong>El ABC del Alto Rendimiento</strong>, '
                 'y el workbook y la grabación de la clase. Todo queda en tu portal.',
   },
 }
@@ -109,7 +109,7 @@ f"""  fbq('init', '1203017011123382');
     s = s[:ini] + paso3(t) + "\n" + s[fin:]
 
     # ── CSS del paso 3, y fuera el CSS del pop-up ──
-    a = s.index("/* ── POPUP POST-REGISTRO · asiento USD 1 / USD 5 (sólo A y B) ── */")
+    a = s.index("/* ── POPUP POST-REGISTRO")
     b = s.index("/* ── BARRA DE MODO PRUEBA ── */")
     s = s[:a] + CSS_BEN.strip() + "\n\n" + s[b:]
 

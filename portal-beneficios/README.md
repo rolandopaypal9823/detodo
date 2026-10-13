@@ -4,8 +4,8 @@ Dos sitios en Netlify, uno por asiento. Cada carpeta se sube sola (Add new site 
 
 | Carpeta | Sitio en Netlify | Asiento |
 |---|---|---|
-| `asiento-basic-21/` | `asiento-basic-21.netlify.app` | Básico · USD 1 — workbook + grabación |
-| `asiento-premium-21/` | `asiento-premium-21.netlify.app` | Hackea tu Productividad · USD 5 — lo mismo + ebook + mini curso de concentración, sueño y memoria |
+| `asiento-basic-21/` | `asiento-basic-21.netlify.app` | Básico · USD 5 — workbook + grabación |
+| `asiento-premium-21/` | `asiento-premium-21.netlify.app` | Hackea tu Productividad · USD 9 — lo mismo + ebook + curso ABC |
 
 El nombre del sitio en Netlify tiene que ser exactamente ese: las thank you de compra y los mails apuntan ahí.
 

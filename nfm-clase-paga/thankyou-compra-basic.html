@@ -33,10 +33,10 @@ if(!window.__nfm_pixel_thx){
   window.__nfm_pixel_thx = true;
   fbq('init', '1203017011123382');
   fbq('track', 'PageView');
-  /* Purchase · USD 1 · se manda UNA vez por sesión: si recargan, no se cuenta dos veces. */
+  /* Purchase · USD 5 · se manda UNA vez por sesión: si recargan, no se cuenta dos veces. */
   var k='nfm_purchase_asiento_basic', ya=false;
   try{ ya = !!sessionStorage.getItem(k); }catch(e){}
-  if(!ya){ fbq('track','Purchase',{value:1, currency:'USD', content_name:'asiento_basic'}); try{ sessionStorage.setItem(k,'1'); }catch(e){} }
+  if(!ya){ fbq('track','Purchase',{value:5, currency:'USD', content_name:'asiento_basic'}); try{ sessionStorage.setItem(k,'1'); }catch(e){} }
 }
 </script>
 <noscript><img height="1" width="1" style="display:none"
