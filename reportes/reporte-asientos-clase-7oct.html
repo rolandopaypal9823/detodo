@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Asientos · Clase 7/10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Una sola lectura, de arriba abajo: la frase, el ROAS, la comparación, qué hacemos. */
+:root{
+  --bg:#081F33; --panel:#0E2E4A; --line:#1C3D5E; --fg:#FFFFFF; --muted:#9FB0C2; --soft:#6E8197;
+  --orange:#FF6602; --ok:#3DDC84; --mute-bar:#3A5672; --track:#12324F;
+  --fh:'Space Grotesk','Helvetica Neue',Arial,sans-serif; --fb:'DM Sans','Helvetica Neue',Arial,sans-serif;
+  color-scheme:dark;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; background:var(--bg); }
+body{ color:var(--fg); font-family:var(--fb); line-height:1.5; -webkit-font-smoothing:antialiased; padding-inline:16px; }
+.w{ max-width:760px; margin:0 auto; padding-block:44px 56px; display:flex; flex-direction:column; gap:36px; }
+.eyebrow{ margin:0; font-family:var(--fh); font-size:.72rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--orange); }
+h1{ margin:10px 0 0; font-family:var(--fh); font-size:clamp(1.7rem,5vw,2.5rem); line-height:1.12; font-weight:700; letter-spacing:-.02em; text-wrap:balance; }
+h1 .x{ color:var(--ok); }
+h2{ margin:0 0 14px; font-family:var(--fh); font-size:1.05rem; font-weight:600; }
+.num{ font-variant-numeric:tabular-nums; }
+
+/* ROAS */
+.roas{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr)); gap:12px; }
+.tile{ background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:20px; display:flex; flex-direction:column; gap:6px; min-width:0; }
+.tile.main{ border-color:rgba(61,220,132,.45); }
+.tile .k{ font-size:.82rem; color:var(--muted); }
+.tile .v{ font-family:var(--fh); font-size:2.3rem; font-weight:700; line-height:1; font-variant-numeric:tabular-nums; }
+.tile.main .v{ color:var(--ok); }
+.tile .s{ font-size:.82rem; color:var(--soft); line-height:1.45; }
+.base{ margin:12px 0 0; font-size:.86rem; color:var(--muted); }
+
+/* cadena lead → venta */
+.chain{ background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+.row{ display:grid; grid-template-columns:2rem minmax(0,1fr) auto; align-items:center; gap:14px; padding:16px 20px; border-bottom:1px solid var(--line); }
+.row:last-child{ border-bottom:none; }
+.row .st{ width:2rem; height:2rem; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--fh); font-weight:700; font-size:.9rem; background:rgba(255,102,2,.12); color:var(--orange); border:1px solid rgba(255,102,2,.35); }
+.row .tx{ font-size:.98rem; line-height:1.45; }
+.row .tx b{ font-weight:600; }
+.row .tx small{ display:block; font-size:.8rem; color:var(--soft); margin-top:3px; }
+.row .r{ font-family:var(--fh); font-weight:700; font-size:1.6rem; font-variant-numeric:tabular-nums; }
+.row.tot{ background:rgba(61,220,132,.07); }
+.row.tot .st{ background:rgba(61,220,132,.14); color:var(--ok); border-color:rgba(61,220,132,.4); }
+.row.tot .r{ color:var(--ok); }
+@media (max-width:480px){ .row{ grid-template-columns:1.7rem minmax(0,1fr); padding:14px 16px; } .row .st{ width:1.7rem; height:1.7rem; } .row .r{ grid-column:2; font-size:1.35rem; } .row .r:empty{ display:none; } }
+
+/* comparación */
+.card{ background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:22px; }
+.leg{ display:flex; gap:18px; flex-wrap:wrap; font-size:.82rem; color:var(--muted); margin-bottom:16px; }
+.leg span{ display:inline-flex; align-items:center; gap:7px; }
+.leg i{ width:11px; height:11px; border-radius:3px; display:inline-block; }
+.step{ margin-bottom:18px; } .step:last-child{ margin-bottom:0; }
+.step h3{ margin:0 0 8px; font-size:.95rem; font-weight:500; }
+.bar{ display:grid; grid-template-columns:minmax(0,1fr) 4.2rem; align-items:center; gap:10px; margin-top:6px; }
+.t{ display:block; height:16px; border-radius:8px; background:var(--track); overflow:hidden; }
+.b{ display:block; height:100%; border-radius:8px; }
+.b.a{ background:var(--orange); } .b.z{ background:var(--mute-bar); }
+.n{ text-align:right; font-size:.86rem; font-variant-numeric:tabular-nums; }
+
+/* qué hacemos */
+ol{ margin:0; padding-left:1.3rem; display:flex; flex-direction:column; gap:10px; font-size:1rem; }
+ol b{ font-weight:600; }
+.foot{ margin:0; font-size:.8rem; color:var(--soft); line-height:1.55; border-top:1px solid var(--line); padding-top:16px; }
+@media (prefers-reduced-motion:no-preference){ .b{ animation:grow .7s cubic-bezier(.22,1,.36,1) both; transform-origin:left; } @keyframes grow{ from{ transform:scaleX(0); } } }
+</style>
+</head>
+<body>
+<main class="w">
+
+  <header>
+    <p class="eyebrow">Clase del 7/10 · asientos</p>
+    <h1>El que compra el asiento cierra el programa <span class="x">17 veces más</span>.</h1>
+  </header>
+
+  <section>
+    <h2>Del lead a la venta</h2>
+    <div class="chain">
+      <div class="row"><span class="st">1</span><div class="tx"><b>1.857 leads</b> × USD 0,70 = <b>USD 1.300</b> de pauta</div><span class="r"></span></div>
+      <div class="row"><span class="st">2</span><div class="tx"><b>89 asientos</b> (4,8% de los leads) = <b>USD 397</b><small>Cada comprador de asiento costó USD 14,61 de pauta.</small></div><span class="r">0,31x</span></div>
+      <div class="row"><span class="st">3</span><div class="tx">Esos compradores cerraron <b>4 programas</b>: <b>USD 5.435</b> vendidos, <b>USD 1.735</b> cobrados<small>Asiento + programa cobrado: USD 2.132. Vendido: USD 5.832, que es 4,49x.</small></div><span class="r">1,64x</span></div>
+      <div class="row tot"><span class="st">=</span><div class="tx">Toda la clase: <b>28 cierres</b>, <b>USD 14.612</b> cobrados<small>Los otros 24 cierres son de gente que no compró asiento. Vendido: USD 34.395, que es 26,5x.</small></div><span class="r">11,2x</span></div>
+    </div>
+    <p class="base">El número grande de cada paso es el ROAS sobre los USD 1.300, con lo cobrado hasta hoy. Faltan cargar los tickets de 9 reservas, así que lo vendido es más.</p>
+  </section>
+
+  <section>
+    <h2>Compró USD 5 contra no compró</h2>
+    <div class="card">
+      <div class="leg"><span><i style="background:var(--orange)"></i>Compró USD 5 (70)</span><span><i style="background:var(--mute-bar)"></i>No compró (1.777)</span></div>
+      <div class="step"><h3>Entró a la clase</h3>
+        <div class="bar"><span class="t"><span class="b a" style="width:100%"></span></span><span class="n">64,3%</span></div>
+        <div class="bar"><span class="t"><span class="b z" style="width:53.8%"></span></span><span class="n">34,6%</span></div></div>
+      <div class="step"><h3>Agendó una llamada</h3>
+        <div class="bar"><span class="t"><span class="b a" style="width:100%"></span></span><span class="n">17,1%</span></div>
+        <div class="bar"><span class="t"><span class="b z" style="width:24.6%"></span></span><span class="n">4,2%</span></div></div>
+      <div class="step"><h3>Cerró el programa</h3>
+        <div class="bar"><span class="t"><span class="b a" style="width:100%"></span></span><span class="n">5,71%</span></div>
+        <div class="bar"><span class="t"><span class="b z" style="width:5.9%"></span></span><span class="n">0,34%</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Qué hacemos</h2>
+    <ol>
+      <li><b>Sacar el asiento de USD 1.</b> No trajo ningún cierre.</li>
+      <li><b>Pasar a USD 5 y USD 9</b>, con el curso ABC en el de 9. Con los mismos compradores, el asiento pasaría a cubrir más de la mitad de la pauta.</li>
+      <li><b>Llamar a los 67 compradores que no agendaron.</b> Son los leads más calientes.</li>
+    </ol>
+  </section>
+
+  <p class="foot">Base: 1.857 leads únicos (registrados por mail) del sábado 3/10 a las 12:00 a la clase del 7. Los 4 cierres de compradores salen de los 80 pagos que se cruzaron con un registro; los otros 9 pagaron con otro mail. Comprar y cerrar van juntos; eso no prueba que comprar haga cerrar, por eso lo seguimos midiendo. Con el gasto que muestra Meta para las dos campañas de lanzamiento del 3 al 7/10 (USD 1.934, incluye la mañana del sábado, el día de la clase y los registros de comunidad), el ROAS cobrado da 7,6x y el del asiento 0,21x.</p>
+
+</main>
+</body>
+</html>
