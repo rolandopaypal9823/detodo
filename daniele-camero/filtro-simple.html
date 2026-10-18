@@ -1,0 +1,152 @@
+<title>Filtro de Leads Simple</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Public+Sans:wght@400;700&display=swap">
+<style>
+/* Layout: tres "pizarrones" apilados, letra de marcador grande, casi sin texto */
+:root {
+  --bg: #EEF1F5; --board: #FFFFFF; --ink: #1A1D23; --muted: #6B7380; --line: #D3D9E1;
+  --marker: #1D4ED8; --ht: #157A4A; --ht-soft: #E1F2E8; --lt: #A86A12; --lt-soft: #FBEFD9; --no: #B42318; --no-soft: #FBE4E1;
+  --f-marker: "Kalam", "Comic Sans MS", "Segoe Print", cursive;
+  --f-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0F1217; --board: #181D24; --ink: #E8ECF1; --muted: #9AA4B2; --line: #2B323C;
+  --marker: #86A8FF; --ht: #55C98D; --ht-soft: #15301F; --lt: #E6AE4E; --lt-soft: #35290F; --no: #F2867A; --no-soft: #3A1916;
+  color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --bg: #0F1217; --board: #181D24; --ink: #E8ECF1; --muted: #9AA4B2; --line: #2B323C;
+  --marker: #86A8FF; --ht: #55C98D; --ht-soft: #15301F; --lt: #E6AE4E; --lt-soft: #35290F; --no: #F2867A; --no-soft: #3A1916;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--f-marker);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 1000px; margin: 0 auto; display: grid; gap: 32px; }
+.board { background: var(--board); border: 2px solid var(--line); border-radius: 20px; padding: clamp(20px, 4vw, 40px); display: grid; gap: 28px; }
+.label { font: 700 0.78rem/1 var(--f-body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+h1, h2 { margin: 0; font-weight: 700; line-height: 1.1; text-wrap: balance; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
+h2 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); }
+
+/* Flujo */
+.row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.box { border: 3px solid var(--ink); border-radius: 18px 24px 16px 22px / 22px 16px 24px 18px; padding: 12px 18px; text-align: center; min-width: 0; }
+.box .t { display: block; font-size: clamp(1.5rem, 3.4vw, 2rem); font-weight: 700; line-height: 1.1; }
+.box .s { display: block; font-size: 1.15rem; color: var(--muted); line-height: 1.25; }
+.box.blue { border-color: var(--marker); } .box.blue .t { color: var(--marker); }
+.box.ht { border-color: var(--ht); background: var(--ht-soft); } .box.ht .t { color: var(--ht); }
+.box.lt { border-color: var(--lt); background: var(--lt-soft); } .box.lt .t { color: var(--lt); }
+.arr { font-size: 2.2rem; color: var(--marker); line-height: 1; }
+.arr .v { display: none; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.split .box { display: grid; gap: 6px; }
+.split .box .s { color: var(--ink); }
+.down { text-align: center; font-size: 2.2rem; color: var(--marker); line-height: 1; }
+.btn { display: inline-block; margin-top: 6px; border: 2px solid var(--marker); color: var(--marker); border-radius: 999px; padding: 0 12px; font-size: 1.05rem; }
+
+/* Perfiles */
+.profiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.prof { border: 3px solid var(--c); background: var(--cs); border-radius: 18px; padding: 20px; display: grid; gap: 10px; align-content: start; }
+.prof.ht { --c: var(--ht); --cs: var(--ht-soft); } .prof.lt { --c: var(--lt); --cs: var(--lt-soft); } .prof.no { --c: var(--no); --cs: var(--no-soft); }
+.prof h3 { margin: 0; font-size: 1.7rem; color: var(--c); line-height: 1.1; }
+.prof ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 1.3rem; line-height: 1.25; }
+.prof li::before { content: "✓ "; color: var(--c); font-weight: 700; }
+.prof.no li::before { content: "✗ "; }
+.prof q { font-size: 1.15rem; color: var(--muted); }
+
+/* Número */
+.versus { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center; text-align: center; }
+.big { font-size: clamp(3.2rem, 10vw, 5.5rem); font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.big.ht { color: var(--ht); } .big.no { color: var(--no); }
+.versus p { margin: 6px 0 0; font-size: 1.35rem; line-height: 1.2; }
+.vs { font-size: 1.6rem; color: var(--muted); }
+.punch { margin: 0; text-align: center; font-size: clamp(1.4rem, 3.4vw, 1.9rem); line-height: 1.25; }
+.punch b { color: var(--marker); }
+
+@media (max-width: 720px) {
+  .row { flex-direction: column; }
+  .arr .h { display: none; } .arr .v { display: inline; }
+  .split, .profiles { grid-template-columns: 1fr; }
+  .versus { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="wrap">
+
+  <!-- 1. El sistema -->
+  <section class="board" aria-labelledby="t1">
+    <span class="label">1 · El sistema</span>
+    <h1 id="t1">Filtrar en Instagram antes de llamar</h1>
+
+    <div class="row">
+      <div class="box blue"><span class="t">Trigger</span><span class="s">bienvenida o palabra clave</span></div>
+      <span class="arr" aria-hidden="true"><span class="h">→</span><span class="v">↓</span></span>
+      <div class="box"><span class="t">Hola · Promesa</span><span class="btn">Quiero el entrenamiento</span></div>
+      <span class="arr" aria-hidden="true"><span class="h">→</span><span class="v">↓</span></span>
+      <div class="box blue"><span class="t">1 pregunta filtro</span><span class="s">¿en qué momento económico estás?</span></div>
+    </div>
+
+    <div class="down" aria-hidden="true">↙ ↘</div>
+
+    <div class="split">
+      <div class="box ht"><span class="t">🔥 High ticket</span><span class="s">"Me estanqué" · "Suben y bajan"</span><span class="s">Preguntas abiertas → video corto → <b>setter</b></span></div>
+      <div class="box lt"><span class="t">❄️ Low ticket</span><span class="s">"Etapa difícil"</span><span class="s">Preguntas abiertas → audio + clase → <b>compra solo</b></span></div>
+    </div>
+
+    <div class="down" aria-hidden="true">↓</div>
+
+    <div class="row">
+      <div class="box"><span class="t">Respuestas</span></div>
+      <span class="arr" aria-hidden="true"><span class="h">→</span><span class="v">↓</span></span>
+      <div class="box blue"><span class="t">CSV</span></div>
+      <span class="arr" aria-hidden="true"><span class="h">→</span><span class="v">↓</span></span>
+      <div class="box"><span class="t">Analizar</span></div>
+      <span class="arr" aria-hidden="true"><span class="h">→</span><span class="v">↓</span></span>
+      <div class="box ht"><span class="t">Setear a los mejores</span></div>
+      <div class="box lt"><span class="t">Datos para marketing</span></div>
+    </div>
+  </section>
+
+  <!-- 2. Perfiles -->
+  <section class="board" aria-labelledby="t2">
+    <span class="label">2 · Lo que vimos en 30 llamadas</span>
+    <h2 id="t2">Tres tipos de persona</h2>
+    <div class="profiles">
+      <div class="prof ht">
+        <h3>Compra el programa</h3>
+        <ul><li>Tiene plata hoy</li><li>Sueldo + proyecto al costado</li><li>Quiere un salto con fecha</li><li>Lo sigue hace tiempo</li></ul>
+        <q>Me autosaboteo</q>
+      </div>
+      <div class="prof lt">
+        <h3>Compra la comunidad</h3>
+        <ul><li>Tiene deudas</li><li>Un solo ingreso</li><li>Quiere empezar</li><li>Recién lo conoce</li></ul>
+        <q>Tengo 200, me faltan 100</q>
+      </div>
+      <div class="prof no">
+        <h3>No compra</h3>
+        <ul><li>Plata no disponible</li><li>Busca una estrategia</li><li>Decide con otro</li><li>Espera algo de afuera</li></ul>
+        <q>Lo que falta no está en mis manos</q>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. El dato -->
+  <section class="board" aria-labelledby="t3">
+    <span class="label">3 · El dato que lo explica</span>
+    <h2 id="t3">Por qué filtrar por plata primero</h2>
+    <div class="versus">
+      <div><div class="big ht">~1 de 2</div><p>compra cuando tiene ingresos<br>(estancado o variable)</p></div>
+      <div class="vs">vs</div>
+      <div><div class="big no">1 de 11</div><p>compra cuando está<br>en etapa difícil</p></div>
+    </div>
+    <p class="punch">Casi todos dicen "es mental".<br><b>Lo que decide es la plata disponible.</b></p>
+  </section>
+
+</div>
