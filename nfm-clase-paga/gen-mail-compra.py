@@ -48,7 +48,7 @@ TIERS = {
     'archivo' : 'nfm-clase-paga/mail-compra-basic.html',
     'asunto'  : 'Tu asiento está confirmado — acá está tu acceso',
     'nombre'  : 'Asiento Premium Básico',
-    'portal'  : 'https://asiento-basic-21.netlify.app',
+    'portal'  : 'https://clase-beneficios.netlify.app/asiento-basic/',
     'items'   : ITEMS_BASIC,
     'nota'    : '',
   },
@@ -56,7 +56,7 @@ TIERS = {
     'archivo' : 'nfm-clase-paga/mail-compra-premium.html',
     'asunto'  : 'Tu asiento está confirmado — el libro y el curso ya están disponibles',
     'nombre'  : 'Asiento Premium · Hackea tu Productividad',
-    'portal'  : 'https://asiento-premium-21.netlify.app',
+    'portal'  : 'https://clase-beneficios.netlify.app/premium-htc/',
     'items'   : ITEMS_PREMIUM,
     'nota'    : NOTA_PREMIUM,
   },
@@ -91,12 +91,17 @@ GENERICOS = {
 }
 
 # Aviso a los que compraron para la clase del 7: ya están la grabación y el workbook.
+# El contenido de la clase del 7 quedó en /clase-7/ (las rutas de arriba son ahora de la clase del 21).
+PORTAL_7_ARCHIVO = {
+  'basic'  : 'https://clase-beneficios.netlify.app/clase-7/asiento-basic/',
+  'premium': 'https://clase-beneficios.netlify.app/clase-7/premium-htc/',
+}
 GRABACION = {
   'basic': dict(TIERS['basic'], **{
     'archivo' : 'nfm-clase-paga/mail-grabacion-7oct-basic.html',
     'asunto'  : 'Ya está la grabación de la clase',
     'preheader': 'La clase completa y el workbook ya están en tu portal.',
-    'portal'  : PORTAL_7['basic'],
+    'portal'  : PORTAL_7_ARCHIVO['basic'],
     'h1'      : 'Ya está la <span style="color:#FF6602;">grabación.</span>',
     'bajada'  : 'La clase completa y el workbook ya están en tu portal, en el mismo link de siempre.',
     'items'   : [('Grabación', 'La clase completa. La mirás ahí mismo, sin descargar nada.'),
@@ -109,7 +114,7 @@ GRABACION = {
     'archivo' : 'nfm-clase-paga/mail-grabacion-7oct-premium.html',
     'asunto'  : 'Ya está la grabación de la clase',
     'preheader': 'La clase completa y el workbook ya están en tu portal.',
-    'portal'  : PORTAL_7['premium'],
+    'portal'  : PORTAL_7_ARCHIVO['premium'],
     'h1'      : 'Ya está la <span style="color:#FF6602;">grabación.</span>',
     'bajada'  : 'La clase completa y el workbook ya están en tu portal, en el mismo link de siempre.',
     'items'   : [('Grabación', 'La clase completa. La mirás ahí mismo, sin descargar nada.'),

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """Genera el portal de beneficios de la clase, una edición por clase.
 
-   Clase del 7 de octubre · portal-beneficios/clase-7-oct/ → clase-beneficios.netlify.app
-     /asiento-basic   → USD 1 · la clase (workbook + grabación)
-     /premium-htc     → USD 5 · lo mismo + el ebook + el curso ABC
-   Clase del 21 de octubre · un sitio por asiento (cada carpeta se sube sola):
-     asiento-basic-21.netlify.app    → USD 5
-     asiento-premium-21.netlify.app  → USD 9 · lo mismo + el ebook + el curso ABC
+   Un solo sitio en Netlify: clase-beneficios.netlify.app (carpeta portal-beneficios/clase-beneficios/)
+     /asiento-basic/          → clase del 21 · USD 5 · workbook + grabación
+     /premium-htc/            → clase del 21 · USD 9 · lo mismo + el ebook + el curso ABC
+     /clase-7/asiento-basic/  → clase del 7 · lo que compraron entonces (sigue vivo)
+     /clase-7/premium-htc/    → clase del 7
+   Las páginas del 21 llevan abajo un aviso para quien compró para la clase del 7.
 
    Las dos salen de la misma plantilla: cambia el contenido, no el esqueleto.
    Correr desde la raíz del repo:  python3 portal-beneficios/gen-portal.py
@@ -35,9 +35,9 @@ PREMIUM = { 'titulo':'Asiento Premium · Hackea tu Productividad', 'eyebrow':'As
 # GRABACION_LOOM = el código del video de Loom (lo que va después de /embed/): la grabación
 # se ve adentro del portal. Si no hay Loom, GRABACION_URL es un link común.
 EDICIONES = [
-  { # clase del miércoles 7 · un sitio con dos rutas: clase-beneficios.netlify.app/asiento-basic y /premium-htc
-    'carpeta'        : 'portal-beneficios/clase-7-oct',
-    'un_sitio'       : True,
+  { # clase del miércoles 7 · quedó en clase-beneficios.netlify.app/clase-7/…
+    'carpeta'        : 'portal-beneficios/clase-beneficios/clase-7',
+    'un_sitio'       : False,
     'CLASE'          : '2026-10-07',
     'LISTO'          : '2026-10-07T21:00:00-03:00',
     'WORKBOOK_URL'   : 'https://drive.google.com/file/d/1b4-HRL0BZKePblPdMzSFNwBjEF4OGj4N/view?usp=sharing',
@@ -46,15 +46,16 @@ EDICIONES = [
     'paginas'        : { 'asiento-basic': BASIC, 'premium-htc': PREMIUM },
     'curso'          : 'abc',     # el USD 5 de esta clase traía el curso ABC completo
   },
-  { # clase del miércoles 21 · un sitio por asiento
-    'carpeta'        : 'portal-beneficios',
-    'un_sitio'       : False,
+  { # clase del miércoles 21 · clase-beneficios.netlify.app/asiento-basic/ y /premium-htc/
+    'carpeta'        : 'portal-beneficios/clase-beneficios',
+    'un_sitio'       : True,
+    'anterior'       : { 'clase': 'miércoles 7 de octubre', 'ruta': '/clase-7/' },
     'CLASE'          : '2026-10-21',
     'LISTO'          : '2026-10-22T12:00:00-03:00',
     'WORKBOOK_URL'   : '',
     'GRABACION_LOOM' : '',
     'GRABACION_URL'  : '',
-    'paginas'        : { 'asiento-basic-21': BASIC, 'asiento-premium-21': PREMIUM },
+    'paginas'        : { 'asiento-basic': BASIC, 'premium-htc': PREMIUM },
     'curso'          : 'abc',     # el asiento de USD 9 trae el curso ABC completo
   },
 ]
@@ -133,6 +134,8 @@ h1 .acc{ color:var(--orange); }
 .btn--w{ width:100%; margin-top:18px; }
 .card .btn--w{ display:flex; }
 
+.prev{ margin:6px 0 0; text-align:center; font-size:.86rem; color:var(--tm); }
+.prev a{ color:var(--orange-hover); text-decoration:underline; text-underline-offset:3px; }
 .foot{ padding:26px 0 40px; border-top:1px solid var(--hair); text-align:center; }
 .foot p{ font-size:.82rem; color:var(--ts); line-height:1.6; }
 .foot p+p{ margin-top:6px; }
@@ -189,6 +192,14 @@ def tarjeta_curso():
         <a class="btn btn--w" href="{CFG['MINI_URL']}" target="_blank" rel="noopener">Entrar al mini curso {ICO_ARROW}</a>
       </section>"""
 
+def anterior(slug):
+    """Aviso chico al pie para quien compró para una clase anterior: su contenido sigue en otra ruta."""
+    a = CFG.get('anterior')
+    if not a: return ''
+    return f"""
+      <!-- CLASE ANTERIOR -->
+      <p class="prev">¿Tu asiento era para la clase del {a['clase']}? Tu workbook y tu grabación están <a href="{a['ruta']}{slug}/">acá</a>.</p>"""
+
 def pagina(slug, pg):
     premium = pg['premium']
     extra = ''
@@ -240,7 +251,7 @@ def pagina(slug, pg):
       <ul class="items">{item('workbook', ICO_DOC, 'Workbook', 'Resumen de la clase y accionables concretos, en formato de hacer.')}{item('grabacion', ICO_PLAY, 'Grabación', 'La clase completa, tuya para siempre.', CFG['GRABACION_LOOM'])}
       </ul>
     </section>
-{extra}
+{extra}{anterior(slug)}
   </main>
 
   <footer class="foot">
@@ -320,23 +331,26 @@ p{{max-width:30em;line-height:1.6;color:rgba(255,255,255,.7)}} b{{color:#fff}}</
 
 ROBOTS = "User-agent: *\nDisallow: /\n"
 
-README = """# Baúl de beneficios · clase del miércoles 21 de octubre
+README = """# Baúl de beneficios · clase-beneficios.netlify.app
 
-Dos sitios en Netlify, uno por asiento. Cada carpeta se sube sola (Add new site → Deploy manually → arrastrar la carpeta):
+Un solo sitio. Se sube arrastrando la carpeta `clase-beneficios` entera a Netlify (el sitio → Deploys).
 
-| Carpeta | Sitio en Netlify | Asiento |
-|---|---|---|
-| `asiento-basic-21/` | `asiento-basic-21.netlify.app` | Básico · USD 5 — workbook + grabación |
-| `asiento-premium-21/` | `asiento-premium-21.netlify.app` | Hackea tu Productividad · USD 9 — lo mismo + ebook + curso ABC |
+| Ruta | Qué es |
+|---|---|
+| `/asiento-basic/` | Clase del miércoles 21 · USD 5 — workbook + grabación |
+| `/premium-htc/` | Clase del miércoles 21 · USD 9 — lo mismo + ebook + curso ABC |
+| `/clase-7/asiento-basic/` | Clase del 7 · lo que compraron entonces (workbook + grabación cargados) |
+| `/clase-7/premium-htc/` | Clase del 7 · lo mismo + ebook + curso ABC |
 
-El nombre del sitio en Netlify tiene que ser exactamente ese: las thank you de compra y los mails apuntan ahí.
+Las páginas del 21 llevan abajo un aviso con el link a `/clase-7/…`, porque los mails de la clase del 7 mandan a las
+rutas de arriba.
 
-## Cuando estén el workbook y la grabación
+## Cuando estén el workbook y la grabación del 21
 
-Editar `CFG` en `gen-portal.py` — `WORKBOOK_URL` y `GRABACION_URL` — correr
-`python3 portal-beneficios/gen-portal.py` desde la raíz del repo, y volver a subir las dos carpetas.
-La página no muestra ninguna hora (dice «después de la clase del miércoles»); por dentro cambia de estado en `LISTO`
-(jueves 22 a las 12:00, hora Argentina). Sin links cargados, a esa hora dice «lo estamos subiendo», nunca un botón roto.
+Editar la edición del 21 en `gen-portal.py` (`WORKBOOK_URL` y `GRABACION_LOOM`), correr
+`python3 portal-beneficios/gen-portal.py` desde la raíz del repo y volver a subir la carpeta.
+La página no muestra ninguna hora (dice «después de la clase del miércoles»); por dentro cambia de estado el
+jueves 22 a las 12:00. Sin links cargados, a esa hora dice «lo estamos subiendo», nunca un botón roto.
 
 Para probar el estado «ya disponible» sin esperar: agregar `?nfm_now=2026-10-22T12:01:00-03:00` a la URL.
 
@@ -345,21 +359,7 @@ Para probar el estado «ya disponible» sin esperar: agregar `?nfm_now=2026-10-2
 Sin contraseña: quien tenga el link entra. Llevan noindex y robots.txt para que no las levante Google.
 """
 
-README_7 = """# Baúl de beneficios · clase del miércoles 7 de octubre
 
-Un solo sitio en Netlify (`clase-beneficios.netlify.app`) con dos páginas, como se subió para el 7:
-
-| Ruta | Asiento |
-|---|---|
-| `/asiento-basic` | Básico · USD 1 — workbook + grabación |
-| `/premium-htc` | Hackea tu Productividad · USD 5 — lo mismo + ebook + curso ABC |
-
-Para actualizarlo: Netlify → el sitio → Deploys → arrastrar la carpeta `clase-7-oct` entera.
-(Si en vez de un sitio subiste cada asiento como sitio aparte, arrastrá `asiento-basic` y `premium-htc`
-cada una a su sitio: las dos páginas funcionan solas.)
-
-Ya está todo cargado: workbook (Drive) y grabación (Loom, se ve adentro del portal).
-"""
 
 def main():
     global CFG
@@ -375,8 +375,6 @@ def main():
         if ed['un_sitio']:
             io.open(os.path.join(raiz, 'index.html'), 'w', encoding='utf-8').write(RAIZ_HTML)
             io.open(os.path.join(raiz, 'robots.txt'), 'w', encoding='utf-8').write(ROBOTS)
-            io.open(os.path.join(raiz, 'README.md'), 'w', encoding='utf-8').write(README_7)
-        else:
             io.open(os.path.join(raiz, 'README.md'), 'w', encoding='utf-8').write(README)
         faltan = [k for k in ('WORKBOOK_URL','GRABACION') if not (CFG.get(k) or CFG.get(k+'_URL') or CFG.get(k+'_LOOM'))]
         if faltan: print('   ⚠️  clase', ed['CLASE'], '· sin link todavía:', ', '.join(faltan), '— después de LISTO dirá «lo estamos subiendo».')
