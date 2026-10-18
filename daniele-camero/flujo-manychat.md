@@ -113,3 +113,53 @@ Ejemplo con 1.000 personas que entran al trigger:
 3. Cantidad de `ruta_caliente`, `ruta_tibia`, `ruta_fria`
 4. Después: agendas y cierres por ruta → para ajustar las reglas
 5. Exportar el campo `ocupacion` a CSV → analizarlo acá (profesiones que llegan vs. las que compran)
+
+---
+
+## Versión con el lenguaje de los closers y de la marca
+
+### Lo que ya preguntan los closers (guion de Rossi, en orden)
+| # | Pregunta en la llamada | Aparece en |
+|---|---|---|
+| 1 | "Vamos a ver en qué situación te encuentras, qué quieres lograr y qué te ha estado frenando… y veré si cumples con los requisitos" | encuadre |
+| 2 | "¿Qué te ha motivado a agendar esta llamada?" | 14 llamadas |
+| 3 | "Vayamos que de aquí a 90-120 días nos tomamos un cafecito y me dices: Rossi, logré estos 3 objetivos. ¿Cuáles serían?" | 15 llamadas |
+| 4 | "¿Qué es lo que te ha estado frenando?" / "ese punto ciego" | 17 / 16 llamadas |
+| 5 | "¿Qué hace que quieras trabajar esto hoy y no de aquí a 3 meses?" | 9 llamadas |
+| 6 | "De una escala del 1 al 10, ¿qué tan comprometido y prioritario es?" | 15 llamadas |
+| 7 | "Tema de capacidad de inversión al día de hoy… ¿monto único o mensual?" | 14 llamadas |
+| + | Sebastián: "¿En cuánto está ahorita tu techo financiero?" / "¿cuánto llevas tratando de romperlo?" | sus llamadas |
+
+Palabras de la marca que más se repiten: identidad (24 llamadas), reprogramación (23), riqueza real (19), punto ciego (16), siguiente nivel, techo / termostato financiero. Los leads repiten solos "punto ciego", "siguiente nivel", "techo", "identidad".
+
+### Mensajes reescritos
+**Bienvenida**
+> ¡Hola {nombre}! 🙌 Bienvenido/a. Te quiero regalar un entrenamiento para descubrir el punto ciego que hoy no te deja pasar a tu siguiente nivel. Para mandarte el que más te sirve, respondeme unas preguntas rápidas 👇
+Botón: **Quiero el entrenamiento**
+
+**Filtro: techo financiero** (reemplaza "momento económico")
+> Para arrancar: ¿dónde está hoy tu techo financiero?
+> 1️⃣ Genero bien, pero hace tiempo que estoy estancado en el mismo techo
+> 2️⃣ Genero, pero todavía no logro sostenerlo: sube y baja
+> 3️⃣ Hoy estoy empezando de cero o saliendo de deudas
+
+| Botón | Etiqueta | Ruta |
+|---|---|---|
+| 1. Estoy en un techo | `p1_techo` | HT |
+| 2. No lo sostengo | `p1_variable` | HT |
+| 3. Empezando / deudas | `p1_dificil` | LT |
+
+**Contexto 1: situación actual** → `ocupacion`
+> Contame un poco de tu situación actual: ¿a qué te dedicás hoy? (si además tenés un negocio, trading o inversiones, contámelo también)
+
+**Contexto 2: el cafecito de los 90 días** → `objetivo_90d`
+> Imaginá que en 90 días nos tomamos un cafecito y me decís "lo logré". ¿Qué me estarías contando?
+
+**Contexto 3: el punto ciego** → `freno`
+> ¿Y cuál sentís que es hoy ese punto ciego que te viene frenando?
+
+### Lo que NO conviene pasar al bot
+- **Compromiso del 1 al 10:** en las llamadas casi todos dicen 10, también los que no compran (Alexander 10/10, Elvis "al 10"). No filtra.
+- **Capacidad de inversión:** que lo pregunte la setter, no el bot.
+- **"¿Por qué hoy y no en 3 meses?":** que lo pregunte la setter.
+- **"Quinta dimensión", "reprogramación":** son palabras de adentro del programa. Un lead frío no las entiende.
