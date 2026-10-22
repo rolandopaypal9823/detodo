@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu lugar está confirmado · Neurociencia de la productividad · Nicolás Fernández Miranda</title>
+<!-- El pixel de Meta (PageView) va ADENTRO del custom code, más abajo, para que viaje con el pegado. -->
+</head>
+<body>
+
+<!-- ═══════════ DESDE ACÁ EMPIEZA LO QUE VA EN EL CUSTOM CODE DE GHL ═══════════ -->
+
+<!-- ════════════════════════════════════════════════════════════════
+     META PIXEL · sólo PageView · va acá adentro para que viaje con el custom code.
+     ⚠️ NO lo pongas también en Settings → Tracking Code → HEAD de esta página, o Meta
+        contaría dos PageView por visita.
+     ⚠️ NO agregues fbq('track','Lead') ni 'CompleteRegistration': la conversión la manda
+        GoHighLevel por la API de Conversiones. Si el pixel también la mandara, Meta contaría
+        dos veces cada registro.
+     ════════════════════════════════════════════════════════════════ -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+if(!window.__nfm_pixel_thx){
+  window.__nfm_pixel_thx = true;
+  fbq('init', '1203017011123382');
+  fbq('track', 'PageView');
+}
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1203017011123382&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+
+<style>
+/* ════════════════════════════════════════════════════════════════
+   NFM · THANK YOU · MASTERCLASS 27/10
+   Un solo objetivo: que llegue a la clase. El paso 1 (grupo de WhatsApp) es el que manda.
+   ════════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap');
+
+:root{
+  --nfm-navy-deep:#081F33; --nfm-navy:#0C3452; --nfm-navy-1:#0E2E4A;
+  --nfm-orange:#FF6602; --nfm-orange-hover:#FF8033; --nfm-orange-glow:rgba(255,102,2,0.30);
+  --nfm-green:#22C55E; --nfm-wa:#25D366; --nfm-white:#FFFFFF;
+  --nfm-tl:rgba(255,255,255,0.88); --nfm-tm:rgba(255,255,255,0.62); --nfm-hair:rgba(255,255,255,0.10);
+  --nfm-font-h:'Montserrat', sans-serif; --nfm-font-b:'Open Sans', sans-serif;
+  --nfm-r:14px; --nfm-r-lg:22px; --nfm-ease:cubic-bezier(0.22,1,0.36,1);
+}
+html, body{ margin:0; padding:0; background:#081F33; }
+.nfm-thx, .nfm-thx *, .nfm-thx *::before, .nfm-thx *::after{ box-sizing:border-box; }
+.nfm-thx{ font-family:var(--nfm-font-b); color:#fff; line-height:1.6; overflow-x:hidden; -webkit-font-smoothing:antialiased;
+  background:radial-gradient(800px 420px at 50% -5%, rgba(255,102,2,0.14), transparent 62%), linear-gradient(180deg, #0C3452 0%, #081F33 38%, #081F33 100%); }
+.nfm-thx img{ max-width:100%; height:auto; display:block; }
+.nfm-thx a{ text-decoration:none; color:inherit; }
+.nfm-thx p{ margin:0 !important; }
+.nfm-thx__container{ max-width:680px; margin:0 auto; padding:0 22px; }
+.nfm-thx .acc{ color:var(--nfm-orange); }
+
+.nfm-rv{ opacity:0; transform:translateY(22px); animation:nfm-fu .6s var(--nfm-ease) forwards; }
+.nfm-rv-1{ animation-delay:.05s } .nfm-rv-2{ animation-delay:.15s } .nfm-rv-3{ animation-delay:.25s } .nfm-rv-4{ animation-delay:.35s } .nfm-rv-5{ animation-delay:.45s }
+@keyframes nfm-fu{ to{ opacity:1; transform:none; } }
+@keyframes nfm-scaleIn{ from{opacity:0;transform:scale(.8)} to{opacity:1;transform:none} }
+@keyframes nfm-check{ from{stroke-dashoffset:40} to{stroke-dashoffset:0} }
+@keyframes nfm-pulse{ 0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)} 50%{box-shadow:0 0 0 16px rgba(34,197,94,0)} }
+@keyframes nfm-shimmer{ 0%{background-position:-200% center} 100%{background-position:200% center} }
+@media (prefers-reduced-motion:reduce){ .nfm-rv{ animation:none; opacity:1; transform:none; } .nfm-wa-btn::before{ animation:none; } .nfm-thx__check{ animation:none; } }
+
+/* ── NAV ── */
+.nfm-thx__nav{ padding:18px 0; border-bottom:1px solid var(--nfm-hair); }
+.nfm-thx__nav img{ width:150px !important; height:auto !important; margin:0 auto; }
+
+/* ── CONFIRMACIÓN ── */
+.nfm-thx__hero{ padding:50px 0 26px; text-align:center; }
+.nfm-thx__check{ width:80px; height:80px; margin:0 auto 24px; border-radius:50%; background:rgba(34,197,94,0.10); border:2px solid rgba(34,197,94,0.28);
+  display:flex; align-items:center; justify-content:center; animation:nfm-scaleIn .5s var(--nfm-ease) both, nfm-pulse 2.4s .6s ease infinite; }
+.nfm-thx__check svg{ width:36px; height:36px; color:var(--nfm-green); }
+.nfm-thx__check svg path{ stroke-dasharray:40; animation:nfm-check .6s .3s ease both; }
+.nfm-thx__hero h1{ font-family:var(--nfm-font-h); font-size:clamp(1.8rem,4.4vw,2.5rem); font-weight:800; line-height:1.12; letter-spacing:-0.02em; margin:0 0 14px; text-wrap:balance; }
+.nfm-thx__when{ font-family:var(--nfm-font-h); font-weight:700; font-size:1.02rem; color:#fff; }
+.nfm-thx .nfm-thx__local{ font-family:var(--nfm-font-h); font-size:0.9rem; font-weight:600; color:var(--nfm-orange); margin-top:4px !important; }
+.nfm-thx__local[hidden]{ display:none !important; }
+.nfm-thx__local strong{ color:#fff; }
+.nfm-thx .nfm-thx__hint{ margin-top:18px !important; font-size:1rem; color:var(--nfm-tm); }
+.nfm-thx__hint strong{ color:#fff; }
+
+/* ── PASOS ── */
+.nfm-thx__steps{ padding-top:8px; padding-bottom:10px; display:flex; flex-direction:column; gap:18px; }
+.nfm-step{ background:rgba(255,255,255,0.04); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg); padding:22px; }
+.nfm-step--main{ background:rgba(37,211,102,0.07); border:2px solid rgba(37,211,102,0.55); padding:26px 22px; }
+.nfm-step__head{ display:flex; align-items:center; gap:12px; margin:0 0 10px; }
+.nfm-step__num{ width:34px; height:34px; flex-shrink:0; border-radius:10px; background:rgba(255,102,2,0.12); border:1px solid rgba(255,102,2,0.30);
+  display:flex; align-items:center; justify-content:center; font-family:var(--nfm-font-h); font-weight:800; font-size:0.92rem; color:var(--nfm-orange); }
+.nfm-step--main .nfm-step__num{ background:var(--nfm-wa); border-color:var(--nfm-wa); color:#fff; }
+.nfm-step__tag{ font-family:var(--nfm-font-h); font-size:0.64rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-wa); }
+.nfm-step h3{ font-family:var(--nfm-font-h); font-size:clamp(1.08rem,2.4vw,1.3rem); font-weight:800; color:#fff; margin:0; line-height:1.25; }
+.nfm-thx .nfm-step__txt{ font-size:0.98rem; color:var(--nfm-tl); line-height:1.6; margin:0 0 16px !important; }
+.nfm-step__txt strong{ color:#fff; }
+
+.nfm-wa-btn{ display:flex; align-items:center; justify-content:center; gap:12px; width:100%; font-family:var(--nfm-font-h); font-size:1.08rem; font-weight:800; letter-spacing:0.02em; color:#fff;
+  background:var(--nfm-wa); border:none; border-radius:50px; padding:19px 26px; cursor:pointer; position:relative; overflow:hidden; box-shadow:0 8px 28px rgba(37,211,102,0.28);
+  transition:transform .25s var(--nfm-ease), box-shadow .25s var(--nfm-ease), background .25s var(--nfm-ease); }
+.nfm-wa-btn::before{ content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent); background-size:200% 100%; animation:nfm-shimmer 3s infinite; }
+.nfm-wa-btn:hover{ background:#20BD5C; transform:translateY(-2px); box-shadow:0 12px 36px rgba(37,211,102,0.4); color:#fff; }
+.nfm-wa-btn:focus-visible, .nfm-cal-btn:focus-visible, .nfm-send:focus-visible{ outline:3px solid #fff; outline-offset:3px; }
+.nfm-wa-btn svg{ width:24px !important; height:24px !important; flex-shrink:0; position:relative; z-index:1; }
+
+.nfm-cal{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.nfm-cal-btn{ display:flex; align-items:center; justify-content:center; gap:9px; font-family:var(--nfm-font-h); font-weight:700; font-size:0.92rem; color:#fff; background:rgba(255,255,255,0.06);
+  border:1.5px solid rgba(255,255,255,0.22); border-radius:50px; padding:14px 16px; cursor:pointer; transition:border-color .2s, background .2s; text-align:center; line-height:1.2; }
+.nfm-cal-btn:hover{ border-color:var(--nfm-orange); background:rgba(255,102,2,0.08); }
+.nfm-cal-btn svg{ width:18px; height:18px; flex:none; }
+
+.nfm-ask label{ display:block; font-family:var(--nfm-font-h); font-weight:800; font-size:1.06rem; color:#fff; line-height:1.35; margin:0 0 10px; }
+.nfm-ask textarea{ width:100%; min-height:104px; resize:vertical; font-family:var(--nfm-font-b); font-size:1rem; line-height:1.5; color:#0C3452; background:#fff; border:2px solid transparent; border-radius:var(--nfm-r); padding:14px 16px; outline:none; }
+.nfm-ask textarea:focus{ border-color:var(--nfm-orange); }
+.nfm-ask textarea::placeholder{ color:#8A98A8; }
+.nfm-ask__row{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:12px; flex-wrap:wrap; }
+.nfm-ask__count{ font-size:0.8rem; color:var(--nfm-tm); }
+.nfm-send{ font-family:var(--nfm-font-h); font-weight:800; font-size:0.95rem; letter-spacing:0.02em; color:#fff; background:var(--nfm-orange); border:none; border-radius:50px; padding:14px 26px; cursor:pointer; box-shadow:0 6px 22px var(--nfm-orange-glow); transition:background .2s, transform .2s; }
+.nfm-send:hover{ background:var(--nfm-orange-hover); transform:translateY(-1px); }
+.nfm-send[disabled]{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
+.nfm-ask__ok{ display:flex; align-items:flex-start; gap:10px; background:rgba(34,197,94,0.10); border:1px solid rgba(34,197,94,0.35); border-radius:var(--nfm-r); padding:14px 16px; font-size:0.98rem; color:var(--nfm-tl); }
+.nfm-ask__ok[hidden]{ display:none !important; }
+.nfm-ask__ok b{ color:var(--nfm-green); font-size:1.1rem; line-height:1.3; }
+
+/* ── RECORDATORIO ── */
+.nfm-thx__reminder{ padding:22px 0 54px; }
+.nfm-rem-card{ background:var(--nfm-navy-1); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg); padding:26px 28px; display:flex; align-items:center; justify-content:center; gap:26px; }
+.nfm-rem-date{ text-align:center; flex-shrink:0; }
+.nfm-rem-date .dn{ font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-orange); }
+.nfm-rem-date .dnum{ font-family:var(--nfm-font-h); font-size:3rem; font-weight:900; line-height:1; }
+.nfm-rem-date .dm{ font-family:var(--nfm-font-h); font-size:0.8rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--nfm-tm); }
+.nfm-rem-div{ width:1px; align-self:stretch; background:var(--nfm-hair); }
+.nfm-rem-info h4{ font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:800; margin:0 0 4px; line-height:1.3; }
+.nfm-thx .nfm-rem-info .con{ font-family:var(--nfm-font-h); font-size:0.92rem; font-weight:700; color:var(--nfm-orange); margin:0 0 8px !important; }
+.nfm-rem-info .time{ font-family:var(--nfm-font-h); font-weight:700; font-size:0.95rem; }
+.nfm-rem-info .via{ font-size:0.85rem; color:var(--nfm-tm); }
+
+.nfm-thx__footer{ padding:28px 0; border-top:1px solid var(--nfm-hair); text-align:center; }
+.nfm-thx__footer p{ font-size:0.8rem; color:var(--nfm-tm); }
+
+.nfm-testbar{ background:var(--nfm-orange); color:#fff; font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; text-align:center; padding:9px 14px; line-height:1.4; }
+
+@media (max-width:600px){
+  .nfm-thx__nav img{ width:124px !important; }
+  .nfm-step{ padding:18px 16px; } .nfm-step--main{ padding:22px 16px; }
+  .nfm-wa-btn{ font-size:0.98rem; padding:17px 18px; }
+  .nfm-cal{ grid-template-columns:1fr; }
+  .nfm-rem-card{ flex-direction:column; gap:16px; text-align:center; padding:24px 20px; }
+  .nfm-rem-div{ width:60px; height:1px; align-self:center; }
+  .nfm-ask__row .nfm-send{ width:100%; }
+}
+</style>
+
+
+<div class="nfm-thx">
+
+  <nav class="nfm-thx__nav"><div class="nfm-thx__container">
+    <img src="data:image/png;base64,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" alt="Nicolás Fernández Miranda" width="150" height="62">
+  </div></nav>
+
+  <section class="nfm-thx__hero">
+    <div class="nfm-thx__container">
+      <div class="nfm-thx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
+      <h1 class="nfm-rv nfm-rv-1">Tu lugar está <span class="acc">confirmado.</span></h1>
+      <p class="nfm-thx__when nfm-rv nfm-rv-1"><span data-thx-fecha="completa">Martes 27 de octubre · 19:00 hs (Argentina)</span> · En vivo por Zoom</p>
+      <p class="nfm-thx__local" data-nfm-local hidden></p>
+      <p class="nfm-thx__hint nfm-rv nfm-rv-2">Te falta <strong>un paso</strong> para recibir el link de la clase.</p>
+    </div>
+  </section>
+
+  <section class="nfm-thx__container nfm-thx__steps">
+
+    <!-- PASO 1 · el más importante -->
+    <div class="nfm-step nfm-step--main nfm-rv nfm-rv-2">
+      <div class="nfm-step__head"><div class="nfm-step__num">1</div><div><span class="nfm-step__tag">El más importante</span><h3>Unite al grupo de WhatsApp</h3></div></div>
+      <p class="nfm-step__txt">Ahí llega el <strong>link de la clase</strong> y los recordatorios. Si no estás en el grupo, no te llega el acceso.</p>
+      <a href="#" id="nfm-thx-wa" class="nfm-wa-btn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        UNIRME AL GRUPO DE WHATSAPP
+      </a>
+    </div>
+
+    <!-- PASO 2 · calendario -->
+    <div class="nfm-step nfm-rv nfm-rv-3">
+      <div class="nfm-step__head"><div class="nfm-step__num">2</div><h3>Agendalo en tu calendario</h3></div>
+      <p class="nfm-step__txt">Así te avisa tu celular un día antes y media hora antes de que empiece.</p>
+      <div class="nfm-cal">
+        <a href="#" id="nfm-cal-google" class="nfm-cal-btn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Google Calendar</a>
+        <button type="button" id="nfm-cal-ics" class="nfm-cal-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></svg>iPhone u Outlook</button>
+      </div>
+    </div>
+
+    <!-- PASO 3 · una pregunta para llegar listo -->
+    <div class="nfm-step nfm-rv nfm-rv-4">
+      <div class="nfm-step__head"><div class="nfm-step__num">3</div><h3>Para llegar listo a la clase</h3></div>
+      <form class="nfm-ask" id="nfm-ask" novalidate>
+        <label for="nfm-ask-txt">¿Qué es lo que siempre te queda para después?</label>
+        <textarea id="nfm-ask-txt" name="respuesta" maxlength="600" placeholder="Ej.: entrenar, terminar el curso que empecé, avanzar con mi proyecto…"></textarea>
+        <div class="nfm-ask__row"><span class="nfm-ask__count" id="nfm-ask-count">Con una línea alcanza.</span><button type="submit" class="nfm-send" id="nfm-ask-send" disabled>Enviar mi respuesta</button></div>
+      </form>
+      <p class="nfm-ask__ok" id="nfm-ask-ok" hidden><b>✓</b><span>Listo, la recibimos. Tenela a mano el martes: en la clase la vas a usar.</span></p>
+    </div>
+
+  </section>
+
+  <section class="nfm-thx__reminder">
+    <div class="nfm-thx__container">
+      <div class="nfm-rem-card nfm-rv nfm-rv-5">
+        <div class="nfm-rem-date">
+          <p class="dn" data-thx-fecha="diaSemana">Martes</p>
+          <p class="dnum" data-thx-fecha="diaNum">27</p>
+          <p class="dm" data-thx-fecha="mesAnio">Octubre 2026</p>
+        </div>
+        <div class="nfm-rem-div"></div>
+        <div class="nfm-rem-info">
+          <h4>Neurociencia de la productividad</h4>
+          <p class="con">con Nico Fernández Miranda</p>
+          <p class="time" data-thx-fecha="hora">19:00 hs (Argentina)</p>
+          <p class="via">Vía Zoom · El acceso llega al grupo de WhatsApp</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="nfm-thx__footer"><div class="nfm-thx__container"><p>© Nicolás Fernández Miranda · Instituto de Productividad</p></div></footer>
+
+</div><!-- /.nfm-thx -->
+
+
+<script>
+(function(){
+'use strict';
+/* ══════════════════════════════════════════════════════════════════
+   CONFIG · masterclass del martes 27 de octubre
+   ══════════════════════════════════════════════════════════════════ */
+var CONFIG = {
+  FECHA: '2026-10-27',
+  HORA_CLASE: 19, MINUTOS_CLASE: 0, OFFSET_ARG: -3,   // ⚠️ hora a confirmar (igual que en la landing)
+  DURACION_MIN: 90,
+  CLASE: 'masterclass-oct27-comunidad',
+  TITULO: 'Neurociencia de la productividad',
+
+  /* ⚠️ GRUPO DE WHATSAPP DE ESTA CLASE. Mientras esté vacío, el botón muestra un aviso en vez de
+     mandar a un grupo equivocado. */
+  WA: '',
+
+  /* ⚠️ A DÓNDE VA LA RESPUESTA DEL PASO 3. Una URL que reciba un POST: un webhook de Zapier o Make,
+     un Inbound Webhook de GHL o un Apps Script. Va como JSON en texto plano (sin preflight de CORS):
+     { clase, respuesta, etapa, email, telefono, nombre, utm_source, utm_campaign, pagina, fecha }.
+     Mientras esté vacío, la página agradece igual pero la respuesta no se guarda en ningún lado. */
+  RESPUESTA_WEBHOOK: ''
+};
+
+var DIAS=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+var MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+var HORA=3600000;
+function pad(n){ n=String(n); return n.length<2?'0'+n:n; }
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+function qs(k){ var m=new RegExp('[?&]'+k+'=([^&#]*)').exec(window.location.search); return m?decodeURIComponent(m[1].replace(/\+/g,' ')):null; }
+function ss(k){ try{ return window.sessionStorage.getItem(k); }catch(e){ return null; } }
+function tsClase(f){ var p=f.split('-'); return Date.UTC(+p[0],+p[1]-1,+p[2],CONFIG.HORA_CLASE-CONFIG.OFFSET_ARG,CONFIG.MINUTOS_CLASE,0,0); }
+function partesArg(ts){ var d=new Date(ts+CONFIG.OFFSET_ARG*HORA); return {dow:d.getUTCDay(),dia:d.getUTCDate(),mes:d.getUTCMonth(),anio:d.getUTCFullYear(),hh:d.getUTCHours(),mm:d.getUTCMinutes()}; }
+var TS=tsClase(CONFIG.FECHA), P=partesArg(TS), FIN=TS+CONFIG.DURACION_MIN*60000;
+var FECHAS={ diaSemana:DIAS[P.dow], diaNum:String(P.dia), mesAnio:cap(MESES[P.mes])+' '+P.anio,
+             hora:pad(P.hh)+':'+pad(P.mm)+' hs (Argentina)',
+             completa:DIAS[P.dow]+' '+P.dia+' de '+MESES[P.mes]+' · '+pad(P.hh)+':'+pad(P.mm)+' hs (Argentina)' };
+(function(){ var f=document.querySelectorAll('[data-thx-fecha]'); for(var i=0;i<f.length;i++){ var k=f[i].getAttribute('data-thx-fecha'); if(FECHAS[k]!=null) f[i].textContent=FECHAS[k]; } })();
+
+/* ─── HORA LOCAL DEL VISITANTE (igual que en la landing) ─── */
+(function(){
+  var els=document.querySelectorAll('[data-nfm-local]'); if(!els.length) return;
+  var tz; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone; }catch(e){}
+  if(!tz || /Argentina|Buenos_Aires|Cordoba|Catamarca|Jujuy|La_Rioja|Mendoza|Rio_Gallegos|Salta|San_Juan|San_Luis|Tucuman|Ushuaia/.test(tz)) return;
+  var PAISES={ 'America/Santiago':'Chile','America/Bogota':'Colombia','America/Lima':'Perú','America/Mexico_City':'México','America/Monterrey':'México','America/Cancun':'México','America/Tijuana':'México','America/Caracas':'Venezuela','America/Guayaquil':'Ecuador','America/La_Paz':'Bolivia','America/Asuncion':'Paraguay','America/Montevideo':'Uruguay','America/Sao_Paulo':'Brasil','America/Panama':'Panamá','America/Costa_Rica':'Costa Rica','America/Guatemala':'Guatemala','America/El_Salvador':'El Salvador','America/Tegucigalpa':'Honduras','America/Managua':'Nicaragua','America/Santo_Domingo':'República Dominicana','America/Puerto_Rico':'Puerto Rico','America/New_York':'Estados Unidos (Este)','America/Chicago':'Estados Unidos (Centro)','America/Denver':'Estados Unidos (Montaña)','America/Los_Angeles':'Estados Unidos (Pacífico)','America/Toronto':'Canadá (Este)','Europe/Madrid':'España','Atlantic/Canary':'Canarias','Europe/Lisbon':'Portugal','Europe/London':'Reino Unido','Europe/Paris':'Francia','Europe/Rome':'Italia','Europe/Berlin':'Alemania' };
+  var pais=PAISES[tz] || tz.split('/').pop().replace(/_/g,' ');
+  var d=new Date(TS), hora, diaLocal, diaNum;
+  try{
+    hora=new Intl.DateTimeFormat('es',{timeZone:tz,hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d);
+    diaNum=parseInt(new Intl.DateTimeFormat('en',{timeZone:tz,day:'numeric'}).format(d),10);
+    diaLocal=new Intl.DateTimeFormat('es',{timeZone:tz,weekday:'long',day:'numeric'}).format(d);
+  }catch(e){ return; }
+  var txt='En '+pais+' son las <strong>'+hora+' hs</strong>'+(diaNum!==P.dia ? ' del '+diaLocal.replace(',','') : '');
+  for(var i=0;i<els.length;i++){ els[i].innerHTML=txt; els[i].hidden=false; }
+})();
+
+/* ─── PASO 1 · grupo de WhatsApp ─── */
+var wa=document.getElementById('nfm-thx-wa');
+if(wa){
+  if(CONFIG.WA){ wa.setAttribute('href', CONFIG.WA); }
+  else{
+    wa.addEventListener('click', function(e){ e.preventDefault(); });
+    if(window.console && console.warn) console.warn('[NFM] Falta cargar CONFIG.WA: el grupo de WhatsApp de la masterclass.');
+    var bar=document.createElement('div'); bar.className='nfm-testbar';
+    bar.textContent='⚠ Falta cargar el grupo de WhatsApp de esta clase (CONFIG.WA)';
+    document.body.insertBefore(bar, document.body.firstChild);
+  }
+}
+
+/* ─── PASO 2 · calendario ─── */
+function utc(ts){ var d=new Date(ts); return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'T'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+'00Z'; }
+var TITULO_CAL=CONFIG.TITULO+' · Clase en vivo con Nico Fernández Miranda';
+var DETALLE='Clase gratuita en vivo por Zoom. '+FECHAS.completa+'.\nEl link de la clase llega por el grupo de WhatsApp y por mail.\nEntrá cinco minutos antes, con algo para anotar.'+(CONFIG.WA ? '\n\nGrupo de WhatsApp: '+CONFIG.WA : '');
+var g=document.getElementById('nfm-cal-google');
+if(g) g.setAttribute('href','https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(TITULO_CAL)+'&dates='+utc(TS)+'%2F'+utc(FIN)+'&details='+encodeURIComponent(DETALLE)+'&location=Zoom&ctz=America%2FArgentina%2FBuenos_Aires');
+var ics=document.getElementById('nfm-cal-ics');
+if(ics) ics.addEventListener('click', function(){
+  function esc(t){ return String(t).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
+  var body=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Instituto de Productividad//Masterclass 27 oct//ES','CALSCALE:GREGORIAN','METHOD:PUBLISH','BEGIN:VEVENT',
+    'UID:'+CONFIG.CLASE+'@nicolasfernandezmiranda.com','DTSTAMP:'+utc(Date.now()),'DTSTART:'+utc(TS),'DTEND:'+utc(FIN),
+    'SUMMARY:'+esc(TITULO_CAL),'DESCRIPTION:'+esc(DETALLE),'LOCATION:Zoom',
+    'BEGIN:VALARM','TRIGGER:-PT30M','ACTION:DISPLAY','DESCRIPTION:La clase empieza en 30 minutos','END:VALARM',
+    'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:Mañana a esta hora: clase en vivo con Nico','END:VALARM',
+    'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  var url=URL.createObjectURL(new Blob([body],{type:'text/calendar;charset=utf-8'}));
+  var a=document.createElement('a'); a.href=url; a.download='clase-27-octubre.ics'; document.body.appendChild(a); a.click();
+  setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 1500);
+});
+
+/* ─── PASO 3 · la pregunta ───
+   Los datos de contacto se toman de la URL si GHL los pasa en la redirección (email, phone, name /
+   first_name). La etapa viene de lo que guardó la landing. */
+var form=document.getElementById('nfm-ask'), txt=document.getElementById('nfm-ask-txt'), send=document.getElementById('nfm-ask-send'), ok=document.getElementById('nfm-ask-ok'), cnt=document.getElementById('nfm-ask-count');
+if(txt) txt.addEventListener('input', function(){ var n=txt.value.trim().length; send.disabled=n<3; cnt.textContent=n ? n+' / 600' : 'Con una línea alcanza.'; });
+if(form) form.addEventListener('submit', function(e){
+  e.preventDefault();
+  var r=txt.value.trim(); if(r.length<3) return;
+  var datos={ clase:CONFIG.CLASE, respuesta:r, etapa:(qs('etapa')||ss('nfm_etapa')||''),
+    email:qs('email')||'', telefono:qs('phone')||'', nombre:qs('name')||qs('first_name')||'',
+    utm_source:qs('utm_source')||'', utm_campaign:qs('utm_campaign')||'', pagina:location.href.split('?')[0], fecha:new Date().toISOString() };
+  try{ window.sessionStorage.setItem('nfm_respuesta_despues', r); }catch(err){}
+  if(CONFIG.RESPUESTA_WEBHOOK){
+    var cuerpo=JSON.stringify(datos);
+    try{ fetch(CONFIG.RESPUESTA_WEBHOOK,{ method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'text/plain;charset=UTF-8'}, body:cuerpo }); }
+    catch(err){ try{ navigator.sendBeacon(CONFIG.RESPUESTA_WEBHOOK, cuerpo); }catch(e2){} }
+  }else if(window.console && console.warn){ console.warn('[NFM] Falta CONFIG.RESPUESTA_WEBHOOK: la respuesta no se guardó.', datos); }
+  form.hidden=true; ok.hidden=false;
+});
+})();
+</script>
+
+<!-- ═══════════ HASTA ACÁ EL CUSTOM CODE DE GHL ═══════════ -->
+</body>
+</html>
