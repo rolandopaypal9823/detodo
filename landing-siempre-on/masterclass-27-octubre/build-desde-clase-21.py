@@ -186,6 +186,42 @@ window.addEventListener('load', function(){ setTimeout(cargarForm, 1200); });
 
 /* ─── fotos de las escenas''')
 
+# ── PIXEL: adentro del custom code, para que viaje con el pegado ──
+i = s.index('<!-- ════════════════════════════════════════════════════════════════\n     META PIXEL')
+j = s.index('<!-- End Meta Pixel Code -->', i) + len('<!-- End Meta Pixel Code -->')
+s = s[:i] + s[j:]
+PIXEL = """
+<!-- ════════════════════════════════════════════════════════════════
+     META PIXEL · PageView · va ADENTRO del custom code para que viaje con el pegado.
+     Si el pixel ya está en Settings → Tracking Code → HEAD de esta página, este bloque
+     no vuelve a mandar el PageView (Meta no lo cuenta dos veces).
+     La conversión (Lead) la manda GHL por la API de Conversiones: no agregarla acá.
+     ════════════════════════════════════════════════════════════════ -->
+<script>
+(function(){
+var yaHabia = !!window.fbq;
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+if(!yaHabia && !window.__nfm_pixel_land){
+  window.__nfm_pixel_land = true;
+  fbq('init', '1203017011123382');
+  fbq('track', 'PageView');
+}
+})();
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1203017011123382&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+"""
+rep('<!-- ═══════════ DESDE ACÁ EMPIEZA LO QUE VA EN EL CUSTOM CODE DE GHL ═══════════ -->\n',
+    '<!-- ═══════════ DESDE ACÁ EMPIEZA LO QUE VA EN EL CUSTOM CODE DE GHL ═══════════ -->\n' + PIXEL)
+
 # ── controles ──
 for viejo in ['21 de oct', 'iércoles 21', 'Mié 21', 'oct21', 'class="nfm-opt', 'class="nfm-alerta"', 'w6wTjXjcIScDip8GuVBr', 'sobreprecio', 'calentarForm(', 'resp.etapa', 'cabeza']:
     assert viejo not in s, viejo

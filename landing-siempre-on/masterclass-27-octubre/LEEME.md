@@ -8,7 +8,7 @@ Landing de registro y thank you page de la clase gratuita **Cómo usar la neuroc
 | `thankyou.html` | Thank you page: grupo de WhatsApp y calendario. |
 | `calendario-masterclass-27-oct.md` / `.ics` | Link de Google Calendar y archivo para iPhone/Outlook, para el grupo o los mails. |
 
-En GHL va lo que está entre «DESDE ACÁ EMPIEZA» y «HASTA ACÁ». El pixel de la landing va en Settings → Tracking Code → HEAD, como siempre. El de la thank you ya viene adentro del custom code.
+En GHL va lo que está entre «DESDE ACÁ EMPIEZA» y «HASTA ACÁ». **El pixel de Meta (PageView) ya viene adentro de ese bloque, en las dos páginas.** Si además está puesto en Settings → Tracking Code → HEAD, el del bloque no se dispara, así Meta no cuenta dos veces. La conversión (Lead) la sigue mandando GHL por la API de Conversiones.
 
 ## Los dos títulos
 
