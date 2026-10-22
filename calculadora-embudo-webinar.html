@@ -9,94 +9,115 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ground:#f6f7f9; --card:#ffffff; --ink:#14202b; --muted:#5f6d7a; --rule:#dfe4ea; --fill:#eef1f5;
+  --ground:#f6f7f9; --card:#ffffff; --ink:#14202b; --muted:#5f6d7a; --rule:#dfe4ea; --fill:#eef1f5; --cell:#fbfcfd;
   --accent:#2f5bea; --accent-soft:#e3e9fd; --accent-ink:#ffffff;
   --ok:#16794c; --ok-bg:#e4f4ec; --bad:#b3261e; --bad-bg:#fbe8e6; --warn:#8a6100; --warn-bg:#fbf1d6;
-  --field:#ffffff; --bar:#2f5bea; --bar2:#9bb0f5;
+  --field:#ffffff; --bar:#2f5bea; --bar2:#9bb0f5; --barbg:#dfe7fd;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --ground:#0f141a; --card:#161d25; --ink:#e6ebf0; --muted:#8b98a6; --rule:#26313d; --fill:#1d2630;
+    --ground:#0f141a; --card:#161d25; --ink:#e6ebf0; --muted:#8b98a6; --rule:#26313d; --fill:#1d2630; --cell:#131a21;
     --accent:#7c9cff; --accent-soft:#1f2b4d; --accent-ink:#0f141a;
     --ok:#5fd19b; --ok-bg:#12301f; --bad:#ff8a80; --bad-bg:#3a1a17; --warn:#e9bd55; --warn-bg:#352a0f;
-    --field:#10161d; --bar:#7c9cff; --bar2:#3c4f86;
+    --field:#10161d; --bar:#7c9cff; --bar2:#3c4f86; --barbg:#1f2b4d;
   }
 }
 :root[data-theme="dark"]{
-  --ground:#0f141a; --card:#161d25; --ink:#e6ebf0; --muted:#8b98a6; --rule:#26313d; --fill:#1d2630;
+  --ground:#0f141a; --card:#161d25; --ink:#e6ebf0; --muted:#8b98a6; --rule:#26313d; --fill:#1d2630; --cell:#131a21;
   --accent:#7c9cff; --accent-soft:#1f2b4d; --accent-ink:#0f141a;
   --ok:#5fd19b; --ok-bg:#12301f; --bad:#ff8a80; --bad-bg:#3a1a17; --warn:#e9bd55; --warn-bg:#352a0f;
-  --field:#10161d; --bar:#7c9cff; --bar2:#3c4f86;
+  --field:#10161d; --bar:#7c9cff; --bar2:#3c4f86; --barbg:#1f2b4d;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--ground);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1180px;margin:0 auto;padding:32px 16px 64px}
+.wrap{max-width:1240px;margin:0 auto;padding:32px 16px 64px}
 header h1{font-size:28px;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
-header p{margin:0;color:var(--muted);max-width:720px}
-.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:20px 0 24px}
+header p{margin:0;color:var(--muted);max-width:760px}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:20px 0 20px}
+.toolbar .sep{flex:1}
 .chip{border:1px solid var(--rule);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer}
 .chip:hover{border-color:var(--accent)}
 .chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.toolbar .sep{flex:1}
 .btn{border:1px solid var(--rule);background:var(--card);color:var(--ink);padding:7px 12px;border-radius:8px;font:inherit;font-size:13px;cursor:pointer}
 .btn:hover{border-color:var(--accent)}
-.grid{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:24px;align-items:start}
-@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
-.card{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:18px}
-.card + .card{margin-top:16px}
+.btn.add{border-style:dashed;color:var(--accent);margin-top:12px}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:18px;margin-top:16px}
 .card h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 12px;font-weight:600}
-.seg{display:flex;background:var(--fill);border-radius:8px;padding:3px;gap:3px;margin-bottom:14px}
-.seg button{flex:1;border:0;background:transparent;color:var(--muted);padding:8px;border-radius:6px;font:inherit;font-size:13px;cursor:pointer}
-.seg button.on{background:var(--card);color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.08)}
-.row{display:grid;grid-template-columns:minmax(0,1fr) 128px;gap:10px;align-items:center;padding:6px 0}
-.row label{font-size:14px}
-.row small{display:block;color:var(--muted);font-size:12px;line-height:1.35}
+.card .sub{font-size:13px;color:var(--muted);margin:-6px 0 12px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
 .inp{position:relative}
-.inp input,.inp select{width:100%;background:var(--field);color:var(--ink);border:1px solid var(--rule);border-radius:8px;padding:8px 30px 8px 10px;font:inherit;font-size:14px;text-align:right;font-variant-numeric:tabular-nums}
+.inp input,.inp select{width:100%;background:var(--field);color:var(--ink);border:1px solid var(--rule);border-radius:8px;padding:8px 46px 8px 10px;font:inherit;font-size:14px;text-align:right;font-variant-numeric:tabular-nums}
 .inp select{padding-right:10px;text-align:left}
 .inp input:focus,.inp select:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent}
 .inp .u{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none}
+.period{display:flex;gap:6px;margin:20px 0 12px}
 .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-@media (max-width:640px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:720px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .kpi{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:14px}
 .kpi .l{font-size:12px;color:var(--muted)}
 .kpi .v{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:2px;letter-spacing:-.01em;overflow-wrap:anywhere}
 .kpi .s{font-size:12px;color:var(--muted);margin-top:2px}
 .kpi.pos .v{color:var(--ok)} .kpi.neg .v{color:var(--bad)}
-.period{display:flex;gap:6px;margin:0 0 12px}
-.funnel{display:flex;flex-direction:column;gap:8px}
-.stage{display:grid;grid-template-columns:200px minmax(0,1fr) 80px;gap:10px;align-items:center;font-size:14px}
-@media (max-width:520px){.stage{grid-template-columns:130px minmax(0,1fr) 60px}}
-.stage .track{background:var(--fill);border-radius:6px;height:26px;overflow:hidden}
-.stage .bar{height:100%;background:var(--bar);border-radius:6px;min-width:3px;transition:width .25s}
-.stage .n{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
-.stage .rate{display:block;font-size:12px;color:var(--muted);font-weight:400}
-table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
-th,td{padding:8px 6px;border-bottom:1px solid var(--rule);text-align:right}
-th:first-child,td:first-child{text-align:left}
-th{font-size:12px;color:var(--muted);font-weight:600}
-tr.tot td{font-weight:700;border-bottom:0}
-.tblwrap{overflow-x:auto}
+
+/* Planilla */
+.sheet{overflow-x:auto;border:1px solid var(--rule);border-radius:8px}
+.sheet table{border-collapse:collapse;width:100%;min-width:1000px;font-size:14px;font-variant-numeric:tabular-nums}
+.sheet th{background:var(--fill);color:var(--muted);font-size:12px;font-weight:600;text-align:right;padding:8px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);white-space:nowrap}
+.sheet th:first-child{text-align:left}
+.sheet td{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:0;height:40px;vertical-align:middle;text-align:right;background:var(--card)}
+.sheet tr:last-child td{border-bottom:0}
+.sheet th:last-child,.sheet td:last-child{border-right:0}
+.sheet td.ro{background:var(--cell);padding:0 10px;color:var(--ink);white-space:nowrap}
+.sheet td.muted{color:var(--muted);font-size:13px;padding:0 10px;text-align:left;background:var(--cell)}
+.sheet .stick{position:sticky;left:0;z-index:1}
+.sheet td.stick{box-shadow:1px 0 0 var(--rule)}
+.sheet th.stick{z-index:2}
+@media (max-width:600px){.sheet th.stick{min-width:160px !important}}
+.cellin{display:flex;align-items:center;height:40px}
+.cellin input,.cellin select{flex:1;width:100%;min-width:0;height:40px;border:0;background:transparent;color:var(--ink);font:inherit;font-size:14px;padding:0 10px;text-align:right;font-variant-numeric:tabular-nums}
+.cellin select{text-align:left;padding-right:4px;cursor:pointer}
+.cellin input.txt{text-align:left;font-weight:500}
+.cellin input:focus,.cellin select:focus{outline:2px solid var(--accent);outline-offset:-2px;background:var(--field)}
+.cellin .u{color:var(--muted);font-size:12px;padding-right:10px}
+.pbar{position:relative;display:block}
+.pbar i{position:absolute;left:0;top:50%;height:22px;transform:translateY(-50%);background:var(--barbg);border-radius:4px;max-width:100%}
+.pbar b{position:relative;font-weight:500}
+.chk{display:flex;align-items:center;justify-content:center;height:40px}
+.chk input{width:16px;height:16px;accent-color:var(--accent);cursor:pointer}
+.acts{display:flex;gap:2px;justify-content:center;padding:0 6px}
+.acts button{border:0;background:transparent;color:var(--muted);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1}
+.acts button:hover:not(:disabled){background:var(--fill);color:var(--ink)}
+.acts button.del:hover:not(:disabled){background:var(--bad-bg);color:var(--bad)}
+.acts button:disabled{opacity:.25;cursor:default}
+.legend{font-size:12px;color:var(--muted);margin:10px 0 0;line-height:1.6}
+.legend b{color:var(--ink);font-weight:600}
+
+table.plain{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+table.plain th,table.plain td{padding:8px 6px;border-bottom:1px solid var(--rule);text-align:right}
+table.plain th:first-child,table.plain td:first-child{text-align:left}
+table.plain th{font-size:12px;color:var(--muted);font-weight:600}
+table.plain tr.tot td{font-weight:700;border-bottom:0}
+.costs .sheet table{min-width:460px}
+
 .sens{display:flex;flex-direction:column;gap:8px}
-.sens .it{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 110px;gap:10px;align-items:center;font-size:14px}
-@media (max-width:520px){.sens .it{grid-template-columns:minmax(0,120px) minmax(0,1fr) 90px}}
+.sens .it{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr) 100px;gap:10px;align-items:center;font-size:14px}
+@media (max-width:520px){.sens .it{grid-template-columns:minmax(0,130px) minmax(0,1fr) 84px}}
 .sens .track{background:var(--fill);border-radius:6px;height:14px;overflow:hidden}
 .sens .bar{height:100%;background:var(--bar2);border-radius:6px}
 .sens .it:first-child .bar{background:var(--bar)}
-.sens .n{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.sens .n{text-align:right;font-weight:600}
 .note{font-size:13px;color:var(--muted);margin:10px 0 0}
 .alert{border-radius:8px;padding:10px 12px;font-size:13px;margin-top:12px}
 .alert.warn{background:var(--warn-bg);color:var(--warn)}
 .alert.bad{background:var(--bad-bg);color:var(--bad)}
-.goal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.goal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
 @media (max-width:640px){.goal{grid-template-columns:minmax(0,1fr)}}
 .goal .kpi{background:var(--accent-soft);border-color:transparent}
-.toggles{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
-.toggles label{display:flex;align-items:center;gap:6px;font-size:13px;border:1px solid var(--rule);border-radius:999px;padding:6px 12px;cursor:pointer;user-select:none}
-.toggles input{accent-color:var(--accent);margin:0}
-.toggles label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
-.hidden{display:none !important}
+.goal .kpi .v{font-size:19px}
 footer{color:var(--muted);font-size:12px;margin-top:28px}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--ground);padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.show{opacity:1}
@@ -106,160 +127,167 @@ footer{color:var(--muted);font-size:12px;margin-top:28px}
 <div class="wrap">
   <header>
     <h1>Calculadora de embudo de webinars</h1>
-    <p>Ponés la pauta y las tasas de cada fase y te devuelve qué rinde un webinar y el mes completo. También calcula al revés: cuánta pauta necesitás para llegar a una meta. Sirve para cualquier nicho y moneda.</p>
+    <p>Armá tu embudo como en una planilla: sumá, borrá, renombrá y reordená etapas, y editá cada una por % o por cantidad. Te devuelve qué rinde un webinar, el mes completo y cuánta pauta necesitás para una meta. Sirve para cualquier nicho y moneda.</p>
   </header>
 
   <div class="toolbar" id="presets"></div>
 
+  <div class="card" style="margin-top:0">
+    <h2>Pauta y ritmo</h2>
+    <div class="fields" id="general"></div>
+  </div>
+
+  <div class="period" id="periodSeg">
+    <button class="chip" data-p="w">Por webinar</button>
+    <button class="chip" data-p="m">Por mes</button>
+  </div>
+  <div class="kpis" id="kpis"></div>
+
+  <div class="card">
+    <h2>El embudo</h2>
+    <p class="sub">Editá el % o la cantidad: si cambiás uno, el otro se recalcula y las etapas de abajo mantienen sus tasas.</p>
+    <div class="sheet">
+      <table>
+        <thead><tr>
+          <th class="stick" style="min-width:200px">Etapa</th>
+          <th style="min-width:160px;text-align:left">Sobre</th>
+          <th style="min-width:90px">%</th>
+          <th style="min-width:100px">Cantidad</th>
+          <th>Por mes</th>
+          <th style="min-width:120px">% de registros</th>
+          <th>Costo c/u</th>
+          <th style="min-width:110px">Valor c/u</th>
+          <th>Venta</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="stages"></tbody>
+      </table>
+    </div>
+    <button class="btn add" id="addStage">+ Agregar etapa</button>
+    <p class="legend"><b>Sobre:</b> la etapa a la que se le aplica el %. Por defecto, la anterior. <b>Costo c/u:</b> pauta dividida por la cantidad de esa etapa (costo por registro, por asistente, por agenda, por venta). <b>Valor c/u:</b> lo que factura cada persona de esa etapa; cargalo en ventas, upsells o bumps. <b>Venta:</b> marcá las etapas que cuentan como venta para el CPA y los costos por venta.</p>
+    <div id="alerts"></div>
+  </div>
+
   <div class="grid">
     <div>
-      <div class="card">
-        <h2>Cómo vendés</h2>
-        <div class="seg" id="modeSeg">
-          <button data-mode="checkout">Checkout directo</button>
-          <button data-mode="agenda">Llamada de venta</button>
+      <div class="card costs">
+        <h2>Costos</h2>
+        <p class="sub">Además de la pauta. Sumá los que tengas.</p>
+        <div class="sheet">
+          <table>
+            <thead><tr><th class="stick" style="min-width:180px">Concepto</th><th style="min-width:150px;text-align:left">Tipo</th><th style="min-width:110px">Valor</th><th></th></tr></thead>
+            <tbody id="costs"></tbody>
+          </table>
         </div>
-        <div class="row">
-          <label>Moneda</label>
-          <div class="inp"><select id="currency">
-            <option>USD</option><option>EUR</option><option>ARS</option><option>MXN</option><option>COP</option><option>CLP</option><option>PEN</option><option>UYU</option><option>BRL</option>
-          </select></div>
-        </div>
+        <button class="btn add" id="addCost">+ Agregar costo</button>
       </div>
-      <div id="fields"></div>
+      <div class="card">
+        <h2>Resultados</h2>
+        <table class="plain" id="tbl"></table>
+      </div>
     </div>
-
     <div>
-      <div class="period" id="periodSeg">
-        <button class="chip" data-p="w">Por webinar</button>
-        <button class="chip" data-p="m">Por mes</button>
-      </div>
-      <div class="kpis" id="kpis"></div>
-
-      <div class="card" style="margin-top:16px">
-        <h2>El embudo</h2>
-        <div class="funnel" id="funnel"></div>
-        <div id="alerts"></div>
-      </div>
-
-      <div class="card">
-        <h2>Números</h2>
-        <div class="tblwrap"><table id="tbl"></table></div>
-      </div>
-
       <div class="card">
         <h2>Qué palanca mueve más</h2>
-        <p class="note" style="margin:0 0 12px">Ganancia extra por mes si cada tasa sube 1 punto, o si el CPL baja y el precio sube un 10%, dejando el resto igual. Las tasas bajas suelen ser las que más rinden al mejorar.</p>
+        <p class="sub" style="margin-top:0">Ganancia extra por mes si cada % sube 1 punto, el CPL baja un 10% o cada valor sube un 10%, dejando el resto igual.</p>
         <div class="sens" id="sens"></div>
       </div>
-
       <div class="card">
         <h2>Al revés: desde una meta</h2>
-        <div class="row">
-          <label>Meta de cash cobrado por mes<small>Con las tasas de arriba, calcula cuánta pauta hace falta.</small></label>
-          <div class="inp"><input type="number" id="goal" min="0" step="1000"><span class="u" id="goalU">$</span></div>
-        </div>
+        <div class="fields"><div class="field"><label for="g_goal">Meta de cash cobrado por mes</label><div class="inp"><input id="g_goal" data-g="goal" inputmode="decimal"><span class="u cur"></span></div></div></div>
         <div class="goal" id="goalOut"></div>
         <div id="goalNote"></div>
       </div>
     </div>
   </div>
 
-  <footer>Los escenarios de arriba son puntos de partida orientativos, no promesas de resultado: reemplazalos por tus datos reales. Lo que cargás se guarda solo en este navegador. “Copiar link” arma una URL con tus números para compartirla.</footer>
+  <footer>Los escenarios de arriba son puntos de partida orientativos, no promesas de resultado: reemplazalos por tus datos reales. Lo que cargás se guarda solo en este navegador. “Copiar link” arma una URL con todo tu embudo para compartirlo, y “Exportar a Excel” baja un CSV.</footer>
 </div>
 <div class="toast" id="toast"></div>
 
 <script>
-const FIELDS = [
-  {g:'Pauta y ritmo', id:'budget', l:'Inversión en pauta por webinar', u:'$', step:100},
-  {g:'Pauta y ritmo', id:'cpl', l:'Costo por registro (CPL)', u:'$', step:0.5},
-  {g:'Pauta y ritmo', id:'organic', l:'Registros orgánicos por webinar', h:'Lista, redes, referidos. Sin costo de pauta.', u:'n', step:10},
-  {g:'Pauta y ritmo', id:'perMonth', l:'Webinars por mes', u:'n', step:1},
-
-  {g:'Webinar', o:'useGroup', id:'group', l:'% de registros que entran al grupo de WhatsApp', u:'%', step:1},
-  {g:'Webinar', o:'useConfirm', id:'confirm', l:'% que confirma asistencia', h:'Sobre la etapa anterior (grupo o registros).', u:'%', step:1},
-  {g:'Webinar', id:'att', l:'% que asiste a la clase en vivo', h:'Sobre la etapa anterior: confirmados, grupo o registros.', u:'%', step:1},
-  {g:'Webinar', id:'ret', l:'% de asistentes que llegan a la oferta', h:'Los que siguen conectados cuando presentás.', u:'%', step:1},
-
-  {g:'Venta', m:'checkout', id:'conv', l:'% que compra en vivo', h:'Sobre los que llegan a la oferta.', u:'%', step:0.5},
-  {g:'Venta', m:'checkout', id:'post', l:'Ventas extra por replay y seguimiento', h:'Como % de las ventas en vivo.', u:'%', step:5},
-  {g:'Venta', m:'checkout', id:'price', l:'Precio del producto', u:'$', step:10},
-  {g:'Venta', m:'checkout', id:'bumpRate', l:'% de compradores que suman el bump/upsell', u:'%', step:5},
-  {g:'Venta', m:'checkout', id:'bumpPrice', l:'Precio del bump/upsell', u:'$', step:5},
-
-  {g:'Venta', m:'agenda', id:'book', l:'% que agenda una llamada', h:'Sobre los que llegan a la oferta.', u:'%', step:0.5},
-  {g:'Venta', m:'agenda', id:'show', l:'% de agendas que se presentan', u:'%', step:1},
-  {g:'Venta', m:'agenda', id:'close', l:'% de cierre sobre llamadas hechas', u:'%', step:1},
-  {g:'Venta', m:'agenda', id:'ticket', l:'Ticket promedio', u:'$', step:100},
-
-  {g:'Cobro y costos', id:'upfront', l:'% de la facturación que se cobra en el mes', h:'100% si todos pagan contado. Bajalo si hay cuotas.', u:'%', step:5},
-  {g:'Cobro y costos', id:'comm', l:'Comisiones de venta', h:'Closers, setters, afiliados. Sobre el cash.', u:'%', step:1},
-  {g:'Cobro y costos', id:'fees', l:'Comisión de la pasarela de pago', u:'%', step:0.5},
-  {g:'Cobro y costos', id:'cogs', l:'Costo de entrega por venta', h:'Lo que te cuesta cumplir cada venta.', u:'$', step:10},
-  {g:'Cobro y costos', id:'fixed', l:'Costos fijos por webinar', h:'Plataforma, equipo, edición.', u:'$', step:50},
+const GENERAL = [
+  {id:'budget', l:'Inversión en pauta por webinar', u:'$'},
+  {id:'cpl', l:'Costo por registro (CPL)', u:'$'},
+  {id:'organic', l:'Registros orgánicos por webinar', u:''},
+  {id:'perMonth', l:'Webinars por mes', u:''},
+  {id:'upfront', l:'% cobrado en el mes', u:'%'},
 ];
+const COST_TYPES = {fixed:'Fijo por webinar', pct:'% del cash cobrado', sale:'Por venta'};
+const KEY = 'calc-webinar-v3';
 
-const BASE = {currency:'USD', budget:1000, organic:0, perMonth:4, fees:5, cogs:0, fixed:200, goal:20000};
+let uid = 1;
+const nid = p => p + (uid++).toString(36) + Math.random().toString(36).slice(2, 5);
+
+// [nombre, % , índice de la etapa base (null = anterior), valor c/u, cuenta como venta]
+function preset(cpl, upfront, rows, costs){
+  const stages = [];
+  rows.forEach((r, i) => {
+    const st = {id:nid('s'), name:r[0], rate:r[1] ?? 100, value:r[3] || 0, sale:!!r[4]};
+    if(i) st.base = stages[r[2] ?? i - 1].id;
+    stages.push(st);
+  });
+  return {budget:1000, cpl, organic:0, perMonth:4, upfront, goal:20000, stages,
+    costs:costs.map(c => ({id:nid('c'), name:c[0], type:c[1], v:c[2]}))};
+}
 const PRESETS = [
-  {k:'low', n:'Low ticket', s:{mode:'checkout', cpl:2, useGroup:true, group:55, useConfirm:false, confirm:60, att:45, ret:60, conv:8, post:50, price:47, bumpRate:30, bumpPrice:27, upfront:100, comm:0, book:15, show:65, close:25, ticket:2000}},
-  {k:'mid', n:'Curso mid ticket', s:{mode:'checkout', cpl:4, useGroup:true, group:60, useConfirm:false, confirm:60, att:50, ret:65, conv:4, post:50, price:497, bumpRate:15, bumpPrice:97, upfront:90, comm:0, book:15, show:65, close:25, ticket:2000}},
-  {k:'high', n:'High ticket con llamada', s:{mode:'agenda', cpl:5, useGroup:true, group:65, useConfirm:false, confirm:60, att:55, ret:70, book:15, show:65, close:25, ticket:2000, upfront:70, comm:10, conv:4, post:50, price:497, bumpRate:0, bumpPrice:0}},
-  {k:'b2b', n:'Servicios B2B', s:{mode:'agenda', cpl:15, useGroup:false, group:60, useConfirm:false, confirm:60, att:40, ret:80, book:20, show:75, close:25, ticket:5000, upfront:50, comm:10, conv:4, post:50, price:497, bumpRate:0, bumpPrice:0}},
+  {k:'low', n:'Low ticket', f:() => preset(2, 100, [
+    ['Registros'], ['Entran al grupo de WhatsApp', 55], ['Asisten a la clase', 45], ['Llegan a la oferta', 60],
+    ['Compran en vivo', 8, null, 47, true], ['Compran por replay', 50, 4, 47, true], ['Suman el bump', 30, 4, 27]],
+    [['Pasarela de pago', 'pct', 5], ['Plataforma y equipo', 'fixed', 200]])},
+  {k:'mid', n:'Curso mid ticket', f:() => preset(4, 90, [
+    ['Registros'], ['Entran al grupo de WhatsApp', 60], ['Asisten a la clase', 50], ['Llegan a la oferta', 65],
+    ['Compran en vivo', 4, null, 497, true], ['Compran por replay', 50, 4, 497, true], ['Suman el upsell', 15, 4, 97]],
+    [['Pasarela de pago', 'pct', 5], ['Plataforma y equipo', 'fixed', 200]])},
+  {k:'high', n:'High ticket con llamada', f:() => preset(5, 70, [
+    ['Registros'], ['Entran al grupo de WhatsApp', 65], ['Confirman asistencia', 60], ['Asisten a la clase', 90],
+    ['Llegan a la oferta', 70], ['Agendan llamada', 15], ['Se presentan a la llamada', 65], ['Cierres', 25, null, 2000, true]],
+    [['Comisión closers', 'pct', 10], ['Pasarela de pago', 'pct', 5], ['Plataforma y equipo', 'fixed', 200]])},
+  {k:'b2b', n:'Servicios B2B', f:() => preset(15, 50, [
+    ['Registros'], ['Asisten a la clase', 40], ['Llegan a la oferta', 80], ['Agendan llamada', 20],
+    ['Se presentan a la llamada', 75], ['Cierres', 25, null, 5000, true]],
+    [['Comisión de venta', 'pct', 10], ['Pasarela de pago', 'pct', 5], ['Plataforma y equipo', 'fixed', 200]])},
 ];
-const KEY = 'calc-webinar-v2';
 let S, period = 'm', active = null;
 
 function load(){
   try{
-    if(location.hash.length > 1){
-      const o = JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(1)))));
-      return {...BASE, ...PRESETS[2].s, ...o};
-    }
+    if(location.hash.length > 1) return JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(1)))));
   }catch(e){}
-  try{ const r = localStorage.getItem(KEY); if(r) return {...BASE, ...PRESETS[2].s, ...JSON.parse(r)}; }catch(e){}
+  try{ const r = localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){}
   active = 'high';
-  return {...BASE, ...PRESETS[2].s};
+  return {currency:'USD', ...PRESETS[2].f()};
 }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
 
+/* ---------- cálculo ---------- */
+function baseIndex(s, i){
+  const b = s.stages.findIndex(x => x.id === s.stages[i].base);
+  return b >= 0 && b < i ? b : i - 1;
+}
 function compute(s){
   const paid = s.cpl > 0 ? s.budget / s.cpl : 0;
-  const leads = paid + s.organic;
-  const pre = [['Registros', leads]];
-  let cur = leads, group = null;
-  if(s.useGroup){ cur *= s.group / 100; group = cur; pre.push(['Entran al grupo', cur]); }
-  if(s.useConfirm){ cur *= s.confirm / 100; pre.push(['Confirman asistencia', cur]); }
-  const att = cur * s.att / 100;
-  const offer = att * s.ret / 100;
-  pre.push(['Asisten a la clase', att], ['Llegan a la oferta', offer]);
-  let stages, sales, billing;
-  if(s.mode === 'checkout'){
-    const live = offer * s.conv / 100;
-    sales = live * (1 + s.post / 100);
-    billing = sales * s.price + sales * s.bumpRate / 100 * s.bumpPrice;
-    stages = [...pre, ['Compran en vivo', live], ['Ventas totales', sales]];
-  } else {
-    const agendas = offer * s.book / 100;
-    const calls = agendas * s.show / 100;
-    sales = calls * s.close / 100;
-    billing = sales * s.ticket;
-    stages = [...pre, ['Agendan', agendas], ['Se presentan a la llamada', calls], ['Ventas', sales]];
-  }
+  const qty = [paid + s.organic];
+  for(let i = 1; i < s.stages.length; i++) qty[i] = qty[baseIndex(s, i)] * s.stages[i].rate / 100;
+  let billing = 0, sales = 0;
+  s.stages.forEach((st, i) => { billing += qty[i] * st.value; if(st.sale) sales += qty[i]; });
   const cash = billing * s.upfront / 100;
-  const comm = cash * s.comm / 100, fees = cash * s.fees / 100, cogs = sales * s.cogs;
-  const cost = s.budget + s.fixed + comm + fees + cogs;
-  const profit = cash - cost;
-  const net = cash - comm - fees - cogs;
-  const cplEq = paid > 0 ? (net - s.fixed) / paid : null;
-  return {paid, leads, group, att, offer, sales, billing, cash, comm, fees, cogs, cost, profit, stages, cplEq,
+  let fixed = 0, variable = 0;
+  const lines = s.costs.map(c => {
+    const v = c.type === 'fixed' ? c.v : c.type === 'pct' ? cash * c.v / 100 : sales * c.v;
+    if(c.type === 'fixed') fixed += v; else variable += v;
+    return [c.name, v];
+  });
+  const profit = cash - s.budget - fixed - variable;
+  const leads = qty[0];
+  return {paid, leads, qty, billing, sales, cash, lines, fixed, variable, profit,
     roas: s.budget > 0 ? cash / s.budget : null,
     cpa: sales > 0 ? s.budget / sales : null,
-    cpAtt: att > 0 ? s.budget / att : null,
-    cpGroup: group > 0 ? s.budget / group : null,
     cashPerLead: leads > 0 ? cash / leads : 0,
-    netPerLead: leads > 0 ? net / leads : 0};
+    cplEq: paid > 0 ? (cash - variable - fixed) / paid : null};
 }
 
+/* ---------- formato ---------- */
 const nf0 = new Intl.NumberFormat('es-AR', {maximumFractionDigits:0});
 const nf1 = new Intl.NumberFormat('es-AR', {maximumFractionDigits:1});
 function money(v, dec){
@@ -267,53 +295,83 @@ function money(v, dec){
   try{ return new Intl.NumberFormat('es-AR', {style:'currency', currency:S.currency, maximumFractionDigits:dec ?? 0, minimumFractionDigits:0}).format(v); }
   catch(e){ return '$' + nf0.format(v); }
 }
-const num = v => v < 10 ? nf1.format(v) : nf0.format(v);
+const num = v => !isFinite(v) ? '—' : Math.abs(v) < 10 ? nf1.format(v) : nf0.format(v);
 const sym = () => { try{ return (0).toLocaleString('es-AR', {style:'currency', currency:S.currency}).replace(/[\d\s.,]/g, '') || '$'; }catch(e){ return '$'; } };
+// Acepta "4,5", "4.5", "1.000" y "1.000,50"
+function parseNum(str){
+  let t = String(str).trim().replace(/[^\d.,-]/g, '');
+  if(t.includes(',')) t = t.replace(/\./g, '').replace(',', '.');
+  else if(/^-?\d{1,3}(\.\d{3})+$/.test(t)) t = t.replace(/\./g, '');
+  const v = parseFloat(t);
+  return isFinite(v) && v >= 0 ? v : 0;
+}
+const fmtIn = (v, dec) => isFinite(v) ? String(+(+v).toFixed(dec)).replace('.', ',') : '';
+const esc = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;'}[c]));
+const setIn = (el, v) => { if(el && document.activeElement !== el) el.value = v; };
 
-function renderFields(){
-  const groups = {};
-  FIELDS.forEach(f => (groups[f.g] = groups[f.g] || []).push(f));
-  let html = '';
-  for(const g in groups){
-    html += `<div class="card"><h2>${g}</h2>`;
-    if(g === 'Webinar') html += `<div class="toggles"><label><input type="checkbox" data-t="useGroup"> Grupo de WhatsApp</label><label><input type="checkbox" data-t="useConfirm"> Confirmación de asistencia</label></div>`;
-    for(const f of groups[g]){
-      html += `<div class="row" data-m="${f.m || ''}" data-o="${f.o || ''}"><label for="f_${f.id}">${f.l}${f.h ? `<small>${f.h}</small>` : ''}</label>
-        <div class="inp"><input type="number" id="f_${f.id}" data-id="${f.id}" min="0" ${f.u === '%' ? 'max="100"' : ''} step="${f.step}"><span class="u" data-u="${f.u}"></span></div></div>`;
-    }
-    html += '</div>';
-  }
-  document.getElementById('fields').innerHTML = html;
-  document.querySelectorAll('#fields input[type=number]').forEach(i => i.addEventListener('input', e => {
-    let v = parseFloat(e.target.value); if(!isFinite(v) || v < 0) v = 0;
-    if(e.target.max && v > 100) v = 100;
-    S[e.target.dataset.id] = v; active = null; update();
-  }));
-  // Al prender o apagar una etapa se ajusta % asistencia para que la cantidad de asistentes no cambie.
-  document.querySelectorAll('#fields [data-t]').forEach(c => c.addEventListener('change', e => {
-    const t = e.target.dataset.t, r = (t === 'useGroup' ? S.group : S.confirm) / 100;
-    S[t] = e.target.checked;
-    if(r > 0) S.att = Math.min(100, S.att * (S[t] ? 1 / r : r));
-    active = null; update();
-  }));
+/* ---------- render ---------- */
+function renderGeneral(){
+  document.getElementById('general').innerHTML = GENERAL.map(f =>
+    `<div class="field"><label for="g_${f.id}">${f.l}</label><div class="inp"><input id="g_${f.id}" data-g="${f.id}" inputmode="decimal"><span class="u ${f.u === '$' ? 'cur' : ''}">${f.u === '%' ? '%' : ''}</span></div></div>`).join('') +
+    `<div class="field"><label for="currency">Moneda</label><div class="inp"><select id="currency">${['USD','EUR','ARS','MXN','COP','CLP','PEN','UYU','BRL'].map(c => `<option>${c}</option>`).join('')}</select></div></div>`;
 }
 
-function syncInputs(){
-  FIELDS.forEach(f => { const el = document.getElementById('f_' + f.id); if(document.activeElement !== el) el.value = +(+S[f.id]).toFixed(2); });
-  document.querySelectorAll('#fields .row').forEach(r => r.classList.toggle('hidden', (!!r.dataset.m && r.dataset.m !== S.mode) || (!!r.dataset.o && !S[r.dataset.o])));
-  document.querySelectorAll('#fields [data-t]').forEach(c => c.checked = !!S[c.dataset.t]);
-  document.querySelectorAll('.u').forEach(u => u.textContent = u.dataset.u === '$' ? sym() : u.dataset.u === '%' ? '%' : '');
-  document.getElementById('goalU').textContent = sym();
+function renderStages(){
+  const n = S.stages.length;
+  document.getElementById('stages').innerHTML = S.stages.map((st, i) => {
+    const bi = i ? baseIndex(S, i) : -1;
+    const opts = S.stages.slice(0, i).map((b, j) => `<option value="${b.id}" ${j === bi ? 'selected' : ''}>${esc(b.name || 'Etapa ' + (j + 1))}</option>`).join('');
+    return `<tr data-i="${i}">
+      <td class="stick"><div class="cellin"><input class="txt" data-f="name" value="${esc(st.name)}" title="${esc(st.name)}" placeholder="Nombre de la etapa"></div></td>
+      ${i ? `<td><div class="cellin"><select data-f="base">${opts}</select></div></td>` : '<td class="muted">Pauta ÷ CPL + orgánicos</td>'}
+      ${i ? `<td><div class="cellin"><input data-f="rate" inputmode="decimal"><span class="u">%</span></div></td>` : '<td class="ro">—</td>'}
+      <td><div class="cellin"><input data-f="qty" inputmode="decimal"></div></td>
+      <td class="ro" data-c="month"></td>
+      <td class="ro"><span class="pbar" data-c="pct"><i></i><b></b></span></td>
+      <td class="ro" data-c="cpu"></td>
+      <td><div class="cellin"><input data-f="value" inputmode="decimal"><span class="u cur"></span></div></td>
+      <td><div class="chk"><input type="checkbox" data-f="sale" ${st.sale ? 'checked' : ''} aria-label="Cuenta como venta"></div></td>
+      <td><div class="acts">
+        <button data-a="up" title="Subir" ${i < 2 ? 'disabled' : ''}>↑</button>
+        <button data-a="down" title="Bajar" ${i === 0 || i === n - 1 ? 'disabled' : ''}>↓</button>
+        <button data-a="del" class="del" title="Borrar" ${i === 0 ? 'disabled' : ''}>✕</button>
+      </div></td></tr>`;
+  }).join('');
+}
+
+function renderCosts(){
+  document.getElementById('costs').innerHTML = S.costs.map((c, i) => `<tr data-i="${i}">
+    <td class="stick"><div class="cellin"><input class="txt" data-f="name" value="${esc(c.name)}" placeholder="Concepto"></div></td>
+    <td><div class="cellin"><select data-f="type">${Object.entries(COST_TYPES).map(([k, l]) => `<option value="${k}" ${k === c.type ? 'selected' : ''}>${l}</option>`).join('')}</select></div></td>
+    <td><div class="cellin"><input data-f="v" inputmode="decimal"><span class="u">${c.type === 'pct' ? '%' : sym()}</span></div></td>
+    <td><div class="acts"><button data-a="del" class="del" title="Borrar">✕</button></div></td></tr>`).join('') ||
+    '<tr><td class="muted" colspan="4">Sin costos cargados.</td></tr>';
+}
+
+function refresh(){
+  save();
+  const r = compute(S), k = period === 'm' ? S.perMonth : 1, lbl = period === 'm' ? 'en el mes' : 'por webinar';
+
+  GENERAL.forEach(f => setIn(document.getElementById('g_' + f.id), fmtIn(S[f.id], 2)));
+  setIn(document.getElementById('g_goal'), fmtIn(S.goal, 0));
   document.getElementById('currency').value = S.currency;
-  const g = document.getElementById('goal'); if(document.activeElement !== g) g.value = S.goal;
-  document.querySelectorAll('#modeSeg button').forEach(b => b.classList.toggle('on', b.dataset.mode === S.mode));
+  document.querySelectorAll('.u.cur').forEach(u => u.textContent = sym());
   document.querySelectorAll('#periodSeg button').forEach(b => b.classList.toggle('on', b.dataset.p === period));
   document.querySelectorAll('#presets .chip').forEach(b => b.classList.toggle('on', b.dataset.k === active));
-}
 
-function update(){
-  syncInputs(); save();
-  const r = compute(S), k = period === 'm' ? S.perMonth : 1, lbl = period === 'm' ? 'en el mes' : 'por webinar';
+  document.querySelectorAll('#stages tr').forEach(tr => {
+    const i = +tr.dataset.i, st = S.stages[i], q = r.qty[i];
+    setIn(tr.querySelector('[data-f=rate]'), fmtIn(st.rate, 2));
+    setIn(tr.querySelector('[data-f=qty]'), fmtIn(q, q < 10 ? 2 : 1));
+    setIn(tr.querySelector('[data-f=value]'), fmtIn(st.value, 2));
+    tr.querySelector('[data-c=month]').textContent = num(q * S.perMonth);
+    const p = r.leads > 0 ? q / r.leads * 100 : 0;
+    const pc = tr.querySelector('[data-c=pct]');
+    pc.querySelector('i').style.width = Math.min(100, p) + '%';
+    pc.querySelector('b').textContent = nf1.format(p) + '%';
+    tr.querySelector('[data-c=cpu]').textContent = S.budget > 0 && q > 0 ? money(S.budget / q, 2) : '—';
+  });
+  document.querySelectorAll('#costs tr[data-i]').forEach(tr => setIn(tr.querySelector('[data-f=v]'), fmtIn(S.costs[+tr.dataset.i].v, 2)));
 
   document.getElementById('kpis').innerHTML = [
     ['Cash cobrado', money(r.cash * k), 'Facturado: ' + money(r.billing * k)],
@@ -322,33 +380,21 @@ function update(){
     ['Ventas', num(r.sales * k), 'CPA: ' + money(r.cpa)],
   ].map(([l, v, s, c]) => `<div class="kpi ${c || ''}"><div class="l">${l} ${lbl}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join('');
 
-  const top = r.stages[0][1] * k || 1;
-  document.getElementById('funnel').innerHTML = r.stages.map(([n, v], i) => {
-    const prev = i ? r.stages[i - 1][1] : 0;
-    const base = r.stages[0][1];
-    const rate = i && prev > 0 ? `<span class="rate">${nf1.format(v / prev * 100)}% de la anterior${i > 1 && base > 0 ? ` · ${nf1.format(v / base * 100)}% de registros` : ''}</span>` : '';
-    return `<div class="stage"><div>${n}${rate}</div><div class="track"><div class="bar" style="width:${Math.max(0.5, v * k / top * 100)}%"></div></div><div class="n">${num(v * k)}</div></div>`;
-  }).join('');
-
   let al = '';
-  if(r.sales < 1) al += `<div class="alert warn">Con estas tasas cada webinar cierra menos de una venta (${nf1.format(r.sales)}). Subí registros o revisá las conversiones.</div>`;
-  if(r.profit < 0) al += `<div class="alert bad">Así el webinar pierde ${money(-r.profit)}. ${r.cplEq != null && r.cplEq > 0 ? `Para salir hecho, el CPL tendría que bajar a ${money(r.cplEq, 2)}.` : 'Ni con CPL cero cubre los costos fijos.'}</div>`;
+  if(!S.stages.some(s => s.sale)) al += '<div class="alert warn">Ninguna etapa está marcada como venta: el CPA y los costos por venta quedan en cero.</div>';
+  if(!S.stages.some(s => s.value > 0)) al += '<div class="alert warn">Ninguna etapa tiene valor c/u: cargá el precio o ticket en la etapa de ventas para ver la facturación.</div>';
+  else if(S.stages.some(s => s.sale) && r.sales < 1) al += `<div class="alert warn">Con estas tasas cada webinar cierra menos de una venta (${nf1.format(r.sales)}).</div>`;
+  if(r.profit < 0 && r.billing > 0) al += `<div class="alert bad">Así el webinar pierde ${money(-r.profit)}. ${r.cplEq != null && r.cplEq > 0 ? `Para salir hecho, el CPL tendría que bajar a ${money(r.cplEq, 2)}.` : 'Ni con CPL cero cubre los costos.'}</div>`;
   document.getElementById('alerts').innerHTML = al;
 
   const rows = [
     ['Registros pagos', num(r.paid), num(r.paid * S.perMonth)],
-    ['Registros totales', num(r.leads), num(r.leads * S.perMonth)],
-    ...(S.useGroup ? [['Costo por persona en el grupo', money(r.cpGroup, 2), money(r.cpGroup, 2)]] : []),
-    ['Costo por asistente', money(r.cpAtt, 2), money(r.cpAtt, 2)],
     ['Cash por registro', money(r.cashPerLead, 2), money(r.cashPerLead, 2)],
     ['CPL de equilibrio', money(r.cplEq, 2), money(r.cplEq, 2)],
     ['Facturación', money(r.billing), money(r.billing * S.perMonth)],
     ['Cash cobrado', money(r.cash), money(r.cash * S.perMonth)],
     ['− Pauta', money(S.budget), money(S.budget * S.perMonth)],
-    ['− Costos fijos', money(S.fixed), money(S.fixed * S.perMonth)],
-    ['− Comisiones de venta', money(r.comm), money(r.comm * S.perMonth)],
-    ['− Pasarela de pago', money(r.fees), money(r.fees * S.perMonth)],
-    ['− Costo de entrega', money(r.cogs), money(r.cogs * S.perMonth)],
+    ...r.lines.map(([n, v]) => ['− ' + esc(n || 'Costo'), money(v), money(v * S.perMonth)]),
   ];
   document.getElementById('tbl').innerHTML = `<tr><th></th><th>Por webinar</th><th>Por mes (${nf0.format(S.perMonth)})</th></tr>` +
     rows.map(x => `<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join('') +
@@ -358,60 +404,160 @@ function update(){
 }
 
 function renderSens(r){
-  const levers = [['cpl', 'CPL −10%', 0.9]];
-  if(S.useGroup) levers.push(['group', '% entra al grupo +1 pt']);
-  if(S.useConfirm) levers.push(['confirm', '% confirma +1 pt']);
-  levers.push(['att', '% asiste a la clase +1 pt'], ['ret', '% llega a la oferta +1 pt']);
-  if(S.mode === 'checkout') levers.push(['conv', '% compra en vivo +1 pt'], ['price', 'Precio +10%', 1.1], ['post', 'Ventas por replay +1 pt']);
-  else levers.push(['book', '% agenda +1 pt'], ['show', '% se presenta +1 pt'], ['close', '% cierre +1 pt'], ['ticket', 'Ticket +10%', 1.1]);
-  levers.push(['upfront', '% cobrado en el mes +1 pt']);
-  const base = r.profit * S.perMonth;
-  const out = levers.map(([id, n, f]) => {
-    const t = {...S}; t[id] = f ? t[id] * f : Math.min(100, t[id] + 1);
-    return [n, compute(t).profit * S.perMonth - base];
-  }).sort((a, b) => b[1] - a[1]);
+  const base = r.profit * S.perMonth, out = [];
+  const test = (n, fn) => { const t = structuredClone(S); fn(t); out.push([n, compute(t).profit * S.perMonth - base]); };
+  test('CPL −10%', t => t.cpl *= 0.9);
+  S.stages.forEach((st, i) => {
+    if(i) test(`${st.name || 'Etapa ' + (i + 1)} +1 pt`, t => t.stages[i].rate += 1);
+    if(st.value > 0) test(`Valor de ${st.name || 'etapa ' + (i + 1)} +10%`, t => t.stages[i].value *= 1.1);
+  });
+  test('% cobrado en el mes +1 pt', t => t.upfront = Math.min(100, t.upfront + 1));
+  out.sort((a, b) => b[1] - a[1]);
   const max = Math.max(...out.map(x => Math.abs(x[1])), 1);
   document.getElementById('sens').innerHTML = out.map(([n, d]) =>
-    `<div class="it"><div>${n}</div><div class="track"><div class="bar" style="width:${Math.max(1, Math.abs(d) / max * 100)}%"></div></div><div class="n">${d >= 0 ? '+' : '−'}${money(Math.abs(d))}</div></div>`).join('');
+    `<div class="it"><div>${esc(n)}</div><div class="track"><div class="bar" style="width:${Math.max(1, Math.abs(d) / max * 100)}%"></div></div><div class="n">${d >= 0 ? '+' : '−'}${money(Math.abs(d))}</div></div>`).join('');
 }
 
 function renderGoal(r){
   const out = document.getElementById('goalOut'), note = document.getElementById('goalNote');
-  if(!(S.goal > 0) || !(S.perMonth > 0) || r.cashPerLead <= 0){ out.innerHTML = ''; note.innerHTML = '<p class="note">Cargá una meta y tasas mayores a cero.</p>'; return; }
-  const perW = S.goal / S.perMonth;
-  const leads = perW / r.cashPerLead;
-  const paid = Math.max(0, leads - S.organic);
-  const budget = paid * S.cpl;
+  if(!(S.goal > 0) || !(S.perMonth > 0) || r.cashPerLead <= 0){ out.innerHTML = ''; note.innerHTML = '<p class="note">Cargá una meta, y tasas y valores mayores a cero.</p>'; return; }
+  const leads = S.goal / S.perMonth / r.cashPerLead;
+  const budget = Math.max(0, leads - S.organic) * S.cpl;
   const t = compute({...S, budget});
   out.innerHTML = [
     ['Pauta por mes', money(budget * S.perMonth), money(budget) + ' por webinar'],
     ['Registros por mes', num(leads * S.perMonth), num(leads) + ' por webinar'],
     ['Ganancia con esa pauta', money(t.profit * S.perMonth), 'ROAS ' + (t.roas == null ? '—' : nf1.format(t.roas) + 'x')],
   ].map(([l, v, s]) => `<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join('');
-  note.innerHTML = `<p class="note">Supone que el CPL y las tasas se mantienen al escalar. En la práctica, si multiplicás la pauta el CPL suele subir: probá la meta con un CPL más alto.</p>`;
+  note.innerHTML = '<p class="note">Supone que el CPL y las tasas se mantienen al escalar. En la práctica, si multiplicás la pauta el CPL suele subir: probá la meta con un CPL más alto.</p>';
 }
 
+function rebuild(){ renderStages(); renderCosts(); refresh(); }
+const touched = () => { active = null; };
+
+/* ---------- eventos ---------- */
+document.getElementById('general').addEventListener('input', e => {
+  const g = e.target.dataset.g; if(!g) return;
+  S[g] = parseNum(e.target.value);
+  if(g === 'upfront') S.upfront = Math.min(100, S.upfront);
+  touched(); refresh();
+});
+document.getElementById('general').addEventListener('change', e => {
+  if(e.target.id === 'currency'){ S.currency = e.target.value; touched(); rebuild(); }
+});
+document.getElementById('g_goal').addEventListener('input', e => { S.goal = parseNum(e.target.value); refresh(); });
+document.addEventListener('focusout', e => { if(e.target.matches('[data-g],[data-f=rate],[data-f=qty],[data-f=value],[data-f=v]')) refresh(); });
+
+const stagesEl = document.getElementById('stages');
+stagesEl.addEventListener('input', e => {
+  const tr = e.target.closest('tr'); if(!tr) return;
+  const i = +tr.dataset.i, st = S.stages[i], f = e.target.dataset.f;
+  if(f === 'name'){
+    st.name = e.target.value; touched(); save();
+    stagesEl.querySelectorAll(`option[value="${st.id}"]`).forEach(o => o.textContent = st.name || 'Etapa ' + (i + 1));
+    return;
+  }
+  const v = parseNum(e.target.value);
+  if(f === 'rate') st.rate = v;
+  else if(f === 'value') st.value = v;
+  else if(f === 'qty'){
+    if(i === 0){
+      // Registros: se ajusta el CPL (o los orgánicos si no hay pauta)
+      if(S.budget > 0) S.cpl = v > S.organic ? S.budget / (v - S.organic) : S.cpl;
+      else S.organic = v;
+    } else {
+      const bq = compute(S).qty[baseIndex(S, i)];
+      if(bq > 0) st.rate = v / bq * 100;
+    }
+  }
+  touched(); refresh();
+});
+stagesEl.addEventListener('change', e => {
+  const tr = e.target.closest('tr'); if(!tr) return;
+  const st = S.stages[+tr.dataset.i], f = e.target.dataset.f;
+  if(f === 'base'){ st.base = e.target.value; touched(); refresh(); }
+  else if(f === 'sale'){ st.sale = e.target.checked; touched(); refresh(); }
+});
+stagesEl.addEventListener('click', e => {
+  const b = e.target.closest('button[data-a]'); if(!b) return;
+  const i = +b.closest('tr').dataset.i, a = b.dataset.a, list = S.stages;
+  if(a === 'del'){
+    const gone = list[i];
+    // Las etapas que colgaban de la borrada pasan a su base, con la tasa compuesta para no cambiar su cantidad
+    list.forEach((st, j) => { if(j > i && baseIndex(S, j) === i){ st.base = list[baseIndex(S, i)].id; st.rate = st.rate * gone.rate / 100; } });
+    list.splice(i, 1);
+  } else {
+    const j = a === 'up' ? i - 1 : i + 1;
+    if(j < 1 || j >= list.length) return;
+    [list[i], list[j]] = [list[j], list[i]];
+    list.forEach((st, x) => { if(x && list.findIndex(y => y.id === st.base) >= x) st.base = list[x - 1].id; });
+  }
+  touched(); rebuild();
+});
+document.getElementById('addStage').addEventListener('click', () => {
+  const last = S.stages[S.stages.length - 1];
+  S.stages.push({id:nid('s'), name:'Nueva etapa', base:last.id, rate:50, value:0, sale:false});
+  touched(); rebuild();
+  const inp = stagesEl.querySelector('tr:last-child [data-f=name]'); inp.focus(); inp.select();
+});
+
+const costsEl = document.getElementById('costs');
+costsEl.addEventListener('input', e => {
+  const tr = e.target.closest('tr[data-i]'); if(!tr) return;
+  const c = S.costs[+tr.dataset.i], f = e.target.dataset.f;
+  if(f === 'name') c.name = e.target.value;
+  else if(f === 'v') c.v = parseNum(e.target.value);
+  touched(); refresh();
+});
+costsEl.addEventListener('change', e => {
+  const tr = e.target.closest('tr[data-i]'); if(!tr || e.target.dataset.f !== 'type') return;
+  S.costs[+tr.dataset.i].type = e.target.value; touched(); rebuild();
+});
+costsEl.addEventListener('click', e => {
+  const b = e.target.closest('button[data-a=del]'); if(!b) return;
+  S.costs.splice(+b.closest('tr').dataset.i, 1); touched(); rebuild();
+});
+document.getElementById('addCost').addEventListener('click', () => {
+  S.costs.push({id:nid('c'), name:'Nuevo costo', type:'fixed', v:0}); touched(); rebuild();
+  const inp = costsEl.querySelector('tr:last-child [data-f=name]'); inp.focus(); inp.select();
+});
+
 document.getElementById('presets').innerHTML = PRESETS.map(p => `<button class="chip" data-k="${p.k}">${p.n}</button>`).join('') +
-  '<span class="sep"></span><button class="btn" id="share">Copiar link</button><button class="btn" id="reset">Reiniciar</button>';
-document.querySelectorAll('#presets .chip').forEach(b => b.addEventListener('click', () => {
-  const p = PRESETS.find(x => x.k === b.dataset.k); S = {...S, ...p.s}; active = p.k; update();
-}));
-document.getElementById('reset').addEventListener('click', () => { S = {...BASE, ...PRESETS[2].s}; active = 'high'; history.replaceState(null, '', location.pathname); update(); });
+  '<span class="sep"></span><button class="btn" id="csv">Exportar a Excel</button><button class="btn" id="share">Copiar link</button><button class="btn" id="reset">Reiniciar</button>';
+function applyPreset(p){
+  if(active === null && !confirm('Vas a reemplazar tu embudo actual por el escenario “' + p.n + '”. ¿Seguimos?')) return;
+  S = {currency:S.currency, ...p.f()}; active = p.k; history.replaceState(null, '', location.pathname); rebuild();
+}
+document.querySelectorAll('#presets .chip').forEach(b => b.addEventListener('click', () => applyPreset(PRESETS.find(x => x.k === b.dataset.k))));
+document.getElementById('reset').addEventListener('click', () => applyPreset(PRESETS[2]));
+document.querySelectorAll('#periodSeg button').forEach(b => b.addEventListener('click', () => { period = b.dataset.p; refresh(); }));
+
 document.getElementById('share').addEventListener('click', () => {
   const url = location.href.split('#')[0] + '#' + btoa(unescape(encodeURIComponent(JSON.stringify(S))));
-  const done = () => toast('Link copiado');
-  if(navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => prompt('Copiá el link:', url));
+  if(navigator.clipboard) navigator.clipboard.writeText(url).then(() => toast('Link copiado'), () => prompt('Copiá el link:', url));
   else prompt('Copiá el link:', url);
 });
-document.querySelectorAll('#modeSeg button').forEach(b => b.addEventListener('click', () => { S.mode = b.dataset.mode; active = null; update(); }));
-document.querySelectorAll('#periodSeg button').forEach(b => b.addEventListener('click', () => { period = b.dataset.p; update(); }));
-document.getElementById('currency').addEventListener('change', e => { S.currency = e.target.value; update(); });
-document.getElementById('goal').addEventListener('input', e => { const v = parseFloat(e.target.value); S.goal = isFinite(v) && v > 0 ? v : 0; update(); });
+document.getElementById('csv').addEventListener('click', () => {
+  const r = compute(S), d = v => isFinite(v) ? String(+v.toFixed(2)).replace('.', ',') : '';
+  const q = t => '"' + String(t).replace(/"/g, '""') + '"';
+  const lines = [['Etapa', 'Sobre', '%', 'Cantidad por webinar', 'Por mes', '% de registros', 'Costo c/u', 'Valor c/u', 'Venta'].map(q).join(';')];
+  S.stages.forEach((st, i) => lines.push([q(st.name), q(i ? S.stages[baseIndex(S, i)].name : 'Pauta + orgánicos'), i ? d(st.rate) : '',
+    d(r.qty[i]), d(r.qty[i] * S.perMonth), d(r.leads ? r.qty[i] / r.leads * 100 : 0), S.budget > 0 && r.qty[i] > 0 ? d(S.budget / r.qty[i]) : '',
+    d(st.value), st.sale ? 'Sí' : ''].join(';')));
+  lines.push('', [q('Resultado (' + S.currency + ')'), q('Por webinar'), q('Por mes')].join(';'));
+  [['Inversión en pauta', S.budget], ['CPL', S.cpl], ['Facturación', r.billing], ['Cash cobrado', r.cash],
+   ...r.lines.map(([n, v]) => [n, v]), ['Ganancia', r.profit], ['Ventas', r.sales]]
+    .forEach(([n, v]) => lines.push([q(n), d(v), n === 'CPL' ? d(v) : d(v * S.perMonth)].join(';')));
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['﻿' + lines.join('\r\n')], {type:'text/csv;charset=utf-8'}));
+  a.download = 'embudo-webinar.csv'; document.body.appendChild(a); a.click(); a.remove();
+  toast('CSV descargado');
+});
 function toast(t){ const el = document.getElementById('toast'); el.textContent = t; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 1600); }
 
 S = load();
-renderFields();
-update();
+renderGeneral();
+rebuild();
 </script>
 </body>
 </html>
