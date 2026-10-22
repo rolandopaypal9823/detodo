@@ -43,7 +43,7 @@ No lleva precio ni menciona la Comunidad: la venta se hace en la clase.
 
 1. **Form de GHL.** Ya está puesto el form nuevo, "Form Webinar Comunidad" (`ib4zw3gRec1D9D3kxyUv`). En GHL revisá que su redirección vaya a la thank you del 27, y revisá la conversión por la API de Conversiones y los workflows (tags, mensajes de WhatsApp). El popup reserva 1366 px de alto, el `data-height` del embed: si el form es más corto, bajá `FORM_ALTO_MINIMO` en el CONFIG.
 2. **Grupo de WhatsApp.** Ya está cargado en `CONFIG.WA` de la thank you (https://go.wha.link/clase-de-neurociencia-27-10) y en el calendario.
-3. **Hora.** Quedó a las 19:00 (Argentina). Si cambia, tocá `HORA_CLASE` en la landing y en la thank you. El contador, las fechas, la hora local y el calendario de la thank you se recalculan solos. El `.md` y el `.ics` de esta carpeta hay que regenerarlos.
+3. **Hora.** Confirmada: 19:00 (Argentina). Si algún día cambia, tocá `HORA_CLASE` en la landing y en la thank you; el `.md` y el `.ics` de esta carpeta hay que regenerarlos.
 4. **La respuesta del paso 3.** Necesita una URL que la reciba: un webhook de Zapier o Make, un Inbound Webhook de GHL o un Apps Script. Va en `CONFIG.RESPUESTA_WEBHOOK`. Mientras esté vacío, la página agradece igual pero la respuesta no se guarda.
    - La página manda: clase, respuesta, email, teléfono, nombre, UTM, página y fecha.
    - Email, teléfono y nombre salen de la URL, así que en GHL activá que la redirección pase los datos del contacto (`email`, `phone`, `name`).
