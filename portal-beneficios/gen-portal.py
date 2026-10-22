@@ -52,8 +52,8 @@ EDICIONES = [
     'anterior'       : { 'clase': 'miércoles 7 de octubre', 'ruta': '/clase-7/' },
     'CLASE'          : '2026-10-21',
     'LISTO'          : '2026-10-22T12:00:00-03:00',
-    'WORKBOOK_URL'   : '',
-    'GRABACION_LOOM' : '',
+    'WORKBOOK_URL'   : 'https://drive.google.com/file/d/1k7ptW1zvi-nrR3QmPZ8lBYuAEElYdnXj/view?usp=sharing',
+    'GRABACION_LOOM' : 'ed4f50c22069427bb38eb4cfae29cd45',
     'GRABACION_URL'  : '',
     'paginas'        : { 'asiento-basic': BASIC, 'premium-htc': PREMIUM },
     'curso'          : 'abc',     # el asiento de USD 9 trae el curso ABC completo

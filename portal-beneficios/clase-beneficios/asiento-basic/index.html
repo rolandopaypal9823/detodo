@@ -132,6 +132,7 @@ h1 .acc{ color:var(--orange); }
           <span class="item__st" data-antes>Después de la clase</span>
           <a class="btn btn--sm" data-cuando-listo data-link="grabacion" href="#" target="_blank" rel="noopener">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           <span class="item__st item__st--pronto" data-cuando-listo data-sinlink="grabacion">Lo estamos subiendo · volvé en un rato</span>
+          <div class="item__video" data-video="grabacion" hidden><div class="vbox"><iframe data-src="https://www.loom.com/embed/ed4f50c22069427bb38eb4cfae29cd45?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true&hide_speed=true" title="Grabación de la clase" frameborder="0" allow="fullscreen; picture-in-picture" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div></div>
         </li>
       </ul>
     </section>
@@ -153,8 +154,8 @@ h1 .acc{ color:var(--orange); }
 var CFG = {
   CLASE: '2026-10-21',
   LISTO: '2026-10-22T12:00:00-03:00',
-  LINKS: { workbook: '', grabacion: '' },
-  LOOM:  { grabacion: '' }
+  LINKS: { workbook: 'https://drive.google.com/file/d/1k7ptW1zvi-nrR3QmPZ8lBYuAEElYdnXj/view?usp=sharing', grabacion: '' },
+  LOOM:  { grabacion: 'ed4f50c22069427bb38eb4cfae29cd45' }
 };
 var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 var MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
