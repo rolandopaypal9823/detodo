@@ -1,6 +1,6 @@
 # Masterclass del martes 27 de octubre · Comunidad Productiva
 
-Landing de registro y thank you page de la clase gratuita **Neurociencia de la productividad**, armadas con la estrategia v2 (`Contexto_Masterclass_Comunidad_27-10/01_estrategia_comunicacion_v2.md`).
+Landing de registro y thank you page de la clase gratuita **Cómo usar la neurociencia para concentrarte y dejar de procrastinar**, armadas con la estrategia v2 (`Contexto_Masterclass_Comunidad_27-10/01_estrategia_comunicacion_v2.md`).
 
 | Archivo | Qué es |
 |---|---|
@@ -10,11 +10,16 @@ Landing de registro y thank you page de la clase gratuita **Neurociencia de la p
 
 En GHL va lo que está entre «DESDE ACÁ EMPIEZA» y «HASTA ACÁ». El pixel de la landing va en Settings → Tracking Code → HEAD, como siempre. El de la thank you ya viene adentro del custom code.
 
+## Los dos títulos
+
+- **Título de la landing:** "Neurociencia aplicada: cómo dejar de procrastinar, concentrarte y cumplir lo que planificás". Va en el hero y en el título de la pestaña.
+- **Nombre de la clase:** "Cómo usar la neurociencia para concentrarte y dejar de procrastinar". Va en la thank you page, en el calendario, en el grupo de WhatsApp, en los recordatorios y en los anuncios. En la landing aparece en el cierre.
+
 ## La landing, de arriba abajo
 
 Es la misma estructura que la landing de la clase del 21 (`../clase-21-octubre/index-popup.html`), con el mismo diseño. Cambian el tema, la explicación y la fecha.
 
-1. **Cuenta regresiva y hero:** "¿Terminás la semana sin energía y con tus cosas igual que el lunes?", el eco del anuncio C2. Debajo, el título de la clase, una bajada corta y la fecha.
+1. **Cuenta regresiva y hero:** el título de la landing, "Neurociencia aplicada: cómo dejar de procrastinar, concentrarte y cumplir lo que planificás". Debajo, la pregunta del anuncio C2 ("¿Terminás la semana sin energía y con tus cosas igual que el lunes?"), una bajada corta y la fecha.
 2. **Prensa y tráiler:** la misma cinta de logos y el mismo video de Loom.
 3. **La semana**, en el lugar de la ecuación. Es corta:
    - el título "Cumpliste con todos. Tus cosas quedaron en cero.";

@@ -21,9 +21,9 @@ def cut(a, b, nuevo):
 
 # ── head ──
 rep('<title>Dejá de pagar el sobreprecio de ser "productivo" · Neurociencia para el Alto Rendimiento Profesional · Evento en vivo con Nico Fernández Miranda</title>',
-    '<title>¿Terminás la semana sin energía y con tus cosas igual que el lunes? · Neurociencia de la productividad · Clase gratuita en vivo con Nico Fernández Miranda</title>')
+    '<title>Neurociencia aplicada: cómo dejar de procrastinar, concentrarte y cumplir lo que planificás · Clase gratuita en vivo con Nico Fernández Miranda</title>')
 rep('<meta name="description" content="Evento en vivo: Neurociencia para el Alto Rendimiento Profesional, con Nico Fernández Miranda. Para líderes, empresarios y profesionales que ya construyeron algo y están pagando el costo de sostenerlo.">',
-    '<meta name="description" content="Clase gratuita en vivo con Nico Fernández Miranda: por qué tus cosas siempre quedan para después y cómo planificar una semana que tu cerebro pueda sostener.">')
+    '<meta name="description" content="Clase gratuita en vivo con Nico Fernández Miranda: cómo usar la neurociencia para concentrarte, dejar de procrastinar y cumplir lo que planificás.">')
 rep('''<!-- VARIANTE POPUP · el quiz + form no está en la página: se abre en un popup al tocar cualquier botón.
      El popup se cierra SÓLO con la X (no con clic afuera ni con Escape). Para test A/B contra index.html. -->''',
     '''<!-- MASTERCLASS DEL MARTES 27/10 · misma estructura que la landing de la clase del 21 (variante popup).
@@ -66,9 +66,9 @@ rep('  .nfm-modal .nfm-quiz{ padding:12px; }\n', '')
 rep('<span class="nfm-hero__tag"><span class="nfm-dot"></span> Evento en vivo</span>',
     '<span class="nfm-hero__tag"><span class="nfm-dot"></span> Clase gratuita en vivo</span>')
 rep('<h1 class="nfm-hero__title">Dejá de pagar el <em>sobreprecio</em> de ser "productivo".</h1>',
-    '<h1 class="nfm-hero__title">¿Terminás la semana sin energía y con <em>tus cosas</em> igual que el lunes?</h1>')
+    '<h1 class="nfm-hero__title">Neurociencia aplicada: cómo <em>dejar de procrastinar</em>, concentrarte y cumplir lo que planificás</h1>')
 rep('<p class="nfm-hero__event">Neurociencia para el Alto Rendimiento Profesional</p>',
-    '<p class="nfm-hero__event">Neurociencia de la productividad</p>')
+    '<p class="nfm-hero__event">¿Terminás la semana sin energía y con tus cosas igual que el lunes?</p>')
 rep('<p class="nfm-hero__sub">Seguí escalando sin pagarlo con tu sueño, tu salud ni tiempo con tu familia.</p>',
     '<p class="nfm-hero__sub">Qué hace tu cerebro para que tus cosas siempre queden para después, y cómo planificar una semana que puedas sostener.</p>')
 rep('<span data-nfm-fecha="pill">Mié 21 oct · 19:00 hs (Arg) · Zoom</span>', '<span data-nfm-fecha="pill">Mar 27 oct · 19:00 hs (Arg) · Zoom</span>')
@@ -84,7 +84,7 @@ cut('<!-- ═══ LA ECUACIÓN ═══ -->', '<!-- ═══ QUIZ + REGISTRO
       <div class="nfm-week__row"><span>Trabajo</span><span class="nfm-week__bar"><i style="width:100%"></i></span><span class="nfm-week__h">50 h</span></div>
       <div class="nfm-week__row nfm-week__row--you"><span>Tus cosas</span><span class="nfm-week__bar"><i style="width:4%"></i></span><span class="nfm-week__h">0–2 h</span></div>
     </div>
-    <p class="nfm-eq__cap nfm-reveal nfm-d3"><strong>Tu cerebro tarda hasta 23 minutos en volver a lo tuyo después de cada interrupción.</strong><br>Lo vemos en vivo el <span data-nfm-fecha="diaYNumero">martes 27</span>: cómo planificar una semana que tu cerebro pueda sostener.</p>
+    <p class="nfm-eq__cap nfm-reveal nfm-d3"><strong>Tu cerebro tarda hasta 23 minutos en volver a lo tuyo después de cada interrupción.</strong><br>Lo vemos en vivo el <span data-nfm-fecha="diaYNumero">martes 27</span>: cómo concentrarte, dejar de procrastinar y cumplir lo que planificás.</p>
   </div>
 </section>
 
@@ -115,7 +115,7 @@ s = s[:i] + nuevo + s[j:]
 
 # ── CIERRE ──
 rep('<h2 class="nfm-reveal">El <span data-nfm-fecha="corta">21 de octubre</span> vas a ver <em>la variable que no estás mirando.</em></h2>',
-    '<h2 class="nfm-reveal">El <span data-nfm-fecha="corta">27 de octubre</span> vas a ver cómo planificar <em>una semana que tu cerebro pueda sostener.</em></h2>')
+    '<h2 class="nfm-reveal">El <span data-nfm-fecha="corta">27 de octubre</span> vas a ver cómo usar la neurociencia para <em>concentrarte y dejar de procrastinar.</em></h2>')
 rep('<span data-nfm-fecha="completa">Miércoles 21 de octubre · 19:00 hs (Argentina) · En vivo por Zoom</span>',
     '<span data-nfm-fecha="completa">Martes 27 de octubre · 19:00 hs (Argentina) · En vivo por Zoom</span>')
 
