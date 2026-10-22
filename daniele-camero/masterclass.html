@@ -1,0 +1,67 @@
+<title>Masterclass Daniele Camero</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;700&display=swap">
+<style>
+/* Layout: una sola columna centrada, 3 cosas: título, video, botón. Fondo negro como la referencia. */
+:root {
+  --bg: #000000; --panel: #0E0E0E; --ink: #F2EFE8; --muted: #9C9A95; --line: #232323; --gold: #CFAE5E;
+  --f-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --f-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font: 400 17px/1.55 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 56px;
+}
+main { max-width: 860px; margin: 0 auto; display: grid; gap: 28px; justify-items: center; text-align: center; }
+.eyebrow { font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--gold); }
+h1 { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: clamp(2.1rem, 6vw, 3.4rem); line-height: 1.08; text-wrap: balance; max-width: 20ch; }
+.sub { color: var(--muted); max-width: 46ch; margin: 0; }
+.video { width: 100%; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 14px; overflow: hidden; background: var(--panel); border: 1px solid var(--line); }
+.video iframe { width: 100%; height: 100%; border: 0; display: block; }
+.alt { font-size: 0.85rem; color: var(--muted); margin: -16px 0 0; }
+.alt a { color: var(--muted); }
+.tip { display: inline-flex; gap: 8px; align-items: center; font-size: 0.95rem; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; }
+.cta { display: grid; gap: 12px; justify-items: center; padding-top: 8px; }
+.cta p { margin: 0; color: var(--muted); max-width: 42ch; }
+.btn { display: inline-block; background: var(--gold); color: #000; font-weight: 700; text-decoration: none; border-radius: 999px; padding: 16px 30px; font-size: 1.02rem; }
+.btn:focus-visible, .alt a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+footer { text-align: center; font-size: 0.78rem; color: var(--muted); margin-top: 40px; }
+</style>
+
+<main>
+  <span class="eyebrow">Masterclass gratuita · Daniele Camero</span>
+  <h1>El punto ciego que te está deteniendo de multiplicar tus resultados</h1>
+  <p class="sub">No necesitas una nueva estrategia ni más conocimiento. Mírala completa y vas a entender por qué.</p>
+
+  <div class="video">
+    <iframe id="yt" title="Masterclass de Daniele Camero" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+  <p class="alt">¿No carga el video? <a id="yt-link" href="#" target="_blank" rel="noopener">Míralo en YouTube</a></p>
+
+  <span class="tip">🎧 Ponte audífonos y mírala hasta el final</span>
+
+  <div class="cta">
+    <p>¿Sentiste que esto es para ti?</p>
+    <a class="btn" id="cta" href="#" target="_blank" rel="noopener">Quiero trabajar esto con Daniele</a>
+  </div>
+</main>
+
+<footer>El Origen · Daniele Camero</footer>
+
+<script>
+/* ====== CONFIGURACIÓN ====== */
+const VIDEO_ID = "hdpymV1otXo";
+const START_SECONDS = 104;   // arranca en 1:44, como el embed que pasaste
+const CTA_URL = "#";         // ej: link de Sociedad Élite, o https://ig.me/m/USUARIO para que escriba por Instagram
+
+document.getElementById("yt").src = "https://www.youtube-nocookie.com/embed/" + VIDEO_ID + "?start=" + START_SECONDS + "&rel=0&modestbranding=1";
+document.getElementById("yt-link").href = "https://www.youtube.com/watch?v=" + VIDEO_ID + "&t=" + START_SECONDS + "s";
+if (CTA_URL && CTA_URL !== "#") document.getElementById("cta").href = CTA_URL;
+</script>
