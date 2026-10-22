@@ -1,4 +1,4 @@
-<!-- ═══ MINI VSL · PEGAR EN: un elemento "Custom JS/HTML" (Código personalizado) dentro de una sección a ancho completo ═══ -->
+<!-- MINI VSL · Pegar todo en un elemento "Custom JS/HTML" de GoHighLevel (sección a ancho completo, fondo negro) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap">
@@ -142,7 +142,7 @@
 
   var $ = function (id) { return document.getElementById(id); };
 
-  /* Si no se pegó el código del header, se leen los parámetros acá (y también se limpian de la URL). */
+  /* Lee los parámetros de la URL y los borra de la barra de direcciones */
   if (!("MV_DATOS" in window)) {
     var MAX = 120;
     var decodificar = function (v) { for (var i = 0; i < 2 && /%[0-9A-Fa-f]{2}/.test(v); i++) { try { v = decodeURIComponent(v.replace(/\+/g, " ")); } catch (e) { break; } } return v; };
