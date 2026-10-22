@@ -5,7 +5,7 @@ Landing de registro y thank you page de la clase gratuita **Cómo usar la neuroc
 | Archivo | Qué es |
 |---|---|
 | `index.html` | Landing de registro, variante popup. Cualquier botón abre el form de GHL directo. |
-| `thankyou.html` | Thank you page: grupo de WhatsApp, calendario y la pregunta "¿Qué es lo que siempre te queda para después?". |
+| `thankyou.html` | Thank you page: grupo de WhatsApp y calendario. |
 | `calendario-masterclass-27-oct.md` / `.ics` | Link de Google Calendar y archivo para iPhone/Outlook, para el grupo o los mails. |
 
 En GHL va lo que está entre «DESDE ACÁ EMPIEZA» y «HASTA ACÁ». El pixel de la landing va en Settings → Tracking Code → HEAD, como siempre. El de la thank you ya viene adentro del custom code.
@@ -44,10 +44,7 @@ No lleva precio ni menciona la Comunidad: la venta se hace en la clase.
 1. **Form de GHL.** Ya está puesto el form nuevo, "Form Webinar Comunidad" (`ib4zw3gRec1D9D3kxyUv`). En GHL revisá que su redirección vaya a la thank you del 27, y revisá la conversión por la API de Conversiones y los workflows (tags, mensajes de WhatsApp). El popup reserva 1366 px de alto, el `data-height` del embed: si el form es más corto, bajá `FORM_ALTO_MINIMO` en el CONFIG.
 2. **Grupo de WhatsApp.** Ya está cargado en `CONFIG.WA` de la thank you (https://go.wha.link/clase-de-neurociencia-27-10) y en el calendario.
 3. **Hora.** Confirmada: 19:00 (Argentina). Si algún día cambia, tocá `HORA_CLASE` en la landing y en la thank you; el `.md` y el `.ics` de esta carpeta hay que regenerarlos.
-4. **La respuesta del paso 3.** Necesita una URL que la reciba: un webhook de Zapier o Make, un Inbound Webhook de GHL o un Apps Script. Va en `CONFIG.RESPUESTA_WEBHOOK`. Mientras esté vacío, la página agradece igual pero la respuesta no se guarda.
-   - La página manda: clase, respuesta, email, teléfono, nombre, UTM, página y fecha.
-   - Email, teléfono y nombre salen de la URL, así que en GHL activá que la redirección pase los datos del contacto (`email`, `phone`, `name`).
-5. **Fotos y videos.** Son los mismos de la landing del 21: las fotos de nicolasfernandezmiranda.com, el tráiler de Loom y los casos en YouTube.
+4. **Fotos y videos.** Son los mismos de la landing del 21: las fotos de nicolasfernandezmiranda.com, el tráiler de Loom y los casos en YouTube.
 
 ## Lo que queda afuera hasta que se defina
 

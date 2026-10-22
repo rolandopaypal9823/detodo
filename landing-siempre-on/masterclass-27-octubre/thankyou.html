@@ -107,7 +107,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
   transition:transform .25s var(--nfm-ease), box-shadow .25s var(--nfm-ease), background .25s var(--nfm-ease); }
 .nfm-wa-btn::before{ content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent); background-size:200% 100%; animation:nfm-shimmer 3s infinite; }
 .nfm-wa-btn:hover{ background:#20BD5C; transform:translateY(-2px); box-shadow:0 12px 36px rgba(37,211,102,0.4); color:#fff; }
-.nfm-wa-btn:focus-visible, .nfm-cal-btn:focus-visible, .nfm-send:focus-visible{ outline:3px solid #fff; outline-offset:3px; }
+.nfm-wa-btn:focus-visible, .nfm-cal-btn:focus-visible{ outline:3px solid #fff; outline-offset:3px; }
 .nfm-wa-btn svg{ width:24px !important; height:24px !important; flex-shrink:0; position:relative; z-index:1; }
 
 .nfm-cal{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
@@ -115,19 +115,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
   border:1.5px solid rgba(255,255,255,0.22); border-radius:50px; padding:14px 16px; cursor:pointer; transition:border-color .2s, background .2s; text-align:center; line-height:1.2; }
 .nfm-cal-btn:hover{ border-color:var(--nfm-orange); background:rgba(255,102,2,0.08); }
 .nfm-cal-btn svg{ width:18px; height:18px; flex:none; }
-
-.nfm-ask label{ display:block; font-family:var(--nfm-font-h); font-weight:800; font-size:1.06rem; color:#fff; line-height:1.35; margin:0 0 10px; }
-.nfm-ask textarea{ width:100%; min-height:104px; resize:vertical; font-family:var(--nfm-font-b); font-size:1rem; line-height:1.5; color:#0C3452; background:#fff; border:2px solid transparent; border-radius:var(--nfm-r); padding:14px 16px; outline:none; }
-.nfm-ask textarea:focus{ border-color:var(--nfm-orange); }
-.nfm-ask textarea::placeholder{ color:#8A98A8; }
-.nfm-ask__row{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:12px; flex-wrap:wrap; }
-.nfm-ask__count{ font-size:0.8rem; color:var(--nfm-tm); }
-.nfm-send{ font-family:var(--nfm-font-h); font-weight:800; font-size:0.95rem; letter-spacing:0.02em; color:#fff; background:var(--nfm-orange); border:none; border-radius:50px; padding:14px 26px; cursor:pointer; box-shadow:0 6px 22px var(--nfm-orange-glow); transition:background .2s, transform .2s; }
-.nfm-send:hover{ background:var(--nfm-orange-hover); transform:translateY(-1px); }
-.nfm-send[disabled]{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
-.nfm-ask__ok{ display:flex; align-items:flex-start; gap:10px; background:rgba(34,197,94,0.10); border:1px solid rgba(34,197,94,0.35); border-radius:var(--nfm-r); padding:14px 16px; font-size:0.98rem; color:var(--nfm-tl); }
-.nfm-ask__ok[hidden]{ display:none !important; }
-.nfm-ask__ok b{ color:var(--nfm-green); font-size:1.1rem; line-height:1.3; }
 
 /* ── RECORDATORIO ── */
 .nfm-thx__reminder{ padding:22px 0 54px; }
@@ -154,7 +141,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
   .nfm-cal{ grid-template-columns:1fr; }
   .nfm-rem-card{ flex-direction:column; gap:16px; text-align:center; padding:24px 20px; }
   .nfm-rem-div{ width:60px; height:1px; align-self:center; }
-  .nfm-ask__row .nfm-send{ width:100%; }
 }
 </style>
 
@@ -195,17 +181,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
         <a href="#" id="nfm-cal-google" class="nfm-cal-btn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Google Calendar</a>
         <button type="button" id="nfm-cal-ics" class="nfm-cal-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></svg>iPhone u Outlook</button>
       </div>
-    </div>
-
-    <!-- PASO 3 · una pregunta para llegar listo -->
-    <div class="nfm-step nfm-rv nfm-rv-4">
-      <div class="nfm-step__head"><div class="nfm-step__num">3</div><h3>Para llegar listo a la clase</h3></div>
-      <form class="nfm-ask" id="nfm-ask" novalidate>
-        <label for="nfm-ask-txt">¿Qué es lo que siempre te queda para después?</label>
-        <textarea id="nfm-ask-txt" name="respuesta" maxlength="600" placeholder="Ej.: entrenar, terminar el curso que empecé, avanzar con mi proyecto…"></textarea>
-        <div class="nfm-ask__row"><span class="nfm-ask__count" id="nfm-ask-count">Con una línea alcanza.</span><button type="submit" class="nfm-send" id="nfm-ask-send" disabled>Enviar mi respuesta</button></div>
-      </form>
-      <p class="nfm-ask__ok" id="nfm-ask-ok" hidden><b>✓</b><span>Listo, la recibimos. Tenela a mano el martes: en la clase la vas a usar.</span></p>
     </div>
 
   </section>
@@ -249,13 +224,7 @@ var CONFIG = {
 
   /* GRUPO DE WHATSAPP DE ESTA CLASE. Si queda vacío, el botón muestra un aviso en vez de
      mandar a un grupo equivocado. */
-  WA: 'https://go.wha.link/clase-de-neurociencia-27-10',
-
-  /* ⚠️ A DÓNDE VA LA RESPUESTA DEL PASO 3. Una URL que reciba un POST: un webhook de Zapier o Make,
-     un Inbound Webhook de GHL o un Apps Script. Va como JSON en texto plano (sin preflight de CORS):
-     { clase, respuesta, email, telefono, nombre, utm_source, utm_campaign, pagina, fecha }.
-     Mientras esté vacío, la página agradece igual pero la respuesta no se guarda en ningún lado. */
-  RESPUESTA_WEBHOOK: ''
+  WA: 'https://go.wha.link/clase-de-neurociencia-27-10'
 };
 
 var DIAS=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
@@ -323,25 +292,6 @@ if(ics) ics.addEventListener('click', function(){
   setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 1500);
 });
 
-/* ─── PASO 3 · la pregunta ───
-   Los datos de contacto se toman de la URL si GHL los pasa en la redirección (email, phone, name /
-   first_name). */
-var form=document.getElementById('nfm-ask'), txt=document.getElementById('nfm-ask-txt'), send=document.getElementById('nfm-ask-send'), ok=document.getElementById('nfm-ask-ok'), cnt=document.getElementById('nfm-ask-count');
-if(txt) txt.addEventListener('input', function(){ var n=txt.value.trim().length; send.disabled=n<3; cnt.textContent=n ? n+' / 600' : 'Con una línea alcanza.'; });
-if(form) form.addEventListener('submit', function(e){
-  e.preventDefault();
-  var r=txt.value.trim(); if(r.length<3) return;
-  var datos={ clase:CONFIG.CLASE, respuesta:r,
-    email:qs('email')||'', telefono:qs('phone')||'', nombre:qs('name')||qs('first_name')||'',
-    utm_source:qs('utm_source')||'', utm_campaign:qs('utm_campaign')||'', pagina:location.href.split('?')[0], fecha:new Date().toISOString() };
-  try{ window.sessionStorage.setItem('nfm_respuesta_despues', r); }catch(err){}
-  if(CONFIG.RESPUESTA_WEBHOOK){
-    var cuerpo=JSON.stringify(datos);
-    try{ fetch(CONFIG.RESPUESTA_WEBHOOK,{ method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'text/plain;charset=UTF-8'}, body:cuerpo }); }
-    catch(err){ try{ navigator.sendBeacon(CONFIG.RESPUESTA_WEBHOOK, cuerpo); }catch(e2){} }
-  }else if(window.console && console.warn){ console.warn('[NFM] Falta CONFIG.RESPUESTA_WEBHOOK: la respuesta no se guardó.', datos); }
-  form.hidden=true; ok.hidden=false;
-});
 })();
 </script>
 
