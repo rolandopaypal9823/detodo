@@ -403,7 +403,7 @@ footer b{color:var(--panel-ink)}
     <div><label for="k_cxc">Cash por cierre (USD)</label><input type="number" id="k_cxc" value="732" step="10"></div>
   </div></div>
 
-  <p class="qhint">Los números subrayados también se editan: escribí la cantidad que querés (registros, agendas, cierres, cash) y la tasa, el CPL, el ticket o el cash por cierre se ajustan solos.</p>
+  <p class="qhint">Todos los números subrayados se editan. Las cantidades ajustan la tasa de su fase; el costo por agenda, el costo por cierre y el ROAS ajustan el CPL; la facturación ajusta el ticket; el cash, lo cobrado y lo pendiente ajustan el cash por cierre; la inversión del mes ajusta la inversión por webinar.</p>
   <div class="cols">
     <div><div class="colh">Por webinar</div><div id="ow"></div></div>
     <div><div class="colh">Por mes</div><div id="om"></div></div>
@@ -780,23 +780,23 @@ function activar(p){
   document.querySelectorAll('.pbtn').forEach(function(x){x.classList.toggle('on',x.dataset.p===p)});
   document.getElementById('mihint').classList.toggle('on',p==='mio');
 }
-// Filas del resultado. 'q' y '$' son editables: escribir una cantidad recalcula la tasa que la produce.
+// Filas del resultado: todas se editan. [clave, etiqueta, decimales, prefijo, sufijo, destacada]
+// Las cantidades ajustan la tasa que las produce; los costos y el ROAS ajustan el CPL; lo cobrado ajusta el cash por cierre.
 var KROWS={
- w:[['q','reg','Registros',0],['q','gru','Personas en grupo',0],['q','cla','Asistentes a la clase',0],
-    ['q','ag','Agendas',0],['q','lla','Llamadas asistidas',0],['q','ci','Cierres',1],
-    ['t','cpa','Costo por agenda'],['t','cpc','Costo por cierre'],['t','cxa','Cash por asistente'],
-    ['$','fact','Facturación firmada',0],['t','cob','Cobrado de lo firmado'],['$','cash','Cash del webinar',0,true]],
- m:[['q','reg','Registros',0],['q','gru','Personas en grupo',0],['q','cla','Asistentes',0],
-    ['q','ag','Agendas',0],['q','lla','Llamadas asistidas',0],['q','ci','Cierres',0],
-    ['t','inv','Inversión del mes'],['t','roas','ROAS sobre cash'],['t','apd','Agendas por día de llamadas'],
-    ['$','fact','Facturación del mes',0],['t','pend','Por cobrar en cuotas'],['$','cash','Cash del mes',0,true]]
+ w:[['reg','Registros',0],['gru','Personas en grupo',0],['cla','Asistentes a la clase',0],
+    ['ag','Agendas',0],['lla','Llamadas asistidas',0],['ci','Cierres',1],
+    ['cpa','Costo por agenda',1,'$'],['cpc','Costo por cierre',0,'$'],['cxa','Cash por asistente',2,'$'],
+    ['fact','Facturación firmada',0,'$'],['cob','Cobrado de lo firmado',1,'','%'],['cash','Cash del webinar',0,'$','',true]],
+ m:[['reg','Registros',0],['gru','Personas en grupo',0],['cla','Asistentes',0],
+    ['ag','Agendas',0],['lla','Llamadas asistidas',0],['ci','Cierres',0],
+    ['inv','Inversión del mes',0,'$'],['roas','ROAS sobre cash',1,'','x'],['apd','Agendas por día de llamadas',1],
+    ['fact','Facturación del mes',0,'$'],['pend','Por cobrar en cuotas',0,'$'],['cash','Cash del mes',0,'$','',true]]
 };
-var KBASE={}, KB={gru:['k_rg','reg'],cla:['k_gc','gru'],ag:['k_ca','cla'],lla:['k_al','ag'],ci:['k_cas','lla']};
+var KBASE={}, KV={w:{},m:{}}, KB={gru:['k_rg','reg'],cla:['k_gc','gru'],ag:['k_ca','cla'],lla:['k_al','ag'],ci:['k_cas','lla']};
 function pintarFilas(sc){
   document.getElementById(sc==='w'?'ow':'om').innerHTML=KROWS[sc].map(function(r){
-    if(r[0]==='t') return '<div class="orow"><span class="l">'+r[2]+'</span><span class="v" data-t="'+r[1]+'"></span></div>';
-    return '<div class="orow'+(r[4]?' big':'')+'"><label class="l" for="q_'+sc+r[1]+'">'+r[2]+'</label><span class="v">'+
-      (r[0]==='$'?'$':'')+'<input class="qin" id="q_'+sc+r[1]+'" data-q="'+r[1]+'" data-s="'+sc+'" data-d="'+r[3]+'" inputmode="decimal"></span></div>';
+    return '<div class="orow'+(r[5]?' big':'')+'"><label class="l" for="q_'+sc+r[0]+'">'+r[1]+'</label><span class="v">'+(r[3]||'')+
+      '<input class="qin" id="q_'+sc+r[0]+'" data-q="'+r[0]+'" data-s="'+sc+'" data-d="'+r[2]+'" inputmode="decimal">'+(r[4]||'')+'</span></div>';
   }).join('');
 }
 // Acepta "2,5", "2.5", "1.200" y "1.200,50"
@@ -810,10 +810,18 @@ function kset(i,x,d){document.getElementById(i).value=+x.toFixed(d)}
 function qedit(e){
   var el=e.target; if(!el.classList.contains('qin')) return;
   var x=kpar(el.value); if(x==null) return;
-  var per=el.dataset.s==='m' ? x/Math.max(1,kv('k_web')) : x, k=el.dataset.q, b=KBASE;
+  var web=Math.max(1,kv('k_web')), per=el.dataset.s==='m' ? x/web : x, k=el.dataset.q, b=KBASE;
   if(k==='reg'){ if(!(per>0&&kv('k_inv')>0)) return; kset('k_cpl',kv('k_inv')/per,5); }
   else if(KB[k]){ if(!(b[KB[k][1]]>0)) return; kset(KB[k][0],per/b[KB[k][1]]*100,3); }
-  else { if(!(b.ci>0)) return; kset(k==='fact'?'k_tic':'k_cxc',per/b.ci,2); }
+  else if(k==='fact'||k==='cash'){ if(!(b.ci>0)) return; kset(k==='fact'?'k_tic':'k_cxc',per/b.ci,2); }
+  else if(k==='inv'){ kset('k_inv',x/web,2); }
+  else if(k==='cpa'){ if(!(b.ag>0&&b.reg>0)) return; kset('k_cpl',x*b.ag/b.reg,5); }
+  else if(k==='cpc'){ if(!(b.ci>0&&b.reg>0)) return; kset('k_cpl',x*b.ci/b.reg,5); }
+  else if(k==='roas'){ if(!(x>0&&b.cash>0&&b.reg>0)) return; kset('k_cpl',b.cash/b.reg/x,5); }
+  else if(k==='cxa'){ if(!(b.ci>0)) return; kset('k_cxc',x*b.cla/b.ci,2); }
+  else if(k==='cob'){ kset('k_cxc',kv('k_tic')*x/100,2); }
+  else if(k==='pend'){ if(!(b.ci>0)) return; kset('k_cxc',Math.max(0,b.fact-x/web)/b.ci,2); }
+  else if(k==='apd'){ if(!(b.cla>0)) return; kset('k_ca',x*20/web/b.cla*100,3); }
   activar('mio'); guardarMio(); kcalc();
 }
 function kcalc(){
@@ -824,16 +832,16 @@ function kcalc(){
   var fact = ci*kv('k_tic'), factM = fact*web, cob = fact>0 ? cash/fact*100 : 0;
   var cashM=cash*web, invM=inv*web;
   KBASE={reg:reg,gru:gru,cla:cla,ag:ag,lla:lla,ci:ci,fact:fact,cash:cash};
-  var T={
-    w:{cpa:ag>0?'$'+f(inv/ag,1):'—', cpc:ci>0?'$'+f(inv/ci,0):'—', cxa:cla>0?'$'+f(cash/cla,2):'—', cob:fact>0?f(cob,1)+'%':'—'},
-    m:{inv:'$'+f(invM,0), roas:invM>0?f(cashM/invM,1)+'x':'—', apd:f(ag*web/20,1), pend:'$'+f(factM-cashM,0)}
+  KV={
+    w:{reg:reg,gru:gru,cla:cla,ag:ag,lla:lla,ci:ci,cpa:ag>0?inv/ag:null,cpc:ci>0?inv/ci:null,cxa:cla>0?cash/cla:null,
+       fact:fact,cob:fact>0?cob:null,cash:cash},
+    m:{reg:reg*web,gru:gru*web,cla:cla*web,ag:ag*web,lla:lla*web,ci:ci*web,inv:invM,roas:invM>0?cashM/invM:null,
+       apd:ag*web/20,fact:factM,pend:factM-cashM,cash:cashM}
   };
   ['w','m'].forEach(function(sc){
-    var box=document.getElementById(sc==='w'?'ow':'om'), mult=sc==='m'?web:1;
-    box.querySelectorAll('.qin').forEach(function(el){
-      if(document.activeElement!==el) el.value=f(KBASE[el.dataset.q]*mult,+el.dataset.d);
+    document.getElementById(sc==='w'?'ow':'om').querySelectorAll('.qin').forEach(function(el){
+      if(document.activeElement!==el) el.value=f(KV[sc][el.dataset.q],+el.dataset.d);
     });
-    box.querySelectorAll('[data-t]').forEach(function(el){el.textContent=T[sc][el.dataset.t]});
   });
   var v=document.getElementById('veredicto');
   if(!(cashM>0)){
