@@ -253,7 +253,7 @@ var CONFIG = {
 
   /* ⚠️ A DÓNDE VA LA RESPUESTA DEL PASO 3. Una URL que reciba un POST: un webhook de Zapier o Make,
      un Inbound Webhook de GHL o un Apps Script. Va como JSON en texto plano (sin preflight de CORS):
-     { clase, respuesta, etapa, email, telefono, nombre, utm_source, utm_campaign, pagina, fecha }.
+     { clase, respuesta, email, telefono, nombre, utm_source, utm_campaign, pagina, fecha }.
      Mientras esté vacío, la página agradece igual pero la respuesta no se guarda en ningún lado. */
   RESPUESTA_WEBHOOK: ''
 };
@@ -325,13 +325,13 @@ if(ics) ics.addEventListener('click', function(){
 
 /* ─── PASO 3 · la pregunta ───
    Los datos de contacto se toman de la URL si GHL los pasa en la redirección (email, phone, name /
-   first_name). La etapa viene de lo que guardó la landing. */
+   first_name). */
 var form=document.getElementById('nfm-ask'), txt=document.getElementById('nfm-ask-txt'), send=document.getElementById('nfm-ask-send'), ok=document.getElementById('nfm-ask-ok'), cnt=document.getElementById('nfm-ask-count');
 if(txt) txt.addEventListener('input', function(){ var n=txt.value.trim().length; send.disabled=n<3; cnt.textContent=n ? n+' / 600' : 'Con una línea alcanza.'; });
 if(form) form.addEventListener('submit', function(e){
   e.preventDefault();
   var r=txt.value.trim(); if(r.length<3) return;
-  var datos={ clase:CONFIG.CLASE, respuesta:r, etapa:(qs('etapa')||ss('nfm_etapa')||''),
+  var datos={ clase:CONFIG.CLASE, respuesta:r,
     email:qs('email')||'', telefono:qs('phone')||'', nombre:qs('name')||qs('first_name')||'',
     utm_source:qs('utm_source')||'', utm_campaign:qs('utm_campaign')||'', pagina:location.href.split('?')[0], fecha:new Date().toISOString() };
   try{ window.sessionStorage.setItem('nfm_respuesta_despues', r); }catch(err){}

@@ -4,7 +4,7 @@ Landing de registro y thank you page de la clase gratuita **Neurociencia de la p
 
 | Archivo | Qué es |
 |---|---|
-| `index.html` | Landing de registro, variante popup. Cualquier botón abre el registro: una pregunta de etapa y el form de GHL. |
+| `index.html` | Landing de registro, variante popup. Cualquier botón abre el form de GHL directo. |
 | `thankyou.html` | Thank you page: grupo de WhatsApp, calendario y la pregunta "¿Qué es lo que siempre te queda para después?". |
 | `calendario-masterclass-27-oct.md` / `.ics` | Link de Google Calendar y archivo para iPhone/Outlook, para el grupo o los mails. |
 
@@ -12,39 +12,40 @@ En GHL va lo que está entre «DESDE ACÁ EMPIEZA» y «HASTA ACÁ». El pixel d
 
 ## La landing, de arriba abajo
 
-Sigue los tres tiempos del núcleo: espejo, mecanismo y la clase.
+Es la misma estructura que la landing de la clase del 21 (`../clase-21-octubre/index-popup.html`), con el mismo diseño. Cambian el tema, la explicación y la fecha.
 
-1. **Hero:** "¿Terminás la semana sin energía y con tus cosas igual que el lunes?", el eco del anuncio C2. Debajo, el título de la clase y la bajada de la estrategia.
-2. **Prensa:** la misma cinta de logos de las clases anteriores.
-3. **Espejo:** el domingo a la noche, con el texto de C2 y el dato de 0 a 2 horas por semana para tus cosas.
-4. **Mecanismo:** los tres datos (23 minutos por interrupción, el plan escrito y la semana perfecta que no existe).
-5. **En la clase vas a ver:** las 5 promesas, una por anuncio.
-6. **Para quién es:** trabajás, estudiás, tenés hijos o un proyecto propio, y cumplís con todos menos con vos.
-7. **Quién es Nico:** versión corta.
-8. **Cierre** con botón y fecha.
+1. **Cuenta regresiva y hero:** "¿Terminás la semana sin energía y con tus cosas igual que el lunes?", el eco del anuncio C2. Debajo, el título de la clase, una bajada corta y la fecha.
+2. **Prensa y tráiler:** la misma cinta de logos y el mismo video de Loom.
+3. **La semana**, en el lugar de la ecuación. Es corta:
+   - el título "Cumpliste con todos. Tus cosas quedaron en cero.";
+   - el cuadro "Una semana cualquiera": trabajo 50 h y tus cosas 0 a 2 h, los datos del anuncio C2;
+   - el mecanismo en una línea: los 23 minutos por interrupción.
+4. **Quién da la clase:** la historia de Nico en cinco escenas, igual que siempre. Sólo cambia la última línea, que habla del martes 27.
+5. **Qué vas a aprender:** las 5 promesas, una por anuncio.
+6. **Casos de éxito:** los mismos cuatro videos de siempre.
+7. **Cierre** con botón y fecha.
 
-No lleva precio ni menciona la Comunidad: la venta se hace en la clase. Tampoco usa frases de leads con nombre.
+No lleva precio ni menciona la Comunidad: la venta se hace en la clase.
 
 ## El registro
 
-- Una sola pregunta, la de etapa A, B o C, de un clic y obligatoria. Al elegir, pasa directo al form. El form es el mismo para todos.
-- Al form le llegan `etapa`, `clase_fecha=2026-10-27`, `edicion=masterclass-oct27-comunidad` y todas las UTM. Si el lead llega sin UTM, se cargan `utm_source=directo` y `utm_campaign=masterclass-oct27-comunidad`.
-- La etapa queda guardada en el navegador para la thank you page.
-- **Un cambio en las opciones:** la opción A decía "la cabeza que no se apaga" y ahora dice **"la mente que no se apaga"**, por la regla de nunca usar "cabeza". Las otras dos están igual que el 7/10. Si la imagen de esa opción tiene el texto escrito adentro, también hay que cambiarla.
-- Se sacaron la pregunta del equipo, la de "a qué te dedicás" y el form aparte de Comunidad para la etapa C.
+- **Sin preguntas.** Cualquier botón abre el popup con el form de GHL directo, para que el registro sea lo más rápido posible.
+- El form se precarga cuando termina de cargar la página, así el popup abre listo.
+- Al form le llegan `clase_fecha=2026-10-27`, `edicion=masterclass-oct27-comunidad` y todas las UTM. Si el lead llega sin UTM, se cargan `utm_source=directo` y `utm_campaign=masterclass-oct27-comunidad`.
+- Sin la pregunta de etapa no hay forma de separar A, B y C en este registro.
 
 ## Antes de publicar
 
-1. **Form de GHL.** El ID que quedó (`kLh5onxCgHdGDA10c8NU`) es el del form de las clases anteriores, y su redirección manda a la thank you del 21. Duplicalo para esta masterclass, poné la redirección a la thank you nueva y pegá el ID nuevo en los dos lugares: el iframe (`data-src` y `data-form-id`) y `CONFIG.FORM_ID`. Revisá también la conversión por la API de Conversiones y los workflows (tags, mensajes de WhatsApp).
+1. **Form de GHL.** El ID que quedó (`kLh5onxCgHdGDA10c8NU`) es el del form de las clases anteriores, y su redirección manda a la thank you del 21. Duplicalo para esta masterclass, poné la redirección a la thank you nueva y pegá el ID nuevo en los dos lugares: el iframe (`data-src`, `id`, `data-layout-iframe-id` y `data-form-id`) y `CONFIG.FORM_ID`. Revisá también la conversión por la API de Conversiones y los workflows (tags, mensajes de WhatsApp).
 2. **Grupo de WhatsApp.** Cargalo en `CONFIG.WA` de la thank you. Mientras esté vacío, la página muestra una barra naranja de aviso y el botón no manda a ningún lado.
 3. **Hora.** Quedó a las 19:00 (Argentina). Si cambia, tocá `HORA_CLASE` en la landing y en la thank you. El contador, las fechas, la hora local y el calendario de la thank you se recalculan solos. El `.md` y el `.ics` de esta carpeta hay que regenerarlos.
 4. **La respuesta del paso 3.** Necesita una URL que la reciba: un webhook de Zapier o Make, un Inbound Webhook de GHL o un Apps Script. Va en `CONFIG.RESPUESTA_WEBHOOK`. Mientras esté vacío, la página agradece igual pero la respuesta no se guarda.
-   - La página manda: clase, respuesta, etapa, email, teléfono, nombre, UTM, página y fecha.
+   - La página manda: clase, respuesta, email, teléfono, nombre, UTM, página y fecha.
    - Email, teléfono y nombre salen de la URL, así que en GHL activá que la redirección pase los datos del contacto (`email`, `phone`, `name`).
-5. **Fotos.** Usan las mismas URLs de nicolasfernandezmiranda.com: la del TED en el hero y la del libro en "Quién es Nico".
+5. **Fotos y videos.** Son los mismos de la landing del 21: las fotos de nicolasfernandezmiranda.com, el tráiler de Loom y los casos en YouTube.
 
 ## Lo que queda afuera hasta que se defina
 
 - **Asiento premium en la thank you.** No está. Si se suma, que no compita con la Comunidad: grabación y workbook alcanzan.
 - **Psicólogos, nutricionistas y coaches** (anuncio C5). No se mencionan hasta confirmar que están en la oferta.
-- **Caso de éxito y escasez** (USD 35 hasta 1.000 personas). Son de la clase y de la página de pago, no de esta landing.
+- **Escasez** (USD 35 hasta 1.000 personas). Es de la clase y de la página de pago, no de esta landing.
