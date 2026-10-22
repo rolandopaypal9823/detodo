@@ -66,8 +66,8 @@ header p{margin:0;color:var(--muted);max-width:720px}
 .kpi.pos .v{color:var(--ok)} .kpi.neg .v{color:var(--bad)}
 .period{display:flex;gap:6px;margin:0 0 12px}
 .funnel{display:flex;flex-direction:column;gap:8px}
-.stage{display:grid;grid-template-columns:150px minmax(0,1fr) 90px;gap:10px;align-items:center;font-size:14px}
-@media (max-width:520px){.stage{grid-template-columns:110px minmax(0,1fr) 70px}}
+.stage{display:grid;grid-template-columns:200px minmax(0,1fr) 80px;gap:10px;align-items:center;font-size:14px}
+@media (max-width:520px){.stage{grid-template-columns:130px minmax(0,1fr) 60px}}
 .stage .track{background:var(--fill);border-radius:6px;height:26px;overflow:hidden}
 .stage .bar{height:100%;background:var(--bar);border-radius:6px;min-width:3px;transition:width .25s}
 .stage .n{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
@@ -92,6 +92,10 @@ tr.tot td{font-weight:700;border-bottom:0}
 .goal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
 @media (max-width:640px){.goal{grid-template-columns:minmax(0,1fr)}}
 .goal .kpi{background:var(--accent-soft);border-color:transparent}
+.toggles{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
+.toggles label{display:flex;align-items:center;gap:6px;font-size:13px;border:1px solid var(--rule);border-radius:999px;padding:6px 12px;cursor:pointer;user-select:none}
+.toggles input{accent-color:var(--accent);margin:0}
+.toggles label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
 .hidden{display:none !important}
 footer{color:var(--muted);font-size:12px;margin-top:28px}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--ground);padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}
@@ -172,7 +176,9 @@ const FIELDS = [
   {g:'Pauta y ritmo', id:'organic', l:'Registros orgánicos por webinar', h:'Lista, redes, referidos. Sin costo de pauta.', u:'n', step:10},
   {g:'Pauta y ritmo', id:'perMonth', l:'Webinars por mes', u:'n', step:1},
 
-  {g:'Webinar', id:'att', l:'% de registrados que asisten en vivo', u:'%', step:1},
+  {g:'Webinar', o:'useGroup', id:'group', l:'% de registros que entran al grupo de WhatsApp', u:'%', step:1},
+  {g:'Webinar', o:'useConfirm', id:'confirm', l:'% que confirma asistencia', h:'Sobre la etapa anterior (grupo o registros).', u:'%', step:1},
+  {g:'Webinar', id:'att', l:'% que asiste a la clase en vivo', h:'Sobre la etapa anterior: confirmados, grupo o registros.', u:'%', step:1},
   {g:'Webinar', id:'ret', l:'% de asistentes que llegan a la oferta', h:'Los que siguen conectados cuando presentás.', u:'%', step:1},
 
   {g:'Venta', m:'checkout', id:'conv', l:'% que compra en vivo', h:'Sobre los que llegan a la oferta.', u:'%', step:0.5},
@@ -195,12 +201,12 @@ const FIELDS = [
 
 const BASE = {currency:'USD', budget:1000, organic:0, perMonth:4, fees:5, cogs:0, fixed:200, goal:20000};
 const PRESETS = [
-  {k:'low', n:'Low ticket', s:{mode:'checkout', cpl:2, att:25, ret:60, conv:8, post:50, price:47, bumpRate:30, bumpPrice:27, upfront:100, comm:0, book:15, show:65, close:25, ticket:2000}},
-  {k:'mid', n:'Curso mid ticket', s:{mode:'checkout', cpl:4, att:30, ret:65, conv:4, post:50, price:497, bumpRate:15, bumpPrice:97, upfront:90, comm:0, book:15, show:65, close:25, ticket:2000}},
-  {k:'high', n:'High ticket con llamada', s:{mode:'agenda', cpl:5, att:35, ret:70, book:15, show:65, close:25, ticket:2000, upfront:70, comm:10, conv:4, post:50, price:497, bumpRate:0, bumpPrice:0}},
-  {k:'b2b', n:'Servicios B2B', s:{mode:'agenda', cpl:15, att:40, ret:80, book:20, show:75, close:25, ticket:5000, upfront:50, comm:10, conv:4, post:50, price:497, bumpRate:0, bumpPrice:0}},
+  {k:'low', n:'Low ticket', s:{mode:'checkout', cpl:2, useGroup:true, group:55, useConfirm:false, confirm:60, att:45, ret:60, conv:8, post:50, price:47, bumpRate:30, bumpPrice:27, upfront:100, comm:0, book:15, show:65, close:25, ticket:2000}},
+  {k:'mid', n:'Curso mid ticket', s:{mode:'checkout', cpl:4, useGroup:true, group:60, useConfirm:false, confirm:60, att:50, ret:65, conv:4, post:50, price:497, bumpRate:15, bumpPrice:97, upfront:90, comm:0, book:15, show:65, close:25, ticket:2000}},
+  {k:'high', n:'High ticket con llamada', s:{mode:'agenda', cpl:5, useGroup:true, group:65, useConfirm:false, confirm:60, att:55, ret:70, book:15, show:65, close:25, ticket:2000, upfront:70, comm:10, conv:4, post:50, price:497, bumpRate:0, bumpPrice:0}},
+  {k:'b2b', n:'Servicios B2B', s:{mode:'agenda', cpl:15, useGroup:false, group:60, useConfirm:false, confirm:60, att:40, ret:80, book:20, show:75, close:25, ticket:5000, upfront:50, comm:10, conv:4, post:50, price:497, bumpRate:0, bumpPrice:0}},
 ];
-const KEY = 'calc-webinar-v1';
+const KEY = 'calc-webinar-v2';
 let S, period = 'm', active = null;
 
 function load(){
@@ -219,20 +225,25 @@ function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} 
 function compute(s){
   const paid = s.cpl > 0 ? s.budget / s.cpl : 0;
   const leads = paid + s.organic;
-  const att = leads * s.att / 100;
+  const pre = [['Registros', leads]];
+  let cur = leads, group = null;
+  if(s.useGroup){ cur *= s.group / 100; group = cur; pre.push(['Entran al grupo', cur]); }
+  if(s.useConfirm){ cur *= s.confirm / 100; pre.push(['Confirman asistencia', cur]); }
+  const att = cur * s.att / 100;
   const offer = att * s.ret / 100;
+  pre.push(['Asisten a la clase', att], ['Llegan a la oferta', offer]);
   let stages, sales, billing;
   if(s.mode === 'checkout'){
     const live = offer * s.conv / 100;
     sales = live * (1 + s.post / 100);
     billing = sales * s.price + sales * s.bumpRate / 100 * s.bumpPrice;
-    stages = [['Registros', leads], ['Asisten en vivo', att], ['Llegan a la oferta', offer], ['Compran en vivo', live], ['Ventas totales', sales]];
+    stages = [...pre, ['Compran en vivo', live], ['Ventas totales', sales]];
   } else {
     const agendas = offer * s.book / 100;
     const calls = agendas * s.show / 100;
     sales = calls * s.close / 100;
     billing = sales * s.ticket;
-    stages = [['Registros', leads], ['Asisten en vivo', att], ['Llegan a la oferta', offer], ['Agendan', agendas], ['Se presentan', calls], ['Ventas', sales]];
+    stages = [...pre, ['Agendan', agendas], ['Se presentan a la llamada', calls], ['Ventas', sales]];
   }
   const cash = billing * s.upfront / 100;
   const comm = cash * s.comm / 100, fees = cash * s.fees / 100, cogs = sales * s.cogs;
@@ -240,10 +251,11 @@ function compute(s){
   const profit = cash - cost;
   const net = cash - comm - fees - cogs;
   const cplEq = paid > 0 ? (net - s.fixed) / paid : null;
-  return {paid, leads, att, offer, sales, billing, cash, comm, fees, cogs, cost, profit, stages, cplEq,
+  return {paid, leads, group, att, offer, sales, billing, cash, comm, fees, cogs, cost, profit, stages, cplEq,
     roas: s.budget > 0 ? cash / s.budget : null,
     cpa: sales > 0 ? s.budget / sales : null,
     cpAtt: att > 0 ? s.budget / att : null,
+    cpGroup: group > 0 ? s.budget / group : null,
     cashPerLead: leads > 0 ? cash / leads : 0,
     netPerLead: leads > 0 ? net / leads : 0};
 }
@@ -264,23 +276,32 @@ function renderFields(){
   let html = '';
   for(const g in groups){
     html += `<div class="card"><h2>${g}</h2>`;
+    if(g === 'Webinar') html += `<div class="toggles"><label><input type="checkbox" data-t="useGroup"> Grupo de WhatsApp</label><label><input type="checkbox" data-t="useConfirm"> Confirmación de asistencia</label></div>`;
     for(const f of groups[g]){
-      html += `<div class="row" data-m="${f.m || ''}"><label for="f_${f.id}">${f.l}${f.h ? `<small>${f.h}</small>` : ''}</label>
+      html += `<div class="row" data-m="${f.m || ''}" data-o="${f.o || ''}"><label for="f_${f.id}">${f.l}${f.h ? `<small>${f.h}</small>` : ''}</label>
         <div class="inp"><input type="number" id="f_${f.id}" data-id="${f.id}" min="0" ${f.u === '%' ? 'max="100"' : ''} step="${f.step}"><span class="u" data-u="${f.u}"></span></div></div>`;
     }
     html += '</div>';
   }
   document.getElementById('fields').innerHTML = html;
-  document.querySelectorAll('#fields input').forEach(i => i.addEventListener('input', e => {
+  document.querySelectorAll('#fields input[type=number]').forEach(i => i.addEventListener('input', e => {
     let v = parseFloat(e.target.value); if(!isFinite(v) || v < 0) v = 0;
     if(e.target.max && v > 100) v = 100;
     S[e.target.dataset.id] = v; active = null; update();
+  }));
+  // Al prender o apagar una etapa se ajusta % asistencia para que la cantidad de asistentes no cambie.
+  document.querySelectorAll('#fields [data-t]').forEach(c => c.addEventListener('change', e => {
+    const t = e.target.dataset.t, r = (t === 'useGroup' ? S.group : S.confirm) / 100;
+    S[t] = e.target.checked;
+    if(r > 0) S.att = Math.min(100, S.att * (S[t] ? 1 / r : r));
+    active = null; update();
   }));
 }
 
 function syncInputs(){
   FIELDS.forEach(f => { const el = document.getElementById('f_' + f.id); if(document.activeElement !== el) el.value = +(+S[f.id]).toFixed(2); });
-  document.querySelectorAll('#fields .row').forEach(r => r.classList.toggle('hidden', !!r.dataset.m && r.dataset.m !== S.mode));
+  document.querySelectorAll('#fields .row').forEach(r => r.classList.toggle('hidden', (!!r.dataset.m && r.dataset.m !== S.mode) || (!!r.dataset.o && !S[r.dataset.o])));
+  document.querySelectorAll('#fields [data-t]').forEach(c => c.checked = !!S[c.dataset.t]);
   document.querySelectorAll('.u').forEach(u => u.textContent = u.dataset.u === '$' ? sym() : u.dataset.u === '%' ? '%' : '');
   document.getElementById('goalU').textContent = sym();
   document.getElementById('currency').value = S.currency;
@@ -304,7 +325,8 @@ function update(){
   const top = r.stages[0][1] * k || 1;
   document.getElementById('funnel').innerHTML = r.stages.map(([n, v], i) => {
     const prev = i ? r.stages[i - 1][1] : 0;
-    const rate = i && prev > 0 ? `<span class="rate">${nf1.format(v / prev * 100)}% de la fase anterior</span>` : '';
+    const base = r.stages[0][1];
+    const rate = i && prev > 0 ? `<span class="rate">${nf1.format(v / prev * 100)}% de la anterior${i > 1 && base > 0 ? ` · ${nf1.format(v / base * 100)}% de registros` : ''}</span>` : '';
     return `<div class="stage"><div>${n}${rate}</div><div class="track"><div class="bar" style="width:${Math.max(0.5, v * k / top * 100)}%"></div></div><div class="n">${num(v * k)}</div></div>`;
   }).join('');
 
@@ -316,6 +338,7 @@ function update(){
   const rows = [
     ['Registros pagos', num(r.paid), num(r.paid * S.perMonth)],
     ['Registros totales', num(r.leads), num(r.leads * S.perMonth)],
+    ...(S.useGroup ? [['Costo por persona en el grupo', money(r.cpGroup, 2), money(r.cpGroup, 2)]] : []),
     ['Costo por asistente', money(r.cpAtt, 2), money(r.cpAtt, 2)],
     ['Cash por registro', money(r.cashPerLead, 2), money(r.cashPerLead, 2)],
     ['CPL de equilibrio', money(r.cplEq, 2), money(r.cplEq, 2)],
@@ -335,7 +358,10 @@ function update(){
 }
 
 function renderSens(r){
-  const levers = [['cpl', 'CPL −10%', 0.9], ['att', '% asistencia +1 pt'], ['ret', '% llega a la oferta +1 pt']];
+  const levers = [['cpl', 'CPL −10%', 0.9]];
+  if(S.useGroup) levers.push(['group', '% entra al grupo +1 pt']);
+  if(S.useConfirm) levers.push(['confirm', '% confirma +1 pt']);
+  levers.push(['att', '% asiste a la clase +1 pt'], ['ret', '% llega a la oferta +1 pt']);
   if(S.mode === 'checkout') levers.push(['conv', '% compra en vivo +1 pt'], ['price', 'Precio +10%', 1.1], ['post', 'Ventas por replay +1 pt']);
   else levers.push(['book', '% agenda +1 pt'], ['show', '% se presenta +1 pt'], ['close', '% cierre +1 pt'], ['ticket', 'Ticket +10%', 1.1]);
   levers.push(['upfront', '% cobrado en el mes +1 pt']);
