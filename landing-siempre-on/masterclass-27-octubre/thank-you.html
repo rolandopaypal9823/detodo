@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-AR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tu lugar está confirmado · Cómo usar la neurociencia para concentrarte y dejar de procrastinar · Nicolás Fernández Miranda</title>
+<title>Tu lugar está confirmado · Neurociencia para dejar de procrastinar · Nico Fernández Miranda</title>
 <!-- El pixel de Meta (PageView) va ADENTRO del custom code, más abajo, para que viaje con el pegado. -->
 </head>
 <body>
@@ -42,14 +42,14 @@ src="https://www.facebook.com/tr?id=1203017011123382&ev=PageView&noscript=1"/></
    NFM · THANK YOU · MASTERCLASS 27/10
    Un solo objetivo: que llegue a la clase. El paso 1 (grupo de WhatsApp) es el que manda.
    ════════════════════════════════════════════════════════════════ */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
 
 :root{
   --nfm-navy-deep:#081F33; --nfm-navy:#0C3452; --nfm-navy-1:#0E2E4A;
   --nfm-orange:#FF6602; --nfm-orange-hover:#FF8033; --nfm-orange-glow:rgba(255,102,2,0.30);
   --nfm-green:#22C55E; --nfm-wa:#25D366; --nfm-white:#FFFFFF;
   --nfm-tl:rgba(255,255,255,0.88); --nfm-tm:rgba(255,255,255,0.62); --nfm-hair:rgba(255,255,255,0.10);
-  --nfm-font-h:'Montserrat', sans-serif; --nfm-font-b:'Open Sans', sans-serif;
+  --nfm-font-h:'Space Grotesk', sans-serif; --nfm-font-b:'DM Sans', sans-serif;
   --nfm-r:14px; --nfm-r-lg:22px; --nfm-ease:cubic-bezier(0.22,1,0.36,1);
 }
 html, body{ margin:0; padding:0; background:#081F33; }
@@ -81,12 +81,14 @@ html, body{ margin:0; padding:0; background:#081F33; }
   display:flex; align-items:center; justify-content:center; animation:nfm-scaleIn .5s var(--nfm-ease) both, nfm-pulse 2.4s .6s ease infinite; }
 .nfm-thx__check svg{ width:36px; height:36px; color:var(--nfm-green); }
 .nfm-thx__check svg path{ stroke-dasharray:40; animation:nfm-check .6s .3s ease both; }
-.nfm-thx__hero h1{ font-family:var(--nfm-font-h); font-size:clamp(1.8rem,4.4vw,2.5rem); font-weight:800; line-height:1.12; letter-spacing:-0.02em; margin:0 0 14px; text-wrap:balance; }
+.nfm-thx__hero h1{ font-family:var(--nfm-font-h); font-size:clamp(1.8rem,4.4vw,2.5rem); font-weight:700; line-height:1.12; letter-spacing:-0.02em; margin:0 0 14px; text-wrap:balance; }
 .nfm-thx__when{ font-family:var(--nfm-font-h); font-weight:700; font-size:1.02rem; color:#fff; }
 .nfm-thx .nfm-thx__local{ font-family:var(--nfm-font-h); font-size:0.9rem; font-weight:600; color:var(--nfm-orange); margin-top:4px !important; }
 .nfm-thx__local[hidden]{ display:none !important; }
 .nfm-thx__local strong{ color:#fff; }
 .nfm-thx .nfm-thx__hint{ margin-top:18px !important; font-size:1rem; color:var(--nfm-tm); }
+.nfm-wa-btn:active, .nfm-cal-btn:active{ transform:scale(0.97); }
+::selection{ background:rgba(255,102,2,0.30); }
 .nfm-thx__hint strong{ color:#fff; }
 
 /* ── PASOS ── */
@@ -95,14 +97,14 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-step--main{ background:rgba(37,211,102,0.07); border:2px solid rgba(37,211,102,0.55); padding:26px 22px; }
 .nfm-step__head{ display:flex; align-items:center; gap:12px; margin:0 0 10px; }
 .nfm-step__num{ width:34px; height:34px; flex-shrink:0; border-radius:10px; background:rgba(255,102,2,0.12); border:1px solid rgba(255,102,2,0.30);
-  display:flex; align-items:center; justify-content:center; font-family:var(--nfm-font-h); font-weight:800; font-size:0.92rem; color:var(--nfm-orange); }
+  display:flex; align-items:center; justify-content:center; font-family:var(--nfm-font-h); font-weight:700; font-size:0.92rem; color:var(--nfm-orange); }
 .nfm-step--main .nfm-step__num{ background:var(--nfm-wa); border-color:var(--nfm-wa); color:#fff; }
-.nfm-step__tag{ font-family:var(--nfm-font-h); font-size:0.64rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-wa); }
-.nfm-step h3{ font-family:var(--nfm-font-h); font-size:clamp(1.08rem,2.4vw,1.3rem); font-weight:800; color:#fff; margin:0; line-height:1.25; }
+.nfm-step__tag{ font-family:var(--nfm-font-h); font-size:0.64rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-wa); }
+.nfm-step h3{ font-family:var(--nfm-font-h); font-size:clamp(1.08rem,2.4vw,1.3rem); font-weight:700; color:#fff; margin:0; line-height:1.25; }
 .nfm-thx .nfm-step__txt{ font-size:0.98rem; color:var(--nfm-tl); line-height:1.6; margin:0 0 16px !important; }
 .nfm-step__txt strong{ color:#fff; }
 
-.nfm-wa-btn{ display:flex; align-items:center; justify-content:center; gap:12px; width:100%; font-family:var(--nfm-font-h); font-size:1.08rem; font-weight:800; letter-spacing:0.02em; color:#fff;
+.nfm-wa-btn{ display:flex; align-items:center; justify-content:center; gap:12px; width:100%; font-family:var(--nfm-font-h); font-size:1.08rem; font-weight:700; letter-spacing:0.02em; color:#fff;
   background:var(--nfm-wa); border:none; border-radius:50px; padding:19px 26px; cursor:pointer; position:relative; overflow:hidden; box-shadow:0 8px 28px rgba(37,211,102,0.28);
   transition:transform .25s var(--nfm-ease), box-shadow .25s var(--nfm-ease), background .25s var(--nfm-ease); }
 .nfm-wa-btn::before{ content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent); background-size:200% 100%; animation:nfm-shimmer 3s infinite; }
@@ -120,11 +122,11 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-thx__reminder{ padding:22px 0 54px; }
 .nfm-rem-card{ background:var(--nfm-navy-1); border:1px solid var(--nfm-hair); border-radius:var(--nfm-r-lg); padding:26px 28px; display:flex; align-items:center; justify-content:center; gap:26px; }
 .nfm-rem-date{ text-align:center; flex-shrink:0; }
-.nfm-rem-date .dn{ font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-orange); }
-.nfm-rem-date .dnum{ font-family:var(--nfm-font-h); font-size:3rem; font-weight:900; line-height:1; }
+.nfm-rem-date .dn{ font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-orange); }
+.nfm-rem-date .dnum{ font-family:var(--nfm-font-h); font-size:3rem; font-weight:700; line-height:1; }
 .nfm-rem-date .dm{ font-family:var(--nfm-font-h); font-size:0.8rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--nfm-tm); }
 .nfm-rem-div{ width:1px; align-self:stretch; background:var(--nfm-hair); }
-.nfm-rem-info h4{ font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:800; margin:0 0 4px; line-height:1.3; }
+.nfm-rem-info h4{ font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:700; margin:0 0 4px; line-height:1.3; }
 .nfm-thx .nfm-rem-info .con{ font-family:var(--nfm-font-h); font-size:0.92rem; font-weight:700; color:var(--nfm-orange); margin:0 0 8px !important; }
 .nfm-rem-info .time{ font-family:var(--nfm-font-h); font-weight:700; font-size:0.95rem; }
 .nfm-rem-info .via{ font-size:0.85rem; color:var(--nfm-tm); }
@@ -132,7 +134,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-thx__footer{ padding:28px 0; border-top:1px solid var(--nfm-hair); text-align:center; }
 .nfm-thx__footer p{ font-size:0.8rem; color:var(--nfm-tm); }
 
-.nfm-testbar{ background:var(--nfm-orange); color:#fff; font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; text-align:center; padding:9px 14px; line-height:1.4; }
+.nfm-testbar{ background:var(--nfm-orange); color:#fff; font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; text-align:center; padding:9px 14px; line-height:1.4; }
 
 @media (max-width:600px){
   .nfm-thx__nav img{ width:124px !important; }
@@ -157,7 +159,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
       <h1 class="nfm-rv nfm-rv-1">Tu lugar está <span class="acc">confirmado.</span></h1>
       <p class="nfm-thx__when nfm-rv nfm-rv-1"><span data-thx-fecha="completa">Martes 27 de octubre · 19:00 hs (Argentina)</span> · En vivo por Zoom</p>
       <p class="nfm-thx__local" data-nfm-local hidden></p>
-      <p class="nfm-thx__hint nfm-rv nfm-rv-2">Te falta <strong>un paso</strong> para recibir el link de la clase.</p>
+      <p class="nfm-thx__hint nfm-rv nfm-rv-2">Te faltan <strong>dos pasos</strong>. El primero es el que te trae el link de la clase.</p>
     </div>
   </section>
 
@@ -195,7 +197,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
         </div>
         <div class="nfm-rem-div"></div>
         <div class="nfm-rem-info">
-          <h4>Cómo usar la neurociencia para concentrarte y dejar de procrastinar</h4>
+          <h4>Neurociencia para dejar de procrastinar</h4>
           <p class="con">con Nico Fernández Miranda</p>
           <p class="time" data-thx-fecha="hora">19:00 hs (Argentina)</p>
           <p class="via">Vía Zoom · El acceso llega al grupo de WhatsApp</p>
@@ -217,10 +219,10 @@ html, body{ margin:0; padding:0; background:#081F33; }
    ══════════════════════════════════════════════════════════════════ */
 var CONFIG = {
   FECHA: '2026-10-27',
-  HORA_CLASE: 19, MINUTOS_CLASE: 0, OFFSET_ARG: -3,   // ⚠️ hora a confirmar (igual que en la landing)
+  HORA_CLASE: 19, MINUTOS_CLASE: 0, OFFSET_ARG: -3,   // 19:00 de Argentina, igual que en la landing
   DURACION_MIN: 90,
   CLASE: 'masterclass-oct27-comunidad',
-  TITULO: 'Cómo usar la neurociencia para concentrarte y dejar de procrastinar',
+  TITULO: 'Neurociencia para dejar de procrastinar',
 
   /* GRUPO DE WHATSAPP DE ESTA CLASE. Si queda vacío, el botón muestra un aviso en vez de
      mandar a un grupo equivocado. */
