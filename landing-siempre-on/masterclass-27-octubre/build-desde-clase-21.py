@@ -122,21 +122,19 @@ rep('<span data-nfm-fecha="completa">Miércoles 21 de octubre · 19:00 hs (Argen
 # ── POPUP: directo al form, sin preguntas ──
 cut('    <h2 class="nfm-reg__title" id="nfm-modal-title">', '</div>\n\n</div><!-- /.nfm-page -->', '''    <h2 class="nfm-reg__title" id="nfm-modal-title">Reservá tu lugar <span>en la clase.</span></h2>
     <div class="nfm-quiz" id="nfm-quiz">
-      <!-- FORM DE GHL · el src se arma por JS al abrir el popup: lleva las UTM y la clase.
-           ⚠️ Este ID es el del form de las clases anteriores ("Form AGOSTO NUEVO"), que redirige a la
-           thank you del 21. Antes de publicar, duplicalo en GHL para esta masterclass, con la redirección
-           a la thank you nueva, y pegá el ID nuevo acá (data-src, id, data-layout-iframe-id, data-form-id)
-           y en CONFIG.FORM_ID. -->
+      <!-- FORM DE GHL · "Form Webinar Comunidad". El src se arma por JS al abrir el popup: lleva las UTM y la clase.
+           Si se cambia de form, el ID va acá (data-src, id, data-layout-iframe-id, data-form-id) y en CONFIG.FORM_ID. -->
       <div class="nfm-reg__form" id="nfm-form-principal">
         <iframe
-          data-src="https://api.leadconnectorhq.com/widget/form/kLh5onxCgHdGDA10c8NU"
-          id="inline-kLh5onxCgHdGDA10c8NU"
+          data-src="https://api.leadconnectorhq.com/widget/form/ib4zw3gRec1D9D3kxyUv"
+          id="inline-ib4zw3gRec1D9D3kxyUv"
           data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value=""
           data-activation-type="alwaysActivated" data-activation-value=""
           data-deactivation-type="neverDeactivate" data-deactivation-value=""
-          data-form-name="Form AGOSTO NUEVO" data-height="729"
-          data-layout-iframe-id="inline-kLh5onxCgHdGDA10c8NU" data-form-id="kLh5onxCgHdGDA10c8NU"
-          title="Registro a la clase" style="width:100%;height:100%;border:none;border-radius:15px"></iframe>
+          data-form-name="Form Webinar Comunidad" data-height="1366"
+          data-layout-iframe-id="inline-ib4zw3gRec1D9D3kxyUv" data-form-id="ib4zw3gRec1D9D3kxyUv"
+          data-cookie-consent="true" data-cookie-consent-provider="auto"
+          title="Form Webinar Comunidad" style="width:100%;height:100%;border:none;border-radius:15px"></iframe>
       </div>
     </div>
   </div>
@@ -153,7 +151,7 @@ rep('''  FECHA: '2026-10-21',                       // miércoles 21 de octubre
     '''  FECHA: '2026-10-27',                        // martes 27 de octubre
   UTM_CLASE: 'masterclass-oct27-comunidad',   // va en utm_campaign (si el lead llega sin UTM) y en edicion
   HORA_CLASE: 19, MINUTOS_CLASE: 0, OFFSET_ARG: -3,
-  FORM_ID: 'kLh5onxCgHdGDA10c8NU', FORM_ALTO_MINIMO: 729   // ⚠️ cambiar por el form nuevo de esta masterclass''')
+  FORM_ID: 'ib4zw3gRec1D9D3kxyUv', FORM_ALTO_MINIMO: 1366  // "Form Webinar Comunidad" · alto = data-height del embed''')
 cut('/* ─── QUIZ ───', '/* ─── fotos de las escenas', '''/* ─── FORM ───
    Sin preguntas antes: al abrir el popup se carga el form con las UTM, la fecha y la edición en la URL.
    La clase queda en sessionStorage para la thank you page. */
