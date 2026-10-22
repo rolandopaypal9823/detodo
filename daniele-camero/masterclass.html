@@ -77,6 +77,10 @@ h1 .small { display: block; margin-top: 12px; font-size: clamp(1.15rem, 2.6vw, 1
   transform: translateX(-120%); animation: sweep 4.2s ease-in-out infinite; }
 @keyframes sweep { 0%, 60% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
 .btn:hover { transform: translateY(-2px); }
+.cta { width: 100%; }
+.cta .cta-sub { font-family: var(--ui); font-style: normal; font-size: 1rem; color: var(--ink-dim); max-width: 44ch; }
+.cal iframe { display: block; width: 100%; min-height: 680px; border: 0; overflow: hidden; background: transparent; }
+.cta .alt { margin-top: 0; }
 .btn .arr { transition: transform .25s; } .btn:hover .arr { transform: translateX(4px); }
 .btn:focus-visible, .alt a:focus-visible { outline: 2px solid var(--red-led); outline-offset: 3px; }
 footer { position: relative; z-index: 1; margin-top: 48px; text-align: center; font-family: var(--display); font-size: .78rem; letter-spacing: .32em; color: var(--red-bright); }
@@ -106,22 +110,26 @@ footer { position: relative; z-index: 1; margin-top: 48px; text-align: center; f
   <p class="alt">¿No carga el video? <a id="yt-link" href="#" target="_blank" rel="noopener">Míralo en YouTube</a></p>
 
   <span class="pill">🎧 Ponte audífonos y mírala hasta el final</span>
+  <a class="btn" href="#agenda">Agendar mi llamada <span class="arr">→</span></a>
 
-  <div class="cta">
-    <p>¿Sentiste que esto es para ti?</p>
-    <a class="btn" id="cta" href="#" target="_blank" rel="noopener">Quiero trabajar esto con Daniele <span class="arr">→</span></a>
-  </div>
+  <section class="cta" id="agenda" aria-labelledby="t-agenda">
+    <p id="t-agenda">¿Sentiste que esto es para ti?</p>
+    <p class="cta-sub">Agenda una llamada con mi equipo y vemos si puedes calificar para trabajar conmigo.</p>
+    <div class="frame cal">
+      <iframe src="https://exito.danielecamero.com/widget/booking/Oy3kEosrr4a8W0Ywk7pP" allow="payment" scrolling="no" id="Oy3kEosrr4a8W0Ywk7pP_1792636506608" title="Agenda tu llamada"></iframe>
+    </div>
+    <p class="alt">¿No carga el calendario? <a href="https://exito.danielecamero.com/widget/booking/Oy3kEosrr4a8W0Ywk7pP" target="_blank" rel="noopener">Ábrelo aquí</a></p>
+  </section>
 </main>
 
 <footer>DANIELE CAMERO</footer>
+<script src="https://exito.danielecamero.com/js/form_embed.js"></script>
 
 <script>
 /* ====== CONFIGURACIÓN ====== */
 const VIDEO_ID = "hdpymV1otXo";
 const START_SECONDS = 104;   // arranca en 1:44, como el embed que pasaste
-const CTA_URL = "#";         // ej: link de Sociedad Élite, o https://ig.me/m/USUARIO para que escriba por Instagram
 
 document.getElementById("yt").src = "https://www.youtube-nocookie.com/embed/" + VIDEO_ID + "?start=" + START_SECONDS + "&rel=0&modestbranding=1";
 document.getElementById("yt-link").href = "https://www.youtube.com/watch?v=" + VIDEO_ID + "&t=" + START_SECONDS + "s";
-if (CTA_URL && CTA_URL !== "#") document.getElementById("cta").href = CTA_URL;
 </script>
