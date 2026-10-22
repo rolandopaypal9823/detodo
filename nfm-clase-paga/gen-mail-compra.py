@@ -8,6 +8,7 @@
    Sale : nfm-clase-paga/mail-compra-{basic,premium}.html           confirmación de compra · clase del 21
           nfm-clase-paga/mail-compra-generico-{basic,premium}.html  confirmación de compra sin fecha ni clase
           nfm-clase-paga/mail-grabacion-7oct-{basic,premium}.html   aviso: ya está la grabación (clase del 7)
+          nfm-clase-paga/mail-grabacion-21oct-{basic,premium}.html  aviso: ya está la grabación (clase del 21)
 
    Correr desde la raíz del repo:  python3 nfm-clase-paga/gen-mail-compra.py
    Pegar el HTML entero en el editor de código del mail (GHL / Stripe / lo que
@@ -123,6 +124,13 @@ GRABACION = {
     'boton'   : 'VER LA GRABACIÓN',
     'clase'   : False,
   }),
+}
+
+# Aviso a los que compraron para la clase del 21: mismo mail, al portal de la clase del 21
+# (las rutas de siempre: clase-beneficios/asiento-basic/ y /premium-htc/).
+GRABACION_21 = {
+  k: dict(v, **{'archivo': f'nfm-clase-paga/mail-grabacion-21oct-{k}.html', 'portal': TIERS[k]['portal']})
+  for k, v in GRABACION.items()
 }
 
 FONT_H = "'Space Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif"
@@ -259,7 +267,7 @@ def mail(t):
 </html>
 """
 
-for t in list(TIERS.values()) + list(GENERICOS.values()) + list(GRABACION.values()):
+for t in list(TIERS.values()) + list(GENERICOS.values()) + list(GRABACION.values()) + list(GRABACION_21.values()):
     out = mail(t)
     io.open(t['archivo'], 'w', encoding='utf-8').write(out)
     print('escrito', t['archivo'], len(out), 'bytes')

@@ -42,7 +42,7 @@ No lleva precio ni menciona la Comunidad: la venta se hace en la clase.
 ## Antes de publicar
 
 1. **Form de GHL.** El ID que quedó (`kLh5onxCgHdGDA10c8NU`) es el del form de las clases anteriores, y su redirección manda a la thank you del 21. Duplicalo para esta masterclass, poné la redirección a la thank you nueva y pegá el ID nuevo en los dos lugares: el iframe (`data-src`, `id`, `data-layout-iframe-id` y `data-form-id`) y `CONFIG.FORM_ID`. Revisá también la conversión por la API de Conversiones y los workflows (tags, mensajes de WhatsApp).
-2. **Grupo de WhatsApp.** Cargalo en `CONFIG.WA` de la thank you. Mientras esté vacío, la página muestra una barra naranja de aviso y el botón no manda a ningún lado.
+2. **Grupo de WhatsApp.** Ya está cargado en `CONFIG.WA` de la thank you (https://go.wha.link/clase-de-neurociencia-27-10) y en el calendario.
 3. **Hora.** Quedó a las 19:00 (Argentina). Si cambia, tocá `HORA_CLASE` en la landing y en la thank you. El contador, las fechas, la hora local y el calendario de la thank you se recalculan solos. El `.md` y el `.ics` de esta carpeta hay que regenerarlos.
 4. **La respuesta del paso 3.** Necesita una URL que la reciba: un webhook de Zapier o Make, un Inbound Webhook de GHL o un Apps Script. Va en `CONFIG.RESPUESTA_WEBHOOK`. Mientras esté vacío, la página agradece igual pero la respuesta no se guarda.
    - La página manda: clase, respuesta, email, teléfono, nombre, UTM, página y fecha.
