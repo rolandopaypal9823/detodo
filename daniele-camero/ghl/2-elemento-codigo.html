@@ -1,0 +1,222 @@
+<!-- ═══ MINI VSL · PEGAR EN: un elemento "Custom JS/HTML" (Código personalizado) dentro de una sección a ancho completo ═══ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap">
+<style>
+.mv{--bg:#000;--panel:#0b0606;--red:#e5322b;--red-bright:#ff6b5e;--red-led:#ff4a3d;--ink:#f7f2e8;--ink-dim:#c8bcba;--ink-mute:#8f8381;
+  --hair:rgba(229,50,43,.22);--hair-strong:rgba(229,50,43,.5);--glow:rgba(255,74,61,.45);
+  --display:"Cinzel","Trajan Pro",Georgia,serif;--serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;--ui:"Jost","Helvetica Neue",Arial,sans-serif;
+  position:relative;isolation:isolate;overflow-x:clip;min-height:100vh;background:var(--bg);color:var(--ink);font:300 17px/1.6 var(--ui);-webkit-font-smoothing:antialiased;color-scheme:dark;
+  padding:clamp(28px,6vh,64px) max(18px,env(safe-area-inset-right,0px)) 56px max(18px,env(safe-area-inset-left,0px));text-align:left}
+.mv *,.mv *::before,.mv *::after{box-sizing:border-box}
+.mv h1,.mv h2,.mv p{margin:0}
+.mv .neb{position:fixed;inset:-6%;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 60% 50% at 82% 8%,rgba(160,12,18,.42),transparent 62%),radial-gradient(ellipse 55% 45% at 8% 52%,rgba(125,8,12,.30),transparent 64%),radial-gradient(ellipse 85% 42% at 50% 104%,rgba(150,10,14,.34),transparent 62%);
+  animation:mvneb 20s ease-in-out infinite alternate}
+@keyframes mvneb{to{transform:scale(1.07) translate(-1.5%,1%)}}
+.mv .main{position:relative;max-width:880px;margin:0 auto;display:grid;gap:24px;justify-items:center;text-align:center}
+.mv .eyebrow{font-family:var(--display);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim)}
+.mv h1{font-family:var(--display);font-weight:500;line-height:1.02;color:#f4ece9;text-wrap:balance}
+.mv h1 .big{display:block;font-size:clamp(2.4rem,9vw,4.6rem);letter-spacing:.01em}
+.mv h1 .small{display:block;margin-top:12px;font-size:clamp(1.1rem,3.6vw,1.6rem);letter-spacing:.04em;line-height:1.25}
+.mv .fire-text{background:linear-gradient(100deg,#8f1518 0%,#ff6b5e 30%,#ffd6d0 45%,#e5322b 60%,#8f1518 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:mvshine 7s ease-in-out infinite}
+@keyframes mvshine{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+.mv .rule{display:flex;align-items:center;gap:10px;width:120px}
+.mv .rule::before,.mv .rule::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--red))}
+.mv .rule::after{background:linear-gradient(90deg,var(--red),transparent)}
+.mv .rule i{width:5px;height:5px;background:var(--red-led);transform:rotate(45deg);box-shadow:0 0 10px var(--red-led)}
+.mv .sub{font-family:var(--serif);font-size:clamp(1.15rem,3.8vw,1.35rem);line-height:1.4;color:var(--ink);max-width:38ch}
+.mv .sub strong{font-weight:500;color:var(--red-bright)}
+.mv .perso{width:100%;max-width:640px;text-align:left;padding:16px 18px;border:1px solid var(--hair-strong);border-radius:10px;
+  background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.01) 42%,rgba(255,40,30,.06));font-family:var(--serif);font-size:clamp(1.12rem,3.6vw,1.28rem);line-height:1.45}
+.mv .perso b{font-weight:500;color:var(--red-bright)}
+.mv .frame{position:relative;width:100%;padding:8px;border:1px solid var(--hair-strong);border-radius:2px;background:linear-gradient(180deg,rgba(12,5,5,.85),rgba(3,1,1,.9));box-shadow:0 30px 80px -30px rgba(255,74,61,.35)}
+.mv .frame::after{content:"";position:absolute;inset:4px;pointer-events:none;--c:var(--red-bright);
+  background:linear-gradient(var(--c),var(--c)) top left/22px 1px,linear-gradient(var(--c),var(--c)) top left/1px 22px,linear-gradient(var(--c),var(--c)) top right/22px 1px,linear-gradient(var(--c),var(--c)) top right/1px 22px,
+  linear-gradient(var(--c),var(--c)) bottom left/22px 1px,linear-gradient(var(--c),var(--c)) bottom left/1px 22px,linear-gradient(var(--c),var(--c)) bottom right/22px 1px,linear-gradient(var(--c),var(--c)) bottom right/1px 22px;background-repeat:no-repeat}
+.mv .video{position:relative;aspect-ratio:16/9;max-width:100%;background:var(--panel)}
+.mv .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mv .alt{margin-top:-10px;font-size:.82rem;color:var(--ink-mute)}
+.mv .alt a{color:var(--ink-dim);text-underline-offset:3px}
+.mv .pill{display:inline-flex;align-items:center;gap:10px;padding:9px 14px;border:1px solid var(--hair-strong);border-radius:999px;font-family:var(--display);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(10,4,4,.55);box-shadow:0 0 24px -10px var(--glow) inset}
+.mv .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:0 22px;width:100%;max-width:420px;
+  font-family:var(--display);font-weight:600;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:#fff;border:0;border-radius:4px;cursor:pointer;overflow:hidden;isolation:isolate;
+  background:linear-gradient(180deg,#ff5a4c 0%,#e5322b 55%,#b3191c 100%);box-shadow:0 0 0 1px rgba(255,160,150,.55) inset,0 10px 40px -10px var(--glow),0 0 26px -6px var(--red-led);transition:transform .25s ease}
+.mv .btn::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 48%,transparent 66%);transform:translateX(-120%);animation:mvsweep 4.2s ease-in-out infinite}
+@keyframes mvsweep{0%,60%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.mv .btn:hover{transform:translateY(-2px);color:#fff}
+.mv .btn:focus-visible,.mv .alt a:focus-visible{outline:2px solid var(--red-led);outline-offset:3px}
+.mv .cta{width:100%;display:grid;gap:14px;justify-items:center;padding-top:6px}
+.mv .cta .q{font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,4vw,1.45rem);color:var(--red-bright)}
+.mv .cta .cta-sub{font-size:1rem;color:var(--ink-dim);max-width:44ch}
+.mv .cal iframe{display:block;width:100%;min-height:680px;border:0;overflow:hidden;background:transparent}
+.mv .firma{margin-top:44px;text-align:center;font-family:var(--display);font-size:.78rem;letter-spacing:.32em;color:var(--red-bright)}
+.mv [hidden]{display:none!important}
+.mv dialog.pop{width:min(560px,calc(100% - 28px));max-height:calc(100% - 28px);overflow:auto;padding:0;margin:auto;border:1px solid var(--hair-strong);border-radius:14px;color:var(--ink);background:linear-gradient(180deg,#120707,#050202);box-shadow:0 30px 90px -20px rgba(255,40,30,.55);font:300 17px/1.6 var(--ui)}
+.mv dialog.pop::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(4px)}
+.mv .pop-in{padding:26px 20px 22px;display:grid;gap:14px;text-align:left}
+.mv .pop h2{font-family:var(--display);font-weight:500;font-size:clamp(1.3rem,5vw,1.65rem);line-height:1.15;color:#f4ece9;text-align:center}
+.mv .pop .rule{margin:0 auto}
+.mv .pop .ocu{text-align:center;font-family:var(--serif);font-size:1.2rem;color:var(--ink-dim)}
+.mv .pop .ocu b{font-weight:500;color:var(--ink)}
+.mv .pts{display:grid;gap:8px}
+.mv .pt{border:1px solid var(--hair);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.03);display:grid;gap:4px}
+.mv .pt small{font-family:var(--display);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute)}
+.mv .pt span{font-family:var(--serif);font-size:1.2rem;line-height:1.3}
+.mv .pt.b{border-color:var(--hair-strong);background:rgba(229,50,43,.08)}
+.mv .pt.b small{color:var(--red-bright)}
+.mv .arrow-dn{text-align:center;color:var(--red-led);line-height:1;font-size:1.1rem}
+.mv .pop .txt{font-size:.98rem;color:var(--ink-dim);line-height:1.55}
+.mv .pop .btn{max-width:none;margin-top:4px}
+@media (min-width:640px){
+  .mv .eyebrow{font-size:.74rem;letter-spacing:.28em}
+  .mv .pill{font-size:.72rem;letter-spacing:.16em;padding:10px 18px}
+  .mv .btn{font-size:.86rem;letter-spacing:.14em;padding:0 32px}
+  .mv .pop-in{padding:32px 30px 28px}
+}
+@media (prefers-reduced-motion:reduce){.mv *,.mv *::before,.mv *::after{animation:none!important;transition:none!important}}
+</style>
+
+<div class="mv" id="mv">
+  <div class="neb" aria-hidden="true"></div>
+  <div class="main">
+    <p class="eyebrow">Clase gratuita · Daniele Camero</p>
+    <h1><span class="big fire-text">El punto ciego</span><span class="small">que te está deteniendo de multiplicar tus resultados</span></h1>
+    <div class="rule" aria-hidden="true"><i></i></div>
+    <p class="sub" id="mv-sub">No necesitas una nueva estrategia ni más conocimiento. <strong>Mira la clase completa y vas a entender por qué.</strong></p>
+    <p class="perso" id="mv-perso" hidden></p>
+
+    <div class="frame" id="mv-video-wrap"><div class="video" id="mv-video"></div></div>
+    <p class="alt">¿No carga el video? <a id="mv-yt" href="#" target="_blank" rel="noopener">Míralo en YouTube</a></p>
+
+    <span class="pill">🎧 Ponte audífonos y mírala hasta el final</span>
+    <a class="btn" id="mv-cta" href="#mv-agenda">Hablar con mi equipo →</a>
+
+    <section class="cta" id="mv-agenda">
+      <p class="q">¿Sentiste que esto es para ti?</p>
+      <p class="cta-sub">Agenda una llamada con mi equipo y vemos si puedes calificar para alguno de mis programas de mentoría.</p>
+      <div class="frame cal" id="mv-cal"></div>
+      <p class="alt">¿No carga el calendario? <a id="mv-cal-link" href="#" target="_blank" rel="noopener">Ábrelo aquí</a></p>
+    </section>
+    <p class="firma">DANIELE CAMERO</p>
+  </div>
+
+  <dialog class="pop" id="mv-pop" aria-labelledby="mv-pop-t">
+    <div class="pop-in">
+      <h2 id="mv-pop-t"></h2>
+      <div class="rule" aria-hidden="true"><i></i></div>
+      <p class="ocu" id="mv-pop-ocu"></p>
+      <div class="pts">
+        <div class="pt"><small id="mv-pop-la"></small><span id="mv-pop-a"></span></div>
+        <div class="arrow-dn" aria-hidden="true">↓</div>
+        <div class="pt b"><small id="mv-pop-lb"></small><span id="mv-pop-b"></span></div>
+      </div>
+      <p class="txt" id="mv-pop-txt"></p>
+      <button class="btn" type="button" id="mv-pop-ok"></button>
+    </div>
+  </dialog>
+</div>
+
+<script>
+(function () {
+  /* ════════ CONFIGURACIÓN: lo único que hay que tocar ════════ */
+  var C = {
+    VIDEO_ID: "hdpymV1otXo",
+    VIDEO_START: 104,
+    CTA: {
+      modo: "calendario",   // "calendario" = baja al calendario embebido | "link" = abre CTA.url (ej. WhatsApp)
+      url: "https://exito.danielecamero.com/widget/booking/Oy3kEosrr4a8W0Ywk7pP",
+      texto: "Hablar con mi equipo"
+    },
+    /* {ocu} {a} {b} van con minúscula inicial; {A} con mayúscula */
+    COPY: {
+      frase: "Me contaste que hoy eres {ocu}. Tu punto A: {a}. Y en 90 días quieres {b}. Este video es justo para eso 👇",
+      popupTitulo: "Esto es lo que me contaste",
+      popupOcu: "Hoy eres {ocu}.",
+      popupEtiquetaA: "Tu punto A · dónde estás hoy",
+      popupEtiquetaB: "Tu punto B · tus resultados en 90 días",
+      popupTexto: "Entre los dos hay un punto ciego que te está deteniendo. En esta clase vas a aprender a identificarlo. Debajo del video te dejé un botón para hablar con mi equipo: vemos tu situación y si puedes calificar para alguno de mis programas de mentoría.",
+      popupBoton: "Perfecto, quiero ver la clase"
+    }
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* Si no se pegó el código del header, se leen los parámetros acá (y también se limpian de la URL). */
+  if (!("MV_DATOS" in window)) {
+    var MAX = 120;
+    var decodificar = function (v) { for (var i = 0; i < 2 && /%[0-9A-Fa-f]{2}/.test(v); i++) { try { v = decodeURIComponent(v.replace(/\+/g, " ")); } catch (e) { break; } } return v; };
+    var limpiar = function (v) {
+      v = decodificar(v || "").replace(/[\u0000-\u001F\u007F<>]/g, "").replace(/\s+/g, " ").trim();
+      if (v.length > MAX) v = v.slice(0, MAX).replace(/\s+\S*$/, "");
+      return v.replace(/^["'“”«»\s]+|["'“”«»\s.,;:]+$/g, "");
+    };
+    var datos = null;
+    try {
+      var q = new URLSearchParams(location.search), h = new URLSearchParams(location.hash.slice(1));
+      var leer = function (k) { return limpiar(q.get(k) || h.get(k) || ""); };
+      var ok = leer("ok").toLowerCase().replace("í", "i"), ocu = leer("ocu"), a = leer("a"), b = leer("b");
+      if (ok === "si" && ocu && a && b) datos = { ocu: ocu, a: a, b: b };
+      var tocado = false;
+      ["ok", "ocu", "a", "b"].forEach(function (k) { if (q.has(k)) { q.delete(k); tocado = true; } if (h.has(k)) { h.delete(k); tocado = true; } });
+      if (tocado && history.replaceState) { var qs = q.toString(), hs = h.toString(); history.replaceState(history.state, "", location.pathname + (qs ? "?" + qs : "") + (hs ? "#" + hs : "")); }
+    } catch (e) { datos = null; }
+    window.MV_DATOS = datos;
+  }
+
+  function minuscula(s) { return /^\p{Lu}\p{Ll}/u.test(s) ? s.charAt(0).toLowerCase() + s.slice(1) : s; }
+  function mayuscula(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+  function plantilla(el, tpl, d) {
+    el.replaceChildren();
+    var val = { ocu: minuscula(d.ocu), a: minuscula(d.a), A: mayuscula(d.a), b: minuscula(d.b) };
+    tpl.split(/(\{ocu\}|\{a\}|\{A\}|\{b\})/).forEach(function (p) {
+      var m = p.match(/^\{(ocu|a|A|b)\}$/);
+      if (m) { var x = document.createElement("b"); x.textContent = val[m[1]]; el.appendChild(x); }
+      else if (p) el.appendChild(document.createTextNode(p));
+    });
+  }
+
+  /* Video */
+  var f = document.createElement("iframe");
+  f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(C.VIDEO_ID) + "?rel=0&modestbranding=1" + (C.VIDEO_START ? "&start=" + (+C.VIDEO_START) : "");
+  f.title = "Clase de Daniele Camero";
+  f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+  f.referrerPolicy = "strict-origin-when-cross-origin"; f.allowFullscreen = true;
+  $("mv-video").appendChild(f);
+  $("mv-yt").href = "https://www.youtube.com/watch?v=" + encodeURIComponent(C.VIDEO_ID) + (C.VIDEO_START ? "&t=" + (+C.VIDEO_START) + "s" : "");
+
+  /* CTA */
+  var btn = $("mv-cta");
+  btn.textContent = C.CTA.texto + " →";
+  if (C.CTA.modo === "link") {
+    btn.href = C.CTA.url; btn.target = "_blank"; btn.rel = "noopener";
+    $("mv-agenda").hidden = true;
+  } else {
+    var cal = document.createElement("iframe");
+    cal.src = C.CTA.url; cal.title = "Agenda tu llamada"; cal.setAttribute("scrolling", "no"); cal.allow = "payment";
+    cal.id = (C.CTA.url.split("/").pop() || "booking") + "_" + Date.now();
+    $("mv-cal").appendChild(cal);
+    $("mv-cal-link").href = C.CTA.url;
+    var s = document.createElement("script"); s.src = new URL(C.CTA.url).origin + "/js/form_embed.js"; document.body.appendChild(s);
+    btn.addEventListener("click", function (e) { e.preventDefault(); $("mv-agenda").scrollIntoView({ behavior: "smooth", block: "start" }); });
+  }
+
+  /* Personalizado o genérico */
+  var d = window.MV_DATOS, pop = $("mv-pop");
+  if (d) {
+    $("mv-sub").hidden = true;
+    plantilla($("mv-perso"), C.COPY.frase, d); $("mv-perso").hidden = false;
+    $("mv-pop-t").textContent = C.COPY.popupTitulo;
+    plantilla($("mv-pop-ocu"), C.COPY.popupOcu, d);
+    $("mv-pop-la").textContent = C.COPY.popupEtiquetaA; $("mv-pop-a").textContent = mayuscula(d.a);
+    $("mv-pop-lb").textContent = C.COPY.popupEtiquetaB; $("mv-pop-b").textContent = mayuscula(d.b);
+    $("mv-pop-txt").textContent = C.COPY.popupTexto;
+    $("mv-pop-ok").textContent = C.COPY.popupBoton;
+    $("mv-pop-ok").addEventListener("click", function () {
+      pop.close();
+      $("mv-video-wrap").scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+    if (typeof pop.showModal === "function") { try { pop.showModal(); } catch (e) {} }
+  }
+})();
+</script>

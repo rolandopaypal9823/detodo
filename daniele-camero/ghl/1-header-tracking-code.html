@@ -1,0 +1,37 @@
+<!-- ═══ MINI VSL · PEGAR EN: Configuración de la página → Tracking Code → Header (ARRIBA DE TODO, antes del píxel) ═══
+     Lee ok/ocu/a/b, los guarda para la página y los borra de la barra de direcciones
+     antes de que carguen el píxel de Meta o la analítica. -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script>
+(function () {
+  var MAX = 120;
+  function decodificar(v) {
+    for (var i = 0; i < 2 && /%[0-9A-Fa-f]{2}/.test(v); i++) {
+      try { v = decodeURIComponent(v.replace(/\+/g, " ")); } catch (e) { break; }
+    }
+    return v;
+  }
+  function limpiar(v) {
+    v = decodificar(v || "").replace(/[\u0000-\u001F\u007F<>]/g, "").replace(/\s+/g, " ").trim();
+    if (v.length > MAX) v = v.slice(0, MAX).replace(/\s+\S*$/, "");
+    return v.replace(/^["'“”«»\s]+|["'“”«»\s.,;:]+$/g, "");
+  }
+  var datos = null;
+  try {
+    var q = new URLSearchParams(location.search), h = new URLSearchParams(location.hash.slice(1));
+    var leer = function (k) { return limpiar(q.get(k) || h.get(k) || ""); };
+    var ok = leer("ok").toLowerCase().replace("í", "i"), ocu = leer("ocu"), a = leer("a"), b = leer("b");
+    if (ok === "si" && ocu && a && b) datos = { ocu: ocu, a: a, b: b };
+    var tocado = false;
+    ["ok", "ocu", "a", "b"].forEach(function (k) {
+      if (q.has(k)) { q.delete(k); tocado = true; }
+      if (h.has(k)) { h.delete(k); tocado = true; }
+    });
+    if (tocado && history.replaceState) {
+      var qs = q.toString(), hs = h.toString();
+      history.replaceState(history.state, "", location.pathname + (qs ? "?" + qs : "") + (hs ? "#" + hs : ""));
+    }
+  } catch (e) { datos = null; }
+  window.MV_DATOS = datos;
+})();
+</script>
