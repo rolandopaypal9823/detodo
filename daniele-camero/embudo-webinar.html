@@ -1,0 +1,530 @@
+<title>Embudo Webinar</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: una columna. Arriba el embudo en acordeón (qué se hace en cada fase), abajo la calculadora.
+   Marca Sociedad Élite: negro, blanco cálido y dorado como único acento. Tema oscuro único a propósito. */
+:root {
+  --bg: #08080A; --panel: #121216; --panel-2: #18181D; --ink: #F5EFE4; --muted: #A8A49C; --mute-2: #7E7A73;
+  --line: rgba(245,239,228,.14); --gold: #E3B565; --gold-d: #D4AF37; --halo: #FFD978; --gold-soft: rgba(227,181,101,.12);
+  --ok: #7FBF8E; --warn: #E3B565; --bad: #E07A5F;
+  --display: "Cinzel", Georgia, serif; --serif: "Cormorant Garamond", Georgia, serif; --sans: "Jost", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font: 300 16px/1.6 var(--sans);
+  background-image: radial-gradient(ellipse 70% 40% at 80% -5%, rgba(227,181,101,.10), transparent 60%);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 72px;
+}
+.wrap { max-width: 1040px; margin: 0 auto; display: grid; gap: 56px; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 500; line-height: 1.1; text-wrap: balance; }
+h1 { font-size: clamp(2.4rem, 7vw, 3.8rem); letter-spacing: .02em; }
+h2 { font-size: clamp(1.5rem, 3.6vw, 2.1rem); }
+h3 { font-size: 1.05rem; letter-spacing: .04em; }
+p { margin: 0; }
+.eyebrow { font-family: var(--display); font-size: .72rem; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); }
+.lead { font-family: var(--serif); font-size: clamp(1.15rem, 2.4vw, 1.35rem); color: var(--muted); max-width: 60ch; }
+.num { font-variant-numeric: tabular-nums; }
+.gold { color: var(--gold); }
+.rule { display: flex; align-items: center; gap: 10px; width: 120px; }
+.rule::before, .rule::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+.rule::after { background: linear-gradient(90deg, var(--gold), transparent); }
+.rule i { width: 5px; height: 5px; background: var(--halo); transform: rotate(45deg); box-shadow: 0 0 10px var(--halo); }
+section { display: grid; gap: 20px; }
+.sec-head { display: grid; gap: 10px; }
+.sec-head p { color: var(--muted); max-width: 66ch; }
+
+/* Header */
+header { display: grid; gap: 16px; }
+.live { display: flex; flex-wrap: wrap; gap: 8px; }
+.live span { border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: .9rem; color: var(--muted); background: var(--panel); }
+.live b { color: var(--ink); font-weight: 500; }
+
+/* Fases */
+.phases { display: grid; gap: 8px; }
+.ph { border: 1px solid var(--line); border-radius: 12px; background: var(--panel); overflow: hidden; }
+.ph.opt { border-style: dashed; }
+.ph-h { width: 100%; display: grid; grid-template-columns: 3rem 1fr auto 1.2rem; gap: 12px; align-items: center; text-align: left; padding: 14px 16px; background: none; border: 0; color: inherit; font: inherit; cursor: pointer; }
+.ph-h:hover { background: var(--panel-2); }
+.ph-h:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--halo); outline-offset: 2px; }
+.ph-n { font-family: var(--display); font-size: 1.3rem; color: var(--gold); }
+.ph-t { min-width: 0; }
+.ph-t b { display: block; font-weight: 500; font-size: 1.05rem; }
+.ph-t small { color: var(--muted); font-size: .88rem; }
+.tag-opt { font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold); border-radius: 4px; padding: 1px 6px; margin-left: 6px; vertical-align: 2px; }
+.ph-m { text-align: right; white-space: nowrap; font-size: .92rem; }
+.ph-m .r { color: var(--gold); font-weight: 500; }
+.ph-m .q { display: block; color: var(--muted); font-size: .82rem; }
+.chev { color: var(--mute-2); transition: transform .2s; }
+.ph-h[aria-expanded="true"] .chev { transform: rotate(90deg); color: var(--gold); }
+.ph-b { padding: 4px 16px 20px calc(16px + 3rem + 12px); display: grid; gap: 18px; }
+.cols { display: grid; grid-template-columns: 1.2fr 1fr; gap: 18px; }
+.cols > div { min-width: 0; }
+.ph-b h4 { margin: 0 0 8px; font-family: var(--display); font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+.ph-b ul, .ph-b ol { margin: 0; padding-left: 1.15em; display: grid; gap: 6px; }
+.ph-b li::marker { color: var(--gold); }
+.ph-b .concept { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.ph-b .concept p + p { margin-top: 8px; }
+.ph-b q { font-family: var(--serif); font-style: italic; font-size: 1.08rem; color: var(--ink); }
+.metric { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; border-top: 1px solid var(--line); padding-top: 14px; font-size: .92rem; color: var(--muted); }
+.metric label { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); }
+.metric .ref { font-size: .82rem; color: var(--mute-2); }
+@media (max-width: 720px) {
+  .ph-h { grid-template-columns: 2.2rem 1fr 1rem; }
+  .ph-m { grid-column: 2; grid-row: 2; text-align: left; }
+  .ph-m .q { display: inline; margin-left: 8px; }
+  .chev { grid-column: 3; grid-row: 1; }
+  .ph-b { padding-left: 16px; }
+  .cols { grid-template-columns: 1fr; }
+}
+
+/* Inputs */
+.inp { display: inline-flex; align-items: center; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.inp input { width: 6.2rem; background: transparent; border: 0; color: var(--ink); font: 400 1rem var(--sans); padding: 8px 10px; text-align: right; font-variant-numeric: tabular-nums; }
+.inp span { color: var(--mute-2); padding: 0 10px; font-size: .9rem; }
+.inp input::placeholder { color: var(--mute-2); }
+
+/* Calculadora */
+.calc { display: grid; gap: 18px; }
+.target { border: 1px solid var(--gold); border-radius: 14px; padding: 20px; background: linear-gradient(180deg, var(--gold-soft), transparent 70%), var(--panel); display: grid; gap: 16px; }
+.target-row { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; }
+.field { display: grid; gap: 6px; font-size: .86rem; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 500 .95rem var(--sans); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--gold); color: #08080A; border-color: var(--gold); }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn { font: 600 .9rem var(--sans); letter-spacing: .04em; border-radius: 8px; padding: 11px 18px; cursor: pointer; border: 1px solid var(--gold); background: var(--gold); color: #08080A; }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--gold); }
+.note { font-size: .92rem; color: var(--muted); }
+.note b { color: var(--ink); font-weight: 500; }
+.alert { border-radius: 10px; padding: 12px 14px; font-size: .95rem; }
+.alert.bad { background: rgba(224,122,95,.12); border: 1px solid rgba(224,122,95,.5); }
+.alert.ok { background: rgba(127,191,142,.10); border: 1px solid rgba(127,191,142,.4); }
+
+.grid-in { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+.cell { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: grid; gap: 6px; min-width: 0; }
+.cell .lab { font-size: .84rem; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
+.cell .inp { width: 100%; }
+.cell .inp input { width: 100%; }
+.lvl { font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; font-weight: 600; white-space: nowrap; }
+.lvl.ok { color: var(--ok); } .lvl.warn { color: var(--warn); } .lvl.bad { color: var(--bad); }
+.cell .ref { font-size: .74rem; color: var(--mute-2); }
+
+.kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.kpi small { display: block; font-size: .78rem; color: var(--muted); }
+.kpi b { font-family: var(--display); font-weight: 500; font-size: 1.5rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+.kpi.main { border-color: var(--gold); }
+.kpi.main b { color: var(--gold); }
+
+.funnel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; overflow-x: auto; }
+.funnel table { width: 100%; border-collapse: collapse; font-size: .92rem; min-width: 520px; }
+.funnel th { text-align: left; font-weight: 500; font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--mute-2); padding: 6px 8px; border-bottom: 1px solid var(--line); }
+.funnel td { padding: 7px 8px; border-bottom: 1px solid rgba(245,239,228,.06); vertical-align: middle; }
+.funnel tr:last-child td { border-bottom: 0; }
+.funnel td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.funnel td.sub { color: var(--muted); padding-left: 22px; }
+.bar { height: 8px; border-radius: 4px; background: rgba(245,239,228,.06); min-width: 90px; }
+.bar i { display: block; height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--gold-d), var(--halo)); }
+.foot { font-size: .8rem; color: var(--mute-2); }
+footer { font-size: .82rem; color: var(--mute-2); border-top: 1px solid var(--line); padding-top: 18px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">Daniele Camero · Sociedad Élite</span>
+  <h1>Embudo Webinar</h1>
+  <div class="rule" aria-hidden="true"><i></i></div>
+  <p class="lead">Qué se hace en cada fase, qué porcentaje tenemos que lograr y cuánta gente queda en cada paso. Tocá una fase para ver los accionables. Abajo, la calculadora para proyectar.</p>
+  <div class="live" aria-live="polite">
+    <span>Inversión <b class="num" data-out="inv$">—</b></span>
+    <span>Registros <b class="num" data-out="reg">—</b></span>
+    <span>Cierres <b class="num" data-out="cie">—</b></span>
+    <span>Cash <b class="num" data-out="cash$">—</b></span>
+    <span>ROAS <b class="num gold" data-out="roas">—</b></span>
+  </div>
+</header>
+
+<section aria-labelledby="t-fases">
+  <div class="sec-head">
+    <span class="eyebrow">01 · Fase por fase</span>
+    <h2 id="t-fases">El embudo</h2>
+    <p>Los porcentajes y las cantidades salen de la calculadora. Si cambiás un porcentaje dentro de una fase, se actualiza todo.</p>
+  </div>
+  <div class="phases" id="phases"></div>
+</section>
+
+<section aria-labelledby="t-calc">
+  <div class="sec-head">
+    <span class="eyebrow">02 · Proyección</span>
+    <h2 id="t-calc">Calculadora</h2>
+    <p>Elegí el ROAS que querés y cuánto querés facturar por webinar: la calculadora te dice cuánto invertir y qué porcentaje tenés que lograr en cada fase. O dejala en blanco y cargá tus propios números.</p>
+  </div>
+
+  <div class="calc">
+    <div class="target">
+      <div class="target-row">
+        <div class="field">ROAS objetivo
+          <div class="chips" role="group" aria-label="ROAS objetivo">
+            <button type="button" class="chip" data-roas="4">x4</button>
+            <button type="button" class="chip" data-roas="5">x5</button>
+            <button type="button" class="chip" data-roas="6">x6</button>
+            <button type="button" class="chip" data-roas="10">x10</button>
+          </div>
+        </div>
+        <label class="field" for="roas-in">Otro ROAS
+          <span class="inp"><span>x</span><input id="roas-in" type="number" min="0.5" step="0.5" inputmode="decimal" value="4"></span>
+        </label>
+        <label class="field" for="meta-in">Meta de cash por webinar
+          <span class="inp"><span>USD</span><input id="meta-in" type="number" min="0" step="1000" inputmode="decimal" value="50000"></span>
+        </label>
+      </div>
+      <div class="btns">
+        <button type="button" class="btn" id="b-auto">Autollenar lo necesario</button>
+        <button type="button" class="btn ghost" id="b-base">Base de mercado</button>
+        <button type="button" class="btn ghost" id="b-blank">En blanco</button>
+      </div>
+      <p class="note" id="auto-msg" aria-live="polite">Usa el CPL y el ticket de abajo. ROAS = cash cobrado ÷ inversión en pauta.</p>
+      <div id="auto-alert" aria-live="polite"></div>
+    </div>
+
+    <div class="grid-in" id="inputs"></div>
+
+    <div class="kpis">
+      <div class="kpi main"><small>ROAS</small><b data-out="roas">—</b></div>
+      <div class="kpi"><small>Cash por webinar</small><b data-out="cash$">—</b></div>
+      <div class="kpi"><small>Ganancia (cash − pauta)</small><b data-out="gan$">—</b></div>
+      <div class="kpi"><small>Cierres</small><b data-out="cie">—</b></div>
+      <div class="kpi"><small>Costo por cierre</small><b data-out="cac$">—</b></div>
+      <div class="kpi"><small>Costo por agenda</small><b data-out="cpa$">—</b></div>
+      <div class="kpi"><small>Costo por asistente</small><b data-out="cpas$">—</b></div>
+    </div>
+
+    <div class="funnel">
+      <table>
+        <thead><tr><th>Fase</th><th style="text-align:right">Personas</th><th style="width:40%">Volumen</th></tr></thead>
+        <tbody id="ftable"></tbody>
+      </table>
+    </div>
+    <p class="foot">Barras en escala logarítmica, para que las fases chicas se vean. Las agendas antes de la clase se suman a las de la clase: se asume que son personas distintas. Los niveles (realista, exigente, techo) son referencias estimadas; reemplazalas con los datos reales de cada lanzamiento.</p>
+  </div>
+</section>
+
+<footer>Embudo Webinar · Daniele Camero. Tasas de referencia: piso, base de mercado y techo estimados para un webinar high ticket en Latinoamérica, cruzados con los lanzamientos del Instituto de Productividad. Ajustalas con los datos propios a medida que haya lanzamientos.</footer>
+</div>
+
+<script>
+(function () {
+/* ═══ Palancas del embudo: piso / base / techo ═══ */
+var L = {
+  land:   { lab: "Visita → registro",                 u: "%", piso: 15,  base: 25, techo: 40 },
+  grupo:  { lab: "Registro → grupo de WhatsApp",      u: "%", piso: 70,  base: 80, techo: 92 },
+  pre:    { lab: "Agendan antes de la clase (% de registros)", u: "%", piso: 0.3, base: 1, techo: 3 },
+  asist:  { lab: "Grupo → asisten a la clase",        u: "%", piso: 18,  base: 25, techo: 45 },
+  agc:    { lab: "Asistente → agenda",                u: "%", piso: 7,   base: 12, techo: 25 },
+  rasc:   { lab: "Rascada post-clase (+% sobre agendas de la clase)", u: "%", piso: 10, base: 25, techo: 50 },
+  show:   { lab: "Agenda → asiste a la llamada",      u: "%", piso: 50,  base: 60, techo: 80 },
+  calif:  { lab: "Llamadas calificadas",              u: "%", piso: 60,  base: 75, techo: 90 },
+  cierre: { lab: "Cierre sobre calificadas",          u: "%", piso: 30,  base: 45, techo: 60 }
+};
+var FIJOS = {
+  inv:    { lab: "Inversión en pauta por webinar", u: "USD" },
+  cpl:    { lab: "Costo por lead (registro)",      u: "USD" },
+  ticket: { lab: "Cash por cierre (ticket prom.)", u: "USD" }
+};
+var DEF = { inv: 12500, cpl: 20, ticket: 3000 };
+var ORDEN = ["inv", "cpl", "ticket", "land", "grupo", "pre", "asist", "agc", "rasc", "show", "calif", "cierre"];
+
+var S = {};
+var KEY = "embudo-webinar-dc";
+function base() { var o = {}; ORDEN.forEach(function (k) { o[k] = L[k] ? L[k].base : DEF[k]; }); return o; }
+try { var g = JSON.parse(localStorage.getItem(KEY) || "null"); if (g && typeof g === "object") S = g; } catch (e) {}
+if (!S || !Object.keys(S).length) S = null;
+function guardar() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+/* ═══ Formato ═══ */
+var nf0 = new Intl.NumberFormat("es-AR", { maximumFractionDigits: 0 });
+var nf1 = new Intl.NumberFormat("es-AR", { maximumFractionDigits: 1 });
+function v(x) { return typeof x === "number" && isFinite(x); }
+function N(x) { return v(x) ? nf0.format(Math.round(x)) : "—"; }
+function N1(x) { return v(x) ? nf1.format(x) : "—"; }
+function D(x) { return v(x) ? "$" + nf0.format(Math.round(x)) : "—"; }
+
+/* ═══ Modelo ═══ */
+function calc(s) {
+  var r = {}, p = function (k) { return v(s[k]) ? s[k] / 100 : NaN; };
+  r.reg = s.inv / s.cpl;
+  r.vis = r.reg / p("land");
+  r.gru = r.reg * p("grupo");
+  r.asi = r.gru * p("asist");
+  r.agPre = r.reg * p("pre");
+  r.agCla = r.asi * p("agc");
+  r.agRas = r.agCla * p("rasc");
+  r.ag = r.agPre + r.agCla + r.agRas;
+  r.lla = r.ag * p("show");
+  r.cal = r.lla * p("calif");
+  r.noc = r.lla - r.cal;
+  r.cie = r.cal * p("cierre");
+  r.cash = r.cie * s.ticket;
+  r.roas = r.cash / s.inv;
+  r.gan = r.cash - s.inv;
+  r.cac = s.inv / r.cie; r.cpa = s.inv / r.ag; r.cpas = s.inv / r.asi;
+  return r;
+}
+function tasas(t) { var o = {}; Object.keys(L).forEach(function (k) { var l = L[k]; o[k] = t >= 0 ? l.base + (l.techo - l.base) * t : l.base + (l.base - l.piso) * t; }); return o; }
+function cashPorLead(t, ticket) { var s = tasas(t); s.inv = 1000; s.cpl = 1; s.ticket = ticket; var r = calc(s); return r.cash / r.reg; }
+function nivel(k, x) {
+  var l = L[k]; if (!l || !v(x)) return null;
+  if (x <= l.base + 1e-9) return ["ok", "realista"];
+  if (x < l.techo - 1e-9) return ["warn", "exigente"];
+  return ["bad", "techo"];
+}
+
+/* ═══ Fases ═══ */
+var F = [
+  { n: "01", t: "Anuncios", s: "Hablarle al lead calificado con un vacío de curiosidad", k: "cpl", q: "reg", ql: "registros",
+    acc: [
+      "Hablar a <b>problemas específicos</b>, describiendo <b>situaciones concretas</b> en las que el lead atraviesa ese problema.",
+      "Que el problema sea el de un <b>lead calificado</b>: alguien que ya genera y está estancado, no alguien que arranca de cero.",
+      "Aplicar el <b>vacío de curiosidad</b>: te pasa esto, pero no es por lo que crees. Hay algo interno que te está deteniendo.",
+      "Ángulo: hay <b>algo oculto</b>, el punto ciego (el código oculto, como lo dice Daniele).",
+      "Cerrar con la promesa: eso es lo que te voy a enseñar en la clase.",
+      "Escribir con la estructura del <b>Funnel 400</b>."
+    ],
+    con: ["<q>Puedes estar haciendo la mejor estrategia. A otro le funciona exactamente igual, pero a ti no te sirve.</q>",
+      "<b>Funnel 400:</b> vacío de curiosidad → espejo → momento aha → puente a la clase.",
+      "El anuncio ya es un filtro: si describe la situación del calificado, atrae al calificado."] },
+  { n: "02", t: "Landing", s: "Interpelar con el dolor, dar autoridad y prueba social", k: "land", q: "vis", ql: "visitas necesarias",
+    acc: [
+      "<b>Portada:</b> interpelar con un dolor, usando las frases que más repiten los buenos perfiles high ticket en las llamadas.",
+      "Base: la <b>landing de webinars de Nico Fernández Miranda</b>, casi igual, adaptada a Daniele.",
+      "<b>Título de la masterclass</b> (a definir, a partir de los títulos que ya se usaron).",
+      "<b>Autoridad de Daniele</b>, pensando en el tráfico frío que no lo conoce: su historia, a quiénes capacitó, en qué países dio conferencias y capacitaciones.",
+      "<b>Qué vas a aprender / descubrir</b> en la clase, para que siga interpelándose y le vea valor.",
+      "<b>One belief</b> de la clase y qué se lleva el que asiste.",
+      "<b>Casos de éxito:</b> qué lograron los que trabajan con Daniele. Que se vea el <b>crecimiento económico</b>, para que la clase y el mensaje se vuelvan tangibles."
+    ],
+    con: ["Frases de los que compraron high ticket: <q>estoy estancado</q> · <q>hay un techo invisible</q> · <q>sé que puedo más y algo me frena</q> · <q>no me siento a la altura de lo que gano</q> · <q>tengo la técnica pero no la consistencia</q>.",
+      "Orden: dolor → título → qué vas a descubrir → one belief → quién da la clase → prueba social → registro."] },
+  { n: "03", t: "Registro (quiz)", s: "Filtrar desde el primer clic", k: null, q: "reg", ql: "registros",
+    acc: [
+      "Quiz para registrarse con la <b>pregunta de las 3 etapas</b>, adaptada a la cuenta de Daniele y a la data de las llamadas.",
+      "Pedir nombre, email y WhatsApp, y guardar la etapa en GHL como etiqueta."
+    ],
+    con: ["Etapas: <b>1.</b> Genero bien pero estoy estancado (techo invisible) · <b>2.</b> Genero pero no lo sostengo · <b>3.</b> Empezando de cero o saliendo de deudas.",
+      "En las llamadas, la etapa 3 cerró high ticket 1 vez de 11. Medir qué % de registros cae en cada etapa."] },
+  { n: "04", t: "Thank you page → grupo de WhatsApp", s: "Que el registro llegue al grupo", k: "grupo", q: "gru", ql: "en el grupo",
+    acc: [
+      "<b>Video de gracias</b> de Daniele que invita a entrar al grupo de WhatsApp.",
+      "Botón directo al grupo."
+    ],
+    con: ["El que no entra al grupo no recibe el link de la clase: esta tasa es el primer filtro de asistencia."] },
+  { n: "05", t: "Mensaje 1 a 1 + comunicación en grupos", s: "FunnelChat, API y 3 recursos", k: null, q: "gru", ql: "personas nutridas",
+    acc: [
+      "Contratar <b>FunnelChat</b>: la plataforma para la campaña de grupos y un <b>número API</b> para mandar 1 a 1.",
+      "Conectar <b>GoHighLevel ↔ FunnelChat por webhook</b>: apenas se registra, sale un <b>mensaje API 1 a 1</b>.",
+      "Compartir un <b>recurso de 3 pasos</b>, educativo, que deje con curiosidad:",
+      "<b>Recurso 1 · Errores:</b> que vea los errores que está cometiendo y se identifique, con un <b>quiz personalizado</b>.",
+      "<b>Recurso 2 · Paradigma:</b> cambiarle las creencias.",
+      "<b>Recurso 3 · La clase:</b> por qué es importante, qué se va a llevar, prueba social, qué cambios puede aplicar ya y qué puede escribir ahora para llevar a la clase."
+    ],
+    con: ["<b>Funnel 400</b> + <b>Dan Henry</b>: ir construyendo <b>acuerdos</b>. Cada mensaje busca un pequeño \"sí\".",
+      "Los recursos enseñan, pero no resuelven todo: la respuesta completa está en la clase."] },
+  { n: "06", t: "Recurso único → agenda antes de la clase", s: "Calendario + setter 1 a 1", k: "pre", q: "agPre", ql: "agendas antes de la clase", opt: true,
+    acc: [
+      "Desde el recurso, invitar a <b>agendar en el calendario</b>.",
+      "<b>Contacto 1 a 1 por setter</b> a los registros calificados."
+    ],
+    con: ["Opcional. Sirve para captar al que ya está listo y no quiere esperar a la clase."] },
+  { n: "07", t: "Asistencia a la clase (Zoom)", s: "Llegar al Zoom y medir quién entró", k: "asist", q: "asi", ql: "asistentes",
+    acc: [
+      "La clase es por <b>Zoom</b>. El link se manda por los grupos de WhatsApp.",
+      "Antes del Zoom, un <b>link que pide nombre, email y número</b>: así sabemos qué personas entraron a la clase.",
+      "Medirlo todo: que no se escape el trackeo."
+    ],
+    con: ["Sin ese paso previo no se puede cruzar asistencia con agendas ni con ventas."] },
+  { n: "08", t: "La clase", s: "Estructura Dan Henry: one belief, acuerdos, espejo", k: null, q: "asi", ql: "en la clase",
+    acc: [
+      "<b>Presentarse.</b>",
+      "<b>Marcar el marco:</b> que la clase tiene valor y que al final habrá <b>una oportunidad solo para 20 personas</b> para trabajar de la mano con Daniele. \"Pero en esta clase tengo algo muy potente para compartirles.\"",
+      "<b>Explicar la estructura</b> de la clase.",
+      "<b>La historia</b>, para los que no lo conocen: su <b>punto A y punto B</b>, y qué cambió cuando aplicó el one belief.",
+      "Durante toda la clase, <b>mencionar o dibujar el punto A y el punto B</b>.",
+      "<b>3 pilares de valor</b> (a profundizar).",
+      "En cada pilar: <b>problemática → solución → prueba social</b> (casos de éxito que ya lo aplicaron, con sus resultados). Sembrar todo el tiempo.",
+      "Hacer <b>participar</b> a la gente y que vaya <b>estando de acuerdo</b> en muchas cosas.",
+      "<b>Espejo:</b> mostrar situaciones que les pasan, para que les duela. <b>La clase tiene que ser dolorosa.</b>"
+    ],
+    con: ["<b>Dan Henry:</b> siempre establecer un <b>one belief</b>. Los acuerdos durante la clase preparan el sí del final.",
+      "Cuanto más le mueve la fibra a la gente, más alto es el % de agendamiento."] },
+  { n: "09", t: "Pitch → agenda", s: "Transparente, sin apuro, con los escalones", k: "agc", q: "agCla", ql: "agendas en la clase",
+    acc: [
+      "Antes del pitch, preguntar si quieren conocer <b>todos los fundamentos y el paso a paso</b> al que pueden acceder (todos dicen que sí).",
+      "<b>Ser transparentes</b> con el proceso y <b>dejar respirar</b>: que cada uno se tome su tiempo para agendar.",
+      "Explicar <b>visualmente</b> el proceso: agendan, responden un par de preguntas, los contacta el equipo y ven en qué escalón pueden ubicarse.",
+      "Mostrar los <b>3 programas</b> según el momento de vida: el primer escalón es la comunidad (Sociedad Élite). Para quien está creciendo pero estancado, con un techo invisible que no logra romper, están las <b>mentorías avanzadas</b>.",
+      "Que puedan aplicar todos."
+    ],
+    con: ["Lo normal es <b>10%</b> de los asistentes. Si la clase es dolorosa, sube."] },
+  { n: "10", t: "Rascada post-clase", s: "Setting con resumen + clase extra", k: "rasc", q: "agRas", ql: "agendas extra", opt: true,
+    acc: [
+      "<b>Setting</b> a los que no agendaron, compartiendo el <b>resumen de la clase</b>.",
+      "<b>Clase extra</b> (opcional) para reforzar con los que ya se captaron: más relajada y descontracturada, con espacio para preguntas."
+    ],
+    con: ["Las agendas de la rascada se calculan como % extra sobre las agendas de la clase."] },
+  { n: "11", t: "Asistencia a la llamada", s: "Que la agenda se presente", k: "show", q: "lla", ql: "llamadas hechas",
+    acc: [
+      "Medir el % de agendas que se presentan.",
+      "Sugerido: la setter confirma la llamada y manda recordatorio el día antes y una hora antes."
+    ],
+    con: ["Una agenda que no se presenta cuesta lo mismo que una que sí: esta tasa pega directo en el costo por cierre."] },
+  { n: "12", t: "Llamada → cierre", s: "No calificados y cierres", k: "calif", k2: "cierre", q: "cie", ql: "cierres",
+    acc: [
+      "Medir el % de <b>no calificados</b> sobre las llamadas hechas.",
+      "Medir el % de <b>cierre</b> sobre las calificadas.",
+      "Comparar el cierre por etapa del quiz y por origen del lead."
+    ],
+    con: ["En las llamadas analizadas cierra más el que tiene plata disponible hoy, un proyecto propio en paralelo y consume a Daniele hace tiempo."] }
+];
+
+var phEl = document.getElementById("phases");
+phEl.innerHTML = F.map(function (f, i) {
+  var inputs = [f.k, f.k2].filter(Boolean).map(function (k) {
+    var d = L[k] || FIJOS[k];
+    var ref = L[k] ? "piso " + N1(L[k].piso) + " · base " + N1(L[k].base) + " · techo " + N1(L[k].techo) : "";
+    return '<label>' + d.lab + ' <span class="inp"><input type="number" step="any" inputmode="decimal" data-k="' + k + '" id="ph-' + k + '"><span>' + d.u + '</span></span></label>' + (ref ? '<span class="ref">' + ref + '</span>' : '');
+  }).join("");
+  return '<div class="ph' + (f.opt ? " opt" : "") + '">' +
+    '<button type="button" class="ph-h" id="phb-' + i + '" aria-expanded="false" aria-controls="phc-' + i + '">' +
+      '<span class="ph-n">' + f.n + '</span>' +
+      '<span class="ph-t"><b>' + f.t + (f.opt ? '<span class="tag-opt">opcional</span>' : '') + '</b><small>' + f.s + '</small></span>' +
+      '<span class="ph-m"><span class="r" data-ph-r="' + i + '"></span><span class="q"><span class="num" data-out="' + f.q + '">—</span> ' + f.ql + '</span></span>' +
+      '<span class="chev" aria-hidden="true">›</span>' +
+    '</button>' +
+    '<div class="ph-b" id="phc-' + i + '" hidden>' +
+      '<div class="cols"><div><h4>Qué hacemos</h4><ul>' + f.acc.map(function (a) { return "<li>" + a + "</li>"; }).join("") + '</ul></div>' +
+      '<div><h4>Conceptos y estructura</h4><div class="concept">' + f.con.map(function (c) { return "<p>" + c + "</p>"; }).join("") + '</div></div></div>' +
+      (inputs ? '<div class="metric">' + inputs + '</div>' : '') +
+    '</div></div>';
+}).join("");
+phEl.addEventListener("click", function (e) {
+  var b = e.target.closest(".ph-h"); if (!b) return;
+  var open = b.getAttribute("aria-expanded") === "true";
+  b.setAttribute("aria-expanded", String(!open));
+  document.getElementById(b.getAttribute("aria-controls")).hidden = open;
+});
+
+/* ═══ Inputs de la calculadora ═══ */
+var inEl = document.getElementById("inputs");
+inEl.innerHTML = ORDEN.map(function (k) {
+  var d = L[k] || FIJOS[k];
+  var ref = L[k] ? '<span class="ref">piso ' + N1(L[k].piso) + ' · base ' + N1(L[k].base) + ' · techo ' + N1(L[k].techo) + '</span>' : "";
+  return '<div class="cell"><label class="lab" for="in-' + k + '"><span>' + d.lab + '</span><span class="lvl" data-lvl="' + k + '"></span></label>' +
+    '<span class="inp"><input type="number" step="any" min="0" inputmode="decimal" id="in-' + k + '" data-k="' + k + '"><span>' + d.u + '</span></span>' + ref + '</div>';
+}).join("");
+
+function leerInputs() { document.querySelectorAll("input[data-k]").forEach(function (el) { var k = el.dataset.k; el.value = v(S[k]) ? +(+S[k]).toFixed(2) : ""; }); }
+document.addEventListener("input", function (e) {
+  var el = e.target; if (!el.dataset || !el.dataset.k) return;
+  var x = el.value === "" ? null : parseFloat(el.value);
+  S[el.dataset.k] = v(x) ? x : null;
+  document.querySelectorAll('input[data-k="' + el.dataset.k + '"]').forEach(function (o) { if (o !== el) o.value = el.value; });
+  pintar(); guardar();
+});
+
+/* ═══ Pintar resultados ═══ */
+var FT = [
+  ["Visitas a la landing", "vis"], ["Registros", "reg"], ["En el grupo de WhatsApp", "gru"], ["Asistentes a la clase", "asi"],
+  ["Agendas totales", "ag"], ["  antes de la clase", "agPre", 1], ["  en la clase", "agCla", 1], ["  rascada post-clase", "agRas", 1],
+  ["Llamadas hechas", "lla"], ["  no calificados", "noc", 1], ["  calificados", "cal", 1], ["Cierres", "cie"]
+];
+function pintar() {
+  var r = calc(S);
+  var out = { "inv$": D(S.inv), "cash$": D(r.cash), "gan$": D(r.gan), "cac$": D(r.cac), "cpa$": D(r.cpa), "cpas$": D(r.cpas), roas: v(r.roas) ? "x" + N1(r.roas) : "—" };
+  ["reg", "vis", "gru", "asi", "agPre", "agCla", "agRas", "ag", "lla", "cal", "noc"].forEach(function (k) { out[k] = N(r[k]); });
+  out.cie = v(r.cie) ? N1(r.cie) : "—";
+  document.querySelectorAll("[data-out]").forEach(function (el) { el.textContent = out[el.dataset.out] != null ? out[el.dataset.out] : "—"; });
+  F.forEach(function (f, i) {
+    var el = document.querySelector('[data-ph-r="' + i + '"]'); if (!el) return;
+    var parts = [f.k, f.k2].filter(Boolean).map(function (k) { return k === "cpl" ? "CPL " + D(S.cpl) : (v(S[k]) ? N1(S[k]) + "%" : "—"); });
+    el.textContent = parts.join(" · ");
+  });
+  Object.keys(L).forEach(function (k) {
+    var el = document.querySelector('[data-lvl="' + k + '"]'), n = nivel(k, S[k]);
+    el.className = "lvl" + (n ? " " + n[0] : ""); el.textContent = n ? n[1] : "";
+  });
+  var max = v(r.vis) ? r.vis : (v(r.reg) ? r.reg : 0);
+  document.getElementById("ftable").innerHTML = FT.map(function (row) {
+    var x = r[row[1]], w = v(x) && max > 0 ? Math.max(2, Math.log(x + 1) / Math.log(max + 1) * 100) : 0;
+    return '<tr><td' + (row[2] ? ' class="sub"' : '') + '>' + row[0].trim() + '</td><td class="n">' + (row[1] === "cie" ? N1(x) : N(x)) + '</td><td><div class="bar"><i style="width:' + w + '%"></i></div></td></tr>';
+  }).join("");
+}
+
+/* ═══ Objetivo de ROAS ═══ */
+var roasIn = document.getElementById("roas-in"), metaIn = document.getElementById("meta-in");
+var chips = document.querySelectorAll(".chip");
+function marcarChip() { chips.forEach(function (c) { c.setAttribute("aria-pressed", String(+c.dataset.roas === +roasIn.value)); }); }
+chips.forEach(function (c) { c.addEventListener("click", function () { roasIn.value = c.dataset.roas; marcarChip(); autollenar(); }); });
+roasIn.addEventListener("input", marcarChip);
+
+function autollenar() {
+  var roas = parseFloat(roasIn.value), meta = parseFloat(metaIn.value);
+  var cpl = v(S.cpl) && S.cpl > 0 ? S.cpl : DEF.cpl, ticket = v(S.ticket) && S.ticket > 0 ? S.ticket : DEF.ticket;
+  var alertEl = document.getElementById("auto-alert"), msg = document.getElementById("auto-msg");
+  if (!v(roas) || roas <= 0) { msg.textContent = "Elegí un ROAS objetivo."; return; }
+  var need = roas * cpl;                 // cash por registro que hace falta
+  var lo = -1, hi = 1, t, estado = "ok";
+  if (cashPorLead(1, ticket) < need) { t = 1; estado = "imposible"; }
+  else if (cashPorLead(-1, ticket) >= need) { t = -1; estado = "sobra"; }
+  else { for (var i = 0; i < 60; i++) { t = (lo + hi) / 2; if (cashPorLead(t, ticket) < need) lo = t; else hi = t; } t = hi; }
+  var tz = tasas(t);
+  Object.keys(tz).forEach(function (k) { S[k] = Math.round(tz[k] * 10) / 10; });
+  S.cpl = cpl; S.ticket = ticket;
+  if (v(meta) && meta > 0) S.inv = Math.round(meta / roas);
+  else if (!v(S.inv)) S.inv = DEF.inv;
+  leerInputs(); pintar(); guardar();
+  var r = calc(S);
+  msg.innerHTML = "Para <b>ROAS x" + N1(roas) + "</b> con CPL <b>" + D(cpl) + "</b> y ticket <b>" + D(ticket) + "</b>: invertir <b>" + D(S.inv) + "</b> → " + N(r.reg) + " registros → " + N(r.asi) + " asistentes → " + N(r.ag) + " agendas → <b>" + N1(r.cie) + " cierres</b> → <b>" + D(r.cash) + "</b>.";
+  if (estado === "imposible") {
+    var maxR = cashPorLead(1, ticket) / cpl;
+    var cplMax = cashPorLead(1, ticket) / roas;
+    var tkt = need / (cashPorLead(1, 1));
+    alertEl.className = "alert bad";
+    alertEl.innerHTML = "<b>No llega ni con todas las fases en el techo.</b> Con CPL " + D(cpl) + " y ticket " + D(ticket) + " el máximo es <b>x" + N1(maxR) + "</b>. Para x" + N1(roas) + " hace falta bajar el CPL a <b>" + D(cplMax) + "</b> o subir el ticket promedio a <b>" + D(tkt) + "</b> (por ejemplo, con más ventas de 1 a 1).";
+  } else if (estado === "sobra") {
+    alertEl.className = "alert ok";
+    alertEl.innerHTML = "<b>Con el piso en todas las fases ya se llega.</b> Este ROAS es alcanzable incluso con un mal lanzamiento.";
+  } else {
+    alertEl.className = "alert ok";
+    alertEl.innerHTML = "Exigencia: <b>" + N(Math.max(0, t) * 100) + "%</b> del camino entre la base de mercado y el techo, en todas las fases a la vez. Las tasas en <span class='lvl warn'>exigente</span> son las que hay que trabajar.";
+    if (t < 0) alertEl.innerHTML = "Se llega por debajo de la base de mercado: todas las fases pueden estar un poco flojas y el ROAS igual se cumple.";
+  }
+}
+document.getElementById("b-auto").addEventListener("click", autollenar);
+document.getElementById("b-base").addEventListener("click", function () {
+  var keep = { inv: S.inv, cpl: S.cpl, ticket: S.ticket };
+  S = base(); Object.keys(keep).forEach(function (k) { if (v(keep[k])) S[k] = keep[k]; });
+  document.getElementById("auto-alert").className = ""; document.getElementById("auto-alert").innerHTML = "";
+  document.getElementById("auto-msg").textContent = "Tasas de la base de mercado. Así rinde un lanzamiento promedio.";
+  leerInputs(); pintar(); guardar();
+});
+document.getElementById("b-blank").addEventListener("click", function () {
+  S = {}; ORDEN.forEach(function (k) { S[k] = null; });
+  document.getElementById("auto-alert").className = ""; document.getElementById("auto-alert").innerHTML = "";
+  document.getElementById("auto-msg").textContent = "En blanco: cargá tus propios números en cada casilla.";
+  leerInputs(); pintar(); guardar();
+});
+
+/* Arranque: lo guardado o, si no hay, ROAS x4 sugerido */
+if (S) { leerInputs(); pintar(); marcarChip(); }
+else { S = base(); marcarChip(); autollenar(); }
+})();
+</script>
