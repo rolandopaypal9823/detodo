@@ -71,6 +71,18 @@ header { display: grid; gap: 16px; }
 .belief ol { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
 .belief li::marker { color: var(--gold); font-family: var(--display); }
 .belief b { font-weight: 500; } .belief em { color: var(--muted); }
+.belief .test { font-size: .92rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }
+.belief .test b { color: var(--ink); }
+.ladder { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 10px; }
+.ladwrap { overflow-x: auto; }
+.ladder table { width: 100%; border-collapse: collapse; font-size: .92rem; min-width: 560px; }
+.ladder th { text-align: left; font-weight: 500; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--mute-2); padding: 8px; border-bottom: 1px solid var(--line); }
+.ladder td { padding: 9px 8px; border-bottom: 1px solid rgba(245,239,228,.06); vertical-align: top; }
+.ladder tr:last-child td { border-bottom: 0; }
+.ladder td:first-child { font-family: var(--display); color: var(--gold); font-size: 1.05rem; width: 2rem; }
+.ladder td:nth-child(2) { font-weight: 500; width: 32%; }
+.ladder td em { color: var(--muted); }
+.ladder .mc { margin-right: 4px; }
 .acc li > .mchips { margin-top: 5px; }
 .mchips { display: flex; flex-wrap: wrap; gap: 4px; }
 .concept .ej { font-size: .95rem; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
@@ -237,11 +249,53 @@ footer { font-size: .82rem; color: var(--mute-2); border-top: 1px solid var(--li
     <ol>
       <li><b>Problema:</b> generas, haces todo bien, y llevas meses o años en el mismo número.</li>
       <li><b>Oportunidad:</b> multiplicar tus resultados sin trabajar más horas, con riqueza real en todas las áreas.</li>
-      <li><b>Mecanismo:</b> el <b>termostato financiero</b>. Tu mente tiene un nivel de ingreso programado y te devuelve a él: eso es el punto ciego. No es otra estrategia; es reprogramar la identidad.</li>
+      <li><b>Mecanismo:</b> el <b>termostato financiero</b>. Tu mente tiene un nivel de ingreso programado y te devuelve a él. No es otra estrategia; es reprogramar la identidad.</li>
       <li><b>Beneficio:</b> casos con números (por ejemplo, alumnos que pasaron de 1.000 a 15.000 USD al mes, según las llamadas). <em>Hay que verificarlos y pedir permiso antes de usarlos.</em></li>
-      <li><b>Creencia:</b> "Tus resultados nunca van a superar tu termostato financiero. Si no lo reprogramas, cualquier estrategia nueva te devuelve al mismo número."</li>
+      <li><b>Creencia:</b> "Tus resultados nunca van a superar tu termostato financiero. Y el termostato es un punto ciego: no se ve desde adentro. Sin alguien que lo vea desde afuera, cualquier estrategia nueva te devuelve al mismo número."</li>
     </ol>
+    <p class="test"><b>Test binario de Dan Henry:</b> ¿alguien puede creer esto y no comprar sin contradecirse? Con la primera versión ("tus resultados no superan tu termostato") sí podía: "lo reprogramo solo, con videos y libros". Por eso la creencia suma <b>"no se ve desde adentro"</b>, que cierra esa salida y deja la mentoría como la conclusión lógica. Es la misma idea que Daniele dice en sus videos sobre el punto ciego.</p>
   </article>
+
+  <article class="ladder">
+    <h3>La escalera de la clase de Daniele</h3>
+    <p class="note">Los 9 acuerdos en orden, con una analogía para bajar cada uno en unos 30 segundos. Las marcadas <span class="mc d">sus videos</span> ya las usa Daniele.</p>
+    <div class="ladwrap"><table>
+      <thead><tr><th>#</th><th>El lead acuerda que…</th><th>Cómo lo baja Daniele</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Estar estancado es serio, y es para resolverlo ya</td><td><span class="mc d">sus videos</span> "Si dejas agua estancada, no se neutraliza: se pudre. O estás creciendo o te estás muriendo."</td></tr>
+        <tr><td>2</td><td>Lo que viene haciendo no puede funcionar</td><td><span class="mc d">sus videos</span> "No necesitas más disciplina, ni una nueva estrategia, ni más conocimiento. Es una pared, un techo invisible."</td></tr>
+        <tr><td>3</td><td>La razón es algo que no sabía</td><td><span class="mc d">sus videos</span> El termostato de la casa: afuera hace 40 grados y adentro vuelve siempre a la temperatura programada. Tu ingreso hace lo mismo.</td></tr>
+        <tr><td>4</td><td>Daniele lo entiende mejor que él mismo</td><td><span class="mc d">sus videos</span> Su historia en etapas: "estancado, con sobrepeso, con inestabilidad financiera y sin la vida que sabía que merecía", hasta que decidió "dejar de ser ese personaje". <em>Falta armar las etapas con nombre y fotos reales.</em></td></tr>
+        <tr><td>5</td><td>Hay una solución, y es distinta a todo lo que probó</td><td>Abrir las ventanas en verano refresca un rato, pero la casa vuelve a los mismos grados. Para cambiar la temperatura hay que tocar el termostato, no el clima.</td></tr>
+        <tr><td>6</td><td>Está probada</td><td>Varios casos, no uno solo, cada uno con su número antes y después. <em>Con permiso.</em></td></tr>
+        <tr><td>7</td><td>Puede verse a sí mismo logrando lo mismo</td><td>Casos del mismo perfil que el asistente: el empleado con un proyecto al costado, el dueño de negocio estancado, el trader sin consistencia.</td></tr>
+        <tr><td>8</td><td>No hacerlo cuesta más que hacerlo</td><td>Las 2 trayectorias: "¿cómo se ve tu próximo año con el mismo termostato? Mismo número, mismo cansancio. ¿Y si se reprograma? ¿Cómo te mira tu familia?"</td></tr>
+        <tr><td>9</td><td>Tiene que actuar ahora</td><td>Cada mes con el termostato en el mismo número es un mes de ingresos que no vuelve. Más la razón real de los 20 lugares.</td></tr>
+      </tbody>
+    </table></div>
+  </article>
+
+  <div class="meth">
+    <article class="mcard">
+      <h3><span class="mc d">DH</span> Los 2 miedos</h3>
+      <ul class="dlist">
+        <li><b>Miedo al programa:</b> "¿y si no funciona?". Se responde con casos variados y con una garantía como acuerdo.</li>
+        <li><b>Miedo a sí mismo:</b> "ya probé y no pude; ¿y si yo no puedo?". Es el que mata la venta en silencio. Se responde con la historia de Daniele (él también estaba estancado) y con casos de gente como el asistente.</li>
+      </ul>
+      <p class="mnote">Motor emocional por debajo de todo el guion: el miedo empuja, el deseo tira, la confianza cierra.</p>
+    </article>
+    <article class="mcard">
+      <h3><span class="mc d">DH</span> Antes de dar la clase, revisar que no…</h3>
+      <ul class="dlist">
+        <li>se enseñe el <b>cómo</b> (solo qué, por qué y cuándo);</li>
+        <li>se salte de problema a solución sin la <b>oportunidad</b> (lo que se vuelve posible);</li>
+        <li>haya <b>un solo testimonio</b>, o se pase de la prueba al pitch sin el acuerdo 7;</li>
+        <li>el pitch <b>cambie de tono</b> o dure 2 minutos después de 90 de clase;</li>
+        <li>la <b>urgencia sea inventada</b> o el CTA tenga más de un paso;</li>
+        <li>la big idea aparezca <b>menos de 21 veces</b>.</li>
+      </ul>
+    </article>
+  </div>
 </section>
 
 <section aria-labelledby="t-fases">
@@ -389,7 +443,8 @@ var F = [
       ["Aplicar el <b>vacío de curiosidad</b>: te pasa esto, pero no es por lo que crees. Hay algo interno que te está deteniendo.", ["f:Paso 1 · Vacío de curiosidad", "d:Acuerdo 2"]],
       ["Ángulo: hay <b>algo oculto</b>, el punto ciego (el código oculto, como lo dice Daniele).", ["f:Paso 3 · El 1% faltante", "d:Acuerdo 3"]],
       ["Cerrar con la promesa: eso es lo que te voy a enseñar en la clase.", ["f:Paso 5 · Puente (micro-paso)"]],
-      ["Escribir con la estructura del <b>Funnel 400</b> y testear al menos 5 hooks por tanda.", ["f:Hooks x5"]]
+      ["Escribir con la estructura del <b>Funnel 400</b> y testear al menos 5 hooks por tanda.", ["f:Hooks x5"]],
+      ["<b>Sin promesas de ingresos explícitas</b> en los anuncios: Meta los baja. Los números van en la clase y en los casos.", ["d:Anti-patrón 27"]]
     ],
     f4: [
       "<b>Curiosidad sobre la persona, nunca sobre la clase.</b> Siempre en uno de los 3 ejes: <b>tipo</b> (qué tipo de emprendedor eres), <b>nivel</b> (qué tan estancado estás) o <b>error</b> (qué error repites sin darte cuenta).",
@@ -495,7 +550,8 @@ var F = [
       ["<b>3 pilares de valor</b> (a profundizar).", ["d:Acuerdos 2, 3 y 5"]],
       ["En cada pilar: <b>problemática → solución → prueba social</b> (casos de éxito que ya lo aplicaron, con sus resultados). Sembrar todo el tiempo.", ["d:Acuerdos 6 y 7", "f:Aha con prueba"]],
       ["Hacer <b>participar</b> a la gente y que vaya <b>estando de acuerdo</b> en muchas cosas.", ["d:Escalera de acuerdos", "f:Participar, no mirar"]],
-      ["<b>Espejo:</b> mostrar situaciones que les pasan, para que les duela. <b>La clase tiene que ser dolorosa.</b>", ["f:Paso 2 · Espejo", "d:Motor del miedo", "d:Acuerdo 8"]]
+      ["<b>Espejo:</b> mostrar situaciones que les pasan, para que les duela. <b>La clase tiene que ser dolorosa.</b>", ["f:Paso 2 · Espejo", "d:Motor del miedo", "d:Acuerdo 8"]],
+      ["Sugerido: después de cada clase, pasar la transcripción por el <b>scorecard de Dan Henry</b> (nota de A a F) y anotar qué acuerdo quedó flojo.", ["d:Scorecard"]]
     ],
     f4: [
       "<b>Espejo con escenas:</b> \"abres el banco y ves el mismo número de hace dos años\". Y devolverle una identidad con nombre.",
@@ -554,7 +610,8 @@ var F = [
     acc: [
       ["Medir el % de <b>no calificados</b> sobre las llamadas hechas.", ["f:Mom Test"]],
       ["Medir el % de <b>cierre</b> sobre las calificadas.", ["d:Los 2 miedos"]],
-      ["Comparar el cierre por etapa del quiz y por origen del lead.", ["f:El embudo se retroalimenta"]]
+      ["Comparar el cierre por etapa del quiz y por origen del lead.", ["f:El embudo se retroalimenta"]],
+      ["Medir <b>por separado</b> lo que viene de anuncios (frío) y lo que viene de la comunidad y los seguidores (caliente).", ["d:Solo cuenta convertir en frío"]]
     ],
     f4: [
       "<b>Mom Test en la llamada:</b> preguntar lo que ya hizo, no lo que le gustaría. El pasado no miente; el futuro, siempre.",
