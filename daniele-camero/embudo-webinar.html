@@ -45,6 +45,40 @@ header { display: grid; gap: 16px; }
 .live span { border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: .9rem; color: var(--muted); background: var(--panel); }
 .live b { color: var(--ink); font-weight: 500; }
 
+/* Metodología */
+.mc { display: inline-block; font: 600 .68rem/1.4 var(--sans); letter-spacing: .04em; border-radius: 4px; padding: 1px 7px; white-space: nowrap; }
+.mc.f { color: var(--gold); border: 1px solid rgba(227,181,101,.55); background: rgba(227,181,101,.08); }
+.mc.d { color: var(--ink); border: 1px solid rgba(245,239,228,.35); background: rgba(245,239,228,.05); }
+.meth { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.mcard { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.mcard h3 { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 1rem; }
+.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 8px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 1.8rem 1fr; column-gap: 8px; }
+.steps li::before { content: counter(s); grid-row: span 2; width: 1.6rem; height: 1.6rem; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold); display: grid; place-items: center; font: 500 .85rem var(--display); }
+.steps b { font-weight: 500; } .steps span { color: var(--muted); font-size: .9rem; }
+.dlist { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; font-size: .95rem; }
+.dlist li::marker { color: var(--gold); }
+.dlist b { font-weight: 500; }
+.mnote { font-size: .88rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }
+.flowmap { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 8px 14px; overflow-x: auto; }
+.flowmap table { width: 100%; border-collapse: collapse; font-size: .92rem; min-width: 560px; }
+.flowmap th { text-align: left; font-weight: 500; font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--mute-2); padding: 8px; border-bottom: 1px solid var(--line); }
+.flowmap td { padding: 8px; border-bottom: 1px solid rgba(245,239,228,.06); vertical-align: top; }
+.flowmap tr:last-child td { border-bottom: 0; }
+.flowmap td:first-child { color: var(--gold); font-weight: 500; white-space: nowrap; }
+.belief { border: 1px solid var(--gold); border-radius: 12px; padding: 18px; background: linear-gradient(180deg, var(--gold-soft), transparent 80%), var(--panel); display: grid; gap: 10px; }
+.belief h3 { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.belief ol { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+.belief li::marker { color: var(--gold); font-family: var(--display); }
+.belief b { font-weight: 500; } .belief em { color: var(--muted); }
+.acc li > .mchips { margin-top: 5px; }
+.mchips { display: flex; flex-wrap: wrap; gap: 4px; }
+.concept .ej { font-size: .95rem; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.concept .mt { margin-top: 10px; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; }
+.concept .mt.f { color: var(--gold); } .concept .mt.d { color: var(--ink); }
+.concept ul { margin: 6px 0 0; padding-left: 1.1em; display: grid; gap: 6px; font-size: .94rem; }
+@media (max-width: 720px) { .meth { grid-template-columns: 1fr; } }
+
 /* Fases */
 .phases { display: grid; gap: 8px; }
 .ph { border: 1px solid var(--line); border-radius: 12px; background: var(--panel); overflow: hidden; }
@@ -153,9 +187,66 @@ footer { font-size: .82rem; color: var(--mute-2); border-top: 1px solid var(--li
   </div>
 </header>
 
+<section aria-labelledby="t-metodo">
+  <div class="sec-head">
+    <span class="eyebrow">01 · Metodología</span>
+    <h2 id="t-metodo">Cada acción se apoya en un método</h2>
+    <p>Dos metodologías sostienen el embudo. Funnel 400 ordena cómo piensa el lead en cada pieza. Dan Henry ordena los acuerdos que tiene que dar hasta agendar. En cada fase, cada accionable lleva su etiqueta: <span class="mc f">F400</span> o <span class="mc d">DH</span>.</p>
+  </div>
+
+  <div class="meth">
+    <article class="mcard">
+      <h3><span class="mc f">F400</span> Funnel 400 · cómo piensa el lead</h3>
+      <ol class="steps">
+        <li><b>Vacío de curiosidad</b><span>sobre la persona: tipo, nivel o error</span></li>
+        <li><b>Espejo</b><span>le devuelve una identidad que no sabía</span></li>
+        <li><b>Momento aha</b><span>el 1% faltante, con nombre propio y prueba</span></li>
+        <li><b>Menú de posibilidades</b><span>"ya probaste esto y aquello…"</span></li>
+        <li><b>Puente obvio</b><span>el lead deduce solo el siguiente paso</span></li>
+      </ol>
+      <p class="mnote">Reglas que aplican en todo el embudo: escalones microscópicos · sensación de avance · participar, no mirar · Mom Test (comportamiento pasado, no opinión) · oferta Insomnio.</p>
+    </article>
+    <article class="mcard">
+      <h3><span class="mc d">DH</span> Dan Henry · cómo se llega al sí</h3>
+      <ul class="dlist">
+        <li><b>One belief</b>: una sola creencia en el centro, construida en 5 capas (problema, oportunidad, mecanismo, beneficio, creencia).</li>
+        <li><b>Escalera de 9 acuerdos</b>: el lead dice que sí, peldaño por peldaño, hasta que agendar es la única conclusión lógica.</li>
+        <li><b>7 elementos del cierre</b>: bridge, value stack por resultado, sin precio en high ticket, garantía como acuerdo, los 2 miedos, urgencia real, una sola acción.</li>
+        <li><b>Repetición</b>: la big idea 21 veces, reformulada. <b>Arco biográfico</b>: la historia en etapas con nombre.</li>
+        <li><b>Enseñar qué, por qué y cuándo; nunca el cómo.</b> El cómo es la oferta.</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="flowmap">
+    <table>
+      <thead><tr><th>Tramo del embudo</th><th><span class="mc f">F400</span></th><th><span class="mc d">DH</span></th></tr></thead>
+      <tbody>
+        <tr><td>Anuncio</td><td>Vacío de curiosidad + espejo</td><td>Capa 1 · siembra acuerdos 2 y 3</td></tr>
+        <tr><td>Landing + quiz</td><td>Protocolo completo en scroll · quiz = espejo</td><td>One belief · acuerdos 4, 6 y 7 · show-up</td></tr>
+        <tr><td>WhatsApp + 3 recursos</td><td>Espejo → aha → menú → puente</td><td>Micro-síes · repetición · nunca el cómo</td></tr>
+        <tr><td>La clase</td><td>Espejo con escenas · aha con nombre</td><td>One belief en 5 capas · 9 acuerdos · arco biográfico</td></tr>
+        <tr><td>Pitch → agenda</td><td>Puente obvio · menú de escalones</td><td>7 elementos del cierre</td></tr>
+        <tr><td>Rascada + llamada</td><td>Mom Test · reciprocidad</td><td>Compra diferida · los 2 miedos</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <article class="belief">
+    <h3>One belief de Daniele <span class="tag-opt">borrador a validar</span></h3>
+    <ol>
+      <li><b>Problema:</b> generas, haces todo bien, y llevas meses o años en el mismo número.</li>
+      <li><b>Oportunidad:</b> multiplicar tus resultados sin trabajar más horas, con riqueza real en todas las áreas.</li>
+      <li><b>Mecanismo:</b> el <b>termostato financiero</b>. Tu mente tiene un nivel de ingreso programado y te devuelve a él: eso es el punto ciego. No es otra estrategia; es reprogramar la identidad.</li>
+      <li><b>Beneficio:</b> casos con números (por ejemplo, alumnos que pasaron de 1.000 a 15.000 USD al mes, según las llamadas). <em>Hay que verificarlos y pedir permiso antes de usarlos.</em></li>
+      <li><b>Creencia:</b> "Tus resultados nunca van a superar tu termostato financiero. Si no lo reprogramas, cualquier estrategia nueva te devuelve al mismo número."</li>
+    </ol>
+  </article>
+</section>
+
 <section aria-labelledby="t-fases">
   <div class="sec-head">
-    <span class="eyebrow">01 · Fase por fase</span>
+    <span class="eyebrow">02 · Fase por fase</span>
     <h2 id="t-fases">El embudo</h2>
     <p>Los porcentajes y las cantidades salen de la calculadora. Si cambiás un porcentaje dentro de una fase, se actualiza todo.</p>
   </div>
@@ -164,7 +255,7 @@ footer { font-size: .82rem; color: var(--mute-2); border-top: 1px solid var(--li
 
 <section aria-labelledby="t-calc">
   <div class="sec-head">
-    <span class="eyebrow">02 · Proyección</span>
+    <span class="eyebrow">03 · Proyección</span>
     <h2 id="t-calc">Calculadora</h2>
     <p>Elegí el ROAS que querés y cuánto querés facturar por webinar: la calculadora te dice cuánto invertir y qué porcentaje tenés que lograr en cada fase. O dejala en blanco y cargá tus propios números.</p>
   </div>
@@ -291,109 +382,194 @@ function nivel(k, x) {
 /* ═══ Fases ═══ */
 var F = [
   { n: "01", t: "Anuncios", s: "Hablarle al lead calificado con un vacío de curiosidad", k: "cpl", q: "reg", ql: "registros",
+    ej: "<q>Puedes estar haciendo la mejor estrategia. A otro le funciona exactamente igual, pero a ti no te sirve.</q>",
     acc: [
-      "Hablar a <b>problemas específicos</b>, describiendo <b>situaciones concretas</b> en las que el lead atraviesa ese problema.",
-      "Que el problema sea el de un <b>lead calificado</b>: alguien que ya genera y está estancado, no alguien que arranca de cero.",
-      "Aplicar el <b>vacío de curiosidad</b>: te pasa esto, pero no es por lo que crees. Hay algo interno que te está deteniendo.",
-      "Ángulo: hay <b>algo oculto</b>, el punto ciego (el código oculto, como lo dice Daniele).",
-      "Cerrar con la promesa: eso es lo que te voy a enseñar en la clase.",
-      "Escribir con la estructura del <b>Funnel 400</b>."
+      ["Hablar a <b>problemas específicos</b>, describiendo <b>situaciones concretas</b> en las que el lead atraviesa ese problema.", ["f:Escenas concretas", "f:Research del dolor"]],
+      ["Que el problema sea el de un <b>lead calificado</b>: alguien que ya genera y está estancado, no alguien que arranca de cero.", ["f:Segmentar por nivel", "f:Oferta Insomnio"]],
+      ["Aplicar el <b>vacío de curiosidad</b>: te pasa esto, pero no es por lo que crees. Hay algo interno que te está deteniendo.", ["f:Paso 1 · Vacío de curiosidad", "d:Acuerdo 2"]],
+      ["Ángulo: hay <b>algo oculto</b>, el punto ciego (el código oculto, como lo dice Daniele).", ["f:Paso 3 · El 1% faltante", "d:Acuerdo 3"]],
+      ["Cerrar con la promesa: eso es lo que te voy a enseñar en la clase.", ["f:Paso 5 · Puente (micro-paso)"]],
+      ["Escribir con la estructura del <b>Funnel 400</b> y testear al menos 5 hooks por tanda.", ["f:Hooks x5"]]
     ],
-    con: ["<q>Puedes estar haciendo la mejor estrategia. A otro le funciona exactamente igual, pero a ti no te sirve.</q>",
-      "<b>Funnel 400:</b> vacío de curiosidad → espejo → momento aha → puente a la clase.",
-      "El anuncio ya es un filtro: si describe la situación del calificado, atrae al calificado."] },
+    f4: [
+      "<b>Curiosidad sobre la persona, nunca sobre la clase.</b> Siempre en uno de los 3 ejes: <b>tipo</b> (qué tipo de emprendedor eres), <b>nivel</b> (qué tan estancado estás) o <b>error</b> (qué error repites sin darte cuenta).",
+      "<b>Nunca obvio:</b> si el lead puede adivinar la respuesta, el anuncio está roto.",
+      "<b>Anuncio estático:</b> titular de curiosidad → espejo (te pasa esto, esto y esto) → insinuar el 1% faltante con su nombre → micro-CTA.",
+      "<b>Oferta Insomnio:</b> llevar años generando lo mismo no deja dormir. Eso es lo que se ofrece, no \"crecimiento personal\"."
+    ],
+    dh: [
+      "<b>Capa 1 de la one belief (el problema):</b> que estar estancado se sienta <b>inaceptable</b>, no tolerable.",
+      "El anuncio ya siembra los acuerdos <b>#2</b> (lo que vienes haciendo no funciona) y <b>#3</b> (la razón es algo que no sabías)."
+    ] },
+
   { n: "02", t: "Landing", s: "Interpelar con el dolor, dar autoridad y prueba social", k: "land", q: "vis", ql: "visitas necesarias",
+    ej: "Frases de los que compraron high ticket: <q>estoy estancado</q> · <q>hay un techo invisible</q> · <q>sé que puedo más y algo me frena</q> · <q>no me siento a la altura de lo que gano</q> · <q>tengo la técnica pero no la consistencia</q>.",
     acc: [
-      "<b>Portada:</b> interpelar con un dolor, usando las frases que más repiten los buenos perfiles high ticket en las llamadas.",
-      "Base: la <b>landing de webinars de Nico Fernández Miranda</b>, casi igual, adaptada a Daniele.",
-      "<b>Título de la masterclass</b> (a definir, a partir de los títulos que ya se usaron).",
-      "<b>Autoridad de Daniele</b>, pensando en el tráfico frío que no lo conoce: su historia, a quiénes capacitó, en qué países dio conferencias y capacitaciones.",
-      "<b>Qué vas a aprender / descubrir</b> en la clase, para que siga interpelándose y le vea valor.",
-      "<b>One belief</b> de la clase y qué se lleva el que asiste.",
-      "<b>Casos de éxito:</b> qué lograron los que trabajan con Daniele. Que se vea el <b>crecimiento económico</b>, para que la clase y el mensaje se vuelvan tangibles."
+      ["<b>Portada:</b> interpelar con un dolor, usando las frases que más repiten los buenos perfiles high ticket en las llamadas.", ["f:Paso 1 + 2 · Curiosidad y espejo", "f:Research real"]],
+      ["Base: la <b>landing de webinars de Nico Fernández Miranda</b>, casi igual, adaptada a Daniele.", ["f:Página = protocolo en scroll"]],
+      ["<b>Título de la masterclass</b> (a definir, a partir de los títulos que ya se usaron).", ["d:Show-up = el concepto"]],
+      ["<b>Autoridad de Daniele</b>, pensando en el tráfico frío que no lo conoce: su historia, a quiénes capacitó, en qué países dio conferencias y capacitaciones.", ["d:Acuerdo 4", "d:Arco biográfico"]],
+      ["<b>Qué vas a aprender / descubrir</b> en la clase, para que siga interpelándose y le vea valor.", ["f:Paso 3 · Aha con nombre", "d:Qué, por qué, cuándo; nunca el cómo"]],
+      ["<b>One belief</b> de la clase y qué se lleva el que asiste.", ["d:One belief"]],
+      ["<b>Casos de éxito:</b> qué lograron los que trabajan con Daniele. Que se vea el <b>crecimiento económico</b>, para que la clase y el mensaje se vuelvan tangibles.", ["d:Acuerdos 6 y 7", "d:Capa 4 · Beneficio con números"]]
     ],
-    con: ["Frases de los que compraron high ticket: <q>estoy estancado</q> · <q>hay un techo invisible</q> · <q>sé que puedo más y algo me frena</q> · <q>no me siento a la altura de lo que gano</q> · <q>tengo la técnica pero no la consistencia</q>.",
-      "Orden: dolor → título → qué vas a descubrir → one belief → quién da la clase → prueba social → registro."] },
+    f4: [
+      "<b>La página corre el protocolo completo en scroll:</b> titular = vacío de curiosidad → espejo → momento aha con nombre propio y prueba → menú de posibilidades (\"ya probaste cursos, estrategias, disciplina…\") → puente: el registro.",
+      "<b>Sensación de avance:</b> cada bloque tiene que sentirse como un paso más, sin saltos.",
+      "El 1% faltante necesita <b>nombre propio y una prueba</b>. Daniele ya los tiene: <b>punto ciego</b>, <b>termostato financiero</b>, <b>techo invisible</b>."
+    ],
+    dh: [
+      "<b>Show-up rate:</b> el factor #1 es el concepto de la clase (título, big idea, promesa). La gente va a lo que la entusiasma.",
+      "<b>Arco biográfico:</b> 4 a 6 etapas de la historia de Daniele, cada una con nombre, foto real y una escena. Una tiene que ser el espejo del avatar hoy.",
+      "Los casos con números concretos convierten el mecanismo en promesa (capa 4)."
+    ] },
+
   { n: "03", t: "Registro (quiz)", s: "Filtrar desde el primer clic", k: null, q: "reg", ql: "registros",
+    ej: "Etapas: <b>1.</b> Genero bien pero estoy estancado (techo invisible) · <b>2.</b> Genero pero no lo sostengo · <b>3.</b> Empezando de cero o saliendo de deudas. En las llamadas, la etapa 3 cerró high ticket 1 vez de 11.",
     acc: [
-      "Quiz para registrarse con la <b>pregunta de las 3 etapas</b>, adaptada a la cuenta de Daniele y a la data de las llamadas.",
-      "Pedir nombre, email y WhatsApp, y guardar la etapa en GHL como etiqueta."
+      ["Quiz para registrarse con la <b>pregunta de las 3 etapas</b>, adaptada a la cuenta de Daniele y a la data de las llamadas.", ["f:Quiz = espejo", "f:Mom Test"]],
+      ["Pedir nombre, email y WhatsApp, y guardar la etapa en GHL como etiqueta.", ["f:Escalones microscópicos"]],
+      ["Sugerido: sumar una pregunta abierta de research, por ejemplo \"cuando se trata de tu dinero, ¿cuál es tu dificultad más grande hoy?\". Esas respuestas alimentan anuncios y la clase.", ["f:Quiz = research"]]
     ],
-    con: ["Etapas: <b>1.</b> Genero bien pero estoy estancado (techo invisible) · <b>2.</b> Genero pero no lo sostengo · <b>3.</b> Empezando de cero o saliendo de deudas.",
-      "En las llamadas, la etapa 3 cerró high ticket 1 vez de 11. Medir qué % de registros cae en cada etapa."] },
+    f4: [
+      "<b>Entrada = vacío de curiosidad;</b> preguntas = espejo; resultado = una identidad con nombre.",
+      "<b>Mom Test:</b> preguntar comportamiento pasado, no opinión. \"¿Cuánto vienes generando?\" no miente; \"¿te gustaría crecer?\" sí.",
+      "<b>Escalones microscópicos:</b> pocas preguntas, de un toque. Nada de formularios largos."
+    ],
+    dh: [
+      "La etapa define el camino: high ticket va a <b>aplicación</b> (llamada), sin precio; low ticket ve el precio. Hay que saberlo desde el registro."
+    ] },
+
   { n: "04", t: "Thank you page → grupo de WhatsApp", s: "Que el registro llegue al grupo", k: "grupo", q: "gru", ql: "en el grupo",
     acc: [
-      "<b>Video de gracias</b> de Daniele que invita a entrar al grupo de WhatsApp.",
-      "Botón directo al grupo."
+      ["<b>Video de gracias</b> de Daniele que invita a entrar al grupo de WhatsApp.", ["d:Primer sí: \"voy a ir\"", "f:Sensación de avance"]],
+      ["Botón directo al grupo.", ["f:Un solo paso"]]
     ],
-    con: ["El que no entra al grupo no recibe el link de la clase: esta tasa es el primer filtro de asistencia."] },
+    f4: ["<b>Micro-paso:</b> la thank you dice \"ya estás adentro, falta un paso\". Un solo botón."],
+    dh: ["El video de Daniele vende <b>la clase</b>, no el programa: por qué no se la puede perder. El que no entra al grupo no recibe el link."] },
+
   { n: "05", t: "Mensaje 1 a 1 + comunicación en grupos", s: "FunnelChat, API y 3 recursos", k: null, q: "gru", ql: "personas nutridas",
     acc: [
-      "Contratar <b>FunnelChat</b>: la plataforma para la campaña de grupos y un <b>número API</b> para mandar 1 a 1.",
-      "Conectar <b>GoHighLevel ↔ FunnelChat por webhook</b>: apenas se registra, sale un <b>mensaje API 1 a 1</b>.",
-      "Compartir un <b>recurso de 3 pasos</b>, educativo, que deje con curiosidad:",
-      "<b>Recurso 1 · Errores:</b> que vea los errores que está cometiendo y se identifique, con un <b>quiz personalizado</b>.",
-      "<b>Recurso 2 · Paradigma:</b> cambiarle las creencias.",
-      "<b>Recurso 3 · La clase:</b> por qué es importante, qué se va a llevar, prueba social, qué cambios puede aplicar ya y qué puede escribir ahora para llevar a la clase."
+      ["Contratar <b>FunnelChat</b>: la plataforma para la campaña de grupos y un <b>número API</b> para mandar 1 a 1.", []],
+      ["Conectar <b>GoHighLevel ↔ FunnelChat por webhook</b>: apenas se registra, sale un <b>mensaje API 1 a 1</b>.", ["f:No retrasar la dopamina"]],
+      ["Compartir un <b>recurso de 3 pasos</b>, educativo, que deje con curiosidad:", ["f:Curiosidad progresiva"]],
+      ["<b>Recurso 1 · Errores:</b> que vea los errores que está cometiendo y se identifique, con un <b>quiz personalizado</b>.", ["f:Paso 2 · Espejo (eje error)", "f:Participar, no mirar"]],
+      ["<b>Recurso 2 · Paradigma:</b> cambiarle las creencias.", ["f:Paso 3 · Momento aha", "f:Paso 4 · Menú de posibilidades", "d:Acuerdos 2, 3 y 5"]],
+      ["<b>Recurso 3 · La clase:</b> por qué es importante, qué se va a llevar, prueba social, qué cambios puede aplicar ya y qué puede escribir ahora para llevar a la clase.", ["f:Paso 5 · Puente", "d:Acuerdos 6 y 7", "f:Participar, no mirar"]]
     ],
-    con: ["<b>Funnel 400</b> + <b>Dan Henry</b>: ir construyendo <b>acuerdos</b>. Cada mensaje busca un pequeño \"sí\".",
-      "Los recursos enseñan, pero no resuelven todo: la respuesta completa está en la clase."] },
+    f4: [
+      "Los 3 recursos son el protocolo repartido en mensajes: <b>espejo → aha → puente</b>. Cada uno abre la curiosidad del siguiente.",
+      "<b>Participar crea posesión:</b> el quiz del recurso 1 y lo que escribe para llevar hacen que la clase ya sea \"suya\".",
+      "Enseñan, pero no resuelven todo: la respuesta completa está en la clase."
+    ],
+    dh: [
+      "<b>Construir acuerdos:</b> cada mensaje busca un pequeño sí, casi siempre con algo con lo que el lead ya está de acuerdo.",
+      "<b>Repetición:</b> la big idea empieza a repetirse acá. Un cartel que ves todos los días se vuelve creencia.",
+      "<b>Enseñar QUÉ, POR QUÉ y CUÁNDO, nunca el CÓMO:</b> el cómo es la oferta."
+    ] },
+
   { n: "06", t: "Recurso único → agenda antes de la clase", s: "Calendario + setter 1 a 1", k: "pre", q: "agPre", ql: "agendas antes de la clase", opt: true,
     acc: [
-      "Desde el recurso, invitar a <b>agendar en el calendario</b>.",
-      "<b>Contacto 1 a 1 por setter</b> a los registros calificados."
+      ["Desde el recurso, invitar a <b>agendar en el calendario</b>.", ["f:Puente = micro-paso", "d:Aplicación (high ticket)"]],
+      ["<b>Contacto 1 a 1 por setter</b> a los registros calificados.", ["f:Mom Test"]]
     ],
-    con: ["Opcional. Sirve para captar al que ya está listo y no quiere esperar a la clase."] },
+    f4: ["La setter califica con <b>comportamiento pasado</b>: cómo viene manejando el problema, qué ya probó, hace cuánto lo quiere resolver. Si no tiene sistema, no probó nada y no le quita el sueño, no va a comprar."],
+    dh: ["High ticket siempre por aplicación: la llamada resuelve también el miedo del lead <b>a sí mismo</b> (\"¿y si yo no puedo?\")."] },
+
   { n: "07", t: "Asistencia a la clase (Zoom)", s: "Llegar al Zoom y medir quién entró", k: "asist", q: "asi", ql: "asistentes",
     acc: [
-      "La clase es por <b>Zoom</b>. El link se manda por los grupos de WhatsApp.",
-      "Antes del Zoom, un <b>link que pide nombre, email y número</b>: así sabemos qué personas entraron a la clase.",
-      "Medirlo todo: que no se escape el trackeo."
+      ["La clase es por <b>Zoom</b>. El link se manda por los grupos de WhatsApp.", ["d:Show-up: recordatorios"]],
+      ["Antes del Zoom, un <b>link que pide nombre, email y número</b>: así sabemos qué personas entraron a la clase.", ["f:Escalón microscópico (3 datos)"]],
+      ["Medirlo todo: que no se escape el trackeo.", []]
     ],
-    con: ["Sin ese paso previo no se puede cruzar asistencia con agendas ni con ventas."] },
-  { n: "08", t: "La clase", s: "Estructura Dan Henry: one belief, acuerdos, espejo", k: null, q: "asi", ql: "en la clase",
+    f4: ["El formulario previo es de 3 datos y un toque: si pide más, se pierde gente en la puerta."],
+    dh: ["<b>Show-up:</b> los recordatorios y la autoridad en la previa ayudan, pero el factor #1 es lo que entusiasma el concepto. Si la asistencia es baja, revisar primero el título y la promesa."] },
+
+  { n: "08", t: "La clase", s: "One belief, escalera de acuerdos y espejo", k: null, q: "asi", ql: "en la clase",
     acc: [
-      "<b>Presentarse.</b>",
-      "<b>Marcar el marco:</b> que la clase tiene valor y que al final habrá <b>una oportunidad solo para 20 personas</b> para trabajar de la mano con Daniele. \"Pero en esta clase tengo algo muy potente para compartirles.\"",
-      "<b>Explicar la estructura</b> de la clase.",
-      "<b>La historia</b>, para los que no lo conocen: su <b>punto A y punto B</b>, y qué cambió cuando aplicó el one belief.",
-      "Durante toda la clase, <b>mencionar o dibujar el punto A y el punto B</b>.",
-      "<b>3 pilares de valor</b> (a profundizar).",
-      "En cada pilar: <b>problemática → solución → prueba social</b> (casos de éxito que ya lo aplicaron, con sus resultados). Sembrar todo el tiempo.",
-      "Hacer <b>participar</b> a la gente y que vaya <b>estando de acuerdo</b> en muchas cosas.",
-      "<b>Espejo:</b> mostrar situaciones que les pasan, para que les duela. <b>La clase tiene que ser dolorosa.</b>"
+      ["<b>Presentarse.</b>", ["d:Acuerdo 4"]],
+      ["<b>Marcar el marco:</b> que la clase tiene valor y que al final habrá <b>una oportunidad solo para 20 personas</b> para trabajar de la mano con Daniele. \"Pero en esta clase tengo algo muy potente para compartirles.\"", ["d:Urgencia real", "d:Acuerdo 1"]],
+      ["<b>Explicar la estructura</b> de la clase.", []],
+      ["<b>La historia</b>, para los que no lo conocen: su <b>punto A y punto B</b>, y qué cambió cuando aplicó el one belief.", ["d:Arco biográfico", "d:Acuerdo 4"]],
+      ["Durante toda la clase, <b>mencionar o dibujar el punto A y el punto B</b>.", ["d:Repetición x21", "d:Capas 1 y 2"]],
+      ["<b>3 pilares de valor</b> (a profundizar).", ["d:Acuerdos 2, 3 y 5"]],
+      ["En cada pilar: <b>problemática → solución → prueba social</b> (casos de éxito que ya lo aplicaron, con sus resultados). Sembrar todo el tiempo.", ["d:Acuerdos 6 y 7", "f:Aha con prueba"]],
+      ["Hacer <b>participar</b> a la gente y que vaya <b>estando de acuerdo</b> en muchas cosas.", ["d:Escalera de acuerdos", "f:Participar, no mirar"]],
+      ["<b>Espejo:</b> mostrar situaciones que les pasan, para que les duela. <b>La clase tiene que ser dolorosa.</b>", ["f:Paso 2 · Espejo", "d:Motor del miedo", "d:Acuerdo 8"]]
     ],
-    con: ["<b>Dan Henry:</b> siempre establecer un <b>one belief</b>. Los acuerdos durante la clase preparan el sí del final.",
-      "Cuanto más le mueve la fibra a la gente, más alto es el % de agendamiento."] },
+    f4: [
+      "<b>Espejo con escenas:</b> \"abres el banco y ves el mismo número de hace dos años\". Y devolverle una identidad con nombre.",
+      "<b>Momento aha con nombre propio:</b> el 1% faltante (punto ciego / termostato financiero) explicado con su mecanismo, para que no suene inventado."
+    ],
+    dh: [
+      "<b>One belief en 5 capas:</b> problema (inaceptable) → oportunidad (qué se vuelve posible) → mecanismo (una categoría distinta) → beneficio (con números) → creencia (una ley del mundo, sin nombrar el producto).",
+      "<b>Los 9 acuerdos en orden:</b> 1 es serio y es ahora · 2 lo que hago no funciona · 3 la razón es algo que no sabía · 4 me entiende · 5 hay una solución distinta · 6 está probada · 7 me veo a mí · 8 no hacerlo cuesta más · 9 tengo que actuar ahora.",
+      "<b>Motor emocional:</b> el miedo empuja, el deseo tira, la confianza cierra.",
+      "<b>La big idea 21 veces</b>, reformulada, nunca palabra por palabra.",
+      "<b>Enseñar QUÉ, POR QUÉ y CUÁNDO, nunca el CÓMO.</b>",
+      "<b>Una analogía por acuerdo.</b> Daniele ya usa la del termostato de la casa."
+    ] },
+
   { n: "09", t: "Pitch → agenda", s: "Transparente, sin apuro, con los escalones", k: "agc", q: "agCla", ql: "agendas en la clase",
     acc: [
-      "Antes del pitch, preguntar si quieren conocer <b>todos los fundamentos y el paso a paso</b> al que pueden acceder (todos dicen que sí).",
-      "<b>Ser transparentes</b> con el proceso y <b>dejar respirar</b>: que cada uno se tome su tiempo para agendar.",
-      "Explicar <b>visualmente</b> el proceso: agendan, responden un par de preguntas, los contacta el equipo y ven en qué escalón pueden ubicarse.",
-      "Mostrar los <b>3 programas</b> según el momento de vida: el primer escalón es la comunidad (Sociedad Élite). Para quien está creciendo pero estancado, con un techo invisible que no logra romper, están las <b>mentorías avanzadas</b>.",
-      "Que puedan aplicar todos."
+      ["Antes del pitch, preguntar si quieren conocer <b>todos los fundamentos y el paso a paso</b> al que pueden acceder (todos dicen que sí).", ["d:Bridge sin cambio de marcha"]],
+      ["<b>Ser transparentes</b> con el proceso y <b>dejar respirar</b>: que cada uno se tome su tiempo para agendar.", ["f:Puente obvio: decide el lead"]],
+      ["Explicar <b>visualmente</b> el proceso: agendan, responden un par de preguntas, los contacta el equipo y ven en qué escalón pueden ubicarse.", ["d:Acción decisiva: un solo paso"]],
+      ["Mostrar los <b>3 programas</b> según el momento de vida: el primer escalón es la comunidad (Sociedad Élite). Para quien está creciendo pero estancado, con un techo invisible que no logra romper, están las <b>mentorías avanzadas</b>.", ["d:Value stack por resultado", "f:Menú de posibilidades"]],
+      ["Que puedan aplicar todos.", ["d:Una sola aplicación para todos"]],
+      ["Falta definir: la <b>garantía</b> (como acuerdo, no como reembolso), la respuesta a los <b>dos miedos</b> y la <b>urgencia real</b> (por qué solo 20).", ["d:7 elementos del cierre"]]
     ],
-    con: ["Lo normal es <b>10%</b> de los asistentes. Si la clase es dolorosa, sube."] },
+    f4: [
+      "<b>Puente obvio:</b> si la clase hizo su trabajo, el lead ya dedujo que necesita ayuda. El pitch solo le muestra el paso.",
+      "Si no agenda hoy y se respetó su tiempo, después compra más fácil (reciprocidad)."
+    ],
+    dh: [
+      "<b>Los 7 elementos del cierre:</b> 1 bridge · 2 value stack por resultado (\"para que puedas…\") · 3 high ticket: no se dice el precio, se va a aplicación · 4 garantía como acuerdo · 5 los dos miedos: al programa y a sí mismo · 6 urgencia real, con cupos que existen · 7 una sola acción: agendar.",
+      "<b>\"Déjame pensarlo\"</b> no es una objeción: es un acuerdo que se salteó en la clase.",
+      "Lo normal es <b>10%</b> de los asistentes. Si la clase es dolorosa, sube."
+    ] },
+
   { n: "10", t: "Rascada post-clase", s: "Setting con resumen + clase extra", k: "rasc", q: "agRas", ql: "agendas extra", opt: true,
     acc: [
-      "<b>Setting</b> a los que no agendaron, compartiendo el <b>resumen de la clase</b>.",
-      "<b>Clase extra</b> (opcional) para reforzar con los que ya se captaron: más relajada y descontracturada, con espacio para preguntas."
+      ["<b>Setting</b> a los que no agendaron, compartiendo el <b>resumen de la clase</b>.", ["d:Compra diferida", "d:Repetición"]],
+      ["<b>Clase extra</b> (opcional) para reforzar con los que ya se captaron: más relajada y descontracturada, con espacio para preguntas.", ["d:Q&A = manejo de objeciones"]]
     ],
-    con: ["Las agendas de la rascada se calculan como % extra sobre las agendas de la clase."] },
+    f4: ["El resumen vuelve a abrir el loop: recuerda el espejo y el aha de la clase y vuelve a tender el puente."],
+    dh: [
+      "<b>Compra diferida:</b> mucha gente compra semanas después. La repetición de la big idea es lo que la trae de vuelta.",
+      "La clase extra funciona como un <b>Q&A estructurado</b>: cada pregunta respondida es una objeción menos.",
+      "Las agendas de la rascada se calculan como % extra sobre las agendas de la clase."
+    ] },
+
   { n: "11", t: "Asistencia a la llamada", s: "Que la agenda se presente", k: "show", q: "lla", ql: "llamadas hechas",
     acc: [
-      "Medir el % de agendas que se presentan.",
-      "Sugerido: la setter confirma la llamada y manda recordatorio el día antes y una hora antes."
+      ["Medir el % de agendas que se presentan.", []],
+      ["Sugerido: la setter confirma la llamada y manda recordatorio el día antes y una hora antes.", ["f:Confirmar con un sí de un toque"]],
+      ["Sugerido: en la confirmación, recordarle su punto A y su punto B (lo que dijo en el quiz y en la clase).", ["f:Espejo"]]
     ],
-    con: ["Una agenda que no se presenta cuesta lo mismo que una que sí: esta tasa pega directo en el costo por cierre."] },
+    f4: ["Escalones microscópicos: confirmar con un sí de un toque, no con un formulario."],
+    dh: ["Si muchos no se presentan, revisar el pitch: una agenda sin acuerdos firmes es un \"déjame pensarlo\" con fecha."] },
+
   { n: "12", t: "Llamada → cierre", s: "No calificados y cierres", k: "calif", k2: "cierre", q: "cie", ql: "cierres",
     acc: [
-      "Medir el % de <b>no calificados</b> sobre las llamadas hechas.",
-      "Medir el % de <b>cierre</b> sobre las calificadas.",
-      "Comparar el cierre por etapa del quiz y por origen del lead."
+      ["Medir el % de <b>no calificados</b> sobre las llamadas hechas.", ["f:Mom Test"]],
+      ["Medir el % de <b>cierre</b> sobre las calificadas.", ["d:Los 2 miedos"]],
+      ["Comparar el cierre por etapa del quiz y por origen del lead.", ["f:El embudo se retroalimenta"]]
     ],
-    con: ["En las llamadas analizadas cierra más el que tiene plata disponible hoy, un proyecto propio en paralelo y consume a Daniele hace tiempo."] }
+    f4: [
+      "<b>Mom Test en la llamada:</b> preguntar lo que ya hizo, no lo que le gustaría. El pasado no miente; el futuro, siempre.",
+      "Cada llamada es research: las frases de los que compran vuelven a los anuncios y a la landing."
+    ],
+    dh: [
+      "La llamada termina de resolver el <b>miedo a sí mismo</b>, que el webinar solo no puede resolver.",
+      "Cuando no cierra por \"lo pienso\", anotar qué acuerdo faltó y llevarlo a la próxima clase.",
+      "En las llamadas analizadas cierra más el que tiene plata disponible hoy, un proyecto propio en paralelo y consume a Daniele hace tiempo."
+    ] }
 ];
+
+function chips(m) {
+  return m.length ? '<span class="mchips">' + m.map(function (x) { var t = x.slice(0, 2) === "f:" ? "f" : "d"; return '<span class="mc ' + t + '">' + (t === "f" ? "F400 · " : "DH · ") + x.slice(2) + '</span>'; }).join("") + '</span>' : "";
+}
 
 var phEl = document.getElementById("phases");
 phEl.innerHTML = F.map(function (f, i) {
@@ -410,8 +586,12 @@ phEl.innerHTML = F.map(function (f, i) {
       '<span class="chev" aria-hidden="true">›</span>' +
     '</button>' +
     '<div class="ph-b" id="phc-' + i + '" hidden>' +
-      '<div class="cols"><div><h4>Qué hacemos</h4><ul>' + f.acc.map(function (a) { return "<li>" + a + "</li>"; }).join("") + '</ul></div>' +
-      '<div><h4>Conceptos y estructura</h4><div class="concept">' + f.con.map(function (c) { return "<p>" + c + "</p>"; }).join("") + '</div></div></div>' +
+      '<div class="cols"><div><h4>Qué hacemos y en qué se apoya</h4><ul class="acc">' + f.acc.map(function (a) { return "<li><span>" + a[0] + "</span>" + chips(a[1]) + "</li>"; }).join("") + '</ul></div>' +
+      '<div><h4>Metodología de la fase</h4><div class="concept">' +
+        (f.ej ? '<p class="ej">' + f.ej + '</p>' : '') +
+        '<p class="mt f">Funnel 400</p><ul>' + f.f4.map(function (c) { return "<li>" + c + "</li>"; }).join("") + '</ul>' +
+        '<p class="mt d">Dan Henry</p><ul>' + f.dh.map(function (c) { return "<li>" + c + "</li>"; }).join("") + '</ul>' +
+      '</div></div></div>' +
       (inputs ? '<div class="metric">' + inputs + '</div>' : '') +
     '</div></div>';
 }).join("");
