@@ -107,6 +107,22 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-video--vturb{ aspect-ratio:auto; background:#000; }
 .nfm-video--vturb vturb-smartplayer{ display:block; width:100%; }
 
+/* ═══ SU TRABAJO FUE DESTACADO EN · cinta de logos a color ═══ */
+.nfm-proof{ background:#fff; padding:30px 0 28px; border-bottom:1px solid var(--nfm-gray-200); }
+.nfm-proof__label{ display:block; text-align:center !important; font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-ink-mute); margin:0 !important; padding:0 24px 22px; line-height:1.4; }
+.nfm-marquee{ padding:6px 0; overflow:hidden; -webkit-mask-image:linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image:linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.nfm-marquee__track{ display:flex; width:max-content; animation:nfm-marquee 32s linear infinite; }
+.nfm-marquee:hover .nfm-marquee__track{ animation-play-state:paused; }
+.nfm-marquee__set{ display:flex; align-items:center; gap:64px; padding-right:64px; flex:none; min-height:34px; }
+.nfm-proof__logo{ height:auto !important; max-height:34px !important; width:auto !important; max-width:170px !important; flex:none; display:block; object-fit:contain; }
+@keyframes nfm-marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+@media (prefers-reduced-motion:reduce){
+  .nfm-marquee{ -webkit-mask-image:none; mask-image:none; }
+  .nfm-marquee__track{ animation:none; width:auto; justify-content:center; }
+  .nfm-marquee__set{ flex-wrap:wrap; justify-content:center; padding-right:0; gap:26px 44px; }
+  .nfm-marquee__set[aria-hidden="true"]{ display:none; }
+}
+
 /* ═══ REGISTRO · el form a la vista, sin popup ═══ */
 .nfm-reg{ background:var(--nfm-gray-50); padding:64px 0 76px; color:var(--nfm-ink); scroll-margin-top:12px; }
 .nfm-reg__inner{ max-width:680px; margin:0 auto; text-align:center; }
@@ -133,6 +149,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-learn__list{ list-style:none; max-width:640px; margin:0 auto !important; padding:0 !important; display:grid; gap:12px; }
 .nfm-dolor{ background:var(--nfm-gray-50); border:1px solid var(--nfm-gray-200); border-left:4px solid var(--nfm-orange); border-radius:14px; padding:14px 18px; text-align:left; }
 .nfm-dolor__espejo{ font-family:var(--nfm-font-h); font-size:1.02rem; font-weight:700; color:var(--nfm-ink); line-height:1.35; margin:0 0 3px !important; text-align:left !important; }
+.nfm-dolor__tag{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.64rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-orange-deep); margin:0 0 4px; }
 .nfm-dolor__txt{ font-size:0.98rem; line-height:1.55; color:#2a3f54; margin:0 !important; text-align:left !important; }
 .nfm-dolor__txt b{ color:var(--nfm-ink); font-weight:700; }
 
@@ -173,13 +190,25 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-final .nfm-cd__t{ justify-content:center; }
 .nfm-final .nfm-hero__micro, .nfm-final .nfm-hero__local{ text-align:center !important; }
 
-/* ═══ BARRA FIJA EN CELULAR · aparece al pasar el primer bloque, se esconde en el form y en el cierre ═══ */
-.nfm-sticky{ display:none; }
-@media (max-width:768px){
-  .nfm-sticky{ display:block; position:fixed; left:0; right:0; bottom:0; z-index:9998; padding:10px 16px calc(10px + env(safe-area-inset-bottom)); background:rgba(8,31,51,0.95); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-top:1px solid var(--nfm-hair); transform:translateY(120%); transition:transform .3s var(--nfm-ease); }
-  .nfm-sticky.nfm-sticky--on{ transform:none; }
-  .nfm-sticky .nfm-btn{ display:flex; width:100%; max-width:440px; margin:0 auto; padding:14px 20px; font-size:1rem; box-shadow:none; }
-  .nfm-footer{ padding-bottom:calc(28px + 76px + env(safe-area-inset-bottom)); }
+/* ═══ BARRA FIJA ABAJO · el contador navega con vos; el botón aparece cuando el del primer bloque sale de la
+   pantalla. Se esconde sobre el form (para no tapar su botón) y en el cierre (que tiene su propio contador). ═══ */
+.nfm-sticky{ position:fixed; left:0; right:0; bottom:0; z-index:9998; padding:8px 16px calc(8px + env(safe-area-inset-bottom)); background:rgba(8,31,51,0.96); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-top:1px solid var(--nfm-hair); transform:translateY(120%); transition:transform .3s var(--nfm-ease); }
+.nfm-sticky.nfm-sticky--on{ transform:none; }
+.nfm-sticky__in{ max-width:760px; margin:0 auto; display:flex; align-items:center; justify-content:center; gap:14px; }
+.nfm-sticky__cd{ display:flex; align-items:center; gap:10px; font-family:var(--nfm-font-h); color:#fff; }
+.nfm-sticky__lbl{ font-size:0.68rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.75); white-space:nowrap; }
+.nfm-sticky__t{ display:flex; gap:5px; }
+.nfm-sticky__t span{ display:flex; flex-direction:column; align-items:center; min-width:40px; padding:4px 4px 3px; border-radius:8px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); }
+.nfm-sticky__t b{ font-size:1.05rem; font-weight:700; color:var(--nfm-orange); line-height:1; font-variant-numeric:tabular-nums; }
+.nfm-sticky__t i{ font-style:normal; font-size:0.5rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.62); margin-top:2px; }
+.nfm-sticky__btn{ display:none !important; padding:12px 22px; font-size:0.92rem; box-shadow:none; white-space:nowrap; }
+.nfm-sticky--btn .nfm-sticky__btn{ display:inline-flex !important; }
+.nfm-footer{ padding-bottom:calc(28px + 64px + env(safe-area-inset-bottom)) !important; }
+@media (max-width:480px){
+  .nfm-sticky{ padding:7px 12px calc(7px + env(safe-area-inset-bottom)); }
+  .nfm-sticky__in{ gap:10px; }
+  .nfm-sticky--btn .nfm-sticky__lbl, .nfm-sticky__btn .nfm-largo{ display:none; }
+  .nfm-sticky__btn{ padding:11px 18px; font-size:0.88rem; }
 }
 @media (prefers-reduced-motion:reduce){ .nfm-sticky{ transition:none; } }
 
@@ -189,13 +218,14 @@ html, body{ margin:0; padding:0; background:#081F33; }
 /* ═══ RESPONSIVE ═══ */
 @media (min-width:769px){
   .nfm-hero__logo img{ height:52px !important; max-height:52px !important; margin-bottom:16px; }
-  .nfm-video{ max-width:max(520px, min(760px, calc((100vh - 510px) * 1.7778))); }
+  .nfm-video{ max-width:max(520px, min(760px, calc((100vh - 600px) * 1.7778))); }
 }
 @media (max-width:768px){
   .nfm-hero{ padding:18px 0 48px; }
   .nfm-hero__logo img{ height:46px !important; max-height:46px !important; margin-bottom:12px; }
   .nfm-video{ border-radius:14px; margin-bottom:20px; }
   .nfm-reg{ padding:48px 0 60px; }
+  .nfm-proof{ padding:24px 0 22px; } .nfm-proof__label{ padding-bottom:18px; } .nfm-proof__logo{ max-height:26px !important; max-width:130px !important; } .nfm-marquee__set{ gap:40px; padding-right:40px; min-height:26px; }
   .nfm-learn, .nfm-nico{ padding:56px 0; } .nfm-final{ padding:56px 0 60px; }
   /* carrusel en tablet y celular: llega hasta el borde de la pantalla y deja ver un pedazo de la escena siguiente */
   .nfm-car__track{ margin:0 -24px; padding:4px 24px 10px; scroll-padding:0 24px; }
@@ -209,6 +239,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
   .nfm-car__track{ margin:0 -16px; padding:4px 16px 10px; scroll-padding:0 16px; }
   .nfm-dolor{ padding:12px 14px; } .nfm-dolor__espejo{ font-size:0.97rem; } .nfm-dolor__txt{ font-size:0.93rem; }
   .nfm-btn--xl{ font-size:1.08rem; padding:19px 20px; }
+  .nfm-cd__t span{ padding:7px 4px 6px; } .nfm-cd__t b{ font-size:1.4rem; }
 }
 </style>
 
@@ -234,6 +265,34 @@ html, body{ margin:0; padding:0; background:#081F33; }
     <p class="nfm-hero__micro">Con Nico Fernández Miranda · en vivo por Zoom</p>
     <p class="nfm-hero__local" data-nfm-local hidden></p>
   </div>
+</section>
+
+<!-- ═══ SU TRABAJO FUE DESTACADO EN · cinta de logos (los mismos de la landing original) ═══ -->
+<section class="nfm-proof" aria-label="Su trabajo fue destacado en">
+  <div class="nfm-proof__label">Su trabajo fue destacado en</div>
+  <div class="nfm-marquee">
+    <div class="nfm-marquee__track">
+      <div class="nfm-marquee__set">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/CNN.png" alt="CNN" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-110.svg" alt="Infobae" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-104.svg" alt="Endeavor" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-105.svg" alt="TEDx" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/Yale-Bulldogs-logo.png" alt="Yale" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/5-1.png" alt="YPF" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/6-1.png" alt="Samsung" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/accountlogo.jpg" alt="Ternium" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+      </div>
+      <div class="nfm-marquee__set" aria-hidden="true">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/CNN.png" alt="CNN" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-110.svg" alt="Infobae" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-104.svg" alt="Endeavor" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-105.svg" alt="TEDx" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/Yale-Bulldogs-logo.png" alt="Yale" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/5-1.png" alt="YPF" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/6-1.png" alt="Samsung" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/accountlogo.jpg" alt="Ternium" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+      </div>
+    </div>
 </section>
 
 <!-- ═══ REGISTRO ═══ -->
@@ -262,20 +321,23 @@ html, body{ margin:0; padding:0; background:#081F33; }
 </section>
 
 <!-- ═══ QUÉ VAS A APRENDER ·
-     Cada tarjeta: el dolor en una línea (como lo dicen en las llamadas de cierre) y lo que aprendés en otra.
-     Los cinco puntos son las promesas de los anuncios C1 a C7. Corto a propósito: no sumar texto. ═══ -->
+     Cada tarjeta: el concepto (etiqueta) + el dolor + qué pasa en el cerebro y qué lo cambia, en una línea.
+     Sale de lo que Nico enseña en la clase del 7/10 y de los anuncios C1 a C7:
+     47 segundos y foco profundo (Gloria Mark, Sophie Leroy), bloques de 60 a 90 min (ritmo ultradiano),
+     efecto Zeigarnik y descarga cognitiva (escritura con propósito), 23 minutos (C1), memoria de trabajo (C4),
+     facilitación social (C3). Corto a propósito: no sumar texto. ═══ -->
 <section class="nfm-learn" id="nfm-aprender">
   <div class="nfm-container">
     <div class="nfm-sec__head">
-      <span class="nfm-eyebrow">Para aplicar esa misma semana</span>
+      <span class="nfm-eyebrow">Lo que pasa en tu cerebro</span>
       <h2>Qué vas a aprender <span class="nfm-accent">en esta clase</span></h2>
     </div>
     <ul class="nfm-learn__list">
-      <li class="nfm-dolor"><p class="nfm-dolor__espejo">Cumplís con todos menos con vos.</p><p class="nfm-dolor__txt">Por qué tu cerebro elige lo urgente de los demás.</p></li>
-      <li class="nfm-dolor"><p class="nfm-dolor__espejo">Trabajás un montón y avanzás poco.</p><p class="nfm-dolor__txt">Cuánto te cuestan las interrupciones: unos 23 minutos cada una.</p></li>
-      <li class="nfm-dolor"><p class="nfm-dolor__espejo">Te sentás a trabajar y no sabés por dónde arrancar.</p><p class="nfm-dolor__txt">Por qué sin un plan escrito tu cerebro evita arrancar.</p></li>
-      <li class="nfm-dolor"><p class="nfm-dolor__espejo">Armás un sistema el domingo y el miércoles ya lo dejaste.</p><p class="nfm-dolor__txt">Qué hacer cuando la semana se desarma.</p></li>
-      <li class="nfm-dolor"><p class="nfm-dolor__espejo">Arrancás con todo y a las dos semanas se apaga.</p><p class="nfm-dolor__txt">Por qué tu cerebro rinde distinto acompañado.</p></li>
+      <li class="nfm-dolor"><span class="nfm-dolor__tag">Control inhibitorio</span><p class="nfm-dolor__espejo">Cumplís con todos menos con vos.</p><p class="nfm-dolor__txt">Cada mensaje que respondés al toque es una microdecisión que pierde tu control inhibitorio. Avisar tus bloques le saca esa pelea.</p></li>
+      <li class="nfm-dolor"><span class="nfm-dolor__tag">Atención</span><p class="nfm-dolor__espejo">Trabajás un montón y avanzás poco.</p><p class="nfm-dolor__txt">Tu atención salta cada 47 segundos y volver al foco profundo lleva unos 23 minutos. Bloques de 60 a 90 respetan tu ritmo ultradiano.</p></li>
+      <li class="nfm-dolor"><span class="nfm-dolor__tag">Memoria de trabajo</span><p class="nfm-dolor__espejo">Te sentás a trabajar y no sabés por dónde arrancar.</p><p class="nfm-dolor__txt">Sin un plan escrito, tu memoria de trabajo arranca de cero cada vez y tu cerebro aprende a evitar empezar. Escribirlo es descarga cognitiva.</p></li>
+      <li class="nfm-dolor"><span class="nfm-dolor__tag">Efecto Zeigarnik</span><p class="nfm-dolor__espejo">Armás un sistema el domingo y el miércoles ya lo dejaste.</p><p class="nfm-dolor__txt">Tu cerebro retiene lo que no hiciste y borra lo que sí, y concluís “soy procrastinador”. Registrar lo que avanzaste corta ese loop.</p></li>
+      <li class="nfm-dolor"><span class="nfm-dolor__tag">Facilitación social</span><p class="nfm-dolor__espejo">Arrancás con todo y a las dos semanas se apaga.</p><p class="nfm-dolor__txt">Tu cerebro rinde distinto cuando hay alguien del otro lado haciendo lo mismo. Por eso acompañado sostenés lo que solo se apaga.</p></li>
     </ul>
   </div>
 </section>
@@ -344,7 +406,16 @@ html, body{ margin:0; padding:0; background:#081F33; }
 
 <footer class="nfm-footer"><div class="nfm-container"><p>© Nicolás Fernández Miranda · Instituto de Productividad · Todos los derechos reservados.</p></div></footer>
 
-<div class="nfm-sticky" id="nfm-sticky" aria-hidden="true"><a href="#nfm-registro" class="nfm-btn" data-cta="barra" tabindex="-1">UNIRME A LA CLASE</a></div>
+<!-- ═══ BARRA FIJA ABAJO · contador + botón ═══ -->
+<div class="nfm-sticky" id="nfm-sticky">
+  <div class="nfm-sticky__in">
+    <div class="nfm-sticky__cd" data-cd role="timer" aria-label="Cuenta regresiva para la clase">
+      <span class="nfm-sticky__lbl">La clase empieza en</span>
+      <span class="nfm-sticky__t"><span><b data-cd-d>00</b><i>días</i></span><span><b data-cd-h>00</b><i>hs</i></span><span><b data-cd-m>00</b><i>min</i></span><span><b data-cd-s>00</b><i>seg</i></span></span>
+    </div>
+    <a href="#nfm-registro" class="nfm-btn nfm-sticky__btn" data-cta="barra" tabindex="-1">UNIRME<span class="nfm-largo">&nbsp;A LA CLASE</span></a>
+  </div>
+</div>
 
 </div><!-- /.nfm-page -->
 
@@ -445,15 +516,28 @@ despuesDeCargar(cargarForm, 900);
   document.addEventListener('visibilitychange', function(){ if(!document.hidden) tick(); });
 })();
 
-/* ─── BARRA FIJA EN CELULAR ───
-   Aparece cuando el primer bloque sale de la pantalla y se esconde mientras se ve el form o el cierre. */
+/* ─── BARRA FIJA ABAJO ───
+   El contador se ve desde que entrás. El botón aparece cuando el del primer bloque ya no está en pantalla.
+   Toda la barra se esconde mientras se ve el form o el cierre. */
 (function(){
-  var bar=document.getElementById('nfm-sticky'); if(!bar || !('IntersectionObserver' in window)) return;
-  var btn=bar.querySelector('a'), vis={}, ids=['nfm-hero','nfm-registro','nfm-cierre'];
-  function pintar(){ var on=!vis['nfm-hero'] && !vis['nfm-registro'] && !vis['nfm-cierre'];
-    bar.classList.toggle('nfm-sticky--on', on); bar.setAttribute('aria-hidden', on?'false':'true'); if(btn) btn.tabIndex=on?0:-1; }
-  var io=new IntersectionObserver(function(en){ for(var i=0;i<en.length;i++) vis[en[i].target.id]=en[i].isIntersecting; pintar(); }, { threshold:0 });
-  for(var k=0;k<ids.length;k++){ var el=document.getElementById(ids[k]); if(el){ vis[ids[k]]=true; io.observe(el); } }
+  var bar=document.getElementById('nfm-sticky'); if(!bar) return;
+  var btn=bar.querySelector('.nfm-sticky__btn');
+  if(!('IntersectionObserver' in window)){ bar.classList.add('nfm-sticky--on','nfm-sticky--btn'); if(btn) btn.tabIndex=0; return; }
+  var mirar=[['boton',document.querySelector('.nfm-hero [data-cta="hero"]')],['registro',document.getElementById('nfm-registro')],['cierre',document.getElementById('nfm-cierre')]], vis={ boton:true, registro:false, cierre:false };
+  function pintar(){
+    var on=!vis.registro && !vis.cierre, conBoton=on && !vis.boton;
+    bar.classList.toggle('nfm-sticky--on', on); bar.classList.toggle('nfm-sticky--btn', conBoton);
+    if(btn) btn.tabIndex=conBoton?0:-1;
+  }
+  function anotar(en){ for(var i=0;i<en.length;i++) for(var k=0;k<mirar.length;k++) if(mirar[k][1]===en[i].target) vis[mirar[k][0]]=en[i].isIntersecting; pintar(); }
+  /* el botón del primer bloque cuenta como "a la vista" mientras no quede debajo de la barra */
+  var ioBoton=new IntersectionObserver(anotar, { rootMargin:'0px 0px -72px 0px' });
+  /* el form y el cierre esconden la barra recién cuando llegan a la mitad de arriba de la pantalla
+     (si sólo asoman abajo, la barra con el contador sigue) */
+  var ioZonas=new IntersectionObserver(anotar, { rootMargin:'0px 0px -50% 0px' });
+  if(mirar[0][1]) ioBoton.observe(mirar[0][1]);
+  for(var k=1;k<mirar.length;k++) if(mirar[k][1]) ioZonas.observe(mirar[k][1]);
+  pintar();
 })();
 
 /* ─── CARRUSEL DE NICO ───
