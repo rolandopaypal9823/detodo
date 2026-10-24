@@ -141,7 +141,10 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-reg__local strong{ color:var(--nfm-ink); }
 .nfm-reg__cupo{ display:inline-flex; align-items:center; gap:8px; font-family:var(--nfm-font-h); font-size:0.86rem; font-weight:600; color:var(--nfm-orange-deep); background:rgba(255,102,2,0.08); border:1px solid rgba(255,102,2,0.25); padding:7px 14px; border-radius:50px; margin:16px 0 22px !important; }
 .nfm-reg__form{ border-radius:18px; overflow:hidden; background:#fff; border:1px solid var(--nfm-gray-200); box-shadow:0 20px 60px rgba(12,52,82,0.08); text-align:left; }
-.nfm-reg__form iframe{ width:100%; min-height:640px; border:none; display:block; }
+.nfm-reg__form iframe{ width:100%; height:580px !important; min-height:0 !important; border:none; display:block; }
+/* ALTO DEL FORM · el form real (nombre, email, teléfono y botón) mide unos 515 px. GHL declara 1366 en su código
+   y con eso quedaba un bloque blanco enorme abajo del botón. Si agregan o sacan campos en GHL, se ajusta acá. */
+@media (max-width:600px){ .nfm-reg__form iframe{ height:600px !important; } }
 
 /* ═══ QUIÉN DA LA CLASE · foto + tres datos + dos frases ═══ */
 .nfm-nico{ background:var(--nfm-white); padding:88px 0; color:var(--nfm-ink); }
@@ -281,7 +284,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
         data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value=""
         data-activation-type="alwaysActivated" data-activation-value=""
         data-deactivation-type="neverDeactivate" data-deactivation-value=""
-        data-form-name="Form Webinar Comunidad" data-height="1366"
+        data-form-name="Form Webinar Comunidad" data-height="580"
         data-layout-iframe-id="inline-ib4zw3gRec1D9D3kxyUv" data-form-id="ib4zw3gRec1D9D3kxyUv"
         data-cookie-consent="true" data-cookie-consent-provider="auto"
         title="Form Webinar Comunidad" style="width:100%;height:100%;border:none;border-radius:15px"></iframe>
@@ -345,7 +348,7 @@ var CONFIG = {
   UTM_CLASE: 'masterclass-oct27-comunidad',   // va en utm_campaign (si el lead llega sin UTM) y en edicion
   VARIANTE: 'a-webinar',                      // viaja al form como "variante": para comparar A contra B
   HORA_CLASE: 19, MINUTOS_CLASE: 0, OFFSET_ARG: -3,
-  FORM_ID: 'ib4zw3gRec1D9D3kxyUv', FORM_ALTO_MINIMO: 1366,  // "Form Webinar Comunidad" · alto = data-height del embed
+  FORM_ID: 'ib4zw3gRec1D9D3kxyUv',                         // "Form Webinar Comunidad" · el alto se ajusta en el CSS (.nfm-reg__form iframe)
   LOOM_ID: 'e27f4ab55e984faf800eb3937adf44ac'               // video "por qué tu cerebro procrastina"
 };
 
@@ -408,7 +411,7 @@ function cargarForm(){
   p.push('variante='+encodeURIComponent(CONFIG.VARIANTE));
   var base=ifr.getAttribute('data-src')||('https://api.leadconnectorhq.com/widget/form/'+CONFIG.FORM_ID);
   var url=base+(base.indexOf('?')===-1?'?':'&')+p.join('&');
-  if(ifr.getAttribute('src')!==url){ ifr.src=url; ifr.style.minHeight=CONFIG.FORM_ALTO_MINIMO+'px'; }
+  if(ifr.getAttribute('src')!==url) ifr.src=url;
   try{
     window.sessionStorage.setItem('nfm_clase', CONFIG.UTM_CLASE);
     window.sessionStorage.setItem('nfm_clase_fecha', CONFIG.FECHA);
