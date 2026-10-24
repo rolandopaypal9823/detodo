@@ -46,6 +46,8 @@ src="https://www.facebook.com/tr?id=1203017011123382&ev=PageView&noscript=1"
 <!-- tipografías: se piden sin frenar la página (mientras llegan se ve la letra del sistema) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://scripts.converteai.net">
+<link rel="preconnect" href="https://cdn.converteai.net">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap"></noscript>
 
@@ -99,17 +101,11 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-hero__local[hidden], .nfm-reg__local[hidden]{ display:none !important; }
 .nfm-hero__local strong{ color:#fff; }
 
-/* video de Loom: el reproductor se carga cuando la página ya terminó de cargar (no frena la carga);
-   hasta ahí se ve una portada liviana que, si la tocan, lo carga en el momento */
+/* video: reproductor de vTurb dentro del recuadro (bordes redondeados y sombra) */
 .nfm-video{ position:relative; width:100%; max-width:760px; aspect-ratio:16/9; margin:0 auto 26px; border-radius:18px; overflow:hidden; background:#0E2E4A; border:1px solid var(--nfm-hair-strong); box-shadow:0 24px 70px rgba(0,0,0,0.45); }
 @supports not (aspect-ratio:16/9){ .nfm-video{ height:0; padding-bottom:56.25%; } }
-.nfm-video iframe{ position:absolute; inset:0; width:100% !important; height:100% !important; border:0; display:block; }
-.nfm-video__poster{ position:absolute; inset:0; width:100%; height:100%; margin:0; padding:0 16px; border:0; cursor:pointer; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
-  font-family:var(--nfm-font-h); background:radial-gradient(420px 220px at 50% 45%, rgba(255,102,2,0.16), transparent 70%), linear-gradient(160deg,#143A5C 0%,#0C3452 55%,#081F33 100%); }
-.nfm-video__play{ position:relative; width:76px; height:76px; border-radius:50%; background:var(--nfm-orange); box-shadow:0 10px 30px var(--nfm-orange-glow); transition:transform .2s var(--nfm-ease); }
-.nfm-video__play::after{ content:''; position:absolute; left:31px; top:24px; border-style:solid; border-width:14px 0 14px 22px; border-color:transparent transparent transparent #fff; }
-.nfm-video__poster:hover .nfm-video__play{ transform:scale(1.06); }
-.nfm-video__lbl{ font-size:0.98rem; font-weight:600; color:rgba(255,255,255,0.9); text-align:center; line-height:1.35; }
+.nfm-video--vturb{ aspect-ratio:auto; background:#000; }
+.nfm-video--vturb vturb-smartplayer{ display:block; width:100%; }
 
 /* ═══ REGISTRO · el form a la vista, sin popup ═══ */
 .nfm-reg{ background:var(--nfm-gray-50); padding:64px 0 76px; color:var(--nfm-ink); scroll-margin-top:12px; }
@@ -213,7 +209,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
   .nfm-car__track{ margin:0 -16px; padding:4px 16px 10px; scroll-padding:0 16px; }
   .nfm-dolor{ padding:12px 14px; } .nfm-dolor__espejo{ font-size:0.97rem; } .nfm-dolor__txt{ font-size:0.93rem; }
   .nfm-btn--xl{ font-size:1.08rem; padding:19px 20px; }
-  .nfm-video__play{ width:64px; height:64px; } .nfm-video__play::after{ left:26px; top:20px; border-width:12px 0 12px 19px; }
 }
 </style>
 
@@ -227,13 +222,10 @@ html, body{ margin:0; padding:0; background:#081F33; }
     <p class="nfm-hero__kicker"><span class="nfm-dot"></span>Clase gratis · <span data-nfm-fecha="pillCorta">Mar 27 oct · 19:00 hs (Arg)</span></p>
     <h1 class="nfm-hero__title">¿Terminás la semana sin energía y con <em>tus cosas igual que el lunes</em>?</h1>
     <p class="nfm-hero__event">Cómo usar la neurociencia para dejar de procrastinar y concentrarte</p>
-    <!-- VIDEO (Loom). Para cambiarlo, se toca sólo CONFIG.LOOM_ID abajo.
-         ⚠️ La velocidad 1x NO se puede fijar desde acá: se cambia en Loom → el video → Settings → Audience. -->
-    <div class="nfm-video" id="nfm-video">
-      <button type="button" class="nfm-video__poster" aria-label="Ver el video: por qué tu cerebro procrastina">
-        <span class="nfm-video__play" aria-hidden="true"></span>
-        <span class="nfm-video__lbl">Por qué tu cerebro procrastina · 3 min</span>
-      </button>
+    <!-- VIDEO (vTurb). Es el código de vTurb tal cual. Para cambiar de video, se reemplazan juntos
+         el <vturb-smartplayer> y el <script> de abajo por el código nuevo que da vTurb. -->
+    <div class="nfm-video nfm-video--vturb" id="nfm-video">
+      <vturb-smartplayer id="vid-6adce455b2a34667b75c44cd" style="display: block; margin: 0 auto; width: 100%; "><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 56.25% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/82529694-4445-4a28-9435-65713f4bcce6/players/6adce455b2a34667b75c44cd/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
     </div>
     <a href="#nfm-registro" class="nfm-btn nfm-btn--xl" data-cta="hero">
       UNIRME A LA CLASE
@@ -368,8 +360,7 @@ var CONFIG = {
   UTM_CLASE: 'masterclass-oct27-comunidad',   // va en utm_campaign (si el lead llega sin UTM) y en edicion
   VARIANTE: 'b-vsl',                          // viaja al form como "variante": para comparar A contra B
   HORA_CLASE: 19, MINUTOS_CLASE: 0, OFFSET_ARG: -3,
-  FORM_ID: 'ib4zw3gRec1D9D3kxyUv',                         // "Form Webinar Comunidad" · el alto se ajusta en el CSS (.nfm-reg__form iframe)
-  LOOM_ID: 'e27f4ab55e984faf800eb3937adf44ac'               // video "por qué tu cerebro procrastina"
+  FORM_ID: 'ib4zw3gRec1D9D3kxyUv'                          // "Form Webinar Comunidad" · el alto se ajusta en el CSS (.nfm-reg__form iframe)
 };
 
 var DIAS=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
@@ -429,22 +420,10 @@ function cargarForm(){
   }catch(err){}
 }
 
-/* ─── VIDEO ─── */
-function ponerVideo(reproducir){
-  var box=document.getElementById('nfm-video'); if(!box || box.querySelector('iframe')) return;
-  var f=document.createElement('iframe');
-  f.src='https://www.loom.com/embed/'+CONFIG.LOOM_ID+'?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true&hide_speed=true'+(reproducir?'&autoplay=1':'');
-  f.title='Por qué tu cerebro procrastina · Nico Fernández Miranda';
-  f.setAttribute('allow','autoplay; fullscreen; picture-in-picture');
-  f.setAttribute('allowfullscreen','');
-  box.innerHTML=''; box.appendChild(f);
-}
-
-/* ─── CARGA EN DOS TIEMPOS ───
-   Primero carga la página (y el pixel). Recién después entran el reproductor y el form,
-   así no le roban velocidad a la primera pantalla. */
+/* ─── FORM EN DOS TIEMPOS ───
+   Primero carga la página (y el pixel). Recién después entra el form, así no le roba velocidad
+   a la primera pantalla ni al video. */
 function despuesDeCargar(fn, ms){ if(document.readyState==='complete') setTimeout(fn, ms); else window.addEventListener('load', function(){ setTimeout(fn, ms); }); }
-despuesDeCargar(function(){ ponerVideo(false); }, 300);
 despuesDeCargar(cargarForm, 900);
 /* si bajan hasta el registro antes de eso, el form se carga en el momento */
 (function(){ var reg=document.getElementById('nfm-registro'); if(!reg || !('IntersectionObserver' in window)) return;
@@ -510,8 +489,6 @@ despuesDeCargar(cargarForm, 900);
 /* ─── BOTONES ─── */
 function scrollToId(id){ var t=document.getElementById(id); if(!t) return; window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-12, behavior:'smooth'}); }
 document.addEventListener('click', function(e){
-  var poster=e.target.closest?e.target.closest('.nfm-video__poster'):null;
-  if(poster){ ponerVideo(true); return; }
   var a=e.target.closest?e.target.closest('a[href^="#"]'):null; if(!a) return;
   var id=a.getAttribute('href').slice(1); if(!id) return;
   e.preventDefault();
