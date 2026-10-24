@@ -136,13 +136,15 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-sec__head h2{ font-family:var(--nfm-font-h); font-size:clamp(1.7rem,3.6vw,2.5rem); font-weight:700; letter-spacing:-0.02em; line-height:1.15; color:var(--nfm-ink); margin:0 !important; text-align:center !important; text-wrap:balance; }
 .nfm-sec__head p{ font-size:1.02rem; color:var(--nfm-ink-mute); line-height:1.55; margin:10px auto 0 !important; text-align:center !important; text-wrap:balance; }
 
-/* ═══ QUÉ VAS A APRENDER · qué y por qué, nunca el cómo (el cómo es la clase) ═══ */
+/* ═══ QUÉ VAS A APRENDER · cada tarjeta: el dolor como lo dicen ellos → por qué pasa → qué te llevás ═══ */
 .nfm-learn{ background:#fff; padding:76px 0; color:var(--nfm-ink); }
-.nfm-learn__list{ list-style:none; max-width:760px; margin:0 auto !important; padding:0 !important; display:grid; gap:12px; }
-.nfm-learn__item{ display:flex; gap:16px; align-items:flex-start; background:var(--nfm-gray-50); border:1px solid var(--nfm-gray-200); border-radius:16px; padding:18px 20px; text-align:left; }
-.nfm-learn__n{ flex:none; width:34px; height:34px; border-radius:10px; background:var(--nfm-orange); color:#fff; font-family:var(--nfm-font-h); font-weight:700; font-size:0.95rem; display:flex; align-items:center; justify-content:center; }
-.nfm-learn__item p{ font-size:0.98rem; line-height:1.5; color:#2a3f54; margin:0 !important; text-align:left !important; }
-.nfm-learn__item p b{ display:block; font-family:var(--nfm-font-h); font-size:1.06rem; font-weight:700; color:var(--nfm-ink); line-height:1.35; margin-bottom:3px; }
+.nfm-learn__list{ list-style:none; max-width:780px; margin:0 auto !important; padding:0 !important; display:grid; gap:12px; }
+.nfm-dolor{ background:var(--nfm-gray-50); border:1px solid var(--nfm-gray-200); border-left:4px solid var(--nfm-orange); border-radius:14px; padding:18px 20px; text-align:left; }
+.nfm-dolor__espejo{ font-family:var(--nfm-font-h); font-size:1.08rem; font-weight:700; color:var(--nfm-ink); line-height:1.35; margin:0 0 8px !important; text-align:left !important; }
+.nfm-dolor__txt{ font-size:0.98rem; line-height:1.55; color:#2a3f54; margin:0 !important; text-align:left !important; }
+.nfm-dolor__txt b{ color:var(--nfm-ink); font-weight:700; }
+.nfm-learn__extra{ display:flex; align-items:center; justify-content:center; gap:10px; max-width:780px; margin:20px auto 0 !important; font-family:var(--nfm-font-h); font-size:1rem; font-weight:600; color:var(--nfm-ink); text-align:center !important; }
+.nfm-learn__extra svg{ width:22px; height:22px; color:var(--nfm-orange); flex:none; }
 
 /* ═══ QUIÉN DA LA CLASE · las 5 escenas en un carrusel (se desliza con el dedo o con las flechas) ═══ */
 .nfm-nico{ background:var(--nfm-gray-50); padding:76px 0 64px; color:var(--nfm-ink); }
@@ -196,8 +198,8 @@ html, body{ margin:0; padding:0; background:#081F33; }
   .nfm-hero__with{ font-size:0.88rem; margin-bottom:12px !important; }
   .nfm-hero__intro{ font-size:0.95rem; margin-bottom:12px !important; }
   .nfm-car__track{ margin:0 -16px; padding:4px 16px 10px; scroll-padding:0 16px; }
-  .nfm-learn__item{ padding:14px; gap:12px; } .nfm-learn__n{ width:30px; height:30px; font-size:0.88rem; }
-  .nfm-learn__item p{ font-size:0.94rem; } .nfm-learn__item p b{ font-size:1rem; }
+  .nfm-dolor{ padding:14px 16px; } .nfm-dolor__espejo{ font-size:1rem; margin-bottom:6px !important; } .nfm-dolor__txt{ font-size:0.94rem; }
+  .nfm-learn__extra{ font-size:0.94rem; align-items:flex-start; text-align:left !important; }
   .nfm-btn--xl{ font-size:1.08rem; padding:19px 20px; }
   .nfm-video__play{ width:64px; height:64px; } .nfm-video__play::after{ left:26px; top:20px; border-width:12px 0 12px 19px; }
 }
@@ -256,21 +258,39 @@ html, body{ margin:0; padding:0; background:#081F33; }
   </div>
 </section>
 
-<!-- ═══ QUÉ VAS A APRENDER · dice QUÉ vas a descubrir y POR QUÉ importa; el CÓMO queda para la clase ═══ -->
+<!-- ═══ QUÉ VAS A APRENDER ·
+     Cada tarjeta: el dolor dicho como lo dicen en las llamadas de cierre → por qué pasa (lo que hace el cerebro)
+     → qué te llevás para aplicar esa semana. Los cinco puntos son las promesas de los anuncios C1 a C7. ═══ -->
 <section class="nfm-learn" id="nfm-aprender">
   <div class="nfm-container">
     <div class="nfm-sec__head">
       <span class="nfm-eyebrow">En vivo el <span data-nfm-fecha="diaYNumero">martes 27</span></span>
       <h2>Qué vas a aprender <span class="nfm-accent">en esta clase</span></h2>
+      <p>Si te reconocés en alguna de estas, la clase es para vos.</p>
     </div>
-    <ol class="nfm-learn__list">
-      <li class="nfm-learn__item"><span class="nfm-learn__n">1</span><p><b>Por qué tu cerebro deja para después justo lo que más te importa.</b>Y por qué ponerle más ganas no alcanza para cambiarlo.</p></li>
-      <li class="nfm-learn__item"><span class="nfm-learn__n">2</span><p><b>Cuántas horas por semana te cuestan las interrupciones.</b>Después de cada una pasan, en promedio, unos 23 minutos hasta que volvés a lo que estabas haciendo.</p></li>
-      <li class="nfm-learn__item"><span class="nfm-learn__n">3</span><p><b>Dónde se esconden las horas que perdés cada semana.</b>Y el error que las multiplica cada vez que te sentás a trabajar.</p></li>
-      <li class="nfm-learn__item"><span class="nfm-learn__n">4</span><p><b>Qué tiene que tener tu semana para que también avancen tus objetivos.</b>Además de todo lo que te piden los demás.</p></li>
-      <li class="nfm-learn__item"><span class="nfm-learn__n">5</span><p><b>Qué hace distinta a la gente que no vuelve a cero cuando la semana se desarma.</b>Ese día en que todo se cae y lo más fácil es largar todo.</p></li>
-      <li class="nfm-learn__item"><span class="nfm-learn__n">6</span><p><b>Por qué tu cerebro rinde distinto cuando hacés las cosas acompañado.</b>Lo que cambia cuando dejás de sostenerlo solo.</p></li>
-    </ol>
+    <ul class="nfm-learn__list">
+      <li class="nfm-dolor">
+        <p class="nfm-dolor__espejo">Cumplís con todos, tus cosas quedan siempre para lo último y encima aparece la culpa.</p>
+        <p class="nfm-dolor__txt">Vas a entender <b>por qué tu cerebro elige lo urgente de los demás</b> antes que lo importante para vos, y <b>cómo reservar tres bloques por semana</b> que sean solo para tus cosas.</p>
+      </li>
+      <li class="nfm-dolor">
+        <p class="nfm-dolor__espejo">Terminás el día agotado, con la sensación de que trabajaste un montón y avanzaste poco y nada.</p>
+        <p class="nfm-dolor__txt">Vas a ver <b>cuánto te cuestan las interrupciones</b>: después de cada una pasan unos 23 minutos hasta que volvés a lo que estabas haciendo, y con 8 por día se te pueden ir hasta 3 horas. Y <b>cómo protegerte de ellas</b> desde el día siguiente.</p>
+      </li>
+      <li class="nfm-dolor">
+        <p class="nfm-dolor__espejo">Te sentás a avanzar con tu proyecto y media hora después seguís abriendo carpetas.</p>
+        <p class="nfm-dolor__txt">Vas a entender el <b>tiempo de reanudación</b>: sin un plan escrito, tu memoria de trabajo reconstruye desde cero dónde estabas, y tu cerebro aprende a evitar arrancar. Y <b>qué tiene que tener ese plan</b> para que arrancar te cueste menos.</p>
+      </li>
+      <li class="nfm-dolor">
+        <p class="nfm-dolor__espejo">Armás un sistema para organizarte el domingo y el miércoles ya lo abandonaste.</p>
+        <p class="nfm-dolor__txt">Vas a entender <b>por qué volvés siempre al mismo punto</b>: los sistemas de organización están pensados para una semana perfecta que no existe. Y <b>qué hacer cuando la semana se desarma</b> para no volver a cero.</p>
+      </li>
+      <li class="nfm-dolor">
+        <p class="nfm-dolor__espejo">Arrancás con todo y a las dos semanas ya se apagó.</p>
+        <p class="nfm-dolor__txt">Vas a conocer la <b>facilitación social</b>: por qué tu cerebro rinde distinto cuando hay alguien del otro lado haciendo lo mismo. Y <b>cómo usarla a tu favor</b> esa misma semana.</p>
+      </li>
+    </ul>
+    <p class="nfm-learn__extra"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.6 2.6L16.2 9.5"/></svg>Todo lo podés aplicar la misma semana de la clase.</p>
   </div>
 </section>
 
