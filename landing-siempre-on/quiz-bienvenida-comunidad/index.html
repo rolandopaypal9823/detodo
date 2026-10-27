@@ -337,8 +337,8 @@ function resultado(R){
     +'<ul class="q-vemos">'+vemos.map(function(v){ return '<li>'+esc(v)+'</li>'; }).join('')+'</ul></div>';
   h+='<div class="q-card"><h2>Tus escalones en el Instituto</h2><div class="q-esc">'
     +'<div class="q-esc__paso is-hecho"><span class="q-esc__n">✓</span><span class="q-esc__t">Comunidad Productiva<small>Las bases. Ya estás acá.</small></span></div>'
-    +'<div class="q-esc__paso'+(R.califica?' is-proximo':'')+'"><span class="q-esc__n">2</span><span class="q-esc__t">Clases grupales<small>'+(R.califica?'Tu próximo nivel, guiado.':'Cuando quieras ir por más.')+'</small></span></div>'
-    +'<div class="q-esc__paso'+(R.califica?' is-proximo':'')+'"><span class="q-esc__n">3</span><span class="q-esc__t">Coaches 1 a 1<small>Un proceso a tu medida.</small></span></div>'
+    +'<div class="q-esc__paso'+(R.califica?' is-proximo':'')+'"><span class="q-esc__n">2</span><span class="q-esc__t">Clases con expertos<small>Con seguimiento 1 a 1.</small></span></div>'
+    +'<div class="q-esc__paso'+(R.califica?' is-proximo':'')+'"><span class="q-esc__n">3</span><span class="q-esc__t">Proceso personalizado<small>Con un experto asignado, 1 a 1.</small></span></div>'
     +'</div><p class="q-esc__nota">Con la Comunidad ya sos parte del Instituto de Productividad. Desde las bases, todo lo demás se hace más fácil.</p></div>';
   if(R.califica){
     h+='<div class="q-inv"><span class="q-chip">Invitación especial</span><h2>Podés llegar más rápido si lo hacés guiado.</h2>'
