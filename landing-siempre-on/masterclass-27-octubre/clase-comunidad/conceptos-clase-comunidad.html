@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase Comunidad · Lo que hay que tener en cuenta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#0c3452; --azul-osc:#061d30; --azul-claro:#e7edf2; --azul-suave:#f4f7fa;
+  --naranja:#ff6602; --naranja-suave:#fff1e8; --blanco:#ffffff; --gris:#5a6b7e;
+  --f-tit:'Montserrat', sans-serif; --f-txt:'Open Sans', sans-serif; --f-mono:'JetBrains Mono', monospace;
+  --sombra:0 24px 60px rgba(12,52,82,0.10);
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; }
+body{ background:var(--blanco); color:var(--azul); font-family:var(--f-txt); font-size:17px; line-height:1.55; }
+h1,h2,h3{ font-family:var(--f-tit); margin:0; text-wrap:balance; }
+p{ margin:0; text-wrap:pretty; }
+.envoltura{ max-width:1120px; margin:0 auto; padding:0 32px; }
+.etiqueta{ font-family:var(--f-mono); font-size:12px; letter-spacing:0.22em; text-transform:uppercase; }
+
+/* ── portada ── */
+.portada{ background:var(--azul); color:var(--blanco); padding:56px 0 64px; }
+.portada .logo svg{ height:44px; width:auto; display:block; }
+.portada .etiqueta{ color:var(--naranja); margin:48px 0 16px; display:block; }
+.portada h1{ font-size:clamp(32px,4.6vw,54px); font-weight:800; line-height:1.08; max-width:900px; }
+.portada .bajada{ font-size:19px; color:#c9d6e3; margin-top:20px; max-width:720px; }
+.portada .datos{ display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }
+.portada .datos span{ font-family:var(--f-mono); font-size:12px; letter-spacing:0.16em; text-transform:uppercase; border:1.5px solid rgba(255,255,255,0.3); border-radius:100px; padding:8px 16px; }
+
+/* ── secciones ── */
+section{ padding:80px 0 0; }
+.cabeza-sec{ display:flex; align-items:baseline; gap:18px; margin-bottom:28px; }
+.cabeza-sec .num{ font-family:var(--f-mono); font-size:13px; letter-spacing:0.2em; color:var(--naranja); }
+.cabeza-sec h2{ font-size:clamp(26px,3.2vw,36px); font-weight:800; }
+.intro-sec{ font-size:18px; color:var(--gris); max-width:760px; margin:-12px 0 32px; }
+
+/* ── idea central ── */
+.creencia{ background:var(--azul); color:var(--blanco); border-radius:12px; padding:44px 48px; box-shadow:var(--sombra); }
+.creencia p{ font-family:var(--f-tit); font-weight:700; font-size:clamp(21px,2.4vw,27px); line-height:1.38; }
+.frases{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:20px; }
+.frase{ border-radius:12px; padding:28px 30px; }
+.frase .etiqueta{ display:block; margin-bottom:10px; }
+.frase p{ font-family:var(--f-tit); font-weight:700; font-size:21px; line-height:1.35; }
+.frase--central{ background:var(--naranja); color:var(--blanco); }
+.frase--apoyo{ background:var(--azul-suave); }
+.frase--apoyo .etiqueta{ color:var(--gris); }
+.prueba{ margin-top:20px; font-size:16px; color:var(--gris); }
+.prueba b{ color:var(--azul); }
+
+/* ── escalera de acuerdos ── */
+.acuerdos{ display:flex; flex-direction:column; gap:10px; }
+.acuerdo{ display:grid; grid-template-columns:56px 1fr auto; align-items:center; gap:18px; background:var(--azul-suave); border-radius:12px; padding:16px 22px; margin-left:calc(var(--i) * 34px); }
+.acuerdo .n{ font-family:var(--f-tit); font-weight:900; font-size:30px; color:var(--naranja); line-height:1; }
+.acuerdo p{ font-size:18px; font-weight:600; }
+.acuerdo .donde{ font-family:var(--f-mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--gris); white-space:nowrap; }
+.nota-acuerdos{ margin-top:18px; font-size:16px; color:var(--gris); }
+
+/* ── línea de tiempo ── */
+.barra{ display:flex; height:46px; border-radius:10px; overflow:hidden; box-shadow:var(--sombra); }
+.barra div{ flex:var(--m) 0 0; display:flex; align-items:center; justify-content:center; font-family:var(--f-mono); font-size:11px; color:var(--blanco); border-right:2px solid var(--blanco); }
+.barra div:last-child{ border-right:0; }
+.barra .c{ background:var(--azul); } .barra .p{ background:#2b5378; } .barra .v{ background:var(--naranja); }
+.leyenda{ display:flex; flex-wrap:wrap; gap:22px; margin:14px 0 30px; font-size:14px; color:var(--gris); }
+.leyenda i{ display:inline-block; width:14px; height:14px; border-radius:4px; vertical-align:-2px; margin-right:8px; }
+.bloques{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.bloque{ border:2px solid var(--azul-claro); border-radius:12px; padding:20px 22px; }
+.bloque--vivo{ border-color:var(--naranja); background:var(--naranja-suave); }
+.bloque .arriba{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:8px; }
+.bloque .min{ font-family:var(--f-mono); font-size:12px; letter-spacing:0.12em; color:var(--gris); }
+.tag{ font-family:var(--f-mono); font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; padding:4px 10px; border-radius:100px; background:var(--azul-claro); color:var(--azul); }
+.tag--corte{ background:var(--naranja); color:var(--blanco); }
+.bloque h3{ font-size:19px; font-weight:700; line-height:1.3; }
+.bloque p{ font-size:15.5px; color:#2a4258; margin-top:6px; }
+
+/* ── escalera del Instituto ── */
+.instituto{ display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:48px; align-items:end; }
+.escalera{ display:flex; align-items:flex-end; gap:12px; height:360px; }
+.escalon{ flex:1; min-width:0; border-radius:12px; padding:18px; position:relative; hyphens:auto; overflow-wrap:break-word; }
+.escalon b{ font-family:var(--f-tit); font-size:26px; font-weight:900; display:block; }
+.escalon span{ font-family:var(--f-tit); font-weight:700; font-size:16px; display:block; margin-top:4px; line-height:1.25; }
+.escalon small{ display:block; font-size:13px; margin-top:6px; }
+.escalon--uno{ height:42%; background:var(--naranja); color:var(--blanco); }
+.escalon--uno .hoy{ position:absolute; top:16px; right:16px; background:var(--blanco); color:var(--naranja); font-family:var(--f-mono); font-size:11px; letter-spacing:0.18em; padding:4px 10px; border-radius:100px; }
+.escalon--bloq{ background:var(--azul); color:var(--blanco); overflow:hidden; }
+.escalon--bloq .borroso{ filter:blur(5px); }
+.escalon--bloq .candado{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--f-mono); font-size:11px; letter-spacing:0.18em; }
+.escalon--bloq .candado em{ font-style:normal; background:var(--blanco); color:var(--azul); padding:6px 12px; border-radius:100px; }
+.escalon--dos{ height:68%; } .escalon--tres{ height:100%; }
+.pie-escalera{ font-size:15px; color:var(--gris); margin-top:14px; }
+.pilares{ display:flex; flex-direction:column; gap:12px; }
+.pilar{ display:grid; grid-template-columns:44px 1fr; gap:16px; align-items:start; background:var(--azul-suave); border-radius:12px; padding:18px 20px; }
+.pilar .n{ width:44px; height:44px; border-radius:50%; background:var(--naranja); color:var(--blanco); font-family:var(--f-tit); font-weight:800; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.pilar h3{ font-size:17px; font-weight:800; letter-spacing:0.02em; }
+.pilar p{ font-size:15.5px; margin-top:4px; color:#2a4258; }
+.regla{ margin-top:4px; background:var(--azul); color:var(--blanco); border-radius:100px; padding:14px 22px; font-family:var(--f-mono); font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-align:center; }
+
+/* ── emoción ── */
+.tres{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.motor{ background:var(--azul-suave); border-radius:12px; padding:24px; }
+.motor .etiqueta{ color:var(--naranja); display:block; margin-bottom:10px; }
+.motor h3{ font-size:20px; font-weight:800; }
+.motor p{ font-size:15.5px; margin-top:8px; color:#2a4258; }
+.combustible{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+.puntaje{ border:2px solid var(--azul-claro); border-radius:12px; padding:20px 22px; display:flex; gap:16px; align-items:center; }
+.puntaje b{ font-family:var(--f-tit); font-weight:900; font-size:40px; line-height:1; min-width:64px; }
+.puntaje--alto b{ color:var(--naranja); }
+.puntaje p{ font-size:15.5px; }
+.miedos{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+.miedo{ background:var(--azul); color:var(--blanco); border-radius:12px; padding:24px 26px; }
+.miedo .etiqueta{ color:var(--naranja); display:block; margin-bottom:8px; }
+.miedo h3{ font-size:21px; font-weight:800; }
+.miedo p{ font-size:15.5px; color:#c9d6e3; margin-top:8px; }
+
+/* ── qué, por qué, cuándo ── */
+.que{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.que div{ border-radius:12px; padding:22px; background:var(--azul-suave); }
+.que .etiqueta{ display:block; margin-bottom:10px; color:var(--naranja); }
+.que p{ font-size:16px; font-weight:600; line-height:1.4; }
+.que .como{ background:var(--azul); color:var(--blanco); }
+.que .como .etiqueta{ color:#c9d6e3; text-decoration:line-through; text-decoration-color:var(--naranja); text-decoration-thickness:2px; }
+
+/* ── cierre ── */
+.cierre{ display:grid; grid-template-columns:repeat(7,1fr); gap:10px; }
+.elemento{ border-radius:12px; padding:18px 14px; background:var(--azul-suave); display:flex; flex-direction:column; gap:8px; }
+.elemento b{ font-family:var(--f-tit); font-weight:900; font-size:28px; color:var(--naranja); line-height:1; }
+.elemento h3{ font-size:15.5px; font-weight:800; line-height:1.25; }
+.elemento p{ font-size:13.5px; color:var(--gris); line-height:1.4; }
+.elemento--falta{ background:var(--naranja-suave); outline:2px dashed var(--naranja); outline-offset:-2px; }
+
+/* ── repetición ── */
+.repe{ display:grid; grid-template-columns:auto 1fr; gap:40px; align-items:center; }
+.repe .grande{ font-family:var(--f-tit); font-weight:900; font-size:120px; line-height:0.9; color:var(--naranja); }
+.repe .grande small{ display:block; font-size:16px; font-weight:700; color:var(--azul); margin-top:12px; line-height:1.3; }
+.muro{ display:flex; flex-wrap:wrap; gap:8px; }
+.muro span{ background:var(--azul-suave); border-radius:100px; padding:8px 14px; font-size:14.5px; font-weight:600; }
+.muro span.clave{ background:var(--azul); color:var(--blanco); }
+
+/* ── evergreen y a confirmar ── */
+.dos{ display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+.caja{ border-radius:12px; padding:30px 32px; }
+.caja--no{ background:var(--azul); color:var(--blanco); }
+.caja--no .etiqueta{ color:var(--naranja); display:block; margin-bottom:14px; }
+.caja--no h3{ font-size:24px; font-weight:800; margin-bottom:16px; }
+.caja ul{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
+.caja li{ display:grid; grid-template-columns:22px 1fr; gap:10px; font-size:15.5px; line-height:1.45; }
+.caja--no li::before{ content:"✗"; color:var(--naranja); font-weight:700; }
+.caja--no .marco{ margin-top:22px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.18); font-size:15.5px; color:#c9d6e3; }
+.caja--no .marco b{ color:var(--blanco); }
+.caja--conf{ border:2px dashed var(--naranja); }
+.caja--conf .etiqueta{ color:var(--naranja); display:block; margin-bottom:14px; }
+.caja--conf h3{ font-size:24px; font-weight:800; margin-bottom:16px; }
+.caja--conf li::before{ content:"?"; color:var(--naranja); font-family:var(--f-tit); font-weight:900; }
+
+footer{ margin-top:90px; border-top:1px solid var(--azul-claro); padding:28px 0 40px; }
+footer .envoltura{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
+footer svg{ height:34px; width:auto; display:block; }
+footer p{ font-family:var(--f-mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--gris); }
+
+@media (max-width:900px){
+  .frases,.bloques,.instituto,.tres,.combustible,.miedos,.dos{ grid-template-columns:minmax(0,1fr); }
+  .que{ grid-template-columns:1fr 1fr; }
+  .cierre{ grid-template-columns:repeat(2,1fr); }
+  .repe{ grid-template-columns:1fr; gap:20px; }
+  .acuerdo{ margin-left:calc(var(--i) * 10px); grid-template-columns:40px 1fr; }
+  .acuerdo .donde{ grid-column:2; white-space:normal; }
+  .barra div{ font-size:0; }
+}
+@media (max-width:560px){
+  .envoltura{ padding:0 18px; }
+  .creencia{ padding:30px 24px; }
+  .que{ grid-template-columns:1fr; }
+  .escalera{ height:300px; gap:8px; }
+  .escalon{ padding:14px 12px; }
+  .escalon span{ font-size:14px; }
+  .escalon--uno{ overflow:visible; }
+  .escalon--uno .hoy{ top:-13px; right:10px; box-shadow:0 4px 12px rgba(12,52,82,0.18); }
+}
+</style>
+</head>
+<body>
+
+<header class="portada">
+  <div class="envoltura">
+    <div class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 196.7 40" role="img" aria-label="Instituto de Productividad"><defs><linearGradient id="ipBase" x1="0" x2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset=".5" stop-color="#FFFFFF" stop-opacity=".55"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient></defs><rect x="0" y="39.2" width="43.9" height=".8" fill="url(#ipBase)"/><g transform="translate(-14.5,-3.1) scale(0.6337)"><path fill="#FFFFFF" d="M22.9,66.5 V46 Q22.9,43.8 25.1,43.8 H37 Q39.2,43.8 39.2,46 V66.5 Z M45.9,66.5 V33 Q45.9,30.8 48.1,30.8 H59.8 Q62,30.8 62,33 V66.5 Z M68,66.5 V25.7 Q68,23.5 70.2,23.5 H82.8 Q85,23.5 85,25.7 V66.5 Z"/><path fill-rule="evenodd" fill="#FF6602" stroke="#0C3452" stroke-width="2.4" stroke-linejoin="round" paint-order="stroke" d="M24,56.8 C23.4,56.6 23.7,56.2 24.6,55.8 C24.9,55.8 25.2,55.6 25.5,55.4 C25.7,55.3 26.1,55.1 26.4,54.9 C26.9,54.7 27.5,54.4 29.6,53.2 C31.5,52.1 32.8,51.4 35.5,50 C36.2,49.7 37,49.2 37.5,48.9 C37.9,48.6 38.5,48.2 38.9,48 C39.2,47.9 39.6,47.6 39.8,47.5 C40,47.3 40.6,47 41,46.7 C42.5,45.9 44.6,44.5 45.4,43.9 C45.8,43.6 46.5,43.2 46.9,43 C47.2,42.8 47.8,42.4 48.2,42.1 C48.5,41.8 49.1,41.4 49.5,41.1 C49.9,40.8 50.6,40.3 51.1,40 C52,39.3 53.7,38.1 54.7,37.4 C55,37.1 55.6,36.6 56,36.2 C56.7,35.6 57.9,34.7 59.4,33.6 C60.2,32.9 62.4,31 64.8,28.6 C66,27.4 67.5,25.9 68.1,25.4 C68.7,24.9 69.6,24 70,23.5 C70.4,23 71.6,21.8 72.5,20.8 C74.9,18.5 75.9,17.3 77.8,14.9 C78.2,14.3 78.8,13.6 79.1,13.3 C80,12.2 80,11.8 78.9,10.7 C78.1,9.9 78,9.6 78.2,9.3 C78.5,8.9 80,8.2 81.3,8 C81.8,7.8 82.5,7.6 82.9,7.4 C83.4,7.2 83.8,7 84.5,6.9 C85.1,6.8 85.6,6.7 86.2,6.4 C86.6,6.2 87.3,6 87.8,5.9 C88.3,5.8 89.1,5.5 89.6,5.3 C91,4.8 91.8,4.8 92.1,5.6 C92.2,6 92.1,8 91.8,8.7 C91.7,9 91.5,9.4 91.4,9.7 C91.3,9.9 91.1,10.5 91.1,10.9 C91,11.3 90.9,11.9 90.8,12.2 C90.7,12.5 90.5,12.9 90.4,13.2 C90.3,13.4 90.2,14.1 90.1,14.7 C90,16 89.6,17.1 89.1,18.2 C88.8,18.8 88.3,18.8 87.4,18 C86.2,17 86.2,16.9 83.4,19.8 C82.2,21 80.7,22.4 80.2,22.8 C79.6,23.3 78.4,24.4 77.5,25.2 C76.5,26.1 74.8,27.6 73.7,28.5 C72.5,29.4 71.2,30.5 70.8,30.9 C70.3,31.3 69.5,31.9 69,32.3 C68.5,32.6 67.5,33.3 66.8,33.9 C66.1,34.5 65.2,35.1 64.8,35.3 C64.4,35.6 63.8,36 63.4,36.3 C63,36.6 62.4,37 61.9,37.3 C61.5,37.5 60.9,38 60.5,38.3 C60.1,38.5 59.4,39 59,39.2 C58.6,39.5 57.9,40 57.5,40.2 C57.1,40.5 56.6,40.9 56.3,41.1 C55,41.8 52.9,43 52,43.5 C50.9,44.2 49.6,44.9 49,45.2 C48.8,45.3 48.1,45.7 47.5,46 C45.3,47.3 44.3,47.9 43.9,48 C43.4,48.2 41.1,49.4 40.4,49.8 C40.2,49.9 39.6,50.2 38.9,50.5 C38.2,50.8 37.3,51.3 37,51.5 C36.6,51.7 36,51.9 35.7,52.1 C35.3,52.2 34.6,52.5 34.2,52.7 C33.8,52.9 33.4,53.1 33.2,53.1 C33.1,53.2 32.7,53.4 32.2,53.6 C31.8,53.8 31.2,54 31,54.1 C30.8,54.2 30.3,54.4 29.9,54.6 C29.6,54.8 29,55 28.8,55 C28.5,55.1 27.9,55.3 27.5,55.5 C27.1,55.7 26.5,56 26.2,56 C25.7,56.1 25.3,56.3 24.9,56.6 C24.6,56.8 24.2,56.9 24,56.8 Z"/></g><path fill="#FFFFFF" d="M53.8 15.2V9.2H54.6V15.2ZM59 15.2V9.2H59.7L63.4 13.7V9.2H64.2V15.2H63.5L59.9 10.7V15.2ZM70.4 15.3Q69.7 15.3 69 15.1Q68.4 14.8 68 14.5L68.4 13.8Q68.7 14.1 69.2 14.3Q69.8 14.5 70.4 14.5Q70.9 14.5 71.2 14.4Q71.5 14.3 71.7 14.1Q71.8 13.9 71.8 13.6Q71.8 13.3 71.6 13.1Q71.4 12.9 71.1 12.8Q70.8 12.7 70.4 12.6Q70 12.5 69.6 12.4Q69.2 12.3 68.9 12.1Q68.6 11.9 68.4 11.6Q68.2 11.3 68.2 10.8Q68.2 10.4 68.4 10Q68.7 9.6 69.2 9.3Q69.7 9.1 70.5 9.1Q71 9.1 71.5 9.2Q72.1 9.4 72.4 9.6L72.2 10.3Q71.8 10.1 71.3 10Q70.9 9.8 70.5 9.8Q70 9.8 69.7 10Q69.3 10.1 69.2 10.3Q69 10.5 69 10.8Q69 11.1 69.2 11.3Q69.4 11.5 69.8 11.6Q70.1 11.7 70.5 11.8Q70.9 11.9 71.3 12Q71.6 12.1 72 12.3Q72.3 12.5 72.5 12.8Q72.7 13.1 72.7 13.6Q72.7 14 72.4 14.4Q72.2 14.8 71.7 15Q71.1 15.3 70.4 15.3ZM77.7 15.2V9.9H75.7V9.2H80.6V9.9H78.6V15.2ZM84.1 15.2V9.2H85V15.2ZM90.6 15.2V9.9H88.5V9.2H93.5V9.9H91.4V15.2ZM99.5 15.3Q98.3 15.3 97.6 14.6Q97 13.9 97 12.6V9.2H97.8V12.6Q97.8 13.6 98.3 14Q98.7 14.5 99.5 14.5Q100.3 14.5 100.8 14Q101.2 13.6 101.2 12.6V9.2H102.1V12.6Q102.1 13.9 101.4 14.6Q100.7 15.3 99.5 15.3ZM107.6 15.2V9.9H105.5V9.2H110.5V9.9H108.5V15.2ZM116.8 15.3Q116.1 15.3 115.5 15Q114.9 14.8 114.5 14.4Q114 14 113.8 13.4Q113.5 12.9 113.5 12.2Q113.5 11.5 113.8 11Q114 10.4 114.5 10Q114.9 9.6 115.5 9.3Q116.1 9.1 116.8 9.1Q117.4 9.1 118 9.3Q118.6 9.6 119 10Q119.5 10.4 119.7 11Q119.9 11.5 119.9 12.2Q119.9 12.9 119.7 13.4Q119.5 14 119 14.4Q118.6 14.8 118 15Q117.4 15.3 116.8 15.3ZM116.8 14.5Q117.2 14.5 117.7 14.3Q118.1 14.2 118.4 13.8Q118.7 13.5 118.9 13.1Q119.1 12.7 119.1 12.2Q119.1 11.7 118.9 11.3Q118.7 10.8 118.4 10.5Q118.1 10.2 117.7 10Q117.2 9.9 116.8 9.9Q116.2 9.9 115.8 10Q115.4 10.2 115.1 10.5Q114.8 10.8 114.6 11.3Q114.4 11.7 114.4 12.2Q114.4 12.7 114.6 13.1Q114.8 13.5 115.1 13.8Q115.4 14.2 115.8 14.3Q116.2 14.5 116.8 14.5ZM128.7 15.2V9.2H131.3Q132.2 9.2 133 9.6Q133.7 9.9 134.1 10.6Q134.5 11.3 134.5 12.2Q134.5 13.1 134.1 13.8Q133.7 14.4 133 14.8Q132.2 15.2 131.3 15.2ZM129.6 14.5H131.2Q132 14.5 132.5 14.2Q133.1 13.9 133.4 13.4Q133.7 12.9 133.7 12.2Q133.7 11.5 133.4 11Q133.1 10.5 132.5 10.2Q132 9.9 131.2 9.9H129.6ZM139.3 14.5H142.8V15.2H138.4V9.2H142.7V9.9H139.3V11.8H142.3V12.5H139.3Z"/><path fill="#FFFFFF" d="M54.2 33.4V22.6H58.8Q60.3 22.6 61.3 23.1Q62.4 23.6 62.9 24.4Q63.5 25.3 63.5 26.5Q63.5 27.7 62.9 28.6Q62.4 29.5 61.3 30Q60.3 30.4 58.8 30.4H56.7V33.4ZM56.7 28.4H58.7Q59.8 28.4 60.4 27.9Q61 27.4 61 26.5Q61 25.6 60.4 25.1Q59.8 24.7 58.7 24.7H56.7ZM65.7 33.4V22.6H70.4Q71.9 22.6 72.9 23.1Q74 23.6 74.5 24.4Q75.1 25.3 75.1 26.5Q75.1 27.7 74.5 28.6Q74 29.5 72.9 29.9Q72.9 29.9 72.9 30L75.3 33.4H72.6L70.5 30.4Q70.5 30.4 70.4 30.4H68.2V33.4ZM68.2 28.4H70.3Q71.4 28.4 72 27.9Q72.6 27.4 72.6 26.5Q72.6 25.6 72 25.1Q71.4 24.7 70.3 24.7H68.2ZM82.6 33.6Q81.3 33.6 80.2 33.2Q79.2 32.8 78.4 32Q77.6 31.2 77.1 30.2Q76.7 29.2 76.7 28Q76.7 26.8 77.1 25.8Q77.6 24.8 78.4 24Q79.2 23.3 80.3 22.9Q81.3 22.4 82.6 22.4Q83.9 22.4 84.9 22.9Q86 23.3 86.8 24Q87.6 24.8 88 25.8Q88.5 26.8 88.5 28Q88.5 29.2 88 30.2Q87.6 31.3 86.8 32Q86 32.8 84.9 33.2Q83.9 33.6 82.6 33.6ZM82.6 31.5Q83.3 31.5 83.9 31.2Q84.5 31 85 30.5Q85.5 30 85.7 29.4Q86 28.8 86 28Q86 27.2 85.7 26.6Q85.5 26 85 25.5Q84.5 25.1 83.9 24.8Q83.3 24.6 82.6 24.6Q81.9 24.6 81.3 24.8Q80.7 25.1 80.2 25.5Q79.7 26 79.5 26.6Q79.2 27.2 79.2 28Q79.2 28.8 79.5 29.4Q79.7 30 80.2 30.5Q80.6 31 81.3 31.2Q81.9 31.5 82.6 31.5ZM90.7 33.4V22.6H95.6Q97.3 22.6 98.7 23.3Q100 24 100.8 25.2Q101.5 26.4 101.5 28Q101.5 29.6 100.8 30.9Q100 32.1 98.7 32.7Q97.3 33.4 95.6 33.4ZM93.2 31.4H95.5Q96.5 31.4 97.3 30.9Q98.1 30.5 98.6 29.8Q99 29 99 28Q99 27 98.6 26.2Q98.1 25.5 97.3 25.1Q96.5 24.7 95.5 24.7H93.2ZM108.5 33.6Q106.2 33.6 104.9 32.3Q103.6 31 103.6 28.7V22.6H106.1V28.6Q106.1 30.1 106.7 30.8Q107.4 31.5 108.5 31.5Q109.7 31.5 110.3 30.8Q110.9 30.1 110.9 28.6V22.6H113.4V28.7Q113.4 31 112.1 32.3Q110.8 33.6 108.5 33.6ZM121.3 33.6Q120.1 33.6 119 33.2Q117.9 32.8 117.1 32Q116.4 31.3 115.9 30.2Q115.5 29.2 115.5 28Q115.5 26.8 115.9 25.8Q116.4 24.8 117.1 24Q117.9 23.3 119 22.8Q120.1 22.4 121.3 22.4Q122.7 22.4 123.9 22.9Q125 23.4 125.8 24.3L124.2 25.8Q123.6 25.2 122.9 24.9Q122.2 24.6 121.4 24.6Q120.7 24.6 120.1 24.8Q119.4 25.1 119 25.5Q118.5 26 118.3 26.6Q118 27.2 118 28Q118 28.8 118.3 29.4Q118.5 30 119 30.5Q119.4 31 120.1 31.2Q120.7 31.5 121.4 31.5Q122.2 31.5 122.9 31.1Q123.6 30.8 124.2 30.2L125.8 31.7Q125 32.6 123.9 33.1Q122.7 33.6 121.3 33.6ZM130 33.4V24.7H126.5V22.6H135.9V24.7H132.5V33.4ZM137.6 33.4V22.6H140.1V33.4ZM146.2 33.4 141.5 22.6H144.2L147.5 30.3L150.8 22.6H153.3L148.6 33.4ZM154.7 33.4V22.6H157.2V33.4ZM160.1 33.4V22.6H165Q166.7 22.6 168.1 23.3Q169.4 24 170.2 25.2Q170.9 26.4 170.9 28Q170.9 29.6 170.2 30.9Q169.4 32.1 168.1 32.7Q166.7 33.4 165 33.4ZM162.6 31.4H164.9Q165.9 31.4 166.7 30.9Q167.5 30.5 168 29.8Q168.4 29 168.4 28Q168.4 27 168 26.2Q167.5 25.5 166.7 25.1Q165.9 24.7 164.9 24.7H162.6ZM171.7 33.4 176.5 22.6H179L183.8 33.4H181.2L180.2 31.1H175.2L174.3 33.4ZM179.4 29.2 177.7 25.1 176 29.2ZM185.2 33.4V22.6H190.1Q191.9 22.6 193.2 23.3Q194.6 24 195.3 25.2Q196.1 26.4 196.1 28Q196.1 29.6 195.3 30.9Q194.6 32.1 193.2 32.7Q191.9 33.4 190.1 33.4ZM187.7 31.4H190Q191.1 31.4 191.9 30.9Q192.7 30.5 193.1 29.8Q193.5 29 193.5 28Q193.5 27 193.1 26.2Q192.7 25.5 191.9 25.1Q191.1 24.7 190 24.7H187.7Z"/></svg></div>
+    <span class="etiqueta">Clase en vivo · se graba para evergreen</span>
+    <h1>Cómo usar la neurociencia para concentrarte y dejar de procrastinar</h1>
+    <p class="bajada">Lo que hay que tener en cuenta para desarrollar la clase. Método: Agreement Engineering de Dan Henry.</p>
+    <div class="datos"><span>≈ 90 minutos</span><span>14 bloques</span><span>Comunidad Productiva · USD 35 por mes</span></div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="envoltura">
+    <div class="cabeza-sec"><span class="num">01</span><h2>La idea central</h2></div>
+    <p class="intro-sec">Es lo único que tiene que quedar instalado al final. Todo lo demás de la clase la sostiene.</p>
+    <div class="creencia"><p>Nadie sostiene su organización solo con fuerza de voluntad. Se sostiene con bases claras, un ritmo semanal y gente que lo hace con vos. Sin esas bases nada de lo demás avanza; con ellas, todo es más fácil.</p></div>
+    <div class="frases">
+      <div class="frase frase--central"><span class="etiqueta">La frase para repetir</span><p>Primero las bases. Organizate y concentrate, y todo lo demás se vuelve más fácil.</p></div>
+      <div class="frase frase--apoyo"><span class="etiqueta">La frase de apoyo</span><p>Podés con todo. Pero no con todo al mismo tiempo. Vamos paso por paso.</p></div>
+    </div>
+    <p class="prueba"><b>El test:</b> si alguien puede creer esta idea y aun así irse sin comprar, la idea está mal planteada.</p>
+  </div>
+</section>
+
+<section>
+  <div class="envoltura">
+    <div class="cabeza-sec"><span class="num">02</span><h2>Los 9 acuerdos</h2></div>
+    <p class="intro-sec">La clase sube de a un peldaño. Cada bloque consigue que la persona piense uno de estos, en este orden.</p>
+    <div class="acuerdos">
+      <div class="acuerdo" style="--i:0"><span class="n">1</span><p>"Esto es serio y lo tengo que resolver ya."</p><span class="donde">Bloque 1</span></div>
+      <div class="acuerdo" style="--i:1"><span class="n">2</span><p>"Lo que vengo haciendo no puede funcionar."</p><span class="donde">Bloque 3</span></div>
+      <div class="acuerdo" style="--i:2"><span class="n">3</span><p>"La razón es algo que no sabía."</p><span class="donde">Bloque 4</span></div>
+      <div class="acuerdo" style="--i:3"><span class="n">4</span><p>"Esta persona me entiende."</p><span class="donde">Bloque 2</span></div>
+      <div class="acuerdo" style="--i:4"><span class="n">5</span><p>"Hay una solución distinta."</p><span class="donde">Bloques 6 y 8</span></div>
+      <div class="acuerdo" style="--i:5"><span class="n">6</span><p>"Está probado."</p><span class="donde">Bloques 8 y 9</span></div>
+      <div class="acuerdo" style="--i:6"><span class="n">7</span><p>"Funciona para alguien como yo."</p><span class="donde">Bloques 9 y 10</span></div>
+      <div class="acuerdo" style="--i:7"><span class="n">8</span><p>"No hacerlo me cuesta más que hacerlo."</p><span class="donde">Bloques 10 y 11</span></div>
+      <div class="acuerdo" style="--i:8"><span class="n">9</span><p>"Tengo que actuar ahora."</p><span class="donde">Bloque 12</span></div>
+    </div>
+    <p class="nota-acuerdos">Si al final alguien dice "lo voy a pensar", faltó un peldaño. Cada acuerdo necesita al menos una analogía: una comparación con algo que la gente ya cree.</p>
+  </div>
+</section>
+
+<section>
+  <div class="envoltura">
+    <div class="cabeza-sec"><span class="num">03</span><h2>La clase, bloque por bloque</h2></div>
+    <div class="barra" aria-label="Duración de cada bloque">
+      <div class="c" style="--m:5">0</div><div class="c" style="--m:7">1</div><div class="c" style="--m:6">2</div><div class="c" style="--m:10">3</div><div class="c" style="--m:22">4</div>
+      <div class="p" style="--m:5">5</div><div class="p" style="--m:5">6</div><div class="p" style="--m:2">7</div><div class="p" style="--m:8">8</div><div class="p" style="--m:4">9</div><div class="p" style="--m:3">10</div><div class="p" style="--m:3">11</div>
+      <div class="v" style="--m:5">12</div><div class="v" style="--m:5">13</div>
+    </div>
+    <div class="leyenda"><span><i style="background:var(--azul)"></i>Contenido · slides de Nico</span><span><i style="background:#2b5378"></i>Pitch · slides ya armadas</span><span><i style="background:var(--naranja)"></i>En vivo · se corta en el evergreen</span></div>
+    <div class="bloques">
+      <div class="bloque"><div class="arriba"><span class="min">0–5 MIN</span><span class="tag">Marco</span></div><h3>0 · Apertura</h3><p>"Esta clase es para quienes todavía no son parte del Instituto." Promesa: al final, el único paso concreto que podés dar hoy.</p></div>
+      <div class="bloque"><div class="arriba"><span class="min">5–12 MIN</span><span class="tag">Acuerdo 1</span></div><h3>1 · La semana que termina en cero</h3><p>El domingo a la noche de C2: cumpliste con todos y tus cosas quedaron en cero. "Escribí <i>yo</i> si te pasó."</p></div>
+      <div class="bloque"><div class="arriba"><span class="min">12–18 MIN</span><span class="tag">Acuerdo 4</span></div><h3>2 · Nico estuvo ahí</h3><p>Tus eras: Ambicioso, Fundido y Sistema. La del medio es el espejo. "Me tomó 6 años armarlo solo."</p></div>
+      <div class="bloque"><div class="arriba"><span class="min">18–28 MIN</span><span class="tag">Acuerdo 2</span></div><h3>3 · Lo que venís haciendo no puede funcionar</h3><p>Agendas, apps y sistemas pensados para una semana perfecta. La respiración: lo automático le gana a la voluntad.</p></div>
+      <div class="bloque"><div class="arriba"><span class="min">28–50 MIN</span><span class="tag">Acuerdo 3</span></div><h3>4 · La razón que no sabías: tu cerebro</h3><p>Interrupciones, tiempo de reanudación y facilitación social. Qué pasa y por qué; el paso a paso queda adentro.</p></div>
+      <div class="bloque"><div class="arriba"><span class="min">50–55 MIN</span><span class="tag">Oportunidad</span><span class="tag">Slide 1</span></div><h3>5 · Lo que se vuelve posible</h3><p>Tres bloques por semana para vos. No se apura: acá nacen las ganas.</p></div>
+      <div class="bloque"><div class="arriba"><span class="min">55–60 MIN</span><span class="tag">Acuerdo 5</span><span class="tag">Slide 2</span></div><h3>6 · El Instituto y el primer escalón</h3><p>Todo el Instituto, con lo de arriba bloqueado. "Podés con todo, pero no con todo al mismo tiempo."</p></div>
+      <div class="bloque"><div class="arriba"><span class="min">60–62 MIN</span><span class="tag">Puente</span><span class="tag">Slides 3–4</span></div><h3>7 · Dos tipos de personas</h3><p>"¿Querés que te muestre el único paso concreto que podés dar hoy? Escribí <i>sí</i>."</p></div>
+      <div class="bloque"><div class="arriba"><span class="min">62–70 MIN</span><span class="tag">Acuerdos 5 y 6</span><span class="tag">Slides 5–7</span></div><h3>8 · Los 3 pilares</h3><p>Las bases, la planificación de los sábados y el co-work. Cada uno por lo que te da.</p></div>
+      <div class="bloque"><div class="arriba"><span class="min">70–74 MIN</span><span class="tag">Acuerdos 6 y 7</span><span class="tag">Slides 8–9</span></div><h3>9 · Casos de perfiles distintos</h3><p>Pierina y casos que define Esteban. Uno tiene que parecerse a quien mira.</p></div>
+      <div class="bloque"><div class="arriba"><span class="min">74–77 MIN</span><span class="tag">Acuerdos 7 y 8</span><span class="tag">Slide 10</span></div><h3>10 · Las dos dudas</h3><p>"¿Otro curso más?" y "¿y si no lo sostengo?". La segunda mata la venta si no se nombra.</p></div>
+      <div class="bloque"><div class="arriba"><span class="min">77–80 MIN</span><span class="tag">Acuerdo 8</span><span class="tag">Slides 11–13</span></div><h3>11 · El precio, como Netflix</h3><p>Cuántas suscripciones pagás, la balanza y el café: USD 1,17 por día.</p></div>
+      <div class="bloque bloque--vivo"><div class="arriba"><span class="min">80–85 MIN</span><span class="tag">Acuerdo 9</span><span class="tag tag--corte">Se corta</span></div><h3>12 · Precio, urgencia y una sola acción</h3><p>USD 50 tachado, USD 35. El QR de tu moneda. "Si entrás hoy, este sábado ya planificás con nosotros."</p></div>
+      <div class="bloque bloque--vivo"><div class="arriba"><span class="min">85–90 MIN</span><span class="tag">En vivo</span><span class="tag tag--corte">Se corta</span></div><h3>13 · Mientras pagan</h3><p>Caso de éxito en vivo, repaso de los 3 pilares y preguntas. Medio de pago primero.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="envoltura">
+    <div class="cabeza-sec"><span class="num">04</span><h2>El primer escalón y sus 3 pilares</h2></div>
+    <div class="instituto">
+      <div>
+        <div class="escalera">
+          <div class="escalon escalon--uno"><span class="hoy">HOY</span><b>1</b><span>Comunidad Productiva</span><small>Las bases</small></div>
+          <div class="escalon escalon--bloq escalon--dos"><div class="borroso"><b>2</b><span>Clases con expertos</span><small>Clases grupales · coaches 1 a 1</small></div><div class="candado"><em>BLOQUEADO</em></div></div>
+          <div class="escalon escalon--bloq escalon--tres"><div class="borroso"><b>3</b><span>Proceso personalizado</span><small>Nutrición · psicología · experto asignado</small></div><div class="candado"><em>BLOQUEADO</em></div></div>
+        </div>
+        <p class="pie-escalera">Arriba está todo el Instituto, integral. Se muestra para generar intriga; lo que se vende hoy es el primer escalón, el único que depende de vos. El 1 a 1 nunca se promete dentro de la Comunidad.</p>
+      </div>
+      <div class="pilares">
+        <div class="pilar"><span class="n">1</span><div><h3>LAS BASES</h3><p>Cómo funciona tu cerebro, destilado. Para dejar de pelearte con él.</p></div></div>
+        <div class="pilar"><span class="n">2</span><div><h3>LA PLANIFICACIÓN</h3><p>Los sábados a la mañana, en vivo. Para arrancar el lunes sabiendo qué hacer.</p></div></div>
+        <div class="pilar"><span class="n">3</span><div><h3>EL CO-WORK</h3><p>Bloques de foco en vivo, de lunes a viernes. Para hacer lo que venías postergando, acompañado.</p></div></div>
+        <div class="regla">La regla: podés desaparecer una semana. Dos, no.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="envoltura">
+    <div class="cabeza-sec"><span class="num">05</span><h2>Lo que hace que compren</h2></div>
+    <p class="intro-sec">Se compra con emoción y se justifica con lógica. Los tres motores corren por debajo de toda la clase.</p>
+    <div class="tres">
+      <div class="motor"><span class="etiqueta">Miedo</span><h3>El costo de seguir igual</h3><p>Otro mes con tu proyecto en el mismo lugar. Tus dos futuros.</p></div>
+      <div class="motor"><span class="etiqueta">Deseo</span><h3>La semana del otro lado</h3><p>Tres bloques para vos y tiempo con tu familia, sin culpa.</p></div>
+      <div class="motor"><span class="etiqueta">Confianza</span><h3>"Nico estuvo ahí"</h3><p>Tus eras con escenas reales. Le compran a quien les cree.</p></div>
+    </div>
+    <div class="combustible">
+      <div class="puntaje puntaje--alto"><b>+2</b><p>Un momento tuyo de vulnerabilidad real.</p></div>
+      <div class="puntaje"><b>+1</b><p>Una historia en la que se ven a sí mismos logrando el cambio.</p></div>
+      <div class="puntaje"><b>0</b><p>Una explicación seca, por buena que sea.</p></div>
+    </div>
+    <div class="miedos">
+      <div class="miedo"><span class="etiqueta">Miedo al producto</span><h3>"¿Otro curso más que no voy a usar?"</h3><p>Es un ritmo semanal en vivo, con gente, todos los sábados.</p></div>
+      <div class="miedo"><span class="etiqueta">Miedo a uno mismo</span><h3>"¿Y si no lo puedo sostener?"</h3><p>Está pensada para semanas que se desarman. Este es el que mata la venta en silencio.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="envoltura">
+    <div class="cabeza-sec"><span class="num">06</span><h2>Qué, por qué y cuándo. Nunca el cómo</h2></div>
+    <p class="intro-sec">Si la clase resuelve todo, nadie necesita sumarse. El paso a paso se vive adentro.</p>
+    <div class="que">
+      <div><span class="etiqueta">Qué</span><p>Cada interrupción te cuesta hasta 23 minutos para volver a concentrarte.</p></div>
+      <div><span class="etiqueta">Por qué</span><p>Tu memoria de trabajo reconstruye desde cero dónde estabas.</p></div>
+      <div><span class="etiqueta">Cuándo</span><p>Cada vez que te sentás sin un plan escrito.</p></div>
+      <div class="como"><span class="etiqueta">Cómo</span><p>Cómo se arma el plan: eso se hace los sábados, adentro.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="envoltura">
+    <div class="cabeza-sec"><span class="num">07</span><h2>El cierre: 7 elementos, en orden</h2></div>
+    <div class="cierre">
+      <div class="elemento"><b>1</b><h3>Puente</h3><p>Dos tipos de personas y la pregunta de permiso.</p></div>
+      <div class="elemento"><b>2</b><h3>Qué recibís</h3><p>Los 3 pilares, cada uno por lo que te da.</p></div>
+      <div class="elemento"><b>3</b><h3>Precio</h3><p>Como Netflix, la balanza y el café.</p></div>
+      <div class="elemento elemento--falta"><b>4</b><h3>Garantía</h3><p>"Es mensual: si no te sirve, no renovás." A validar.</p></div>
+      <div class="elemento"><b>5</b><h3>Los dos miedos</h3><p>Al producto y a uno mismo.</p></div>
+      <div class="elemento"><b>6</b><h3>Urgencia real</h3><p>Primeras 20 personas. Y el sábado.</p></div>
+      <div class="elemento"><b>7</b><h3>Una acción</h3><p>El QR de tu moneda. "Escribí <i>adentro</i>."</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="envoltura">
+    <div class="cabeza-sec"><span class="num">08</span><h2>La frase central, 21 veces</h2></div>
+    <div class="repe">
+      <div class="grande">21×<small>cada vez con otras palabras<br>y otra historia</small></div>
+      <div class="muro">
+        <span class="clave">Primero las bases</span><span>Organizate y concentrate, y todo se vuelve más fácil</span><span>Sin las bases no vas a lograr nada de lo demás</span><span class="clave">Podés con todo, pero no con todo al mismo tiempo</span><span>Vamos paso por paso</span><span>El primer paso es el único que depende de vos</span><span>Todo lo demás lo hacemos juntos</span><span>Una sola cosa: organizarte y poder concentrarte</span><span>El que ordena su semana destraba el resto</span><span>Las bases primero, los objetivos después</span><span>Nadie sostiene esto solo con fuerza de voluntad</span><span>Con un ritmo y con gente, se sostiene</span><span>Tu cerebro necesita bases antes que más tareas</span><span>Para empezar alcanza con un primer paso</span><span>Este es el primer escalón del Instituto</span><span>Desde las bases, todo es más fácil</span><span>Hoy, un solo paso concreto</span><span>Ordená tu semana y tus cosas dejan de quedar para después</span><span>Primero entendé cómo funciona tu cerebro</span><span>Resolvé esto primero, y adentro te ayudamos con lo que sigue</span><span class="clave">Primero las bases</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="envoltura">
+    <div class="cabeza-sec"><span class="num">09</span><h2>Para que la grabación sirva</h2></div>
+    <div class="dos">
+      <div class="caja caja--no">
+        <span class="etiqueta">Lo que no decimos</span>
+        <h3>Nada que ate la clase a hoy</h3>
+        <ul>
+          <li>La plataforma: ni Zoom ni YouTube.</li>
+          <li>La fecha: ni "hoy martes", ni "esta noche", ni la clase anterior.</li>
+          <li>Cuántos están conectados o cuántos compraron.</li>
+          <li>Nombres del chat durante el contenido. Solo en la apertura y en la oferta en vivo.</li>
+          <li>"Después les mando la grabación."</li>
+          <li>El 1 a 1 dentro de la Comunidad.</li>
+        </ul>
+        <p class="marco"><b>Marco abre:</b> "Si ya sos alumno del Instituto, todo lo que vas a ver hoy ya lo tenés adentro. Esta clase es para quienes todavía no son parte y quieren dar el primer paso."</p>
+      </div>
+      <div class="caja caja--conf">
+        <span class="etiqueta">A confirmar</span>
+        <h3>Antes de salir en vivo</h3>
+        <ul>
+          <li>Cupo: 20 lugares a USD 35 y después USD 50.</li>
+          <li>Qué incluyen exactamente los sábados (David).</li>
+          <li>La garantía, con Nico.</li>
+          <li>Qué eras usa Nico y con qué fotos.</li>
+          <li>Los casos de los bloques 9 y 13 (Esteban).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="envoltura"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 196.7 40" role="img" aria-label="Instituto de Productividad"><defs><linearGradient id="ipBaseN" x1="0" x2="1"><stop offset="0" stop-color="#0C3452" stop-opacity="0"/><stop offset=".5" stop-color="#0C3452" stop-opacity=".55"/><stop offset="1" stop-color="#0C3452" stop-opacity="0"/></linearGradient></defs><rect x="0" y="39.2" width="43.9" height=".8" fill="url(#ipBaseN)"/><g transform="translate(-14.5,-3.1) scale(0.6337)"><path fill="#0C3452" d="M22.9,66.5 V46 Q22.9,43.8 25.1,43.8 H37 Q39.2,43.8 39.2,46 V66.5 Z M45.9,66.5 V33 Q45.9,30.8 48.1,30.8 H59.8 Q62,30.8 62,33 V66.5 Z M68,66.5 V25.7 Q68,23.5 70.2,23.5 H82.8 Q85,23.5 85,25.7 V66.5 Z"/><path fill-rule="evenodd" fill="#FF6602" stroke="#FFFFFF" stroke-width="2.4" stroke-linejoin="round" paint-order="stroke" d="M24,56.8 C23.4,56.6 23.7,56.2 24.6,55.8 C24.9,55.8 25.2,55.6 25.5,55.4 C25.7,55.3 26.1,55.1 26.4,54.9 C26.9,54.7 27.5,54.4 29.6,53.2 C31.5,52.1 32.8,51.4 35.5,50 C36.2,49.7 37,49.2 37.5,48.9 C37.9,48.6 38.5,48.2 38.9,48 C39.2,47.9 39.6,47.6 39.8,47.5 C40,47.3 40.6,47 41,46.7 C42.5,45.9 44.6,44.5 45.4,43.9 C45.8,43.6 46.5,43.2 46.9,43 C47.2,42.8 47.8,42.4 48.2,42.1 C48.5,41.8 49.1,41.4 49.5,41.1 C49.9,40.8 50.6,40.3 51.1,40 C52,39.3 53.7,38.1 54.7,37.4 C55,37.1 55.6,36.6 56,36.2 C56.7,35.6 57.9,34.7 59.4,33.6 C60.2,32.9 62.4,31 64.8,28.6 C66,27.4 67.5,25.9 68.1,25.4 C68.7,24.9 69.6,24 70,23.5 C70.4,23 71.6,21.8 72.5,20.8 C74.9,18.5 75.9,17.3 77.8,14.9 C78.2,14.3 78.8,13.6 79.1,13.3 C80,12.2 80,11.8 78.9,10.7 C78.1,9.9 78,9.6 78.2,9.3 C78.5,8.9 80,8.2 81.3,8 C81.8,7.8 82.5,7.6 82.9,7.4 C83.4,7.2 83.8,7 84.5,6.9 C85.1,6.8 85.6,6.7 86.2,6.4 C86.6,6.2 87.3,6 87.8,5.9 C88.3,5.8 89.1,5.5 89.6,5.3 C91,4.8 91.8,4.8 92.1,5.6 C92.2,6 92.1,8 91.8,8.7 C91.7,9 91.5,9.4 91.4,9.7 C91.3,9.9 91.1,10.5 91.1,10.9 C91,11.3 90.9,11.9 90.8,12.2 C90.7,12.5 90.5,12.9 90.4,13.2 C90.3,13.4 90.2,14.1 90.1,14.7 C90,16 89.6,17.1 89.1,18.2 C88.8,18.8 88.3,18.8 87.4,18 C86.2,17 86.2,16.9 83.4,19.8 C82.2,21 80.7,22.4 80.2,22.8 C79.6,23.3 78.4,24.4 77.5,25.2 C76.5,26.1 74.8,27.6 73.7,28.5 C72.5,29.4 71.2,30.5 70.8,30.9 C70.3,31.3 69.5,31.9 69,32.3 C68.5,32.6 67.5,33.3 66.8,33.9 C66.1,34.5 65.2,35.1 64.8,35.3 C64.4,35.6 63.8,36 63.4,36.3 C63,36.6 62.4,37 61.9,37.3 C61.5,37.5 60.9,38 60.5,38.3 C60.1,38.5 59.4,39 59,39.2 C58.6,39.5 57.9,40 57.5,40.2 C57.1,40.5 56.6,40.9 56.3,41.1 C55,41.8 52.9,43 52,43.5 C50.9,44.2 49.6,44.9 49,45.2 C48.8,45.3 48.1,45.7 47.5,46 C45.3,47.3 44.3,47.9 43.9,48 C43.4,48.2 41.1,49.4 40.4,49.8 C40.2,49.9 39.6,50.2 38.9,50.5 C38.2,50.8 37.3,51.3 37,51.5 C36.6,51.7 36,51.9 35.7,52.1 C35.3,52.2 34.6,52.5 34.2,52.7 C33.8,52.9 33.4,53.1 33.2,53.1 C33.1,53.2 32.7,53.4 32.2,53.6 C31.8,53.8 31.2,54 31,54.1 C30.8,54.2 30.3,54.4 29.9,54.6 C29.6,54.8 29,55 28.8,55 C28.5,55.1 27.9,55.3 27.5,55.5 C27.1,55.7 26.5,56 26.2,56 C25.7,56.1 25.3,56.3 24.9,56.6 C24.6,56.8 24.2,56.9 24,56.8 Z"/></g><path fill="#0C3452" d="M53.8 15.2V9.2H54.6V15.2ZM59 15.2V9.2H59.7L63.4 13.7V9.2H64.2V15.2H63.5L59.9 10.7V15.2ZM70.4 15.3Q69.7 15.3 69 15.1Q68.4 14.8 68 14.5L68.4 13.8Q68.7 14.1 69.2 14.3Q69.8 14.5 70.4 14.5Q70.9 14.5 71.2 14.4Q71.5 14.3 71.7 14.1Q71.8 13.9 71.8 13.6Q71.8 13.3 71.6 13.1Q71.4 12.9 71.1 12.8Q70.8 12.7 70.4 12.6Q70 12.5 69.6 12.4Q69.2 12.3 68.9 12.1Q68.6 11.9 68.4 11.6Q68.2 11.3 68.2 10.8Q68.2 10.4 68.4 10Q68.7 9.6 69.2 9.3Q69.7 9.1 70.5 9.1Q71 9.1 71.5 9.2Q72.1 9.4 72.4 9.6L72.2 10.3Q71.8 10.1 71.3 10Q70.9 9.8 70.5 9.8Q70 9.8 69.7 10Q69.3 10.1 69.2 10.3Q69 10.5 69 10.8Q69 11.1 69.2 11.3Q69.4 11.5 69.8 11.6Q70.1 11.7 70.5 11.8Q70.9 11.9 71.3 12Q71.6 12.1 72 12.3Q72.3 12.5 72.5 12.8Q72.7 13.1 72.7 13.6Q72.7 14 72.4 14.4Q72.2 14.8 71.7 15Q71.1 15.3 70.4 15.3ZM77.7 15.2V9.9H75.7V9.2H80.6V9.9H78.6V15.2ZM84.1 15.2V9.2H85V15.2ZM90.6 15.2V9.9H88.5V9.2H93.5V9.9H91.4V15.2ZM99.5 15.3Q98.3 15.3 97.6 14.6Q97 13.9 97 12.6V9.2H97.8V12.6Q97.8 13.6 98.3 14Q98.7 14.5 99.5 14.5Q100.3 14.5 100.8 14Q101.2 13.6 101.2 12.6V9.2H102.1V12.6Q102.1 13.9 101.4 14.6Q100.7 15.3 99.5 15.3ZM107.6 15.2V9.9H105.5V9.2H110.5V9.9H108.5V15.2ZM116.8 15.3Q116.1 15.3 115.5 15Q114.9 14.8 114.5 14.4Q114 14 113.8 13.4Q113.5 12.9 113.5 12.2Q113.5 11.5 113.8 11Q114 10.4 114.5 10Q114.9 9.6 115.5 9.3Q116.1 9.1 116.8 9.1Q117.4 9.1 118 9.3Q118.6 9.6 119 10Q119.5 10.4 119.7 11Q119.9 11.5 119.9 12.2Q119.9 12.9 119.7 13.4Q119.5 14 119 14.4Q118.6 14.8 118 15Q117.4 15.3 116.8 15.3ZM116.8 14.5Q117.2 14.5 117.7 14.3Q118.1 14.2 118.4 13.8Q118.7 13.5 118.9 13.1Q119.1 12.7 119.1 12.2Q119.1 11.7 118.9 11.3Q118.7 10.8 118.4 10.5Q118.1 10.2 117.7 10Q117.2 9.9 116.8 9.9Q116.2 9.9 115.8 10Q115.4 10.2 115.1 10.5Q114.8 10.8 114.6 11.3Q114.4 11.7 114.4 12.2Q114.4 12.7 114.6 13.1Q114.8 13.5 115.1 13.8Q115.4 14.2 115.8 14.3Q116.2 14.5 116.8 14.5ZM128.7 15.2V9.2H131.3Q132.2 9.2 133 9.6Q133.7 9.9 134.1 10.6Q134.5 11.3 134.5 12.2Q134.5 13.1 134.1 13.8Q133.7 14.4 133 14.8Q132.2 15.2 131.3 15.2ZM129.6 14.5H131.2Q132 14.5 132.5 14.2Q133.1 13.9 133.4 13.4Q133.7 12.9 133.7 12.2Q133.7 11.5 133.4 11Q133.1 10.5 132.5 10.2Q132 9.9 131.2 9.9H129.6ZM139.3 14.5H142.8V15.2H138.4V9.2H142.7V9.9H139.3V11.8H142.3V12.5H139.3Z"/><path fill="#0C3452" d="M54.2 33.4V22.6H58.8Q60.3 22.6 61.3 23.1Q62.4 23.6 62.9 24.4Q63.5 25.3 63.5 26.5Q63.5 27.7 62.9 28.6Q62.4 29.5 61.3 30Q60.3 30.4 58.8 30.4H56.7V33.4ZM56.7 28.4H58.7Q59.8 28.4 60.4 27.9Q61 27.4 61 26.5Q61 25.6 60.4 25.1Q59.8 24.7 58.7 24.7H56.7ZM65.7 33.4V22.6H70.4Q71.9 22.6 72.9 23.1Q74 23.6 74.5 24.4Q75.1 25.3 75.1 26.5Q75.1 27.7 74.5 28.6Q74 29.5 72.9 29.9Q72.9 29.9 72.9 30L75.3 33.4H72.6L70.5 30.4Q70.5 30.4 70.4 30.4H68.2V33.4ZM68.2 28.4H70.3Q71.4 28.4 72 27.9Q72.6 27.4 72.6 26.5Q72.6 25.6 72 25.1Q71.4 24.7 70.3 24.7H68.2ZM82.6 33.6Q81.3 33.6 80.2 33.2Q79.2 32.8 78.4 32Q77.6 31.2 77.1 30.2Q76.7 29.2 76.7 28Q76.7 26.8 77.1 25.8Q77.6 24.8 78.4 24Q79.2 23.3 80.3 22.9Q81.3 22.4 82.6 22.4Q83.9 22.4 84.9 22.9Q86 23.3 86.8 24Q87.6 24.8 88 25.8Q88.5 26.8 88.5 28Q88.5 29.2 88 30.2Q87.6 31.3 86.8 32Q86 32.8 84.9 33.2Q83.9 33.6 82.6 33.6ZM82.6 31.5Q83.3 31.5 83.9 31.2Q84.5 31 85 30.5Q85.5 30 85.7 29.4Q86 28.8 86 28Q86 27.2 85.7 26.6Q85.5 26 85 25.5Q84.5 25.1 83.9 24.8Q83.3 24.6 82.6 24.6Q81.9 24.6 81.3 24.8Q80.7 25.1 80.2 25.5Q79.7 26 79.5 26.6Q79.2 27.2 79.2 28Q79.2 28.8 79.5 29.4Q79.7 30 80.2 30.5Q80.6 31 81.3 31.2Q81.9 31.5 82.6 31.5ZM90.7 33.4V22.6H95.6Q97.3 22.6 98.7 23.3Q100 24 100.8 25.2Q101.5 26.4 101.5 28Q101.5 29.6 100.8 30.9Q100 32.1 98.7 32.7Q97.3 33.4 95.6 33.4ZM93.2 31.4H95.5Q96.5 31.4 97.3 30.9Q98.1 30.5 98.6 29.8Q99 29 99 28Q99 27 98.6 26.2Q98.1 25.5 97.3 25.1Q96.5 24.7 95.5 24.7H93.2ZM108.5 33.6Q106.2 33.6 104.9 32.3Q103.6 31 103.6 28.7V22.6H106.1V28.6Q106.1 30.1 106.7 30.8Q107.4 31.5 108.5 31.5Q109.7 31.5 110.3 30.8Q110.9 30.1 110.9 28.6V22.6H113.4V28.7Q113.4 31 112.1 32.3Q110.8 33.6 108.5 33.6ZM121.3 33.6Q120.1 33.6 119 33.2Q117.9 32.8 117.1 32Q116.4 31.3 115.9 30.2Q115.5 29.2 115.5 28Q115.5 26.8 115.9 25.8Q116.4 24.8 117.1 24Q117.9 23.3 119 22.8Q120.1 22.4 121.3 22.4Q122.7 22.4 123.9 22.9Q125 23.4 125.8 24.3L124.2 25.8Q123.6 25.2 122.9 24.9Q122.2 24.6 121.4 24.6Q120.7 24.6 120.1 24.8Q119.4 25.1 119 25.5Q118.5 26 118.3 26.6Q118 27.2 118 28Q118 28.8 118.3 29.4Q118.5 30 119 30.5Q119.4 31 120.1 31.2Q120.7 31.5 121.4 31.5Q122.2 31.5 122.9 31.1Q123.6 30.8 124.2 30.2L125.8 31.7Q125 32.6 123.9 33.1Q122.7 33.6 121.3 33.6ZM130 33.4V24.7H126.5V22.6H135.9V24.7H132.5V33.4ZM137.6 33.4V22.6H140.1V33.4ZM146.2 33.4 141.5 22.6H144.2L147.5 30.3L150.8 22.6H153.3L148.6 33.4ZM154.7 33.4V22.6H157.2V33.4ZM160.1 33.4V22.6H165Q166.7 22.6 168.1 23.3Q169.4 24 170.2 25.2Q170.9 26.4 170.9 28Q170.9 29.6 170.2 30.9Q169.4 32.1 168.1 32.7Q166.7 33.4 165 33.4ZM162.6 31.4H164.9Q165.9 31.4 166.7 30.9Q167.5 30.5 168 29.8Q168.4 29 168.4 28Q168.4 27 168 26.2Q167.5 25.5 166.7 25.1Q165.9 24.7 164.9 24.7H162.6ZM171.7 33.4 176.5 22.6H179L183.8 33.4H181.2L180.2 31.1H175.2L174.3 33.4ZM179.4 29.2 177.7 25.1 176 29.2ZM185.2 33.4V22.6H190.1Q191.9 22.6 193.2 23.3Q194.6 24 195.3 25.2Q196.1 26.4 196.1 28Q196.1 29.6 195.3 30.9Q194.6 32.1 193.2 32.7Q191.9 33.4 190.1 33.4ZM187.7 31.4H190Q191.1 31.4 191.9 30.9Q192.7 30.5 193.1 29.8Q193.5 29 193.5 28Q193.5 27 193.1 26.2Q192.7 25.5 191.9 25.1Q191.1 24.7 190 24.7H187.7Z"/></svg><p>Clase Comunidad Productiva · uso interno</p></div>
+</footer>
+
+</body>
+</html>
