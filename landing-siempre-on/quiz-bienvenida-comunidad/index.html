@@ -109,7 +109,7 @@ html, body{ margin:0; padding:0; background:var(--q-bg); }
 
 /* intro */
 .q-intro{ text-align:center; padding-top:12px; }
-.q-intro h1, .q-intro p, .q-armando h2, .q-otra, .q-inv__micro{ text-align:center !important; }
+.q-intro h1, .q-intro p, .q-armando h2, .q-inv__micro{ text-align:center !important; }
 .q-intro h1{ font-family:var(--q-font-h); font-size:1.85rem; font-weight:800; line-height:1.15; letter-spacing:-0.02em; margin:6px 0 12px; }
 .q-intro h1 em{ font-style:normal; color:var(--q-orange); }
 .q-intro p.q-intro__txt{ font-size:1.05rem; line-height:1.5; color:#2a3f54; margin:0 auto 24px !important; max-width:26em; }
@@ -175,7 +175,6 @@ html, body{ margin:0; padding:0; background:var(--q-bg); }
 .q-inv__video{ border-radius:12px; overflow:hidden; background:#000; margin:0 0 16px; }
 .q-inv__video[hidden]{ display:none !important; }
 .q-inv__micro{ font-size:0.84rem !important; color:rgba(255,255,255,0.65) !important; text-align:center; margin:10px 0 0 !important; }
-.q-otra{ text-align:center; margin-top:16px; }
 </style>
 
 <div class="q-page" id="q-page">
@@ -408,7 +407,6 @@ function resultado(R){
       +'<p>Te recomendamos <b>Hackea tu cerebro</b>, el libro de Nico: la neurociencia detrás de cómo te organizás, explicada para usarla en tu semana.</p>'
       +'<a class="q-btn" id="q-cta" href="'+esc(CONFIG.LIBRO_URL||'#')+'" target="_blank" rel="noopener" data-evento="clic_libro">QUIERO EL LIBRO '+FLECHA+'</a></div>';
   }
-  h+='<div class="q-otra"><button type="button" class="q-link" data-accion="reiniciar">Volver a hacer el quiz</button></div>';
   main.innerHTML=h+'</section>';
   if(R.califica) ponerVideo();
   window.scrollTo(0,0);
@@ -482,7 +480,6 @@ main.addEventListener('click', function(e){
   var accion=t.getAttribute('data-accion'), P=PASOS[i];
   if(accion==='empezar'){ i=0; pantalla(); return; }
   if(accion==='atras'){ if(i>0){ i--; pantalla(); } else intro(); return; }
-  if(accion==='reiniciar'){ resp={}; try{ localStorage.removeItem(GUARDADO); }catch(err){} intro(); return; }
   if(accion==='seguir'){ siguiente(); return; }
   if(accion==='agenda'){ var ga=leerGuardado(); abrirAgenda(ga?ga.R:calcular()); return; }
   if(t.getAttribute('data-evento')){ var g=leerGuardado(); if(g) enviar(g.R, t.getAttribute('data-evento')); return; }
