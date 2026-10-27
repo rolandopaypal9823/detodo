@@ -39,8 +39,8 @@ Un POST de formulario (`application/x-www-form-urlencoded`) por evento.
 **Contacto:** `nombre`, `telefono`, `email`, `cid`.
 
 **Respuestas:**
-- `momento`: A, B o C. Es la misma etapa del form del 7/10, dicha más simple.
-- `equipo`: A, B o C.
+- `momento`: A, B o C. Misma pregunta y mismo texto que el form del 7/10.
+- `equipo`: A, B o C. También igual que en el form.
 - `dedicacion`.
 - `s1_pendientes`, `s2_cosas_para_despues`, `s3_interrupciones`, `s4_se_apaga`, `s5_mente_encendida`: 2 = "Sí, soy yo", 1 = "A veces", 0 = "No me pasa".
 - `peso`: del 1 al 10, cuánto le pesa la semana.
@@ -51,12 +51,14 @@ Un POST de formulario (`application/x-www-form-urlencoded`) por evento.
 - `pendiente`: texto libre (puede venir vacío).
 - `urgencia`.
 
-**Resultado:** `perfil`, `carga` (0 a 10), `califica` (si/no), `nivel` (alto/medio/bajo), `destino` (agenda/libro).
+**Resultado:** `perfil` (pendientes, sosten, incendios, arranque, mente o equilibrio), `carga` (0 a 10), `califica` (si/no), `nivel` (alto/medio/bajo), `destino` (agenda/libro).
 
 ## Cómo decide
 
 - **Califica**: momento A o B y quiere el cambio este mes o en los próximos 3 meses.
 - **Nivel**: alto = A/B con gente a cargo · medio = A/B sin gente a cargo · bajo = C.
-- **Perfil**: la situación que más le pasa (Sostén de todos, Apagaincendios, Arranque fuerte, Mente encendida). Si no le pasa ninguna, Bases firmes.
+- **Perfil**: la frase que más marcó (Lista llena, Sostén de todos, Apagaincendios, Arranque fuerte, Mente encendida). Si no marcó ninguna, Bases firmes.
+
+El resultado solo devuelve lo que la persona contestó y datos de estudios presentados como datos generales. No diagnostica ni receta: lo puntual de cada caso se ve con el asesor.
 
 La regla está en la función `calcular()` del script, por si hay que moverla.

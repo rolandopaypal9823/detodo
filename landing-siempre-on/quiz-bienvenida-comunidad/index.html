@@ -40,7 +40,8 @@ html, body{ margin:0; padding:0; background:var(--q-bg); }
 .q-top{ background:var(--q-navy); color:#fff; padding:14px 18px 16px; }
 .q-top__in{ max-width:560px; margin:0 auto; }
 .q-top__fila{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
-.q-top__logo img{ height:40px !important; width:auto !important; display:block; }
+.q-top__logo svg{ height:40px !important; width:auto !important; max-width:none !important; display:block; }
+@media (max-width:400px){ .q-top__logo svg{ height:34px !important; } }
 .q-top__paso{ font-family:var(--q-font-h); font-size:0.74rem; font-weight:600; letter-spacing:0.08em; color:rgba(255,255,255,0.75); }
 .q-mapa{ display:flex; gap:6px; margin-top:12px; }
 .q-mapa__pieza{ flex:1; min-width:0; }
@@ -140,6 +141,7 @@ html, body{ margin:0; padding:0; background:var(--q-bg); }
 .q-cerebro p{ font-size:0.98rem; line-height:1.5; margin:0 !important; text-align:left !important; }
 .q-cerebro p + p{ margin-top:8px !important; }
 .q-cerebro b{ color:var(--q-ink); }
+.q-cerebro .q-cerebro__nota{ font-size:0.85rem; color:var(--q-ink-mute); }
 .q-medidor{ margin:0 0 12px; }
 .q-medidor__fila{ display:flex; justify-content:space-between; gap:10px; font-size:0.9rem; line-height:1.35; margin-bottom:6px; }
 .q-medidor__fila b{ font-family:var(--q-font-h); white-space:nowrap; }
@@ -180,7 +182,7 @@ html, body{ margin:0; padding:0; background:var(--q-bg); }
   <header class="q-top">
     <div class="q-top__in">
       <div class="q-top__fila">
-        <span class="q-top__logo"><img src="data:image/png;base64,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" alt="Nicolás Fernández Miranda" width="347" height="128"></span>
+        <span class="q-top__logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 196.7 40" role="img" aria-label="Instituto de Productividad"><defs><linearGradient id="ipBase" x1="0" x2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset=".5" stop-color="#FFFFFF" stop-opacity=".55"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient></defs><rect x="0" y="39.2" width="43.9" height=".8" fill="url(#ipBase)"/><g transform="translate(-14.5,-3.1) scale(0.6337)"><path fill="#FFFFFF" d="M22.9,66.5 V46 Q22.9,43.8 25.1,43.8 H37 Q39.2,43.8 39.2,46 V66.5 Z M45.9,66.5 V33 Q45.9,30.8 48.1,30.8 H59.8 Q62,30.8 62,33 V66.5 Z M68,66.5 V25.7 Q68,23.5 70.2,23.5 H82.8 Q85,23.5 85,25.7 V66.5 Z"/><path fill-rule="evenodd" fill="#FF6602" stroke="#0C3452" stroke-width="2.4" stroke-linejoin="round" paint-order="stroke" d="M24,56.8 C23.4,56.6 23.7,56.2 24.6,55.8 C24.9,55.8 25.2,55.6 25.5,55.4 C25.7,55.3 26.1,55.1 26.4,54.9 C26.9,54.7 27.5,54.4 29.6,53.2 C31.5,52.1 32.8,51.4 35.5,50 C36.2,49.7 37,49.2 37.5,48.9 C37.9,48.6 38.5,48.2 38.9,48 C39.2,47.9 39.6,47.6 39.8,47.5 C40,47.3 40.6,47 41,46.7 C42.5,45.9 44.6,44.5 45.4,43.9 C45.8,43.6 46.5,43.2 46.9,43 C47.2,42.8 47.8,42.4 48.2,42.1 C48.5,41.8 49.1,41.4 49.5,41.1 C49.9,40.8 50.6,40.3 51.1,40 C52,39.3 53.7,38.1 54.7,37.4 C55,37.1 55.6,36.6 56,36.2 C56.7,35.6 57.9,34.7 59.4,33.6 C60.2,32.9 62.4,31 64.8,28.6 C66,27.4 67.5,25.9 68.1,25.4 C68.7,24.9 69.6,24 70,23.5 C70.4,23 71.6,21.8 72.5,20.8 C74.9,18.5 75.9,17.3 77.8,14.9 C78.2,14.3 78.8,13.6 79.1,13.3 C80,12.2 80,11.8 78.9,10.7 C78.1,9.9 78,9.6 78.2,9.3 C78.5,8.9 80,8.2 81.3,8 C81.8,7.8 82.5,7.6 82.9,7.4 C83.4,7.2 83.8,7 84.5,6.9 C85.1,6.8 85.6,6.7 86.2,6.4 C86.6,6.2 87.3,6 87.8,5.9 C88.3,5.8 89.1,5.5 89.6,5.3 C91,4.8 91.8,4.8 92.1,5.6 C92.2,6 92.1,8 91.8,8.7 C91.7,9 91.5,9.4 91.4,9.7 C91.3,9.9 91.1,10.5 91.1,10.9 C91,11.3 90.9,11.9 90.8,12.2 C90.7,12.5 90.5,12.9 90.4,13.2 C90.3,13.4 90.2,14.1 90.1,14.7 C90,16 89.6,17.1 89.1,18.2 C88.8,18.8 88.3,18.8 87.4,18 C86.2,17 86.2,16.9 83.4,19.8 C82.2,21 80.7,22.4 80.2,22.8 C79.6,23.3 78.4,24.4 77.5,25.2 C76.5,26.1 74.8,27.6 73.7,28.5 C72.5,29.4 71.2,30.5 70.8,30.9 C70.3,31.3 69.5,31.9 69,32.3 C68.5,32.6 67.5,33.3 66.8,33.9 C66.1,34.5 65.2,35.1 64.8,35.3 C64.4,35.6 63.8,36 63.4,36.3 C63,36.6 62.4,37 61.9,37.3 C61.5,37.5 60.9,38 60.5,38.3 C60.1,38.5 59.4,39 59,39.2 C58.6,39.5 57.9,40 57.5,40.2 C57.1,40.5 56.6,40.9 56.3,41.1 C55,41.8 52.9,43 52,43.5 C50.9,44.2 49.6,44.9 49,45.2 C48.8,45.3 48.1,45.7 47.5,46 C45.3,47.3 44.3,47.9 43.9,48 C43.4,48.2 41.1,49.4 40.4,49.8 C40.2,49.9 39.6,50.2 38.9,50.5 C38.2,50.8 37.3,51.3 37,51.5 C36.6,51.7 36,51.9 35.7,52.1 C35.3,52.2 34.6,52.5 34.2,52.7 C33.8,52.9 33.4,53.1 33.2,53.1 C33.1,53.2 32.7,53.4 32.2,53.6 C31.8,53.8 31.2,54 31,54.1 C30.8,54.2 30.3,54.4 29.9,54.6 C29.6,54.8 29,55 28.8,55 C28.5,55.1 27.9,55.3 27.5,55.5 C27.1,55.7 26.5,56 26.2,56 C25.7,56.1 25.3,56.3 24.9,56.6 C24.6,56.8 24.2,56.9 24,56.8 Z"/></g><path fill="#FFFFFF" d="M53.8 15.2V9.2H54.6V15.2ZM59 15.2V9.2H59.7L63.4 13.7V9.2H64.2V15.2H63.5L59.9 10.7V15.2ZM70.4 15.3Q69.7 15.3 69 15.1Q68.4 14.8 68 14.5L68.4 13.8Q68.7 14.1 69.2 14.3Q69.8 14.5 70.4 14.5Q70.9 14.5 71.2 14.4Q71.5 14.3 71.7 14.1Q71.8 13.9 71.8 13.6Q71.8 13.3 71.6 13.1Q71.4 12.9 71.1 12.8Q70.8 12.7 70.4 12.6Q70 12.5 69.6 12.4Q69.2 12.3 68.9 12.1Q68.6 11.9 68.4 11.6Q68.2 11.3 68.2 10.8Q68.2 10.4 68.4 10Q68.7 9.6 69.2 9.3Q69.7 9.1 70.5 9.1Q71 9.1 71.5 9.2Q72.1 9.4 72.4 9.6L72.2 10.3Q71.8 10.1 71.3 10Q70.9 9.8 70.5 9.8Q70 9.8 69.7 10Q69.3 10.1 69.2 10.3Q69 10.5 69 10.8Q69 11.1 69.2 11.3Q69.4 11.5 69.8 11.6Q70.1 11.7 70.5 11.8Q70.9 11.9 71.3 12Q71.6 12.1 72 12.3Q72.3 12.5 72.5 12.8Q72.7 13.1 72.7 13.6Q72.7 14 72.4 14.4Q72.2 14.8 71.7 15Q71.1 15.3 70.4 15.3ZM77.7 15.2V9.9H75.7V9.2H80.6V9.9H78.6V15.2ZM84.1 15.2V9.2H85V15.2ZM90.6 15.2V9.9H88.5V9.2H93.5V9.9H91.4V15.2ZM99.5 15.3Q98.3 15.3 97.6 14.6Q97 13.9 97 12.6V9.2H97.8V12.6Q97.8 13.6 98.3 14Q98.7 14.5 99.5 14.5Q100.3 14.5 100.8 14Q101.2 13.6 101.2 12.6V9.2H102.1V12.6Q102.1 13.9 101.4 14.6Q100.7 15.3 99.5 15.3ZM107.6 15.2V9.9H105.5V9.2H110.5V9.9H108.5V15.2ZM116.8 15.3Q116.1 15.3 115.5 15Q114.9 14.8 114.5 14.4Q114 14 113.8 13.4Q113.5 12.9 113.5 12.2Q113.5 11.5 113.8 11Q114 10.4 114.5 10Q114.9 9.6 115.5 9.3Q116.1 9.1 116.8 9.1Q117.4 9.1 118 9.3Q118.6 9.6 119 10Q119.5 10.4 119.7 11Q119.9 11.5 119.9 12.2Q119.9 12.9 119.7 13.4Q119.5 14 119 14.4Q118.6 14.8 118 15Q117.4 15.3 116.8 15.3ZM116.8 14.5Q117.2 14.5 117.7 14.3Q118.1 14.2 118.4 13.8Q118.7 13.5 118.9 13.1Q119.1 12.7 119.1 12.2Q119.1 11.7 118.9 11.3Q118.7 10.8 118.4 10.5Q118.1 10.2 117.7 10Q117.2 9.9 116.8 9.9Q116.2 9.9 115.8 10Q115.4 10.2 115.1 10.5Q114.8 10.8 114.6 11.3Q114.4 11.7 114.4 12.2Q114.4 12.7 114.6 13.1Q114.8 13.5 115.1 13.8Q115.4 14.2 115.8 14.3Q116.2 14.5 116.8 14.5ZM128.7 15.2V9.2H131.3Q132.2 9.2 133 9.6Q133.7 9.9 134.1 10.6Q134.5 11.3 134.5 12.2Q134.5 13.1 134.1 13.8Q133.7 14.4 133 14.8Q132.2 15.2 131.3 15.2ZM129.6 14.5H131.2Q132 14.5 132.5 14.2Q133.1 13.9 133.4 13.4Q133.7 12.9 133.7 12.2Q133.7 11.5 133.4 11Q133.1 10.5 132.5 10.2Q132 9.9 131.2 9.9H129.6ZM139.3 14.5H142.8V15.2H138.4V9.2H142.7V9.9H139.3V11.8H142.3V12.5H139.3Z"/><path fill="#FFFFFF" d="M54.2 33.4V22.6H58.8Q60.3 22.6 61.3 23.1Q62.4 23.6 62.9 24.4Q63.5 25.3 63.5 26.5Q63.5 27.7 62.9 28.6Q62.4 29.5 61.3 30Q60.3 30.4 58.8 30.4H56.7V33.4ZM56.7 28.4H58.7Q59.8 28.4 60.4 27.9Q61 27.4 61 26.5Q61 25.6 60.4 25.1Q59.8 24.7 58.7 24.7H56.7ZM65.7 33.4V22.6H70.4Q71.9 22.6 72.9 23.1Q74 23.6 74.5 24.4Q75.1 25.3 75.1 26.5Q75.1 27.7 74.5 28.6Q74 29.5 72.9 29.9Q72.9 29.9 72.9 30L75.3 33.4H72.6L70.5 30.4Q70.5 30.4 70.4 30.4H68.2V33.4ZM68.2 28.4H70.3Q71.4 28.4 72 27.9Q72.6 27.4 72.6 26.5Q72.6 25.6 72 25.1Q71.4 24.7 70.3 24.7H68.2ZM82.6 33.6Q81.3 33.6 80.2 33.2Q79.2 32.8 78.4 32Q77.6 31.2 77.1 30.2Q76.7 29.2 76.7 28Q76.7 26.8 77.1 25.8Q77.6 24.8 78.4 24Q79.2 23.3 80.3 22.9Q81.3 22.4 82.6 22.4Q83.9 22.4 84.9 22.9Q86 23.3 86.8 24Q87.6 24.8 88 25.8Q88.5 26.8 88.5 28Q88.5 29.2 88 30.2Q87.6 31.3 86.8 32Q86 32.8 84.9 33.2Q83.9 33.6 82.6 33.6ZM82.6 31.5Q83.3 31.5 83.9 31.2Q84.5 31 85 30.5Q85.5 30 85.7 29.4Q86 28.8 86 28Q86 27.2 85.7 26.6Q85.5 26 85 25.5Q84.5 25.1 83.9 24.8Q83.3 24.6 82.6 24.6Q81.9 24.6 81.3 24.8Q80.7 25.1 80.2 25.5Q79.7 26 79.5 26.6Q79.2 27.2 79.2 28Q79.2 28.8 79.5 29.4Q79.7 30 80.2 30.5Q80.6 31 81.3 31.2Q81.9 31.5 82.6 31.5ZM90.7 33.4V22.6H95.6Q97.3 22.6 98.7 23.3Q100 24 100.8 25.2Q101.5 26.4 101.5 28Q101.5 29.6 100.8 30.9Q100 32.1 98.7 32.7Q97.3 33.4 95.6 33.4ZM93.2 31.4H95.5Q96.5 31.4 97.3 30.9Q98.1 30.5 98.6 29.8Q99 29 99 28Q99 27 98.6 26.2Q98.1 25.5 97.3 25.1Q96.5 24.7 95.5 24.7H93.2ZM108.5 33.6Q106.2 33.6 104.9 32.3Q103.6 31 103.6 28.7V22.6H106.1V28.6Q106.1 30.1 106.7 30.8Q107.4 31.5 108.5 31.5Q109.7 31.5 110.3 30.8Q110.9 30.1 110.9 28.6V22.6H113.4V28.7Q113.4 31 112.1 32.3Q110.8 33.6 108.5 33.6ZM121.3 33.6Q120.1 33.6 119 33.2Q117.9 32.8 117.1 32Q116.4 31.3 115.9 30.2Q115.5 29.2 115.5 28Q115.5 26.8 115.9 25.8Q116.4 24.8 117.1 24Q117.9 23.3 119 22.8Q120.1 22.4 121.3 22.4Q122.7 22.4 123.9 22.9Q125 23.4 125.8 24.3L124.2 25.8Q123.6 25.2 122.9 24.9Q122.2 24.6 121.4 24.6Q120.7 24.6 120.1 24.8Q119.4 25.1 119 25.5Q118.5 26 118.3 26.6Q118 27.2 118 28Q118 28.8 118.3 29.4Q118.5 30 119 30.5Q119.4 31 120.1 31.2Q120.7 31.5 121.4 31.5Q122.2 31.5 122.9 31.1Q123.6 30.8 124.2 30.2L125.8 31.7Q125 32.6 123.9 33.1Q122.7 33.6 121.3 33.6ZM130 33.4V24.7H126.5V22.6H135.9V24.7H132.5V33.4ZM137.6 33.4V22.6H140.1V33.4ZM146.2 33.4 141.5 22.6H144.2L147.5 30.3L150.8 22.6H153.3L148.6 33.4ZM154.7 33.4V22.6H157.2V33.4ZM160.1 33.4V22.6H165Q166.7 22.6 168.1 23.3Q169.4 24 170.2 25.2Q170.9 26.4 170.9 28Q170.9 29.6 170.2 30.9Q169.4 32.1 168.1 32.7Q166.7 33.4 165 33.4ZM162.6 31.4H164.9Q165.9 31.4 166.7 30.9Q167.5 30.5 168 29.8Q168.4 29 168.4 28Q168.4 27 168 26.2Q167.5 25.5 166.7 25.1Q165.9 24.7 164.9 24.7H162.6ZM171.7 33.4 176.5 22.6H179L183.8 33.4H181.2L180.2 31.1H175.2L174.3 33.4ZM179.4 29.2 177.7 25.1 176 29.2ZM185.2 33.4V22.6H190.1Q191.9 22.6 193.2 23.3Q194.6 24 195.3 25.2Q196.1 26.4 196.1 28Q196.1 29.6 195.3 30.9Q194.6 32.1 193.2 32.7Q191.9 33.4 190.1 33.4ZM187.7 31.4H190Q191.1 31.4 191.9 30.9Q192.7 30.5 193.1 29.8Q193.5 29 193.5 28Q193.5 27 193.1 26.2Q192.7 25.5 191.9 25.1Q191.1 24.7 190 24.7H187.7Z"/></svg></span>
         <span class="q-top__paso" id="q-paso" aria-live="polite"></span>
       </div>
       <div class="q-mapa" id="q-mapa" aria-hidden="true"></div>
@@ -213,12 +215,12 @@ var CONFIG = {
 var PIEZAS = ['Momento','Día a día','Intentos','Meta','Ritmo'];
 var IDENTIFICO = [ {v:'2', t:'Sí, soy yo'}, {v:'1', t:'A veces'}, {v:'0', t:'No me pasa'} ];
 var PASOS = [
-  { id:'momento', pieza:0, tipo:'uno', seccion:'Tu momento', pregunta:'¿Cómo describirías tu momento hoy?', opciones:[
-      {v:'A', t:'Ya construí algo que me da tranquilidad. Lo que me cuesta es sostener el ritmo sin quemarme.'},
-      {v:'B', t:'Estoy en plena etapa de crecer. Va bien, pero me está costando horas de sueño y paciencia.'},
-      {v:'C', t:'Estoy en una etapa de arranque: hoy mi prioridad es que los números cierren.'} ] },
-  { id:'equipo', pieza:0, tipo:'uno', seccion:'Tu momento', pregunta:'¿Hay gente que depende de tus decisiones?', opciones:[
-      {v:'A', t:'Sí, tengo un equipo o una empresa a cargo.'}, {v:'B', t:'Sí, algunas personas.'}, {v:'C', t:'Por ahora, solo yo.'} ] },
+  { id:'momento', pieza:0, tipo:'uno', seccion:'Tu momento', pregunta:'¿En qué etapa estás hoy?', opciones:[
+      {v:'A', t:'Construí un sostén financiero y una trayectoria que me dan tranquilidad. Lo que me cuesta es sostenerlo: presión, cansancio, la mente que no se apaga.'},
+      {v:'B', t:'Tengo una carrera armada y estoy en etapa de seguir creciendo. Pero crecer me está costando desvelos, irritabilidad y tiempo.'},
+      {v:'C', t:'Todavía me cuesta sostenerme económicamente. Hoy mis finanzas son lo primero que tengo que atender, antes que cualquier otra cosa.'} ] },
+  { id:'equipo', pieza:0, tipo:'uno', seccion:'Tu momento', pregunta:'¿Hay gente cuyo trabajo depende de tus decisiones?', opciones:[
+      {v:'A', t:'Sí, un equipo o una empresa a cargo.'}, {v:'B', t:'Sí, algunas personas.'}, {v:'C', t:'Todavía no.'} ] },
   { id:'dedicacion', pieza:0, tipo:'uno', seccion:'Tu momento', pregunta:'¿A qué te dedicás?', opciones:[
       {v:'negocio', t:'Tengo mi negocio o empresa'}, {v:'independiente', t:'Soy profesional independiente'}, {v:'empleo', t:'Trabajo en relación de dependencia'},
       {v:'estudio', t:'Estudio y trabajo'}, {v:'otro', t:'Otra cosa'} ] },
@@ -228,13 +230,13 @@ var PASOS = [
   { id:'s4', pieza:1, tipo:'frase', seccion:'¿Te identificás? · 4 de 5', frase:'Arranco una rutina con todo, y a las dos semanas ya se apagó.' },
   { id:'s5', pieza:1, tipo:'frase', seccion:'¿Te identificás? · 5 de 5', frase:'Me acuesto y mi mente sigue en el trabajo.' },
   { id:'peso', pieza:1, tipo:'escala', seccion:'Tu día a día', pregunta:'Del 1 al 10: ¿cuánto te pesa la semana cuando llega el viernes?', min:'1 · Nada', max:'10 · Muchísimo' },
-  { id:'dato1', tipo:'dato', titulo:'Lo que marcaste tiene explicación', texto:'Tu atención salta cada 47 segundos, y volver al foco profundo lleva unos 23 minutos. Con esos números, sumar horas solo te cansa más. Lo que mueve la aguja es cómo armás la semana.' },
+  { id:'dato1', tipo:'dato', titulo:'47 segundos', texto:'Es lo que pasamos en una tarea frente a una pantalla antes de saltar a otra, según los estudios de Gloria Mark (Universidad de California). Es un promedio: en cada persona se da distinto.' },
   { id:'probado', pieza:2, tipo:'varios', seccion:'Lo que ya probaste', pregunta:'¿Qué probaste hasta ahora para organizarte?', ayuda:'Elegí todas las que correspondan.', opciones:[
       {v:'agenda', t:'Agendas o cuadernos'}, {v:'apps', t:'Apps como Notion o Trello'}, {v:'madrugar', t:'Levantarme más temprano'},
       {v:'cursos', t:'Libros o cursos de productividad'}, {v:'terapia', t:'Terapia o coaching'}, {v:'nada', t:'Nada todavía', solo:true} ] },
   { id:'seguimiento', pieza:2, tipo:'uno', seccion:'Lo que ya probaste', pregunta:'La última vez que arrancaste algo así, ¿qué pasó cuando nadie te preguntaba cómo ibas?', opciones:[
       {v:'dejo', t:'Lo dejé a las pocas semanas'}, {v:'cayo', t:'Lo sostuve un tiempo y después se cayó'}, {v:'sostuvo', t:'Lo sostuve igual, sin problema'} ] },
-  { id:'dato2', tipo:'dato', titulo:'Por eso se cae', texto:'Casi todos los sistemas están pensados para una semana perfecta, y las semanas reales se desarman. Por eso en la Comunidad planificamos juntos cada sábado, con una sola regla: podés faltar una semana, dos no.' },
+  { id:'dato2', tipo:'dato', titulo:'El seguimiento suma', texto:'En un estudio de la Universidad Dominicana de California, quienes le contaban su avance a alguien cada semana cumplieron más sus metas que quienes solo las anotaban. Por eso en la Comunidad planificamos la semana juntos cada sábado.' },
   { id:'objetivo', pieza:3, tipo:'uno', seccion:'Tu meta', pregunta:'Si en 90 días una sola cosa fuera distinta, ¿cuál querés que sea?', opciones:[
       {v:'proyecto', t:'Terminar un proyecto que vengo pateando'}, {v:'tiempo', t:'Tener tiempo para mí: entrenar, descansar, mi familia'},
       {v:'orden', t:'Ordenar mi semana y mi trabajo'}, {v:'crecer', t:'Crecer sin quemarme'}, {v:'equipo', t:'Que mi equipo funcione sin depender de mí'} ] },
@@ -249,24 +251,22 @@ var PREGUNTAS = PASOS.filter(function(p){ return p.tipo!=='dato'; }).length;
    PERFILES · espejo + lo que pasa en el cerebro (conceptos de las clases de Nico)
    ══════════════════════════════════════════════════════════════════ */
 var PERFILES = {
-  sosten:   { nombre:'Sostén de todos', espejo:'Cumplís con todos, y tus cosas quedan para cuando sobre tiempo. Casi nunca sobra.',
-              concepto:'Control inhibitorio', cerebro:'Cada mensaje que respondés al toque es una microdecisión que gana lo urgente de otros.',
-              cambia:'Bloques de la semana que son solo para tus cosas, y avisados.' },
-  incendios:{ nombre:'Apagaincendios', espejo:'Tu día se lo comen los imprevistos. Trabajás un montón y lo importante queda para la noche.',
-              concepto:'Atención', cerebro:'Tu atención salta cada 47 segundos y volver al foco profundo lleva unos 23 minutos.',
-              cambia:'Un bloque de foco de 60 a 90 minutos, con las distracciones gestionadas.' },
-  arranque: { nombre:'Arranque fuerte', espejo:'Arrancás con todo, y cuando la semana se desarma volvés a cero.',
-              concepto:'Facilitación social', cerebro:'Tu cerebro sostiene distinto cuando hay alguien del otro lado haciendo lo mismo.',
-              cambia:'Planificar la semana acompañado, con una regla simple: podés faltar una semana, dos no.' },
-  mente:    { nombre:'Mente encendida', espejo:'Terminás el día, pero tu mente sigue trabajando, y al otro día arrancás sin energía.',
-              concepto:'Efecto Zeigarnik', cerebro:'Tu cerebro retiene lo que quedó sin terminar y lo repasa una y otra vez.',
-              cambia:'Descarga cognitiva: escribir tus pendientes antes de dormir.' },
-  equilibrio:{ nombre:'Bases firmes', espejo:'Hoy no hay un patrón que te frene fuerte. El desafío es sostenerlo cuando la semana se complique.',
-              concepto:'Facilitación social', cerebro:'Tu cerebro sostiene distinto cuando hay alguien del otro lado haciendo lo mismo.',
-              cambia:'Planificar la semana acompañado para que el ritmo no dependa de las ganas.' }
+  sosten:   { nombre:'Sostén de todos', frase:'s2', concepto:'Efecto de urgencia',
+              estudio:'Un estudio publicado en el Journal of Consumer Research (2018) mostró que tendemos a elegir lo urgente antes que lo importante, aunque lo importante valga más.' },
+  incendios:{ nombre:'Apagaincendios', frase:'s3', concepto:'Interrupciones',
+              estudio:'En los estudios de Gloria Mark (Universidad de California), volver a una tarea después de una interrupción llevó en promedio unos 23 minutos.' },
+  arranque: { nombre:'Arranque fuerte', frase:'s4', concepto:'Hábitos',
+              estudio:'En un estudio del University College de Londres, un hábito nuevo tardó entre 18 y 254 días en volverse automático, según la persona.' },
+  mente:    { nombre:'Mente encendida', frase:'s5', concepto:'Efecto Zeigarnik',
+              estudio:'Un estudio de la Universidad Estatal de Florida (2011) mostró que las metas sin cerrar siguen apareciendo en la mente mientras hacemos otra cosa.' },
+  pendientes:{ nombre:'Lista llena', frase:'s1', concepto:'Falacia de planificación',
+              estudio:'En un estudio publicado en el Journal of Personality and Social Psychology (1994), las personas calcularon que sus tareas les iban a llevar menos tiempo del que les llevaron, incluso sabiendo que antes se habían atrasado.' },
+  equilibrio:{ nombre:'Bases firmes', frase:'', concepto:'Hábitos',
+              estudio:'En un estudio del University College de Londres, un hábito nuevo tardó entre 18 y 254 días en volverse automático, según la persona.' }
 };
 var TEXTO_OBJETIVO = { proyecto:'terminar ese proyecto que venís pateando', tiempo:'tener tiempo para vos', orden:'ordenar tu semana y tu trabajo', crecer:'crecer sin quemarte', equipo:'que tu equipo funcione sin depender de vos' };
-var TEXTO_PROBADO = { agenda:'agendas', apps:'apps', madrugar:'levantarte más temprano', cursos:'libros o cursos', terapia:'terapia o coaching' };
+var TEXTO_PROBADO = { agenda:'agendas o cuadernos', apps:'apps', madrugar:'levantarte más temprano', cursos:'libros o cursos', terapia:'terapia o coaching' };
+var TEXTO_IDENTIFICO = { '2':'Te identificaste con esta frase:', '1':'Marcaste que a veces te pasa:' };
 
 /* ─── utilidades ─── */
 function qs(k){ var m=new RegExp('[?&]'+k+'=([^&#]*)').exec(window.location.search); return m?decodeURIComponent(m[1].replace(/\+/g,' ')).trim():''; }
@@ -299,7 +299,7 @@ function intro(){
     +'<div class="q-escalon-mini" aria-hidden="true"><span></span><span></span><span></span></div>'
     +'<span class="q-seccion">Comunidad Productiva</span>'
     +'<h1>'+(primerNombre?esc(primerNombre)+', ya':'Ya')+' subiste <em>el primer escalón.</em></h1>'
-    +'<p class="q-intro__txt">Ahora armemos tu mapa. En 3 minutos vas a ver qué patrón te está frenando y cuál es tu próximo paso.</p>'
+    +'<p class="q-intro__txt">Ahora armemos tu mapa. Son 3 minutos para contarnos cómo es tu semana y ver tu próximo escalón.</p>'
     +'<button type="button" class="q-btn" data-accion="empezar">ARMAR MI MAPA '+FLECHA+'</button>'
     +'<p class="q-intro__micro">Son preguntas de un toque. No hay respuestas correctas.</p></section>';
 }
@@ -347,8 +347,9 @@ function siguiente(){ if(i<PASOS.length-1){ i++; pantalla(); } else armando(); }
 function calcular(){
   var s=[0,1,2,3,4].map(function(n){ return +(resp['s'+(n+1)]||0); });
   var carga=s[0]+s[1]+s[2]+s[3]+s[4];   // 0 a 10
-  var puntos={ sosten:s[1], incendios:s[2]+s[0]/2, arranque:s[3]+s[0]/2, mente:s[4] }, perfil='equilibrio', max=0;
-  ['sosten','incendios','arranque','mente'].forEach(function(k){ if(puntos[k]>max){ max=puntos[k]; perfil=k; } });
+  /* PERFIL: la frase que más marcó. Si empatan, gana la primera de esta lista (la de los pendientes va última por ser la más general). */
+  var puntos={ sosten:s[1], incendios:s[2], arranque:s[3], mente:s[4], pendientes:s[0] }, perfil='equilibrio', max=0;
+  ['sosten','incendios','arranque','mente','pendientes'].forEach(function(k){ if(puntos[k]>max){ max=puntos[k]; perfil=k; } });
   /* CALIFICA: momento A o B (no está en etapa de arranque económico) y quiere el cambio en los próximos 3 meses.
      Nivel: alto = A/B con gente a cargo · medio = A/B sin gente a cargo · bajo = C. */
   var califica = resp.momento!=='C' && resp.urgencia!=='sin_apuro';
@@ -359,37 +360,44 @@ function armando(){
   i=PASOS.length; pintarMapa(); pasoEl.textContent='Mapa completo';
   var R=calcular(); enviar(R,'quiz_completo'); guardar(R);
   main.innerHTML='<section class="q-pantalla q-armando"><h2>Armando tu mapa…</h2><ul>'
-    +'<li><b>✓</b>Tu momento</li><li><b>✓</b>Tu patrón</li><li><b>✓</b>Tu próximo escalón</li></ul></section>';
+    +'<li><b>✓</b>Tu momento</li><li><b>✓</b>Tu semana</li><li><b>✓</b>Tu próximo escalón</li></ul></section>';
   var lis=main.querySelectorAll('li'), n=0, rapido=window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   var t=setInterval(function(){ if(n<lis.length){ lis[n].classList.add('is-ok'); n++; } else { clearInterval(t); resultado(R); } }, rapido?120:520);
 }
 function resultado(R){
   var P=PERFILES[R.perfil];
   var vemos=[];
+  if(+resp.cerca && +resp.cerca<10) vemos.push('Marcaste un '+resp.cerca+': hay '+(10-resp.cerca)+(10-resp.cerca===1?' punto':' puntos')+' entre tu semana de hoy y la que querés.');
   var probado=(resp.probado||[]).filter(function(v){ return v!=='nada'; });
-  if(probado.length) vemos.push('Probaste '+listar(probado.map(function(v){ return TEXTO_PROBADO[v]; }))+'. Te ordenan un rato, pero ninguna te pregunta el miércoles cómo vas.');
-  else if((resp.probado||[]).length) vemos.push('Arrancás de cero, y eso tiene una ventaja: no hay sistemas a medias que desarmar.');
-  if(resp.seguimiento==='dejo'||resp.seguimiento==='cayo') vemos.push('Cuando nadie te preguntaba cómo ibas, '+(resp.seguimiento==='dejo'?'lo dejaste a las pocas semanas':'se cayó')+'. Por eso en el Instituto el seguimiento es parte del proceso.');
-  else if(resp.seguimiento==='sostuvo') vemos.push('Sabés sostener sin que nadie te empuje: es una gran base para el próximo escalón.');
+  if(probado.length) vemos.push('Lo que ya probaste: '+probado.map(function(v){ return TEXTO_PROBADO[v]; }).join(', ')+'.');
+  else if((resp.probado||[]).length) vemos.push('Todavía no probaste ningún sistema para organizarte.');
+  if(resp.seguimiento==='dejo') vemos.push('La última vez, sin nadie que te preguntara cómo ibas, lo dejaste a las pocas semanas.');
+  else if(resp.seguimiento==='cayo') vemos.push('La última vez, sin nadie que te preguntara cómo ibas, lo sostuviste un tiempo y después se cayó.');
+  else if(resp.seguimiento==='sostuvo') vemos.push('La última vez lo sostuviste sin que nadie te preguntara cómo ibas.');
   if(resp.objetivo) vemos.push('Tu meta a 90 días: '+TEXTO_OBJETIVO[resp.objetivo]+'.');
-  if(+resp.cerca && +resp.cerca<10) vemos.unshift('Entre tu semana de hoy y la que querés hay '+(10-resp.cerca)+' puntos. Ese es el camino que vamos a recorrer.');
+  if(resp.pendiente) vemos.push('Lo que siempre te queda para después: “'+resp.pendiente+'”.');
 
   var h='<section class="q-pantalla q-res">';
   h+='<span class="q-res__kicker">Tu mapa'+(primerNombre?' · '+esc(primerNombre):'')+'</span>';
-  h+='<h1>Tu patrón: <em>'+esc(P.nombre)+'</em></h1>';
-  h+='<p class="q-res__espejo">'+esc(P.espejo)+'</p>';
-  h+='<div class="q-card q-cerebro"><span class="q-chip">'+esc(P.concepto)+'</span><p><b>Lo que pasa en tu cerebro:</b> '+esc(P.cerebro)+'</p><p><b>Lo que lo cambia:</b> '+esc(P.cambia)+'</p></div>';
-  h+='<div class="q-card"><h2>Lo que vemos en tus respuestas</h2>'
+  if(P.frase){
+    h+='<h1>Lo que más marcaste: <em>'+esc(P.nombre)+'</em></h1>';
+    h+='<p class="q-res__espejo">'+esc(TEXTO_IDENTIFICO[resp[P.frase]])+' <b>“'+esc(PASOS.filter(function(x){ return x.id===P.frase; })[0].frase)+'”</b></p>';
+  } else {
+    h+='<h1>Hoy <em>ninguna</em> de las situaciones te pasa.</h1>';
+    h+='<p class="q-res__espejo">Marcaste “No me pasa” en las cinco.</p>';
+  }
+  h+='<div class="q-card q-cerebro"><span class="q-chip">'+esc(P.concepto)+'</span><p><b>Lo que muestran los estudios:</b> '+esc(P.estudio)+'</p><p class="q-cerebro__nota">Son datos generales. En cada persona se da distinto.</p></div>';
+  h+='<div class="q-card"><h2>Lo que nos contaste</h2>'
     +medidor('Cuánto te pesa la semana', resp.peso)+medidor('Qué tan cerca estás de la semana que querés', resp.cerca)
     +'<ul class="q-vemos">'+vemos.map(function(v){ return '<li>'+esc(v)+'</li>'; }).join('')+'</ul></div>';
   h+='<div class="q-card"><h2>Tus escalones en el Instituto</h2><div class="q-esc">'
     +'<div class="q-esc__paso is-hecho"><span class="q-esc__n">✓</span><span class="q-esc__t">Comunidad Productiva<small>Las bases. Ya estás acá.</small></span></div>'
     +'<div class="q-esc__paso'+(R.califica?' is-proximo':'')+'"><span class="q-esc__n">2</span><span class="q-esc__t">Clases con expertos<small>Con seguimiento 1 a 1.</small></span></div>'
     +'<div class="q-esc__paso'+(R.califica?' is-proximo':'')+'"><span class="q-esc__n">3</span><span class="q-esc__t">Proceso personalizado<small>Con un experto asignado, 1 a 1.</small></span></div>'
-    +'</div><p class="q-esc__nota">Con la Comunidad ya sos parte del Instituto de Productividad. Desde las bases, todo lo demás se hace más fácil.</p></div>';
+    +'</div><p class="q-esc__nota">Con la Comunidad ya sos parte del Instituto de Productividad.</p></div>';
   if(R.califica){
-    h+='<div class="q-inv"><span class="q-chip">Invitación especial</span><h2>Podés llegar más rápido si lo hacés guiado.</h2>'
-      +'<p>Te invitamos a una sesión con un asesor del Instituto de Productividad: revisa tu mapa con vos y ve cómo hacer que tu proceso sea más rápido y más efectivo. Lo único que tenés que hacer es aceptar.</p>'
+    h+='<div class="q-inv"><span class="q-chip">Invitación especial</span><h2>Cada caso es distinto. El tuyo lo vemos juntos.</h2>'
+      +'<p>Te invitamos a una sesión con un asesor del Instituto de Productividad. Revisan tu mapa juntos y ven por dónde conviene arrancar en tu caso. Lo único que tenés que hacer es aceptar.</p>'
       +'<div class="q-inv__video" id="q-video"></div>'
       +'<button type="button" class="q-btn" id="q-cta" data-accion="agenda">ACEPTO LA INVITACIÓN '+FLECHA+'</button>'
       +'<p class="q-inv__micro">Elegís el día y el horario acá mismo.</p></div>'
@@ -430,7 +438,6 @@ window.addEventListener('message', function(e){
     var ok=document.getElementById('q-agendado'); if(ok) ok.hidden=false;
   }
 });
-function listar(a){ return a.length<2 ? a.join('') : a.slice(0,-1).join(', ')+' y '+a[a.length-1]; }
 function linkAgenda(R){
   var u=CONFIG.AGENDA_URL; if(!u) return '#';
   var p=['utm_source='+encodeURIComponent(CONFIG.ORIGEN),'utm_content='+encodeURIComponent(R.perfil)];
