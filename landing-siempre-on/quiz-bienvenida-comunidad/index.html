@@ -230,7 +230,6 @@ var PASOS = [
   { id:'s4', pieza:1, tipo:'frase', seccion:'¿Te identificás? · 4 de 5', frase:'Arranco una rutina con todo, y a las dos semanas ya se apagó.' },
   { id:'s5', pieza:1, tipo:'frase', seccion:'¿Te identificás? · 5 de 5', frase:'Me acuesto y mi mente sigue en el trabajo.' },
   { id:'peso', pieza:1, tipo:'escala', seccion:'Tu día a día', pregunta:'Del 1 al 10: ¿cuánto te pesa la semana cuando llega el viernes?', min:'1 · Nada', max:'10 · Muchísimo' },
-  { id:'dato1', tipo:'dato', titulo:'47 segundos', texto:'Es lo que pasamos en una tarea frente a una pantalla antes de saltar a otra, según los estudios de Gloria Mark (Universidad de California). Es un promedio: en cada persona se da distinto.' },
   { id:'probado', pieza:2, tipo:'varios', seccion:'Lo que ya probaste', pregunta:'¿Qué probaste hasta ahora para organizarte?', ayuda:'Elegí todas las que correspondan.', opciones:[
       {v:'agenda', t:'Agendas o cuadernos'}, {v:'apps', t:'Apps como Notion o Trello'}, {v:'madrugar', t:'Levantarme más temprano'},
       {v:'cursos', t:'Libros o cursos de productividad'}, {v:'terapia', t:'Terapia o coaching'}, {v:'nada', t:'Nada todavía', solo:true} ] },
@@ -253,8 +252,8 @@ var PREGUNTAS = PASOS.filter(function(p){ return p.tipo!=='dato'; }).length;
 var PERFILES = {
   sosten:   { nombre:'Sostén de todos', frase:'s2', concepto:'Efecto de urgencia',
               estudio:'Un estudio publicado en el Journal of Consumer Research (2018) mostró que tendemos a elegir lo urgente antes que lo importante, aunque lo importante valga más.' },
-  incendios:{ nombre:'Apagaincendios', frase:'s3', concepto:'Interrupciones',
-              estudio:'En los estudios de Gloria Mark (Universidad de California), volver a una tarea después de una interrupción llevó en promedio unos 23 minutos.' },
+  incendios:{ nombre:'Apagaincendios', frase:'s3', concepto:'Residuo de atención',
+              estudio:'Un estudio de 2009 sobre el cambio entre tareas mostró que, al pasar a una nueva, parte de la atención se queda en la anterior.' },
   arranque: { nombre:'Arranque fuerte', frase:'s4', concepto:'Hábitos',
               estudio:'En un estudio del University College de Londres, un hábito nuevo tardó entre 18 y 254 días en volverse automático, según la persona.' },
   mente:    { nombre:'Mente encendida', frase:'s5', concepto:'Efecto Zeigarnik',
