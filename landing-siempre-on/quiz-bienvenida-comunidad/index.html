@@ -14,7 +14,8 @@
      El link que manda FunnelChat lleva los datos del contacto en la URL:
        ?nombre={{nombre}}&telefono={{telefono}}&email={{email}}&cid={{id del contacto}}
      Al terminar, las respuestas y el resultado (califica, nivel, perfil) se mandan a n8n (CONFIG.WEBHOOK_URL).
-     Califica → invitación a una sesión con un asesor (video + agenda). No califica → libro Hackea tu cerebro. -->
+     Califica → invitación a una sesión con un asesor (video + agenda de Calendly adentro de la página; si agenda, avisa a n8n).
+     No califica → libro Hackea tu cerebro. -->
 
 <!-- tipografías: se piden sin frenar la página -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,6 +81,31 @@ html, body{ margin:0; padding:0; background:var(--q-bg); }
 .q-atras{ display:inline-flex; align-items:center; gap:6px; background:none; border:0; padding:6px 0; margin:0 0 14px; color:var(--q-ink-mute); font-family:var(--q-font-h); font-size:0.82rem; font-weight:600; cursor:pointer; }
 .q-atras svg{ width:14px; height:14px; }
 
+/* frase para marcar si te identificás */
+.q-frase{ position:relative; background:var(--q-card); border:1px solid var(--q-line); border-radius:18px; padding:24px 20px 20px; margin:14px 0 16px !important; font-family:var(--q-font-h); font-size:1.2rem; font-weight:700; line-height:1.38; color:var(--q-ink); text-align:left !important; box-shadow:0 10px 30px rgba(12,52,82,0.06); }
+.q-frase::before{ content:'“'; position:absolute; top:-16px; left:16px; font-family:Georgia, serif; font-size:3.4rem; line-height:1; color:var(--q-orange); }
+.q-pregunta.q-pregunta--chica{ font-size:0.98rem; font-weight:600; color:var(--q-ink-mute); margin:0 0 12px !important; }
+.q-ident{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.q-ident .q-opc{ justify-content:center; text-align:center; padding:16px 6px; margin:0; font-family:var(--q-font-h); font-weight:700; font-size:0.92rem; line-height:1.25; }
+.q-ident .q-opc__t{ flex:none; }
+/* escala del 1 al 10 */
+.q-escala{ display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; }
+.q-escala .q-opc{ justify-content:center; padding:0; height:54px; margin:0; font-family:var(--q-font-h); font-weight:800; font-size:1.2rem; }
+.q-escala .q-opc__t{ flex:none; }
+.q-escala .q-opc.is-sel{ background:var(--q-orange); color:#fff; }
+.q-escala__ext{ display:flex; justify-content:space-between; gap:12px; font-size:0.84rem; color:var(--q-ink-mute); margin-top:10px; }
+@media (min-width:520px){ .q-escala{ grid-template-columns:repeat(10,minmax(0,1fr)); } }
+/* un dato entre preguntas */
+.q-dato{ background:var(--q-navy); color:#fff; border-radius:18px; padding:22px 20px; margin:0 0 18px; }
+.q-dato .q-chip{ background:rgba(255,102,2,0.18); color:#FF8A3D; }
+.q-dato h2{ font-family:var(--q-font-h); font-size:1.3rem; font-weight:800; line-height:1.25; margin:0 0 10px; text-align:left !important; }
+.q-dato p{ font-size:1.02rem; line-height:1.55; color:rgba(255,255,255,0.88); margin:0 !important; text-align:left !important; }
+/* agenda de Calendly adentro del quiz */
+.q-agenda{ height:700px; min-width:320px; margin:14px 0 0; border-radius:14px; overflow:hidden; background:#fff; border:1px solid var(--q-line); }
+.q-agenda[hidden], .q-agendado[hidden], .q-agenda-alt[hidden]{ display:none !important; }
+.q-agendado{ display:flex; gap:10px; align-items:center; background:#E9F7EF; border:1px solid #BFE6CF; color:#145A39; border-radius:14px; padding:14px 16px; margin:14px 0 0; font-weight:600; line-height:1.4; }
+.q-res .q-agenda-alt{ text-align:center !important; margin:8px 0 0 !important; }
+
 /* intro */
 .q-intro{ text-align:center; padding-top:12px; }
 .q-intro h1, .q-intro p, .q-armando h2, .q-otra, .q-inv__micro{ text-align:center !important; }
@@ -114,10 +140,11 @@ html, body{ margin:0; padding:0; background:var(--q-bg); }
 .q-cerebro p{ font-size:0.98rem; line-height:1.5; margin:0 !important; text-align:left !important; }
 .q-cerebro p + p{ margin-top:8px !important; }
 .q-cerebro b{ color:var(--q-ink); }
-.q-carga{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-.q-carga__barra{ flex:1; height:10px; border-radius:5px; background:var(--q-line); overflow:hidden; }
-.q-carga__barra i{ display:block; height:100%; border-radius:5px; background:var(--q-orange); }
-.q-carga__t{ font-family:var(--q-font-h); font-weight:700; font-size:0.92rem; white-space:nowrap; }
+.q-medidor{ margin:0 0 12px; }
+.q-medidor__fila{ display:flex; justify-content:space-between; gap:10px; font-size:0.9rem; line-height:1.35; margin-bottom:6px; }
+.q-medidor__fila b{ font-family:var(--q-font-h); white-space:nowrap; }
+.q-medidor__barra{ height:10px; border-radius:5px; background:var(--q-line); overflow:hidden; }
+.q-medidor__barra i{ display:block; height:100%; border-radius:5px; background:var(--q-orange); }
 .q-vemos{ list-style:none; padding:0; margin:0; }
 .q-vemos li{ position:relative; padding-left:20px; list-style:none; font-size:0.96rem; line-height:1.5; margin-bottom:8px; }
 .q-vemos li:last-child{ margin-bottom:0; }
@@ -175,8 +202,8 @@ html, body{ margin:0; padding:0; background:var(--q-bg); }
    ══════════════════════════════════════════════════════════════════ */
 var CONFIG = {
   WEBHOOK_URL: '',   // ⚠️ webhook de n8n que recibe las respuestas (lo arma Gastón). Si queda vacío, no se manda nada.
-  AGENDA_URL: 'https://calendly.com/d/d3zt-r2n-znj',  // ⚠️ confirmar: agenda de la sesión con un asesor
-  LIBRO_URL: '',     // ⚠️ link de compra de Hackea tu cerebro
+  AGENDA_URL: 'https://calendly.com/d/dz7s-rkk-z6b',              // agenda de la sesión con un asesor (se abre adentro del quiz)
+  LIBRO_URL: 'https://comunidadproductiva.circle.so/hackea-tu-cerebro', // compra de Hackea tu cerebro
   ORIGEN: 'quiz-bienvenida-comunidad'
 };
 
@@ -184,7 +211,7 @@ var CONFIG = {
    PREGUNTAS · cada respuesta suma una pieza al mapa (arriba)
    ══════════════════════════════════════════════════════════════════ */
 var PIEZAS = ['Momento','Día a día','Intentos','Meta','Ritmo'];
-var FRECUENCIA = [ {v:'2', t:'Me pasa mucho'}, {v:'1', t:'Algunos días, cuando hay presión'}, {v:'0', t:'No me pasa'} ];
+var IDENTIFICO = [ {v:'2', t:'Sí, soy yo'}, {v:'1', t:'A veces'}, {v:'0', t:'No me pasa'} ];
 var PASOS = [
   { id:'momento', pieza:0, tipo:'uno', seccion:'Tu momento', pregunta:'¿Cómo describirías tu momento hoy?', opciones:[
       {v:'A', t:'Ya construí algo que me da tranquilidad. Lo que me cuesta es sostener el ritmo sin quemarme.'},
@@ -195,23 +222,28 @@ var PASOS = [
   { id:'dedicacion', pieza:0, tipo:'uno', seccion:'Tu momento', pregunta:'¿A qué te dedicás?', opciones:[
       {v:'negocio', t:'Tengo mi negocio o empresa'}, {v:'independiente', t:'Soy profesional independiente'}, {v:'empleo', t:'Trabajo en relación de dependencia'},
       {v:'estudio', t:'Estudio y trabajo'}, {v:'otro', t:'Otra cosa'} ] },
-  { id:'s1', pieza:1, tipo:'uno', seccion:'Tu día a día · 1 de 5', escena:'Arrancás el día sintiendo que podés con todo, y llegás a la noche con la lista llena de pendientes.', pregunta:'¿Cuánto te pasa?', opciones:FRECUENCIA },
-  { id:'s2', pieza:1, tipo:'uno', seccion:'Tu día a día · 2 de 5', escena:'Cumpliste con todos, y lo que era para vos quedó otra vez para después.', pregunta:'¿Cuánto te pasa?', opciones:FRECUENCIA },
-  { id:'s3', pieza:1, tipo:'uno', seccion:'Tu día a día · 3 de 5', escena:'Te interrumpen tanto (mensajes, llamadas, “una preguntita”) que lo importante queda para la noche.', pregunta:'¿Cuánto te pasa?', opciones:FRECUENCIA },
-  { id:'s4', pieza:1, tipo:'uno', seccion:'Tu día a día · 4 de 5', escena:'Arrancás una rutina o un sistema con todo, y a las dos semanas ya se apagó.', pregunta:'¿Cuánto te pasa?', opciones:FRECUENCIA },
-  { id:'s5', pieza:1, tipo:'uno', seccion:'Tu día a día · 5 de 5', escena:'Te acostás y tu mente sigue en el trabajo.', pregunta:'¿Cuánto te pasa?', opciones:FRECUENCIA },
+  { id:'s1', pieza:1, tipo:'frase', seccion:'¿Te identificás? · 1 de 5', frase:'Arranco el día sintiendo que puedo con todo, y llego a la noche con la lista llena de pendientes.' },
+  { id:'s2', pieza:1, tipo:'frase', seccion:'¿Te identificás? · 2 de 5', frase:'Cumplo con todos, y lo que era para mí queda otra vez para después.' },
+  { id:'s3', pieza:1, tipo:'frase', seccion:'¿Te identificás? · 3 de 5', frase:'Me interrumpen tanto (mensajes, llamadas, “una preguntita”) que lo importante queda para la noche.' },
+  { id:'s4', pieza:1, tipo:'frase', seccion:'¿Te identificás? · 4 de 5', frase:'Arranco una rutina con todo, y a las dos semanas ya se apagó.' },
+  { id:'s5', pieza:1, tipo:'frase', seccion:'¿Te identificás? · 5 de 5', frase:'Me acuesto y mi mente sigue en el trabajo.' },
+  { id:'peso', pieza:1, tipo:'escala', seccion:'Tu día a día', pregunta:'Del 1 al 10: ¿cuánto te pesa la semana cuando llega el viernes?', min:'1 · Nada', max:'10 · Muchísimo' },
+  { id:'dato1', tipo:'dato', titulo:'Lo que marcaste tiene explicación', texto:'Tu atención salta cada 47 segundos, y volver al foco profundo lleva unos 23 minutos. Con esos números, sumar horas solo te cansa más. Lo que mueve la aguja es cómo armás la semana.' },
   { id:'probado', pieza:2, tipo:'varios', seccion:'Lo que ya probaste', pregunta:'¿Qué probaste hasta ahora para organizarte?', ayuda:'Elegí todas las que correspondan.', opciones:[
       {v:'agenda', t:'Agendas o cuadernos'}, {v:'apps', t:'Apps como Notion o Trello'}, {v:'madrugar', t:'Levantarme más temprano'},
       {v:'cursos', t:'Libros o cursos de productividad'}, {v:'terapia', t:'Terapia o coaching'}, {v:'nada', t:'Nada todavía', solo:true} ] },
   { id:'seguimiento', pieza:2, tipo:'uno', seccion:'Lo que ya probaste', pregunta:'La última vez que arrancaste algo así, ¿qué pasó cuando nadie te preguntaba cómo ibas?', opciones:[
       {v:'dejo', t:'Lo dejé a las pocas semanas'}, {v:'cayo', t:'Lo sostuve un tiempo y después se cayó'}, {v:'sostuvo', t:'Lo sostuve igual, sin problema'} ] },
+  { id:'dato2', tipo:'dato', titulo:'Por eso se cae', texto:'Casi todos los sistemas están pensados para una semana perfecta, y las semanas reales se desarman. Por eso en la Comunidad planificamos juntos cada sábado, con una sola regla: podés faltar una semana, dos no.' },
   { id:'objetivo', pieza:3, tipo:'uno', seccion:'Tu meta', pregunta:'Si en 90 días una sola cosa fuera distinta, ¿cuál querés que sea?', opciones:[
       {v:'proyecto', t:'Terminar un proyecto que vengo pateando'}, {v:'tiempo', t:'Tener tiempo para mí: entrenar, descansar, mi familia'},
       {v:'orden', t:'Ordenar mi semana y mi trabajo'}, {v:'crecer', t:'Crecer sin quemarme'}, {v:'equipo', t:'Que mi equipo funcione sin depender de mí'} ] },
+  { id:'cerca', pieza:3, tipo:'escala', seccion:'Tu meta', pregunta:'Del 1 al 10: ¿qué tan cerca está tu semana de hoy de la que querés tener?', min:'1 · Muy lejos', max:'10 · Es esa' },
   { id:'pendiente', pieza:3, tipo:'texto', seccion:'Tu meta', pregunta:'En una frase: ¿qué es lo que siempre te queda para después?', placeholder:'Ej.: terminar la tesis · entrenar · el curso que dejé a la mitad' },
   { id:'urgencia', pieza:4, tipo:'uno', seccion:'Tu ritmo', pregunta:'¿Para cuándo querés ver ese cambio?', opciones:[
       {v:'ya', t:'Ya, este mismo mes'}, {v:'3m', t:'En los próximos 3 meses'}, {v:'sin_apuro', t:'Sin apuro, cuando se dé'} ] }
 ];
+var PREGUNTAS = PASOS.filter(function(p){ return p.tipo!=='dato'; }).length;
 
 /* ══════════════════════════════════════════════════════════════════
    PERFILES · espejo + lo que pasa en el cerebro (conceptos de las clases de Nico)
@@ -244,7 +276,7 @@ var ATRAS='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wid
 var contacto = { nombre:qs('nombre')||qs('name')||qs('first_name'), telefono:qs('telefono')||qs('phone'), email:qs('email'), cid:qs('cid')||qs('contact_id') };
 var primerNombre = (contacto.nombre||'').split(' ')[0];
 var main=document.getElementById('q-main'), pasoEl=document.getElementById('q-paso'), mapaEl=document.getElementById('q-mapa');
-var resp={}, i=-1, GUARDADO='nfm_quiz_comunidad_v1';
+var resp={}, i=-1, GUARDADO='nfm_quiz_comunidad_v2';
 
 /* ─── el mapa de arriba ─── */
 mapaEl.innerHTML=PIEZAS.map(function(n){ return '<div class="q-mapa__pieza"><div class="q-mapa__barra"><i></i></div><span class="q-mapa__nom">'+esc(n)+'</span></div>'; }).join('');
@@ -256,7 +288,8 @@ function pintarMapa(){
     piezas[p].querySelector('i').style.width=Math.round(hechas/total*100)+'%';
     piezas[p].classList.toggle('is-lista', hechas===total);
   }
-  pasoEl.textContent = (i>=0 && i<PASOS.length) ? 'Pregunta '+(i+1)+' de '+PASOS.length : '';
+  var n=0; for(var q=0;q<=i && q<PASOS.length;q++) if(PASOS[q].tipo!=='dato') n++;
+  pasoEl.textContent = (i>=0 && i<PASOS.length) ? (PASOS[i].tipo==='dato' ? 'Un dato para vos' : 'Pregunta '+n+' de '+PREGUNTAS) : '';
 }
 
 /* ─── pantallas ─── */
@@ -266,34 +299,47 @@ function intro(){
     +'<div class="q-escalon-mini" aria-hidden="true"><span></span><span></span><span></span></div>'
     +'<span class="q-seccion">Comunidad Productiva</span>'
     +'<h1>'+(primerNombre?esc(primerNombre)+', ya':'Ya')+' subiste <em>el primer escalón.</em></h1>'
-    +'<p class="q-intro__txt">Ahora armemos tu mapa. En 2 minutos vas a ver qué patrón te está frenando y cuál es tu próximo paso.</p>'
+    +'<p class="q-intro__txt">Ahora armemos tu mapa. En 3 minutos vas a ver qué patrón te está frenando y cuál es tu próximo paso.</p>'
     +'<button type="button" class="q-btn" data-accion="empezar">ARMAR MI MAPA '+FLECHA+'</button>'
     +'<p class="q-intro__micro">Son preguntas de un toque. No hay respuestas correctas.</p></section>';
 }
 function pantalla(){
   var P=PASOS[i]; pintarMapa();
-  var h='<section class="q-pantalla">';
+  var h='<section class="q-pantalla" data-paso="'+P.id+'">';
   h+='<button type="button" class="q-atras" data-accion="atras">'+ATRAS+'Volver</button><br>';
+  if(P.tipo==='dato'){
+    h+='<div class="q-dato"><span class="q-chip">Un dato para vos</span><h2>'+esc(P.titulo)+'</h2><p>'+esc(P.texto)+'</p></div>';
+    h+='<button type="button" class="q-btn" data-accion="seguir">SEGUIR '+FLECHA+'</button>';
+    main.innerHTML=h+'</section>'; window.scrollTo(0,0); return;
+  }
   h+='<span class="q-seccion">'+esc(P.seccion)+'</span>';
-  if(P.escena) h+='<p class="q-escena">'+esc(P.escena)+'</p>';
-  h+='<p class="q-pregunta" id="q-preg">'+esc(P.pregunta)+'</p>';
-  if(P.ayuda) h+='<p class="q-ayuda">'+esc(P.ayuda)+'</p>';
-  if(P.tipo==='uno' || P.tipo==='varios'){
-    var actual=resp[P.id];
+  var actual=resp[P.id];
+  if(P.tipo==='frase'){
+    h+='<p class="q-frase">'+esc(P.frase)+'</p><p class="q-pregunta q-pregunta--chica" id="q-preg">¿Te identificás con esto?</p><div class="q-ident" role="radiogroup" aria-labelledby="q-preg">';
+    IDENTIFICO.forEach(function(o){ h+=opcion(o, actual===o.v, false, true); });
+    h+='</div>';
+  } else if(P.tipo==='escala'){
+    h+='<p class="q-pregunta" id="q-preg">'+esc(P.pregunta)+'</p><div class="q-escala" role="radiogroup" aria-labelledby="q-preg">';
+    for(var e=1;e<=10;e++) h+=opcion({v:String(e), t:String(e)}, actual===String(e), false, true);
+    h+='</div><div class="q-escala__ext" aria-hidden="true"><span>'+esc(P.min)+'</span><span>'+esc(P.max)+'</span></div>';
+  } else if(P.tipo==='uno' || P.tipo==='varios'){
+    h+='<p class="q-pregunta" id="q-preg">'+esc(P.pregunta)+'</p>';
+    if(P.ayuda) h+='<p class="q-ayuda">'+esc(P.ayuda)+'</p>';
     h+='<div role="'+(P.tipo==='uno'?'radiogroup':'group')+'" aria-labelledby="q-preg">';
-    for(var k=0;k<P.opciones.length;k++){
-      var o=P.opciones[k], sel = P.tipo==='uno' ? actual===o.v : (actual||[]).indexOf(o.v)>-1;
-      h+='<button type="button" class="q-opc'+(P.tipo==='varios'?' q-opc--multi':'')+(sel?' is-sel':'')+'" data-v="'+esc(o.v)+'" role="'+(P.tipo==='uno'?'radio':'checkbox')+'" aria-checked="'+(sel?'true':'false')+'"><span class="q-opc__t">'+esc(o.t)+'</span><span class="q-opc__marca"></span></button>';
-    }
+    for(var k=0;k<P.opciones.length;k++){ var o=P.opciones[k]; h+=opcion(o, P.tipo==='uno' ? actual===o.v : (actual||[]).indexOf(o.v)>-1, P.tipo==='varios', false); }
     h+='</div>';
     if(P.tipo==='varios') h+='<button type="button" class="q-btn" data-accion="listo"'+((actual&&actual.length)?'':' disabled')+'>LISTO '+FLECHA+'</button>';
   } else {
-    h+='<input class="q-input" id="q-texto" type="text" maxlength="140" autocomplete="off" placeholder="'+esc(P.placeholder||'')+'" value="'+esc(resp[P.id]||'')+'">';
+    h+='<p class="q-pregunta" id="q-preg">'+esc(P.pregunta)+'</p>';
+    h+='<input class="q-input" id="q-texto" type="text" maxlength="140" autocomplete="off" aria-labelledby="q-preg" placeholder="'+esc(P.placeholder||'')+'" value="'+esc(resp[P.id]||'')+'">';
     h+='<button type="button" class="q-btn" data-accion="texto">SIGUIENTE '+FLECHA+'</button>';
     h+='<button type="button" class="q-link" data-accion="saltar">Prefiero saltear esta</button>';
   }
   main.innerHTML=h+'</section>';
   window.scrollTo(0,0);
+}
+function opcion(o, sel, multi, sinMarca){
+  return '<button type="button" class="q-opc'+(multi?' q-opc--multi':'')+(sel?' is-sel':'')+'" data-v="'+esc(o.v)+'" role="'+(multi?'checkbox':'radio')+'" aria-checked="'+(sel?'true':'false')+'"><span class="q-opc__t">'+esc(o.t)+'</span>'+(sinMarca?'':'<span class="q-opc__marca"></span>')+'</button>';
 }
 function siguiente(){ if(i<PASOS.length-1){ i++; pantalla(); } else armando(); }
 
@@ -326,6 +372,7 @@ function resultado(R){
   if(resp.seguimiento==='dejo'||resp.seguimiento==='cayo') vemos.push('Cuando nadie te preguntaba cómo ibas, '+(resp.seguimiento==='dejo'?'lo dejaste a las pocas semanas':'se cayó')+'. Por eso en el Instituto el seguimiento es parte del proceso.');
   else if(resp.seguimiento==='sostuvo') vemos.push('Sabés sostener sin que nadie te empuje: es una gran base para el próximo escalón.');
   if(resp.objetivo) vemos.push('Tu meta a 90 días: '+TEXTO_OBJETIVO[resp.objetivo]+'.');
+  if(+resp.cerca && +resp.cerca<10) vemos.unshift('Entre tu semana de hoy y la que querés hay '+(10-resp.cerca)+' puntos. Ese es el camino que vamos a recorrer.');
 
   var h='<section class="q-pantalla q-res">';
   h+='<span class="q-res__kicker">Tu mapa'+(primerNombre?' · '+esc(primerNombre):'')+'</span>';
@@ -333,7 +380,7 @@ function resultado(R){
   h+='<p class="q-res__espejo">'+esc(P.espejo)+'</p>';
   h+='<div class="q-card q-cerebro"><span class="q-chip">'+esc(P.concepto)+'</span><p><b>Lo que pasa en tu cerebro:</b> '+esc(P.cerebro)+'</p><p><b>Lo que lo cambia:</b> '+esc(P.cambia)+'</p></div>';
   h+='<div class="q-card"><h2>Lo que vemos en tus respuestas</h2>'
-    +'<div class="q-carga"><div class="q-carga__barra"><i style="width:'+Math.max(6,R.carga*10)+'%"></i></div><span class="q-carga__t">Carga '+R.cargaNivel+'</span></div>'
+    +medidor('Cuánto te pesa la semana', resp.peso)+medidor('Qué tan cerca estás de la semana que querés', resp.cerca)
     +'<ul class="q-vemos">'+vemos.map(function(v){ return '<li>'+esc(v)+'</li>'; }).join('')+'</ul></div>';
   h+='<div class="q-card"><h2>Tus escalones en el Instituto</h2><div class="q-esc">'
     +'<div class="q-esc__paso is-hecho"><span class="q-esc__n">✓</span><span class="q-esc__t">Comunidad Productiva<small>Las bases. Ya estás acá.</small></span></div>'
@@ -344,8 +391,11 @@ function resultado(R){
     h+='<div class="q-inv"><span class="q-chip">Invitación especial</span><h2>Podés llegar más rápido si lo hacés guiado.</h2>'
       +'<p>Te invitamos a una sesión con un asesor del Instituto de Productividad: revisa tu mapa con vos y ve cómo hacer que tu proceso sea más rápido y más efectivo. Lo único que tenés que hacer es aceptar.</p>'
       +'<div class="q-inv__video" id="q-video"></div>'
-      +'<a class="q-btn" id="q-cta" href="'+esc(linkAgenda(R))+'" target="_blank" rel="noopener" data-evento="clic_agenda">ACEPTO LA INVITACIÓN '+FLECHA+'</a>'
-      +'<p class="q-inv__micro">Elegís el día y el horario que te quede cómodo.</p></div>';
+      +'<button type="button" class="q-btn" id="q-cta" data-accion="agenda">ACEPTO LA INVITACIÓN '+FLECHA+'</button>'
+      +'<p class="q-inv__micro">Elegís el día y el horario acá mismo.</p></div>'
+      +'<div class="q-agenda" id="q-agenda" hidden></div>'
+      +'<p class="q-agenda-alt" id="q-agenda-alt" hidden><a class="q-link" href="'+esc(linkAgenda(R))+'" target="_blank" rel="noopener">¿No ves la agenda? Abrila acá</a></p>'
+      +'<div class="q-agendado" id="q-agendado" role="status" hidden>✓ ¡Listo! Ya tenés tu sesión. Te llega la confirmación por mail.</div>';
   } else {
     h+='<div class="q-inv"><span class="q-chip">Tu próximo paso</span><h2>Para sacarle más jugo a tus bases.</h2>'
       +'<p>Te recomendamos <b>Hackea tu cerebro</b>, el libro de Nico: la neurociencia detrás de cómo te organizás, explicada para usarla en tu semana.</p>'
@@ -356,6 +406,30 @@ function resultado(R){
   if(R.califica) ponerVideo();
   window.scrollTo(0,0);
 }
+function medidor(lbl, v){ v=+v||0; if(!v) return ''; return '<div class="q-medidor"><div class="q-medidor__fila"><span>'+esc(lbl)+'</span><b>'+v+' de 10</b></div><div class="q-medidor__barra"><i style="width:'+(v*10)+'%"></i></div></div>'; }
+/* ─── agenda de Calendly adentro del quiz ───
+   Se carga recién cuando aceptan la invitación. Llega con nombre y mail precargados.
+   Si agendan, Calendly avisa con un mensaje y lo mandamos a n8n como evento "agendo". */
+function abrirAgenda(R){
+  var box=document.getElementById('q-agenda'), alt=document.getElementById('q-agenda-alt'); if(!box) return;
+  enviar(R,'clic_agenda');
+  box.hidden=false; if(alt) alt.hidden=false;
+  if(!box.getAttribute('data-listo')){
+    box.setAttribute('data-listo','1');
+    var url=CONFIG.AGENDA_URL+(CONFIG.AGENDA_URL.indexOf('?')===-1?'?':'&')+'hide_gdpr_banner=1';
+    var iniciar=function(){ try{ window.Calendly.initInlineWidget({ url:url, parentElement:box, prefill:{ name:contacto.nombre||'', email:contacto.email||'' }, utm:{ utmSource:CONFIG.ORIGEN, utmContent:R.perfil } }); }catch(e){} };
+    if(window.Calendly && window.Calendly.initInlineWidget) iniciar();
+    else { var sc=document.createElement('script'); sc.src='https://assets.calendly.com/assets/external/widget.js'; sc.async=true; sc.onload=iniciar; document.head.appendChild(sc); }
+  }
+  setTimeout(function(){ box.scrollIntoView({ behavior:'smooth', block:'start' }); }, 60);
+}
+window.addEventListener('message', function(e){
+  if(!e.data || typeof e.data!=='object' || String(e.origin).indexOf('calendly.com')===-1) return;
+  if(e.data.event==='calendly.event_scheduled'){
+    var g=leerGuardado(); if(g) enviar(g.R,'agendo');
+    var ok=document.getElementById('q-agendado'); if(ok) ok.hidden=false;
+  }
+});
 function listar(a){ return a.length<2 ? a.join('') : a.slice(0,-1).join(', ')+' y '+a[a.length-1]; }
 function linkAgenda(R){
   var u=CONFIG.AGENDA_URL; if(!u) return '#';
@@ -380,6 +454,7 @@ function datos(R, evento){
     nombre:contacto.nombre, telefono:contacto.telefono, email:contacto.email, cid:contacto.cid,
     momento:resp.momento||'', equipo:resp.equipo||'', dedicacion:resp.dedicacion||'',
     s1_pendientes:resp.s1||'', s2_cosas_para_despues:resp.s2||'', s3_interrupciones:resp.s3||'', s4_se_apaga:resp.s4||'', s5_mente_encendida:resp.s5||'',
+    peso:resp.peso||'', cerca:resp.cerca||'',
     probado:(resp.probado||[]).join(','), seguimiento:resp.seguimiento||'', objetivo:resp.objetivo||'', pendiente:resp.pendiente||'', urgencia:resp.urgencia||'',
     perfil:R.perfil, carga:R.carga, califica:R.califica?'si':'no', nivel:R.nivel, destino:R.destino,
     utm_source:qs('utm_source'), utm_campaign:qs('utm_campaign') };
@@ -402,10 +477,12 @@ main.addEventListener('click', function(e){
   if(accion==='empezar'){ i=0; pantalla(); return; }
   if(accion==='atras'){ if(i>0){ i--; pantalla(); } else intro(); return; }
   if(accion==='reiniciar'){ resp={}; try{ localStorage.removeItem(GUARDADO); }catch(err){} intro(); return; }
+  if(accion==='seguir'){ siguiente(); return; }
+  if(accion==='agenda'){ var ga=leerGuardado(); abrirAgenda(ga?ga.R:calcular()); return; }
   if(t.getAttribute('data-evento')){ var g=leerGuardado(); if(g) enviar(g.R, t.getAttribute('data-evento')); return; }
   if(t.classList.contains('q-opc') && P){
     var v=t.getAttribute('data-v');
-    if(P.tipo==='uno'){
+    if(P.tipo!=='varios'){
       resp[P.id]=v;
       var todos=main.querySelectorAll('.q-opc'); for(var k=0;k<todos.length;k++){ var on=todos[k]===t; todos[k].classList.toggle('is-sel',on); todos[k].setAttribute('aria-checked',on?'true':'false'); }
       pintarMapa(); setTimeout(siguiente, 230); return;
