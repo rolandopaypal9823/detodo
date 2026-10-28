@@ -5,7 +5,7 @@
    con respaldo, un ancho de 600px y un botón «a prueba de Outlook». Nada de
    CSS externo, flex ni grid: los clientes de mail los rompen.
 
-   Sale : nfm-clase-paga/mail-compra-{basic,premium}.html           confirmación de compra · clase del 21
+   Sale : nfm-clase-paga/mail-compra-{basic,premium}.html           confirmación de compra · clase del 4/11
           nfm-clase-paga/mail-compra-generico-{basic,premium}.html  confirmación de compra sin fecha ni clase
           nfm-clase-paga/mail-grabacion-7oct-{basic,premium}.html   aviso: ya está la grabación (clase del 7)
           nfm-clase-paga/mail-grabacion-21oct-{basic,premium}.html  aviso: ya está la grabación (clase del 21)
@@ -17,8 +17,8 @@
 import io
 
 LOGO   = 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png'
-WA     = 'https://go.wha.link/clase-de-neurociencia-21-10'
-CLASE  = 'Miércoles 21 de octubre · 19:00 hs (Argentina) · vía Zoom'
+WA     = 'https://go.wha.link/clase-de-neurociencia-04-11'
+CLASE  = 'Miércoles 4 de noviembre · 19:00 hs (Argentina) · vía Zoom'
 
 ITEMS_BASIC = [
   ('Workbook', 'Resumen de la clase y accionables concretos.'),
@@ -126,10 +126,11 @@ GRABACION = {
   }),
 }
 
-# Aviso a los que compraron para la clase del 21: mismo mail, al portal de la clase del 21
-# (las rutas de siempre: clase-beneficios/asiento-basic/ y /premium-htc/).
+# Aviso a los que compraron para la clase del 21: mismo mail, al portal de la clase del 21.
+# Desde la clase del 4/11 el contenido del 21 quedó en /clase-21/ (las rutas de siempre son de la clase nueva).
 GRABACION_21 = {
-  k: dict(v, **{'archivo': f'nfm-clase-paga/mail-grabacion-21oct-{k}.html', 'portal': TIERS[k]['portal']})
+  k: dict(v, **{'archivo': f'nfm-clase-paga/mail-grabacion-21oct-{k}.html',
+                'portal': TIERS[k]['portal'].replace('netlify.app/', 'netlify.app/clase-21/')})
   for k, v in GRABACION.items()
 }
 

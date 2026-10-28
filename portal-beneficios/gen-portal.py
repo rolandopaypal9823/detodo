@@ -2,11 +2,16 @@
 """Genera el portal de beneficios de la clase, una edición por clase.
 
    Un solo sitio en Netlify: clase-beneficios.netlify.app (carpeta portal-beneficios/clase-beneficios/)
-     /asiento-basic/          → clase del 21 · USD 5 · workbook + grabación
-     /premium-htc/            → clase del 21 · USD 9 · lo mismo + el ebook + el curso ABC
-     /clase-7/asiento-basic/  → clase del 7 · lo que compraron entonces (sigue vivo)
-     /clase-7/premium-htc/    → clase del 7
-   Las páginas del 21 llevan abajo un aviso para quien compró para la clase del 7.
+     /asiento-basic/           → clase del 4/11 · USD 5 · workbook + grabación
+     /premium-htc/             → clase del 4/11 · USD 9 · lo mismo + el ebook + el curso ABC
+     /clase-21/asiento-basic/  → clase del 21/10 · lo que compraron entonces (sigue vivo)
+     /clase-21/premium-htc/    → clase del 21/10
+     /clase-7/asiento-basic/   → clase del 7/10
+     /clase-7/premium-htc/     → clase del 7/10
+   Las páginas de la clase nueva llevan abajo un aviso con los links a las clases anteriores.
+
+   Cuando entra una clase nueva: la edición que estaba en la raíz pasa a su carpeta /clase-N/
+   (un_sitio False, sin 'anterior') y la nueva va a la raíz con su 'anterior'.
 
    Las dos salen de la misma plantilla: cambia el contenido, no el esqueleto.
    Correr desde la raíz del repo:  python3 portal-beneficios/gen-portal.py
@@ -46,14 +51,26 @@ EDICIONES = [
     'paginas'        : { 'asiento-basic': BASIC, 'premium-htc': PREMIUM },
     'curso'          : 'abc',     # el USD 5 de esta clase traía el curso ABC completo
   },
-  { # clase del miércoles 21 · clase-beneficios.netlify.app/asiento-basic/ y /premium-htc/
-    'carpeta'        : 'portal-beneficios/clase-beneficios',
-    'un_sitio'       : True,
-    'anterior'       : { 'clase': 'miércoles 7 de octubre', 'ruta': '/clase-7/' },
+  { # clase del miércoles 21 · quedó en clase-beneficios.netlify.app/clase-21/…
+    'carpeta'        : 'portal-beneficios/clase-beneficios/clase-21',
+    'un_sitio'       : False,
     'CLASE'          : '2026-10-21',
     'LISTO'          : '2026-10-22T12:00:00-03:00',
     'WORKBOOK_URL'   : 'https://drive.google.com/file/d/1k7ptW1zvi-nrR3QmPZ8lBYuAEElYdnXj/view?usp=sharing',
     'GRABACION_LOOM' : 'ed4f50c22069427bb38eb4cfae29cd45',
+    'GRABACION_URL'  : '',
+    'paginas'        : { 'asiento-basic': BASIC, 'premium-htc': PREMIUM },
+    'curso'          : 'abc',     # el asiento de USD 9 trae el curso ABC completo
+  },
+  { # clase del miércoles 4 de noviembre · clase-beneficios.netlify.app/asiento-basic/ y /premium-htc/
+    'carpeta'        : 'portal-beneficios/clase-beneficios',
+    'un_sitio'       : True,
+    'anterior'       : [ { 'clase': 'miércoles 21 de octubre', 'ruta': '/clase-21/' },
+                         { 'clase': 'miércoles 7 de octubre',  'ruta': '/clase-7/' } ],
+    'CLASE'          : '2026-11-04',
+    'LISTO'          : '2026-11-05T12:00:00-03:00',
+    'WORKBOOK_URL'   : '',
+    'GRABACION_LOOM' : '',
     'GRABACION_URL'  : '',
     'paginas'        : { 'asiento-basic': BASIC, 'premium-htc': PREMIUM },
     'curso'          : 'abc',     # el asiento de USD 9 trae el curso ABC completo
@@ -196,9 +213,15 @@ def anterior(slug):
     """Aviso chico al pie para quien compró para una clase anterior: su contenido sigue en otra ruta."""
     a = CFG.get('anterior')
     if not a: return ''
-    return f"""
+    if isinstance(a, dict): a = [a]
+    if len(a) == 1:
+        return f"""
       <!-- CLASE ANTERIOR -->
-      <p class="prev">¿Tu asiento era para la clase del {a['clase']}? Tu workbook y tu grabación están <a href="{a['ruta']}{slug}/">acá</a>.</p>"""
+      <p class="prev">¿Tu asiento era para la clase del {a[0]['clase']}? Tu workbook y tu grabación están <a href="{a[0]['ruta']}{slug}/">acá</a>.</p>"""
+    links = ' · '.join(f'<a href="{x["ruta"]}{slug}/">clase del {x["clase"]}</a>' for x in a)
+    return f"""
+      <!-- CLASES ANTERIORES -->
+      <p class="prev">¿Tu asiento era para otra clase? Tu workbook y tu grabación están acá: {links}.</p>"""
 
 def pagina(slug, pg):
     premium = pg['premium']
@@ -337,22 +360,24 @@ Un solo sitio. Se sube arrastrando la carpeta `clase-beneficios` entera a Netlif
 
 | Ruta | Qué es |
 |---|---|
-| `/asiento-basic/` | Clase del miércoles 21 · USD 5 — workbook + grabación |
-| `/premium-htc/` | Clase del miércoles 21 · USD 9 — lo mismo + ebook + curso ABC |
-| `/clase-7/asiento-basic/` | Clase del 7 · lo que compraron entonces (workbook + grabación cargados) |
-| `/clase-7/premium-htc/` | Clase del 7 · lo mismo + ebook + curso ABC |
+| `/asiento-basic/` | Clase del miércoles 4 de noviembre · USD 5 — workbook + grabación |
+| `/premium-htc/` | Clase del miércoles 4 de noviembre · USD 9 — lo mismo + ebook + curso ABC |
+| `/clase-21/asiento-basic/` | Clase del 21/10 · lo que compraron entonces (workbook + grabación cargados) |
+| `/clase-21/premium-htc/` | Clase del 21/10 · lo mismo + ebook + curso ABC |
+| `/clase-7/asiento-basic/` | Clase del 7/10 · workbook + grabación cargados |
+| `/clase-7/premium-htc/` | Clase del 7/10 · lo mismo + ebook + curso ABC |
 
-Las páginas del 21 llevan abajo un aviso con el link a `/clase-7/…`, porque los mails de la clase del 7 mandan a las
-rutas de arriba.
+Las páginas de la clase del 4/11 llevan abajo un aviso con los links a `/clase-21/…` y `/clase-7/…`, porque los mails
+de las clases anteriores mandan a las rutas de arriba.
 
-## Cuando estén el workbook y la grabación del 21
+## Cuando estén el workbook y la grabación del 4/11
 
-Editar la edición del 21 en `gen-portal.py` (`WORKBOOK_URL` y `GRABACION_LOOM`), correr
+Editar la edición del 4/11 en `gen-portal.py` (`WORKBOOK_URL` y `GRABACION_LOOM`), correr
 `python3 portal-beneficios/gen-portal.py` desde la raíz del repo y volver a subir la carpeta.
 La página no muestra ninguna hora (dice «después de la clase del miércoles»); por dentro cambia de estado el
-jueves 22 a las 12:00. Sin links cargados, a esa hora dice «lo estamos subiendo», nunca un botón roto.
+jueves 5 de noviembre a las 12:00. Sin links cargados, a esa hora dice «lo estamos subiendo», nunca un botón roto.
 
-Para probar el estado «ya disponible» sin esperar: agregar `?nfm_now=2026-10-22T12:01:00-03:00` a la URL.
+Para probar el estado «ya disponible» sin esperar: agregar `?nfm_now=2026-11-05T12:01:00-03:00` a la URL.
 
 ## Ojo
 
