@@ -133,6 +133,11 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-marquee:hover .nfm-marquee__track{ animation-play-state:paused; }
 .nfm-marquee__set{ display:flex; align-items:center; gap:64px; padding-right:64px; flex:none; }
 .nfm-proof__logo{ height:auto !important; max-height:34px !important; width:auto !important; max-width:170px !important; flex:none; display:block; object-fit:contain; }
+/* tráiler (Loom) debajo de los logos: los medios que lo presentan, en video */
+.nfm-trailer{ max-width:760px; margin:44px auto 8px; }
+.nfm-trailer__box{ position:relative; width:100%; height:0; padding-bottom:56.25%; border-radius:18px; overflow:hidden;
+  background:var(--nfm-navy); box-shadow:0 0 0 1px var(--nfm-gray-200), 0 24px 70px rgba(12,52,82,0.18); }
+.nfm-trailer__box iframe{ position:absolute; top:0; left:0; width:100% !important; height:100% !important; border:0; display:block; }
 @keyframes nfm-marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 @media (prefers-reduced-motion:reduce){
   .nfm-marquee{ -webkit-mask-image:none; mask-image:none; }
@@ -320,6 +325,7 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
   .nfm-eq__list li{ font-size:1rem; padding:9px 0; } .nfm-eq__list li s{ text-decoration-thickness:2px; } .nfm-eq__sum{ font-size:1.18rem; gap:8px 10px; } .nfm-eq__grp{ gap:10px; }
   .nfm-quiz{ padding:22px 18px; } .nfm-opt{ gap:12px; } .nfm-opt__img{ width:58px; height:58px; border-radius:9px; }
   .nfm-map{ padding:8px 20px; } .nfm-map__item{ gap:14px; align-items:flex-start; } .nfm-map__ico{ width:42px; height:42px; border-radius:11px; } .nfm-map__ico svg{ width:21px; height:21px; } .nfm-map__txt h4{ font-size:1.02rem; }
+  .nfm-trailer{ margin:32px auto 4px; } .nfm-trailer__box{ border-radius:14px; }
   .nfm-proof{ padding:34px 0 30px; } .nfm-proof__label{ padding-bottom:24px; } .nfm-proof__logo{ max-height:26px !important; max-width:130px !important; } .nfm-marquee__set{ gap:40px; padding-right:40px; }
   .nfm-nav__cd{ flex-direction:column; gap:5px; width:100%; } .nfm-nav__cd-lbl{ font-size:0.66rem; letter-spacing:0.16em; } .nfm-nav__cd-t{ width:100%; gap:8px; } .nfm-nav__cd-t span{ flex:1; min-width:0; padding:7px 4px 5px; } .nfm-nav__cd-t b{ font-size:1.45rem; } .nfm-nav__cd-t i{ font-size:0.56rem; }
   .nfm-scene{ margin-bottom:48px; gap:18px; } .nfm-scene__dual{ gap:10px; }
@@ -394,6 +400,18 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
         <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/5-1.png" alt="YPF" class="nfm-proof__logo" loading="lazy">
         <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/6-1.png" alt="Samsung" class="nfm-proof__logo" loading="lazy">
         <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/accountlogo.jpg" alt="Ternium" class="nfm-proof__logo" loading="lazy">
+      </div>
+    </div>
+  </div>
+  <!-- TRÁILER · video de Loom. Los parámetros sacan la barra de arriba (título, autor, compartir,
+       donde Loom muestra las vistas) y el cartel de velocidad: queda sólo el botón de reproducir.
+       ⚠️ La velocidad 1x NO se puede fijar desde acá: Loom reproduce a 1,2x por defecto.
+       Se cambia en Loom → el video → Settings → Audience → velocidad 1x. -->
+  <div class="nfm-container">
+    <div class="nfm-trailer nfm-reveal">
+      <div class="nfm-trailer__box">
+        <iframe id="nfm-trailer-video" src="https://www.loom.com/embed/22b62e1a8af04e089180d7a71e3036a0?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true&hide_speed=true" title="Nico Fernández Miranda · tráiler" loading="lazy"
+          frameborder="0" allow="fullscreen; picture-in-picture" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -816,8 +834,13 @@ function scrollToId(id){ var t=document.getElementById(id); if(!t) return; windo
    Se abre con cualquier botón [data-abrir-registro]. Se cierra SÓLO con la X: ni clic en el fondo
    ni Escape lo cierran. Mientras está abierto, la página de atrás no scrollea. */
 var modal=document.getElementById('nfm-modal'), modalPanel=document.getElementById('nfm-modal-panel'), modalClose=document.getElementById('nfm-modal-close'), scrollGuardado=0;
+/* el tráiler: un clic adentro del iframe le saca el foco a la página; así sabemos que lo pusieron a andar */
+var trailer=document.getElementById('nfm-trailer-video'), trailerTocado=false;
+window.addEventListener('blur', function(){ setTimeout(function(){ if(trailer && document.activeElement===trailer) trailerTocado=true; }, 0); });
+function cortarTrailer(){ if(trailer && trailerTocado){ trailer.src=trailer.src; trailerTocado=false; } }
 function abrirRegistro(){
   if(!modal) return;
+  cortarTrailer();
   scrollGuardado=window.scrollY||0;
   modal.hidden=false; modal.setAttribute('aria-hidden','false');
   document.documentElement.classList.add('nfm-modal-open');

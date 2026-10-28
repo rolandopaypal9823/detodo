@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Versión FIJA de la clase del 4 de noviembre: el título puede ser específico -->
-<title>¡Lugar reservado! · Neurociencia para el Alto Rendimiento Profesional · Nicolás Fernández Miranda</title>
+<title>¡Pago confirmado! · Asiento Premium Básico · Nicolás Fernández Miranda</title>
 
 <!-- El pixel de Meta (PageView) va ADENTRO del custom code, más abajo, para que viaje con el pegado. -->
 </head>
@@ -33,6 +33,10 @@ if(!window.__nfm_pixel_thx){
   window.__nfm_pixel_thx = true;
   fbq('init', '1203017011123382');
   fbq('track', 'PageView');
+  /* Purchase · USD 5 · se manda UNA vez por sesión: si recargan, no se cuenta dos veces. */
+  var k='nfm_purchase_asiento_basic', ya=false;
+  try{ ya = !!sessionStorage.getItem(k); }catch(e){}
+  if(!ya){ fbq('track','Purchase',{value:5, currency:'USD', content_name:'asiento_basic'}); try{ sessionStorage.setItem(k,'1'); }catch(e){} }
 }
 </script>
 <noscript><img height="1" width="1" style="display:none"
@@ -183,6 +187,18 @@ html, body{ margin:0; padding:0; background:#081F33; }
 .nfm-thx__footer{ padding:30px 0; border-top:1px solid var(--nfm-hair); text-align:center; }
 .nfm-thx__footer p{ font-size:0.8rem; color:var(--nfm-tm); }
 
+/* ── PASO 3 · beneficios ── */
+.nfm-ben-txt{ font-size:1rem; color:var(--nfm-tl); line-height:1.65; margin:0 !important; text-align:center !important; }
+.nfm-ben-txt strong{ color:#fff; font-weight:600; }
+.nfm-ben-btn{ display:flex; align-items:center; justify-content:center; gap:12px; width:100%; margin:16px 0 0;
+  font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:700; color:#fff; background:var(--nfm-orange);
+  border:none; border-radius:50px; padding:19px 28px; cursor:pointer; box-shadow:0 8px 28px var(--nfm-orange-glow);
+  transition:transform .25s var(--nfm-ease), box-shadow .25s var(--nfm-ease), background .25s var(--nfm-ease); }
+.nfm-ben-btn:hover{ background:var(--nfm-orange-hover); transform:translateY(-2px); box-shadow:0 12px 36px var(--nfm-orange-glow); color:#fff; }
+.nfm-ben-btn svg{ width:20px !important; height:20px !important; flex-shrink:0; }
+.nfm-ben-micro{ font-size:.82rem; color:var(--nfm-tm); text-align:center !important; margin:12px 0 0 !important; line-height:1.5; }
+@media (max-width:600px){ .nfm-ben-btn{ font-size:1rem; padding:17px 22px; } }
+
 /* ── BARRA DE MODO PRUEBA ── */
 .nfm-testbar{ background:var(--nfm-orange); color:#fff; font-family:var(--nfm-font-h);
   font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
@@ -219,7 +235,7 @@ html, body{ margin:0; padding:0; background:#081F33; }
       <div class="nfm-thx__check">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
       </div>
-      <h1 class="nfm-rv nfm-rv-1">¡Lugar reservado! Ahora, <span class="acc">tres pasos</span> para recibir el acceso.</h1>
+      <h1 class="nfm-rv nfm-rv-1">¡Pago confirmado! Ahora, <span class="acc">tres pasos</span> para tener todo listo.</h1>
     </div>
   </section>
 
@@ -254,14 +270,19 @@ html, body{ margin:0; padding:0; background:#081F33; }
         </div>
       </div>
 
-      <!-- PASO 3 — Atento al grupo y al mail -->
+      <!-- PASO 3 — Beneficios -->
       <div class="nfm-step nfm-rv nfm-rv-4">
         <div class="nfm-step__head">
           <div class="nfm-step__num">3</div>
-          <h3>Hasta el día de la clase, atento al grupo y a tu mail</h3>
+          <h3>Tus beneficios, desbloqueados</h3>
         </div>
-        <div class="nfm-step__body nfm-step__body--txt">
-          <p>Por ahí van a llegar el acceso y los recordatorios el <strong data-thx-fecha="diaYNumero">miércoles 4</strong>. Revisá también <strong>spam / promociones</strong>.</p>
+        <div class="nfm-step__body">
+          <p class="nfm-ben-txt">El <strong>workbook</strong> con el resumen y los accionables, y la <strong>grabación</strong> de la clase. Todo queda en tu portal.</p>
+          <a href="https://clase-beneficios.netlify.app/asiento-basic/" class="nfm-ben-btn" target="_blank" rel="noopener">
+            VER MIS BENEFICIOS
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <p class="nfm-ben-micro">Guardá ese link: es tu acceso. Te lo mandamos también por mail.</p>
         </div>
       </div>
 
@@ -358,7 +379,7 @@ var CONFIG = {
   MINUTOS_DE_GRACIA: 0,
   CERRAR_CAPTACION_HORAS: 0,
   AUTO_SEMANAL: false,   // fijo
-  AUTO_DIA: 2,             // 0=domingo, 1=lunes, 2=martes...
+  AUTO_DIA: 3,             // 0=domingo, 1=lunes, 2=martes, 3=miércoles...
   AUTO_TEMA_ALTERNA: true
 };
 
@@ -367,7 +388,7 @@ var CONFIG = {
    ══════════════════════════════════════════════════════════════════ */
 var TEMAS = {
   AR: {
-    tituloPagina: '¡Lugar reservado! · Neurociencia para el Alto Rendimiento Profesional · Nicolás Fernández Miranda',
+    tituloPagina: '¡Pago confirmado! · Asiento Premium Básico · Nicolás Fernández Miranda',
     claseTitulo: 'Neurociencia para el Alto Rendimiento Profesional'
   }
 };
@@ -626,17 +647,6 @@ if(clase){
 })();
 </script>
 
-<!-- ══════════════════════════════════════════════════════════════════
-     POPUP POST-REGISTRO (oferta de asiento USD 1 / USD 5)
-     Pegar acá el código del popup cuando esté.
-     Se muestra SÓLO a quien calificó (etapa A o B): el script de abajo corta con if(!window.NFM_CALIFICA).
-       · Datos disponibles: window.NFM_ETAPA ('A'|'B'|'C'|null), window.NFM_EQUIPO, window.NFM_CALIFICA (true/false),
-         window.NFM_NIVEL ('alto' = etapa A/B con gente a cargo · 'medio' = A/B sin gente a cargo · 'bajo' = C, todavía le cuesta sostenerse económicamente)
-     ══════════════════════════════════════════════════════════════════ -->
-<div id="nfm-popup-slot">
-  <!-- popup de asiento USD 1 / USD 5: todavía NO va en esta clase. Cuando se active, copiar el bloque
-       de landing-siempre-on/clase-22-septiembre/thank-you.html (CSS "POPUP POST-REGISTRO" + este slot). -->
-</div>
 <!-- ═══════════ HASTA ACÁ EL CUSTOM CODE DE GHL ═══════════ -->
 </body>
 </html>

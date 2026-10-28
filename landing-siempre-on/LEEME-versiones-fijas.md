@@ -8,25 +8,26 @@ nada, no dependen de ninguna fecha: muestran siempre esa clase y ese grupo de Wh
 | `clase-15-septiembre/` | mar 15 sep, 19:00 | B | Escalá tu vida, no tu cansancio | `clase-15-de-septiembre-de-neurociencia` |
 | `clase-22-septiembre/` | mar 22 sep, 19:00 | Nueva | Neurociencia para el Alto Rendimiento Profesional | `clase-22-de-semptiembre-de-neurociencia` |
 | `clase-7-octubre/` | mié 7 oct, 19:00 | Nueva (misma que la del 22) | Neurociencia para el Alto Rendimiento Profesional | `clase-de-neurociencia-6-10` |
-| `clase-4-noviembre/` | mié 4 nov, 19:00 | Nueva (misma que la del 7 de octubre) | Neurociencia para el Alto Rendimiento Profesional | **pendiente** |
+| `clase-21-octubre/` | mié 21 oct, 19:00 | La del 7 con el tráiler de Loom | Neurociencia para el Alto Rendimiento Profesional | `clase-de-neurociencia-21-10` |
+| `clase-4-noviembre/` | mié 4 nov, 19:00 | La del 21 con otra fecha | Neurociencia para el Alto Rendimiento Profesional | **pendiente** |
 
 En cada carpeta: `index.html` va en la landing de registro, `thank-you.html` en la página de gracias.
 Copiás de marcador a marcador, reemplazando el bloque entero.
 
 ---
 
-## La del 4 de noviembre es la del 7 de octubre con otra fecha
+## La del 4 de noviembre es la del 21 de octubre con otra fecha
 
-`clase-4-noviembre/` es una copia de `clase-7-octubre/` con estos cambios:
+Todo el detalle está en `clase-4-noviembre/LEEME.md`. En corto:
 
-- **Fecha:** `2026-11-04` y todos los textos que dicen "miércoles 4 de noviembre", también en el calendario y los mails.
-- **UTM/edición:** `clase-nov04-alto-rendimiento`.
-- **Clave anti-duplicados del gate de Zoom:** `nfm_reg_4nov`.
-- **Calendario:** `calendario-clase-4-nov.ics` y su link de Google Calendar, de 19:00 a 20:30 hs (Argentina).
-- **Grupo de WhatsApp:** todavía no está. En la thank you, los mails y el calendario figura `go.wha.link/PENDIENTE-GRUPO-4-NOV` para que nadie publique por error con el grupo del 7. No se publica hasta cambiarlo.
-- **Recordatorio de 24 h:** se manda el martes 3 a las 19:00. En la carpeta del 7 figuraba el mismo miércoles por error.
+- **Landing** (las dos variantes): la del 21, con el tráiler de Loom, fecha `2026-11-04` y UTM/edición `clase-nov04-alto-rendimiento`.
+- **Thank you de registro con el pop-up de asientos de USD 5 y USD 9:** `nfm-clase-paga/thankyou-oto.html`, con la referencia de Stripe `nov04`. Los links de pago son los del 21.
+- **Thank you sin pop-up, thank you de compra y mails de compra:** regenerados con la fecha nueva.
+- **Baúl:** las rutas de siempre pasan a ser del 4/11; lo del 21 queda en `/clase-21/` y lo del 7 en `/clase-7/`.
+- **Calendario, QR del Calendly (`utm_source=clase0411`), gate de Zoom (`nfm_reg_4nov`) y mails de registro** con la fecha nueva. El recordatorio de 24 h sale el martes 3 a las 19:00.
+- **Grupo de WhatsApp:** pendiente. Donde va dice `go.wha.link/PENDIENTE-GRUPO-4-NOV`; no se publica hasta cambiarlo.
 
-Lo que queda igual y conviene confirmar: el link de Zoom del gate (`us06web.zoom.us/j/82405076014`), la entrada `zoom-nfm.netlify.app`, los dos forms de GHL y el grupo de comunidad de la thank you de etapa C (`go.wha.link/eVoG1a`).
+La clase del 21, la thank you con pop-up, las de compra y el baúl se armaron en la rama `claude/webinar-conversion-architecture-bhymb4`. Desde la del 4/11 están también en esta rama.
 
 ## La del 7 de octubre es la del 22 con otra fecha
 

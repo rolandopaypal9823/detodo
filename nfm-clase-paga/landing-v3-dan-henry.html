@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hackea tu Cerebro EN VIVO · Clase en vivo con Nicolás Fernández Miranda</title>
+<meta name="description" content="Mientras más productivo sos, menos avanzás en tu vida. Bootcamp en vivo de 3 horas para profesionales, líderes y empresarios. USD 17.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   HACKEA TU CEREBRO EN VIVO · v3
+   Arquitectura de página ....... Dan Henry (getclients.com/mdw-a-9)
+   Protocolo de copy ............ Funnel 400% (5 pasos)
+   Calibración de avatar ........ Núcleo de comunicación · edición Platinum
+   Sistema visual ............... blanco, una sola columna centrada.
+                                  Tipografía oficial NFM: Montserrat + Open
+                                  Sans + JetBrains Mono.
+   Una sola columna angosta y todo centrado: es lo que ordena la página. El
+   naranja aparece sólo en acentos y CTAs — si todo es naranja, nada es naranja.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root{
+  --navy-deep:  #081F33;
+  --navy:       #0C3452;
+  --navy-1:     #0E2E4A;
+
+  --orange:       #FF6602;
+  --orange-hover: #FF8033;
+  --orange-glow:  rgba(255,102,2,0.30);
+  --orange-text:  #C04A00;   /* naranja legible sobre blanco (AA) */
+  --orange-wash:  #FFF7F2;
+
+  --white:    #FFFFFF;
+  --gray-50:  #F6F8FB;
+  --gray-100: #EDF1F7;
+  --gray-200: #E2E8F0;
+  --ink:        #0C3452;
+  --ink-mute:   #4E6174;
+  --ink-subtle: #8A98A8;
+
+  /* Sistema tipográfico oficial NFM (biblia-estetica): Montserrat para
+     títulos, Open Sans para cuerpo, JetBrains Mono para labels en
+     mayúsculas — que es la firma visual de la marca. */
+  --f-h: 'Montserrat', Georgia, serif;
+  --f-b: 'Open Sans', Georgia, serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --r:    14px;
+  --r-lg: 22px;
+  --ease: cubic-bezier(0.22,1,0.36,1);
+  --shadow:    0 18px 50px rgba(12,52,82,.07);
+  --shadow-lg: 0 26px 70px rgba(12,52,82,.12);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{margin:0; background:var(--white); color:var(--ink); font-family:var(--f-b);
+  font-size:17px; line-height:1.72; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility}
+img{max-width:100%; height:auto; display:block}
+a{color:inherit; text-decoration:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important; animation-iteration-count:1!important;
+    transition-duration:.01ms!important; scroll-behavior:auto!important}
+}
+
+/* ───────────── LA COLUMNA ─────────────
+   Angosta y centrada. Todo vive acá adentro; sólo la grilla de casos y los
+   logos de prensa piden más ancho. */
+.wrap{max-width:760px; margin:0 auto; padding:0 24px; text-align:center}
+.wrap--wide{max-width:1060px}
+.accent{color:var(--orange)}
+
+/* ───────────── TIPOGRAFÍA ─────────────
+   Títulos apretados (line-height 1.08-1.2, tracking negativo), cuerpo aireado
+   (1.72-1.78). Ese contraste es lo que hace que se lea bien. */
+h1{font-family:var(--f-h); font-size:clamp(1.95rem,4.4vw,3.15rem); font-weight:800;
+  line-height:1.12; letter-spacing:-0.02em; margin:0 0 16px; color:var(--ink); text-wrap:balance}
+h2{font-family:var(--f-h); font-size:clamp(1.48rem,3.3vw,2.2rem); font-weight:800;
+  line-height:1.22; letter-spacing:-0.015em; margin:0 0 20px; color:var(--ink); text-wrap:balance}
+h3{font-family:var(--f-h); font-size:1.12rem; font-weight:700;
+  line-height:1.4; letter-spacing:-0.01em; margin:0 0 8px; color:var(--ink)}
+h1 em,h2 em,h3 em{color:var(--orange); font-style:normal}
+
+/* Labels en mayúsculas: JetBrains Mono con tracking ancho. Es la firma
+   visual de NFM y lo que separa este sistema de cualquier otro. */
+.eyebrow{display:inline-block; font-family:var(--f-mono); font-size:.76rem; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--orange-text);
+  background:var(--orange-wash); border:1px solid rgba(255,102,2,.26);
+  padding:8px 17px; border-radius:50px; margin:0 0 22px}
+.label{font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-subtle); margin:0 0 18px}
+
+/* ───────────── SECCIONES ───────────── */
+.sec{padding:76px 0; position:relative}
+.sec--tint{background:var(--gray-50); border-top:1px solid var(--gray-200);
+  border-bottom:1px solid var(--gray-200)}
+.sec--final{background:radial-gradient(700px 340px at 50% 0%, rgba(255,102,2,.09), transparent 68%),
+  var(--white); border-top:1px solid var(--gray-200)}
+
+/* "beat" = la unidad de la carta de venta. Un párrafo por idea, centrado. */
+.beat{font-size:1.06rem; line-height:1.78; margin:0 auto 18px; color:var(--ink-mute); max-width:34em}
+.beat strong{color:var(--ink); font-weight:700}
+.beat--sm{font-size:.98rem; color:var(--ink-subtle)}
+.aside{font-size:.98rem; color:var(--ink-subtle); line-height:1.7; margin:22px auto; max-width:34em;
+  font-style:italic}
+
+/* ───────────── BOTONES ─────────────
+   El naranja lleno queda para el fold, la oferta y el cierre. El resto, ghost. */
+.cta{display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  font-family:var(--f-h); font-size:1.02rem; font-weight:800; letter-spacing:.005em;
+  color:#fff; background:var(--orange); border:none; border-radius:50px;
+  padding:18px 36px; cursor:pointer; position:relative; overflow:hidden; text-align:center;
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease);
+  box-shadow:0 8px 30px var(--orange-glow)}
+.cta::after{content:''; position:absolute; top:0; left:-120%; width:60%; height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);
+  transform:skewX(-20deg); transition:left .6s var(--ease)}
+.cta:hover{background:var(--orange-hover); transform:translateY(-2px); box-shadow:0 12px 40px var(--orange-glow)}
+.cta:hover::after{left:140%}
+.cta svg{width:18px; height:18px; flex-shrink:0; transition:transform .25s var(--ease)}
+.cta:hover svg{transform:translateX(4px)}
+.cta--full{width:100%}
+.cta--flat{box-shadow:none}
+.cta--ghost{background:transparent; border:1.5px solid var(--orange); color:var(--orange-text); box-shadow:none}
+.cta--ghost:hover{background:var(--orange-wash); border-color:var(--orange); color:var(--orange-text); box-shadow:none}
+.cta-wrap{margin:32px 0 0}
+
+/* ───────────── SUPERFICIES ─────────────
+   Sobre blanco la separación es borde gris + sombra AZUL difusa, nunca negra. */
+.card{background:#fff; border:1px solid var(--gray-200); border-radius:var(--r-lg);
+  padding:26px 24px; box-shadow:var(--shadow); text-align:left;
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease)}
+.card:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:rgba(255,102,2,.28)}
+
+/* El bloque de acento. Se usa poco a propósito. */
+.insight{background:var(--orange-wash); border-left:3px solid var(--orange);
+  border-radius:0 var(--r) var(--r) 0; padding:24px 26px; margin:28px auto; max-width:640px; text-align:left}
+.insight p{margin:0 0 12px; font-size:1.02rem; line-height:1.75; color:var(--ink-mute)}
+.insight p:last-child{margin:0}
+.insight strong{color:var(--ink); font-weight:700}
+
+/* ═══════════════ BARRA + HERO ═══════════════ */
+.topbar{background:var(--navy-deep); color:rgba(255,255,255,.62); border-bottom:1px solid rgba(255,255,255,.09);
+  font-family:var(--f-h); font-size:.78rem; font-weight:500;
+  text-align:center; padding:11px 16px; line-height:1.5; position:relative; z-index:20}
+.topbar b{color:#fff; font-weight:600}
+.topbar .dot{color:var(--orange)}
+.topbar .sep{color:rgba(255,255,255,.35); margin:0 5px}
+.topbar .t{font-variant-numeric:tabular-nums; color:var(--orange); font-weight:600}
+
+.hero{position:relative; overflow:hidden; padding:56px 0 68px;
+  background:radial-gradient(820px 400px at 50% 0%, rgba(255,102,2,.06), transparent 66%), var(--white)}
+.hero__tag{display:inline-block; font-family:var(--f-mono); font-size:.76rem; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--orange-text);
+  background:var(--orange-wash); border:1px solid rgba(255,102,2,.26);
+  padding:8px 17px; border-radius:50px; margin:0 0 24px; animation:fu .6s var(--ease) both}
+.hero h1{animation:fu .6s .12s var(--ease) both}
+/* La frase-billboard: el H1 es una afirmación (forma Dan Henry) y no abre el
+   loop por sí solo. Esto es lo que lo abre. */
+.hero__ask{font-family:var(--f-h); font-size:clamp(1.1rem,2.3vw,1.45rem); font-weight:700;
+  color:var(--orange); line-height:1.3; letter-spacing:-0.01em; margin:0 auto 24px; max-width:22em;
+  animation:fu .6s .2s var(--ease) both}
+.hero__sub{font-size:1.06rem; color:var(--ink-mute); line-height:1.75; margin:0 auto 30px;
+  max-width:33em; animation:fu .6s .28s var(--ease) both}
+.hero__sub strong{color:var(--ink); font-weight:700}
+.watch{font-family:var(--f-mono); font-size:.74rem; font-weight:600; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--orange-text); margin:0 0 14px; animation:fu .6s .32s var(--ease) both}
+.vsl{aspect-ratio:16/9; margin:0 auto 30px; background:var(--navy);
+  border-radius:var(--r-lg); display:flex; align-items:center; justify-content:center;
+  color:rgba(255,255,255,.42); font-family:var(--f-h); font-size:.9rem; overflow:hidden;
+  box-shadow:var(--shadow-lg); animation:fu .7s .3s var(--ease) both}
+.cd-label{font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-subtle); margin:0 0 12px; animation:fu .6s .4s var(--ease) both}
+.cd{display:flex; gap:10px; justify-content:center; margin:0 0 30px; animation:fu .6s .44s var(--ease) both}
+.cd__i{display:flex; flex-direction:column; align-items:center; min-width:70px; padding:14px 16px;
+  background:var(--gray-50); border:1px solid var(--gray-200); border-radius:var(--r)}
+.cd__n{font-family:var(--f-h); font-size:1.8rem; font-weight:900; color:var(--orange);
+  line-height:1; font-variant-numeric:tabular-nums}
+.cd__u{font-family:var(--f-mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-subtle); margin-top:5px}
+.hero__cta{animation:fu .6s .5s var(--ease) both}
+/* Micro-copy pegado al botón (Dan Henry). Acá NO va garantía de devolución:
+   contradice el «el precio es un filtro de intención» y el mecanismo entero. */
+.micro{font-size:.95rem; color:var(--ink-mute); line-height:1.68; margin:18px auto 0; max-width:34em}
+.micro strong{color:var(--ink); font-weight:700}
+.specs{font-family:var(--f-mono); font-size:.82rem; font-weight:500;
+  color:var(--ink-subtle); margin:26px 0 0; display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
+.specs i{font-style:normal; color:var(--orange)}
+@keyframes fu{from{opacity:0; transform:translateY(24px)} to{opacity:1; transform:none}}
+
+/* ═══════════════ PRENSA ═══════════════ */
+.press-band{background:var(--gray-50); border-top:1px solid var(--gray-200);
+  border-bottom:1px solid var(--gray-200); padding:28px 0 32px}
+.press{display:flex; flex-wrap:wrap; gap:18px 34px; justify-content:center; align-items:center}
+.press img{height:28px; width:auto; max-width:112px; object-fit:contain;
+  filter:grayscale(100%); opacity:.5; transition:opacity .25s var(--ease), filter .25s var(--ease)}
+.press img:hover{filter:grayscale(0); opacity:1}
+
+/* ═══════════════ ESPEJO ═══════════════ */
+.chat{margin:24px auto; max-width:26em; text-align:center}
+.chat p{font-family:var(--f-h); font-style:italic; font-size:1.04rem; color:var(--orange-text);
+  margin:0 0 8px; font-weight:500}
+.quote{margin:30px auto; padding:26px 28px; background:var(--gray-50); border:1px solid var(--gray-200);
+  border-radius:var(--r-lg); max-width:600px}
+.quote p{font-family:var(--f-h); font-size:1.12rem; font-style:italic; font-weight:500;
+  color:var(--ink); margin:0 0 10px; line-height:1.5}
+.quote cite{font-style:normal; font-size:.88rem; color:var(--ink-subtle); display:block}
+
+/* La identidad nombrada · paso 2 del protocolo. */
+.identity{margin:40px auto 0; padding:32px 28px; background:var(--gray-50);
+  border:1px solid var(--gray-200); border-radius:var(--r-lg); max-width:620px}
+.identity__k{font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ink-subtle); margin:0 0 10px}
+.identity__n{font-family:var(--f-h); font-size:clamp(1.55rem,3.8vw,2.2rem); font-weight:800;
+  letter-spacing:-0.02em; line-height:1.15; color:var(--ink); margin:0 0 14px}
+.identity__n em{color:var(--orange); font-style:normal}
+.identity p{font-size:1.02rem; color:var(--ink-mute); margin:0 auto; max-width:30em; line-height:1.72}
+
+.mirrors{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:26px 0 0}
+.mirrors .card{padding:24px 22px}
+.mirrors h3{font-size:1.04rem; margin:0 0 8px}
+.mirrors p{font-size:.98rem; color:var(--ink-mute); margin:0; line-height:1.65}
+
+/* ═══════════════ MECANISMO + ESTUDIOS ═══════════════ */
+.mech{margin:28px auto; max-width:600px; padding:32px 30px; background:var(--navy);
+  border-radius:var(--r-lg); box-shadow:var(--shadow-lg)}
+.mech p{font-family:var(--f-h); font-size:1.12rem; font-weight:600; line-height:1.5;
+  color:#fff; margin:0 0 10px}
+.mech p:last-child{margin:0}
+.mech .name{color:var(--orange); font-weight:700}
+.studies{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:28px 0 0}
+.studies .card{padding:24px 22px}
+.studies p{font-size:.98rem; color:var(--ink-mute); line-height:1.65; margin:0 0 14px}
+.studies .src{font-family:var(--f-mono); font-size:.68rem; font-weight:600; letter-spacing:.05em;
+  color:var(--ink-subtle); margin:0; line-height:1.55; text-transform:uppercase}
+
+/* ═══════════════ MITOS ═══════════════ */
+.myths{margin:28px auto 0; max-width:640px; text-align:left}
+.myth{display:flex; gap:22px; align-items:flex-start; padding:22px 0;
+  border-bottom:1px solid var(--gray-200)}
+.myth:last-child{border-bottom:none}
+.myth__n{font-family:var(--f-h); font-size:1.9rem; font-weight:900; color:transparent;
+  -webkit-text-stroke:1.5px var(--orange); min-width:50px; line-height:1; flex-shrink:0}
+.myth h3{font-family:var(--f-h); font-size:1.08rem; font-weight:600; font-style:italic;
+  margin:0 0 6px}
+.myth p{font-size:1rem; color:var(--ink-mute); margin:0; line-height:1.65}
+.myth p strong{color:var(--ink)}
+
+/* ═══════════════ NICO ═══════════════ */
+.bio__ph{width:150px; height:150px; border-radius:50%; object-fit:cover; margin:0 auto 26px;
+  border:4px solid #fff; box-shadow:var(--shadow-lg); background:var(--gray-100)}
+/* Widget de stats · los números cuentan de 0 al valor al entrar en pantalla */
+.stats{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin:34px auto 0; max-width:560px}
+.stat{padding:28px 20px; background:var(--gray-50); border:1px solid var(--gray-200);
+  border-radius:var(--r-lg); transition:transform .25s var(--ease), box-shadow .25s var(--ease)}
+.stat:hover{transform:translateY(-3px); box-shadow:var(--shadow)}
+.stat b{display:block; font-family:var(--f-h); font-size:clamp(1.85rem,4.4vw,2.5rem); font-weight:900;
+  color:var(--ink); line-height:1; letter-spacing:-0.02em; margin-bottom:10px; font-variant-numeric:tabular-nums}
+.stat span{font-size:.95rem; color:var(--ink-mute); line-height:1.5; display:block}
+
+/* ═══════════════ CASOS ═══════════════ */
+.casos{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:30px 0}
+.caso{background:#fff; border:1px solid var(--gray-200); border-radius:var(--r-lg);
+  overflow:hidden; display:flex; flex-direction:column; box-shadow:var(--shadow);
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease)}
+.caso:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:rgba(255,102,2,.28)}
+.caso__thumb{position:relative; aspect-ratio:16/9; background:var(--navy); cursor:pointer;
+  border:0; padding:0; width:100%; display:block; overflow:hidden}
+.caso__thumb img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s var(--ease)}
+.caso:hover .caso__thumb img{transform:scale(1.04)}
+.caso__thumb::after{content:''; position:absolute; inset:0; background:rgba(8,31,51,.24)}
+.caso__play{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:48px; height:48px;
+  border-radius:50%; background:var(--orange); display:flex; align-items:center; justify-content:center;
+  box-shadow:0 10px 26px var(--orange-glow); z-index:2; transition:transform .2s var(--ease)}
+.caso__thumb:hover .caso__play{transform:translate(-50%,-50%) scale(1.09)}
+.caso__play::after{content:''; border-left:14px solid #fff; border-top:9px solid transparent;
+  border-bottom:9px solid transparent; margin-left:4px}
+.caso__thumb iframe{position:absolute; inset:0; width:100%; height:100%; border:0; z-index:3}
+.caso__body{padding:20px 20px 22px; flex:1; display:flex; flex-direction:column; text-align:left}
+.caso__who{font-family:var(--f-h); font-size:1.02rem; font-weight:800; color:var(--ink); margin:0}
+.caso__role{font-family:var(--f-mono); font-size:.64rem; font-weight:600; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--orange-text); margin:6px 0 12px; line-height:1.6}
+.caso__ab{font-size:.95rem; color:var(--ink-mute); line-height:1.65; margin:0 0 auto}
+.caso__ab b{color:var(--ink); font-weight:700}
+.caso__q{font-size:.92rem; color:var(--ink-subtle); line-height:1.6; font-style:italic;
+  margin:14px 0 0; padding-top:14px; border-top:1px solid var(--gray-200)}
+
+/* El menú de posibilidades · paso 4. Va JUSTO antes de la oferta. */
+.menu{margin:36px auto 0; max-width:600px; padding:30px 30px; background:var(--gray-50);
+  border:1px solid var(--gray-200); border-radius:var(--r-lg)}
+.menu p{font-size:1.04rem; line-height:1.78; color:var(--ink-mute); margin:0 0 14px}
+.menu p:last-child{margin:0}
+.menu strong{color:var(--ink); font-weight:700}
+.menu .beat-hot{font-family:var(--f-h); font-size:1.06rem; font-weight:800; color:var(--orange)}
+
+/* ═══════════════ CALCULADORA ═══════════════ */
+.calc{background:#fff; border:1px solid var(--gray-200); border-radius:var(--r-lg);
+  padding:32px; margin:30px auto; box-shadow:var(--shadow-lg); text-align:left}
+.calc .hd{font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ink-subtle); margin:0 0 24px; text-align:center}
+.calc label{display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  font-family:var(--f-h); font-size:1rem; font-weight:600; color:var(--ink); margin:22px 0 12px}
+.calc label b{font-family:var(--f-h); font-size:1.45rem; font-weight:900; color:var(--orange);
+  font-variant-numeric:tabular-nums}
+.calc input[type=range]{width:100%; -webkit-appearance:none; appearance:none; height:5px;
+  border-radius:99px; background:var(--gray-200); outline:none; margin:0}
+.calc input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; appearance:none;
+  width:24px; height:24px; border-radius:50%; background:var(--orange); cursor:pointer;
+  box-shadow:0 3px 12px var(--orange-glow); border:3px solid #fff}
+.calc input[type=range]::-moz-range-thumb{width:24px; height:24px; border-radius:50%;
+  background:var(--orange); cursor:pointer; border:3px solid #fff}
+.calc .help{font-size:.92rem; color:var(--ink-subtle); line-height:1.65; margin:10px 0 0}
+.calc .help strong{color:var(--ink-mute)}
+.calc .row{display:flex; gap:10px; margin:0}
+.calc .row--sm{display:flex; gap:8px; margin:12px 0 0}
+.calc select,.calc input[type=number]{font-family:var(--f-b); font-size:1rem; padding:14px 15px;
+  border:1px solid var(--gray-200); border-radius:var(--r); background:#fff; color:var(--ink);
+  outline:none; transition:border-color .2s var(--ease)}
+.calc select:focus,.calc input[type=number]:focus{border-color:var(--orange)}
+.calc select{flex:0 0 100px}
+.calc input[type=number]{flex:1; min-width:0}
+.calc .row--sm button{font-family:var(--f-h); font-size:.9rem; font-weight:600; color:#fff;
+  background:var(--navy); border:none; border-radius:var(--r); padding:0 18px; cursor:pointer;
+  white-space:nowrap; transition:background .2s var(--ease)}
+.calc .row--sm button:hover{background:#16466d}
+.calc .out{margin:30px 0 0; padding:32px 24px; text-align:center; border-radius:var(--r-lg);
+  background:radial-gradient(520px 250px at 50% 0%, rgba(255,102,2,.18), transparent 70%),
+    linear-gradient(180deg,var(--navy) 0%,var(--navy-deep) 100%); color:#fff}
+.calc .big{font-family:var(--f-h); font-size:clamp(2.2rem,6vw,3.3rem); font-weight:900;
+  color:var(--orange); line-height:1; letter-spacing:-0.03em; font-variant-numeric:tabular-nums}
+.calc .u{display:block; font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.16em;
+  text-transform:uppercase; color:rgba(255,255,255,.6); margin-top:14px}
+.calc .oport{font-size:.98rem; color:rgba(255,255,255,.87); line-height:1.7; margin:20px auto 0; max-width:30em}
+.calc .oport strong{color:#fff}
+.calc .eq{font-size:1.04rem; color:rgba(255,255,255,.87); line-height:1.7; margin:16px auto 0; max-width:30em}
+.calc .eq strong{color:var(--orange); font-weight:700}
+.calc .nota{font-size:.9rem; color:var(--ink-subtle); line-height:1.7; margin:20px 0 0;
+  padding:18px 20px; background:var(--gray-50); border-radius:var(--r)}
+.calc .nota strong{color:var(--ink-mute)}
+.calc .ancla{text-align:center; font-size:.96rem; color:var(--ink-subtle); margin:14px 0 0}
+.calc .ancla strong{color:var(--ink)}
+.ladder{font-family:var(--f-h); font-size:1.08rem; font-weight:600; line-height:1.85;
+  color:var(--ink-mute); margin:30px auto; max-width:32em}
+.ladder b{color:var(--ink); font-weight:700}
+.ladder .hot{color:var(--orange); font-weight:700}
+
+/* ═══════════════ OFERTA ═══════════════ */
+.stack{list-style:none; padding:0; margin:30px auto 0; max-width:600px; text-align:left}
+.stack li{position:relative; padding:20px 0 20px 34px; border-bottom:1px solid var(--gray-200)}
+.stack li:last-child{border-bottom:none}
+.stack li::before{content:'→'; position:absolute; left:0; top:20px; color:var(--orange); font-weight:700}
+.stack b{display:block; font-family:var(--f-h); font-size:1.04rem; font-weight:800;
+  color:var(--ink); margin-bottom:6px}
+.stack span{font-size:1rem; color:var(--ink-mute); line-height:1.7}
+.inv{margin:32px auto 0; padding:36px 30px; text-align:center; border-radius:var(--r-lg); max-width:600px;
+  background:radial-gradient(520px 250px at 50% 0%, rgba(255,102,2,.18), transparent 70%),
+    linear-gradient(180deg,var(--navy) 0%,var(--navy-deep) 100%); color:#fff;
+  box-shadow:var(--shadow-lg)}
+.inv .l{font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.2em;
+  text-transform:uppercase; color:rgba(255,255,255,.6)}
+.inv .n{font-family:var(--f-h); font-size:clamp(2.5rem,6.6vw,3.4rem); font-weight:900;
+  color:var(--orange); line-height:1; letter-spacing:-0.03em; margin:12px 0 26px}
+.inv .pay{font-size:.9rem; color:rgba(255,255,255,.6); margin:16px 0 0}
+/* La nube · todo el widget de la oferta va dentro de una caja propia, con el
+   borde naranja y el sello arriba, para que se lea como una sola unidad y se
+   despegue del resto de la página. Es la caja de Dan, en paleta NFM. */
+.oferta{position:relative; max-width:672px; margin:14px auto 0; padding:48px 38px 40px;
+  background:radial-gradient(560px 260px at 50% 0%, rgba(255,102,2,.07), transparent 72%), #fff;
+  border:2px solid rgba(255,102,2,.3); border-radius:28px;
+  box-shadow:0 34px 90px rgba(12,52,82,.14)}
+.oferta::before{content:'Lo que incluye tu entrada'; position:absolute; top:0; left:50%;
+  transform:translate(-50%,-50%); background:var(--orange); color:#fff; white-space:nowrap;
+  font-family:var(--f-mono); font-size:.63rem; font-weight:600; letter-spacing:.16em;
+  text-transform:uppercase; padding:9px 20px; border-radius:50px;
+  box-shadow:0 10px 26px var(--orange-glow)}
+.oferta h2{margin-top:6px}
+.oferta .stack, .oferta .inv{max-width:none}
+.why{margin:32px auto 0; padding:28px 30px; background:var(--orange-wash);
+  border:1px solid rgba(255,102,2,.2); border-radius:var(--r-lg); max-width:600px; text-align:left}
+.why h3{font-family:var(--f-mono); font-size:.72rem; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--orange-text); margin:0 0 16px; text-align:center}
+.why p{font-size:1.02rem; color:var(--ink-mute); line-height:1.75; margin:0 0 14px}
+.why p:last-child{margin:0}
+.why strong{color:var(--ink); font-weight:700}
+
+/* ═══════════════ DESCALIFICADOR + FAQ ═══════════════ */
+.nope{margin:0 auto 38px; padding:26px 28px; background:var(--gray-50);
+  border:1px solid var(--gray-200); border-radius:var(--r-lg); max-width:600px; text-align:left}
+.nope p{font-size:1.02rem; color:var(--ink-mute); line-height:1.75; margin:0 0 10px}
+.nope p:last-child{margin:0}
+.nope strong{color:var(--ink)}
+.faq{max-width:640px; margin:0 auto; border:1px solid var(--gray-200); border-radius:var(--r-lg);
+  overflow:hidden; box-shadow:var(--shadow); background:#fff; text-align:left}
+.faq details{border-bottom:1px solid var(--gray-200)}
+.faq details:last-child{border-bottom:none}
+.faq summary{display:flex; align-items:center; justify-content:space-between; gap:16px;
+  font-family:var(--f-h); font-size:1.02rem; font-weight:600; color:var(--ink);
+  padding:22px 26px; cursor:pointer; list-style:none; transition:background .2s var(--ease)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{background:var(--gray-50)}
+.faq summary::after{content:'+'; font-size:1.5rem; font-weight:400; color:var(--orange);
+  flex-shrink:0; line-height:1}
+.faq details[open] summary::after{content:'–'}
+.faq p{font-size:1rem; color:var(--ink-mute); line-height:1.75; margin:0; padding:0 26px 24px}
+.faq p strong{color:var(--ink)}
+
+/* ═══════════════ CIERRE ═══════════════ */
+.close-box{margin:30px auto; max-width:600px; padding:28px 30px; text-align:left;
+  background:var(--gray-50); border:1px solid var(--gray-200); border-radius:var(--r-lg)}
+.close-box p{font-size:1.02rem; color:var(--ink-mute); line-height:1.78; margin:0 0 14px}
+.close-box p:last-child{margin:0}
+.close-box strong{color:var(--ink); font-weight:700}
+.sign{font-family:var(--f-h); font-size:.98rem; color:var(--ink-subtle); margin:34px 0 0}
+.sign b{color:var(--ink); display:block; margin-top:5px; font-weight:600}
+
+.legal{background:var(--gray-50); color:var(--ink-subtle); font-size:.8rem; line-height:1.75;
+  padding:36px 24px 42px; border-top:1px solid var(--gray-200)}
+.legal div{max-width:760px; margin:0 auto; text-align:center}
+.legal p{margin:0 0 12px}
+
+/* Sticky mobile: en venta directa muestra el PRECIO, no "reservá tu lugar". */
+.sticky{position:fixed; left:0; right:0; bottom:0; z-index:9998;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.96); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border-top:1px solid var(--gray-200); box-shadow:0 -6px 30px rgba(12,52,82,.10);
+  transform:translateY(120%); transition:transform .35s var(--ease); display:none}
+.sticky[data-on]{transform:none}
+.sticky .cta{width:100%; padding:16px; font-size:1rem; box-shadow:none}
+
+
+/* ═══════════════ CUPOS DEL BONUS ═══════════════
+   El ebook completo va sólo para los primeros 100. El contador baja a medida
+   que se acerca la fecha de la clase — ver CONFIG.EBOOK y la nota de honestidad
+   que está al lado del código. Nunca sube: si el visitante vuelve, el número
+   que ve es el mismo o menor, nunca uno mayor. */
+.stack__bonus b{color:var(--orange-text)}
+/* Lo que vas a aprender, dentro del primer ítem del stack. Los ::before del
+   .stack son flechas; acá se pisan con un contador numerado. */
+.stack .what{list-style:none; counter-reset:w; padding:0; margin:16px 0 2px}
+.stack .what li{position:relative; padding:11px 0 11px 32px; border-bottom:none;
+  font-size:.97rem; color:var(--ink-mute); line-height:1.65}
+.stack .what li::before{counter-increment:w; content:counter(w,decimal-leading-zero);
+  position:absolute; left:0; top:14px; font-family:var(--f-mono); font-size:.66rem;
+  font-weight:500; letter-spacing:.07em; color:var(--orange-text)}
+.stack .what b{display:inline; font-family:var(--f-h); font-size:.97rem; font-weight:800;
+  color:var(--ink); margin:0}
+.cupos{display:inline-flex; align-items:center; gap:7px; margin:10px 0 0;
+  font-family:var(--f-mono); font-size:.68rem; font-weight:500; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--orange-text);
+  background:var(--orange-wash); border:1px solid rgba(255,102,2,.28);
+  border-radius:50px; padding:6px 14px}
+.cupos b{font-family:var(--f-h); font-weight:900; font-size:1.05rem; letter-spacing:0;
+  color:var(--orange); font-variant-numeric:tabular-nums; line-height:1}
+.cupos--out{background:var(--gray-50); border-color:var(--gray-200); color:var(--ink-subtle)}
+.cupos--out b{color:var(--ink-subtle)}
+.cupos__nota{display:block; font-size:.86rem; font-style:italic; color:var(--ink-subtle);
+  margin:9px 0 0; line-height:1.6}
+
+/* ═══════════════ ILUSTRACIONES · Mini Nico ═══════════════
+   Van en los cuatro momentos donde el argumento es abstracto y hoy lo sostiene
+   sólo texto. El placeholder existe para poder ver el ritmo de la página antes
+   de tener los dibujos: se reemplaza el src y listo. */
+.ill{margin:36px auto; max-width:600px; min-height:430px}
+/* Dos de las cuatro salieron verticales (casi 1:2) y dos apaisadas. Con
+   width:100% la vertical daría 600x1200 px — una pantalla y media. Limitando
+   por ALTO además de por ancho, la apaisada se topa con el ancho (600x355) y la
+   vertical con el alto (~350x700), y las dos entran bien sin recortar nada. */
+.ill img{display:block; margin:0 auto; width:auto; height:auto;
+  max-width:100%; max-height:700px;
+  border-radius:var(--r-lg); background:#fff; border:1px solid var(--gray-200)}
+/* El pie va en cuerpo, no en mono en mayúsculas: una línea larga en mono
+   uppercase es justo lo que más cuesta leer en pantalla chica. */
+.ill figcaption{font-size:.92rem; font-style:italic; color:var(--ink-subtle);
+  margin:14px auto 0; line-height:1.6; max-width:30em}
+/* Estado sin imagen todavía */
+.ill--todo{display:none; border:1.5px dashed var(--gray-200); border-radius:var(--r-lg); background:var(--gray-50);
+  aspect-ratio:4/3; flex-direction:column; align-items:center; justify-content:center;
+  gap:8px; padding:24px; text-align:center}
+.ill--fallback img{display:none}
+.ill--fallback .ill--todo{display:flex}
+.ill--todo b{font-family:var(--f-h); font-weight:800; font-size:.98rem; color:var(--ink-subtle)}
+.ill--todo span{font-size:.88rem; color:var(--ink-subtle); max-width:32em; line-height:1.6}
+.ill--todo em{font-family:var(--f-mono); font-size:.64rem; letter-spacing:.16em; text-transform:uppercase;
+  font-style:normal; color:var(--orange-text)}
+@media(max-width:760px){ .ill{margin:28px auto; min-height:290px} .ill img{max-height:680px} }
+
+/* ═══════════════ CHECKOUT · modal de 2 pasos ═══════════════ */
+.ov{position:fixed; inset:0; z-index:9999; background:rgba(8,31,51,.72);
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  display:none; align-items:flex-start; justify-content:center; padding:24px 16px; overflow-y:auto}
+.ov[data-open]{display:flex}
+.modal{background:#fff; border-radius:var(--r-lg); width:100%; max-width:480px; position:relative;
+  box-shadow:0 40px 100px rgba(8,31,51,.5); margin:auto; text-align:left;
+  animation:pop .28s var(--ease) both}
+@keyframes pop{from{opacity:0; transform:translateY(20px) scale(.98)} to{opacity:1; transform:none}}
+.modal__x{position:absolute; top:12px; right:14px; z-index:6; background:none; border:none;
+  font-size:26px; line-height:1; color:var(--ink-subtle); cursor:pointer; padding:4px 8px}
+.modal__x:hover{color:var(--ink)}
+.steps{display:flex; position:relative; border-bottom:1px solid var(--gray-200)}
+.steps__i{flex:1; padding:18px 16px 15px; text-align:center; opacity:.4; transition:opacity .25s var(--ease)}
+.steps__i[data-on]{opacity:1}
+.steps__i span{display:block; font-family:var(--f-h); font-weight:800; font-size:.94rem; color:var(--ink)}
+.steps__i small{display:block; font-family:var(--f-mono); font-size:.6rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-subtle); margin-top:4px}
+.steps__bar{position:absolute; bottom:-1px; left:0; width:50%; height:2px; background:var(--orange);
+  transition:transform .3s var(--ease)}
+.modal__body{padding:24px}
+.fld{width:100%; font-family:var(--f-b); font-size:1rem; padding:14px 15px; margin:0 0 11px;
+  border:1px solid var(--gray-200); border-radius:var(--r); background:#fff; color:var(--ink);
+  outline:none; transition:border-color .2s var(--ease)}
+.fld:focus{border-color:var(--orange)}
+.modal .cta{width:100%; margin-top:6px}
+.privacy{text-align:center; font-size:.8rem; color:var(--ink-subtle); margin:12px 0 0}
+.back{background:none; border:none; font-family:var(--f-h); font-size:.86rem; font-weight:700;
+  color:var(--ink-subtle); cursor:pointer; padding:0 0 14px}
+.back:hover{color:var(--orange)}
+.item{display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:15px 16px; background:var(--gray-50); border-radius:var(--r); margin:0 0 14px}
+.item b{font-family:var(--f-h); font-weight:800; font-size:.96rem; color:var(--ink)}
+.item .p{font-family:var(--f-h); font-weight:800; color:var(--ink)}
+/* Un bump. Nunca cuatro: cuatro cajas con flecha roja queman la confianza
+   construida arriba, y este avatar tiene alergia documentada al vendehumo. */
+.bump{border:1.5px dashed var(--orange); background:var(--orange-wash);
+  border-radius:var(--r); margin:0 0 11px; transition:background .2s var(--ease)}
+.bump:hover{background:rgba(255,102,2,.10)}
+.bump label{display:flex; gap:12px; align-items:flex-start; padding:15px 16px; cursor:pointer}
+.bump input{margin:3px 0 0; width:18px; height:18px; accent-color:var(--orange); flex-shrink:0}
+.bump .t{display:block; font-family:var(--f-h); font-weight:800; font-size:.9rem;
+  color:var(--ink); line-height:1.45}
+.bump .d{display:block; font-size:.84rem; color:var(--ink-mute); line-height:1.6; margin-top:6px}
+.total{display:flex; justify-content:space-between; align-items:baseline;
+  padding:16px 4px 6px; border-top:1px solid var(--gray-200); margin-top:16px}
+.total span:first-child{font-family:var(--f-mono); font-size:.68rem; font-weight:500;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--ink-subtle)}
+.total span:last-child{font-family:var(--f-h); font-size:1.6rem; font-weight:900; color:var(--orange)}
+.secure{text-align:center; font-size:.8rem; color:var(--ink-subtle); margin:12px 0 0; line-height:1.65}
+@media(max-width:760px){
+  .modal__body{padding:20px}
+  .ov{padding:16px 12px}
+}
+
+/* ═══════════════ SELECTOR DE PAÍS ═══════════════
+   Sin librería ni CDN: la bandera se deriva del código ISO con los
+   "regional indicator symbols" de Unicode, así que no hay imágenes que
+   cargar. En Windows las banderas emoji no se dibujan — ahí se detecta y
+   se muestra sólo el código de país, que se lee igual de bien. */
+.tel{display:flex; gap:8px; margin:0 0 11px; position:relative}
+.tel__btn{display:flex; align-items:center; gap:7px; flex:0 0 auto;
+  font-family:var(--f-b); font-size:1rem; padding:14px 13px; cursor:pointer;
+  border:1px solid var(--gray-200); border-radius:var(--r); background:#fff; color:var(--ink);
+  transition:border-color .2s var(--ease); white-space:nowrap}
+.tel__btn:hover{border-color:var(--orange)}
+.tel__flag{font-size:1.15rem; line-height:1}
+.tel__dial{font-variant-numeric:tabular-nums; font-weight:600}
+.tel__car{width:0; height:0; border-left:4px solid transparent; border-right:4px solid transparent;
+  border-top:5px solid var(--ink-subtle); margin-left:1px}
+.tel .fld{margin:0; flex:1; min-width:0}
+.tel__pop{position:absolute; top:calc(100% + 6px); left:0; right:0; z-index:5; background:#fff;
+  border:1px solid var(--gray-200); border-radius:var(--r); box-shadow:var(--shadow-lg);
+  overflow:hidden; display:none}
+.tel__pop[data-on]{display:block}
+.tel__search{width:100%; border:none; border-bottom:1px solid var(--gray-200); padding:13px 15px;
+  font-family:var(--f-b); font-size:.95rem; outline:none; color:var(--ink)}
+.tel__list{max-height:220px; overflow-y:auto; margin:0; padding:6px 0; list-style:none}
+.tel__list li{display:flex; align-items:center; gap:9px; padding:9px 15px; cursor:pointer;
+  font-size:.94rem; color:var(--ink)}
+.tel__list li:hover,.tel__list li[data-hl]{background:var(--gray-50)}
+.tel__list .n{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.tel__list .d{color:var(--ink-subtle); font-variant-numeric:tabular-nums}
+.tel__none{padding:14px 15px; font-size:.92rem; color:var(--ink-subtle)}
+.no-flags .tel__flag{display:none}
+.no-flags .tel__iso{display:inline; font-family:var(--f-h); font-weight:700; font-size:.86rem;
+  letter-spacing:.04em; color:var(--ink-mute)}
+.tel__iso{display:none}
+
+/* ═══════════════════════ RESPONSIVE ═══════════════════════
+   La mayoría entra por el celular. Criterio: subir el cuerpo, aflojar el
+   tracking de los labels en mayúsculas (lo que más cuesta leer a 12px) y
+   sacar las columnas. Nada de achicar para que entre. */
+@media(max-width:1000px){
+  .studies,.mirrors{grid-template-columns:1fr; max-width:600px; margin-left:auto; margin-right:auto}
+  .casos{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:760px){
+  body{font-size:17px; padding-bottom:82px}
+  .wrap{padding:0 20px}
+  .sec{padding:56px 0}
+  .hero{padding:36px 0 52px}
+  .sticky{display:block}
+
+  .beat,.hero__sub,.micro,.aside{max-width:none}
+  .beat{font-size:1.06rem; line-height:1.78}
+
+  .eyebrow,.hero__tag{font-size:.74rem; letter-spacing:.08em; padding:7px 15px}
+  .label,.cd-label,.watch{font-size:.72rem; letter-spacing:.1em}
+  .caso__role{font-size:.66rem; letter-spacing:.06em}
+  .studies .src{font-size:.7rem; letter-spacing:.02em}
+  .identity__k{font-size:.72rem; letter-spacing:.12em}
+  .inv .l,.calc .hd,.calc .u,.total span:first-child,.why h3{letter-spacing:.12em; font-size:.72rem}
+  .cd__u{font-size:.64rem; letter-spacing:.06em}
+  .specs{flex-direction:column; gap:5px; font-size:.86rem}
+  .specs i{display:none}
+  .topbar{font-size:.74rem; padding:10px 14px}
+
+  .cta{width:100%; padding:17px 20px; font-size:1.02rem}
+
+  .cd{gap:7px}
+  .cd__i{min-width:0; flex:1; padding:12px 4px}
+  .cd__n{font-size:1.6rem}
+
+  .press img{height:21px; max-width:84px}
+  .press{gap:16px 24px}
+
+  .quote,.insight,.menu,.mech,.close-box,.nope,.identity,.why{padding:24px 20px}
+  .card{padding:22px 20px}
+  .calc{padding:24px 18px}
+  .calc .out{padding:26px 18px}
+  .calc .row--sm{flex-direction:column}
+  .calc .row--sm button{padding:14px 16px}
+  .inv{padding:30px 22px}
+
+  .myth{gap:16px; padding:20px 0}
+  .myth__n{font-size:1.6rem; min-width:40px}
+  .oferta{padding:40px 20px 30px; border-radius:20px; margin-top:10px}
+  .oferta::before{font-size:.56rem; letter-spacing:.12em; padding:8px 14px}
+  .stack li{padding:18px 0 18px 30px}
+  .stack .what li{padding:10px 0 10px 28px}
+  .faq summary{padding:20px 20px}
+  .faq p{padding:0 20px 22px}
+  .ladder{font-size:1.06rem; text-align:left}
+}
+@media(max-width:480px){
+  .casos{grid-template-columns:1fr}
+  .wrap{padding:0 18px}
+  .stats{grid-template-columns:1fr; max-width:340px}
+  .inv .n,.calc .big{font-size:2.6rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ BARRA: FECHA + COUNTDOWN ═══════════════ -->
+<div class="topbar">
+  <span class="dot">•</span> Clase en vivo <b>{{FECHA_LARGA}} · {{HORA}} hs (ARG)</b>
+  <span class="sep">│</span> Empieza en <span class="t" id="tb-cd">00d : 00h : 00m : 00s</span>
+</div>
+
+<!-- ═══════════════ 1 · ABOVE THE FOLD ═══════════════ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero__inner">
+
+      <!-- Califica antes del título (Dan Henry). Filtro Platinum: el discriminador
+           real es "¿hay personas cuyo trabajo depende de tus decisiones?" -->
+      <span class="hero__tag">Para dueños, socios y líderes con personas a cargo</span>
+
+      <h1>Mientras más &laquo;productivo&raquo; sos,<br><em>menos avanzás en tu vida.</em></h1>
+
+      <!-- El giro que importa: este perfil SI logra cosas. El problema es el precio.
+           Decirle "no avanzás" a secas lo trata de fracasado, y no lo es. -->
+      <p class="hero__ask">No es que no logres cosas. Es lo que te cuesta conseguirlas.</p>
+
+      <p class="hero__sub">
+        Fundé el Instituto de Productividad, escribí <em>Hackea tu Cerebro</em> y llevo
+        <strong>más de 10 años</strong> estudiando y enseñando esto. Por eso te lo puedo decir:
+        <strong>la ecuación esfuerzo = resultados te tiene agotado.</strong> Cumplís con todo
+        y con todos — y lo pagás con tu descanso, con tu salud y con el tiempo de las personas
+        que querés. En <em>Hackea tu Cerebro EN VIVO</em> te muestro por qué pasa, y qué se hace
+        en su lugar.
+      </p>
+
+      <p class="watch">▼ Mirá esto primero ▼</p>
+      <div class="vsl">[ VSL · 6 min — ver 02-vsl-guion.md ]</div>
+
+      <p class="cd-label">La clase empieza en</p>
+      <div class="cd">
+        <div class="cd__i"><span class="cd__n" id="cd-d">00</span><span class="cd__u">Días</span></div>
+        <div class="cd__i"><span class="cd__n" id="cd-h">00</span><span class="cd__u">Horas</span></div>
+        <div class="cd__i"><span class="cd__n" id="cd-m">00</span><span class="cd__u">Min</span></div>
+        <div class="cd__i"><span class="cd__n" id="cd-s">00</span><span class="cd__u">Seg</span></div>
+      </div>
+
+      <div class="hero__cta">
+        <button class="cta" data-goto="oferta">
+          <span>Quiero mi lugar — USD 17</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <!-- El riesgo real que el comprador está midiendo no es el dinero: es no poder ir.
+             Por eso acá va la grabación, no una garantía de devolución. -->
+        <p class="micro">
+          <strong>Si ese día no podés, no perdés nada:</strong> la grabación queda tuya para
+          siempre y te llega al mail dentro de las 24 horas, con el workbook.
+        </p>
+      </div>
+
+      <p class="specs">
+        <span>Bootcamp online de 3 horas</span><i>·</i><span>Por Zoom, desde donde estés</span><i>·</i><span>Grabación incluida</span>
+      </p>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════ PRENSA ═══════════════ -->
+<div class="press-band">
+  <div class="wrap">
+    <p class="label">Su trabajo fue destacado en</p>
+    <div class="press">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/CNN.png" alt="CNN" loading="lazy">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-110.svg" alt="Infobae" loading="lazy">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-104.svg" alt="Endeavor" loading="lazy">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-105.svg" alt="TEDx" loading="lazy">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/Yale-Bulldogs-logo.png" alt="Yale" loading="lazy">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/5-1.png" alt="YPF" loading="lazy">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/6-1.png" alt="Samsung" loading="lazy">
+      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/accountlogo.jpg" alt="Ternium" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 2a · ESPEJO · sobre claro ═══════════════
+     Este avatar ya trae subidos los peldaños 1, 2, 4, 8 y 9. Venderle el dolor
+     es gastar página en escalones ya subidos: el espejo va corto y filoso, y el
+     largo se lo lleva el mecanismo (peldaño 3) y la solución distinta (peldaño 5). -->
+<section class="sec">
+  <div class="wrap">
+    <h2>Abrí la nota del celular <em>donde anotaste tus objetivos.</em></h2>
+
+    <p class="beat">No los del trabajo. Esos los cumplís.</p>
+    <p class="beat">Los otros. El viaje que venís postergando. Volver a entrenar. Retomar ese curso. Ver a tus amigos sin reprogramar tres veces. Sentarte a comer con tu familia sin el celular al lado.</p>
+    <p class="beat"><strong>Fijate la fecha en que los anotaste.</strong></p>
+    <p class="beat">Ese es el dato. No que no logres cosas: lográs un montón, y bien. Es que <strong>cada una te sale más cara que la anterior.</strong> Y siempre la pagás con lo mismo: horas de sueño, el entrenamiento que dejaste, y las personas que tenés al lado.</p>
+
+    <div class="quote">
+      <p>Nunca dejaste un mail sin responder. Y hace ocho años que el mismo trámite tuyo está en el cajón.</p>
+      <cite>La bandeja de entrada, impecable. El cajón, intacto.</cite>
+    </div>
+
+    <figure class="ill" data-ill="2">
+      <img src="https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a9e47f7b2a8a6f150081bcc.png" alt="Un escritorio: arriba, la bandeja de entrada que se vacía a toda velocidad; abajo, un cajón con una sola carpeta intacta que él cierra con la rodilla" loading="lazy" decoding="async" data-ill-img>
+      <div class="ill--todo">
+        <em>Ilustración 2</em>
+        <b>La bandeja de entrada y el cajón</b>
+        <span>Vacía la bandeja ajena a toda velocidad mientras cierra su propio cajón con la rodilla, sin mirarlo.</span>
+      </div>
+      <figcaption>La bandeja de entrada, impecable. El cajón, intacto.</figcaption>
+    </figure>
+
+    <p class="beat">Y no es carga de trabajo. Celi, que lidera un equipo de 45 personas, abría la computadora apenas se dormían los chicos — <strong>hubiera o no hubiera un deadline.</strong></p>
+
+    <p class="aside">(¿No tenés equipo a cargo? Quedate igual. Es la misma trampa que hace que el proyecto propio lleve dos años en la misma lista, que el libro que ibas a escribir siga en la carpeta, y que el turno médico que sacás para tu hijo en el día lo saques para vos recién cuando ya no te queda opción.)</p>
+
+    <div class="identity">
+      <p class="identity__k">Al parecer sos un</p>
+      <p class="identity__n">responsable <em>mal apuntado</em></p>
+      <p>No sos vago. No te falta disciplina. <strong>No procrastinás: procrastinás una sola categoría de cosas, las tuyas.</strong> Con lo ajeno sos impecable — y ese es exactamente el problema.</p>
+    </div>
+
+    <p class="label" style="margin:44px 0 18px">¿Te reconocés en alguno?</p>
+    <div class="mirrors">
+      <div class="card-l">
+        <h3>Todos dependen de vos.</h3>
+        <p>Tenés equipo, socios o clientes cuyo trabajo depende de tus decisiones. Nunca dejaste caer una entrega de otro. Lo tuyo lleva dos años en la misma lista.</p>
+      </div>
+      <div class="card-l">
+        <h3>El trabajo se comió el resto.</h3>
+        <p>Contestás mensajes en la cena. Abrís la computadora cuando los chicos ya se durmieron. Las vacaciones las armás alrededor de una reunión. Y cuando algo tiene que ceder, cedés vos.</p>
+      </div>
+      <div class="card-l">
+        <h3>El cuerpo ya te avisó.</h3>
+        <p>Dormís mal y te levantás cansado. O el último chequeo te salió con algo que antes no tenías. Y no lo estás resolviendo: lo estás pateando con más café y con «cuando pase esta semana».</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 2b · MECANISMO + ESTUDIOS · sobre navy ═══════════════
+     Peldaño 3: "la razón es algo que no sabía". Es donde está el trabajo real. -->
+<section class="sec sec--tint">
+  <div class="wrap">
+    <h2>No es falta de disciplina. <em>Es cómo prioriza tu cerebro.</em></h2>
+
+    <div class="mech">
+      <p>Tu cerebro no jerarquiza por importancia.</p>
+      <p>Jerarquiza por <span class="name">quién está esperando.</span></p>
+    </div>
+
+    <p class="beat">Lo ajeno llega con fecha, con nombre y con alguien del otro lado esperándolo. Lo tuyo llega solo. Y sin nadie esperando, tu cerebro nunca lo sube a la cima de la pila. <strong>Se llama urgencia prestada.</strong></p>
+
+    <figure class="ill" data-ill="1">
+      <img src="https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a9e47f74ea183e872a626d1.png" alt="Una máquina clasificadora: las cajas que tienen una mano esperándolas pasan por la compuerta; la que no tiene a nadie cae a un pozo lleno de cajas iguales" loading="lazy" decoding="async" data-ill-img>
+      <div class="ill--todo">
+        <em>Ilustración 1</em>
+        <b>La máquina que abre sólo para quien tiene a alguien esperando</b>
+        <span>Máquina clasificadora a manivela: pasan las cajas con una mano esperando; la que no tiene a nadie cae a un pozo lleno de cajas iguales.</span>
+      </div>
+      <figcaption>La compuerta se abre para lo que tiene a alguien esperando. Lo tuyo cae al pozo.</figcaption>
+    </figure>
+
+    <div class="insight">
+      <p><strong>Y hay algo que lo hace más difícil todavía:</strong> ser el que resuelve
+      es parte de cómo te ven y de cómo te ves. Así que no sólo te llega trabajo de otros:
+      <strong>una parte la vas a buscar vos.</strong> Sin darte cuenta, y con la mejor intención.</p>
+      <p>Por eso no alcanza con proponérselo un domingo a la noche.</p>
+    </div>
+
+    <p class="label" style="margin:40px 0 18px">Y la parte que sí está medida</p>
+    <div class="studies">
+      <div class="card">
+        <p>Un objetivo con el <b>cuándo, dónde y cómo</b> definidos se ejecuta con un efecto de magnitud media-alta (d&nbsp;=&nbsp;.65) frente al mismo objetivo sin eso. Lo ajeno viene con las tres cosas. Lo tuyo, con ninguna.</p>
+        <p class="src">Gollwitzer &amp; Sheeran · meta-análisis de 94 estudios · 2006</p>
+      </div>
+      <div class="card">
+        <p>Pasadas las <b>50 horas semanales</b> tu producción cae fuerte. Después de las 55 se desploma: el que trabaja 70 horas <b>no produce más</b> que el que trabaja 55.</p>
+        <p class="src">John Pencavel · Stanford · The Economic Journal, 2015</p>
+      </div>
+      <div class="card">
+        <p>Después de una interrupción tardás en promedio <b>23 minutos</b> en volver a la tarea. Y no lo sentís: volver se siente igual que trabajar.</p>
+        <p class="src">Gloria Mark · Universidad de California, Irvine · 2008</p>
+      </div>
+    </div>
+
+    <div class="para">
+      <p>Nadie te está pidiendo que aflojes ni que trabajes menos. Al contrario: <strong>que sigas produciendo igual, y que de una vez avance también lo tuyo.</strong></p>
+    </div>
+
+    <div class="cta-wrap cta-wrap--center">
+      <button class="cta cta--ghost" data-goto="oferta">Quiero mi lugar — USD 17</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 3 · LOS 5 MITOS ═══════════════ -->
+<section class="sec">
+  <div class="wrap">
+    <h2>Cinco cosas que creés, <em>y que te salen caras.</em></h2>
+    <p class="beat">Ninguna suena descabellada. Todas suenan a sentido común. Y cada una es <strong>la excusa con la que venís postergando algo que tu cabeza necesita para funcionar.</strong></p>
+
+    <figure class="ill" data-ill="3">
+      <img src="https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a9e47f7b81a3502a89497dc.png" alt="Un auto en corte, sobre caballetes y con los cinco services vencidos, mientras él pisa el acelerador a fondo desde adentro" loading="lazy" decoding="async" data-ill-img>
+      <div class="ill--todo">
+        <em>Ilustración 3</em>
+        <b>El auto sobre caballetes con los cinco services vencidos</b>
+        <span>El auto en pana con los cinco services vencidos, y él adentro pisando el acelerador a fondo.</span>
+      </div>
+      <figcaption>Acelerar más no mueve un auto que está sobre caballetes.</figcaption>
+    </figure>
+
+    <div class="myths">
+      <div class="myth">
+        <span class="myth__n">01</span>
+        <div>
+          <h3>«Dormir menos es ganar horas.»</h3>
+          <p>No te acostumbraste a dormir menos. <strong>Lo que perdiste es la capacidad de notar lo mal que estás rindiendo.</strong></p>
+        </div>
+      </div>
+      <div class="myth">
+        <span class="myth__n">02</span>
+        <div>
+          <h3>«Comer bien es privarse, y no tengo tiempo.»</h3>
+          <p>Ese bajón de las cuatro de la tarde no es cansancio. <strong>Es lo que comiste al mediodía.</strong></p>
+        </div>
+      </div>
+      <div class="myth">
+        <span class="myth__n">03</span>
+        <div>
+          <h3>«Si no voy al gimnasio tres veces por semana, no sirve.»</h3>
+          <p><strong>Veinte minutos de caminata todos los días le ganan a una hora de gimnasio cada quince.</strong></p>
+        </div>
+      </div>
+      <div class="myth">
+        <span class="myth__n">04</span>
+        <div>
+          <h3>«Hacer muchas cosas a la vez es ser productivo.»</h3>
+          <p>No te falta tiempo. <strong>Te falta una hora seguida sin que nadie te interrumpa.</strong></p>
+        </div>
+      </div>
+      <div class="myth">
+        <span class="myth__n">05</span>
+        <div>
+          <h3>«La inteligencia artificial es para técnicos.»</h3>
+          <p>No hace falta saber programar. <strong>Hace falta saber qué pedirle.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <p><strong>¿En cuántas de las cinco te acabás de reconocer?</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 4 · QUIÉN DA EL BOOTCAMP · navy ═══════════════ -->
+<section class="sec sec--tint">
+  <div class="wrap">
+    <h2>Quién te va a dar <em>el bootcamp</em></h2>
+
+    <img class="bio__ph" src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/nico-bio-card.jpg"
+         alt="Nicolás Fernández Miranda" loading="lazy">
+
+    <p class="beat">Soy <strong>Nicolás Fernández Miranda</strong>. Contador público, recibido con medalla al mejor promedio. Lo cuento no como currículum, sino porque hace diez años esa misma cabeza que sacaba las mejores notas <strong>no me alcanzaba para llegar al viernes</strong>.</p>
+    <p class="beat">Trabajaba catorce horas por día. Subí quince kilos, se me caía el pelo, migrañas crónicas, los vínculos que me importaban desmoronados. Y lo peor: <strong>me parecía normal.</strong> Estaba convencido de que eso era rendir.</p>
+    <p class="beat">Hasta que me agarró una crisis en París y no pude seguir fingiendo. Ahí empecé a estudiar el cerebro en serio.</p>
+
+    <p class="beat">Hoy tengo un máster en neurociencia aplicada al rendimiento, doy clases en la universidad, di dos charlas TEDx, escribí <em>Hackea tu Cerebro</em> —best seller, y está en librerías— y dirijo el Instituto de Productividad, donde un equipo de profesionales acompaña a personas que están exactamente donde yo estaba.</p>
+    <p class="beat">Las tres horas las doy yo. En <strong>alimentación</strong> me acompaña nuestro nutricionista y en <strong>concentración y gestión emocional</strong>, nuestra psicóloga experta en TDAH. Los dos se quedan con el micrófono abierto para tus preguntas.</p>
+
+    <div class="stats">
+      <div class="stat"><b data-count="400">+400</b><span>Casos de éxito</span></div>
+      <div class="stat"><b data-count="50">+50</b><span>Conferencias Latam</span></div>
+      <div class="stat"><b data-count="15000">+15,000</b><span>Profesionales entrenados</span></div>
+      <div class="stat"><b data-count="1000000" data-suffix="M">+1M</b><span>Seguidores</span></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 5 · CASOS + MENÚ DE POSIBILIDADES · navy ═══════════════
+     Elegidos por AFINIDAD DE OFICIO, no por espectacularidad. -->
+<section class="sec">
+  <div class="wrap wrap--wide">
+    <h2>Personas con tu misma carga, <em>con nombre y cara</em></h2>
+    <p class="beat">Dueños, líderes y profesionales con personas y decisiones a cargo. Las entrevistas están publicadas enteras. Hacé clic y escuchalos antes de decidir nada.</p>
+
+    <div class="casos">
+
+      <article class="caso">
+        <button type="button" class="caso__thumb" data-yt="jQ8AmqqiN_g" aria-label="Ver la entrevista de Germán">
+          <img src="https://img.youtube.com/vi/jQ8AmqqiN_g/hqdefault.jpg" alt="Entrevista a Germán" loading="lazy">
+          <span class="caso__play" aria-hidden="true"></span>
+        </button>
+        <div class="caso__body">
+          <p class="caso__who">Germán</p>
+          <p class="caso__role">Farmacéutico · dueño de la farmacia familiar · 6 empleados</p>
+          <p class="caso__ab">Apagaba incendios todo el día y <b>los números del negocio no cerraban</b>. Hoy delega, corta a horario y tiene <b>un norte armado para todo el año</b>.</p>
+          <p class="caso__q">“Está procrastinando con algo que lo va a ordenar y lo va a cambiar para siempre.”</p>
+        </div>
+      </article>
+
+      <article class="caso">
+        <button type="button" class="caso__thumb" data-yt="95H0-szcsMs" aria-label="Ver la entrevista de Celi">
+          <img src="https://img.youtube.com/vi/95H0-szcsMs/hqdefault.jpg" alt="Entrevista a Celi" loading="lazy">
+          <span class="caso__play" aria-hidden="true"></span>
+        </button>
+        <div class="caso__body">
+          <p class="caso__who">Celi</p>
+          <p class="caso__role">Arquitecta en San Diego · lidera un equipo de 45 · mamá</p>
+          <p class="caso__ab">Se llevaba la computadora a las vacaciones. Hoy es su <b>primer año con actividad física regular</b> desde que tiene hijos, y terminó la ciudadanía de los hijos que llevaba años postergada.</p>
+          <p class="caso__q">“Lo debería haber hecho 10 años antes.”</p>
+        </div>
+      </article>
+
+      <article class="caso">
+        <button type="button" class="caso__thumb" data-yt="7x_hvNVvc88" aria-label="Ver la entrevista de Cristian">
+          <img src="https://img.youtube.com/vi/7x_hvNVvc88/hqdefault.jpg" alt="Entrevista a Cristian" loading="lazy">
+          <span class="caso__play" aria-hidden="true"></span>
+        </button>
+        <div class="caso__body">
+          <p class="caso__who">Cristian</p>
+          <p class="caso__role">Bioquímico · laboratorio propio · empresario · Jujuy</p>
+          <p class="caso__ab">La empresa crecía y él estaba superado e irritable con todo el mundo. Hoy <b>maneja la empresa a distancia</b> y le sobra tiempo para él.</p>
+          <p class="caso__q">“Hiciste bien, vas bien, seguí. Porque esto es una carrera contra uno mismo.”</p>
+        </div>
+      </article>
+
+      <article class="caso">
+        <button type="button" class="caso__thumb" data-yt="mVskd3R8hsc" aria-label="Ver la entrevista de Sol Romero">
+          <img src="https://img.youtube.com/vi/mVskd3R8hsc/hqdefault.jpg" alt="Entrevista a Sol Romero" loading="lazy">
+          <span class="caso__play" aria-hidden="true"></span>
+        </button>
+        <div class="caso__body">
+          <p class="caso__who">Sol Romero</p>
+          <p class="caso__role">Contadora · 10 años en impuestos · compañía de seguros</p>
+          <p class="caso__ab">Al borde del burnout, “corriendo detrás de una zanahoria”. Terminó <b>cambiando de puesto</b> —y la empresa le pagó la capacitación que ella iba a comprar sola.</p>
+          <p class="caso__q">“El hack fue que me ordenó. Me hizo ir tejiendo una red que en serio te contiene.”</p>
+        </div>
+      </article>
+
+      <article class="caso">
+        <button type="button" class="caso__thumb" data-yt="CVo9A7ADvTs" aria-label="Ver la entrevista de Natalia">
+          <img src="https://img.youtube.com/vi/CVo9A7ADvTs/hqdefault.jpg" alt="Entrevista a Natalia" loading="lazy">
+          <span class="caso__play" aria-hidden="true"></span>
+        </button>
+        <div class="caso__body">
+          <p class="caso__who">Natalia</p>
+          <p class="caso__role">Astrónoma del CONICET · profesora · emprendedora · mamá de dos</p>
+          <p class="caso__ab">Dormía <b>3 o 4 horas</b>, de lunes a lunes, sin fin de semana. Hoy duerme <b>7 u 8</b> y avanza con su emprendimiento.</p>
+          <p class="caso__q">“Llegar a fin de año y levantar la copa: logré todo esto. El 1% te da eso.”</p>
+        </div>
+      </article>
+
+      <article class="caso">
+        <button type="button" class="caso__thumb" data-yt="vgF6e9MptW4" aria-label="Ver la entrevista de Pierina">
+          <img src="https://img.youtube.com/vi/vgF6e9MptW4/hqdefault.jpg" alt="Entrevista a Pierina" loading="lazy">
+          <span class="caso__play" aria-hidden="true"></span>
+        </button>
+        <div class="caso__body">
+          <p class="caso__who">Pierina</p>
+          <p class="caso__role">Teóloga · doctoranda en Roma</p>
+          <p class="caso__ab">De <b>8 o 9 horas</b> de tesis por día a <b>4 o 5</b>. <b>Con el mismo resultado.</b> Misma tesis, misma persona, la mitad del tiempo.</p>
+          <p class="caso__q">“No quiero volver a la Pieri de antes, que no tenía tiempo para nada.”</p>
+        </div>
+      </article>
+
+    </div>
+
+    <p class="beat">No consiguieron más disciplina. No metieron más horas. No dejaron caer nada de nadie. <strong>Le pusieron a lo suyo lo mismo que ya tenía lo de los demás: una fecha, y alguien esperándolo.</strong></p>
+
+    <!-- ═══ MENÚ DE POSIBILIDADES · paso 4 del protocolo ═══
+         Va JUSTO antes de la oferta: se adelanta al "¿ya vi esto antes?". -->
+    <div class="menu">
+      <p>Ya probaste el planner. Notion. Levantarte a las cinco. La lista de tres cosas. La app que te bloquea el celular. Terapia. <strong>Y contratar a alguien para que te ordene.</strong></p>
+      <p>Y funcionó. <span class="beat-hot">Unos tres meses.</span> Y después volviste al mismo lugar donde estabas antes de empezar.</p>
+      <p>Y no te pasa sólo a vos: <strong>casi siempre duran lo mismo.</strong></p>
+    </div>
+
+    <figure class="ill" data-ill="4">
+      <img src="https://assets.cdn.filesafe.space/qSngYAz0JpogeHnqp5cS/media/6a9e47f7ca6e04d23024f1ba.png" alt="Una rueda-caminadora con un cuadrante de tres marcas y una trampilla en la tercera; abajo, la pila de las máquinas anteriores" loading="lazy" decoding="async" data-ill-img>
+      <div class="ill--todo">
+        <em>Ilustración 4</em>
+        <b>La máquina que dura tres meses</b>
+        <span>Rueda-caminadora con un cuadrante de tres marcas y una trampilla en la tercera. Abajo, la pila de las máquinas anteriores.</span>
+      </div>
+      <figcaption>Todos los intentos duraron lo mismo. Eso no es casualidad: es un patrón.</figcaption>
+    </figure>
+    <div class="menu">
+      <p>Todas apuntan al mismo lugar: asumen que el problema es que no te esforzás lo suficiente. Incluso la más cara de todas —pagarle a alguien para que te ordene la agenda— termina ordenando lo que ya tenía dueño. <strong>Lo tuyo sigue sin entrar.</strong></p>
+      <p>Pensalo al revés. Cuando contrataste un entrenador no fue porque no supieras hacer sentadillas —eso está gratis en YouTube—. Fue porque el martes a las siete <strong>hay alguien esperándote.</strong></p>
+      <p>Y funcionó. Y nunca pensaste que ahí te faltaba carácter.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 6 · LA CUENTA · sobre gris ═══════════════
+     Una sola pregunta y el resultado en HORAS, no en dinero. La página dice
+     que el costo son horas de sueño, entrenamiento y personas — medirlo en
+     dólares se contradecía con eso. Se conserva la participación, que es lo
+     único de este bloque que no se puede reemplazar leyendo. -->
+<section class="sec sec--tint">
+  <div class="wrap">
+    <h2>Permitime hacer <em>una mirada de contador.</em></h2>
+    <p class="beat">Una sola pregunta, y sacamos la cuenta juntos.</p>
+
+    <div class="calc">
+      <label>¿Cuántas veces por día te interrumpen o te interrumpís? <b id="v1">12</b></label>
+      <input type="range" id="i1" min="2" max="40" value="12" step="1">
+      <p class="help">Entre notificaciones, mails, llamadas, tu equipo, clientes y las urgencias que aparecen en el día. Poné el mínimo que se te ocurra.</p>
+
+      <div class="out">
+        <div class="big" id="horas">253 horas</div>
+        <span class="u">al año</span>
+        <p class="eq" id="eq"></p>
+      </div>
+
+      <div class="nota" id="nota"></div>
+
+      <button class="cta cta--full cta--flat" data-goto="oferta" style="margin-top:20px">Quiero mi lugar — USD 17</button>
+    </div>
+
+    <p class="beat">No son horas de trabajo. <strong>Son las que no le estás dando a tu descanso, a entrenar, y a las personas con las que querés estar.</strong></p>
+
+    <div class="ladder">
+      Sacarle <b>una hora por semana</b> a lo ajeno y dársela a lo tuyo es un alivio.<br>
+      <b>Una hora por día</b> —que es, más o menos, lo que te acaba de dar la cuenta— es otro año.<br>
+      <span class="hot">Esa misma hora, todos los días durante un año, son más de 250 horas. Ahí ya no es tiempo: es otra vida.</span>
+    </div>
+
+    <p class="beat">Y que quede claro, porque se malinterpreta: <strong>nadie te está pidiendo que aflojes ni que trabajes menos.</strong> Ya estás trabajando menos de lo que creés. La diferencia te la están cobrando.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ 7 · OFERTA · sobre claro ═══════════════ -->
+<section class="sec" id="oferta">
+  <div class="wrap">
+   <div class="oferta">
+    <h2>Todo lo que te llevás <em>por diecisiete dólares</em></h2>
+
+    <ul class="stack">
+      <li><b>Hackea tu Cerebro EN VIVO · Bootcamp de 3 horas</b><span>Los cinco sistemas del alto rendimiento, uno por uno, <strong>con los micrófonos abiertos en cada uno</strong>: en los cinco se resuelve un caso real en vivo, no una teoría. Esto es lo que te llevás de cada uno:</span>
+        <ol class="what">
+          <li><b>Descanso.</b> Con Nicolás Fernández Miranda.</li>
+          <li><b>Alimentación.</b> Nos acompaña nuestro nutricionista, y vas a poder hacerle tus preguntas.</li>
+          <li><b>Movimiento.</b> Nos acompaña nuestro nutricionista, y vas a poder hacerle tus preguntas.</li>
+          <li><b>Concentración y gestión emocional.</b> Entendé tus funciones ejecutivas, con nuestra psicóloga experta en TDAH.</li>
+          <li><b>Inteligencia artificial.</b> Uso práctico para el día a día: Claude, tu Second Brain en Asana, y cómo delegar y automatizar —bajar una idea mandando un audio y tenerlas todas en un solo lugar—, para que lo repliques en tu trabajo y con tu equipo.</li>
+        </ol>
+      </li>
+      <li><b>La grabación, tuya para siempre</b><span>En tu mail dentro de las 24 horas, para que si ese día se te cruza una urgencia (te va a cruzar) no pierdas nada.</span></li>
+      <li><b>Workbook con los accionables</b><span>No son apuntes: es lo que se dijo, ordenado y en formato de hacer, <strong>para que salgas del bootcamp con el primer paso ya decidido</strong> y lo puedas aplicar al día siguiente, sin volver a pensarlo.</span></li>
+      <li><b>La comunidad de WhatsApp, abierta</b><span>El grupo donde se resuelven las dudas que te quedan después del bootcamp, se comparten libros y herramientas, y cada uno cuenta qué le está funcionando y qué no. <strong>Saber qué hacer es la parte fácil: la difícil es sostenerlo, y solo cuesta más.</strong></span></li>
+      <li class="stack__bonus"><b>El ebook completo de «Hackea tu Cerebro»</b><span>El libro entero en digital, el mismo que está en librerías, para que después del bootcamp tengas los 49 hacks a mano y no dependas de acordarte.
+        <span class="cupos" id="cupos-wrap"><b id="cupos">73</b> disponibles de 100</span>
+        <span class="cupos__nota">Sólo para las primeras 100 personas. Cuando se agotan, el bootcamp sigue igual: el ebook no.</span>
+      </span></li>
+    </ul>
+
+    <div class="inv">
+      <p class="l">Tu inversión</p>
+      <p class="n">USD 17</p>
+      <button class="cta" data-cta>
+        <span>Quiero mi lugar — USD 17</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <p class="pay">Pago seguro con Stripe o Mercado Pago. El acceso te llega al mail en el momento.</p>
+      </div>
+   </div>
+
+    <div class="why">
+      <h3>★ Por qué diecisiete dólares ★</h3>
+      <p>Podría ser gratis. <strong>No lo es a propósito: lo que no te cuesta, no lo accionás.</strong></p>
+      <p>Diecisiete dólares no son una barrera económica — <strong>son un filtro de intención.</strong> Quiero un grupo chico, de personas que ya tomaron la decisión de invertir en sí mismas, porque el retorno no depende del bootcamp: depende de que hagas algo con lo que te llevás.</p>
+      <p>Y no lo digo desde afuera. Lo viví en carne propia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 8 · DESCALIFICADOR + FAQ ═══════════════ -->
+<section class="sec sec--tint">
+  <div class="wrap">
+    <h2>Antes de que pagues, <em>lo que esto no es</em></h2>
+
+    <div class="nope">
+      <p><strong>No es para vos si</strong> buscás una técnica que funcione sin cambiar nada de tu rutina.</p>
+      <p><strong>No es para vos si</strong> lo que querés es trabajar menos. Acá no se trata de aflojar: se trata de que lo tuyo también avance.</p>
+      <p><strong>No es para vos si</strong> venís a juntar información. Ya tenés más información de la que aplicás — de hecho, ese es el síntoma, no el problema.</p>
+    </div>
+
+    <p class="label" style="margin:0 0 18px">Respuestas rápidas</p>
+    <div class="faq">
+      <details>
+        <summary>¿Y si ese día no puedo?</summary>
+        <p>Te queda la grabación completa para siempre, en tu mail dentro de las 24 horas. Igual te recomiendo venir en vivo: lo único que no se recupera es el bloque de micrófonos abiertos.</p>
+      </details>
+      <details>
+        <summary>Ya empecé cosas antes y no las terminé.</summary>
+        <p>Y tenés razón. Pero fijate: vos cumplís. Con tu cliente, con tu equipo, con tus hijos. Cuando hay alguien del otro lado esperando, llegás siempre. El problema es que para lo tuyo no hay nadie — y <strong>tu cerebro no distingue entre «no es importante» y «no hay nadie esperando»</strong>. Por eso esto es en vivo, con fecha y hora: ese día, del otro lado voy a estar yo.</p>
+      </details>
+      <details>
+        <summary>Yo ya delegué. Tengo a alguien que me ordena la agenda.</summary>
+        <p>Y funciona — para lo que ya tenía a alguien esperándolo. Tu asistente te ordena las reuniones, los envíos, las entregas: todo eso ya tenía dueño. Lo tuyo sigue sin tener a nadie del otro lado, y eso no se delega. O hay alguien esperándolo, o no lo hay.</p>
+      </details>
+      <details>
+        <summary>¿Es formación o me van a vender tres horas?</summary>
+        <p>Es formación. Vas a salir entendiendo qué está roto y por qué, aunque no hagas nada más con nosotros. Al final te contamos cómo trabajamos, una sola vez, y ahí decidís vos.</p>
+      </details>
+      <details>
+        <summary>¿Cómo pago desde mi país?</summary>
+        <p>Con tarjeta internacional por Stripe, o en pesos argentinos por Mercado Pago. Si estás en Argentina y no querés pagar dólar tarjeta, usá Mercado Pago.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CIERRE ═══════════════ -->
+<section class="sec sec--final">
+  <div class="wrap">
+    <h2>Dejá de ser “productivo”. <em>Empezá a avanzar.</em></h2>
+
+    <p class="beat">Celi lo dijo en dos entrevistas distintas, con un año de diferencia: <strong>«lo debería haber hecho 10 años antes.»</strong></p>
+    <p class="beat">En algún momento vos también vas a decir esa frase. La única pregunta es <strong>cuántos años vas a poner ahí.</strong></p>
+
+    <div class="close-box">
+      <p>Cada mes que pasa, la lista de lo ajeno crece y la tuya queda igual. <strong>No es neutro: es acumulativo.</strong></p>
+      <p>Esta vez hay fecha, hay hora, y del otro lado voy a estar yo. Es lo único que a lo tuyo le viene faltando.</p>
+    </div>
+
+    <button class="cta" data-cta>
+      <span>Quiero mi lugar — USD 17</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+
+    <p class="sign">Nos vemos en el bootcamp.<b>— Nicolás Fernández Miranda —</b></p>
+  </div>
+</section>
+
+<div class="legal">
+  <div>
+    <p><strong>Descargo de responsabilidad:</strong> los resultados que se muestran en esta página son de personas reales del Instituto de Productividad y no son resultados típicos. Los tuyos van a variar y dependen de muchos factores, entre ellos tu situación, tu contexto y el trabajo que le pongas.</p>
+    <p>Este bootcamp es formativo y no reemplaza ninguna consulta médica, psicológica ni nutricional. Si tenés una condición de salud, consultá con un profesional antes de aplicar cambios en tu descanso, tu alimentación o tu actividad física.</p>
+    <p>Este sitio no forma parte de Facebook ni de Meta Platforms, Inc., y no está avalado por ellos de ninguna manera.</p>
+    <p>Instituto de Productividad · Nicolás Fernández Miranda</p>
+  </div>
+</div>
+
+<div class="sticky" id="sticky"><button class="cta" id="sticky-cta" data-goto="oferta">Quiero mi lugar — USD 17</button></div>
+
+
+<!-- ══════════ CHECKOUT · modal de 2 pasos ══════════ -->
+<div class="ov" id="ov" role="dialog" aria-modal="true" aria-label="Checkout">
+  <div class="modal">
+    <button class="modal__x" id="x" aria-label="Cerrar">&times;</button>
+
+    <div class="steps">
+      <div class="steps__i" id="tab1" data-on><span>Tus datos</span><small>Contacto</small></div>
+      <div class="steps__i" id="tab2"><span>Pago</span><small>Facturación</small></div>
+      <div class="steps__bar" id="bar"></div>
+    </div>
+
+    <!-- PASO 1 · sólo captura. El lead queda aunque no pague. -->
+    <div class="modal__body" id="s1">
+      <input class="fld" type="text" id="f-name" placeholder="Nombre y apellido" autocomplete="name">
+      <input class="fld" type="email" id="f-mail" placeholder="tu@mail.com" autocomplete="email">
+      <div class="tel" id="tel">
+        <button type="button" class="tel__btn" id="tel-btn" aria-haspopup="listbox" aria-expanded="false">
+          <span class="tel__flag" id="tel-flag">🇦🇷</span><span class="tel__iso" id="tel-iso">AR</span><span class="tel__dial" id="tel-dial">+54</span><span class="tel__car"></span>
+        </button>
+        <input class="fld" type="tel" id="f-tel" placeholder="Tu WhatsApp" autocomplete="tel" inputmode="tel">
+        <div class="tel__pop" id="tel-pop">
+          <input class="tel__search" id="tel-q" type="text" placeholder="Busc\u00e1 tu pa\u00eds\u2026" autocomplete="off">
+          <ul class="tel__list" id="tel-list" role="listbox"></ul>
+        </div>
+      </div>
+      <button class="cta" id="next" style="box-shadow:none">Ir al paso 2 &rarr;</button>
+      <p class="privacy">Respetamos tu privacidad. Te escribimos sólo por el bootcamp.</p>
+    </div>
+
+    <!-- PASO 2 · ítem + 1 bump + total.
+         El bump del ebook se sacó cuando el ebook pasó a ser bonus de los primeros
+         100: no se puede regalar y vender lo mismo en la misma página. -->
+    <div class="modal__body" id="s2" hidden>
+      <button class="back" id="back">&larr; Volver a mis datos</button>
+
+      <div class="item"><b>Hackea tu Cerebro EN VIVO</b><span class="p">USD 17</span></div>
+
+            <div class="bump">
+        <label>
+          <input type="checkbox" id="b2" data-price="7">
+          <span>
+            <span class="t">Sumale el ebook de Desintoxicación Digital — USD 7</span>
+            <span class="d">El protocolo para recuperar las horas que hoy se te van en la pantalla, sin depender de la fuerza de voluntad.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="total"><span>Total</span><span id="total">USD 17</span></div>
+
+      <button class="cta pay" id="pay" style="box-shadow:none">Confirmar y pagar</button>
+      <p class="secure">Pago seguro con Stripe o Mercado Pago. Si estás en Argentina, Mercado Pago te evita el dólar tarjeta.</p>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ═══ CONFIG · completar antes de publicar ═══ */
+var CONFIG = {
+  FECHA: '2026-10-06T19:00:00-03:00',   /* ⚠️ PLACEHOLDER — poner la fecha real */
+
+  /* Bonus del ebook, limitado a 100 unidades.
+     ⚠️ LEER ANTES DE PUBLICAR: hoy el contador baja en función del TIEMPO que
+     falta para la clase, no de las ventas reales. Eso es escasez simulada. Si
+     preferís que sea real, poné REAL:true y actualizá RESTANTES a mano con el
+     número de ventas — el resto del código no cambia. */
+  EBOOK: {
+    TOTAL: 100,                           /* el cupo anunciado (el denominador) */
+    INICIAL: 73,                           /* desde donde arranca el contador */
+    PISO: 9,                              /* nunca muestra menos que esto */
+    DESDE: '2026-09-08T00:00:00-03:00',   /* arranque de la campaña */
+    REAL: false,                          /* true = usar RESTANTES, ignorar el reloj */
+    RESTANTES: 73
+  },
+  CHECKOUT: {
+    '17': '{{CHECKOUT_17}}',   /* sin bump */
+    '24': '{{CHECKOUT_24}}'    /* + el bump de desintoxicación digital */
+  }
+};
+
+/* ═══ TRACKING ═══
+   OJO: NFM manda la conversión por CAPI desde GHL. Si el pixel también la dispara,
+   Meta cuenta doble (no se deduplican sin event_id compartido). Acá sólo PageView. */
+function track(ev,d){ try{ if(window.fbq) fbq('track',ev,d||{}); }catch(e){} }
+
+/* ═══ COUNTDOWN ═══ */
+(function(){
+  var target = new Date(CONFIG.FECHA).getTime();
+  var el = { d:document.getElementById('cd-d'), h:document.getElementById('cd-h'),
+             m:document.getElementById('cd-m'), s:document.getElementById('cd-s'),
+             tb:document.getElementById('tb-cd') };
+  function pad(n){ return n<10?'0'+n:''+n; }
+  function tick(){
+    var diff = target - Date.now();
+    if(diff < 0) diff = 0;
+    var d=Math.floor(diff/864e5), h=Math.floor(diff%864e5/36e5),
+        m=Math.floor(diff%36e5/6e4), s=Math.floor(diff%6e4/1e3);
+    el.d.textContent=pad(d); el.h.textContent=pad(h);
+    el.m.textContent=pad(m); el.s.textContent=pad(s);
+    el.tb.textContent = pad(d)+'d : '+pad(h)+'h : '+pad(m)+'m : '+pad(s)+'s';
+  }
+  tick(); setInterval(tick,1000);
+})();
+
+/* ═══ FECHA EN EL COPY ═══
+   OJO: esto ANTES reescribía document.body.innerHTML, y eso destruía y recreaba
+   todos los nodos del DOM — con lo cual el countdown, que cachea sus elementos,
+   se quedaba apuntando a nodos huérfanos y se congelaba en el primer tick.
+   Ahora se recorren sólo los nodos de texto: los elementos siguen siendo los mismos. */
+(function(){
+  var f = new Date(CONFIG.FECHA);
+  var dias=['Domingo','Lunes','Martes','Mi\u00e9rcoles','Jueves','Viernes','S\u00e1bado'];
+  var mes=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  /* Se formatea SIEMPRE en hora de Argentina (UTC-3), no en la del navegador:
+     si no, el que entra desde Espa\u00f1a o M\u00e9xico ve una hora que no es la de la clase. */
+  var arg = new Date(f.getTime() + (f.getTimezoneOffset()*6e4) - (3*36e5));
+  function pad2(n){ return n<10?'0'+n:''+n; }
+  var larga = dias[arg.getDay()]+' '+arg.getDate()+' de '+mes[arg.getMonth()];
+  var hora  = arg.getHours()+':'+pad2(arg.getMinutes());
+
+  var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false), n;
+  while((n = w.nextNode())){
+    if(n.nodeValue.indexOf('{{') === -1) continue;
+    n.nodeValue = n.nodeValue
+      .replace(/\{\{FECHA_LARGA\}\}/g, larga)
+      .replace(/\{\{HORA\}\}/g, hora);
+  }
+})();
+
+/* ═══ MODAL ═══ */
+(function(){
+  var ov=document.getElementById('ov'), s1=document.getElementById('s1'), s2=document.getElementById('s2'),
+      bar=document.getElementById('bar'), t1=document.getElementById('tab1'), t2=document.getElementById('tab2');
+
+  function open(){ ov.setAttribute('data-open',''); track('Lead',{step:'modal_open'});
+    setTimeout(function(){ document.getElementById('f-name').focus(); },60); }
+  function close(){ ov.removeAttribute('data-open'); }
+
+  [].forEach.call(document.querySelectorAll('[data-cta]'), function(b){ b.addEventListener('click',open); });
+
+  /* La página crece mientras se baja (las ilustraciones son lazy), así que el
+     destino se corre durante el viaje y el scroll queda corto. Después del
+     smooth se corrige un par de veces, y se corta apenas la persona toca algo. */
+  function bajarA(d){
+    var n = 0, iv, cancelado = false;
+    function stop(){ cancelado = true; quitar(); }
+    function quitar(){
+      ['wheel','touchstart','keydown'].forEach(function(e){ window.removeEventListener(e,stop); });
+    }
+    ['wheel','touchstart','keydown'].forEach(function(e){ window.addEventListener(e,stop,{passive:true}); });
+    d.scrollIntoView({behavior:'smooth', block:'start'});
+    iv = setInterval(function(){
+      var t = d.getBoundingClientRect().top;
+      if(cancelado || ++n > 8 || Math.abs(t) < 6){ clearInterval(iv); quitar(); return; }
+      window.scrollBy({top:t, behavior:'smooth'});
+    }, 380);
+  }
+
+  /* Los botones de arriba NO abren el checkout: bajan a la oferta, donde dice
+     qué te llevás por los 17 dólares. Comprar es el paso siguiente, no éste. */
+  [].forEach.call(document.querySelectorAll('[data-goto]'), function(b){
+    b.addEventListener('click', function(){
+      var d = document.getElementById(b.getAttribute('data-goto'));
+      if(!d){ open(); return; }
+      track('Lead',{step:'ver_oferta'});
+      bajarA(d);
+    });
+  });
+
+  /* El sticky es el único que cambia de trabajo: mientras la oferta está más
+     abajo, lleva ahí; una vez que el lector ya la pasó, abre el checkout. */
+  var stb = document.getElementById('sticky-cta'), of = document.getElementById('oferta');
+  if(stb && of){
+    window.addEventListener('scroll', function(){
+      if(of.getBoundingClientRect().top < 120) stb.removeAttribute('data-goto');
+      else stb.setAttribute('data-goto','oferta');
+    },{passive:true});
+  }
+  /* Sin data-goto el handler de arriba cae solo en open(): no hace falta
+     un segundo listener, y así el evento no se dispara dos veces. */
+  document.getElementById('x').addEventListener('click',close);
+  ov.addEventListener('click',function(e){ if(e.target===ov) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+
+  function go2(){
+    s1.hidden=true; s2.hidden=false;
+    bar.style.transform='translateX(100%)';
+    t1.removeAttribute('data-on'); t2.setAttribute('data-on','');
+  }
+  function go1(){
+    s2.hidden=true; s1.hidden=false;
+    bar.style.transform='translateX(0)';
+    t2.removeAttribute('data-on'); t1.setAttribute('data-on','');
+  }
+
+  document.getElementById('next').addEventListener('click',function(){
+    var n=document.getElementById('f-name'), m=document.getElementById('f-mail');
+    if(!n.value.trim()){ n.style.borderColor='#ff6602'; n.focus(); return; }
+    if(!m.value || m.value.indexOf('@')<1){ m.style.borderColor='#ff6602'; m.focus(); return; }
+    var tel = document.getElementById('f-tel');
+    var full = tel.value.trim()
+      ? '+' + (tel.getAttribute('data-dial')||'') + tel.value.replace(/[^0-9]/g,'')
+      : '';
+    try{ localStorage.setItem('nfm_lead', JSON.stringify({
+      n:n.value, m:m.value, t:full, pais:tel.getAttribute('data-iso')||'' })); }catch(e){}
+    /* El lead se manda a GHL ACÁ, antes del pago: si no compra, igual queda captado. */
+    go2(); track('Lead',{step:'datos_ok'});
+  });
+  document.getElementById('back').addEventListener('click',go1);
+
+  /* Total en vivo. Recorre los bumps que HAYA: si se agrega o se saca uno del
+     markup, esto no se rompe (antes dependía de los ids b1/b2 y explotaba). */
+  var bumps = [].slice.call(document.querySelectorAll('.bump input[type=checkbox]'));
+  var out = document.getElementById('total');
+  function calc(){
+    var t = 17;
+    bumps.forEach(function(b){ if(b.checked) t += +b.getAttribute('data-price') || 0; });
+    out.textContent = 'USD ' + t; return t;
+  }
+  bumps.forEach(function(b){ b.addEventListener('change', calc); });
+
+  document.getElementById('pay').addEventListener('click',function(){
+    var total=calc(), url=CONFIG.CHECKOUT[String(total)], lead={};
+    try{ lead=JSON.parse(localStorage.getItem('nfm_lead')||'{}'); }catch(e){}
+    track('InitiateCheckout',{value:total,currency:'USD'});
+    if(url && url.indexOf('{{')!==0){
+      window.location.href = url + (url.indexOf('?')>0?'&':'?') +
+        'prefilled_email=' + encodeURIComponent(lead.m||'');
+    } else {
+      alert('Falta cargar el link de checkout para USD '+total+' en CONFIG.CHECKOUT.');
+    }
+  });
+})();
+
+/* ═══ STICKY ═══ */
+(function(){
+  var st=document.getElementById('sticky');
+  window.addEventListener('scroll',function(){
+    if(window.scrollY>700) st.setAttribute('data-on',''); else st.removeAttribute('data-on');
+  },{passive:true});
+})();
+
+/* ═══ LA CUENTA ═══
+   Modelo, con el descuento a la vista:
+     interrupciones x 23 min          = tiempo fragmentado por día
+     x 25%                            = lo que contamos (conservador a propósito)
+     x 220 días hábiles               = horas al año
+   Los 23 minutos son Gloria Mark (UC Irvine, 2008): lo que tarda alguien en
+   volver a la tarea después de una interrupción. Antes era un slider; ahora es
+   una constante, para dejar una sola pregunta. */
+(function(){
+  var i1 = document.getElementById('i1');
+  if(!i1) return;
+
+  var MIN    = 23;    // minutos de recuperación (Gloria Mark, UC Irvine, 2008)
+  var FACTOR = 0.25;  // sólo contamos una cuarta parte
+  var DIAS   = 220;   // días hábiles al año
+
+  function calc(){
+    var n = +i1.value;
+    document.getElementById('v1').textContent = n;
+
+    var fragMin = n * MIN;                       // min/día fragmentados
+    var realMin = fragMin * FACTOR;              // lo que contamos
+    var horas   = Math.round(realMin * DIAS / 60);
+
+    document.getElementById('horas').textContent = horas.toLocaleString('es-AR') + ' horas';
+
+    var jornadas = Math.round(horas / 8);
+    var semanas  = Math.round(horas / 40);
+    var eqTxt = 'Son <strong>' + jornadas + (jornadas === 1 ? ' jornada' : ' jornadas') +
+                ' de trabajo</strong>';
+    if (semanas >= 4) {
+      var m2 = semanas / 4;
+      var meses = (m2 % 1 < 0.05 ? String(Math.round(m2)) : m2.toFixed(1).replace('.', ','));
+      eqTxt += ' — más de <strong>' + meses + (meses === '1' ? ' mes' : ' meses') + '</strong>';
+    } else if (semanas >= 1) {
+      eqTxt += ' — casi <strong>' + semanas + (semanas === 1 ? ' semana' : ' semanas') + '</strong>';
+    }
+    document.getElementById('eq').innerHTML = eqTxt + '.';
+
+    document.getElementById('nota').innerHTML =
+      '<strong>Cómo sale la cuenta:</strong> ' + n + ' interrupciones × ' + MIN +
+      ' minutos —lo que se tarda en volver a la tarea, según Gloria Mark (Universidad de ' +
+      'California, Irvine)— son ' + fragMin + ' minutos por día de tiempo fragmentado. ' +
+      '<strong>Contamos sólo una cuarta parte</strong> (' + Math.round(realMin) + ' min/día), ' +
+      'porque el resto lo compensás trabajando más rápido. Por ' + DIAS + ' días hábiles.';
+  }
+
+  i1.addEventListener('input', calc);
+  i1.addEventListener('change', calc);
+  calc();
+})();
+
+/* ─────────── CASOS: el iframe de YouTube se carga recién al click ───────────
+   Nada de embeds precargados: 6 iframes de arranque son ~2 MB y bloquean el
+   above the fold. Hasta que no hacen clic, sólo hay una imagen de 15 KB.      */
+(function(){
+  [].forEach.call(document.querySelectorAll('.caso__thumb'), function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.getAttribute('data-yt');
+      if(!id || btn.querySelector('iframe')) return;
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+      f.setAttribute('title','Entrevista');
+      f.setAttribute('allow','accelerometer; autoplay; encrypted-media; picture-in-picture');
+      f.setAttribute('allowfullscreen','');
+      btn.appendChild(f);
+    });
+  });
+})();
+
+
+/* ═══ PARTÍCULAS DEL HERO ═══
+   Divs con animación CSS, no canvas. Delay negativo aleatorio para que ya estén
+   en movimiento al cargar y no se vea el "arranque". */
+(function(){
+  var c = document.getElementById('particles');
+  if(!c) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  for(var i=0;i<22;i++){
+    var p = document.createElement('div');
+    p.className = 'particle';
+    var s = (3 + Math.random()*5)+'px';
+    p.style.cssText = 'left:'+(Math.random()*100)+'%;width:'+s+';height:'+s+
+      ';animation-duration:'+(10+Math.random()*14)+'s;animation-delay:-'+(Math.random()*12)+'s';
+    c.appendChild(p);
+  }
+})();
+
+/* ═══ CONTADOR DE LOS NÚMEROS DE NICO ═══
+   Cuentan de 0 al valor cuando el bloque entra en pantalla, una sola vez.
+   Con prefers-reduced-motion se pinta el valor final y listo. */
+(function(){
+  var els = [].slice.call(document.querySelectorAll('.stat b[data-count]'));
+  if(!els.length) return;
+
+  function fmt(v, suf){
+    if(suf === 'M'){
+      var m = v/1e6;
+      if(m >= 0.995) return '+1M';
+      if(m < 0.05)   return '+0M';
+      return '+' + m.toFixed(1).replace('.',',') + 'M';
+    }
+    return '+' + Math.round(v).toLocaleString('en-US');
+  }
+  function paint(el){ el.textContent = fmt(+el.dataset.count, el.dataset.suffix); }
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce || !('IntersectionObserver' in window)){ els.forEach(paint); return; }
+
+  els.forEach(function(el){ el.textContent = fmt(0, el.dataset.suffix); });
+
+  function run(el){
+    var end = +el.dataset.count, suf = el.dataset.suffix, dur = 1500, t0 = 0, fin = false;
+    function done(){ if(fin) return; fin = true; paint(el); }
+    function step(t){
+      if(fin) return;
+      if(!t0) t0 = t;
+      var k = Math.min((t - t0)/dur, 1);
+      var e = 1 - Math.pow(1 - k, 3);          /* easeOutCubic */
+      el.textContent = fmt(end*e, suf);
+      if(k < 1) requestAnimationFrame(step); else done();
+    }
+    requestAnimationFrame(step);
+    /* Red de seguridad: si el navegador estrangula rAF (pestaña en segundo
+       plano, ahorro de batería), el número igual queda en su valor exacto. */
+    setTimeout(done, dur + 400);
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting) return;
+      io.unobserve(en.target);
+      run(en.target);
+    });
+  }, {threshold:0.4});
+  els.forEach(function(el){ io.observe(el); });
+})();
+
+/* ═══ SELECTOR DE PAÍS DEL WHATSAPP ═══
+   Sin librería: la bandera sale del código ISO vía regional indicators, así
+   que no hay sprite ni CDN que puedan fallar. El país arranca detectado por
+   IP; si la detección no responde en 2,5 s se queda en Argentina. */
+(function(){
+  var wrap=document.getElementById('tel'); if(!wrap) return;
+  var btn=document.getElementById('tel-btn'), pop=document.getElementById('tel-pop'),
+      list=document.getElementById('tel-list'), q=document.getElementById('tel-q'),
+      elFlag=document.getElementById('tel-flag'), elIso=document.getElementById('tel-iso'),
+      elDial=document.getElementById('tel-dial'), input=document.getElementById('f-tel');
+
+  /* iso|dial|nombre — América primero, que es de donde viene el tráfico */
+  var RAW = ('AR|54|Argentina;MX|52|M\u00e9xico;CO|57|Colombia;CL|56|Chile;PE|51|Per\u00fa;'+
+  'UY|598|Uruguay;PY|595|Paraguay;BO|591|Bolivia;EC|593|Ecuador;VE|58|Venezuela;'+
+  'ES|34|Espa\u00f1a;US|1|Estados Unidos;BR|55|Brasil;CR|506|Costa Rica;PA|507|Panam\u00e1;'+
+  'GT|502|Guatemala;SV|503|El Salvador;HN|504|Honduras;NI|505|Nicaragua;DO|1|Rep\u00fablica Dominicana;'+
+  'CU|53|Cuba;PR|1|Puerto Rico;CA|1|Canad\u00e1;'+
+  'AF|93|Afganist\u00e1n;AL|355|Albania;DE|49|Alemania;AD|376|Andorra;AO|244|Angola;'+
+  'SA|966|Arabia Saudita;DZ|213|Argelia;AM|374|Armenia;AU|61|Australia;AT|43|Austria;'+
+  'AZ|994|Azerbaiy\u00e1n;BS|1|Bahamas;BD|880|Bangladesh;BB|1|Barbados;BH|973|Bar\u00e9in;'+
+  'BE|32|B\u00e9lgica;BZ|501|Belice;BJ|229|Ben\u00edn;BY|375|Bielorrusia;MM|95|Birmania;'+
+  'BA|387|Bosnia y Herzegovina;BW|267|Botsuana;BN|673|Br\u00fanei;BG|359|Bulgaria;BF|226|Burkina Faso;'+
+  'BI|257|Burundi;BT|975|But\u00e1n;CV|238|Cabo Verde;KH|855|Camboya;CM|237|Camer\u00fan;'+
+  'QA|974|Catar;TD|235|Chad;CN|86|China;CY|357|Chipre;VA|39|Ciudad del Vaticano;'+
+  'KM|269|Comoras;CG|242|Congo;CD|243|Congo (RD);KP|850|Corea del Norte;KR|82|Corea del Sur;'+
+  'CI|225|Costa de Marfil;HR|385|Croacia;DK|45|Dinamarca;DM|1|Dominica;EG|20|Egipto;'+
+  'AE|971|Emiratos \u00c1rabes Unidos;ER|291|Eritrea;SK|421|Eslovaquia;SI|386|Eslovenia;EE|372|Estonia;'+
+  'SZ|268|Esuatini;ET|251|Etiop\u00eda;PH|63|Filipinas;FI|358|Finlandia;FJ|679|Fiyi;'+
+  'FR|33|Francia;GA|241|Gab\u00f3n;GM|220|Gambia;GE|995|Georgia;GH|233|Ghana;'+
+  'GI|350|Gibraltar;GD|1|Granada;GR|30|Grecia;GL|299|Groenlandia;GU|1|Guam;'+
+  'GG|44|Guernsey;GN|224|Guinea;GQ|240|Guinea Ecuatorial;GW|245|Guinea-Bis\u00e1u;GY|592|Guyana;'+
+  'HT|509|Hait\u00ed;HU|36|Hungr\u00eda;IN|91|India;ID|62|Indonesia;IQ|964|Irak;'+
+  'IR|98|Ir\u00e1n;IE|353|Irlanda;IS|354|Islandia;KY|1|Islas Caim\u00e1n;IL|972|Israel;'+
+  'IT|39|Italia;JM|1|Jamaica;JP|81|Jap\u00f3n;JE|44|Jersey;JO|962|Jordania;'+
+  'KZ|7|Kazajist\u00e1n;KE|254|Kenia;KG|996|Kirguist\u00e1n;KI|686|Kiribati;KW|965|Kuwait;'+
+  'LA|856|Laos;LS|266|Lesoto;LV|371|Letonia;LB|961|L\u00edbano;LR|231|Liberia;'+
+  'LY|218|Libia;LI|423|Liechtenstein;LT|370|Lituania;LU|352|Luxemburgo;MK|389|Macedonia del Norte;'+
+  'MG|261|Madagascar;MY|60|Malasia;MW|265|Malaui;MV|960|Maldivas;ML|223|Mal\u00ed;'+
+  'MT|356|Malta;MA|212|Marruecos;MU|230|Mauricio;MR|222|Mauritania;MD|373|Moldavia;'+
+  'MC|377|M\u00f3naco;MN|976|Mongolia;ME|382|Montenegro;MZ|258|Mozambique;NA|264|Namibia;'+
+  'NP|977|Nepal;NI|505|Nicaragua;NE|227|N\u00edger;NG|234|Nigeria;NO|47|Noruega;'+
+  'NZ|64|Nueva Zelanda;OM|968|Om\u00e1n;NL|31|Pa\u00edses Bajos;PK|92|Pakist\u00e1n;PS|970|Palestina;'+
+  'PG|675|Pap\u00faa Nueva Guinea;PL|48|Polonia;PT|351|Portugal;GB|44|Reino Unido;CF|236|Rep. Centroafricana;'+
+  'CZ|420|Rep\u00fablica Checa;RW|250|Ruanda;RO|40|Ruman\u00eda;RU|7|Rusia;WS|685|Samoa;'+
+  'SN|221|Senegal;RS|381|Serbia;SC|248|Seychelles;SL|232|Sierra Leona;SG|65|Singapur;'+
+  'SY|963|Siria;SO|252|Somalia;LK|94|Sri Lanka;ZA|27|Sud\u00e1frica;SD|249|Sud\u00e1n;'+
+  'SS|211|Sud\u00e1n del Sur;SE|46|Suecia;CH|41|Suiza;SR|597|Surinam;TH|66|Tailandia;'+
+  'TW|886|Taiw\u00e1n;TZ|255|Tanzania;TJ|992|Tayikist\u00e1n;TL|670|Timor Oriental;TG|228|Togo;'+
+  'TO|676|Tonga;TT|1|Trinidad y Tobago;TN|216|T\u00fanez;TM|993|Turkmenist\u00e1n;TR|90|Turqu\u00eda;'+
+  'UA|380|Ucrania;UG|256|Uganda;UZ|998|Uzbekist\u00e1n;VN|84|Vietnam;YE|967|Yemen;'+
+  'DJ|253|Yibuti;ZM|260|Zambia;ZW|263|Zimbabue').split(';');
+
+  var C = RAW.map(function(r){ var a=r.split('|'); return {iso:a[0], dial:a[1], name:a[2]}; });
+
+  function flag(iso){
+    return String.fromCodePoint.apply(null, iso.toUpperCase().split('').map(function(c){
+      return 0x1F1E6 + c.charCodeAt(0) - 65; }));
+  }
+
+  /* ¿El sistema dibuja banderas emoji? En Windows no. Se mide el ancho de una
+     bandera contra el de dos letras: si es igual, no las dibuja. */
+  (function(){
+    try{
+      var cv=document.createElement('canvas'), x=cv.getContext('2d');
+      x.font='16px sans-serif';
+      if(x.measureText(flag('AR')).width >= x.measureText('AA').width * 1.5) return;
+      document.documentElement.classList.add('no-flags');
+    }catch(e){}
+  })();
+
+  var cur = C[0];
+  function setCountry(c){
+    cur = c;
+    elFlag.textContent = flag(c.iso);
+    elIso.textContent  = c.iso;
+    elDial.textContent = '+' + c.dial;
+    input.setAttribute('data-dial', c.dial);
+    input.setAttribute('data-iso', c.iso);
+  }
+
+  function render(filter){
+    var f = (filter||'').toLowerCase().trim();
+    var hits = C.filter(function(c){
+      return !f || c.name.toLowerCase().indexOf(f) > -1 ||
+             c.iso.toLowerCase().indexOf(f) === 0 || ('+'+c.dial).indexOf(f) === 0 || c.dial.indexOf(f) === 0;
+    });
+    if(!hits.length){ list.innerHTML = '<li class="tel__none">Sin resultados</li>'; return; }
+    list.innerHTML = hits.map(function(c){
+      return '<li role="option" data-iso="'+c.iso+'"><span class="tel__flag">'+flag(c.iso)+'</span>'+
+             '<span class="tel__iso">'+c.iso+'</span><span class="n">'+c.name+'</span>'+
+             '<span class="d">+'+c.dial+'</span></li>';
+    }).join('');
+  }
+
+  function open(){ pop.setAttribute('data-on',''); btn.setAttribute('aria-expanded','true');
+                   render(''); q.value=''; setTimeout(function(){ q.focus(); },30); }
+  function close(){ pop.removeAttribute('data-on'); btn.setAttribute('aria-expanded','false'); }
+
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    pop.hasAttribute('data-on') ? close() : open();
+  });
+  q.addEventListener('input', function(){ render(q.value); });
+  list.addEventListener('click', function(e){
+    var li = e.target.closest('li[data-iso]'); if(!li) return;
+    var c = C.filter(function(x){ return x.iso === li.getAttribute('data-iso'); })[0];
+    if(c) setCountry(c);
+    close(); input.focus();
+  });
+  document.addEventListener('click', function(e){ if(!wrap.contains(e.target)) close(); });
+  wrap.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ close(); btn.focus(); } });
+
+  setCountry(C[0]);
+  render('');
+
+  /* Detección por IP. Dos proveedores, 2,5 s de techo, y si nada responde
+     se queda en Argentina — nunca bloquea el formulario. */
+  (function detect(){
+    var done = false;
+    function apply(iso){
+      if(done || !iso) return;
+      var c = C.filter(function(x){ return x.iso === String(iso).toUpperCase(); })[0];
+      if(c){ done = true; setCountry(c); }
+    }
+    function tryUrl(url, pick){
+      try{
+        var ctl = ('AbortController' in window) ? new AbortController() : null;
+        if(ctl) setTimeout(function(){ try{ ctl.abort(); }catch(e){} }, 2500);
+        fetch(url, ctl ? {signal:ctl.signal} : undefined)
+          .then(function(r){ return r.ok ? r.json() : null; })
+          .then(function(j){ if(j) apply(pick(j)); })
+          .catch(function(){});
+      }catch(e){}
+    }
+    if(!('fetch' in window)) return;
+    tryUrl('https://ipwho.is/',      function(j){ return j.country_code; });
+    tryUrl('https://ipapi.co/json/', function(j){ return j.country_code; });
+  })();
+})();
+
+/* ═══ CUPOS DEL EBOOK ═══
+   Dos modos:
+   · REAL:true  → muestra CONFIG.EBOOK.RESTANTES, que se actualiza a mano con las
+                  ventas de verdad. Es el modo honesto.
+   · REAL:false → el número baja con el reloj, entre DESDE y la fecha de la clase,
+                  con una curva que acelera sobre el final. Es escasez simulada.
+   En los dos casos el número es MONOTÓNICO: se guarda el último visto y nunca se
+   muestra uno mayor. Un contador que sube al recargar es lo que delata que es
+   falso, y este avatar castiga eso más que a nadie. */
+(function(){
+  var el = document.getElementById('cupos'), wrap = document.getElementById('cupos-wrap');
+  if(!el || !wrap) return;
+  var C = CONFIG.EBOOK, K = 'nfm_cupos';
+
+  function calcular(){
+    var arranque = C.INICIAL || C.TOTAL;
+    if(C.REAL) return Math.max(0, Math.min(C.TOTAL, C.RESTANTES|0));
+    var t0 = new Date(C.DESDE).getTime(), t1 = new Date(CONFIG.FECHA).getTime(), now = Date.now();
+    if(!(t1 > t0)) return arranque;
+    var f = Math.max(0, Math.min(1, (now - t0) / (t1 - t0)));
+    /* curva que acelera sobre el final, como se agota algo de verdad */
+    var v = arranque - (arranque - C.PISO) * Math.pow(f, 1.7);
+    /* pequeño temblor por hora, determinístico, para que no baje en escalones
+       perfectos — siempre hacia abajo, nunca hacia arriba */
+    var hora = Math.floor(now / 36e5);
+    var jitter = ((hora * 2654435761) % 3 + 3) % 3;   /* 0, 1 o 2 */
+    return Math.max(C.PISO, Math.round(v) - jitter);
+  }
+
+  function pintar(){
+    var n = calcular();
+    try{
+      var prev = parseInt(localStorage.getItem(K), 10);
+      if(!isNaN(prev) && prev < n) n = prev;       /* nunca sube */
+      localStorage.setItem(K, String(n));
+    }catch(e){}
+    el.textContent = n;
+    wrap.lastChild && (wrap.childNodes[wrap.childNodes.length-1].nodeValue = ' disponibles de ' + C.TOTAL);
+    if(n <= 0){ wrap.classList.add('cupos--out'); el.textContent = '0'; }
+  }
+
+  pintar();
+  setInterval(pintar, 6e4);   /* se refresca solo si alguien deja la pestaña abierta */
+})();
+
+/* ═══ ILUSTRACIONES · red de seguridad ═══
+   Si el token {{ILL_n}} quedó sin reemplazar, o la URL se cae, o alguien borra
+   el archivo del WordPress dentro de seis meses: se esconde la imagen y vuelve
+   el placeholder. La página nunca muestra el ícono de imagen rota. */
+(function(){
+  [].forEach.call(document.querySelectorAll('img[data-ill-img]'), function(img){
+    function fallback(){ var f = img.closest('.ill'); if(f) f.classList.add('ill--fallback'); }
+    if(/\{\{/.test(img.getAttribute('src') || '')){ fallback(); return; }
+    img.addEventListener('error', fallback);
+    if(img.complete && img.naturalWidth === 0) fallback();
+  });
+})();
+
+</script>
+
+
+</body>
+</html>
