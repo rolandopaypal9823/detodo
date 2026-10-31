@@ -90,7 +90,7 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
 
 /* Fases */
 .fase{margin-top:38px}
-.fase-cab{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:end;gap:14px;padding-bottom:10px;border-bottom:1px solid var(--line2)}
+.fase-cab{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:baseline;gap:14px;padding-bottom:10px;border-bottom:1px solid var(--line2)}
 .fase-n{font-family:var(--f-display);font-size:38px;line-height:.9;color:var(--gold);font-weight:600;font-variant-numeric:lining-nums;min-width:1.1ch}
 .fase h2{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,3vw,27px);line-height:1.1;margin:0;text-wrap:balance}
 .fase-cuando{margin:3px 0 0;font-size:13px;color:var(--muted)}
@@ -127,8 +127,8 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
 .t-nueva button{height:34px;border-radius:7px;border:1px solid var(--line2);background:var(--panel);padding:0 10px;font-size:13px;cursor:pointer}
 .t-nueva button[type="submit"]{background:var(--gold);color:var(--on-gold);border-color:var(--gold)}
 
-.t-body{display:grid;gap:14px;padding:2px 0 18px 28px;max-width:78ch}
-.t-det{white-space:pre-line;color:var(--fg);opacity:.88;font-size:14.5px;margin:0}
+.t-body{display:grid;gap:12px;padding:0 0 18px 28px;max-width:72ch}
+.t-det{white-space:pre-line;color:var(--muted);font-size:14px;margin:0}
 .t-lbl{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:500}
 .t-campo{display:grid;gap:6px}
 .t-campo input[type="text"],.t-campo textarea{width:100%;background:var(--panel2);border:1px solid var(--line2);border-radius:8px;padding:8px 10px;font-size:14px}
@@ -143,6 +143,11 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
 .t-acc{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:13px;color:var(--muted)}
 .t-acc button{background:none;border:0;padding:4px 0;color:var(--faint);cursor:pointer;font-size:13px;text-decoration:underline;text-underline-offset:3px}
 .t-acc button.si{color:var(--block)}
+.t-meta .vence{color:var(--block)}
+.t-linea{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:13px;color:var(--muted)}
+.t-linea .t-fecha{height:32px;width:142px;background:var(--panel2);border:1px solid var(--line2);border-radius:7px;padding:0 8px;font-size:13px}
+.mini{background:none;border:0;padding:4px 0;color:var(--gold);cursor:pointer;font-size:13.5px}
+.t-body > textarea{width:100%;min-height:52px;resize:vertical;background:var(--panel2);border:1px solid var(--line2);border-radius:8px;padding:8px 10px;font-size:14px}
 
 .nueva{padding-top:10px}
 .nueva > button{background:none;border:0;padding:6px 0;color:var(--gold);cursor:pointer;font-size:14px}
@@ -150,7 +155,7 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
 .nueva input{flex:1 1 260px;min-width:0;height:36px;background:var(--panel2);border:1px solid var(--gold);border-radius:8px;padding:0 10px;font-size:14px}
 .nueva form button{height:36px;border-radius:8px;border:1px solid var(--line2);background:var(--panel);padding:0 12px;font-size:13.5px;cursor:pointer}
 .nueva form button[type="submit"]{background:var(--gold);color:var(--on-gold);border-color:var(--gold)}
-.solo-lectura .nueva,.solo-lectura .t-addpaso,.solo-lectura .t-acc{display:none}
+.solo-lectura .nueva,.solo-lectura .t-addpaso,.solo-lectura .t-acc,.solo-lectura .mini{display:none}
 
 .toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:9px 16px;border-radius:999px;font-size:13.5px;max-width:calc(100% - 32px);text-align:center;z-index:20;opacity:0;pointer-events:none;transition:opacity .2s ease}
 .toast.ver{opacity:1}
@@ -169,10 +174,9 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
 
 <div class="wrap" id="app">
   <header class="cab">
-    <div class="marca">Sociedad Élite · Clase en vivo</div>
+    <div class="marca">Sociedad Élite</div>
     <h1>Lanzamiento de la clase</h1>
     <div class="cab-fecha" id="cab-fecha"><strong>Fecha de la clase a confirmar</strong></div>
-    <p class="cab-sub">Quién hace qué, en el orden del embudo. Cada cambio se guarda solo y lo ve todo el equipo.</p>
   </header>
 
   <section class="resumen" aria-label="Resumen">
@@ -183,14 +187,13 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
     </div>
     <div class="chips" id="chips" role="group" aria-label="Filtrar tareas"></div>
     <div class="herr">
-      <label class="check" for="ocultar"><input type="checkbox" id="ocultar"> Ocultar las hechas</label>
-      <button class="btn" type="button" id="copiar">Copiar reparto por persona</button>
+      <label class="check" for="ocultar"><input type="checkbox" id="ocultar"> Ocultar hechas</label>
+      <button class="btn" type="button" id="copiar">Copiar reparto</button>
     </div>
     <div class="copia" id="copia" hidden>
       <label class="t-lbl" for="copia-txt">Reparto para pegar en el grupo</label>
       <textarea id="copia-txt" readonly></textarea>
     </div>
-    <p class="leyenda"><b>Decisión</b>: hay que definir algo antes de poder ejecutar. <b>Sugerida</b>: no estaba en la lista dictada; se sumó porque otra tarea depende de ella.</p>
   </section>
 
   <div id="fases"></div>
@@ -201,15 +204,15 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
 (function(){
   "use strict";
   var FASES = [
-    {k:"definiciones", n:"Definiciones de base", cuando:"Lo primero: de esto depende todo lo demás"},
-    {k:"herramientas", n:"Herramientas y conexiones", cuando:"Listo antes de abrir los registros"},
-    {k:"trafico", n:"Anuncios y tráfico", cuando:"Abre los registros"},
-    {k:"registro", n:"Landing, thank you y galería", cuando:"Listo antes de abrir los registros"},
-    {k:"calentamiento", n:"El grupo de WhatsApp hasta la clase", cuando:"Del primer registro al día de la clase"},
-    {k:"seteo", n:"Seteo antes de la clase", cuando:"Del primer registro al día de la clase"},
-    {k:"clase", n:"La clase", cuando:"Lista unos días antes"},
-    {k:"agenda", n:"Agenda y filtro de llamadas", cuando:"Listo antes de la clase"},
-    {k:"post", n:"Después de la clase", cuando:"Desde que termina la clase"}
+    {k:"definiciones", n:"Base"},
+    {k:"herramientas", n:"Herramientas"},
+    {k:"trafico", n:"Anuncios"},
+    {k:"registro", n:"Registro"},
+    {k:"calentamiento", n:"Grupo de WhatsApp"},
+    {k:"seteo", n:"Seteo"},
+    {k:"clase", n:"La clase"},
+    {k:"agenda", n:"Agenda"},
+    {k:"post", n:"Post clase"}
   ];
   var ESTADOS = [["pendiente","Pendiente"],["en-curso","En curso"],["bloqueado","Bloqueado"],["hecho","Hecho"]];
   var CHEV = '<svg class="t-chev" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -235,7 +238,7 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
   var tareas = new Map();
   var config = null, personas = [];
   var filtro = ls.get("lz_filtro", "todas");
-  var ocultar = !!ls.get("lz_ocultar", false);
+  var ocultar = !!ls.get("lz_ocultar", true);
   var abiertas = new Set(ls.get("lz_abiertas", []));
   var filas = new Map();
   var colas = new Map();
@@ -268,7 +271,7 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
     var sec = h("section", {cls:"fase", id:"fase-" + f.k},
       h("header", {cls:"fase-cab"},
         h("span", {cls:"fase-n", text:String(i+1), "aria-hidden":"true"}),
-        h("div", null, h("h2", {text:f.n}), h("p", {cls:"fase-cuando", text:f.cuando})),
+        h("h2", {text:f.n}),
         cnt),
       lista, vacio, nueva);
     cont.append(sec);
@@ -296,11 +299,11 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
   /* ---------- Filas ---------- */
   function opcionesResp(sel, actual){
     sel.textContent = "";
-    sel.append(h("option", {value:"", text:"Sin responsable"}));
+    sel.append(h("option", {value:"", text:"Sin dueño"}));
     var lista = personas.slice();
     if (actual && lista.indexOf(actual) < 0) lista.push(actual);
     lista.forEach(function(p){ sel.append(h("option", {value:p, text:p})); });
-    sel.append(h("option", {value:"__nueva", text:"+ Agregar persona…"}));
+    sel.append(h("option", {value:"__nueva", text:"+ Persona nueva"}));
     sel.value = actual || "";
   }
 
@@ -321,24 +324,26 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
     r.nueva = h("form", {cls:"t-nueva", hidden:true}, r.nuevaIn,
       h("button", {type:"submit", text:"Agregar"}),
       h("button", {type:"button", text:"Cancelar", onclick:function(){ cerrarNueva(r); }}));
-    r.ctrl = h("div", {cls:"t-ctrl"}, r.resp, r.nueva, r.estado, r.fecha);
+    r.ctrl = h("div", {cls:"t-ctrl"}, r.resp, r.nueva, r.estado);
 
     r.det = h("p", {cls:"t-det"});
-    r.titIn = h("input", {type:"text", id:"titulo-" + id});
+    r.titIn = h("input", {type:"text", id:"titulo-" + id, "aria-label":"Título de la tarea"});
+    r.titForm = h("div", {cls:"t-campo", hidden:true}, r.titIn);
     r.pasos = h("ul", {cls:"t-pasos"});
-    r.pasoIn = h("input", {type:"text", id:"paso-" + id, placeholder:"Agregar un paso", "aria-label":"Agregar un paso"});
-    r.addPaso = h("form", {cls:"t-addpaso"}, r.pasoIn, h("button", {type:"submit", text:"Agregar"}));
-    r.nota = h("textarea", {id:"nota-" + id, placeholder:"Avances, links, dudas…"});
-    r.del = h("button", {type:"button", text:"Eliminar tarea"});
+    r.pasoIn = h("input", {type:"text", id:"paso-" + id, placeholder:"Nuevo paso", "aria-label":"Nuevo paso"});
+    r.addPaso = h("form", {cls:"t-addpaso", hidden:true}, r.pasoIn, h("button", {type:"submit", text:"Agregar"}));
+    r.masPaso = h("button", {type:"button", cls:"mini", text:"+ Paso"});
+    r.nota = h("textarea", {id:"nota-" + id, placeholder:"Notas", "aria-label":"Notas"});
+    r.renom = h("button", {type:"button", text:"Renombrar"});
+    r.del = h("button", {type:"button", text:"Eliminar"});
     r.conf = h("span", {hidden:true}, "¿Eliminarla para todos? ",
       h("button", {type:"button", cls:"si", text:"Sí, eliminar", onclick:function(){ borrarTarea(id); }}),
       h("button", {type:"button", text:"No", onclick:function(){ r.conf.hidden = true; r.del.hidden = false; }}));
     r.body = h("div", {cls:"t-body", id:"tb-" + id, hidden:true},
-      r.det,
-      h("div", {cls:"t-campo"}, h("span", {cls:"t-lbl", text:"Pasos"}), r.pasos, r.addPaso),
-      h("div", {cls:"t-campo"}, h("label", {cls:"t-lbl", "for":"nota-" + id, text:"Notas"}), r.nota),
-      h("div", {cls:"t-campo"}, h("label", {cls:"t-lbl", "for":"titulo-" + id, text:"Título"}), r.titIn),
-      h("div", {cls:"t-acc"}, r.del, r.conf));
+      r.det, r.pasos, r.addPaso,
+      h("div", {cls:"t-linea"}, r.masPaso, h("label", {"for":"fecha-" + id, text:"Fecha límite"}), r.fecha),
+      r.nota, r.titForm,
+      h("div", {cls:"t-acc"}, r.renom, r.del, r.conf));
 
     r.li.append(h("div", {cls:"t-main"}, r.abrir, r.ctrl), r.body);
 
@@ -385,6 +390,10 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
       escribir(id, {pasos:arr(t.pasos).concat([v])}).then(function(){ r.pasoIn.value = ""; });
     };
     r.del.onclick = function(){ r.del.hidden = true; r.conf.hidden = false; };
+    r.masPaso.onclick = function(){ r.masPaso.hidden = true; r.addPaso.hidden = false; r.pasoIn.focus(); };
+    r.pasoIn.onkeydown = function(ev){ if (ev.key === "Escape"){ r.addPaso.hidden = true; r.masPaso.hidden = false; r.pasoIn.value = ""; r.masPaso.focus(); } };
+    r.renom.onclick = function(){ r.titForm.hidden = !r.titForm.hidden; if (!r.titForm.hidden) r.titIn.focus(); };
+    r.titIn.onkeydown = function(ev){ if (ev.key === "Enter"){ ev.preventDefault(); r.titIn.blur(); r.titForm.hidden = true; } if (ev.key === "Escape"){ r.titForm.hidden = true; } };
 
     if (abiertas.has(id)){ r.body.hidden = false; r.abrir.setAttribute("aria-expanded", "true"); }
     filas.set(id, r);
@@ -403,13 +412,14 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
     r.tit.textContent = str(t.titulo) || "Tarea sin título";
 
     r.meta.textContent = "";
-    if (t.tipo === "decision") r.meta.append(h("span", {cls:"b b-dec", text:"Decisión"}));
-    if (t.origen === "sugerida") r.meta.append(h("span", {cls:"b b-sug", text:"Sugerida"}));
+    if (t.tipo === "decision") r.meta.append(h("span", {cls:"b b-dec", text:"Decidir"}));
     if (pasos.length){
       var hechosOk = hechos.filter(function(i){ return i >= 0 && i < pasos.length; }).length;
-      r.meta.append(h("span", {text: hechosOk + "/" + pasos.length + " pasos"}));
+      r.meta.append(h("span", {text: hechosOk + "/" + pasos.length}));
     }
-    if (str(t.nota).trim()) r.meta.append(h("span", {text:"con notas"}));
+    if (t.fecha) r.meta.append(h("span", {cls: t.fecha < hoyISO() && estado !== "hecho" ? "vence" : "", text:"para el " + fmtCorta(t.fecha)}));
+    if (str(t.nota).trim()) r.meta.append(h("span", {text:"notas"}));
+    r.meta.hidden = !r.meta.childNodes.length;
 
     if (act !== r.resp){ opcionesResp(r.resp, resp); }
     if (act !== r.estado) r.estado.value = estado;
@@ -430,7 +440,7 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
         c.disabled = !puede;
         r.pasos.append(h("li", null, h("label", {"for":"p-" + id + "-" + i}, c, h("span", {text:String(p)}))));
       });
-      if (!pasos.length) r.pasos.append(h("li", {cls:"vacio", text:"Sin pasos cargados."}));
+      r.pasos.hidden = !pasos.length;
     }
     if (act !== r.nota && !r.notaSucia) r.nota.value = str(t.nota);
     bloquear(r);
@@ -484,10 +494,10 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
         if (v) vis++;
         if (e[1].estado === "hecho") hechas++;
       });
-      ref.cnt.textContent = items.length ? hechas + " de " + items.length + " hechas" : "";
+      ref.cnt.textContent = items.length ? hechas + "/" + items.length : "";
       if (!cargado){ ref.vacio.textContent = "Cargando…"; ref.vacio.hidden = false; }
-      else if (!items.length){ ref.vacio.textContent = "Sin tareas en esta fase todavía."; ref.vacio.hidden = false; }
-      else if (!vis){ ref.vacio.textContent = ocultar && filtro === "todas" ? "Todo lo de esta fase está hecho." : "Nada de esta fase con este filtro."; ref.vacio.hidden = false; }
+      else if (!items.length){ ref.vacio.textContent = "Vacío"; ref.vacio.hidden = false; }
+      else if (!vis){ ref.vacio.textContent = ocultar && filtro === "todas" ? "Todo hecho" : "Nada con este filtro"; ref.vacio.hidden = false; }
       else ref.vacio.hidden = true;
       ref.sec.hidden = cargado && filtro !== "todas" && !vis;
     });
@@ -506,14 +516,14 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
     });
     if (cargado){
       $("#prog-a").innerHTML = "";
-      $("#prog-a").append(h("b", {text:String(hechas)}), " de ", h("b", {text:String(total)}), " tareas hechas");
-      $("#prog-b").textContent = sin ? sin + (sin === 1 ? " tarea sigue" : " tareas siguen") + " sin responsable" : "Todas las tareas tienen responsable";
+      $("#prog-a").append(h("b", {text:hechas + "/" + total}), " hechas");
+      $("#prog-b").textContent = sin ? sin + " sin dueño" : "Todo tiene dueño";
     }
     $("#barra").style.width = total ? Math.round(hechas / total * 100) + "%" : "0";
 
     var gente = personas.slice();
     Object.keys(cuenta).forEach(function(p){ if (gente.indexOf(p) < 0) gente.push(p); });
-    var chips = [["todas", "Todas", total, ""], ["sin", "Sin responsable", sin, "alerta"], ["decisiones", "Decisiones abiertas", dec, ""]];
+    var chips = [["todas", "Todas", total, ""], ["sin", "Sin dueño", sin, "alerta"], ["decisiones", "Por decidir", dec, ""]];
     gente.forEach(function(p){ chips.push(["p:" + p, p, cuenta[p] || 0, ""]); });
     var validos = chips.map(function(c){ return c[0]; });
     if (validos.indexOf(filtro) < 0 && cargado) filtro = "todas";
@@ -534,10 +544,10 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
     var box = $("#cab-fecha"); box.textContent = "";
     if (!config || !config.clase){ box.append(h("strong", {text:"Fecha de la clase a confirmar"})); return; }
     box.append(h("strong", {text:str(config.clase)}));
-    if (config.provisoria) box.append(h("span", {cls:"pill", text:"Fecha provisoria"}));
+    if (config.provisoria) box.append(h("span", {cls:"pill", text:"provisoria"}));
     var t = Date.parse(str(config.claseISO));
     if (!isNaN(t)){
-      var dias = Math.ceil((t - Date.now()) / 864e5);
+      var dias = Math.floor((t - Date.now()) / 864e5);
       var txt = dias > 1 ? "Faltan " + dias + " días" : dias === 1 ? "Falta 1 día" : dias === 0 ? "Es hoy" : null;
       if (txt) box.append(h("span", {cls:"pill oro", text:txt}));
     }
@@ -597,7 +607,7 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
     puede = false;
     document.documentElement.classList.add("solo-lectura");
     filas.forEach(bloquear);
-    aviso("Estás viendo el tablero en modo lectura. Para cambiar responsables o estados hace falta permiso de Colaborador.");
+    aviso("Solo lectura. Para editar hace falta permiso de Colaborador.");
   }
 
   /* ---------- Copiar reparto ---------- */
@@ -606,17 +616,17 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
     personas.forEach(function(p){ grupos.set(p, []); });
     ordenadas().forEach(function(e){
       var t = e[1]; if (t.estado === "hecho") return;
-      var k = str(t.responsable) || "Sin responsable";
+      var k = str(t.responsable) || "Sin dueño";
       if (!grupos.has(k)) grupos.set(k, []);
       var extra = t.estado === "en-curso" ? " (en curso)" : t.estado === "bloqueado" ? " (bloqueada)" : "";
       if (t.fecha) extra += " · para el " + fmtCorta(t.fecha);
       grupos.get(k).push("· " + str(t.titulo) + extra);
     });
-    var sin = grupos.get("Sin responsable"); grupos.delete("Sin responsable");
+    var sin = grupos.get("Sin dueño"); grupos.delete("Sin dueño");
     var out = ["Lanzamiento de la clase de Daniele"];
     if (config && config.clase) out.push(str(config.clase) + (config.provisoria ? " (fecha provisoria)" : ""));
     grupos.forEach(function(items, p){ if (items.length){ out.push("", p.toUpperCase()); out = out.concat(items); } });
-    if (sin && sin.length){ out.push("", "SIN RESPONSABLE"); out = out.concat(sin); }
+    if (sin && sin.length){ out.push("", "SIN DUEÑO"); out = out.concat(sin); }
     return out.join("\n");
   }
   $("#copiar").onclick = function(){
