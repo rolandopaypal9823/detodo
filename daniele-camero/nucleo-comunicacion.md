@@ -30,8 +30,8 @@ La versión corta se repite en anuncios, grupo de WhatsApp y clase: más de 21 v
 ## Los 3 pilares de la clase (método MAE de Daniele)
 | Pilar | Dolor que toca | Frase espejo |
 |---|---|---|
-| Estándares | Lo que se decía de la plata en casa | Ganas más que tu casa entera. Tu cuenta todavía obedece la frase de tu casa. |
-| Medio ambiente | Miedo a perder lo ganado | No es que no sepas ganar. Es que no te dejas tener lo que ya ganaste. |
+| Estándares | Lo que se decía de la plata en casa | Generas más que tu casa entera. Tu cuenta todavía obedece la frase de tu casa. |
+| Medio ambiente | Miedo a perder lo ganado | Sabes generar dinero. Lo que no te permites es quedarte con él. |
 | Asociación | Pares y mentor (lleva a la oferta) | El que cambia su círculo cambia su techo. |
 
 ## Ángulos para anuncios
