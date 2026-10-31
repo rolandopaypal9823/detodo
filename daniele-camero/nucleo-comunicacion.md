@@ -9,8 +9,8 @@ Personas que ya ganan entre $3K y $30K al mes (muchos operan trading o construye
 | | |
 |---|---|
 | **Título** | Rompe tu techo y multiplica tus resultados reprogramando tu mente |
-| **Subtítulo** | Tu termostato financiero decide cuánto ganas. Por eso llegas a tu meta y al mes siguiente vuelves al mismo número. |
-| **One Belief** | No ganas lo que trabajas. Ganas lo que tu termostato te permite. |
+| **Subtítulo** | Tu mente está acondicionada para un nivel exacto de dinero. Hasta que no reprogrames tu termostato financiero, tus resultados no van a cambiar. |
+| **One Belief** | No vas a generar más porque cambien tus acciones. Vas a generar más porque cambia tu termostato financiero. |
 
 El One Belief se repite en anuncios, grupo de WhatsApp y clase: más de 21 veces, con distintas palabras. En la clase se completa con la parte que lleva a la oferta: ese número no se ve desde adentro, por eso hace falta un mentor.
 
