@@ -16,7 +16,7 @@ Latino de 22 a 50+ años que ya gana $3K–$30K al mes (5 de 6 operan trading o 
 - **One Belief:** Tus ingresos siempre vuelven al número que marca tu termostato financiero. Y ese termostato no se ve desde adentro: se eleva con el entorno y el mentor correctos.
 - **Frase para repetir:** No es que no sepas ganar. Es que tu termostato no te deja quedarte con lo que ganas.
 - **Título:** Rompe tu techo y multiplica tus resultados reprogramando tu mente
-- **Subtítulo:** Para quienes ya ganan bien y, cada vez que pasan su número, sienten que algo los devuelve: el termostato financiero que no se ve desde adentro, y cómo hacer que tu nuevo número sea lo normal.
+- **Subtítulo:** Para quienes ya ganan bien y, cada vez que pasan su número, sienten que algo los devuelve: el termostato financiero que no se ve desde adentro, y cómo hacer que el nuevo número sea lo normal.
 
 ## Pilares (método MAE) cruzados con los dolores del avatar
 | Pilar | Dolor del avatar | Frase espejo |
