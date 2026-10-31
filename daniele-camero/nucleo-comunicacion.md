@@ -42,11 +42,8 @@ La versión corta se repite en anuncios, grupo de WhatsApp y clase: más de 21 v
 | 3 | En Atlanta, el aire acondicionado siempre vuelve a 70 grados. Tu cuenta funciona igual. | historia | curiosidad |
 | 4 | Si un mes generas más de lo normal, tu mente busca cómo volver al número de siempre. | error | espejo |
 | 5 | Haciendo lo mismo que ya haces, puedes generar más. Lo que tiene que cambiar es tu termostato. | nivel | deseo |
-| 6 | Hay gente que genera más que toda su familia y su cuenta todavía obedece la frase de su casa. | tipo | reconocimiento |
-| 7 | No quieres un mes récord. Quieres que ese mes sea lo normal. | nivel | deseo |
-| 8 | No te falta estrategia. Te falta la persona que aprieta el gatillo. | tipo | desafío (traders) |
 
-Los ganchos 2, 3 y 5 salen casi textuales del video del termostato. En anuncios, no afirmar la situación financiera de quien mira (política de Meta sobre atributos personales): por eso el 6 va en tercera persona.
+Los ganchos 2, 3 y 5 salen casi textuales del video del termostato. En anuncios, no afirmar la situación financiera de quien mira (política de Meta sobre atributos personales).
 
 ## Palabras
 - **Usar:** generar (Daniele dice «generar», casi nunca «ganar»), multiplicar tus resultados, techo, termostato financiero, riqueza real, reprogramar tu mente, sostener, escalar. Siempre «tú».
