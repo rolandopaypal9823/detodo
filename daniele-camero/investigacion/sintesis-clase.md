@@ -15,7 +15,7 @@ Latino de 22 a 50+ años que ya gana $3K–$30K al mes (5 de 6 operan trading o 
 ## Núcleo
 - **One Belief:** No ganas lo que trabajas. Ganas lo que tu termostato te permite.
 - **Título:** Rompe tu techo y multiplica tus resultados reprogramando tu mente
-- **Subtítulo:** Por qué cada vez que pasas tu número algo te devuelve, y cómo elevar el termostato financiero que lo decide.
+- **Subtítulo:** Tu termostato financiero decide cuánto ganas. Por eso llegas a tu meta y al mes siguiente vuelves al mismo número.
 
 ## Pilares (método MAE) cruzados con los dolores del avatar
 | Pilar | Dolor del avatar | Frase espejo |
