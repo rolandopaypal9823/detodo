@@ -11,8 +11,9 @@ Personas que ya ganan entre $3K y $30K al mes (muchos operan trading o construye
 | **Título** | Rompe tu techo y multiplica tus resultados reprogramando tu mente |
 | **Subtítulo** | Tu mente está acondicionada para un nivel exacto de dinero. Hasta que no reprogrames tu termostato financiero, tus resultados no van a cambiar. |
 | **One Belief** | No vas a generar más porque cambien tus acciones. Vas a generar más porque cambia tu termostato financiero. |
+| **One Belief corto** | No generas lo que trabajas. Generas lo que tu termostato te permite. |
 
-El One Belief se repite en anuncios, grupo de WhatsApp y clase: más de 21 veces, con distintas palabras. En la clase se completa con la parte que lleva a la oferta: ese número no se ve desde adentro, por eso hace falta un mentor.
+La versión corta se repite en anuncios, grupo de WhatsApp y clase: más de 21 veces, con distintas palabras. En la clase se completa con la parte que lleva a la oferta: ese número no se ve desde adentro, por eso hace falta un mentor.
 
 ## El mecanismo: termostato financiero
 - **Qué es:** el número de dinero que tu mente tiene fijado. Si bajas, te empuja a recuperarlo. Si lo pasas, te devuelve.
@@ -46,6 +47,6 @@ El One Belief se repite en anuncios, grupo de WhatsApp y clase: más de 21 veces
 | 8 | El que cambia su círculo cambia su techo. | nivel | aspiración |
 
 ## Palabras
-- **Usar:** multiplicar tus resultados, techo, termostato financiero, riqueza real, reprogramar tu mente, sostener, escalar. Siempre «tú».
+- **Usar:** generar (Daniele dice «generar», casi nunca «ganar»), multiplicar tus resultados, techo, termostato financiero, riqueza real, reprogramar tu mente, sostener, escalar. Siempre «tú».
 - **Evitar:** siguiente nivel, desbloquear, autosabotaje, «vos», empezar de cero. En anuncios fríos, evitar el vocabulario aprendido («frecuencia», «derecho divino»).
 - **No usar en anuncios:** aprender trading, señales, fondeo, pobreza, «cambia en un segundo», la lotería, cifras de ingresos.
