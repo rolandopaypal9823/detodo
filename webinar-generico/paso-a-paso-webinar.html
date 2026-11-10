@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Paso a paso del webinar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: una columna. Arriba el paso a paso con casillas (7 etapas), abajo la calculadora del embudo. */
+:root{
+  --bg:#F4F3EF; --panel:#FFFFFF; --panel2:#EEEDE8; --line:#DEDCD4; --ink:#17181C; --muted:#5D5F66; --faint:#8A8C92;
+  --acc:#1F5F57; --acc-soft:#E3EFEC; --on-acc:#FFFFFF;
+  --ok:#2E7D4F; --warn:#A86A12; --bad:#B23A2E;
+  --f:"Archivo","Helvetica Neue",Arial,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#111315; --panel:#191C1F; --panel2:#22262A; --line:#30353A; --ink:#EDEDEA; --muted:#A5A8AD; --faint:#7C8086;
+    --acc:#5CC3B4; --acc-soft:#1C3330; --on-acc:#0E1413;
+    --ok:#6FCB93; --warn:#E3B04F; --bad:#EE7B6E;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--f);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 72px}
+.wrap{max-width:980px;margin:0 auto;display:grid;gap:56px}
+h1,h2,h3{margin:0;line-height:1.1;text-wrap:balance}
+h1{font-size:clamp(2.1rem,6vw,3.2rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.45rem,3.4vw,1.9rem);font-weight:700;letter-spacing:-.01em}
+p{margin:0}
+.eyebrow{font-size:.74rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--acc)}
+.lead{color:var(--muted);font-size:1.08rem;max-width:62ch}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:4px}
+section{display:grid;gap:18px}
+.sec-head{display:grid;gap:8px}
+.sec-head p{color:var(--muted);max-width:66ch}
+
+/* Encabezado */
+header{display:grid;gap:14px}
+.summary{display:flex;flex-wrap:wrap;gap:8px}
+.summary span{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:.9rem;color:var(--muted)}
+.summary b{color:var(--ink);font-weight:600}
+
+/* Paso a paso */
+.prog{display:grid;gap:8px}
+.prog-row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:.95rem;color:var(--muted)}
+.prog-row b{color:var(--ink)}
+.bar{height:8px;background:var(--panel2);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:inherit;transition:width .3s}
+.phases{display:grid;gap:14px}
+.ph{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px 10px}
+.ph-h{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 14px;align-items:baseline;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.ph-n{font-family:var(--mono);font-size:1.4rem;color:var(--acc);grid-row:span 2}
+.ph-h h3{font-size:1.25rem;font-weight:700}
+.ph-goal{grid-column:2;color:var(--muted);font-size:.92rem}
+.ph-when{grid-row:1;grid-column:3;font-size:.8rem;font-weight:600;color:var(--acc);background:var(--acc-soft);border-radius:999px;padding:3px 11px;white-space:nowrap}
+.ph-count{grid-column:3;justify-self:end;font-size:.82rem;color:var(--faint)}
+.ph ul{list-style:none;margin:0;padding:4px 0 0}
+.ph li{border-bottom:1px dashed var(--line)}
+.ph li:last-child{border-bottom:0}
+.ph label{display:flex;align-items:center;gap:12px;padding:10px 0;cursor:pointer}
+.ph input[type=checkbox]{flex:none;width:20px;height:20px;accent-color:var(--acc);margin:0}
+.ph .t{flex:1;min-width:0}
+.ph input:checked ~ .t{color:var(--faint);text-decoration:line-through}
+.who{flex:none;font-size:.78rem;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font-weight:600;font-size:.92rem;border-radius:9px;padding:10px 16px;cursor:pointer;border:1px solid var(--acc);background:var(--acc);color:var(--on-acc)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--acc)}
+.confirm{font-size:.9rem;color:var(--muted);display:inline-flex;gap:8px;align-items:center}
+
+/* Calculadora */
+.target{border:1px solid var(--acc);border-radius:14px;padding:20px;background:var(--panel);display:grid;gap:16px}
+.target-row{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end}
+.field{display:grid;gap:6px;font-size:.86rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-weight:600;font-size:.95rem;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:var(--on-acc)}
+.inp{display:inline-flex;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.inp input{width:6.4rem;background:transparent;border:0;padding:9px 10px;text-align:right;font-family:var(--mono);font-size:.98rem}
+.inp span{color:var(--faint);padding:0 10px;font-size:.88rem}
+.note{font-size:.93rem;color:var(--muted)}
+.note b{color:var(--ink);font-weight:600}
+.alert{border-radius:10px;padding:12px 14px;font-size:.94rem}
+.alert.bad{border:1px solid var(--bad);color:var(--ink);background:color-mix(in srgb,var(--bad) 10%,transparent)}
+.alert.ok{border:1px solid var(--ok);color:var(--ink);background:color-mix(in srgb,var(--ok) 10%,transparent)}
+.grid-in{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.cell{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:11px 12px;display:grid;gap:6px;min-width:0;align-content:start}
+.cell .lab{font-size:.85rem;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.cell .inp,.cell .inp input{width:100%}
+.cell .ref{font-size:.74rem;color:var(--faint)}
+.lvl{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.lvl.ok{color:var(--ok)}.lvl.warn{color:var(--warn)}.lvl.bad{color:var(--bad)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:12px 14px}
+.kpi small{display:block;font-size:.78rem;color:var(--muted)}
+.kpi b{font-family:var(--mono);font-weight:500;font-size:1.35rem}
+.kpi.main{border-color:var(--acc)} .kpi.main b{color:var(--acc)}
+.funnel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px;overflow-x:auto}
+.funnel table{width:100%;border-collapse:collapse;font-size:.93rem;min-width:480px}
+.funnel th{text-align:left;font-weight:600;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);padding:6px 8px;border-bottom:1px solid var(--line)}
+.funnel td{padding:7px 8px;border-bottom:1px solid var(--line)}
+.funnel tr:last-child td{border-bottom:0}
+.funnel td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
+.funnel td.sub{color:var(--muted);padding-left:22px}
+.fbar{height:8px;border-radius:4px;background:var(--panel2);min-width:90px}
+.fbar i{display:block;height:100%;border-radius:4px;background:var(--acc)}
+.foot,footer{font-size:.82rem;color:var(--faint)}
+footer{border-top:1px solid var(--line);padding-top:16px}
+@media (max-width:600px){
+  .ph{padding:16px 14px 8px}
+  .ph-h{grid-template-columns:auto minmax(0,1fr)}
+  .ph-when{grid-row:auto;grid-column:2;justify-self:start}
+  .ph-count{grid-column:2;justify-self:start}
+  .ph label{flex-wrap:wrap}
+  .who{margin-left:32px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">Embudo de webinar · cualquier negocio</span>
+  <h1>Paso a paso del webinar</h1>
+  <p class="lead">Lo que hay que hacer en cada etapa, quién lo hace y cuándo. Abajo, la calculadora para saber cuánto invertir y qué tiene que lograr cada fase.</p>
+  <div class="summary" aria-live="polite">
+    <span>Pasos hechos <b class="num" id="s-hechos">0/0</b></span>
+    <span>Inversión <b class="num" data-out="inv$">—</b></span>
+    <span>Cierres <b class="num" data-out="cie">—</b></span>
+    <span>Cash <b class="num" data-out="cash$">—</b></span>
+    <span>ROAS <b class="num" data-out="roas">—</b></span>
+  </div>
+</header>
+
+<section aria-labelledby="t-pasos">
+  <div class="sec-head">
+    <span class="eyebrow">01 · Checklist</span>
+    <h2 id="t-pasos">El paso a paso</h2>
+    <p>D0 es el día de la clase. Las casillas se guardan en este navegador.</p>
+  </div>
+  <div class="prog">
+    <div class="prog-row"><span><b class="num" id="p-hechos">0</b> de <b class="num" id="p-total">0</b> pasos hechos</span><span id="p-pct" class="num">0%</span></div>
+    <div class="bar" aria-hidden="true"><i id="p-bar"></i></div>
+  </div>
+  <div class="phases" id="phases"></div>
+  <div class="tools">
+    <button type="button" class="btn ghost" id="b-reset">Empezar un webinar nuevo</button>
+    <span class="confirm" id="reset-confirm" hidden>¿Desmarcar todas las casillas?
+      <button type="button" class="btn" id="b-reset-ok">Sí, desmarcar</button>
+      <button type="button" class="btn ghost" id="b-reset-no">No</button>
+    </span>
+  </div>
+</section>
+
+<section aria-labelledby="t-calc">
+  <div class="sec-head">
+    <span class="eyebrow">02 · Proyección</span>
+    <h2 id="t-calc">Calculadora</h2>
+    <p>Elegí el ROAS que buscás y cuánto querés cobrar por webinar: la calculadora te dice cuánto invertir y qué porcentaje tiene que lograr cada fase. También podés cargar tus propios números.</p>
+  </div>
+
+  <div class="target">
+    <div class="target-row">
+      <div class="field">ROAS objetivo
+        <div class="chips" role="group" aria-label="ROAS objetivo">
+          <button type="button" class="chip" data-roas="3">x3</button>
+          <button type="button" class="chip" data-roas="4">x4</button>
+          <button type="button" class="chip" data-roas="5">x5</button>
+          <button type="button" class="chip" data-roas="10">x10</button>
+        </div>
+      </div>
+      <label class="field" for="roas-in">Otro ROAS
+        <span class="inp"><span>x</span><input id="roas-in" type="number" min="0.5" step="0.5" inputmode="decimal" value="4"></span>
+      </label>
+      <label class="field" for="meta-in">Meta de cash por webinar
+        <span class="inp"><span>USD</span><input id="meta-in" type="number" min="0" step="1000" inputmode="decimal" value="20000"></span>
+      </label>
+    </div>
+    <div class="tools">
+      <button type="button" class="btn" id="b-auto">Calcular lo necesario</button>
+      <button type="button" class="btn ghost" id="b-base">Base de mercado</button>
+      <button type="button" class="btn ghost" id="b-blank">En blanco</button>
+    </div>
+    <p class="note" id="auto-msg" aria-live="polite">Usa el costo por registro y el ticket de abajo. ROAS = cash cobrado ÷ inversión en pauta.</p>
+    <div id="auto-alert" aria-live="polite"></div>
+  </div>
+
+  <div class="grid-in" id="inputs"></div>
+
+  <div class="kpis">
+    <div class="kpi main"><small>ROAS</small><b data-out="roas">—</b></div>
+    <div class="kpi"><small>Cash por webinar</small><b data-out="cash$">—</b></div>
+    <div class="kpi"><small>Ganancia (cash − pauta)</small><b data-out="gan$">—</b></div>
+    <div class="kpi"><small>Cierres</small><b data-out="cie">—</b></div>
+    <div class="kpi"><small>Costo por cierre</small><b data-out="cac$">—</b></div>
+    <div class="kpi"><small>Costo por agenda</small><b data-out="cpa$">—</b></div>
+    <div class="kpi"><small>Costo por asistente</small><b data-out="cpas$">—</b></div>
+  </div>
+
+  <div class="funnel">
+    <table>
+      <thead><tr><th>Fase</th><th style="text-align:right">Personas</th><th style="width:40%">Volumen</th></tr></thead>
+      <tbody id="ftable"></tbody>
+    </table>
+  </div>
+  <p class="foot">Barras en escala logarítmica, para que las fases chicas se vean. Las tasas de piso, base y techo son referencias estimadas para un webinar de ticket alto: reemplazalas por los datos reales de cada lanzamiento.</p>
+</section>
+
+<footer>Paso a paso del webinar · plantilla genérica. Se apoya en Funnel 400 (curiosidad, espejo, causa oculta con nombre) y en la escalera de acuerdos de Dan Henry.</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+function ls(k,d){try{var v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+/* ═══ Paso a paso ═══ */
+var FASES=[
+ {t:"Base",w:"Antes de abrir registros",g:"Que todo el embudo diga lo mismo.",it:[
+  ["Fecha y hora confirmadas","Experto"],
+  ["Título y One Belief de la clase","Marketing"],
+  ["5 ángulos para anuncios","Marketing"],
+  ["Link de la sala de la clase","Operaciones"]]},
+ {t:"Herramientas",w:"Antes de abrir registros",g:"Que ningún registro se pierda.",it:[
+  ["Grupo de WhatsApp con los mensajes programados","Operaciones"],
+  ["WhatsApp API con botón de desuscribirse","Operaciones"],
+  ["Formulario del CRM con UTM y respuestas en campos ocultos","Operaciones"],
+  ["Registro enviado por API de conversiones","Ads"]]},
+ {t:"Registro",w:"Antes de abrir registros",g:"Filtrar desde el primer clic.",it:[
+  ["Landing: título, hora, autoridad, prueba y quiz de 2 o 3 preguntas","Marketing"],
+  ["Thank you: grupo de WhatsApp, video y calendario","Marketing"],
+  ["Recurso previo a la clase enlazado en la thank you","Marketing"],
+  ["Un registro de prueba de punta a punta","Operaciones"]]},
+ {t:"Anuncios",w:"Una semana antes · D-7",g:"Hablarle al que ya puede pagar.",it:[
+  ["Guiones con los ángulos","Contenido"],
+  ["Revisión de los guiones","Marketing"],
+  ["Grabación","Experto"],
+  ["Edición","Contenido"],
+  ["Pauta: arranca baja y sube los últimos 2 o 3 días","Ads"],
+  ["Historias o posts con su UTM","Contenido"]]},
+ {t:"Calentamiento",w:"D-5 a D-1",g:"Que llegue a la clase con su diagnóstico hecho.",it:[
+  ["Mensaje 1 a 1 apenas se registra","Operaciones"],
+  ["Un mensaje por día en el grupo, con recap del anterior","Comunicación"],
+  ["Encuestas sobre lo que ya les pasó","Comunicación"],
+  ["Video del experto 1 a 1, dos días antes","Experto"],
+  ["Confirmar asistencia por privado","Setter"]]},
+ {t:"Día de la clase",w:"D0",g:"Que digan que sí muchas veces y agenden.",it:[
+  ["Recordatorios: mañana, 3 h, 1 h, 10 min y en vivo","Comunicación"],
+  ["Apertura: historia, marco y aviso de la invitación y el Q&A","Experto"],
+  ["3 pilares: espejo, la causa oculta y un caso","Experto"],
+  ["Pitch con cupos reales y una sola acción: agendar","Experto"],
+  ["Un minuto para agendar y Q&A","Experto"],
+  ["Link de agenda en el chat y en el grupo","Setter"]]},
+ {t:"Después de la clase",w:"D+1 a D+7",g:"Que ninguna agenda se enfríe.",it:[
+  ["Mensaje 1 a 1 a todos con el link de agenda","Setter"],
+  ["Seguimiento con la grabación","Setter"],
+  ["Triaje de quienes no califican","Setter"],
+  ["Confirmar cada llamada 24 h antes","Setter"],
+  ["Cargar los números reales en la calculadora","Ads"],
+  ["Repetir los anuncios ganadores con variaciones","Ads"]]}
+];
+var KC="webinar-generico-checklist";
+var hechos=ls(KC,{}); if(!hechos||typeof hechos!=="object") hechos={};
+var phEl=document.getElementById("phases");
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+phEl.innerHTML=FASES.map(function(f,i){
+  return '<div class="ph"><div class="ph-h"><span class="ph-n">'+(i+1)+'</span><h3>'+esc(f.t)+'</h3><span class="ph-when">'+esc(f.w)+'</span>'+
+   '<p class="ph-goal">'+esc(f.g)+'</p><span class="ph-count num" data-cnt="'+i+'"></span></div><ul>'+
+   f.it.map(function(x,j){var id="c-"+i+"-"+j;return '<li><label for="'+id+'"><input type="checkbox" id="'+id+'" data-c="'+i+"-"+j+'"'+(hechos[i+"-"+j]?" checked":"")+'><span class="t">'+esc(x[0])+'</span><span class="who">'+esc(x[1])+'</span></label></li>'}).join("")+
+   '</ul></div>';
+}).join("");
+function contar(){
+  var tot=0,ok=0;
+  FASES.forEach(function(f,i){var c=0;f.it.forEach(function(x,j){tot++;if(hechos[i+"-"+j]){ok++;c++}});
+    document.querySelector('[data-cnt="'+i+'"]').textContent=c+"/"+f.it.length;});
+  document.getElementById("p-hechos").textContent=ok;
+  document.getElementById("p-total").textContent=tot;
+  var pct=tot?Math.round(ok/tot*100):0;
+  document.getElementById("p-pct").textContent=pct+"%";
+  document.getElementById("p-bar").style.width=pct+"%";
+  document.getElementById("s-hechos").textContent=ok+"/"+tot;
+}
+phEl.addEventListener("change",function(e){var c=e.target.dataset&&e.target.dataset.c;if(!c)return;
+  if(e.target.checked)hechos[c]=1;else delete hechos[c];lsSet(KC,hechos);contar();});
+var rc=document.getElementById("reset-confirm"),rb=document.getElementById("b-reset");
+rb.onclick=function(){rb.hidden=true;rc.hidden=false};
+document.getElementById("b-reset-no").onclick=function(){rc.hidden=true;rb.hidden=false};
+document.getElementById("b-reset-ok").onclick=function(){hechos={};lsSet(KC,hechos);
+  document.querySelectorAll("[data-c]").forEach(function(c){c.checked=false});rc.hidden=true;rb.hidden=false;contar();};
+contar();
+
+/* ═══ Calculadora: palancas con piso / base / techo ═══ */
+var L={
+  land:  {lab:"Visita → registro",u:"%",piso:15,base:25,techo:40},
+  grupo: {lab:"Registro → grupo de WhatsApp",u:"%",piso:70,base:80,techo:92},
+  asist: {lab:"Grupo → asisten a la clase",u:"%",piso:18,base:25,techo:45},
+  agc:   {lab:"Asistente → agenda",u:"%",piso:7,base:12,techo:25},
+  rasc:  {lab:"Agendas extra en el seguimiento (+% sobre las de la clase)",u:"%",piso:10,base:25,techo:50},
+  show:  {lab:"Agenda → asiste a la llamada",u:"%",piso:50,base:60,techo:80},
+  calif: {lab:"Llamadas calificadas",u:"%",piso:60,base:75,techo:90},
+  cierre:{lab:"Cierre sobre calificadas",u:"%",piso:30,base:45,techo:60}
+};
+var FIJOS={inv:{lab:"Inversión en pauta por webinar",u:"USD"},cpl:{lab:"Costo por registro",u:"USD"},ticket:{lab:"Cash por cierre (ticket promedio)",u:"USD"}};
+var DEF={inv:5000,cpl:15,ticket:2000};
+var ORDEN=["inv","cpl","ticket","land","grupo","asist","agc","rasc","show","calif","cierre"];
+var KS="webinar-generico-calc";
+function base(){var o={};ORDEN.forEach(function(k){o[k]=L[k]?L[k].base:DEF[k]});return o}
+var S=ls(KS,null); if(!S||typeof S!=="object"||!Object.keys(S).length) S=null;
+function guardar(){lsSet(KS,S)}
+
+var nf0=new Intl.NumberFormat("es-AR",{maximumFractionDigits:0}),nf1=new Intl.NumberFormat("es-AR",{maximumFractionDigits:1});
+function v(x){return typeof x==="number"&&isFinite(x)}
+function N(x){return v(x)?nf0.format(Math.round(x)):"—"}
+function N1(x){return v(x)?nf1.format(x):"—"}
+function D(x){return v(x)?"$"+nf0.format(Math.round(x)):"—"}
+
+function calc(s){
+  var r={},p=function(k){return v(s[k])?s[k]/100:NaN};
+  r.reg=s.inv/s.cpl; r.vis=r.reg/p("land"); r.gru=r.reg*p("grupo"); r.asi=r.gru*p("asist");
+  r.agCla=r.asi*p("agc"); r.agRas=r.agCla*p("rasc"); r.ag=r.agCla+r.agRas;
+  r.lla=r.ag*p("show"); r.cal=r.lla*p("calif"); r.noc=r.lla-r.cal; r.cie=r.cal*p("cierre");
+  r.cash=r.cie*s.ticket; r.roas=r.cash/s.inv; r.gan=r.cash-s.inv;
+  r.cac=s.inv/r.cie; r.cpa=s.inv/r.ag; r.cpas=s.inv/r.asi;
+  return r;
+}
+function tasas(t){var o={};Object.keys(L).forEach(function(k){var l=L[k];o[k]=t>=0?l.base+(l.techo-l.base)*t:l.base+(l.base-l.piso)*t});return o}
+function cashPorRegistro(t,ticket){var s=tasas(t);s.inv=1000;s.cpl=1;s.ticket=ticket;var r=calc(s);return r.cash/r.reg}
+function nivel(k,x){var l=L[k];if(!l||!v(x))return null;if(x<=l.base+1e-9)return["ok","realista"];if(x<l.techo-1e-9)return["warn","exigente"];return["bad","techo"]}
+
+var inEl=document.getElementById("inputs");
+inEl.innerHTML=ORDEN.map(function(k){var d=L[k]||FIJOS[k];
+  var ref=L[k]?'<span class="ref">piso '+N1(L[k].piso)+' · base '+N1(L[k].base)+' · techo '+N1(L[k].techo)+'</span>':"";
+  return '<div class="cell"><label class="lab" for="in-'+k+'"><span>'+d.lab+'</span><span class="lvl" data-lvl="'+k+'"></span></label>'+
+    '<span class="inp"><input type="number" step="any" min="0" inputmode="decimal" id="in-'+k+'" data-k="'+k+'"><span>'+d.u+'</span></span>'+ref+'</div>';
+}).join("");
+function leerInputs(){document.querySelectorAll("input[data-k]").forEach(function(el){var k=el.dataset.k;el.value=v(S[k])?+(+S[k]).toFixed(2):""})}
+inEl.addEventListener("input",function(e){var el=e.target;if(!el.dataset.k)return;var x=el.value===""?null:parseFloat(el.value);S[el.dataset.k]=v(x)?x:null;pintar();guardar()});
+
+var FT=[["Visitas a la landing","vis"],["Registros","reg"],["En el grupo de WhatsApp","gru"],["Asistentes a la clase","asi"],
+  ["Agendas totales","ag"],["en la clase","agCla",1],["en el seguimiento","agRas",1],
+  ["Llamadas hechas","lla"],["no calificadas","noc",1],["calificadas","cal",1],["Cierres","cie"]];
+function pintar(){
+  var r=calc(S);
+  var out={"inv$":D(S.inv),"cash$":D(r.cash),"gan$":D(r.gan),"cac$":D(r.cac),"cpa$":D(r.cpa),"cpas$":D(r.cpas),roas:v(r.roas)?"x"+N1(r.roas):"—",cie:v(r.cie)?N1(r.cie):"—"};
+  document.querySelectorAll("[data-out]").forEach(function(el){el.textContent=out[el.dataset.out]!=null?out[el.dataset.out]:"—"});
+  Object.keys(L).forEach(function(k){var el=document.querySelector('[data-lvl="'+k+'"]'),n=nivel(k,S[k]);el.className="lvl"+(n?" "+n[0]:"");el.textContent=n?n[1]:""});
+  var max=v(r.vis)?r.vis:(v(r.reg)?r.reg:0);
+  document.getElementById("ftable").innerHTML=FT.map(function(row){var x=r[row[1]],w=v(x)&&max>0?Math.max(2,Math.log(x+1)/Math.log(max+1)*100):0;
+    return '<tr><td'+(row[2]?' class="sub"':'')+'>'+row[0]+'</td><td class="n">'+(row[1]==="cie"?N1(x):N(x))+'</td><td><div class="fbar"><i style="width:'+w+'%"></i></div></td></tr>'}).join("");
+}
+
+var roasIn=document.getElementById("roas-in"),metaIn=document.getElementById("meta-in"),chips=document.querySelectorAll(".chip");
+function marcarChip(){chips.forEach(function(c){c.setAttribute("aria-pressed",String(+c.dataset.roas===+roasIn.value))})}
+chips.forEach(function(c){c.addEventListener("click",function(){roasIn.value=c.dataset.roas;marcarChip();autollenar()})});
+roasIn.addEventListener("input",marcarChip);
+function limpiarAlerta(){var a=document.getElementById("auto-alert");a.className="";a.innerHTML=""}
+function autollenar(){
+  var roas=parseFloat(roasIn.value),meta=parseFloat(metaIn.value);
+  var cpl=v(S.cpl)&&S.cpl>0?S.cpl:DEF.cpl,ticket=v(S.ticket)&&S.ticket>0?S.ticket:DEF.ticket;
+  var a=document.getElementById("auto-alert"),msg=document.getElementById("auto-msg");
+  if(!v(roas)||roas<=0){msg.textContent="Elegí un ROAS objetivo.";return}
+  var need=roas*cpl,lo=-1,hi=1,t,estado="ok";
+  if(cashPorRegistro(1,ticket)<need){t=1;estado="imposible"}
+  else if(cashPorRegistro(-1,ticket)>=need){t=-1;estado="sobra"}
+  else{for(var i=0;i<60;i++){t=(lo+hi)/2;if(cashPorRegistro(t,ticket)<need)lo=t;else hi=t}t=hi}
+  var tz=tasas(t);Object.keys(tz).forEach(function(k){S[k]=Math.round(tz[k]*10)/10});
+  S.cpl=cpl;S.ticket=ticket;
+  if(v(meta)&&meta>0)S.inv=Math.round(meta/roas);else if(!v(S.inv))S.inv=DEF.inv;
+  leerInputs();pintar();guardar();
+  var r=calc(S);
+  msg.innerHTML="Para <b>ROAS x"+N1(roas)+"</b> con costo por registro <b>"+D(cpl)+"</b> y ticket <b>"+D(ticket)+"</b>: invertir <b>"+D(S.inv)+"</b> → "+N(r.reg)+" registros → "+N(r.asi)+" asistentes → "+N(r.ag)+" agendas → <b>"+N1(r.cie)+" cierres</b> → <b>"+D(r.cash)+"</b>.";
+  if(estado==="imposible"){
+    var maxR=cashPorRegistro(1,ticket)/cpl,cplMax=cashPorRegistro(1,ticket)/roas,tkt=need/cashPorRegistro(1,1);
+    a.className="alert bad";
+    a.innerHTML="<b>No llega ni con todas las fases en el techo.</b> Con costo por registro "+D(cpl)+" y ticket "+D(ticket)+" el máximo es <b>x"+N1(maxR)+"</b>. Para x"+N1(roas)+" hace falta bajar el costo por registro a <b>"+D(cplMax)+"</b> o subir el ticket promedio a <b>"+D(tkt)+"</b>.";
+  }else if(estado==="sobra"){a.className="alert ok";a.innerHTML="<b>Con el piso en todas las fases ya se llega.</b> Este ROAS se cumple incluso con un mal lanzamiento.";}
+  else{a.className="alert ok";
+    a.innerHTML=t<0?"Se llega por debajo de la base de mercado: todas las fases pueden estar un poco flojas y el ROAS igual se cumple."
+      :"Exigencia: <b>"+N(Math.max(0,t)*100)+"%</b> del camino entre la base de mercado y el techo, en todas las fases a la vez. Las tasas marcadas como <span class='lvl warn'>exigente</span> son las que hay que trabajar.";}
+}
+document.getElementById("b-auto").addEventListener("click",autollenar);
+document.getElementById("b-base").addEventListener("click",function(){var keep={inv:S.inv,cpl:S.cpl,ticket:S.ticket};S=base();
+  Object.keys(keep).forEach(function(k){if(v(keep[k]))S[k]=keep[k]});limpiarAlerta();
+  document.getElementById("auto-msg").textContent="Tasas de la base de mercado: así rinde un lanzamiento promedio.";leerInputs();pintar();guardar()});
+document.getElementById("b-blank").addEventListener("click",function(){S={};ORDEN.forEach(function(k){S[k]=null});limpiarAlerta();
+  document.getElementById("auto-msg").textContent="En blanco: cargá tus propios números en cada casilla.";leerInputs();pintar();guardar()});
+
+if(S){leerInputs();pintar();marcarChip()}else{S=base();marcarChip();autollenar()}
+})();
+</script>
+</body>
+</html>
