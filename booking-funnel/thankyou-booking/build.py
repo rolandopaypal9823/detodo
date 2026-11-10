@@ -79,6 +79,20 @@ s = rep(s, """    paula: 'Paula',
 s = rep(s, "const assigned = (params.get('assigned_to') || '').toLowerCase().trim();",
         "let assigned = params.get('assigned_to') || '';\n  try { if (/%[0-9A-Fa-f]{2}/.test(assigned)) assigned = decodeURIComponent(assigned); } catch (e) {}\n  assigned = assigned.toLowerCase().trim();")
 
+# ── menos texto arriba ──
+# video: fuera la bajada y el recuadro de abajo; queda el título y el video
+i = s.index('      <p class="nfm-video__subtitle">'); j = s.index('</p>', i) + len('</p>\n')
+s = s[:i] + s[j:]
+i = s.index('    <!-- TIP -->'); fin = s.index('  </div>\n</section>', i)
+s = s[:i] + s[fin:]
+s = rep(s, 'Paso obligatorio · Antes de tu sesión', 'Antes de tu sesión')
+# asesor: una línea abajo del título y fuera el recuadro de "Revisá tu WhatsApp"
+s = rep(s, "'Ya enviamos un mensaje a tu número para coordinar todo. Conocé a la persona que va a acompañarte en este proceso:'", "'Ya te escribimos para coordinar el horario.'")
+s = rep(s, "'En las próximas horas, un asesor del Instituto se va a comunicar con vos por WhatsApp para coordinar todo y conocer tu caso en detalle.'", "'Te escribe por WhatsApp en las próximas horas.'")
+s = rep(s, """        Ya enviamos un mensaje a tu número para coordinar todo. Conocé a la persona que va a acompañarte en este proceso:""", """        Ya te escribimos para coordinar el horario.""")
+i = s.index('      <div class="nfm-closer__instruction">'); fin = s.index('      <div class="nfm-closer__extra">', i)
+s = s[:i] + s[fin:]
+
 out = s.rstrip() + '\n\n\n' + nuevas
 io.open('thankyou-booking.html', 'w', encoding='utf-8').write(out)
 print('ok thankyou-booking.html', len(out) // 1024, 'KB')
