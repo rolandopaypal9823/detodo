@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neurociencia para dejar de procrastinar · Clase en vivo con Nico Fernández Miranda</title>
+<meta name="description" content="Clase gratuita en vivo con Nico Fernández Miranda: cómo usar la neurociencia para dejar de procrastinar, concentrarte y organizar tu semana.">
+
+<!-- IMAGEN PARA COMPARTIR Y FAVICON · en GHL no van acá: se cargan en la página → Settings → SEO Meta Data
+     (título, descripción e imagen social de 1200×630) y en el funnel → Settings → Favicon.
+     Estos valores quedan de referencia para copiar. -->
+<meta property="og:title" content="Neurociencia para dejar de procrastinar · Clase en vivo con Nico Fernández Miranda">
+<meta property="og:description" content="¿Terminás la semana sin energía y con tus cosas igual que el lunes? Clase gratis en vivo con Nico Fernández Miranda, 19:00 hs (Argentina).">
+<meta property="og:image" content="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/10/tedx-speaking-sVwipZ23.jpg">
+<link rel="icon" href="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm-1.png">
+
+<!-- ════════════════════════════════════════════════════════════════
+     META PIXEL  ·  En GoHighLevel va en: Settings → Tracking Code → HEAD
+     Sólo PageView. La conversión la manda GHL por la API de Conversiones.
+     ════════════════════════════════════════════════════════════════ -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1203017011123382');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1203017011123382&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- ═══════════ DESDE ACÁ EMPIEZA LO QUE VA EN EL CUSTOM CODE DE GHL ═══════════ -->
+<!-- CLASE DE LA COMUNIDAD · TODOS LOS DÍAS 19:00 ARG · VERSIÓN B (estilo VSL)
+     La fecha y el contador apuntan siempre a la próxima clase de las 19:00 (Argentina): hoy, o mañana si ya pasaron las 19.
+     Al registrarse, el form de GHL redirige a la sala de espera (se configura en el form, ver LEEME.md).
+     Título, video y un botón grande "UNIRME A LA CLASE" que baja al form, que está a la vista justo abajo.
+     Más abajo: qué vas a aprender (qué y por qué, nunca el cómo), quién da la clase (las 5 escenas en un
+     carrusel) y el botón de nuevo. Todos los botones bajan al form. -->
+
+<!-- tipografías: se piden sin frenar la página (mientras llegan se ve la letra del sistema) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://scripts.converteai.net">
+<link rel="preconnect" href="https://cdn.converteai.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap"></noscript>
+
+<style>
+/* ════════════════════════════════════════════════════════════════
+   NFM · CLASE GRATUITA EN VIVO · VERSIÓN B (VSL)
+   Clase diaria de la Comunidad · Sistema visual NFM
+   ════════════════════════════════════════════════════════════════ */
+
+:root{
+  --nfm-navy-deep:#081F33; --nfm-navy:#0C3452;
+  --nfm-orange:#FF6602; --nfm-orange-hover:#FF8033; --nfm-orange-deep:#E55A00; --nfm-orange-glow:rgba(255,102,2,0.35);
+  --nfm-gray-50:#F4F6FA; --nfm-gray-200:#E2E8F0;
+  --nfm-ink:#0C3452; --nfm-ink-mute:#5A6B7E; --nfm-tm:rgba(255,255,255,0.60);
+  --nfm-hair:rgba(255,255,255,0.09); --nfm-hair-strong:rgba(255,255,255,0.16);
+  --nfm-font-h:'Montserrat', sans-serif; --nfm-font-b:'Open Sans', sans-serif;
+  --nfm-ease:cubic-bezier(0.22,1,0.36,1);
+}
+html, body{ margin:0; padding:0; background:#081F33; }
+.nfm-page, .nfm-page *, .nfm-page *::before, .nfm-page *::after{ box-sizing:border-box; }
+.nfm-page{ font-family:var(--nfm-font-b); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+.nfm-page img{ max-width:100%; height:auto; display:block; }
+.nfm-page a{ text-decoration:none; color:inherit; }
+.nfm-page p{ margin:0; }
+.nfm-container{ max-width:1200px; margin:0 auto; padding:0 24px; }
+.nfm-dot{ width:7px; height:7px; border-radius:50%; background:var(--nfm-orange); display:inline-block; flex:none; }
+
+.nfm-btn{ display:inline-flex; align-items:center; justify-content:center; gap:12px; font-family:var(--nfm-font-h); font-weight:700; letter-spacing:0.02em;
+  color:#fff !important; background:var(--nfm-orange); border:none; border-radius:50px; cursor:pointer; text-align:center;
+  transition:transform .25s var(--nfm-ease), box-shadow .25s var(--nfm-ease), background .25s var(--nfm-ease); box-shadow:0 8px 32px var(--nfm-orange-glow); }
+.nfm-btn:hover{ background:var(--nfm-orange-hover); transform:translateY(-2px); box-shadow:0 12px 40px var(--nfm-orange-glow); }
+.nfm-btn:active{ transform:scale(0.97); }
+.nfm-btn svg{ width:20px; height:20px; flex-shrink:0; }
+/* el botón grande de la versión B */
+.nfm-btn--xl{ width:100%; max-width:560px; font-size:1.2rem; padding:21px 32px; }
+.nfm-page :focus-visible{ outline:3px solid var(--nfm-orange); outline-offset:3px; }
+::selection{ background:rgba(255,102,2,0.22); }
+
+/* ═══ PRIMER BLOQUE · título + video + botón, todo centrado ═══ */
+.nfm-hero{ color:#fff; text-align:center; padding:28px 0 64px; background:radial-gradient(900px 420px at 50% 0%, rgba(255,102,2,0.12), transparent 70%), linear-gradient(180deg,#0C3452 0%,#081F33 100%); }
+.nfm-hero__inner{ max-width:900px; margin:0 auto; display:flex; flex-direction:column; align-items:center; }
+.nfm-hero__logo img{ height:64px !important; max-height:64px !important; width:auto !important; margin:0 auto 18px; }
+.nfm-hero__kicker{ display:inline-block; line-height:1.4; font-family:var(--nfm-font-h); font-size:0.8rem; font-weight:600; letter-spacing:0.06em; color:#fff;
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.18); padding:8px 16px; border-radius:50px; margin:0 0 18px !important; text-align:center !important; }
+.nfm-hero__kicker .nfm-dot{ vertical-align:middle; margin:-2px 8px 0 0; }
+.nfm-hero__title{ font-family:var(--nfm-font-h); font-size:clamp(1.65rem,3.4vw,2.5rem); font-weight:700; color:#fff; line-height:1.12; letter-spacing:-0.025em; max-width:22em; margin:0 auto 14px !important; text-align:center !important; text-wrap:balance; }
+.nfm-hero__title em{ color:var(--nfm-orange); font-style:normal; }
+.nfm-hero__event{ font-family:var(--nfm-font-h); font-size:clamp(1.05rem,2vw,1.35rem); font-weight:700; color:rgba(255,255,255,0.92); line-height:1.3; margin:0 auto 22px !important; text-align:center !important; text-wrap:balance; }
+.nfm-hero__micro{ font-family:var(--nfm-font-h); font-size:0.88rem; font-weight:500; color:rgba(255,255,255,0.74); margin:14px auto 0 !important; text-align:center !important; }
+.nfm-hero__local{ font-family:var(--nfm-font-h); font-size:0.86rem; color:rgba(255,255,255,0.74); margin:6px auto 0 !important; text-align:center !important; }
+.nfm-hero__local[hidden], .nfm-reg__local[hidden]{ display:none !important; }
+.nfm-hero__local strong{ color:#fff; }
+
+/* video: reproductor de vTurb dentro del recuadro (bordes redondeados y sombra) */
+.nfm-video{ position:relative; width:100%; max-width:760px; aspect-ratio:16/9; margin:0 auto 26px; border-radius:18px; overflow:hidden; background:#0E2E4A; border:1px solid var(--nfm-hair-strong); box-shadow:0 24px 70px rgba(0,0,0,0.45); }
+@supports not (aspect-ratio:16/9){ .nfm-video{ height:0; padding-bottom:56.25%; } }
+.nfm-video--vturb{ aspect-ratio:auto; background:#000; }
+.nfm-video--vturb vturb-smartplayer{ display:block; width:100%; }
+
+/* ═══ SU TRABAJO FUE DESTACADO EN · cinta de logos a color ═══ */
+.nfm-proof{ background:#fff; padding:30px 0 28px; border-bottom:1px solid var(--nfm-gray-200); }
+.nfm-proof__label{ display:block; text-align:center !important; font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-ink-mute); margin:0 !important; padding:0 24px 22px; line-height:1.4; }
+.nfm-marquee{ padding:6px 0; overflow:hidden; -webkit-mask-image:linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image:linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.nfm-marquee__track{ display:flex; width:max-content; animation:nfm-marquee 32s linear infinite; }
+.nfm-marquee:hover .nfm-marquee__track{ animation-play-state:paused; }
+.nfm-marquee__set{ display:flex; align-items:center; gap:64px; padding-right:64px; flex:none; min-height:34px; }
+.nfm-proof__logo{ height:auto !important; max-height:34px !important; width:auto !important; max-width:170px !important; flex:none; display:block; object-fit:contain; }
+@keyframes nfm-marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+@media (prefers-reduced-motion:reduce){
+  .nfm-marquee{ -webkit-mask-image:none; mask-image:none; }
+  .nfm-marquee__track{ animation:none; width:auto; justify-content:center; }
+  .nfm-marquee__set{ flex-wrap:wrap; justify-content:center; padding-right:0; gap:26px 44px; }
+  .nfm-marquee__set[aria-hidden="true"]{ display:none; }
+}
+
+/* ═══ REGISTRO · el form a la vista, sin popup ═══ */
+.nfm-reg{ background:var(--nfm-gray-50); padding:64px 0 76px; color:var(--nfm-ink); scroll-margin-top:12px; }
+.nfm-reg__inner{ max-width:680px; margin:0 auto; text-align:center; }
+.nfm-reg__title{ font-family:var(--nfm-font-h); font-size:clamp(1.6rem,3.2vw,2.2rem); font-weight:700; letter-spacing:-0.02em; line-height:1.15; color:var(--nfm-ink); margin:0 0 10px !important; text-align:center !important; text-wrap:balance; }
+.nfm-reg__title span{ color:var(--nfm-orange); }
+.nfm-reg__date{ font-family:var(--nfm-font-h); font-size:1rem; font-weight:600; color:var(--nfm-ink-mute); margin:0 !important; text-align:center !important; }
+.nfm-reg__local{ font-family:var(--nfm-font-h); font-size:0.9rem; color:var(--nfm-ink-mute); margin:4px 0 0 !important; text-align:center !important; }
+.nfm-reg__local strong{ color:var(--nfm-ink); }
+.nfm-reg__cupo{ display:inline-flex; align-items:center; gap:8px; font-family:var(--nfm-font-h); font-size:0.86rem; font-weight:600; color:var(--nfm-orange-deep); background:rgba(255,102,2,0.08); border:1px solid rgba(255,102,2,0.25); padding:7px 14px; border-radius:50px; margin:16px 0 22px !important; }
+.nfm-reg__form{ border-radius:18px; overflow:hidden; background:#fff; border:1px solid var(--nfm-gray-200); box-shadow:0 20px 60px rgba(12,52,82,0.08); text-align:left; }
+.nfm-reg__form iframe{ width:100%; height:580px !important; min-height:0 !important; border:none; display:block; }
+/* ALTO DEL FORM · el form real (nombre, email, teléfono y botón) mide unos 515 px. GHL declara 1366 en su código
+   y con eso quedaba un bloque blanco enorme abajo del botón. Si agregan o sacan campos en GHL, se ajusta acá. */
+@media (max-width:600px){ .nfm-reg__form iframe{ height:600px !important; } }
+
+.nfm-accent{ color:var(--nfm-orange); }
+.nfm-eyebrow{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.72rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--nfm-orange); border:1px solid rgba(255,102,2,0.32); padding:6px 16px; border-radius:50px; margin-bottom:16px; }
+.nfm-sec__head{ text-align:center; max-width:720px; margin:0 auto 30px; }
+.nfm-sec__head h2{ font-family:var(--nfm-font-h); font-size:clamp(1.7rem,3.6vw,2.5rem); font-weight:700; letter-spacing:-0.02em; line-height:1.15; color:var(--nfm-ink); margin:0 !important; text-align:center !important; text-wrap:balance; }
+.nfm-sec__head p{ font-size:1.02rem; color:var(--nfm-ink-mute); line-height:1.55; margin:10px auto 0 !important; text-align:center !important; text-wrap:balance; }
+
+/* ═══ QUÉ VAS A APRENDER · cada tarjeta: el dolor como lo dicen ellos → por qué pasa → qué te llevás ═══ */
+.nfm-learn{ background:#fff; padding:76px 0; color:var(--nfm-ink); }
+.nfm-learn__list{ list-style:none; max-width:640px; margin:0 auto !important; padding:0 !important; display:grid; gap:12px; }
+.nfm-dolor{ background:var(--nfm-gray-50); border:1px solid var(--nfm-gray-200); border-left:4px solid var(--nfm-orange); border-radius:14px; padding:14px 18px; text-align:left; }
+.nfm-dolor__espejo{ font-family:var(--nfm-font-h); font-size:1.02rem; font-weight:700; color:var(--nfm-ink); line-height:1.35; margin:0 0 3px !important; text-align:left !important; }
+.nfm-dolor__tag{ display:inline-block; font-family:var(--nfm-font-h); font-size:0.64rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-orange-deep); margin:0 0 4px; }
+.nfm-dolor__txt{ font-size:0.98rem; line-height:1.55; color:#2a3f54; margin:0 !important; text-align:left !important; }
+.nfm-dolor__txt b{ color:var(--nfm-ink); font-weight:700; }
+
+/* ═══ QUIÉN DA LA CLASE · las 5 escenas en un carrusel (se desliza con el dedo o con las flechas) ═══ */
+.nfm-nico{ background:var(--nfm-gray-50); padding:76px 0 64px; color:var(--nfm-ink); }
+.nfm-car{ max-width:1100px; margin:0 auto; }
+.nfm-car__track{ display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; overscroll-behavior-x:contain; padding:4px 2px 10px; }
+.nfm-car__track::-webkit-scrollbar{ display:none; }
+.nfm-car__slide{ flex:0 0 calc((100% - 32px) / 3); scroll-snap-align:start; display:flex; flex-direction:column; background:#fff; border:1px solid var(--nfm-gray-200); border-radius:18px; overflow:hidden; }
+.nfm-car__img{ aspect-ratio:4/3; background:#dfe6ee; overflow:hidden; }
+.nfm-car__img img{ width:100% !important; height:100% !important; object-fit:cover; object-position:center 30%; display:block; }
+.nfm-car__txt{ padding:16px 18px 20px; text-align:left; }
+.nfm-car__era{ display:block; font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-orange); margin-bottom:6px; }
+.nfm-car__txt h3{ font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:700; color:var(--nfm-ink); line-height:1.25; margin:0 0 6px !important; text-align:left !important; }
+.nfm-car__txt p{ font-size:0.95rem; line-height:1.5; color:#2a3f54; margin:0 !important; text-align:left !important; }
+.nfm-car__nav{ display:flex; align-items:center; justify-content:center; gap:14px; margin-top:16px; }
+.nfm-car__btn{ width:42px; height:42px; border-radius:50%; border:1px solid var(--nfm-gray-200); background:#fff; color:var(--nfm-ink); cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; box-shadow:0 4px 14px rgba(12,52,82,0.08); transition:opacity .2s; }
+.nfm-car__btn svg{ width:18px; height:18px; }
+.nfm-car__btn[disabled]{ opacity:.35; cursor:default; }
+.nfm-car__dots{ display:flex; gap:8px; }
+.nfm-car__dots button{ width:9px; height:9px; border-radius:5px; border:0; padding:0; background:#c5d0dc; cursor:pointer; transition:width .2s var(--nfm-ease), background .2s; }
+.nfm-car__dots button[aria-current="true"]{ width:24px; background:var(--nfm-orange); }
+
+/* contador (el del primer bloque y el del cierre leen la misma fecha) */
+.nfm-cd{ margin:0 0 22px; }
+.nfm-cd__lbl{ font-family:var(--nfm-font-h); font-size:0.72rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.72); margin:0 0 8px !important; }
+.nfm-cd__t{ display:flex; gap:8px; }
+.nfm-cd__t span{ flex:1; max-width:84px; display:flex; flex-direction:column; align-items:center; padding:9px 6px 7px; border-radius:12px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.16); font-family:var(--nfm-font-h); }
+.nfm-cd__t b{ font-size:1.7rem; font-weight:700; color:var(--nfm-orange); line-height:1; font-variant-numeric:tabular-nums; }
+.nfm-cd__t i{ font-style:normal; font-size:0.6rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.65); margin-top:4px; }
+
+/* ═══ CIERRE · los dos caminos, el contador y el botón ═══ */
+.nfm-final{ color:#fff; text-align:center; padding:72px 0 76px; background:radial-gradient(600px 300px at 50% 0%, rgba(255,102,2,0.16), transparent 70%), linear-gradient(180deg,#0C3452 0%,#081F33 100%); }
+.nfm-final__inner{ max-width:680px; margin:0 auto; display:flex; flex-direction:column; align-items:center; }
+.nfm-final h2{ font-family:var(--nfm-font-h); font-size:clamp(1.55rem,3.4vw,2.3rem); font-weight:700; line-height:1.2; letter-spacing:-0.02em; color:#fff; margin:0 0 26px !important; text-align:center !important; text-wrap:balance; }
+.nfm-final .nfm-cd{ width:100%; margin:0 0 26px; }
+.nfm-final .nfm-cd__lbl{ text-align:center !important; }
+.nfm-final .nfm-cd__t{ justify-content:center; }
+.nfm-final .nfm-hero__micro, .nfm-final .nfm-hero__local{ text-align:center !important; }
+
+/* ═══ BARRA FIJA ABAJO · el contador navega con vos; el botón aparece cuando el del primer bloque sale de la
+   pantalla. Se esconde sobre el form (para no tapar su botón) y en el cierre (que tiene su propio contador). ═══ */
+.nfm-sticky{ position:fixed; left:0; right:0; bottom:0; z-index:9998; padding:8px 16px calc(8px + env(safe-area-inset-bottom)); background:rgba(8,31,51,0.96); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-top:1px solid var(--nfm-hair); transform:translateY(120%); transition:transform .3s var(--nfm-ease); }
+.nfm-sticky.nfm-sticky--on{ transform:none; }
+.nfm-sticky__in{ max-width:760px; margin:0 auto; display:flex; align-items:center; justify-content:center; gap:14px; }
+.nfm-sticky__cd{ display:flex; align-items:center; gap:10px; font-family:var(--nfm-font-h); color:#fff; }
+.nfm-sticky__lbl{ font-size:0.68rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.75); white-space:nowrap; }
+.nfm-sticky__t{ display:flex; gap:5px; }
+.nfm-sticky__t span{ display:flex; flex-direction:column; align-items:center; min-width:40px; padding:4px 4px 3px; border-radius:8px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); }
+.nfm-sticky__t b{ font-size:1.05rem; font-weight:700; color:var(--nfm-orange); line-height:1; font-variant-numeric:tabular-nums; }
+.nfm-sticky__t i{ font-style:normal; font-size:0.5rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.62); margin-top:2px; }
+.nfm-sticky__btn{ display:none !important; padding:12px 22px; font-size:0.92rem; box-shadow:none; white-space:nowrap; }
+.nfm-sticky--btn .nfm-sticky__btn{ display:inline-flex !important; }
+.nfm-footer{ padding-bottom:calc(28px + 64px + env(safe-area-inset-bottom)) !important; }
+@media (max-width:480px){
+  .nfm-sticky{ padding:7px 12px calc(7px + env(safe-area-inset-bottom)); }
+  .nfm-sticky__in{ gap:10px; }
+  .nfm-sticky--btn .nfm-sticky__lbl, .nfm-sticky__btn .nfm-largo{ display:none; }
+  .nfm-sticky__btn{ padding:11px 18px; font-size:0.88rem; }
+}
+@media (prefers-reduced-motion:reduce){ .nfm-sticky{ transition:none; } }
+
+.nfm-footer{ background:#081F33; padding:28px 0; text-align:center; border-top:1px solid var(--nfm-hair); }
+.nfm-footer p{ font-size:0.8rem; color:var(--nfm-tm); text-align:center !important; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (min-width:769px){
+  .nfm-hero__logo img{ height:52px !important; max-height:52px !important; margin-bottom:16px; }
+  .nfm-video{ max-width:max(520px, min(760px, calc((100vh - 600px) * 1.7778))); }
+}
+@media (max-width:768px){
+  .nfm-hero{ padding:18px 0 48px; }
+  .nfm-hero__logo img{ height:46px !important; max-height:46px !important; margin-bottom:12px; }
+  .nfm-video{ border-radius:14px; margin-bottom:20px; }
+  .nfm-reg{ padding:48px 0 60px; }
+  .nfm-proof{ padding:24px 0 22px; } .nfm-proof__label{ padding-bottom:18px; } .nfm-proof__logo{ max-height:26px !important; max-width:130px !important; } .nfm-marquee__set{ gap:40px; padding-right:40px; min-height:26px; }
+  .nfm-learn, .nfm-nico{ padding:56px 0; } .nfm-final{ padding:56px 0 60px; }
+  /* carrusel en tablet y celular: llega hasta el borde de la pantalla y deja ver un pedazo de la escena siguiente */
+  .nfm-car__track{ margin:0 -24px; padding:4px 24px 10px; scroll-padding:0 24px; }
+  .nfm-car__slide{ flex-basis:calc((100% - 16px) / 2); }
+}
+@media (max-width:600px){ .nfm-car__slide{ flex-basis:82%; } }
+@media (max-width:480px){
+  .nfm-container{ padding:0 16px; }
+  .nfm-hero__kicker{ font-size:0.72rem; padding:7px 12px; margin-bottom:14px !important; }
+  .nfm-hero__title{ font-size:1.5rem; line-height:1.15; margin-bottom:12px !important; }
+  .nfm-car__track{ margin:0 -16px; padding:4px 16px 10px; scroll-padding:0 16px; }
+  .nfm-dolor{ padding:12px 14px; } .nfm-dolor__espejo{ font-size:0.97rem; } .nfm-dolor__txt{ font-size:0.93rem; }
+  .nfm-btn--xl{ font-size:1.08rem; padding:19px 20px; }
+  .nfm-cd__t span{ padding:7px 4px 6px; } .nfm-cd__t b{ font-size:1.4rem; }
+}
+</style>
+
+
+<div class="nfm-page">
+
+<!-- ═══ PRIMER BLOQUE ═══ -->
+<section class="nfm-hero" id="nfm-hero">
+  <div class="nfm-container nfm-hero__inner">
+    <div class="nfm-hero__logo"><img src="data:image/png;base64,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" alt="Nicolás Fernández Miranda" width="347" height="128"></div>
+    <p class="nfm-hero__kicker"><span class="nfm-dot"></span>Clase gratis · <span data-nfm-fecha="pillCorta">Hoy · 19:00 hs (Arg)</span></p>
+    <h1 class="nfm-hero__title">¿Terminás la semana sin energía y con <em>tus cosas igual que el lunes</em>?</h1>
+    <p class="nfm-hero__event">Cómo usar la neurociencia para dejar de procrastinar y concentrarte</p>
+    <!-- VIDEO (vTurb). Es el código de vTurb tal cual. Para cambiar de video, se reemplazan juntos
+         el <vturb-smartplayer> y el <script> de abajo por el código nuevo que da vTurb. -->
+    <div class="nfm-video nfm-video--vturb" id="nfm-video">
+      <vturb-smartplayer id="vid-6adce455b2a34667b75c44cd" style="display: block; margin: 0 auto; width: 100%; "><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 56.25% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/82529694-4445-4a28-9435-65713f4bcce6/players/6adce455b2a34667b75c44cd/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
+    </div>
+    <a href="#nfm-registro" class="nfm-btn nfm-btn--xl" data-cta="hero">
+      UNIRME A LA CLASE
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <p class="nfm-hero__micro">Con Nico Fernández Miranda · en vivo por Zoom</p>
+    <p class="nfm-hero__local" data-nfm-local hidden></p>
+  </div>
+</section>
+
+<!-- ═══ SU TRABAJO FUE DESTACADO EN · cinta de logos (los mismos de la landing original) ═══ -->
+<section class="nfm-proof" aria-label="Su trabajo fue destacado en">
+  <div class="nfm-proof__label">Su trabajo fue destacado en</div>
+  <div class="nfm-marquee">
+    <div class="nfm-marquee__track">
+      <div class="nfm-marquee__set">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/CNN.png" alt="CNN" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-110.svg" alt="Infobae" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-104.svg" alt="Endeavor" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-105.svg" alt="TEDx" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/Yale-Bulldogs-logo.png" alt="Yale" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/5-1.png" alt="YPF" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/6-1.png" alt="Samsung" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/accountlogo.jpg" alt="Ternium" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+      </div>
+      <div class="nfm-marquee__set" aria-hidden="true">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2025/04/CNN.png" alt="CNN" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-110.svg" alt="Infobae" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-104.svg" alt="Endeavor" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2024/07/Frame-105.svg" alt="TEDx" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/Yale-Bulldogs-logo.png" alt="Yale" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/5-1.png" alt="YPF" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/6-1.png" alt="Samsung" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/02/accountlogo.jpg" alt="Ternium" class="nfm-proof__logo" loading="lazy" onerror="this.style.display='none'">
+      </div>
+    </div>
+</section>
+
+<!-- ═══ REGISTRO ═══ -->
+<section class="nfm-reg" id="nfm-registro">
+  <div class="nfm-container nfm-reg__inner">
+    <h2 class="nfm-reg__title">Completá tus datos para <span>unirte a la clase</span></h2>
+    <p class="nfm-reg__date" data-nfm-fecha="completa">Hoy · 19:00 hs (Argentina)</p>
+    <p class="nfm-reg__local" data-nfm-local hidden></p>
+    <!-- ⚠️ Antes de publicar: confirmá el límite de tu plan de Zoom (100, 300, 500…), así esta frase es cierta. -->
+    <p class="nfm-reg__cupo"><span class="nfm-dot"></span> La sala de Zoom tiene un límite de lugares</p>
+    <!-- FORM DE GHL · "Form Webinar Comunidad". El src se arma por JS: lleva las UTM, la clase y la versión de la landing.
+         Si se cambia de form, el ID va acá (data-src, id, data-layout-iframe-id, data-form-id) y en CONFIG.FORM_ID. -->
+    <div class="nfm-reg__form">
+      <iframe
+        data-src="https://api.leadconnectorhq.com/widget/form/ib4zw3gRec1D9D3kxyUv"
+        id="inline-ib4zw3gRec1D9D3kxyUv"
+        data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value=""
+        data-activation-type="alwaysActivated" data-activation-value=""
+        data-deactivation-type="neverDeactivate" data-deactivation-value=""
+        data-form-name="Form Webinar Comunidad" data-height="580"
+        data-layout-iframe-id="inline-ib4zw3gRec1D9D3kxyUv" data-form-id="ib4zw3gRec1D9D3kxyUv"
+        data-cookie-consent="true" data-cookie-consent-provider="auto"
+        title="Form Webinar Comunidad" style="width:100%;height:100%;border:none;border-radius:15px"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUÉ VAS A APRENDER ·
+     Cada tarjeta: el concepto (etiqueta) + el dolor + qué pasa en el cerebro y qué lo cambia, en una línea.
+     Sale de lo que Nico enseña en la clase del 7/10 y de los anuncios C1 a C7:
+     47 segundos y foco profundo (Gloria Mark, Sophie Leroy), bloques de 60 a 90 min (ritmo ultradiano),
+     efecto Zeigarnik y descarga cognitiva (escritura con propósito), 23 minutos (C1), memoria de trabajo (C4),
+     facilitación social (C3). Corto a propósito: no sumar texto. ═══ -->
+<section class="nfm-learn" id="nfm-aprender">
+  <div class="nfm-container">
+    <div class="nfm-sec__head">
+      <span class="nfm-eyebrow">Lo que pasa en tu cerebro</span>
+      <h2>Qué vas a aprender <span class="nfm-accent">en esta clase</span></h2>
+    </div>
+    <ul class="nfm-learn__list">
+      <li class="nfm-dolor"><span class="nfm-dolor__tag">Control inhibitorio</span><p class="nfm-dolor__espejo">Cumplís con todos menos con vos.</p><p class="nfm-dolor__txt">Cada mensaje que respondés al toque es una microdecisión que pierde tu control inhibitorio. Avisar tus bloques le saca esa pelea.</p></li>
+      <li class="nfm-dolor"><span class="nfm-dolor__tag">Atención</span><p class="nfm-dolor__espejo">Trabajás un montón y avanzás poco.</p><p class="nfm-dolor__txt">Tu atención salta cada 47 segundos y volver al foco profundo lleva unos 23 minutos. Bloques de 60 a 90 respetan tu ritmo ultradiano.</p></li>
+      <li class="nfm-dolor"><span class="nfm-dolor__tag">Memoria de trabajo</span><p class="nfm-dolor__espejo">Te sentás a trabajar y no sabés por dónde arrancar.</p><p class="nfm-dolor__txt">Sin un plan escrito, tu memoria de trabajo arranca de cero cada vez y tu cerebro aprende a evitar empezar. Escribirlo es descarga cognitiva.</p></li>
+      <li class="nfm-dolor"><span class="nfm-dolor__tag">Efecto Zeigarnik</span><p class="nfm-dolor__espejo">Armás un sistema el domingo y el miércoles ya lo dejaste.</p><p class="nfm-dolor__txt">Tu cerebro retiene lo que no hiciste y borra lo que sí, y concluís “soy procrastinador”. Registrar lo que avanzaste corta ese loop.</p></li>
+      <li class="nfm-dolor"><span class="nfm-dolor__tag">Facilitación social</span><p class="nfm-dolor__espejo">Arrancás con todo y a las dos semanas se apaga.</p><p class="nfm-dolor__txt">Tu cerebro rinde distinto cuando hay alguien del otro lado haciendo lo mismo. Por eso acompañado sostenés lo que solo se apaga.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ QUIÉN DA LA CLASE · la historia de las 5 escenas, corta y en carrusel (fotos reales de Nico) ═══ -->
+<section class="nfm-nico" id="nfm-nico">
+  <div class="nfm-container">
+    <div class="nfm-sec__head">
+      <span class="nfm-eyebrow">Quién da la clase</span>
+      <h2>Nicolás Fernández Miranda</h2>
+      <p>Antes de enseñarlo, lo pagó.</p>
+    </div>
+    <div class="nfm-car" role="region" aria-roledescription="carrusel" aria-label="La historia de Nico en cinco escenas">
+      <div class="nfm-car__track" id="nfm-car-track" tabindex="0">
+        <article class="nfm-car__slide" aria-label="Escena 1 de 5">
+          <div class="nfm-car__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escena1estudiocontable-scaled.jpg" alt="Nico en el estudio contable" width="800" height="600" loading="lazy"></div>
+          <div class="nfm-car__txt"><span class="nfm-car__era">1 · Antes</span><h3>El contador que llegó rápido</h3><p>Medalla al mejor promedio, estudio propio y, en pocos años, empresas grandes como clientes. Desde afuera, todo iba muy bien.</p></div>
+        </article>
+        <article class="nfm-car__slide" aria-label="Escena 2 de 5">
+          <div class="nfm-car__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escena2-rotated.jpg" alt="Nico en su escritorio, en la época del estudio" width="800" height="600" loading="lazy"></div>
+          <div class="nfm-car__txt"><span class="nfm-car__era">2 · Antes</span><h3>El precio que pagaba</h3><p>Catorce horas por día, quince kilos de más, migrañas y clonazepam para dormir. Envidiaba a quien cerraba la persiana a las seis.</p></div>
+        </article>
+        <article class="nfm-car__slide" aria-label="Escena 3 de 5">
+          <div class="nfm-car__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/enparis.jpeg" alt="Nico en París" width="800" height="600" loading="lazy"></div>
+          <div class="nfm-car__txt"><span class="nfm-car__era">3 · El quiebre</span><h3>El viaje que no pudo disfrutar</h3><p>Se pagó el viaje a Europa que venía postergando y en París no se sintió bien. Tenía un máster en neurociencia y no se lo estaba aplicando.</p></div>
+        </article>
+        <article class="nfm-car__slide" aria-label="Escena 4 de 5">
+          <div class="nfm-car__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/charlated.jpg" alt="Nico en su charla TEDx" width="800" height="600" loading="lazy"></div>
+          <div class="nfm-car__txt"><span class="nfm-car__era">4 · Después</span><h3>Su propio experimento</h3><p>Aplicó en su vida lo que había estudiado, midió y corrigió. De ahí salieron <em>Hackea tu cerebro</em>, hoy bestseller, y dos charlas TEDx.</p></div>
+        </article>
+        <article class="nfm-car__slide" aria-label="Escena 5 de 5">
+          <div class="nfm-car__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/ultimaescenainstituto.jpeg" alt="Alumnos del Instituto de Productividad con Nico" width="800" height="600" loading="lazy"></div>
+          <div class="nfm-car__txt"><span class="nfm-car__era">5 · Hoy</span><h3>El Instituto de Productividad</h3><p>Lo fundó después de todo eso. Más de 400 empresarios, profesionales y líderes ya pasaron por su mentoría, acompañados por su equipo.</p></div>
+        </article>
+      </div>
+      <div class="nfm-car__nav">
+        <button type="button" class="nfm-car__btn" data-car="-1" aria-label="Escena anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <div class="nfm-car__dots" id="nfm-car-dots"></div>
+        <button type="button" class="nfm-car__btn" data-car="1" aria-label="Escena siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CIERRE · los dos caminos + contador real + botón ═══ -->
+<section class="nfm-final" id="nfm-cierre">
+  <div class="nfm-container nfm-final__inner">
+    <h2>O seguís con otra semana igual, <span class="nfm-accent">o <span data-nfm-fecha="cuando">hoy</span> empezás a cambiarla.</span></h2>
+    <div class="nfm-cd" data-cd role="timer" aria-label="Cuenta regresiva para la clase">
+        <p class="nfm-cd__lbl">La clase empieza en</p>
+        <div class="nfm-cd__t">
+          <span><b data-cd-h>00</b><i>hs</i></span>
+          <span><b data-cd-m>00</b><i>min</i></span>
+          <span><b data-cd-s>00</b><i>seg</i></span>
+        </div>
+      </div>
+    <a href="#nfm-registro" class="nfm-btn nfm-btn--xl" data-cta="cierre">
+      UNIRME A LA CLASE
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <p class="nfm-hero__micro">Gratis · <span data-nfm-fecha="hora">19:00 hs (Argentina)</span></p>
+    <p class="nfm-hero__local" data-nfm-local hidden></p>
+  </div>
+</section>
+
+<footer class="nfm-footer"><div class="nfm-container"><p>© Nicolás Fernández Miranda · Instituto de Productividad · Todos los derechos reservados.</p></div></footer>
+
+<!-- ═══ BARRA FIJA ABAJO · contador + botón ═══ -->
+<div class="nfm-sticky" id="nfm-sticky">
+  <div class="nfm-sticky__in">
+    <div class="nfm-sticky__cd" data-cd role="timer" aria-label="Cuenta regresiva para la clase">
+      <span class="nfm-sticky__lbl">La clase empieza en</span>
+      <span class="nfm-sticky__t"><span><b data-cd-h>00</b><i>hs</i></span><span><b data-cd-m>00</b><i>min</i></span><span><b data-cd-s>00</b><i>seg</i></span></span>
+    </div>
+    <a href="#nfm-registro" class="nfm-btn nfm-sticky__btn" data-cta="barra" tabindex="-1">UNIRME<span class="nfm-largo">&nbsp;A LA CLASE</span></a>
+  </div>
+</div>
+
+</div><!-- /.nfm-page -->
+
+<script>
+(function(){
+'use strict';
+/* ══════════════════════════════════════════════════════════════════
+   CONFIG · clase de la Comunidad · TODOS LOS DÍAS · VERSIÓN B
+   La clase es todos los días a las 19:00 de Argentina. No hay fecha que cambiar: la página calcula sola
+   la próxima (hoy, o mañana si ya pasaron las 19) y el contador se reinicia todos los días a esa hora.
+   Si cambia la hora, se toca sólo HORA_CLASE / MINUTOS_CLASE.
+   ══════════════════════════════════════════════════════════════════ */
+var CONFIG = {
+  UTM_CLASE: 'comunidad-clase-diaria',        // va en utm_campaign (si el lead llega sin UTM) y en edicion
+  MINUTOS_DE_GRACIA: 0,                       // minutos después de las 19 en que la página sigue mostrando la clase de hoy (0 = se reinicia a las 19 en punto)
+  VARIANTE: 'b-vsl',                          // viaja al form como "variante": para comparar A contra B
+  HORA_CLASE: 19, MINUTOS_CLASE: 0, OFFSET_ARG: -3,
+  FORM_ID: 'ib4zw3gRec1D9D3kxyUv'                          // "Form Webinar Comunidad" · el alto se ajusta en el CSS (.nfm-reg__form iframe)
+};
+
+var DIAS=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+var MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+var HORA=3600000, DIA=86400000;
+function pad(n){ n=String(n); return n.length<2?'0'+n:n; }
+function ahora(){ var t=Date.parse(qs('nfm_now')||''); return isNaN(t) ? Date.now() : t; }
+function qs(k){ var m=new RegExp('[?&]'+k+'=([^&#]*)').exec(window.location.search); return m?decodeURIComponent(m[1].replace(/\+/g,' ')):null; }
+function tsClase(f){ var p=f.split('-'); return Date.UTC(+p[0],+p[1]-1,+p[2],CONFIG.HORA_CLASE-CONFIG.OFFSET_ARG,CONFIG.MINUTOS_CLASE,0,0); }
+function partesArg(ts){ var d=new Date(ts+CONFIG.OFFSET_ARG*HORA); return {dow:d.getUTCDay(),dia:d.getUTCDate(),mes:d.getUTCMonth(),anio:d.getUTCFullYear(),hh:d.getUTCHours(),mm:d.getUTCMinutes()}; }
+/* ─── PRÓXIMA CLASE ───
+   Hoy a las 19:00 de Argentina; si ya pasó (más los minutos de gracia), mañana a las 19:00. */
+var TS, P, FECHAS;
+function isoDe(ts){ var p=partesArg(ts); return p.anio+'-'+pad(p.mes+1)+'-'+pad(p.dia); }
+function proximaClase(){
+  var hoy=isoDe(ahora()), ts=tsClase(hoy);
+  if(ahora() >= ts + CONFIG.MINUTOS_DE_GRACIA*60000) ts += DIA;
+  return ts;
+}
+var DIAS_C=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'], MESES_C=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+function armarFechas(){
+  TS=proximaClase(); P=partesArg(TS); CONFIG.FECHA=isoDe(TS);
+  var esHoy = CONFIG.FECHA===isoDe(ahora()), cuando = esHoy ? 'hoy' : 'mañana', Cuando = esHoy ? 'Hoy' : 'Mañana';
+  var hora = pad(P.hh)+':'+pad(P.mm);
+  FECHAS = { cuando: cuando,
+             larga: DIAS[P.dow]+' '+P.dia+' de '+MESES[P.mes],
+             hora: hora+' hs (Argentina)',
+             pillCorta: Cuando+' · '+hora+' hs (Arg)',
+             diaYNumero: DIAS[P.dow].toLowerCase()+' '+P.dia,
+             completa: Cuando+', '+DIAS[P.dow].toLowerCase()+' '+P.dia+' de '+MESES[P.mes]+' · '+hora+' hs (Argentina)' };
+  var f=document.querySelectorAll('[data-nfm-fecha]'); for(var i=0;i<f.length;i++){ var k=f[i].getAttribute('data-nfm-fecha'); if(FECHAS[k]!=null) f[i].textContent=FECHAS[k]; }
+  ponerHoraLocal();
+}
+
+/* ─── HORA LOCAL DEL VISITANTE ───
+   Usa la zona horaria del navegador (sin IP, sin permisos, sin servicios externos). Si no es Argentina,
+   escribe en cada [data-nfm-local] a qué hora es la clase en su país. Si es Argentina, no muestra nada. */
+function ponerHoraLocal(){
+  var els=document.querySelectorAll('[data-nfm-local]'); if(!els.length) return;
+  var tz; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone; }catch(e){}
+  if(!tz || /Argentina|Buenos_Aires|Cordoba|Catamarca|Jujuy|La_Rioja|Mendoza|Rio_Gallegos|Salta|San_Juan|San_Luis|Tucuman|Ushuaia/.test(tz)) return;
+  var PAISES={ 'America/Santiago':'Chile','America/Punta_Arenas':'Chile','America/Bogota':'Colombia','America/Lima':'Perú','America/Mexico_City':'México','America/Monterrey':'México','America/Cancun':'México','America/Tijuana':'México','America/Merida':'México','America/Caracas':'Venezuela','America/Guayaquil':'Ecuador','America/La_Paz':'Bolivia','America/Asuncion':'Paraguay','America/Montevideo':'Uruguay','America/Sao_Paulo':'Brasil','America/Panama':'Panamá','America/Costa_Rica':'Costa Rica','America/Guatemala':'Guatemala','America/El_Salvador':'El Salvador','America/Tegucigalpa':'Honduras','America/Managua':'Nicaragua','America/Santo_Domingo':'República Dominicana','America/Havana':'Cuba','America/Puerto_Rico':'Puerto Rico','America/New_York':'Estados Unidos (Este)','America/Detroit':'Estados Unidos (Este)','America/Chicago':'Estados Unidos (Centro)','America/Denver':'Estados Unidos (Montaña)','America/Phoenix':'Estados Unidos (Arizona)','America/Los_Angeles':'Estados Unidos (Pacífico)','America/Toronto':'Canadá (Este)','America/Vancouver':'Canadá (Pacífico)','Europe/Madrid':'España','Atlantic/Canary':'Canarias','Europe/Lisbon':'Portugal','Europe/London':'Reino Unido','Europe/Dublin':'Irlanda','Europe/Paris':'Francia','Europe/Rome':'Italia','Europe/Berlin':'Alemania','Europe/Amsterdam':'Países Bajos','Europe/Zurich':'Suiza','Europe/Andorra':'Andorra' };
+  var pais=PAISES[tz] || tz.split('/').pop().replace(/_/g,' ');
+  var d=new Date(TS), hora, diaLocal, diaNum;
+  try{
+    hora=new Intl.DateTimeFormat('es',{timeZone:tz,hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d);
+    diaNum=parseInt(new Intl.DateTimeFormat('en',{timeZone:tz,day:'numeric'}).format(d),10);
+    diaLocal=new Intl.DateTimeFormat('es',{timeZone:tz,weekday:'long',day:'numeric'}).format(d);
+  }catch(e){ return; }
+  var txt='En '+pais+' son las <strong>'+hora+' hs</strong>'+(diaNum!==P.dia ? ' del '+diaLocal.replace(',','') : '');
+  for(var i=0;i<els.length;i++){ els[i].innerHTML=txt; els[i].hidden=false; }
+}
+
+armarFechas();
+
+/* ─── FORM ───
+   Se carga con las UTM, la fecha, la edición y la versión de la landing en la URL.
+   La clase queda en sessionStorage para la thank you page. */
+function cargarForm(){
+  var ifr=document.getElementById('inline-'+CONFIG.FORM_ID); if(!ifr) return;
+  var pasar=['utm_source','utm_medium','utm_campaign','utm_content','utm_term','utm_id','fbclid','gclid','ttclid','ad_id','adset_id','campaign_id','ref'];
+  var p=[], i, v, tieneSource=false, tieneCampaign=false;
+  for(i=0;i<pasar.length;i++){ v=qs(pasar[i]); if(v){ p.push(encodeURIComponent(pasar[i])+'='+encodeURIComponent(v)); if(pasar[i]==='utm_source') tieneSource=true; if(pasar[i]==='utm_campaign') tieneCampaign=true; } }
+  if(!tieneSource) p.push('utm_source=directo');
+  if(!tieneCampaign) p.push('utm_campaign='+encodeURIComponent(CONFIG.UTM_CLASE));
+  p.push('clase_fecha='+CONFIG.FECHA);
+  p.push('edicion='+encodeURIComponent(CONFIG.UTM_CLASE));
+  p.push('variante='+encodeURIComponent(CONFIG.VARIANTE));
+  var base=ifr.getAttribute('data-src')||('https://api.leadconnectorhq.com/widget/form/'+CONFIG.FORM_ID);
+  var url=base+(base.indexOf('?')===-1?'?':'&')+p.join('&');
+  if(ifr.getAttribute('src')!==url) ifr.src=url;
+  try{
+    window.sessionStorage.setItem('nfm_clase', CONFIG.UTM_CLASE);
+    window.sessionStorage.setItem('nfm_clase_fecha', CONFIG.FECHA);
+  }catch(err){}
+}
+
+/* ─── FORM EN DOS TIEMPOS ───
+   Primero carga la página (y el pixel). Recién después entra el form, así no le roba velocidad
+   a la primera pantalla ni al video. */
+function despuesDeCargar(fn, ms){ if(document.readyState==='complete') setTimeout(fn, ms); else window.addEventListener('load', function(){ setTimeout(fn, ms); }); }
+despuesDeCargar(cargarForm, 900);
+/* si bajan hasta el registro antes de eso, el form se carga en el momento */
+(function(){ var reg=document.getElementById('nfm-registro'); if(!reg || !('IntersectionObserver' in window)) return;
+  var io=new IntersectionObserver(function(en){ if(en[0].isIntersecting){ cargarForm(); io.disconnect(); } }, { rootMargin:'600px 0px' }); io.observe(reg); })();
+
+/* ─── CONTADOR ───
+   Actualiza todos los contadores de la página ([data-cd]) hasta la próxima clase de las 19:00 (Argentina).
+   Siempre falta menos de un día, por eso no tiene casilla de días.
+   Si la pestaña está oculta no recalcula; al volver, se pone al día. */
+(function(){
+  var cajas=document.querySelectorAll('[data-cd]'); if(!cajas.length) return;
+  var ultimoMin=-1;
+  function poner(c, sel, v){ var e=c.querySelector(sel); if(e) e.textContent=pad(v); }
+  function tick(){
+    /* a las 19:00 (más la gracia) pasa a la clase de mañana: se reinicia solo, con la página abierta */
+    if(ahora() >= TS + CONFIG.MINUTOS_DE_GRACIA*60000) armarFechas();
+    var diff=Math.max(0, TS-ahora()), h=Math.floor(diff/HORA), m=Math.floor((diff%HORA)/60000), s=Math.floor((diff%60000)/1000);
+    for(var i=0;i<cajas.length;i++){ poner(cajas[i],'[data-cd-h]',h); poner(cajas[i],'[data-cd-m]',m); poner(cajas[i],'[data-cd-s]',s); }
+    if(m!==ultimoMin){ ultimoMin=m; for(var k=0;k<cajas.length;k++) cajas[k].setAttribute('aria-label','Faltan '+h+' horas y '+m+' minutos para la clase'); }
+  }
+  tick(); setInterval(function(){ if(!document.hidden) tick(); }, 1000);
+  document.addEventListener('visibilitychange', function(){ if(!document.hidden) tick(); });
+})();
+
+/* ─── BARRA FIJA ABAJO ───
+   El contador se ve desde que entrás. El botón aparece cuando el del primer bloque ya no está en pantalla.
+   Toda la barra se esconde mientras se ve el form o el cierre. */
+(function(){
+  var bar=document.getElementById('nfm-sticky'); if(!bar) return;
+  var btn=bar.querySelector('.nfm-sticky__btn');
+  if(!('IntersectionObserver' in window)){ bar.classList.add('nfm-sticky--on','nfm-sticky--btn'); if(btn) btn.tabIndex=0; return; }
+  var mirar=[['boton',document.querySelector('.nfm-hero [data-cta="hero"]')],['registro',document.getElementById('nfm-registro')],['cierre',document.getElementById('nfm-cierre')]], vis={ boton:true, registro:false, cierre:false };
+  function pintar(){
+    var on=!vis.registro && !vis.cierre, conBoton=on && !vis.boton;
+    bar.classList.toggle('nfm-sticky--on', on); bar.classList.toggle('nfm-sticky--btn', conBoton);
+    if(btn) btn.tabIndex=conBoton?0:-1;
+  }
+  function anotar(en){ for(var i=0;i<en.length;i++) for(var k=0;k<mirar.length;k++) if(mirar[k][1]===en[i].target) vis[mirar[k][0]]=en[i].isIntersecting; pintar(); }
+  /* el botón del primer bloque cuenta como "a la vista" mientras no quede debajo de la barra */
+  var ioBoton=new IntersectionObserver(anotar, { rootMargin:'0px 0px -72px 0px' });
+  /* el form y el cierre esconden la barra recién cuando llegan a la mitad de arriba de la pantalla
+     (si sólo asoman abajo, la barra con el contador sigue) */
+  var ioZonas=new IntersectionObserver(anotar, { rootMargin:'0px 0px -50% 0px' });
+  if(mirar[0][1]) ioBoton.observe(mirar[0][1]);
+  for(var k=1;k<mirar.length;k++) if(mirar[k][1]) ioZonas.observe(mirar[k][1]);
+  pintar();
+})();
+
+/* ─── CARRUSEL DE NICO ───
+   Se desliza con el dedo (scroll nativo). Las flechas y los puntos mueven de a una escena.
+   Hay un punto por cada posición posible: 5 en celular, menos en compu porque se ven varias escenas juntas. */
+(function(){
+  var tr=document.getElementById('nfm-car-track'), cajaPuntos=document.getElementById('nfm-car-dots'); if(!tr || !cajaPuntos) return;
+  var slides=tr.querySelectorAll('.nfm-car__slide'), prev=document.querySelector('[data-car="-1"]'), next=document.querySelector('[data-car="1"]'), puntos=[];
+  function paso(){ return slides.length>1 ? slides[1].offsetLeft-slides[0].offsetLeft : tr.clientWidth; }
+  function posiciones(){ var visibles=Math.max(1, Math.round((tr.clientWidth+16)/paso())); return Math.max(1, slides.length-visibles+1); }
+  function actual(){ return Math.round(tr.scrollLeft/paso()); }
+  function ir(i){ i=Math.max(0, Math.min(posiciones()-1, i)); tr.scrollTo({ left:i*paso(), behavior:'smooth' }); }
+  function armarPuntos(){
+    var n=posiciones(); if(puntos.length===n) return;
+    cajaPuntos.innerHTML=''; puntos=[];
+    for(var i=0;i<n;i++){ var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','Ir a la escena '+(i+1)); b.setAttribute('data-i',i); cajaPuntos.appendChild(b); puntos.push(b); }
+  }
+  function pintar(){
+    var i=actual(), fin=tr.scrollLeft+tr.clientWidth>=tr.scrollWidth-4;
+    if(fin) i=puntos.length-1;
+    for(var k=0;k<puntos.length;k++) puntos[k].setAttribute('aria-current', k===i?'true':'false');
+    if(prev) prev.disabled=tr.scrollLeft<=4; if(next) next.disabled=fin;
+  }
+  var pendiente=false;
+  tr.addEventListener('scroll', function(){ if(pendiente) return; pendiente=true; requestAnimationFrame(function(){ pendiente=false; pintar(); }); }, {passive:true});
+  window.addEventListener('resize', function(){ armarPuntos(); pintar(); });
+  if(prev) prev.addEventListener('click', function(){ ir(actual()-1); });
+  if(next) next.addEventListener('click', function(){ ir(actual()+1); });
+  cajaPuntos.addEventListener('click', function(e){ var b=e.target.closest?e.target.closest('button[data-i]'):null; if(b) ir(+b.getAttribute('data-i')); });
+  armarPuntos(); pintar();
+})();
+
+/* ─── BOTONES ─── */
+function scrollToId(id){ var t=document.getElementById(id); if(!t) return; window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-12, behavior:'smooth'}); }
+document.addEventListener('click', function(e){
+  var a=e.target.closest?e.target.closest('a[href^="#"]'):null; if(!a) return;
+  var id=a.getAttribute('href').slice(1); if(!id) return;
+  e.preventDefault();
+  if(id==='nfm-registro'){
+    cargarForm();
+    /* qué botón llevó al registro: evento propio del pixel, NO es Lead (la conversión la sigue mandando GHL por CAPI) */
+    try{ if(window.fbq) fbq('trackCustom','ClicCTA',{ ubicacion: a.getAttribute('data-cta')||'otro', clase: CONFIG.UTM_CLASE, variante: CONFIG.VARIANTE }); }catch(err){}
+  }
+  scrollToId(id);
+});
+})();
+</script>
+
+<!-- GHL form embed · va DESPUÉS del script de arriba -->
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
+<!-- ═══════════ HASTA ACÁ EL CUSTOM CODE DE GHL ═══════════ -->
+</body>
+</html>
