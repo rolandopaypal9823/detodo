@@ -34,7 +34,7 @@ Mismo azul y mismo sistema visual. Orden de las secciones: hero → logos y trá
   - Los temas salen de lo que los compradores contaron que aprendieron en la clase y de los temarios anteriores. **Conviene confirmar con Nico que el 16/11 los toca.**
   - ⚠️ **La escalera es un dibujo hecho acá, no la imagen original de Nico.** Si hay una imagen oficial, se reemplaza el bloque `.nfm-lad`.
 - **Casos:** los mismos, con el título "Profesionales y empresarios que ya pasaron por el Instituto de Productividad" y sin bajada. Cierre "Ninguno vio caerse lo que había construido".
-- **Cierre:** "El 16 de noviembre vas a ver cómo dejar de ser el cuello de botella de tu negocio", y debajo "Y volver a disfrutar lo que construiste: tu tiempo libre, tus hobbies, tu familia y unas vacaciones sin el celular".
+- **Cierre:** "En vivo el lunes 16 vas a aprender cómo dejar de ser el cuello de botella de tu negocio y de tu crecimiento", y debajo "Y disfrutar de tu tiempo libre, de tu familia y de vacaciones sin llevarte el trabajo en la maleta".
 
 Se sacaron, por pedido: el widget de tachados ("Más pasa por vos, más alto el precio que pagás"), el bloque naranja "¿Te reconocés?" y el bloque "Tu cerebro está decidiendo por todo tu equipo". Los textos siguen en `../COPY-landing-sistema-que-lo-sostenga.md` por si se quieren volver a usar.
 
