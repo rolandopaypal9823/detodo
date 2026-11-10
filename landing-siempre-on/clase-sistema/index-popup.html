@@ -157,26 +157,6 @@ html, body{ margin:0; padding:0; background:#081F33; }
   .nfm-marquee__set[aria-hidden="true"]{ display:none; }
 }
 
-/* ═══ ECUACIÓN ═══ */
-.nfm-eq{ background:var(--nfm-white); padding:84px 0; text-align:center; }
-.nfm-eq .nfm-container{ display:flex; flex-direction:column; align-items:center; }
-.nfm-eq h2{ width:100%; text-align:center !important; }
-.nfm-eq h2{ font-family:var(--nfm-font-h); font-size:clamp(1.5rem,3vw,2.1rem); font-weight:700; color:var(--nfm-ink); letter-spacing:-0.02em; line-height:1.15; margin:0 0 40px; }
-.nfm-eq h2 .nfm-q, .nfm-eq h2 em{ color:var(--nfm-orange); font-style:normal; }
-.nfm-eq__cap{ margin:26px auto 0 !important; font-family:var(--nfm-font-h); font-size:1.05rem; color:var(--nfm-ink-mute); max-width:36em; line-height:1.5; text-align:center !important; text-wrap:balance; }
-.nfm-eq__cap strong{ color:var(--nfm-ink); font-weight:700; }
-.nfm-eq__board{ width:100%; max-width:640px; margin:0 auto !important; background:var(--nfm-gray-50); border:1px solid var(--nfm-gray-200); border-radius:var(--nfm-r-lg); padding:36px 28px; box-shadow:0 20px 60px rgba(12,52,82,0.08); }
-.nfm-eq__list{ list-style:none !important; margin:0 auto !important; padding:0 !important; display:flex; flex-direction:column; align-items:center; width:100%; }
-.nfm-eq__list li{ display:block; width:100%; text-align:center !important; padding:11px 0; margin:0 !important; border-bottom:1px dashed var(--nfm-gray-200); font-family:var(--nfm-font-h); font-size:clamp(1.1rem,2.2vw,1.45rem); font-weight:700; line-height:1.2; }
-.nfm-eq__list li:last-child{ border-bottom:none; }
-.nfm-eq__list li s{ text-decoration:line-through !important; text-decoration-color:var(--nfm-red) !important; text-decoration-thickness:3px; color:var(--nfm-ink-mute); }
-.nfm-eq__sum{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px 14px; width:100%; margin:8px auto 0 !important; padding:22px 0 0; border-top:2px solid var(--nfm-ink); font-family:var(--nfm-font-h); font-size:clamp(1.2rem,2.4vw,1.6rem); font-weight:800; color:var(--nfm-orange); }
-.nfm-eq__op{ color:var(--nfm-orange); font-weight:500; font-size:1.15em; line-height:1; }
-.nfm-eq__grp{ display:inline-flex; align-items:center; gap:14px; white-space:nowrap; }
-.nfm-eq__mark{ flex:0 0 auto; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1rem; }
-.nfm-eq__mark--yes{ background:rgba(34,197,94,0.12); color:var(--nfm-green); }
-.nfm-eq__blur{ filter:blur(7px); -webkit-filter:blur(7px); color:var(--nfm-orange); user-select:none; -webkit-user-select:none; pointer-events:none; display:inline-block; }
-
 /* ═══ QUIZ + FORM ═══ */
 .nfm-reg{ position:relative; overflow:hidden; padding:88px 0; background:var(--nfm-gray-50); }
 .nfm-reg__particles{ position:absolute; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
@@ -499,25 +479,30 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
   </div>
 </section>
 
-<!-- ═══ LA ECUACIÓN ═══ -->
-<section class="nfm-eq">
-  <div class="nfm-container nfm-narrow">
-    <span class="nfm-eyebrow nfm-reveal">Esto tampoco es la solución</span>
-    <h2 class="nfm-reveal nfm-d1">Más pasa por vos,<br><em>más alto el precio que pagás.</em></h2>
-    <div class="nfm-eq__board nfm-reveal nfm-d2" aria-label="Ecuación del evento">
-      <ul class="nfm-eq__list">
-        <li><s>Hacerlo todo vos</s></li>
-        <li><s>Contestar el celular en vacaciones</s></li>
-        <li><s>Estar en cada decisión de tu equipo</s></li>
-        <li><s>Otro libro o curso de productividad</s></li>
-        <li><s>Exigirte más</s></li>
-      </ul>
-      <div class="nfm-eq__sum">
-        <span class="nfm-eq__blur" aria-hidden="true">Lo que falta</span>
-        <span class="nfm-eq__grp"><span class="nfm-eq__op">=</span><span>un sistema que lo sostenga</span><span class="nfm-eq__mark nfm-eq__mark--yes" aria-label="correcto">✓</span></span>
+<!-- ═══ PARA QUIÉN ES ═══ -->
+<section class="nfm-fit">
+  <div class="nfm-container">
+    <div class="nfm-fit__head nfm-reveal">
+      <h2>¿Para quién está diseñada esta clase?</h2>
+    </div>
+    <div class="nfm-fit__grid nfm-reveal nfm-d1">
+      <div class="nfm-fit__col nfm-fit__col--si">
+        <h3>Es para vos si…</h3>
+        <ul>
+          <li>Tenés una empresa, un estudio, un consultorio o un negocio que ya funciona.</li>
+          <li>Tenés gente que depende de tus decisiones.</li>
+          <li>Querés que siga creciendo sin que tenga que pasar todo por vos.</li>
+        </ul>
+      </div>
+      <div class="nfm-fit__col nfm-fit__col--no">
+        <h3>No es para vos si…</h3>
+        <ul>
+          <li>Estás buscando tu primer cliente o arrancando un emprendimiento.</li>
+          <li>Buscás un ingreso extra o cambiar de trabajo.</li>
+          <li>Querés motivación o una fórmula rápida.</li>
+        </ul>
       </div>
     </div>
-    <p class="nfm-eq__cap nfm-reveal nfm-d3"><strong>¿Qué dice la neurociencia?</strong><br>Lo vemos en vivo el <span data-nfm-fecha="diaYNumero">lunes 16</span>: cómo armar un sistema basado en neurociencia que sostenga lo que construiste.</p>
   </div>
 </section>
 
@@ -526,9 +511,8 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
 <section class="nfm-nico" id="nfm-nico">
   <div class="nfm-container">
     <div class="nfm-nico__head nfm-reveal">
-      <span class="nfm-eyebrow">Quién da la clase</span>
-      <h2>Nicolás Fernández Miranda</h2>
-      <p>Antes de enseñarlo, lo pagó.</p>
+      <span class="nfm-eyebrow">Conocé su historia</span>
+      <h2>Nicolás Fernández Miranda, fundador del Instituto de Productividad</h2>
     </div>
     <div class="nfm-car" role="region" aria-roledescription="carrusel" aria-label="La historia de Nico en cinco escenas">
       <div class="nfm-car__track" id="nfm-car-track" tabindex="0">
@@ -629,34 +613,6 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
     </div>
     <div class="nfm-insight nfm-reveal">
       <p><strong>Ninguno trabajó menos ni bajó el ritmo. Ninguno vio caerse lo que había construido.</strong> Dejaron de cargarlo solos, y siguieron creciendo.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ PARA QUIÉN ES ═══ -->
-<section class="nfm-fit">
-  <div class="nfm-container">
-    <div class="nfm-fit__head nfm-reveal">
-      <span class="nfm-eyebrow nfm-eyebrow--solid">Antes de reservar</span>
-      <h2>Para quién es esta clase</h2>
-    </div>
-    <div class="nfm-fit__grid nfm-reveal nfm-d1">
-      <div class="nfm-fit__col nfm-fit__col--si">
-        <h3>Es para vos si…</h3>
-        <ul>
-          <li>Tenés una empresa, un estudio, un consultorio o un negocio que ya funciona.</li>
-          <li>Tenés gente que depende de tus decisiones.</li>
-          <li>Querés que siga creciendo sin que tenga que pasar todo por vos.</li>
-        </ul>
-      </div>
-      <div class="nfm-fit__col nfm-fit__col--no">
-        <h3>No es para vos si…</h3>
-        <ul>
-          <li>Estás buscando tu primer cliente o arrancando un emprendimiento.</li>
-          <li>Buscás un ingreso extra o cambiar de trabajo.</li>
-          <li>Querés motivación o una fórmula rápida.</li>
-        </ul>
-      </div>
     </div>
   </div>
 </section>
