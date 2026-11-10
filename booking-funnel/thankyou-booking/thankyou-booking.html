@@ -1,0 +1,191 @@
+<!-- ═══════════════════════════════════════════════════════
+     THANK YOU · BOOKING FUNNEL — NFM · Instituto de Productividad
+     Pegar entero en un widget HTML de GHL, con los bordes en 0.
+     1) Felicidades + 3 pasos (el 2 es el video de los 4 pilares)
+     2) Casos de éxito: video del Mastermind presencial + entrevistas de YouTube
+     Lee de la URL lo que manda Calendly al redirigir:
+       ?invitee_first_name=  → "¡Felicidades, Nombre!"
+       ?assigned_to=         → el nombre del asesor en el paso 3
+     ═══════════════════════════════════════════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  .nfm-ty{ --navy:#0C3452; --orange:#FF6602; --green:#22C55E; --wa:#25D366; --muted:#6B7280; --line:rgba(12,52,82,0.10); --soft:#F6F8FB;
+    font-family:'Open Sans',sans-serif; color:var(--navy); background:#fff; }
+  .nfm-ty *, .nfm-ty *::before, .nfm-ty *::after{ box-sizing:border-box; }
+  .nfm-ty p, .nfm-ty h1, .nfm-ty h2, .nfm-ty h3, .nfm-ty ol, .nfm-ty ul{ margin:0; }
+  .nfm-ty ol, .nfm-ty ul{ padding:0; list-style:none; }
+  .nfm-ty img{ max-width:100%; display:block; }
+  .nfm-ty__wrap{ max-width:680px; margin:0 auto; padding:0 20px; }
+
+  /* video 16:9 (Wistia, Loom o vTurb) */
+  .nfm-ty__video{ position:relative; width:100%; aspect-ratio:16/9; border-radius:12px; overflow:hidden; background:#0C3452; }
+  .nfm-ty__video iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+  /* 1) Felicidades + pasos */
+  .nfm-ty__top{ padding:48px 0 64px; text-align:center; }
+  .nfm-ty__logo{ width:150px; height:auto; margin:0 auto 32px; }
+  .nfm-ty h1{ font-family:'Montserrat',sans-serif; font-weight:800; font-size:clamp(1.8rem,5vw,2.5rem); line-height:1.1; letter-spacing:-0.02em; }
+  .nfm-ty h1 span{ color:var(--orange); }
+  .nfm-ty .nfm-ty__lead{ font-family:'Montserrat',sans-serif; font-weight:700; font-size:clamp(1.1rem,3vw,1.35rem); margin:10px 0 32px; }
+  .nfm-ty__steps{ display:flex; flex-direction:column; gap:12px; text-align:left; }
+  .nfm-ty__step{ padding:18px 20px; border-radius:16px; border:1.5px solid var(--line); background:#fff; }
+  .nfm-ty__head{ display:flex; align-items:center; gap:16px; }
+  .nfm-ty__n{ flex:none; width:40px; height:40px; border-radius:50%; display:grid; place-items:center; font-family:'Montserrat',sans-serif; font-weight:800; font-size:1rem; background:var(--soft); color:var(--navy); border:1.5px solid var(--line); }
+  .nfm-ty__n svg{ width:20px; height:20px; }
+  .nfm-ty__lbl{ display:block; font-family:'Montserrat',sans-serif; font-size:0.68rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:3px; }
+  .nfm-ty__txt{ font-family:'Montserrat',sans-serif; font-weight:700; font-size:1.05rem; line-height:1.3; }
+  .nfm-ty__sub{ display:block; font-size:0.9rem; color:var(--muted); margin-top:4px; line-height:1.45; }
+  .nfm-ty__step--done{ background:#F2FBF5; border-color:rgba(34,197,94,0.35); }
+  .nfm-ty__step--done .nfm-ty__n{ background:var(--green); border-color:var(--green); color:#fff; }
+  .nfm-ty__step--done .nfm-ty__lbl{ color:#16884a; }
+  .nfm-ty__step--done .nfm-ty__txt{ color:#4b6a58; text-decoration:line-through; text-decoration-color:rgba(22,136,74,0.5); }
+  .nfm-ty__step--video{ border:2px solid var(--orange); box-shadow:0 10px 30px rgba(255,102,2,0.12); }
+  .nfm-ty__step--video .nfm-ty__n{ background:var(--orange); border-color:var(--orange); color:#fff; }
+  .nfm-ty__step--video .nfm-ty__lbl{ color:var(--orange); }
+  .nfm-ty__step--video .nfm-ty__video{ margin-top:16px; }
+  .nfm-ty__step--wa .nfm-ty__n{ background:var(--wa); border-color:var(--wa); color:#fff; }
+
+  /* 2) Casos de éxito */
+  .nfm-ty__cases-sec{ background:var(--soft); padding:64px 0 72px; }
+  .nfm-ty__cases-sec .nfm-ty__wrap--ancho{ max-width:1040px; }
+  .nfm-ty h2{ font-family:'Montserrat',sans-serif; font-weight:800; font-size:clamp(1.45rem,3.4vw,2rem); line-height:1.15; letter-spacing:-0.02em; text-align:center; margin-bottom:28px; text-wrap:balance; }
+  .nfm-ty h2 span{ color:var(--orange); }
+  .nfm-ty h3{ font-family:'Montserrat',sans-serif; font-weight:700; font-size:1.05rem; line-height:1.3; text-align:center; margin-bottom:14px; }
+  .nfm-ty__mm{ margin-bottom:44px; }
+  .nfm-ty__cases{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+  .nfm-ty__cases a{ display:flex; flex-direction:column; height:100%; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; transition:border-color .2s, transform .2s; }
+  .nfm-ty__cases a:hover{ border-color:rgba(255,102,2,0.5); transform:translateY(-2px); }
+  .nfm-ty__cases a:focus-visible{ outline:3px solid rgba(255,102,2,0.45); outline-offset:2px; }
+  .nfm-ty__thumb{ position:relative; display:block; aspect-ratio:16/9; background:#dfe6ee; overflow:hidden; }
+  .nfm-ty__thumb img{ width:100%; height:100%; object-fit:cover; }
+  .nfm-ty__thumb i{ position:absolute; left:50%; top:50%; width:46px; height:46px; margin:-23px 0 0 -23px; border-radius:50%; background:rgba(255,102,2,0.92); }
+  .nfm-ty__thumb i::after{ content:''; position:absolute; left:18px; top:14px; border-left:14px solid #fff; border-top:9px solid transparent; border-bottom:9px solid transparent; }
+  .nfm-ty__case{ display:block; padding:14px 16px 16px; }
+  .nfm-ty__case p{ font-size:0.96rem; line-height:1.45; font-weight:600; font-style:italic; }
+  .nfm-ty__case > span{ display:block; margin-top:6px; font-size:0.84rem; color:var(--muted); }
+  .nfm-ty__case > span b{ color:var(--navy); font-weight:700; }
+
+  .nfm-ty__foot{ text-align:center; padding:24px 20px; font-size:0.78rem; color:var(--muted); background:var(--soft); border-top:1px solid var(--line); }
+
+  @media (max-width:900px){ .nfm-ty__cases{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (max-width:640px){
+    .nfm-ty__top{ padding:36px 0 48px; }
+    .nfm-ty__logo{ width:124px; margin-bottom:26px; }
+    .nfm-ty .nfm-ty__lead{ margin-bottom:26px; }
+    .nfm-ty__step{ padding:16px; }
+    .nfm-ty__head{ gap:14px; }
+    .nfm-ty__txt{ font-size:1rem; }
+    .nfm-ty__step--video .nfm-ty__video{ margin-top:14px; border-radius:10px; }
+    .nfm-ty__cases-sec{ padding:48px 0 56px; }
+    .nfm-ty__mm{ margin-bottom:36px; }
+    .nfm-ty__cases{ grid-template-columns:1fr; gap:10px; }
+    .nfm-ty__cases a{ flex-direction:row; }
+    .nfm-ty__thumb{ flex:0 0 42%; aspect-ratio:auto; }
+    .nfm-ty__thumb i{ width:34px; height:34px; margin:-17px 0 0 -17px; }
+    .nfm-ty__thumb i::after{ left:13px; top:10px; border-left-width:11px; border-top-width:7px; border-bottom-width:7px; }
+    .nfm-ty__case{ padding:12px 14px; }
+    .nfm-ty__case p{ font-size:0.9rem; }
+  }
+  @media (prefers-reduced-motion:reduce){ .nfm-ty__cases a{ transition:none; } }
+</style>
+
+<div class="nfm-ty">
+
+  <!-- 1) FELICIDADES + 3 PASOS -->
+  <section class="nfm-ty__top">
+    <div class="nfm-ty__wrap">
+      <img class="nfm-ty__logo" src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm.png" alt="Nicolás Fernández Miranda · Instituto de Productividad" width="300" height="125">
+      <h1 id="nfm-ty-title">¡<span>Felicidades</span>!</h1>
+      <p class="nfm-ty__lead">Tu entrevista ya está agendada.</p>
+      <ol class="nfm-ty__steps">
+        <li class="nfm-ty__step nfm-ty__step--done">
+          <div class="nfm-ty__head">
+            <span class="nfm-ty__n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span><span class="nfm-ty__lbl">Paso 1 · Listo</span><span class="nfm-ty__txt">Agendaste tu entrevista</span></span>
+          </div>
+        </li>
+        <li class="nfm-ty__step nfm-ty__step--video">
+          <div class="nfm-ty__head">
+            <span class="nfm-ty__n">2</span>
+            <span><span class="nfm-ty__lbl">Paso 2 · Obligatorio para confirmar tu entrevista</span><span class="nfm-ty__txt">Mirá este video y conocé los 4 pilares de nuestros programas</span></span>
+          </div>
+          <!-- VIDEO DEL PASO 2 · hoy desde Wistia. Cuando esté en vTurb, reemplazá el iframe por el código de vTurb
+               (dejá el div nfm-ty__video alrededor para que quede en 16:9). -->
+          <div class="nfm-ty__video">
+            <iframe src="https://fast.wistia.net/embed/iframe/tdrkk8cd9a?seo=false&amp;videoFoam=false&amp;playerColor=FF6602" title="Los 4 pilares de nuestros programas" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </li>
+        <li class="nfm-ty__step nfm-ty__step--wa">
+          <div class="nfm-ty__head">
+            <span class="nfm-ty__n">3</span>
+            <span><span class="nfm-ty__lbl">Paso 3</span><span class="nfm-ty__txt" id="nfm-ty-paso3">Confirmá tu llamada por WhatsApp</span><span class="nfm-ty__sub">Respondé el mensaje que te llega por WhatsApp.</span></span>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 2) CASOS DE ÉXITO -->
+  <section class="nfm-ty__cases-sec">
+    <div class="nfm-ty__wrap">
+      <h2>Conocé casos de éxito del <span>Instituto de Productividad</span></h2>
+      <div class="nfm-ty__mm">
+        <h3>Así lo viven los alumnos en el último Mastermind presencial</h3>
+        <div class="nfm-ty__video">
+          <iframe src="https://www.loom.com/embed/2828a6fa48794a4e8ba3bc623e8bc70a?hide_share=true&amp;hide_title=true&amp;hide_owner=true&amp;hideEmbedTopBar=true" title="Así lo viven los alumnos en el último Mastermind presencial" allow="fullscreen" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="nfm-ty__wrap nfm-ty__wrap--ancho">
+      <ul class="nfm-ty__cases">
+        <li><a href="https://www.youtube.com/watch?v=95H0-szcsMs" target="_blank" rel="noopener" aria-label="Ver la entrevista de Celi"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/95H0-szcsMs/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«El sistema correcto te permite rendir sin quemarte.»</p><span><b>Celi</b> · Arquitecta, lidera un equipo de 45 personas</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=7x_hvNVvc88" target="_blank" rel="noopener" aria-label="Ver la entrevista de Cristian"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/7x_hvNVvc88/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Hiciste bien, vas bien, seguí. Esto es una carrera contra uno mismo.»</p><span><b>Cristian</b> · Bioquímico y empresario</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=0o-tzNPybNk" target="_blank" rel="noopener" aria-label="Ver la entrevista de Andrés"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/0o-tzNPybNk/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«El sistema correcto no te pide más esfuerzo, te pide más inteligencia.»</p><span><b>Andrés</b> · Ingeniero agrónomo</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=YoC-5YlvD7w" target="_blank" rel="noopener" aria-label="Ver la entrevista de Pau"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/YoC-5YlvD7w/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Cuando entendés cómo funciona tu cerebro, todo cambia.»</p><span><b>Pau</b> · Arquitecta independiente</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=anq1RGIC7_Q" target="_blank" rel="noopener" aria-label="Ver la entrevista de Romi"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/anq1RGIC7_Q/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«No cambié mi personalidad. Ordené mi estructura.»</p><span><b>Romi</b> · Publicista digital</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=CVo9A7ADvTs" target="_blank" rel="noopener" aria-label="Ver la entrevista de Natalia"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/CVo9A7ADvTs/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Cuando dormís bien, todo lo demás empieza a acomodarse solo.»</p><span><b>Natalia</b> · Astrónoma, investigadora del CONICET</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=xDpQB0t2RH8" target="_blank" rel="noopener" aria-label="Ver la entrevista de Milton"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/xDpQB0t2RH8/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Cuando dejé de esperar las ganas para arrancar, todo cambió.»</p><span><b>Milton</b> · Diseñador UX</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=vgF6e9MptW4" target="_blank" rel="noopener" aria-label="Ver la entrevista de Pierina"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/vgF6e9MptW4/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Pasé de querer hacer todo y no poder nada, a hacer lo importante con claridad.»</p><span><b>Pierina</b> · Doctoranda en Roma</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=7F5YjFM-EJY" target="_blank" rel="noopener" aria-label="Ver la entrevista de Jair"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/7F5YjFM-EJY/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«No dudes tanto en hacer esa inversión en vos.»</p><span><b>Jair</b> · Ingeniero en sistemas</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=UHvxGkuGfI0" target="_blank" rel="noopener" aria-label="Ver la entrevista de Anto"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/UHvxGkuGfI0/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Las herramientas no te cambian la vida. Vos sí podés, cuando las usás.»</p><span><b>Anto</b> · Técnica química y emprendedora</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=wePT08l1BYM" target="_blank" rel="noopener" aria-label="Ver la entrevista de Tatiana"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/wePT08l1BYM/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Cuando tenés claridad de hacia dónde vas, el esfuerzo empieza a valer la pena.»</p><span><b>Tatiana</b> · Estudiante de lenguas</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=zRGwIl_FXfk" target="_blank" rel="noopener" aria-label="Ver la entrevista de Santi"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/zRGwIl_FXfk/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Invertir en el cerebro es la mejor inversión que vas a hacer.»</p><span><b>Santi</b> · Laboratorista</span></span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <p class="nfm-ty__foot">© Nicolás Fernández Miranda · Instituto de Productividad</p>
+</div>
+
+<script>
+(function(){
+  /* Asesores: el primer nombre de assigned_to (como lo manda Calendly) → cómo se escribe.
+     Si no está en la lista o no viene, el paso 3 queda genérico. */
+  var ASESORES = { luciana:'Luciana', cristina:'Cristina', pierina:'Pierina', paula:'Paula', matias:'Matías', romina:'Romina', ayrton:'Ayrton', lucas:'Lucas' };
+
+  var q = new URLSearchParams(location.search);
+  /* Calendly a veces manda los datos con doble encoding («Luciana%20Fernandez») */
+  function dato(k){
+    var v = q.get(k) || '';
+    try{ if(/%[0-9A-Fa-f]{2}/.test(v)) v = decodeURIComponent(v); }catch(e){}
+    return v.trim();
+  }
+  function primero(s){ return (s.split(/\s+/)[0] || ''); }
+
+  var nombre = primero(dato('invitee_first_name'));
+  if(nombre){
+    nombre = nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase();
+    var t = document.getElementById('nfm-ty-title');
+    t.textContent = '';
+    t.appendChild(document.createTextNode('¡Felicidades, '));
+    var sp = document.createElement('span'); sp.textContent = nombre; t.appendChild(sp);
+    t.appendChild(document.createTextNode('!'));
+  }
+
+  var clave = primero(dato('assigned_to')).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  if(ASESORES[clave]){
+    document.getElementById('nfm-ty-paso3').textContent = 'Confirmá tu llamada con ' + ASESORES[clave] + ' por WhatsApp';
+  }
+})();
+</script>
