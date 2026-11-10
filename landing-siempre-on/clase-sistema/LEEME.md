@@ -27,11 +27,15 @@ Las secciones y el orden son los mismos. Cambia el copy:
   - Debajo: "Neurociencia para el Alto Rendimiento Profesional · con Nico Fernández Miranda".
 - **Widget de tachados** ("Esto tampoco es la solución"): "Más pasa por vos, más alto el precio que pagás". Tacha 5 cosas que ya probaron (hacerlo todo vos, contestar el celular en vacaciones, estar en cada decisión de tu equipo, otro libro o curso de productividad, exigirte más) y da como resultado "un sistema que lo sostenga".
 - **Historia de Nico:** en carrusel, igual que en la landing de la Comunidad (masterclass del 27/10): las cinco escenas con foto y un texto corto, que se deslizan con el dedo o con las flechas. En compu se ven tres a la vez; en celular una, con la siguiente asomando. Hace la landing mucho más corta.
-- **"Armá tu sistema de productividad en vivo el 16 de noviembre"** (reemplaza "Qué vas a ver"): sólo el título y una escalera dibujada con tres peldaños de una línea cada uno, sin bajadas ni textos chicos. De abajo hacia arriba: "Cuidar tu bienestar mental", "Cuidar tu bienestar físico" y "Las habilidades técnicas que te permiten crecer", con las etiquetas de ejemplo (hábitos, concentración, delegación, inteligencia artificial).
+- **"Armá tu sistema de productividad en vivo el 16 de noviembre"** (reemplaza "Qué vas a ver"): el título y una escalera dibujada con tres peldaños. Cada uno tiene un título y cuatro temas técnicos que se ven en la clase, nombrados sin explicar cómo:
+  - **Cuidar tu bienestar mental:** funciones ejecutivas, memoria de trabajo y control inhibitorio, el costo del cambio de tarea, descarga mental.
+  - **Cuidar tu bienestar físico:** luz y ritmo circadiano, sueño profundo, recuperación medible, siestas cortas.
+  - **Las habilidades técnicas que te permiten crecer:** hábitos, concentración profunda, delegación, inteligencia artificial.
+  - Los temas salen de lo que los compradores contaron que aprendieron en la clase y de los temarios anteriores. **Conviene confirmar con Nico que el 16/11 los toca.**
   - ⚠️ **La escalera es un dibujo hecho acá, no la imagen original de Nico.** Si hay una imagen oficial, se reemplaza el bloque `.nfm-lad`.
 - **Casos:** los mismos. Encabezado para dueños y profesionales con equipo, y cierre "Ninguno vio caerse lo que había construido".
 - **"Para quién es esta clase"** (vuelve, entre los casos y el cierre): es y no es para vos, sin hablar de plata.
-- **Cierre:** "El 16 de noviembre vas a ver cómo armar el sistema que lo sostenga".
+- **Cierre:** "El 16 de noviembre vas a ver cómo dejar de ser el cuello de botella de tu negocio", y debajo "Y volver a disfrutar lo que construiste: tu tiempo libre, tus hobbies, tu familia y unas vacaciones sin el celular".
 
 Se sacaron, por pedido: el bloque naranja "¿Te reconocés?" y el bloque "Tu cerebro está decidiendo por todo tu equipo". Los textos siguen en `../COPY-landing-sistema-que-lo-sostenga.md` por si se quieren volver a usar.
 

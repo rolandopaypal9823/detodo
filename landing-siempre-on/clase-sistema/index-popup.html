@@ -323,13 +323,15 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
 .nfm-lad__rung{ position:relative; padding:20px 0; }
 /* el peldaño: una barra naranja de lateral a lateral, que pasa por detrás de la tarjeta */
 .nfm-lad__rung::before{ content:""; position:absolute; left:-44px; right:-44px; top:50%; height:10px; margin-top:-5px; border-radius:5px; background:var(--nfm-orange); z-index:1; }
-.nfm-lad__card{ position:relative; z-index:2; background:#fff; border:1px solid var(--nfm-gray-200); border-radius:var(--nfm-r-lg); padding:26px 28px; box-shadow:0 18px 50px rgba(12,52,82,0.10); display:flex; gap:20px; align-items:center; text-align:left; }
+.nfm-lad__card{ position:relative; z-index:2; background:#fff; border:1px solid var(--nfm-gray-200); border-radius:var(--nfm-r-lg); padding:26px 28px; box-shadow:0 18px 50px rgba(12,52,82,0.10); display:flex; gap:20px; align-items:flex-start; text-align:left; }
 .nfm-lad__ico{ flex:none; width:54px; height:54px; border-radius:15px; background:rgba(255,102,2,0.10); border:1px solid rgba(255,102,2,0.25); display:flex; align-items:center; justify-content:center; color:var(--nfm-orange); }
 .nfm-lad__ico svg{ width:27px; height:27px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
 .nfm-lad__txt{ min-width:0; }
+.nfm-lad__list{ list-style:none !important; margin:14px 0 0 !important; padding:0 !important; display:grid; gap:8px; }
+.nfm-lad__list li{ position:relative; margin:0 !important; padding-left:22px; font-size:1rem; line-height:1.45; color:#2a3f54; }
+.nfm-lad__list li::before{ content:""; position:absolute; left:2px; top:0.52em; width:8px; height:8px; border-radius:50%; background:var(--nfm-orange); }
+.nfm-lad__list li b{ color:var(--nfm-ink); font-weight:700; }
 .nfm-lad__txt h3{ font-family:var(--nfm-font-h); font-size:clamp(1.3rem,2.6vw,1.7rem); font-weight:700; color:var(--nfm-ink); letter-spacing:-0.02em; line-height:1.18; margin:0; text-wrap:balance; }
-.nfm-lad__chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
-.nfm-lad__chips span{ font-family:var(--nfm-font-h); font-size:0.88rem; font-weight:600; color:var(--nfm-navy); background:var(--nfm-gray-100); border:1px solid var(--nfm-gray-200); padding:6px 14px; border-radius:50px; }
 
 /* ═══ PARA QUIÉN ES ═══ */
 .nfm-fit{ background:var(--nfm-gray-50); padding:88px 0; color:var(--nfm-navy); }
@@ -371,6 +373,8 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
 .nfm-final p{ font-size:1.06rem; color:var(--nfm-tl); max-width:30em; margin:0 auto 34px; line-height:1.6; }
 .nfm-final__date{ font-family:var(--nfm-font-h); font-weight:600; font-size:0.95rem; color:var(--nfm-tl); margin-top:22px; display:block; text-align:center; }
 .nfm-final__date .nfm-dot{ vertical-align:middle; margin-right:8px; }
+.nfm-final .nfm-final__date{ max-width:40em; margin:22px auto 0 !important; }
+.nfm-final .nfm-final__local{ margin:6px auto 0 !important; }
 
 .nfm-footer{ background:#081F33; padding:34px 0; text-align:center; border-top:1px solid var(--nfm-hair); }
 .nfm-footer p{ font-size:0.8rem; color:var(--nfm-tm); }
@@ -389,7 +393,8 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
   .nfm-lad{ padding:0 30px; } .nfm-lad__body::before{ left:-30px; } .nfm-lad__body::after{ right:-30px; } .nfm-lad__rung::before{ left:-30px; right:-30px; }
   .nfm-lad__rung{ padding:20px 0; } .nfm-lad__card{ padding:18px 16px; gap:14px; } .nfm-lad__ico{ width:44px; height:44px; border-radius:12px; } .nfm-lad__ico svg{ width:23px; height:23px; }
   .nfm-lad__txt h3{ font-size:1.12rem; }
-  .nfm-lad__chips{ gap:6px; margin-top:10px; } .nfm-lad__chips span{ font-size:0.78rem; padding:5px 10px; }
+  .nfm-lad__list{ margin-top:10px !important; gap:7px; } .nfm-lad__list li{ font-size:0.92rem; padding-left:18px; } .nfm-lad__list li::before{ width:7px; height:7px; left:1px; }
+  .nfm-lad__ico{ display:none; }
   .nfm-fit{ padding:64px 0; } .nfm-fit__grid{ grid-template-columns:1fr; } .nfm-fit__col{ padding:24px 20px 18px; }
   .nfm-hero{ padding:108px 12px 24px; }
   .nfm-hero__card{ min-height:0; border-radius:22px; }
@@ -571,15 +576,17 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
         <div class="nfm-lad__rung"><div class="nfm-lad__card">
           <div class="nfm-lad__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4.5" y="4.5" width="15" height="15" rx="3"/><rect x="9" y="9" width="6" height="6" rx="1.2"/><path d="M9 2v2.5M15 2v2.5M9 19.5V22M15 19.5V22M2 9h2.5M2 15h2.5M19.5 9H22M19.5 15H22"/></svg></div>
           <div class="nfm-lad__txt"><h3>Las habilidades técnicas que te permiten crecer</h3>
-            <div class="nfm-lad__chips"><span>Hábitos</span><span>Concentración</span><span>Delegación</span><span>Inteligencia artificial</span></div></div>
+            <ul class="nfm-lad__list"><li><b>Hábitos</b> que no dependen de tu fuerza de voluntad</li><li><b>Concentración profunda</b> con un equipo que te busca todo el tiempo</li><li><b>Delegación:</b> qué decisiones sacar primero de tu mente</li><li><b>Inteligencia artificial</b> y un segundo cerebro para descargar tu mente</li></ul></div>
         </div></div>
         <div class="nfm-lad__rung"><div class="nfm-lad__card">
           <div class="nfm-lad__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="7" width="17" height="10" rx="2.5"/><path d="M19.5 10.5h1.5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1.5"/><path d="M12 8.5l-2.5 4h4L11 16"/></svg></div>
-          <div class="nfm-lad__txt"><h3>Cuidar tu bienestar físico</h3></div>
+          <div class="nfm-lad__txt"><h3>Cuidar tu bienestar físico</h3>
+            <ul class="nfm-lad__list"><li><b>Luz y ritmo circadiano:</b> qué hacer a la mañana y qué a la noche</li><li><b>Sueño profundo:</b> por qué te despertás a las 3 pensando en el negocio</li><li><b>Recuperación medible:</b> por qué el fin de semana no te repone</li><li><b>Siestas cortas de recuperación</b> (power nap)</li></ul></div>
         </div></div>
         <div class="nfm-lad__rung"><div class="nfm-lad__card">
           <div class="nfm-lad__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="5.5" r="2.2"/><circle cx="18" cy="5.5" r="2.2"/><circle cx="12" cy="18.5" r="2.2"/><path d="M6 7.7v1.8a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4V7.7M12 13.5v2.8"/></svg></div>
-          <div class="nfm-lad__txt"><h3>Cuidar tu bienestar mental</h3></div>
+          <div class="nfm-lad__txt"><h3>Cuidar tu bienestar mental</h3>
+            <ul class="nfm-lad__list"><li><b>Cómo no sobrecargar tus funciones ejecutivas</b></li><li><b>Memoria de trabajo, control inhibitorio</b> y flexibilidad cognitiva</li><li><b>El costo invisible del cambio de tarea</b></li><li><b>Descarga mental:</b> cómo cortar el día para que tu mente también corte</li></ul></div>
         </div></div>
       </div>
     </div>
@@ -657,7 +664,8 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
 <!-- ═══ CTA FINAL ═══ -->
 <section class="nfm-final">
   <div class="nfm-container nfm-mid">
-    <h2 class="nfm-reveal">El <span data-nfm-fecha="corta">16 de noviembre</span> vas a ver <em>cómo armar el sistema que lo sostenga.</em></h2>
+    <h2 class="nfm-reveal">El <span data-nfm-fecha="corta">16 de noviembre</span> vas a ver cómo dejar de ser <em>el cuello de botella de tu negocio.</em></h2>
+    <p class="nfm-reveal nfm-d1">Y volver a disfrutar lo que construiste: tu tiempo libre, tus hobbies, tu familia y unas vacaciones sin el celular.</p>
     <div class="nfm-reveal nfm-d1">
       <button class="nfm-btn" data-abrir-registro>QUIERO MI LUGAR <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
     </div>
