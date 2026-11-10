@@ -33,7 +33,7 @@ Mismo azul y mismo sistema visual. Orden de las secciones: hero → logos y trá
   - **Las habilidades técnicas que te permiten crecer:** hábitos, concentración profunda, delegación, inteligencia artificial.
   - Los temas salen de lo que los compradores contaron que aprendieron en la clase y de los temarios anteriores. **Conviene confirmar con Nico que el 16/11 los toca.**
   - ⚠️ **La escalera es un dibujo hecho acá, no la imagen original de Nico.** Si hay una imagen oficial, se reemplaza el bloque `.nfm-lad`.
-- **Casos:** los mismos. Encabezado para dueños y profesionales con equipo, y cierre "Ninguno vio caerse lo que había construido".
+- **Casos:** los mismos, con el título "Profesionales y empresarios que ya pasaron por el Instituto de Productividad" y sin bajada. Cierre "Ninguno vio caerse lo que había construido".
 - **Cierre:** "El 16 de noviembre vas a ver cómo dejar de ser el cuello de botella de tu negocio", y debajo "Y volver a disfrutar lo que construiste: tu tiempo libre, tus hobbies, tu familia y unas vacaciones sin el celular".
 
 Se sacaron, por pedido: el widget de tachados ("Más pasa por vos, más alto el precio que pagás"), el bloque naranja "¿Te reconocés?" y el bloque "Tu cerebro está decidiendo por todo tu equipo". Los textos siguen en `../COPY-landing-sistema-que-lo-sostenga.md` por si se quieren volver a usar.
