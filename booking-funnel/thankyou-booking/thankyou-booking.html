@@ -1,891 +1,155 @@
 <!-- ═══════════════════════════════════════════════════════
-     PÁGINA THANK YOU · BOOKING FUNNEL — NFM · Instituto de Productividad
-     TODO EN UNO (pegar en un solo widget HTML de GHL, con los bordes en 0)
-     Orden: 1) Asesor asignado  2) Video  3) El fundador  4) Casos  5) Qué incluye  6) Escalera  7) Cierre
-     Lee ?assigned_to= y ?invitee_first_name= para personalizar
+     THANK YOU · BOOKING FUNNEL — NFM · Instituto de Productividad
+     Pegar entero en un widget HTML de GHL, con los bordes en 0.
+     1) Felicitaciones + 3 pasos   2) Casos de éxito (miniaturas de YouTube)
+     Lee de la URL lo que manda Calendly al redirigir:
+       ?invitee_first_name=  → "¡Felicitaciones, Nombre!"
+       ?assigned_to=         → el nombre del asesor en el paso 2
      ═══════════════════════════════════════════════════════ -->
-
-<!-- Fuentes (una sola vez para toda la página) -->
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-
-<!-- ═══════════════════════════════════════════════════════
-     1) WIDGET — ASIGNACIÓN DE CLOSER + LOGO
-     Lee ?assigned_to=Nombre+Apellido y ?invitee_first_name=Nombre
-     Elementor → HTML Widget
-     ═══════════════════════════════════════════════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-  .nfm-closer {
-    --navy:   #0C3452;
-    --orange: #FF6602;
-    --cream:  #FBF7F1;
-    --white:  #ffffff;
-    --text:   #2D3748;
-    --muted:  #6B7280;
-    --border: rgba(12, 52, 82, 0.10);
-    --whatsapp: #25D366;
-
-    position: relative;
-    background: transparent;
-    padding: 80px 0 96px;
-    font-family: 'Open Sans', sans-serif;
-    color: var(--text);
-    overflow: hidden;
-  }
-
-  .nfm-closer::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,102,2,.025) 30px, rgba(255,102,2,.025) 31px),
-      repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(12,52,82,.015) 30px, rgba(12,52,82,.015) 31px);
-    pointer-events: none;
-  }
-
-  .nfm-closer__container {
-    position: relative;
-    z-index: 1;
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* ── Logo NFM (arriba de todo) ── */
-  .nfm-closer__brand {
-    text-align: center;
-    margin-bottom: 34px;
-    animation: nfm-fadeUp 0.5s ease both;
-  }
-
-  .nfm-closer__brand img {
-    height: 144px;
-    width: auto;
-    max-width: 100%;
-    display: inline-block;
-  }
-
-  .nfm-closer__header {
-    text-align: center;
-    margin-bottom: 36px;
-  }
-
-  .nfm-closer__check {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 20px;
-    background: var(--whatsapp);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 28px rgba(37, 211, 102, 0.35);
-    animation: nfm-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  }
-
-  .nfm-closer__check svg {
-    width: 32px;
-    height: 32px;
-    fill: #fff;
-  }
-
-  .nfm-closer__eyebrow {
-    display: inline-block;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 12px;
-  }
-
-  .nfm-closer__greeting {
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    font-weight: 700;
-    color: var(--navy);
-    margin: 0 0 10px;
-    letter-spacing: -0.01em;
-  }
-
-  .nfm-closer__greeting span {
-    color: var(--orange);
-  }
-
-  .nfm-closer__greeting:empty {
-    display: none;
-  }
-
-  .nfm-closer__title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.3rem);
-    font-weight: 900;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: var(--navy);
-    margin: 0 0 14px;
-  }
-
-  .nfm-closer__title span { color: var(--orange); }
-
-  .nfm-closer__subtitle {
-    font-size: 1rem;
-    color: var(--muted);
-    line-height: 1.6;
-    max-width: 520px;
-    margin: 0 auto;
-  }
-
-  .nfm-closer__card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 40px 36px 36px;
-    text-align: center;
-    box-shadow: 0 8px 32px rgba(12, 52, 82, 0.08);
-    position: relative;
-    overflow: hidden;
-    animation: nfm-fadeUp 0.5s ease 0.15s both;
-  }
-
-  .nfm-closer__card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, var(--orange), #ff8b3d, var(--orange));
-  }
-
-  .nfm-closer__photo {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    margin: 0 auto 22px;
-    overflow: hidden;
-    border: 4px solid var(--white);
-    box-shadow: 0 8px 24px rgba(12, 52, 82, 0.18), 0 0 0 4px rgba(255, 102, 2, 0.15);
-    background: linear-gradient(135deg, var(--orange) 0%, #c84500 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .nfm-closer__photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .nfm-closer__initial {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 3.5rem;
-    font-weight: 900;
-    color: rgba(255, 255, 255, 0.85);
-  }
-
-  .nfm-closer__photo--generic {
-    background: linear-gradient(135deg, var(--navy) 0%, #051a2b 100%);
-  }
-
-  .nfm-closer__photo--generic svg {
-    width: 56px;
-    height: 56px;
-    fill: var(--orange);
-  }
-
-  .nfm-closer__role {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 6px;
-  }
-
-  .nfm-closer__name {
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(1.5rem, 3vw, 1.9rem);
-    font-weight: 900;
-    color: var(--navy);
-    margin: 0 0 18px;
-    letter-spacing: -0.02em;
-  }
-
-  .nfm-closer__message {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1rem;
-    color: var(--text);
-    line-height: 1.65;
-    max-width: 460px;
-    margin: 0 auto 28px;
-  }
-
-  .nfm-closer__instruction {
-    background: rgba(37, 211, 102, 0.08);
-    border: 1px solid rgba(37, 211, 102, 0.28);
-    border-radius: 14px;
-    padding: 18px 22px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    text-align: left;
-    margin-top: 8px;
-  }
-
-  .nfm-closer__wa-icon {
-    width: 44px;
-    height: 44px;
-    flex-shrink: 0;
-    background: var(--whatsapp);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .nfm-closer__wa-icon svg {
-    width: 24px;
-    height: 24px;
-    fill: #fff;
-  }
-
-  .nfm-closer__wa-text {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 0.92rem;
-    color: var(--text);
-    line-height: 1.5;
-  }
-
-  .nfm-closer__wa-text strong {
-    color: var(--navy);
-    font-weight: 700;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .nfm-closer__extra {
-    display: flex;
-    justify-content: center;
-    gap: 22px;
-    flex-wrap: wrap;
-    margin-top: 28px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
-  }
-
-  .nfm-closer__extra-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-
-  .nfm-closer__extra-item strong {
-    color: var(--navy);
-    font-weight: 700;
-  }
-
-  @keyframes nfm-fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes nfm-pop {
-    0%   { opacity: 0; transform: scale(0.5); }
-    100% { opacity: 1; transform: scale(1); }
-  }
-
-  @media (max-width: 540px) {
-    .nfm-closer { padding: 56px 0 72px; }
-    .nfm-closer__brand { margin-bottom: 26px; }
-    .nfm-closer__brand img { height: 120px; }
-    .nfm-closer__card { padding: 32px 22px 28px; }
-    .nfm-closer__photo { width: 120px; height: 120px; }
-    .nfm-closer__instruction { padding: 14px 16px; gap: 12px; }
-    .nfm-closer__wa-icon { width: 38px; height: 38px; }
-  }
-</style>
-
-<section class="nfm-closer" id="nfm-asignacion">
-  <div class="nfm-closer__container">
-
-    <div class="nfm-closer__brand">
-      <img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm.png" alt="Nicolás Fernández Miranda · Instituto de Productividad" loading="lazy">
-    </div>
-
-    <div class="nfm-closer__header">
-      <div class="nfm-closer__check">
-        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-      </div>
-      <div class="nfm-closer__eyebrow" id="nfm-closer-eyebrow">Tu sesión está agendada</div>
-      <div class="nfm-closer__greeting" id="nfm-closer-greeting"></div>
-      <h2 class="nfm-closer__title" id="nfm-closer-title">
-        Te va a contactar <span>tu asesor/a</span> por WhatsApp
-      </h2>
-      <p class="nfm-closer__subtitle" id="nfm-closer-subtitle">
-        Ya te escribimos para coordinar el horario.
-      </p>
-    </div>
-
-    <div class="nfm-closer__card">
-      <div class="nfm-closer__photo" id="nfm-closer-photo"></div>
-      <div class="nfm-closer__role" id="nfm-closer-role">Asesor/a · Instituto de Productividad</div>
-      <h3 class="nfm-closer__name" id="nfm-closer-name">—</h3>
-      <p class="nfm-closer__message" id="nfm-closer-message">—</p>
-
-      <div class="nfm-closer__extra">
-        <div class="nfm-closer__extra-item">⏱️ <strong>Duración:</strong> 45-60 min</div>
-        <div class="nfm-closer__extra-item">💻 <strong>Modalidad:</strong> Videollamada</div>
-        <div class="nfm-closer__extra-item">🎯 <strong>Tipo:</strong> 1 a 1</div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<script>
-(function() {
-  // ─── CLOSERS ─────────────────────────────────────────────
-  const closers = {
-    luciana: {
-      nombre: 'Luciana',
-      role: 'Asesora · Instituto de Productividad',
-      foto: 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-19-at-11.20.09-AM.jpeg',
-      mensaje: 'Estoy esperando nuestra charla para conocer tu caso en detalle y ver cómo podemos avanzar. ¡Hablamos pronto! ✨'
-    },
-    cristina: {
-      nombre: 'Cristina',
-      role: 'Asesora · Instituto de Productividad',
-      foto: 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-19-at-12.51.15-PM.jpeg',
-      fotoPosition: 'center 10%',
-      mensaje: 'Voy a acompañarte en esta primera conversación para entender qué necesitás y cómo podemos ayudarte. Te escribo pronto 💫'
-    },
-    pierina: {
-      nombre: 'Pierina',
-      role: 'Asesora · Instituto de Productividad',
-      foto: 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/05/Captura-de-pantalla-2026-05-23-102252.png',
-      mensaje: 'Voy a ser quien te escuche en esta primera charla para conocer tu caso y guiarte en lo que necesitás resolver. ¡Hablamos pronto! 🌟'
-    },
-    paula: {
-      nombre: 'Paula',
-      role: 'Asesora · Instituto de Productividad',
-      foto: 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/06/image-1.png',
-      fotoPosition: 'center top',
-      mensaje: 'Voy a acompañarte en esta primera conversación para entender bien tu situación y ver si el programa es para vos. ¡Hablamos en un rato! 👋'
-    },
-    matias: {
-      nombre: 'Matías',
-      role: 'Asesor · Instituto de Productividad',
-      foto: 'https://nicolasfernandezmiranda.com/wp-content/uploads/2026/06/image.png',
-      mensaje: 'Voy a estar en la sesión con vos para escucharte y ayudarte a encontrar el mejor camino. Nos vemos en breve 🙌'
-    },
-    ayrton: {
-      nombre: 'Ayrton',
-      role: 'Asesor · Instituto de Productividad',
-      foto: '',   // ⚠️ falta la foto: pegá acá el link
-      mensaje: 'Voy a acompañarte en esta primera charla para entender tu caso y ver cuál es el próximo paso. ¡Te escribo pronto! 🙌'
-    },
-    lucas: {
-      nombre: 'Lucas',
-      role: 'Asesor · Instituto de Productividad',
-      foto: '',   // ⚠️ falta la foto: pegá acá el link
-      mensaje: 'Voy a estar en la sesión con vos para escucharte y ayudarte a encontrar el mejor camino. ¡Hablamos pronto! 👋'
-    }
-  };
-
-  const generico = {
-    eyebrow: '¡Listo, ya estás dentro!',
-    role: 'Equipo de Asesores · Instituto de Productividad',
-    nombre: 'Un asesor del Instituto',
-    mensaje: 'Uno de nuestros asesores del equipo se está preparando para tu llamada y te va a escribir muy pronto. Mientras tanto, podés revisar el material del programa o ver casos de éxito de otros alumnos.'
-  };
-
-  // ─── HELPERS ─────────────────────────────────────────────
-  // Decodifica una o dos veces (Calendly viene con doble encoding)
-  function safeDecode(str) {
-    if (!str) return '';
-    try {
-      let s = decodeURIComponent(str);
-      if (/%[0-9A-Fa-f]{2}/.test(s)) {
-        try { s = decodeURIComponent(s); } catch (e) {}
-      }
-      return s;
-    } catch (e) {
-      return str;
-    }
-  }
-
-  // "AURA MARÍA" → "Aura"  |  "marcela" → "Marcela"
-  function capitalizeFirst(fullName) {
-    if (!fullName) return '';
-    const first = fullName.trim().split(/\s+/)[0] || '';
-    return first.charAt(0).toUpperCase() + first.slice(1).toLowerCase();
-  }
-
-  // "Romina Soterio" → "romina"  (para matchear el closer)
-  function normalizeKey(fullName) {
-    if (!fullName) return '';
-    const first = fullName.trim().split(/\s+/)[0] || '';
-    return first.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-  }
-
-  function getAssignedKey() {
-    const params = new URLSearchParams(window.location.search);
-    const raw = safeDecode(params.get('assigned_to') || '');
-    const key = normalizeKey(raw);
-    return closers[key] ? key : null;
-  }
-
-  function getInviteeName() {
-    const params = new URLSearchParams(window.location.search);
-    const raw = safeDecode(params.get('invitee_first_name') || '');
-    return capitalizeFirst(raw);
-  }
-
-  // ─── RENDER ──────────────────────────────────────────────
-  function render() {
-    const key = getAssignedKey();
-    const inviteeName = getInviteeName();
-    const photoEl = document.getElementById('nfm-closer-photo');
-    const greetingEl = document.getElementById('nfm-closer-greeting');
-
-    // Saludo personalizado (si hay invitee_first_name)
-    if (inviteeName) {
-      greetingEl.innerHTML = `¡Felicitaciones, <span>${inviteeName}</span>!`;
-    } else {
-      greetingEl.innerHTML = '';
-    }
-
-    if (key) {
-      // VERSIÓN ESPECÍFICA
-      const c = closers[key];
-      document.getElementById('nfm-closer-eyebrow').textContent = 'Tu sesión está agendada';
-      document.getElementById('nfm-closer-title').innerHTML = `Te va a contactar <span>${c.nombre}</span> por WhatsApp`;
-      document.getElementById('nfm-closer-subtitle').textContent = 'Ya te escribimos para coordinar el horario.';
-      document.getElementById('nfm-closer-role').textContent = c.role;
-      document.getElementById('nfm-closer-name').textContent = c.nombre;
-      const saludo = inviteeName
-        ? `Hola ${inviteeName}, soy ${c.nombre}.`
-        : `Hola, soy ${c.nombre}.`;
-      document.getElementById('nfm-closer-message').textContent = `${saludo} ${c.mensaje}`;
-
-      photoEl.classList.remove('nfm-closer__photo--generic');
-      if (c.foto) {
-        const posStyle = c.fotoPosition ? ` style="object-position: ${c.fotoPosition};"` : '';
-        photoEl.innerHTML = `<img src="${c.foto}" alt="${c.nombre}"${posStyle}>`;
-      } else {
-        photoEl.innerHTML = `<span class="nfm-closer__initial">${c.nombre.charAt(0)}</span>`;
-      }
-
-    } else {
-      // VERSIÓN GENÉRICA
-      document.getElementById('nfm-closer-eyebrow').textContent = generico.eyebrow;
-      // Si hay nombre, el título integra; si no, título plano
-      const titleText = inviteeName
-        ? `Ya tenés tu <span>sesión agendada</span>`
-        : `¡Felicitaciones! <span>Ya tenés tu sesión agendada</span>`;
-      // Cuando hay nombre, el saludo arriba ya lo dice — el título queda más limpio
-      document.getElementById('nfm-closer-title').innerHTML = titleText;
-      document.getElementById('nfm-closer-subtitle').textContent = 'Te escribe por WhatsApp en las próximas horas.';
-      document.getElementById('nfm-closer-role').textContent = generico.role;
-      document.getElementById('nfm-closer-name').textContent = generico.nombre;
-      document.getElementById('nfm-closer-message').textContent = generico.mensaje;
-
-      photoEl.classList.add('nfm-closer__photo--generic');
-      photoEl.innerHTML = `<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>`;
-    }
-  }
-
-  // ─── INIT ────────────────────────────────────────────────
-  render();
-})();
-</script>
-
-
-<!-- ═══════════════════════════════════════════════════════
-     2) WIDGET — VIDEO PRE-CALL (Wistia)
-     Nico explica el proceso. Va segundo, después del closer.
-     Lee ?assigned_to= para personalizar el título.
-     ═══════════════════════════════════════════════════════ -->
-
-<!-- Wistia scripts -->
-<script src="https://fast.wistia.com/player.js" async></script>
-<script src="https://fast.wistia.com/embed/tdrkk8cd9a.js" async type="module"></script>
-
-<style>
-  /* Placeholder Wistia mientras carga */
-  wistia-player[media-id='tdrkk8cd9a']:not(:defined) {
-    background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/tdrkk8cd9a/swatch');
-    display: block;
-    filter: blur(5px);
-    padding-top: 56.25%;
-  }
-
-  .nfm-video {
-    --navy:   #0C3452;
-    --orange: #FF6602;
-    --cream:  #FBF7F1;
-    --white:  #ffffff;
-    --text:   #2D3748;
-    --muted:  #6B7280;
-    --border: rgba(12, 52, 82, 0.10);
-
-    position: relative;
-    background: transparent;
-    padding: 80px 0 96px;
-    font-family: 'Open Sans', sans-serif;
-    color: var(--text);
-    overflow: hidden;
-  }
-
-  .nfm-video::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,102,2,.025) 30px, rgba(255,102,2,.025) 31px),
-      repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(12,52,82,.015) 30px, rgba(12,52,82,.015) 31px);
-    pointer-events: none;
-  }
-
-  .nfm-video__container {
-    position: relative;
-    z-index: 1;
-    max-width: 880px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* ── HEADER ── */
-  .nfm-video__header {
-    text-align: center;
-    margin-bottom: 36px;
-  }
-
-  .nfm-video__eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    background: rgba(255, 102, 2, 0.1);
-    border: 1px solid rgba(255, 102, 2, 0.32);
-    color: var(--orange);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.68rem;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 7px 16px;
-    border-radius: 100px;
-    margin-bottom: 18px;
-  }
-
-  .nfm-video__eyebrow-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--orange);
-    animation: nfm-video-pulse 1.6s ease infinite;
-  }
-
-  .nfm-video__title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(1.7rem, 3.8vw, 2.5rem);
-    font-weight: 900;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: var(--navy);
-    margin: 0 0 14px;
-  }
-
-  .nfm-video__title span { color: var(--orange); }
-
-  .nfm-video__subtitle {
-    font-size: 1rem;
-    color: var(--muted);
-    line-height: 1.65;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .nfm-video__subtitle strong {
-    color: var(--navy);
-    font-weight: 700;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  /* ── VIDEO WRAPPER ── */
-  .nfm-video__wrapper {
-    position: relative;
-    background: var(--white);
-    border-radius: 24px;
-    padding: 16px;
-    box-shadow: 0 14px 44px rgba(12, 52, 82, 0.14);
-    border: 1px solid var(--border);
-    overflow: hidden;
-    margin-bottom: 24px;
-    animation: nfm-fadeUp 0.5s ease both;
-  }
-
-  .nfm-video__wrapper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, var(--orange), #ff8b3d, var(--orange));
-    z-index: 2;
-  }
-
-  .nfm-video__player {
-    position: relative;
-    border-radius: 14px;
-    overflow: hidden;
-    background: var(--navy);
-    aspect-ratio: 16 / 9;
-  }
-
-  .nfm-video__player wistia-player {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-
-  /* ── TIP debajo del video ── */
-  .nfm-video__tip {
-    background: rgba(255, 102, 2, 0.06);
-    border: 1px solid rgba(255, 102, 2, 0.22);
-    border-radius: 14px;
-    padding: 16px 22px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .nfm-video__tip-icon {
-    width: 44px;
-    height: 44px;
-    flex-shrink: 0;
-    background: var(--orange);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    box-shadow: 0 4px 12px rgba(255, 102, 2, 0.3);
-  }
-
-  .nfm-video__tip-text {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 0.92rem;
-    color: var(--text);
-    line-height: 1.5;
-  }
-
-  .nfm-video__tip-text strong {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--navy);
-    font-weight: 700;
-  }
-
-  @keyframes nfm-video-pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50%      { opacity: 0.4; transform: scale(0.8); }
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 540px) {
-    .nfm-video { padding: 56px 0 72px; }
-    .nfm-video__wrapper { padding: 10px; border-radius: 18px; }
-    .nfm-video__player { border-radius: 10px; }
-    .nfm-video__tip { padding: 14px 16px; gap: 12px; }
-    .nfm-video__tip-icon { width: 38px; height: 38px; font-size: 1.05rem; }
-  }
-</style>
-
-<section class="nfm-video" id="nfm-video-precall">
-  <div class="nfm-video__container">
-
-    <!-- HEADER -->
-    <div class="nfm-video__header">
-      <div class="nfm-video__eyebrow">
-        <span class="nfm-video__eyebrow-dot"></span>
-        Antes de tu sesión
-      </div>
-      <h2 class="nfm-video__title">
-        Antes de tu sesión con <span id="nfm-video-name">tu asesor</span>, mirá este video
-      </h2>
-    </div>
-
-    <!-- VIDEO -->
-    <div class="nfm-video__wrapper">
-      <div class="nfm-video__player">
-        <wistia-player media-id="tdrkk8cd9a" aspect="1.7777777777777777"></wistia-player>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<script>
-(function() {
-  // Personaliza el título con el closer asignado (si existe ?assigned_to=)
-  const displayNames = {
-    romina: 'Romina',
-    luciana: 'Luciana',
-    cristina: 'Cristina',
-    pierina: 'Pierina',
-    paula: 'Paula',
-    matias: 'Matías',
-    ayrton: 'Ayrton',
-    lucas: 'Lucas'
-  };
-
-  const params = new URLSearchParams(window.location.search);
-  let assigned = params.get('assigned_to') || '';
-  try { if (/%[0-9A-Fa-f]{2}/.test(assigned)) assigned = decodeURIComponent(assigned); } catch (e) {}
-  assigned = assigned.toLowerCase().trim();
-  const primero = assigned.split(/\s+/)[0] || '';
-  const normalized = primero.normalize('NFD').replace(/[̀-ͯ]/g, '');
-
-  if (displayNames[normalized]) {
-    document.getElementById('nfm-video-name').textContent = displayNames[normalized];
-  }
-})();
-</script>
-
-
-<!-- ═══════════════════════════════════════════════════════
-     3) Nico  4) Casos  5) Qué incluye  6) Escalera
-     Mismo sistema visual que los bloques 1 y 2. Prefijo .nfm-tk.
-     ═══════════════════════════════════════════════════════ -->
-<style>
-  .nfm-tk{ --navy:#0C3452; --orange:#FF6602; --text:#2D3748; --muted:#6B7280; --line:rgba(12,52,82,0.10); --soft:#F6F8FB;
-    font-family:'Open Sans',sans-serif; color:var(--text); }
-  .nfm-tk *, .nfm-tk *::before, .nfm-tk *::after{ box-sizing:border-box; }
-  .nfm-tk p, .nfm-tk h2, .nfm-tk h3, .nfm-tk ul, .nfm-tk ol{ margin:0; }
-  .nfm-tk ul, .nfm-tk ol{ padding:0; list-style:none; }
-  .nfm-tk__sec{ padding:72px 0; }
-  .nfm-tk__sec--soft{ background:var(--soft); }
-  .nfm-tk__wrap{ max-width:760px; margin:0 auto; padding:0 24px; }
-  .nfm-tk h2{ font-family:'Montserrat',sans-serif; font-weight:800; color:var(--navy); font-size:clamp(1.5rem,3.2vw,2.1rem); line-height:1.15; letter-spacing:-0.02em; text-align:center; margin-bottom:32px; text-wrap:balance; }
-  .nfm-tk h2 span{ color:var(--orange); }
-
-  /* 3) Nico */
-  .nfm-tk__role{ text-align:center; font-family:'Montserrat',sans-serif; font-weight:700; color:var(--orange); font-size:0.9rem; margin:-22px 0 30px; }
-  .nfm-tk__story li{ display:grid; grid-template-columns:7.5rem 1fr; gap:16px; padding:16px 0; border-bottom:1px solid var(--line); }
-  .nfm-tk__story li:last-child{ border-bottom:none; }
-  .nfm-tk__story b{ font-family:'Montserrat',sans-serif; font-size:0.72rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:var(--orange); padding-top:3px; }
-  .nfm-tk__story p{ font-size:1rem; line-height:1.55; color:var(--navy); }
-
-  /* 4) Casos */
-  .nfm-tk__cases li{ padding:16px 0; border-bottom:1px solid var(--line); }
-  .nfm-tk__cases li:last-child{ border-bottom:none; }
-  .nfm-tk__cases p{ font-size:1.02rem; line-height:1.45; color:var(--navy); font-weight:600; font-style:italic; }
-  .nfm-tk__cases span{ display:block; margin-top:4px; font-size:0.86rem; color:var(--muted); }
-  .nfm-tk__cases span b{ color:var(--navy); font-weight:700; }
-
-  /* 5) Qué incluye */
-  .nfm-tk__inc{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-  .nfm-tk__inc li{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 20px; font-family:'Montserrat',sans-serif; font-weight:700; color:var(--navy); font-size:1rem; line-height:1.3; }
-  .nfm-tk__inc li::before{ content:'✓'; color:var(--orange); font-weight:800; margin-right:10px; }
-
-  /* 6) Escalera */
-  .nfm-tk__stairs{ display:flex; flex-direction:column-reverse; gap:8px; }
-  .nfm-tk__stairs li{ display:flex; align-items:center; justify-content:space-between; gap:12px; border-radius:12px; padding:14px 18px; font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.98rem; color:var(--muted); background:#fff; border:1.5px dashed rgba(12,52,82,0.2); }
-  .nfm-tk__stairs li:nth-child(2){ margin-left:8%; } .nfm-tk__stairs li:nth-child(3){ margin-left:16%; } .nfm-tk__stairs li:nth-child(4){ margin-left:24%; } .nfm-tk__stairs li:nth-child(5){ margin-left:32%; }
-  .nfm-tk__stairs li svg{ flex:none; width:18px; height:18px; color:#9aa7b6; }
-  .nfm-tk__stairs li.base{ background:var(--navy); border:2px solid var(--navy); color:#fff; margin-right:32%; }
-  .nfm-tk__stairs li.base i{ font-style:normal; font-size:0.66rem; letter-spacing:0.12em; text-transform:uppercase; color:#fff; background:var(--orange); border-radius:999px; padding:5px 10px; white-space:nowrap; }
-  .nfm-tk__stairs-cap{ text-align:center; margin-top:26px !important; font-family:'Montserrat',sans-serif; font-weight:700; color:var(--navy); font-size:1.05rem; }
-
-  .nfm-tk__foot{ text-align:center; padding:28px 24px; font-size:0.78rem; color:var(--muted); }
-
+  .nfm-ty{ --navy:#0C3452; --orange:#FF6602; --green:#22C55E; --wa:#25D366; --muted:#6B7280; --line:rgba(12,52,82,0.10); --soft:#F6F8FB;
+    font-family:'Open Sans',sans-serif; color:var(--navy); background:#fff; }
+  .nfm-ty *, .nfm-ty *::before, .nfm-ty *::after{ box-sizing:border-box; }
+  .nfm-ty p, .nfm-ty h1, .nfm-ty h2, .nfm-ty ol, .nfm-ty ul{ margin:0; }
+  .nfm-ty ol, .nfm-ty ul{ padding:0; list-style:none; }
+  .nfm-ty img{ max-width:100%; display:block; }
+  .nfm-ty__wrap{ max-width:640px; margin:0 auto; padding:0 20px; }
+
+  /* 1) Felicitaciones + pasos */
+  .nfm-ty__top{ padding:48px 0 64px; text-align:center; }
+  .nfm-ty__logo{ width:150px; height:auto; margin:0 auto 36px; }
+  .nfm-ty h1{ font-family:'Montserrat',sans-serif; font-weight:800; font-size:clamp(1.8rem,5vw,2.5rem); line-height:1.1; letter-spacing:-0.02em; margin-bottom:32px; }
+  .nfm-ty h1 span{ color:var(--orange); }
+  .nfm-ty__steps{ display:flex; flex-direction:column; gap:12px; text-align:left; }
+  .nfm-ty__step{ display:flex; align-items:center; gap:16px; padding:18px 20px; border-radius:16px; border:1.5px solid var(--line); background:#fff; }
+  .nfm-ty__n{ flex:none; width:40px; height:40px; border-radius:50%; display:grid; place-items:center; font-family:'Montserrat',sans-serif; font-weight:800; font-size:1rem; background:var(--soft); color:var(--navy); border:1.5px solid var(--line); }
+  .nfm-ty__n svg{ width:20px; height:20px; }
+  .nfm-ty__lbl{ display:block; font-family:'Montserrat',sans-serif; font-size:0.68rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:3px; }
+  .nfm-ty__txt{ font-family:'Montserrat',sans-serif; font-weight:700; font-size:1.05rem; line-height:1.3; }
+  .nfm-ty__step--done{ background:#F2FBF5; border-color:rgba(34,197,94,0.35); }
+  .nfm-ty__step--done .nfm-ty__n{ background:var(--green); border-color:var(--green); color:#fff; }
+  .nfm-ty__step--done .nfm-ty__lbl{ color:#16884a; }
+  .nfm-ty__step--done .nfm-ty__txt{ color:#4b6a58; text-decoration:line-through; text-decoration-color:rgba(22,136,74,0.5); }
+  .nfm-ty__step--now{ border:2px solid var(--wa); box-shadow:0 10px 30px rgba(37,211,102,0.15); }
+  .nfm-ty__step--now .nfm-ty__n{ background:var(--wa); border-color:var(--wa); color:#fff; }
+  .nfm-ty__step--now .nfm-ty__lbl{ color:#16884a; }
+
+  /* 2) Casos: miniatura de YouTube + frase; abre la entrevista en YouTube */
+  .nfm-ty__cases-sec{ background:var(--soft); padding:64px 0 72px; }
+  .nfm-ty__cases-sec .nfm-ty__wrap{ max-width:1040px; }
+  .nfm-ty h2{ font-family:'Montserrat',sans-serif; font-weight:800; font-size:clamp(1.45rem,3.4vw,2rem); line-height:1.15; letter-spacing:-0.02em; text-align:center; margin-bottom:32px; text-wrap:balance; }
+  .nfm-ty h2 span{ color:var(--orange); }
+  .nfm-ty__cases{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+  .nfm-ty__cases a{ display:flex; flex-direction:column; height:100%; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; transition:border-color .2s, transform .2s; }
+  .nfm-ty__cases a:hover{ border-color:rgba(255,102,2,0.5); transform:translateY(-2px); }
+  .nfm-ty__cases a:focus-visible{ outline:3px solid rgba(255,102,2,0.45); outline-offset:2px; }
+  .nfm-ty__thumb{ position:relative; display:block; aspect-ratio:16/9; background:#dfe6ee; overflow:hidden; }
+  .nfm-ty__thumb img{ width:100%; height:100%; object-fit:cover; }
+  .nfm-ty__thumb i{ position:absolute; left:50%; top:50%; width:46px; height:46px; margin:-23px 0 0 -23px; border-radius:50%; background:rgba(255,102,2,0.92); }
+  .nfm-ty__thumb i::after{ content:''; position:absolute; left:18px; top:14px; border-left:14px solid #fff; border-top:9px solid transparent; border-bottom:9px solid transparent; }
+  .nfm-ty__case{ display:block; padding:14px 16px 16px; }
+  .nfm-ty__case p{ font-size:0.96rem; line-height:1.45; font-weight:600; font-style:italic; }
+  .nfm-ty__case > span{ display:block; margin-top:6px; font-size:0.84rem; color:var(--muted); }
+  .nfm-ty__case > span b{ color:var(--navy); font-weight:700; }
+
+  .nfm-ty__foot{ text-align:center; padding:24px 20px; font-size:0.78rem; color:var(--muted); background:var(--soft); border-top:1px solid var(--line); }
+
+  @media (max-width:900px){ .nfm-ty__cases{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
   @media (max-width:640px){
-    .nfm-tk__sec{ padding:56px 0; }
-    .nfm-tk__wrap{ padding:0 18px; }
-    .nfm-tk__story li{ grid-template-columns:1fr; gap:4px; }
-    .nfm-tk__inc{ grid-template-columns:1fr; }
-    .nfm-tk__stairs li:nth-child(n){ margin-left:0; margin-right:0; }
-    .nfm-tk__stairs li:nth-child(2){ margin-left:5%; } .nfm-tk__stairs li:nth-child(3){ margin-left:10%; } .nfm-tk__stairs li:nth-child(4){ margin-left:15%; } .nfm-tk__stairs li:nth-child(5){ margin-left:20%; }
+    .nfm-ty__top{ padding:36px 0 48px; }
+    .nfm-ty__logo{ width:124px; margin-bottom:28px; }
+    .nfm-ty__step{ padding:16px; gap:14px; }
+    .nfm-ty__txt{ font-size:1rem; }
+    .nfm-ty__cases-sec{ padding:48px 0 56px; }
+    .nfm-ty__cases{ grid-template-columns:1fr; gap:10px; }
+    .nfm-ty__cases a{ flex-direction:row; }
+    .nfm-ty__thumb{ flex:0 0 42%; aspect-ratio:auto; }
+    .nfm-ty__thumb i{ width:34px; height:34px; margin:-17px 0 0 -17px; }
+    .nfm-ty__thumb i::after{ left:13px; top:10px; border-left-width:11px; border-top-width:7px; border-bottom-width:7px; }
+    .nfm-ty__case{ padding:12px 14px; }
+    .nfm-ty__case p{ font-size:0.9rem; }
   }
+  @media (prefers-reduced-motion:reduce){ .nfm-ty__cases a{ transition:none; } }
 </style>
 
-<div class="nfm-tk">
+<div class="nfm-ty">
 
-  <!-- 3) NICO -->
-  <section class="nfm-tk__sec nfm-tk__sec--soft">
-    <div class="nfm-tk__wrap">
-      <h2>Nicolás Fernández Miranda</h2>
-      <p class="nfm-tk__role">Fundador del Instituto de Productividad</p>
-      <ol class="nfm-tk__story">
-        <li><b>Antes</b><p>Contador, medalla al mejor promedio, estudio propio y clientes grandes en pocos años.</p></li>
-        <li><b>El precio</b><p>Catorce horas por día, quince kilos de más, migrañas y clonazepam para dormir.</p></li>
-        <li><b>El quiebre</b><p>En París, en el viaje que venía postergando, no pudo disfrutar nada.</p></li>
-        <li><b>El cambio</b><p>Se aplicó a sí mismo su máster en neurociencia. De ahí salieron <em>Hackea tu cerebro</em> y dos charlas TEDx.</p></li>
-        <li><b>Hoy</b><p>Más de 400 empresarios, profesionales y líderes pasaron por el Instituto.</p></li>
+  <!-- 1) FELICITACIONES + 3 PASOS -->
+  <section class="nfm-ty__top">
+    <div class="nfm-ty__wrap">
+      <img class="nfm-ty__logo" src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/01/nuevo-logo-nfm.png" alt="Nicolás Fernández Miranda · Instituto de Productividad" width="300" height="125">
+      <h1 id="nfm-ty-title">¡<span>Felicitaciones</span>!</h1>
+      <ol class="nfm-ty__steps">
+        <li class="nfm-ty__step nfm-ty__step--done">
+          <span class="nfm-ty__n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg></span>
+          <span><span class="nfm-ty__lbl">Paso 1 · Completado</span><span class="nfm-ty__txt">Agendar tu sesión</span></span>
+        </li>
+        <li class="nfm-ty__step nfm-ty__step--now">
+          <span class="nfm-ty__n">2</span>
+          <span><span class="nfm-ty__lbl">Paso 2 · Ahora</span><span class="nfm-ty__txt" id="nfm-ty-paso2">Confirmar tu sesión por WhatsApp</span></span>
+        </li>
+        <li class="nfm-ty__step">
+          <span class="nfm-ty__n">3</span>
+          <span><span class="nfm-ty__lbl">Paso 3</span><span class="nfm-ty__txt">Mirar el material que te compartimos por WhatsApp</span></span>
+        </li>
       </ol>
     </div>
   </section>
 
-  <!-- 4) CASOS -->
-  <section class="nfm-tk__sec">
-    <div class="nfm-tk__wrap">
-      <h2>Estuvieron <span>donde estás vos</span></h2>
-      <ul class="nfm-tk__cases">
-        <li><p>«El sistema correcto te permite rendir sin quemarte.»</p><span><b>Celi</b> · Arquitecta, lidera un equipo de 45 personas</span></li>
-        <li><p>«Hiciste bien, vas bien, seguí. Esto es una carrera contra uno mismo.»</p><span><b>Cristian</b> · Bioquímico y empresario</span></li>
-        <li><p>«El sistema correcto no te pide más esfuerzo, te pide más inteligencia.»</p><span><b>Andrés</b> · Ingeniero agrónomo</span></li>
-        <li><p>«Cuando entendés cómo funciona tu cerebro, todo cambia.»</p><span><b>Pau</b> · Arquitecta independiente</span></li>
-        <li><p>«No cambié mi personalidad. Ordené mi estructura.»</p><span><b>Romi</b> · Publicista digital</span></li>
-        <li><p>«Cuando dormís bien, todo lo demás empieza a acomodarse solo.»</p><span><b>Natalia</b> · Astrónoma, investigadora del CONICET</span></li>
-        <li><p>«Cuando dejé de esperar las ganas para arrancar, todo cambió.»</p><span><b>Milton</b> · Diseñador UX</span></li>
-        <li><p>«Pasé de querer hacer todo y no poder nada, a hacer lo importante con claridad.»</p><span><b>Pierina</b> · Doctoranda en Roma</span></li>
-        <li><p>«No dudes tanto en hacer esa inversión en vos.»</p><span><b>Jair</b> · Ingeniero en sistemas</span></li>
-        <li><p>«Las herramientas no te cambian la vida. Vos sí podés, cuando las usás.»</p><span><b>Anto</b> · Técnica química y emprendedora</span></li>
-        <li><p>«Cuando tenés claridad de hacia dónde vas, el esfuerzo empieza a valer la pena.»</p><span><b>Tatiana</b> · Estudiante de lenguas</span></li>
-        <li><p>«Invertir en el cerebro es la mejor inversión que vas a hacer.»</p><span><b>Santi</b> · Laboratorista</span></li>
+  <!-- 2) CASOS DE ÉXITO -->
+  <section class="nfm-ty__cases-sec">
+    <div class="nfm-ty__wrap">
+      <h2>Personas que ya pasaron por el <span>Instituto de Productividad</span></h2>
+      <ul class="nfm-ty__cases">
+        <li><a href="https://www.youtube.com/watch?v=95H0-szcsMs" target="_blank" rel="noopener" aria-label="Ver la entrevista de Celi"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/95H0-szcsMs/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«El sistema correcto te permite rendir sin quemarte.»</p><span><b>Celi</b> · Arquitecta, lidera un equipo de 45 personas</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=7x_hvNVvc88" target="_blank" rel="noopener" aria-label="Ver la entrevista de Cristian"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/7x_hvNVvc88/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Hiciste bien, vas bien, seguí. Esto es una carrera contra uno mismo.»</p><span><b>Cristian</b> · Bioquímico y empresario</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=0o-tzNPybNk" target="_blank" rel="noopener" aria-label="Ver la entrevista de Andrés"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/0o-tzNPybNk/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«El sistema correcto no te pide más esfuerzo, te pide más inteligencia.»</p><span><b>Andrés</b> · Ingeniero agrónomo</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=YoC-5YlvD7w" target="_blank" rel="noopener" aria-label="Ver la entrevista de Pau"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/YoC-5YlvD7w/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Cuando entendés cómo funciona tu cerebro, todo cambia.»</p><span><b>Pau</b> · Arquitecta independiente</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=anq1RGIC7_Q" target="_blank" rel="noopener" aria-label="Ver la entrevista de Romi"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/anq1RGIC7_Q/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«No cambié mi personalidad. Ordené mi estructura.»</p><span><b>Romi</b> · Publicista digital</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=CVo9A7ADvTs" target="_blank" rel="noopener" aria-label="Ver la entrevista de Natalia"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/CVo9A7ADvTs/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Cuando dormís bien, todo lo demás empieza a acomodarse solo.»</p><span><b>Natalia</b> · Astrónoma, investigadora del CONICET</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=xDpQB0t2RH8" target="_blank" rel="noopener" aria-label="Ver la entrevista de Milton"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/xDpQB0t2RH8/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Cuando dejé de esperar las ganas para arrancar, todo cambió.»</p><span><b>Milton</b> · Diseñador UX</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=vgF6e9MptW4" target="_blank" rel="noopener" aria-label="Ver la entrevista de Pierina"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/vgF6e9MptW4/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Pasé de querer hacer todo y no poder nada, a hacer lo importante con claridad.»</p><span><b>Pierina</b> · Doctoranda en Roma</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=7F5YjFM-EJY" target="_blank" rel="noopener" aria-label="Ver la entrevista de Jair"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/7F5YjFM-EJY/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«No dudes tanto en hacer esa inversión en vos.»</p><span><b>Jair</b> · Ingeniero en sistemas</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=UHvxGkuGfI0" target="_blank" rel="noopener" aria-label="Ver la entrevista de Anto"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/UHvxGkuGfI0/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Las herramientas no te cambian la vida. Vos sí podés, cuando las usás.»</p><span><b>Anto</b> · Técnica química y emprendedora</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=wePT08l1BYM" target="_blank" rel="noopener" aria-label="Ver la entrevista de Tatiana"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/wePT08l1BYM/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Cuando tenés claridad de hacia dónde vas, el esfuerzo empieza a valer la pena.»</p><span><b>Tatiana</b> · Estudiante de lenguas</span></span></a></li>
+        <li><a href="https://www.youtube.com/watch?v=zRGwIl_FXfk" target="_blank" rel="noopener" aria-label="Ver la entrevista de Santi"><span class="nfm-ty__thumb"><img src="https://i.ytimg.com/vi/zRGwIl_FXfk/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><i aria-hidden="true"></i></span><span class="nfm-ty__case"><p>«Invertir en el cerebro es la mejor inversión que vas a hacer.»</p><span><b>Santi</b> · Laboratorista</span></span></a></li>
       </ul>
     </div>
   </section>
 
-  <!-- 5) QUÉ INCLUYE -->
-  <section class="nfm-tk__sec nfm-tk__sec--soft">
-    <div class="nfm-tk__wrap">
-      <h2>Qué incluye</h2>
-      <ul class="nfm-tk__inc">
-        <li>Coach dedicado 1 a 1</li>
-        <li>Biblioteca de +20 módulos</li>
-        <li>Llamadas grupales en vivo</li>
-        <li>Comunidad + mastermind presencial</li>
-        <li>Psicólogos, nutricionistas y coaches</li>
-        <li>Habit Tracker y Second Brain</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- 6) ESCALERA -->
-  <section class="nfm-tk__sec">
-    <div class="nfm-tk__wrap">
-      <h2>¿En qué escalón <span>estás?</span></h2>
-      <ol class="nfm-tk__stairs">
-        <li class="base">Organizarte y concentrarte <i>Acá se arranca</i></li>
-        <li>Energía: sueño, comida, movimiento <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-label="Bloqueado"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></li>
-        <li>Hábitos y mentalidad <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-label="Bloqueado"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></li>
-        <li>Delegar y liderar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-label="Bloqueado"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></li>
-        <li>Crecer sin pagar el precio <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-label="Bloqueado"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></li>
-      </ol>
-      <p class="nfm-tk__stairs-cap">Lo vemos en tu sesión.</p>
-    </div>
-  </section>
-
-  <p class="nfm-tk__foot">© Nicolás Fernández Miranda · Instituto de Productividad</p>
-
+  <p class="nfm-ty__foot">© Nicolás Fernández Miranda · Instituto de Productividad</p>
 </div>
+
+<script>
+(function(){
+  /* Asesores: el primer nombre de assigned_to (como lo manda Calendly) → cómo se escribe.
+     Si no está en la lista o no viene, el paso 2 queda genérico. */
+  var ASESORES = { luciana:'Luciana', cristina:'Cristina', pierina:'Pierina', paula:'Paula', matias:'Matías', romina:'Romina', ayrton:'Ayrton', lucas:'Lucas' };
+
+  var q = new URLSearchParams(location.search);
+  /* Calendly a veces manda los datos con doble encoding («Luciana%20Fernandez») */
+  function dato(k){
+    var v = q.get(k) || '';
+    try{ if(/%[0-9A-Fa-f]{2}/.test(v)) v = decodeURIComponent(v); }catch(e){}
+    return v.trim();
+  }
+  function primero(s){ return (s.split(/\s+/)[0] || ''); }
+
+  var nombre = primero(dato('invitee_first_name'));
+  if(nombre){
+    nombre = nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase();
+    var t = document.getElementById('nfm-ty-title');
+    t.textContent = '';
+    t.appendChild(document.createTextNode('¡Felicitaciones, '));
+    var sp = document.createElement('span'); sp.textContent = nombre; t.appendChild(sp);
+    t.appendChild(document.createTextNode('!'));
+  }
+
+  var clave = primero(dato('assigned_to')).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  if(ASESORES[clave]){
+    document.getElementById('nfm-ty-paso2').textContent = 'Confirmar tu sesión con ' + ASESORES[clave] + ' por WhatsApp';
+  }
+})();
+</script>
