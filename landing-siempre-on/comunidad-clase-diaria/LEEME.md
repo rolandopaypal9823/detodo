@@ -1,6 +1,6 @@
 # Landing de la Comunidad · clase todos los días a las 19:00 (Argentina)
 
-`index.html` es la versión B (VSL) de la masterclass del 27/10 (`landing-siempre-on/masterclass-27-octubre/version-b-vsl.html`, en la rama `claude/nueva-landing-form-7ajo0h`), con dos cambios:
+`index.html` es la versión B (VSL) de la masterclass del 27/10 (`landing-siempre-on/masterclass-27-octubre/version-b-vsl.html`, en la rama `claude/nueva-landing-form-7ajo0h`), con estos cambios:
 
 1. **Reloj diario.** El contador y todas las fechas apuntan siempre a la próxima clase de las 19:00 de Argentina:
    - antes de las 19 dice "Hoy" y cuenta hasta las 19 de hoy;
@@ -8,7 +8,8 @@
    - el contador no tiene casilla de días, porque siempre falta menos de uno.
 
    No hay fecha que cambiar en el `CONFIG`. Para dejar unos minutos después de las 19 en que siga mostrando la clase de hoy, se usa `MINUTOS_DE_GRACIA`.
-2. **Edición:** `UTM_CLASE: 'comunidad-clase-diaria'`. Viaja al form como `edicion` y como `utm_campaign` si el lead llega sin UTM. `clase_fecha` lleva el día de la clase a la que se anotó.
+2. **Barra fija arriba con el contador**, igual que en la captación de webinars. Siempre a la vista y se oscurece al bajar. La barra de abajo quedó solo con el botón "Unirme", que aparece cuando el botón del primer bloque sale de pantalla.
+3. **Edición:** `UTM_CLASE: 'comunidad-clase-diaria'`. Viaja al form como `edicion` y como `utm_campaign` si el lead llega sin UTM. `clase_fecha` lleva el día de la clase a la que se anotó.
 
 Lo que va en GHL es lo que está entre «DESDE ACÁ EMPIEZA» y «HASTA ACÁ». El pixel de Meta va adentro, como siempre.
 

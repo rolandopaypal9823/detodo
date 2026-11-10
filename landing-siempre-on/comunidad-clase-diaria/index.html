@@ -243,10 +243,42 @@ html, body{ margin:0; padding:0; background:#081F33; }
   .nfm-btn--xl{ font-size:1.08rem; padding:19px 20px; }
   .nfm-cd__t span{ padding:7px 4px 6px; } .nfm-cd__t b{ font-size:1.4rem; }
 }
+/* ═══ BARRA FIJA ARRIBA · contador hasta la clase de las 19:00 (igual que en la captación de webinars) ═══ */
+.nfm-nav{ position:fixed; top:0; left:0; right:0; z-index:9999; padding:10px 0; background:rgba(8,31,51,0.55); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  transition:all .3s var(--nfm-ease); border-bottom:1px solid transparent; }
+.nfm-nav.nfm-nav--scrolled{ background:rgba(8,31,51,0.94); padding:8px 0; border-bottom:1px solid var(--nfm-hair); box-shadow:0 6px 30px rgba(0,0,0,0.35); }
+.nfm-nav__inner{ display:flex !important; align-items:center; justify-content:center !important; }
+.nfm-nav__cd{ display:flex; align-items:center; justify-content:center; gap:16px; font-family:var(--nfm-font-h); color:#fff; }
+.nfm-nav__cd-lbl{ font-size:0.8rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.78); white-space:nowrap; margin:0 !important; }
+.nfm-nav__cd-t{ display:flex; gap:8px; }
+.nfm-nav__cd-t span{ display:flex; flex-direction:column; align-items:center; min-width:62px; padding:8px 8px 6px; border-radius:11px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.16); }
+.nfm-nav__cd-t b{ font-size:1.55rem; font-weight:700; color:var(--nfm-orange); line-height:1; font-variant-numeric:tabular-nums; }
+.nfm-nav__cd-t i{ font-style:normal; font-size:0.6rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.65); margin-top:4px; }
+.nfm-page .nfm-hero{ padding-top:100px; }   /* lugar para la barra de arriba */
+@media (max-width:768px){
+  .nfm-nav__cd{ flex-direction:column; gap:5px; width:100%; } .nfm-nav__cd-lbl{ font-size:0.66rem; letter-spacing:0.16em; }
+  .nfm-nav__cd-t{ width:100%; gap:8px; } .nfm-nav__cd-t span{ flex:1; min-width:0; padding:7px 4px 5px; } .nfm-nav__cd-t b{ font-size:1.45rem; } .nfm-nav__cd-t i{ font-size:0.56rem; }
+  .nfm-page .nfm-hero{ padding-top:106px; }
+}
+@media (prefers-reduced-motion:reduce){ .nfm-nav{ transition:none; } }
 </style>
 
 
 <div class="nfm-page">
+
+<!-- ═══ BARRA FIJA ARRIBA · cuánto falta para la clase de hoy (o de mañana, después de las 19) ═══ -->
+<nav class="nfm-nav" id="nfm-nav">
+  <div class="nfm-container nfm-nav__inner">
+    <div class="nfm-nav__cd" data-cd role="timer" aria-label="Cuenta regresiva para la clase">
+      <p class="nfm-nav__cd-lbl">La clase empieza en</p>
+      <div class="nfm-nav__cd-t">
+        <span><b data-cd-h>00</b><i>hs</i></span>
+        <span><b data-cd-m>00</b><i>min</i></span>
+        <span><b data-cd-s>00</b><i>seg</i></span>
+      </div>
+    </div>
+  </div>
+</nav>
 
 <!-- ═══ PRIMER BLOQUE ═══ -->
 <section class="nfm-hero" id="nfm-hero">
@@ -407,13 +439,9 @@ html, body{ margin:0; padding:0; background:#081F33; }
 
 <footer class="nfm-footer"><div class="nfm-container"><p>© Nicolás Fernández Miranda · Instituto de Productividad · Todos los derechos reservados.</p></div></footer>
 
-<!-- ═══ BARRA FIJA ABAJO · contador + botón ═══ -->
+<!-- ═══ BARRA FIJA ABAJO · sólo el botón (el contador está en la barra de arriba) ═══ -->
 <div class="nfm-sticky" id="nfm-sticky">
   <div class="nfm-sticky__in">
-    <div class="nfm-sticky__cd" data-cd role="timer" aria-label="Cuenta regresiva para la clase">
-      <span class="nfm-sticky__lbl">La clase empieza en</span>
-      <span class="nfm-sticky__t"><span><b data-cd-h>00</b><i>hs</i></span><span><b data-cd-m>00</b><i>min</i></span><span><b data-cd-s>00</b><i>seg</i></span></span>
-    </div>
     <a href="#nfm-registro" class="nfm-btn nfm-sticky__btn" data-cta="barra" tabindex="-1">UNIRME<span class="nfm-largo">&nbsp;A LA CLASE</span></a>
   </div>
 </div>
@@ -541,15 +569,18 @@ despuesDeCargar(cargarForm, 900);
 })();
 
 /* ─── BARRA FIJA ABAJO ───
-   El contador se ve desde que entrás. El botón aparece cuando el del primer bloque ya no está en pantalla.
-   Toda la barra se esconde mientras se ve el form o el cierre. */
+   Aparece con el botón cuando el del primer bloque ya no está en pantalla.
+   Se esconde mientras se ve el form o el cierre. */
+/* barra de arriba: se oscurece al bajar */
+(function(){ var nav=document.getElementById('nfm-nav'); if(!nav) return;
+  function f(){ nav.classList.toggle('nfm-nav--scrolled', window.scrollY>40); } f(); window.addEventListener('scroll', f, {passive:true}); })();
 (function(){
   var bar=document.getElementById('nfm-sticky'); if(!bar) return;
   var btn=bar.querySelector('.nfm-sticky__btn');
   if(!('IntersectionObserver' in window)){ bar.classList.add('nfm-sticky--on','nfm-sticky--btn'); if(btn) btn.tabIndex=0; return; }
   var mirar=[['boton',document.querySelector('.nfm-hero [data-cta="hero"]')],['registro',document.getElementById('nfm-registro')],['cierre',document.getElementById('nfm-cierre')]], vis={ boton:true, registro:false, cierre:false };
   function pintar(){
-    var on=!vis.registro && !vis.cierre, conBoton=on && !vis.boton;
+    var conBoton=!vis.registro && !vis.cierre && !vis.boton, on=conBoton;   /* sin contador abajo: la barra sale sólo con el botón */
     bar.classList.toggle('nfm-sticky--on', on); bar.classList.toggle('nfm-sticky--btn', conBoton);
     if(btn) btn.tabIndex=conBoton?0:-1;
   }
@@ -595,7 +626,7 @@ despuesDeCargar(cargarForm, 900);
 })();
 
 /* ─── BOTONES ─── */
-function scrollToId(id){ var t=document.getElementById(id); if(!t) return; window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-12, behavior:'smooth'}); }
+function scrollToId(id){ var t=document.getElementById(id); if(!t) return; var nav=document.getElementById('nfm-nav'), alto=nav?nav.offsetHeight:0; window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-12-alto, behavior:'smooth'}); }
 document.addEventListener('click', function(e){
   var a=e.target.closest?e.target.closest('a[href^="#"]'):null; if(!a) return;
   var id=a.getAttribute('href').slice(1); if(!id) return;
