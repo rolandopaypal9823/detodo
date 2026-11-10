@@ -262,7 +262,7 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
 
 /* ═══ NICO · ESCENAS ═══ */
 .nfm-nico{ background:var(--nfm-white); padding:96px 0; color:var(--nfm-ink); }
-.nfm-nico__head{ text-align:center; max-width:720px; margin:0 auto 52px; }
+.nfm-nico__head{ text-align:center; max-width:720px; margin:0 auto 36px; }
 .nfm-nico__head h2{ font-family:var(--nfm-font-h); font-size:clamp(1.7rem,3.4vw,2.4rem); font-weight:700; letter-spacing:-0.02em; line-height:1.15; margin:0 0 12px; }
 .nfm-nico__head p{ font-size:1.02rem; color:var(--nfm-ink-mute); line-height:1.65; }
 .nfm-scene{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:24px; max-width:640px; margin:0 auto 60px; }
@@ -279,6 +279,26 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
 .nfm-scene p{ font-size:1.02rem; color:#2a3f54; line-height:1.72; margin:0 auto 12px; max-width:36em; }
 .nfm-scene p strong{ color:var(--nfm-ink); font-weight:600; }
 .nfm-scene p:last-child{ margin-bottom:0; }
+
+/* ═══ NICO · la historia en un carrusel (se desliza con el dedo o con las flechas) ═══ */
+.nfm-car{ max-width:1100px; margin:0 auto; }
+.nfm-car__track{ display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; overscroll-behavior-x:contain; padding:4px 2px 10px; }
+.nfm-car__track::-webkit-scrollbar{ display:none; }
+.nfm-car__slide{ flex:0 0 calc((100% - 32px) / 3); scroll-snap-align:start; display:flex; flex-direction:column; background:#fff; border:1px solid var(--nfm-gray-200); border-radius:18px; overflow:hidden; }
+.nfm-car__img{ aspect-ratio:4/3; background:#dfe6ee; overflow:hidden; }
+.nfm-car__img img{ width:100% !important; height:100% !important; object-fit:cover; object-position:center 30%; display:block; }
+.nfm-car__txt{ padding:16px 18px 20px; text-align:left; }
+.nfm-car__era{ display:block; font-family:var(--nfm-font-h); font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-orange); margin-bottom:6px; }
+.nfm-car__txt h3{ font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:700; color:var(--nfm-ink); line-height:1.25; margin:0 0 6px !important; text-align:left !important; }
+.nfm-car__txt p{ font-size:0.95rem; line-height:1.5; color:#2a3f54; margin:0 !important; text-align:left !important; }
+.nfm-car__nav{ display:flex; align-items:center; justify-content:center; gap:14px; margin-top:16px; }
+.nfm-car__btn{ width:42px; height:42px; border-radius:50%; border:1px solid var(--nfm-gray-200); background:#fff; color:var(--nfm-ink); cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; box-shadow:0 4px 14px rgba(12,52,82,0.08); transition:opacity .2s; }
+.nfm-car__btn svg{ width:18px; height:18px; }
+.nfm-car__btn[disabled]{ opacity:.35; cursor:default; }
+.nfm-car__dots{ display:flex; gap:8px; }
+.nfm-car__dots button{ width:9px; height:9px; border-radius:5px; border:0; padding:0; background:#c5d0dc; cursor:pointer; transition:width .2s var(--nfm-ease), background .2s; }
+.nfm-car__dots button[aria-current="true"]{ width:24px; background:var(--nfm-orange); }
+
 
 /* ═══ QUÉ VAS A DESCUBRIR ═══ */
 .nfm-learn{ background:var(--nfm-gray-50); padding:96px 0; color:var(--nfm-ink); }
@@ -365,6 +385,9 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
 @media (max-width:1024px){ .nfm-map{ padding:16px 30px; } }
 @media (max-width:900px){ .nfm-tst__grid{ grid-template-columns:1fr; max-width:560px; } }
 @media (max-width:768px){
+  /* carrusel en tablet y celular: llega hasta el borde de la pantalla y deja ver un pedazo de la escena siguiente */
+  .nfm-car__track{ margin:0 -24px; padding:4px 24px 10px; scroll-padding:0 24px; }
+  .nfm-car__slide{ flex-basis:calc((100% - 16px) / 2); }
   .nfm-lad{ padding:0 30px; } .nfm-lad__body::before{ left:-30px; } .nfm-lad__body::after{ right:-30px; } .nfm-lad__rung::before{ left:-30px; right:-30px; }
   .nfm-lad__rung{ padding:20px 0; } .nfm-lad__card{ padding:18px 16px; gap:14px; } .nfm-lad__ico{ width:44px; height:44px; border-radius:12px; } .nfm-lad__ico svg{ width:23px; height:23px; }
   .nfm-lad__txt h3{ font-size:1.12rem; }
@@ -385,6 +408,8 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
   .nfm-nav__cd{ flex-direction:column; gap:5px; width:100%; } .nfm-nav__cd-lbl{ font-size:0.66rem; letter-spacing:0.16em; } .nfm-nav__cd-t{ width:100%; gap:8px; } .nfm-nav__cd-t span{ flex:1; min-width:0; padding:7px 4px 5px; } .nfm-nav__cd-t b{ font-size:1.45rem; } .nfm-nav__cd-t i{ font-size:0.56rem; }
   .nfm-scene{ margin-bottom:48px; gap:18px; } .nfm-scene__dual{ gap:10px; }
 }
+@media (max-width:600px){ .nfm-car__slide{ flex-basis:82%; } }
+@media (max-width:480px){ .nfm-car__track{ margin:0 -18px; padding:4px 18px 10px; scroll-padding:0 18px; } }
 @media (max-width:480px){ .nfm-container{ padding:0 18px; } .nfm-hero__title{ font-size:1.85rem; } .nfm-hero__event{ font-size:1.15rem; } .nfm-hero__sub{ font-size:0.96rem; } .nfm-btn{ padding:15px 24px; font-size:0.95rem; } .nfm-eq__list li{ font-size:0.94rem; } .nfm-eq__sum{ font-size:1.1rem; } }
 </style>
 
@@ -494,70 +519,43 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
 </section>
 
 <!-- ═══ QUIZ + REGISTRO ═══ -->
-<!-- ═══ NICO · LAS ESCENAS ═══ -->
+<!-- ═══ NICO · la historia en cinco escenas, corta y en carrusel (fotos reales de Nico) ═══ -->
 <section class="nfm-nico" id="nfm-nico">
   <div class="nfm-container">
     <div class="nfm-nico__head nfm-reveal">
-      <span class="nfm-eyebrow">Quién da el evento</span>
+      <span class="nfm-eyebrow">Quién da la clase</span>
       <h2>Nicolás Fernández Miranda</h2>
-      <p>Antes de enseñar esto, lo pagó. Esta es la historia, en cinco escenas.</p>
+      <p>Antes de enseñarlo, lo pagó.</p>
     </div>
-
-    <!-- Fotos reales de Nico. Las escenas 1 y 4 llevan dos fotos cada una.
-         Si una foto es vertical, el motor de abajo le da un recuadro más alto solo (clase nfm-scene__media--v). -->
-
-    <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__dual">
-        <div class="nfm-scene__media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escema1dividanicorecibiendodiploma.jpg" alt="Nico recibiendo el diploma" loading="lazy"></div>
-        <div class="nfm-scene__media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escena1estudiocontable-scaled.jpg" alt="Nico en el estudio contable" loading="lazy"></div>
+    <div class="nfm-car" role="region" aria-roledescription="carrusel" aria-label="La historia de Nico en cinco escenas">
+      <div class="nfm-car__track" id="nfm-car-track" tabindex="0">
+        <article class="nfm-car__slide" aria-label="Escena 1 de 5">
+          <div class="nfm-car__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escena1estudiocontable-scaled.jpg" alt="Nico en el estudio contable" width="800" height="600" loading="lazy"></div>
+          <div class="nfm-car__txt"><span class="nfm-car__era">1 · Antes</span><h3>El contador que llegó rápido</h3><p>Medalla al mejor promedio, estudio propio y, en pocos años, empresas grandes como clientes. Desde afuera, todo iba muy bien.</p></div>
+        </article>
+        <article class="nfm-car__slide" aria-label="Escena 2 de 5">
+          <div class="nfm-car__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escena2-rotated.jpg" alt="Nico en su escritorio, en la época del estudio" width="800" height="600" loading="lazy"></div>
+          <div class="nfm-car__txt"><span class="nfm-car__era">2 · Antes</span><h3>El precio que pagaba</h3><p>Catorce horas por día, quince kilos de más, migrañas y clonazepam para dormir. Envidiaba a quien cerraba la persiana a las seis.</p></div>
+        </article>
+        <article class="nfm-car__slide" aria-label="Escena 3 de 5">
+          <div class="nfm-car__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/enparis.jpeg" alt="Nico en París" width="800" height="600" loading="lazy"></div>
+          <div class="nfm-car__txt"><span class="nfm-car__era">3 · El quiebre</span><h3>El viaje que no pudo disfrutar</h3><p>Se pagó el viaje a Europa que venía postergando y en París no se sintió bien. Tenía un máster en neurociencia y no se lo estaba aplicando.</p></div>
+        </article>
+        <article class="nfm-car__slide" aria-label="Escena 4 de 5">
+          <div class="nfm-car__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/charlated.jpg" alt="Nico en su charla TEDx" width="800" height="600" loading="lazy"></div>
+          <div class="nfm-car__txt"><span class="nfm-car__era">4 · Después</span><h3>Su propio experimento</h3><p>Aplicó en su vida lo que había estudiado, midió y corrigió. De ahí salieron <em>Hackea tu cerebro</em>, hoy bestseller, y dos charlas TEDx.</p></div>
+        </article>
+        <article class="nfm-car__slide" aria-label="Escena 5 de 5">
+          <div class="nfm-car__img"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/ultimaescenainstituto.jpeg" alt="Alumnos del Instituto de Productividad con Nico" width="800" height="600" loading="lazy"></div>
+          <div class="nfm-car__txt"><span class="nfm-car__era">5 · Hoy</span><h3>El Instituto de Productividad</h3><p>Lo fundó después de todo eso. Más de 400 empresarios, profesionales y líderes ya pasaron por su mentoría, acompañados por su equipo.</p></div>
+        </article>
       </div>
-      <div>
-        <h3>El contador que llegó rápido</h3>
-        <p>Nico es contador público. Se recibió con medalla al mejor promedio, abrió su propio estudio y creció rápido: en pocos años asesoraba empresas que manejaban capitales grandes, y los medios lo llamaban para pedirle su lectura sobre finanzas.</p>
-        <p><strong>Desde afuera, todo parecía ir muy bien. Por dentro, estaba pagando un precio muy alto por seguir escalando su empresa y su carrera.</strong></p>
-      </div>
-    </div>
-
-    <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/escena2-rotated.jpg" alt="Nico en su escritorio, en la época del estudio" loading="lazy"></div>
-      <div>
-        <h3>El precio por la productividad</h3>
-        <p>Trabajaba catorce horas por día. Subió más de quince kilos. Empezaron las migrañas, y con las migrañas las pastillas, que tomaba —según sus palabras— como si fueran caramelos. Se le caía el pelo. Necesitaba clonazepam para dormir.</p>
-        <p>Y miraba con envidia a quien cerraba la persiana a las seis y no se llevaba el trabajo a casa: <strong>gente con una vida más simple que la suya, que se había complicado tanto que ya no sabía para qué.</strong></p>
-      </div>
-    </div>
-
-    <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/enparis.jpeg" alt="Nico en París" loading="lazy"></div>
-      <div>
-        <h3>El punto de inflexión en París</h3>
-        <p>No fue una crisis: fue un premio. Venía de cerrar los mejores años de facturación de su vida y se pagó el viaje a Europa que siempre había postergado. Y en París se dio cuenta de que no podía disfrutarlo. Estaba en el lugar que había soñado, con la plata que había ganado para eso, y no se sentía bien. <strong>Lo peor: ya tenía un máster en neurociencia y no se lo estaba aplicando a sí mismo.</strong></p>
-        <p>Volvió con una sola pregunta: <strong>¿cómo hago para seguir creciendo y, al mismo tiempo, avanzar con lo importante de mi vida?</strong></p>
+      <div class="nfm-car__nav">
+        <button type="button" class="nfm-car__btn" data-car="-1" aria-label="Escena anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <div class="nfm-car__dots" id="nfm-car-dots"></div>
+        <button type="button" class="nfm-car__btn" data-car="1" aria-label="Escena siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
       </div>
     </div>
-
-    <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__dual">
-        <div class="nfm-scene__media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/charlated.jpg" alt="Nico en la charla TEDx" loading="lazy"></div>
-        <div class="nfm-scene__media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/hackeatucerebroenmano.jpeg" alt="Nico con su libro Hackea tu cerebro" loading="lazy"></div>
-      </div>
-      <div>
-        <h3>La variable para escalar sin agotarse</h3>
-        <p>Se convirtió en su propio experimento: aplicó sobre sí mismo lo que había estudiado, midió y corrigió. Empezó a divulgar cómo se relacionan la neurociencia y el rendimiento, sus redes crecieron, y escribió <em>Hackea tu cerebro</em>, hoy bestseller.</p>
-        <p>Pasó a asesorar empresas, equipos y profesionales para que produzcan más <strong>cuidando su bienestar al mismo tiempo</strong>. Lo invitaron a dar charlas TED sobre neurociencia aplicada: dio la primera, y hoy ya lleva dos.</p>
-      </div>
-    </div>
-
-    <div class="nfm-scene nfm-reveal">
-      <div class="nfm-scene__media"><img src="https://nicolasfernandezmiranda.com/wp-content/uploads/2026/09/ultimaescenainstituto.jpeg" alt="Alumnos del Instituto de Productividad con Nico" loading="lazy"></div>
-      <div>
-        <h3>Hoy</h3>
-        <p>Fundó el Instituto de Productividad, donde <strong>más de 400 empresarios, profesionales y líderes</strong> ya pasaron por un proceso de mentoría personalizada. Sus programas cuentan con el aval de la Facultad de Ciencias Económicas de la Universidad Nacional de Jujuy.</p>
-        <p>Capacita equipos en YPF, Samsung y Ternium, su trabajo fue destacado en CNN, Infobae y Endeavor, y escribe su segundo libro.</p>
-        <p><strong>Este <span data-nfm-fecha="larga">lunes 16 de noviembre</span> te va a mostrar cómo usar la neurociencia para que lo que construiste siga creciendo sin que todo pase por vos, y sin pagarlo con tu salud ni con el tiempo con tu familia.</strong></p>
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -916,6 +914,36 @@ function mostrarForm(){
     window.sessionStorage.setItem('nfm_dedicacion', resp.dedicacion);
   }catch(err){}
 }
+
+/* ─── CARRUSEL DE NICO ───
+   Se desliza con el dedo (scroll nativo). Las flechas y los puntos mueven de a una escena.
+   Hay un punto por cada posición posible: 5 en celular, menos en compu porque se ven varias escenas juntas. */
+(function(){
+  var tr=document.getElementById('nfm-car-track'), cajaPuntos=document.getElementById('nfm-car-dots'); if(!tr || !cajaPuntos) return;
+  var slides=tr.querySelectorAll('.nfm-car__slide'), prev=document.querySelector('[data-car="-1"]'), next=document.querySelector('[data-car="1"]'), puntos=[];
+  function paso(){ return slides.length>1 ? slides[1].offsetLeft-slides[0].offsetLeft : tr.clientWidth; }
+  function posiciones(){ var visibles=Math.max(1, Math.round((tr.clientWidth+16)/paso())); return Math.max(1, slides.length-visibles+1); }
+  function actual(){ return Math.round(tr.scrollLeft/paso()); }
+  function ir(i){ i=Math.max(0, Math.min(posiciones()-1, i)); tr.scrollTo({ left:i*paso(), behavior:'smooth' }); }
+  function armarPuntos(){
+    var n=posiciones(); if(puntos.length===n) return;
+    cajaPuntos.innerHTML=''; puntos=[];
+    for(var i=0;i<n;i++){ var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','Ir a la escena '+(i+1)); b.setAttribute('data-i',i); cajaPuntos.appendChild(b); puntos.push(b); }
+  }
+  function pintar(){
+    var i=actual(), fin=tr.scrollLeft+tr.clientWidth>=tr.scrollWidth-4;
+    if(fin) i=puntos.length-1;
+    for(var k=0;k<puntos.length;k++) puntos[k].setAttribute('aria-current', k===i?'true':'false');
+    if(prev) prev.disabled=tr.scrollLeft<=4; if(next) next.disabled=fin;
+  }
+  var pendiente=false;
+  tr.addEventListener('scroll', function(){ if(pendiente) return; pendiente=true; requestAnimationFrame(function(){ pendiente=false; pintar(); }); }, {passive:true});
+  window.addEventListener('resize', function(){ armarPuntos(); pintar(); });
+  if(prev) prev.addEventListener('click', function(){ ir(actual()-1); });
+  if(next) next.addEventListener('click', function(){ ir(actual()+1); });
+  cajaPuntos.addEventListener('click', function(e){ var b=e.target.closest?e.target.closest('button[data-i]'):null; if(b) ir(+b.getAttribute('data-i')); });
+  armarPuntos(); pintar();
+})();
 
 /* ─── fotos de las escenas: si es vertical, recuadro vertical ─── */
 (function(){

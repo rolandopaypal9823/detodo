@@ -26,7 +26,7 @@ Las secciones y el orden son los mismos. Cambia el copy:
   - Título: "Dejá de sobrecargarte con todo y armá un **sistema de neurociencia** que lo sostenga".
   - Debajo: "Neurociencia para el Alto Rendimiento Profesional · con Nico Fernández Miranda".
 - **Widget de tachados** ("Esto tampoco es la solución"): "Más pasa por vos, más alto el precio que pagás". Tacha 5 cosas que ya probaron (hacerlo todo vos, contestar el celular en vacaciones, estar en cada decisión de tu equipo, otro libro o curso de productividad, exigirte más) y da como resultado "un sistema que lo sostenga".
-- **Historia de Nico:** igual. Sólo cambia el último párrafo de "Hoy".
+- **Historia de Nico:** en carrusel, igual que en la landing de la Comunidad (masterclass del 27/10): las cinco escenas con foto y un texto corto, que se deslizan con el dedo o con las flechas. En compu se ven tres a la vez; en celular una, con la siguiente asomando. Hace la landing mucho más corta.
 - **"Armá tu sistema de productividad en vivo el 16 de noviembre"** (reemplaza "Qué vas a ver"): sólo el título y una escalera dibujada con tres peldaños de una línea cada uno, sin bajadas ni textos chicos. De abajo hacia arriba: "Cuidar tu bienestar mental", "Cuidar tu bienestar físico" y "Las habilidades técnicas que te permiten crecer", con las etiquetas de ejemplo (hábitos, concentración, delegación, inteligencia artificial).
   - ⚠️ **La escalera es un dibujo hecho acá, no la imagen original de Nico.** Si hay una imagen oficial, se reemplaza el bloque `.nfm-lad`.
 - **Casos:** los mismos. Encabezado para dueños y profesionales con equipo, y cierre "Ninguno vio caerse lo que había construido".
