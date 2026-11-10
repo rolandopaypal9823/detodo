@@ -12,7 +12,16 @@ Se pega en GHL igual que las anteriores: lo que está entre «DESDE ACÁ EMPIEZA
 
 1. **Fecha:** lunes 16 de noviembre, 19:00 hs (Argentina) — `FECHA: '2026-11-16'` en el `CONFIG` del final. La píldora, el contador, la hora local y todos los textos con fecha se arman solos desde ahí.
 2. **`UTM_CLASE`:** `clase-nov16-sistema`. Va en `edicion` y en el `utm_campaign` de los leads sin UTM.
-3. **Thank you de registro:** sigue siendo `nfm-clase-paga/thankyou-oto.html`. Hay que actualizarle la fecha y el grupo de WhatsApp de esta clase.
+3. **Thank you de registro:** `nfm-clase-paga/thankyou-registro-sin-popup.html` (sin el popup de asientos USD 5 / USD 9). Ya tiene la clase del lunes 16 y el grupo nuevo (https://go.wha.link/b2DPze). Es la que va en la redirección del "Form AGOSTO NUEVO".
+   - Sale de `thankyou-oto.html`, que también quedó en el 16/11 por si se vuelve a usar el popup de asientos. Si se toca esa, regenerar con `python3 nfm-clase-paga/gen-thankyou-sin-popup.py` desde la raíz del repo.
+
+## Lo demás de la clase del 16/11
+
+| Pieza | Archivo |
+|---|---|
+| Calendario | `calendario-clase-16-nov.md` (link de Google Calendar) y `calendario-clase-16-nov.ics` (iPhone/Outlook). Llevan la puerta al Zoom y el grupo nuevo. |
+| QR para la clase | `qr/qr-calendly-clase1611.{png,svg}` y `-negro.png`: Calendly con `utm_source=clase1611` (mismo Calendly que el 04/11). |
+| Puerta al Zoom | `zoom-nfm.netlify.app`: actualizar el link de Zoom y la clave anti-duplicados para esta clase. |
 
 ## Qué cambió respecto de la del 04/11
 
