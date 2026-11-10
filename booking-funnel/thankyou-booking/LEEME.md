@@ -12,11 +12,32 @@
 
 ## El video del paso 2
 
-Hoy está el de Wistia (`tdrkk8cd9a`, 7:51). Para subirlo a vTurb, el MP4 en 1080p se baja de acá:
-
+Está en vTurb (`vid-6af299dc5821dd130fe5d308`). El MP4 original en 1080p, por si hace falta otra vez:
 https://embed-ssl.wistia.com/deliveries/9a5c3207572881c110d212e17b2119248afb4a62/vsl-4-pilares-1080p.mp4
 
-Cuando esté en vTurb: buscá el comentario `VIDEO DEL PASO 2` y reemplazá el `<iframe>` que está adentro de `<div class="nfm-ty__video">` por el código de vTurb. El div le da el formato 16:9.
+El cartel del autoplay sale en portugués ("Seu vídeo já começou · Clique para ouvir"). Se cambia en vTurb, en la configuración del player.
+
+## Webhook de FunnelChat
+
+Al entrar con los datos de Calendly, la página manda un POST (JSON) a `FUNNELCHAT_WEBHOOK` (en el script) para que FunnelChat mande el video de presesión por WhatsApp. Se manda una sola vez por agendamiento, aunque la persona recargue. Si se entra sin datos de Calendly, no se manda nada.
+
+Campos para mapear:
+
+| Campo | Ejemplo |
+|---|---|
+| `telefono` | `5491100000000` (solo números, con código de país) |
+| `telefono_original` | `+54 9 11 0000-0000` |
+| `nombre` / `apellido` / `nombre_completo` | `Prueba` / `Booking` / `Prueba Booking` |
+| `email` | `prueba@example.com` |
+| `asesor` / `asesor_completo` | `Ayrton` |
+| `fecha` / `hora` | `jueves 12 de noviembre` / `15:00` |
+| `inicio` | `2026-11-12T15:00:00-03:00` |
+| `tipo_de_evento` | nombre del evento de Calendly |
+| `evento` | siempre `entrevista_agendada` |
+
+Además va todo lo que mande Calendly con su nombre original (`answer_1`, `utm_source`, `invitee_uuid`…).
+
+El teléfono sale de `text_reminder_number` (el recordatorio por SMS de Calendly). Si no viene, toma la primera respuesta (`answer_1` a `answer_10`) que sea un número. Para que llegue, el evento de Calendly tiene que pedir el teléfono, ya sea con el recordatorio por SMS o con una pregunta.
 
 ## Lo que lee de Calendly
 

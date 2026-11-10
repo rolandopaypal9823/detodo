@@ -6,6 +6,8 @@
      Lee de la URL lo que manda Calendly al redirigir:
        ?invitee_first_name=  → "¡Felicidades, Nombre!"
        ?assigned_to=         → el nombre del asesor en el paso 3
+     Y manda esos datos al webhook de FunnelChat (FUNNELCHAT_WEBHOOK, en el script),
+     una sola vez por agendamiento, para el video de presesión por WhatsApp.
      ═══════════════════════════════════════════════════════ -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -18,7 +20,7 @@
   .nfm-ty img{ max-width:100%; display:block; }
   .nfm-ty__wrap{ max-width:680px; margin:0 auto; padding:0 20px; }
 
-  /* video 16:9 (Wistia, Loom o vTurb) */
+  /* video 16:9 (Loom del Mastermind) */
   .nfm-ty__video{ position:relative; width:100%; aspect-ratio:16/9; border-radius:12px; overflow:hidden; background:#0C3452; }
   .nfm-ty__video iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
 
@@ -43,7 +45,7 @@
   .nfm-ty__step--video{ border:2px solid var(--orange); box-shadow:0 10px 30px rgba(255,102,2,0.12); }
   .nfm-ty__step--video .nfm-ty__n{ background:var(--orange); border-color:var(--orange); color:#fff; }
   .nfm-ty__step--video .nfm-ty__lbl{ color:var(--orange); }
-  .nfm-ty__step--video .nfm-ty__video{ margin-top:16px; }
+  .nfm-ty__vturb{ margin-top:16px; border-radius:12px; overflow:hidden; background:#000; }
   .nfm-ty__step--wa .nfm-ty__n{ background:var(--wa); border-color:var(--wa); color:#fff; }
 
   /* 2) Casos de éxito */
@@ -76,7 +78,7 @@
     .nfm-ty__step{ padding:16px; }
     .nfm-ty__head{ gap:14px; }
     .nfm-ty__txt{ font-size:1rem; }
-    .nfm-ty__step--video .nfm-ty__video{ margin-top:14px; border-radius:10px; }
+    .nfm-ty__vturb{ margin-top:14px; border-radius:10px; }
     .nfm-ty__cases-sec{ padding:48px 0 56px; }
     .nfm-ty__mm{ margin-bottom:36px; }
     .nfm-ty__cases{ grid-template-columns:1fr; gap:10px; }
@@ -110,10 +112,9 @@
             <span class="nfm-ty__n">2</span>
             <span><span class="nfm-ty__lbl">Paso 2 · Obligatorio para confirmar tu entrevista</span><span class="nfm-ty__txt">Mirá este video y conocé los 4 pilares de nuestros programas</span></span>
           </div>
-          <!-- VIDEO DEL PASO 2 · hoy desde Wistia. Cuando esté en vTurb, reemplazá el iframe por el código de vTurb
-               (dejá el div nfm-ty__video alrededor para que quede en 16:9). -->
-          <div class="nfm-ty__video">
-            <iframe src="https://fast.wistia.net/embed/iframe/tdrkk8cd9a?seo=false&amp;videoFoam=false&amp;playerColor=FF6602" title="Los 4 pilares de nuestros programas" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>
+          <!-- VIDEO DEL PASO 2 · vTurb -->
+          <div class="nfm-ty__vturb">
+            <vturb-smartplayer id="vid-6af299dc5821dd130fe5d308" style="display: block; margin: 0 auto; width: 100%; "><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 56.25% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/82529694-4445-4a28-9435-65713f4bcce6/players/6af299dc5821dd130fe5d308/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
           </div>
         </li>
         <li class="nfm-ty__step nfm-ty__step--wa">
@@ -187,5 +188,55 @@
   if(ASESORES[clave]){
     document.getElementById('nfm-ty-paso3').textContent = 'Confirmá tu llamada con ' + ASESORES[clave] + ' por WhatsApp';
   }
+
+  /* ── Webhook de FunnelChat: manda los datos del agendamiento (video de presesión por WhatsApp) ── */
+  var FUNNELCHAT_WEBHOOK = 'https://conversations-api.funnelchat.app/api/v1/users/6942/triggers/7cc74edb-cbda-477d-9114-acc23121b8eb';
+
+  /* Teléfono: el recordatorio por SMS de Calendly (text_reminder_number) o la respuesta que parezca un número */
+  var telOriginal = dato('text_reminder_number') || dato('phone') || dato('telefono');
+  if(!telOriginal){
+    for(var i = 1; i <= 10; i++){
+      var r = dato('answer_' + i);
+      if(r && r.replace(/\D/g, '').length >= 8 && !/[a-z@]/i.test(r)){ telOriginal = r; break; }
+    }
+  }
+  var email = dato('invitee_email');
+  if(!email && !telOriginal) return; /* sin datos de Calendly no se manda nada */
+
+  /* Fecha y hora tal como las manda Calendly (en la zona horaria de la persona) */
+  var DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  var inicio = dato('event_start_time'), fecha = '', hora = '';
+  var m = inicio.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  if(m){
+    var d = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3]));
+    fecha = DIAS[d.getUTCDay()] + ' ' + (+m[3]) + ' de ' + MESES[+m[2] - 1];
+    hora = m[4] + ':' + m[5];
+  }
+
+  var datos = {
+    evento: 'entrevista_agendada',
+    nombre: nombre,
+    apellido: dato('invitee_last_name'),
+    nombre_completo: dato('invitee_full_name'),
+    email: email,
+    telefono: telOriginal.replace(/\D/g, ''),
+    telefono_original: telOriginal,
+    asesor: ASESORES[clave] || primero(dato('assigned_to')),
+    asesor_completo: dato('assigned_to'),
+    fecha: fecha,
+    hora: hora,
+    inicio: inicio,
+    tipo_de_evento: dato('event_type_name')
+  };
+  /* Todo lo demás que mande Calendly (answer_1, utm_source, invitee_uuid…) va con su nombre original */
+  q.forEach(function(v, k){ if(!(k in datos)) datos[k] = dato(k); });
+
+  /* Una sola vez por agendamiento, aunque recargue la página */
+  var marca = 'nfm_fc_' + (dato('invitee_uuid') || (email + telOriginal + inicio));
+  try{ if(localStorage.getItem(marca)) return; }catch(e){}
+  fetch(FUNNELCHAT_WEBHOOK, { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(datos), keepalive:true })
+    .then(function(res){ if(res.ok){ try{ localStorage.setItem(marca, '1'); }catch(e){} } })
+    .catch(function(){});
 })();
 </script>
