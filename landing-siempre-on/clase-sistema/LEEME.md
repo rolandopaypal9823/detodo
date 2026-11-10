@@ -10,8 +10,8 @@ Se pega en GHL igual que las anteriores: lo que está entre «DESDE ACÁ EMPIEZA
 
 ## Antes de publicar
 
-1. **Fecha:** en el `CONFIG` del final, `FECHA` está provisoria (`2026-11-25`). Poné la real (AAAA-MM-DD). La píldora, el contador, la hora local y todos los textos con fecha se arman solos.
-2. **`UTM_CLASE`:** si querés distinguir la edición en GHL, cambiala (ej. `clase-nov25-sistema`). Va en `edicion` y en el `utm_campaign` de los leads sin UTM.
+1. **Fecha:** lunes 16 de noviembre, 19:00 hs (Argentina) — `FECHA: '2026-11-16'` en el `CONFIG` del final. La píldora, el contador, la hora local y todos los textos con fecha se arman solos desde ahí.
+2. **`UTM_CLASE`:** `clase-nov16-sistema`. Va en `edicion` y en el `utm_campaign` de los leads sin UTM.
 3. **Thank you de registro:** sigue siendo `nfm-clase-paga/thankyou-oto.html`. Hay que actualizarle la fecha y el grupo de WhatsApp de esta clase.
 
 ## Qué cambió respecto de la del 04/11
