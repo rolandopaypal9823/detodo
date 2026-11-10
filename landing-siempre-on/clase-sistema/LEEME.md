@@ -30,7 +30,7 @@ Las secciones y el orden son los mismos. Cambia el copy:
 - **"Armá tu sistema de productividad en vivo el 16 de noviembre"** (reemplaza "Qué vas a ver"): sólo el título y una escalera dibujada con tres peldaños de una línea cada uno, sin bajadas ni textos chicos. De abajo hacia arriba: "Cuidar tu bienestar mental", "Cuidar tu bienestar físico" y "Las habilidades técnicas que te permiten crecer", con las etiquetas de ejemplo (hábitos, concentración, delegación, inteligencia artificial).
   - ⚠️ **La escalera es un dibujo hecho acá, no la imagen original de Nico.** Si hay una imagen oficial, se reemplaza el bloque `.nfm-lad`.
 - **Casos:** los mismos. Encabezado para dueños y profesionales con equipo, y cierre "Ninguno vio caerse lo que había construido".
-- **"Para quién es esta clase"** (vuelve, entre los casos y el cierre): es y no es para vos, sin hablar de plata, más la línea de seriedad.
+- **"Para quién es esta clase"** (vuelve, entre los casos y el cierre): es y no es para vos, sin hablar de plata.
 - **Cierre:** "El 16 de noviembre vas a ver cómo armar el sistema que lo sostenga".
 
 Se sacaron, por pedido: el bloque naranja "¿Te reconocés?" y el bloque "Tu cerebro está decidiendo por todo tu equipo". Los textos siguen en `../COPY-landing-sistema-que-lo-sostenga.md` por si se quieren volver a usar.
