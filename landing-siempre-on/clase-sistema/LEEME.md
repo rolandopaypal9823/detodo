@@ -27,11 +27,15 @@ Las secciones y el orden son los mismos. Cambia el copy:
   - Debajo: "Neurociencia para el Alto Rendimiento Profesional · con Nico Fernández Miranda".
 - **Widget de tachados** ("Esto tampoco es la solución"): "Más pasa por vos, más alto el precio que pagás". Tacha 5 cosas que ya probaron (hacerlo todo vos, contestar el celular en vacaciones, estar en cada decisión de tu equipo, otro libro o curso de productividad, exigirte más) y da como resultado "un sistema que lo sostenga".
 - **Historia de Nico:** igual. Sólo cambia el último párrafo de "Hoy".
-- **Qué vas a ver:** 5 temas (por qué tu cerebro te vuelve imprescindible, qué decisiones salen primero de tu mente, cortar a tiempo, dormir de corrido, la variable que decide).
+- **"Armá tu sistema de productividad en vivo el 16 de noviembre"** (reemplaza "Qué vas a ver"): una escalera dibujada en la página, con el punto A abajo ("Todo pasa por vos"), tres peldaños y el punto B arriba ("Cumplís tus objetivos y disfrutás lo que construiste").
+  - Peldaño 1, bienestar físico. Peldaño 2, bienestar mental. Peldaño 3, habilidades técnicas (hábitos, concentración, delegación, inteligencia artificial).
+  - Aplica Funnel 400: cada peldaño abre una pregunta en vez de explicar ("¿Por qué tu mente sigue prendida cuando ya cortaste?"), se nombra lo que ya probaron, y la pieza que une los tres peldaños queda borrosa: "se revela en vivo el 16 de noviembre".
+  - ⚠️ **La escalera es un dibujo hecho acá, no la imagen original de Nico.** Si hay una imagen oficial, se reemplaza el bloque `.nfm-lad`.
 - **Casos:** los mismos. Encabezado para dueños y profesionales con equipo, y cierre "Ninguno vio caerse lo que había construido".
+- **"Para quién es esta clase"** (vuelve, entre los casos y el cierre): es y no es para vos, sin hablar de plata, más la línea de seriedad.
 - **Cierre:** "El 16 de noviembre vas a ver cómo armar el sistema que lo sostenga".
 
-Se sacaron, por pedido: el bloque naranja "¿Te reconocés?", el bloque "Tu cerebro está decidiendo por todo tu equipo" y el de "Para quién es esta clase". Los textos siguen en `../COPY-landing-sistema-que-lo-sostenga.md` por si se quieren volver a usar.
+Se sacaron, por pedido: el bloque naranja "¿Te reconocés?" y el bloque "Tu cerebro está decidiendo por todo tu equipo". Los textos siguen en `../COPY-landing-sistema-que-lo-sostenga.md` por si se quieren volver a usar.
 
 ## Quiz
 

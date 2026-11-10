@@ -294,6 +294,52 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
 .nfm-map__txt h4 b{ font-weight:700; }
 .nfm-learn__cta{ text-align:center; margin-top:44px; }
 
+/* ═══ ESCALERA · el sistema en tres peldaños (punto A abajo, punto B arriba) ═══ */
+.nfm-lad{ position:relative; max-width:780px; margin:0 auto; padding:0 44px; display:flex; flex-direction:column; align-items:center; }
+.nfm-lad__pt{ position:relative; z-index:2; display:inline-flex; align-items:center; gap:10px; font-family:var(--nfm-font-h); font-weight:700; font-size:0.98rem; line-height:1.35; text-align:center; padding:12px 22px; border-radius:50px; max-width:100%; }
+.nfm-lad__pt small{ font-weight:600; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; opacity:.85; display:block; }
+.nfm-lad__pt--b{ background:var(--nfm-orange); color:#fff; box-shadow:0 10px 30px var(--nfm-orange-glow); }
+.nfm-lad__pt--a{ background:#fff; color:var(--nfm-navy); border:2px solid var(--nfm-navy); }
+.nfm-lad__body{ position:relative; width:100%; display:flex; flex-direction:column; gap:0; margin:-2px 0; }
+/* los dos laterales de la escalera */
+.nfm-lad__body::before, .nfm-lad__body::after{ content:""; position:absolute; top:0; bottom:0; width:12px; border-radius:6px; background:linear-gradient(180deg,var(--nfm-navy-2),var(--nfm-navy)); z-index:0; }
+.nfm-lad__body::before{ left:-44px; } .nfm-lad__body::after{ right:-44px; }
+.nfm-lad__rung{ position:relative; padding:26px 0; }
+/* el peldaño: una barra naranja de lateral a lateral, que pasa por detrás de la tarjeta */
+.nfm-lad__rung::before{ content:""; position:absolute; left:-44px; right:-44px; top:50%; height:10px; margin-top:-5px; border-radius:5px; background:var(--nfm-orange); z-index:1; }
+.nfm-lad__card{ position:relative; z-index:2; background:#fff; border:1px solid var(--nfm-gray-200); border-radius:var(--nfm-r-lg); padding:22px 26px; box-shadow:0 18px 50px rgba(12,52,82,0.10); display:flex; gap:20px; align-items:center; text-align:left; }
+.nfm-lad__ico{ flex:none; width:54px; height:54px; border-radius:15px; background:rgba(255,102,2,0.10); border:1px solid rgba(255,102,2,0.25); display:flex; align-items:center; justify-content:center; color:var(--nfm-orange); }
+.nfm-lad__ico svg{ width:27px; height:27px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.nfm-lad__txt{ min-width:0; }
+.nfm-lad__lbl{ font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-orange); display:block; margin-bottom:4px; }
+.nfm-lad__txt h3{ font-family:var(--nfm-font-h); font-size:1.28rem; font-weight:700; color:var(--nfm-ink); letter-spacing:-0.01em; line-height:1.2; margin:0 0 6px; }
+.nfm-lad__txt p{ font-size:1rem; color:var(--nfm-ink-mute); line-height:1.55; }
+.nfm-lad__chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.nfm-lad__chips span{ font-family:var(--nfm-font-h); font-size:0.88rem; font-weight:600; color:var(--nfm-navy); background:var(--nfm-gray-100); border:1px solid var(--nfm-gray-200); padding:6px 14px; border-radius:50px; }
+.nfm-lad__key{ max-width:520px; margin:34px auto 0; text-align:center; background:#fff; border:2px dashed rgba(255,102,2,0.55); border-radius:var(--nfm-r-lg); padding:20px 24px; }
+.nfm-lad__keyt{ font-family:var(--nfm-font-h); font-size:1.35rem; font-weight:800; line-height:1.2; margin:2px 0 8px !important; }
+.nfm-lad__key small{ font-family:var(--nfm-font-h); font-size:0.86rem; font-weight:600; color:var(--nfm-ink-mute); }
+.nfm-lad__cap{ max-width:36em; margin:38px auto 0 !important; text-align:center !important; font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:600; line-height:1.5; color:var(--nfm-navy); text-wrap:balance; }
+.nfm-lad__cap em{ color:var(--nfm-orange); font-style:normal; }
+
+/* ═══ PARA QUIÉN ES ═══ */
+.nfm-fit{ background:var(--nfm-gray-50); padding:88px 0; color:var(--nfm-navy); }
+.nfm-fit__head{ text-align:center; margin-bottom:40px; }
+.nfm-fit__head h2{ font-family:var(--nfm-font-h); font-size:clamp(1.6rem,3.2vw,2.3rem); font-weight:700; letter-spacing:-0.02em; line-height:1.15; margin:0; text-wrap:balance; }
+.nfm-fit__grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; max-width:940px; margin:0 auto; }
+.nfm-fit__col{ background:#fff; border:1px solid var(--nfm-gray-200); border-radius:var(--nfm-r-lg); padding:28px 28px 22px; min-width:0; }
+.nfm-fit__col--si{ border-top:4px solid var(--nfm-green); }
+.nfm-fit__col--no{ border-top:4px solid var(--nfm-ink-subtle); }
+.nfm-fit__col h3{ font-family:var(--nfm-font-h); font-size:1.2rem; font-weight:700; margin:0 0 14px; }
+.nfm-fit__col ul{ list-style:none !important; margin:0 !important; padding:0 !important; }
+.nfm-fit__col li{ position:relative; padding:9px 0 9px 30px; margin:0 !important; font-size:1.02rem; line-height:1.5; color:#2a3f54; border-bottom:1px dashed var(--nfm-gray-200); }
+.nfm-fit__col li:last-child{ border-bottom:none; }
+.nfm-fit__col li::before{ position:absolute; left:0; top:9px; font-weight:700; font-family:var(--nfm-font-h); }
+.nfm-fit__col--si li::before{ content:"✓"; color:var(--nfm-green); }
+.nfm-fit__col--no li::before{ content:"✕"; color:var(--nfm-ink-subtle); }
+.nfm-fit__serio{ max-width:44em; margin:36px auto 0 !important; text-align:center !important; font-size:1.02rem; line-height:1.65; color:var(--nfm-ink-mute); text-wrap:balance; }
+.nfm-fit__serio strong{ color:var(--nfm-navy); }
+
 /* ═══ TESTIMONIOS ═══ */
 .nfm-tst{ padding:96px 0; background:linear-gradient(180deg,#0C3452 0%,#081F33 100%); color:#fff; }
 .nfm-tst__head{ text-align:center; margin-bottom:48px; }
@@ -330,6 +376,11 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
 @media (max-width:1024px){ .nfm-map{ padding:16px 30px; } }
 @media (max-width:900px){ .nfm-tst__grid{ grid-template-columns:1fr; max-width:560px; } }
 @media (max-width:768px){
+  .nfm-lad{ padding:0 30px; } .nfm-lad__body::before{ left:-30px; } .nfm-lad__body::after{ right:-30px; } .nfm-lad__rung::before{ left:-30px; right:-30px; }
+  .nfm-lad__rung{ padding:20px 0; } .nfm-lad__card{ padding:18px 16px; gap:14px; } .nfm-lad__ico{ width:44px; height:44px; border-radius:12px; } .nfm-lad__ico svg{ width:23px; height:23px; }
+  .nfm-lad__keyt{ font-size:1.15rem; } .nfm-lad__key{ padding:16px 14px; }
+  .nfm-lad__txt h3{ font-size:1.12rem; } .nfm-lad__txt p{ font-size:0.94rem; } .nfm-lad__pt{ font-size:0.9rem; padding:10px 16px; }
+  .nfm-fit{ padding:64px 0; } .nfm-fit__grid{ grid-template-columns:1fr; } .nfm-fit__col{ padding:24px 20px 18px; }
   .nfm-hero{ padding:108px 12px 24px; }
   .nfm-hero__card{ min-height:0; border-radius:22px; }
   .nfm-hero__bg img{ object-position:center 6%; }
@@ -521,20 +572,46 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
   </div>
 </section>
 
-<!-- ═══ QUÉ VAS A DESCUBRIR ═══ -->
+<!-- ═══ LA ESCALERA · qué vas a ver en la clase ═══
+     Dibujada acá (no es la imagen original de Nico): punto A abajo, tres peldaños, punto B arriba.
+     Si hay una imagen oficial de la escalera, se puede poner en lugar del bloque .nfm-lad. -->
 <section class="nfm-learn">
   <div class="nfm-container">
     <div class="nfm-learn__head nfm-reveal">
-      <span class="nfm-eyebrow">Contenido de la clase</span>
-      <h2>Qué vas a ver el <span data-nfm-fecha="abr">16 de Nov.</span> en vivo</h2>
+      <span class="nfm-eyebrow">Tu escalera de neurociencia</span>
+      <h2>Armá tu sistema de productividad en vivo el <span data-nfm-fecha="corta">16 de noviembre</span></h2>
+      <p>Tres peldaños: tu bienestar físico, tu bienestar mental y tus habilidades técnicas. Hábitos, concentración, delegación, inteligencia artificial: seguramente ya probaste alguno. Y aun así, todo sigue pasando por vos.</p>
     </div>
-    <div class="nfm-map nfm-reveal nfm-d1">
-      <div class="nfm-map__item"><div class="nfm-map__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="5.5" r="2.2"/><circle cx="18" cy="5.5" r="2.2"/><circle cx="12" cy="18.5" r="2.2"/><path d="M6 7.7v1.8a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4V7.7M12 13.5v2.8"/></svg></div><div class="nfm-map__txt"><h4><b>Por qué tu cerebro te vuelve imprescindible</b>, y qué pasa en tu mente cada vez que todo pasa por vos.</h4></div></div>
-      <div class="nfm-map__item"><div class="nfm-map__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10M10 21V10M14 21V10M19 21V10M2.5 10L12 3l9.5 7z"/></svg></div><div class="nfm-map__txt"><h4><b>Qué decisiones tienen que salir primero de tu mente</b> para soltar sin que se caiga nada.</h4></div></div>
-      <div class="nfm-map__item"><div class="nfm-map__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 16.5a8 8 0 1 1 16 0"/><path d="M12 16.5l4.2-5.2"/><circle cx="12" cy="16.5" r="1.4"/><path d="M4 20h16"/></svg></div><div class="nfm-map__txt"><h4><b>Cortar a tiempo:</b> por qué terminás el día pero el negocio se viene con vos a casa.</h4></div></div>
-      <div class="nfm-map__item"><div class="nfm-map__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></div><div class="nfm-map__txt"><h4><b>Dormir de corrido:</b> qué hacés de noche que te despierta a las 3 pensando en pendientes.</h4></div></div>
-      <div class="nfm-map__item"><div class="nfm-map__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="11" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><circle cx="12" cy="16" r="1.3"/></svg></div><div class="nfm-map__txt"><h4><b>La variable que decide:</b> por qué trabajar más y exigirte más no sostiene lo que construiste, y qué lo sostiene. Se revela en vivo.</h4></div></div>
+
+    <div class="nfm-lad nfm-reveal nfm-d1">
+      <div class="nfm-lad__pt nfm-lad__pt--b"><span><small>Punto B</small>Cumplís tus objetivos y disfrutás lo que construiste</span></div>
+      <div class="nfm-lad__body">
+        <div class="nfm-lad__rung"><div class="nfm-lad__card">
+          <div class="nfm-lad__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4.5" y="4.5" width="15" height="15" rx="3"/><rect x="9" y="9" width="6" height="6" rx="1.2"/><path d="M9 2v2.5M15 2v2.5M9 19.5V22M15 19.5V22M2 9h2.5M2 15h2.5M19.5 9H22M19.5 15H22"/></svg></div>
+          <div class="nfm-lad__txt"><span class="nfm-lad__lbl">Peldaño 3</span><h3>Tus habilidades técnicas</h3>
+            <p>¿Cuál de las cuatro te falta para que el sistema se sostenga cuando vos no estás?</p>
+            <div class="nfm-lad__chips"><span>Hábitos</span><span>Concentración</span><span>Delegación</span><span>Inteligencia artificial</span></div></div>
+        </div></div>
+        <div class="nfm-lad__rung"><div class="nfm-lad__card">
+          <div class="nfm-lad__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="5.5" r="2.2"/><circle cx="18" cy="5.5" r="2.2"/><circle cx="12" cy="18.5" r="2.2"/><path d="M6 7.7v1.8a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4V7.7M12 13.5v2.8"/></svg></div>
+          <div class="nfm-lad__txt"><span class="nfm-lad__lbl">Peldaño 2</span><h3>Tu bienestar mental</h3>
+            <p>¿Por qué tu mente sigue prendida cuando ya cortaste?</p></div>
+        </div></div>
+        <div class="nfm-lad__rung"><div class="nfm-lad__card">
+          <div class="nfm-lad__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="7" width="17" height="10" rx="2.5"/><path d="M19.5 10.5h1.5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1.5"/><path d="M12 8.5l-2.5 4h4L11 16"/></svg></div>
+          <div class="nfm-lad__txt"><span class="nfm-lad__lbl">Peldaño 1</span><h3>Tu bienestar físico</h3>
+            <p>¿Cuánto de tu cansancio viene del cuerpo, y cuánto de otra cosa?</p></div>
+        </div></div>
+      </div>
+      <div class="nfm-lad__pt nfm-lad__pt--a"><span><small>Punto A · hoy</small>Todo pasa por vos</span></div>
     </div>
+
+    <div class="nfm-lad__key nfm-reveal nfm-d2">
+      <span class="nfm-lad__lbl">Lo que une los tres peldaños</span>
+      <p class="nfm-lad__keyt"><span class="nfm-eq__blur" aria-hidden="true">la pieza que casi nadie arma</span></p>
+      <small>Se revela en vivo el <span data-nfm-fecha="corta">16 de noviembre</span></small>
+    </div>
+    <p class="nfm-lad__cap nfm-reveal nfm-d2">Un sistema que funciona <em>a favor de cómo funciona tu cerebro</em>: te lleva a cumplir tus objetivos y a disfrutar lo que construiste.</p>
     <div class="nfm-learn__cta nfm-reveal nfm-d2">
       <button class="nfm-btn" data-abrir-registro>RESERVAR MI LUGAR <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
     </div>
@@ -574,6 +651,35 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
     <div class="nfm-insight nfm-reveal">
       <p><strong>Ninguno trabajó menos ni bajó el ritmo. Ninguno vio caerse lo que había construido.</strong> Dejaron de cargarlo solos, y siguieron creciendo.</p>
     </div>
+  </div>
+</section>
+
+<!-- ═══ PARA QUIÉN ES ═══ -->
+<section class="nfm-fit">
+  <div class="nfm-container">
+    <div class="nfm-fit__head nfm-reveal">
+      <span class="nfm-eyebrow nfm-eyebrow--solid">Antes de reservar</span>
+      <h2>Para quién es esta clase</h2>
+    </div>
+    <div class="nfm-fit__grid nfm-reveal nfm-d1">
+      <div class="nfm-fit__col nfm-fit__col--si">
+        <h3>Es para vos si…</h3>
+        <ul>
+          <li>Tenés una empresa, un estudio, un consultorio o un negocio que ya funciona.</li>
+          <li>Tenés gente que depende de tus decisiones.</li>
+          <li>Querés que siga creciendo sin que tenga que pasar todo por vos.</li>
+        </ul>
+      </div>
+      <div class="nfm-fit__col nfm-fit__col--no">
+        <h3>No es para vos si…</h3>
+        <ul>
+          <li>Estás buscando tu primer cliente o arrancando un emprendimiento.</li>
+          <li>Buscás un ingreso extra o cambiar de trabajo.</li>
+          <li>Querés motivación o una fórmula rápida.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="nfm-fit__serio nfm-reveal nfm-d2"><strong>Sin soluciones mágicas ni promesas de facturación.</strong> Neurociencia aplicada y un equipo de psicólogos, nutricionistas y coaches que acompaña a cada persona.</p>
   </div>
 </section>
 
