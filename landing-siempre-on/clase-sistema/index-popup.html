@@ -296,31 +296,20 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
 
 /* ═══ ESCALERA · el sistema en tres peldaños (punto A abajo, punto B arriba) ═══ */
 .nfm-lad{ position:relative; max-width:780px; margin:0 auto; padding:0 44px; display:flex; flex-direction:column; align-items:center; }
-.nfm-lad__pt{ position:relative; z-index:2; display:inline-flex; align-items:center; gap:10px; font-family:var(--nfm-font-h); font-weight:700; font-size:0.98rem; line-height:1.35; text-align:center; padding:12px 22px; border-radius:50px; max-width:100%; }
-.nfm-lad__pt small{ font-weight:600; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; opacity:.85; display:block; }
-.nfm-lad__pt--b{ background:var(--nfm-orange); color:#fff; box-shadow:0 10px 30px var(--nfm-orange-glow); }
-.nfm-lad__pt--a{ background:#fff; color:var(--nfm-navy); border:2px solid var(--nfm-navy); }
-.nfm-lad__body{ position:relative; width:100%; display:flex; flex-direction:column; gap:0; margin:-2px 0; }
+.nfm-lad__body{ position:relative; width:100%; display:flex; flex-direction:column; gap:0; }
 /* los dos laterales de la escalera */
 .nfm-lad__body::before, .nfm-lad__body::after{ content:""; position:absolute; top:0; bottom:0; width:12px; border-radius:6px; background:linear-gradient(180deg,var(--nfm-navy-2),var(--nfm-navy)); z-index:0; }
 .nfm-lad__body::before{ left:-44px; } .nfm-lad__body::after{ right:-44px; }
-.nfm-lad__rung{ position:relative; padding:26px 0; }
+.nfm-lad__rung{ position:relative; padding:20px 0; }
 /* el peldaño: una barra naranja de lateral a lateral, que pasa por detrás de la tarjeta */
 .nfm-lad__rung::before{ content:""; position:absolute; left:-44px; right:-44px; top:50%; height:10px; margin-top:-5px; border-radius:5px; background:var(--nfm-orange); z-index:1; }
-.nfm-lad__card{ position:relative; z-index:2; background:#fff; border:1px solid var(--nfm-gray-200); border-radius:var(--nfm-r-lg); padding:22px 26px; box-shadow:0 18px 50px rgba(12,52,82,0.10); display:flex; gap:20px; align-items:center; text-align:left; }
+.nfm-lad__card{ position:relative; z-index:2; background:#fff; border:1px solid var(--nfm-gray-200); border-radius:var(--nfm-r-lg); padding:26px 28px; box-shadow:0 18px 50px rgba(12,52,82,0.10); display:flex; gap:20px; align-items:center; text-align:left; }
 .nfm-lad__ico{ flex:none; width:54px; height:54px; border-radius:15px; background:rgba(255,102,2,0.10); border:1px solid rgba(255,102,2,0.25); display:flex; align-items:center; justify-content:center; color:var(--nfm-orange); }
 .nfm-lad__ico svg{ width:27px; height:27px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
 .nfm-lad__txt{ min-width:0; }
-.nfm-lad__lbl{ font-family:var(--nfm-font-h); font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--nfm-orange); display:block; margin-bottom:4px; }
-.nfm-lad__txt h3{ font-family:var(--nfm-font-h); font-size:1.28rem; font-weight:700; color:var(--nfm-ink); letter-spacing:-0.01em; line-height:1.2; margin:0 0 6px; }
-.nfm-lad__txt p{ font-size:1rem; color:var(--nfm-ink-mute); line-height:1.55; }
-.nfm-lad__chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.nfm-lad__txt h3{ font-family:var(--nfm-font-h); font-size:clamp(1.3rem,2.6vw,1.7rem); font-weight:700; color:var(--nfm-ink); letter-spacing:-0.02em; line-height:1.18; margin:0; text-wrap:balance; }
+.nfm-lad__chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
 .nfm-lad__chips span{ font-family:var(--nfm-font-h); font-size:0.88rem; font-weight:600; color:var(--nfm-navy); background:var(--nfm-gray-100); border:1px solid var(--nfm-gray-200); padding:6px 14px; border-radius:50px; }
-.nfm-lad__key{ max-width:520px; margin:34px auto 0; text-align:center; background:#fff; border:2px dashed rgba(255,102,2,0.55); border-radius:var(--nfm-r-lg); padding:20px 24px; }
-.nfm-lad__keyt{ font-family:var(--nfm-font-h); font-size:1.35rem; font-weight:800; line-height:1.2; margin:2px 0 8px !important; }
-.nfm-lad__key small{ font-family:var(--nfm-font-h); font-size:0.86rem; font-weight:600; color:var(--nfm-ink-mute); }
-.nfm-lad__cap{ max-width:36em; margin:38px auto 0 !important; text-align:center !important; font-family:var(--nfm-font-h); font-size:1.12rem; font-weight:600; line-height:1.5; color:var(--nfm-navy); text-wrap:balance; }
-.nfm-lad__cap em{ color:var(--nfm-orange); font-style:normal; }
 
 /* ═══ PARA QUIÉN ES ═══ */
 .nfm-fit{ background:var(--nfm-gray-50); padding:88px 0; color:var(--nfm-navy); }
@@ -378,8 +367,8 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
 @media (max-width:768px){
   .nfm-lad{ padding:0 30px; } .nfm-lad__body::before{ left:-30px; } .nfm-lad__body::after{ right:-30px; } .nfm-lad__rung::before{ left:-30px; right:-30px; }
   .nfm-lad__rung{ padding:20px 0; } .nfm-lad__card{ padding:18px 16px; gap:14px; } .nfm-lad__ico{ width:44px; height:44px; border-radius:12px; } .nfm-lad__ico svg{ width:23px; height:23px; }
-  .nfm-lad__keyt{ font-size:1.15rem; } .nfm-lad__key{ padding:16px 14px; }
-  .nfm-lad__txt h3{ font-size:1.12rem; } .nfm-lad__txt p{ font-size:0.94rem; } .nfm-lad__pt{ font-size:0.9rem; padding:10px 16px; }
+  .nfm-lad__txt h3{ font-size:1.12rem; }
+  .nfm-lad__chips{ gap:6px; margin-top:10px; } .nfm-lad__chips span{ font-size:0.78rem; padding:5px 10px; }
   .nfm-fit{ padding:64px 0; } .nfm-fit__grid{ grid-template-columns:1fr; } .nfm-fit__col{ padding:24px 20px 18px; }
   .nfm-hero{ padding:108px 12px 24px; }
   .nfm-hero__card{ min-height:0; border-radius:22px; }
@@ -573,45 +562,32 @@ html.nfm-modal-open, html.nfm-modal-open body{ overflow:hidden !important; }
 </section>
 
 <!-- ═══ LA ESCALERA · qué vas a ver en la clase ═══
-     Dibujada acá (no es la imagen original de Nico): punto A abajo, tres peldaños, punto B arriba.
-     Si hay una imagen oficial de la escalera, se puede poner en lugar del bloque .nfm-lad. -->
+     Dibujada acá (no es la imagen original de Nico). De abajo hacia arriba: bienestar mental, bienestar físico y,
+     arriba, las habilidades técnicas que permiten crecer. Si hay una imagen oficial, reemplaza el bloque .nfm-lad. -->
 <section class="nfm-learn">
   <div class="nfm-container">
     <div class="nfm-learn__head nfm-reveal">
-      <span class="nfm-eyebrow">Tu escalera de neurociencia</span>
       <h2>Armá tu sistema de productividad en vivo el <span data-nfm-fecha="corta">16 de noviembre</span></h2>
-      <p>Tres peldaños: tu bienestar físico, tu bienestar mental y tus habilidades técnicas. Hábitos, concentración, delegación, inteligencia artificial: seguramente ya probaste alguno. Y aun así, todo sigue pasando por vos.</p>
     </div>
 
     <div class="nfm-lad nfm-reveal nfm-d1">
-      <div class="nfm-lad__pt nfm-lad__pt--b"><span><small>Punto B</small>Cumplís tus objetivos y disfrutás lo que construiste</span></div>
       <div class="nfm-lad__body">
         <div class="nfm-lad__rung"><div class="nfm-lad__card">
           <div class="nfm-lad__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4.5" y="4.5" width="15" height="15" rx="3"/><rect x="9" y="9" width="6" height="6" rx="1.2"/><path d="M9 2v2.5M15 2v2.5M9 19.5V22M15 19.5V22M2 9h2.5M2 15h2.5M19.5 9H22M19.5 15H22"/></svg></div>
-          <div class="nfm-lad__txt"><span class="nfm-lad__lbl">Peldaño 3</span><h3>Tus habilidades técnicas</h3>
-            <p>¿Cuál de las cuatro te falta para que el sistema se sostenga cuando vos no estás?</p>
+          <div class="nfm-lad__txt"><h3>Las habilidades técnicas que te permiten crecer</h3>
             <div class="nfm-lad__chips"><span>Hábitos</span><span>Concentración</span><span>Delegación</span><span>Inteligencia artificial</span></div></div>
         </div></div>
         <div class="nfm-lad__rung"><div class="nfm-lad__card">
-          <div class="nfm-lad__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="5.5" r="2.2"/><circle cx="18" cy="5.5" r="2.2"/><circle cx="12" cy="18.5" r="2.2"/><path d="M6 7.7v1.8a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4V7.7M12 13.5v2.8"/></svg></div>
-          <div class="nfm-lad__txt"><span class="nfm-lad__lbl">Peldaño 2</span><h3>Tu bienestar mental</h3>
-            <p>¿Por qué tu mente sigue prendida cuando ya cortaste?</p></div>
+          <div class="nfm-lad__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="7" width="17" height="10" rx="2.5"/><path d="M19.5 10.5h1.5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1.5"/><path d="M12 8.5l-2.5 4h4L11 16"/></svg></div>
+          <div class="nfm-lad__txt"><h3>Cuidar tu bienestar físico</h3></div>
         </div></div>
         <div class="nfm-lad__rung"><div class="nfm-lad__card">
-          <div class="nfm-lad__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="7" width="17" height="10" rx="2.5"/><path d="M19.5 10.5h1.5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1.5"/><path d="M12 8.5l-2.5 4h4L11 16"/></svg></div>
-          <div class="nfm-lad__txt"><span class="nfm-lad__lbl">Peldaño 1</span><h3>Tu bienestar físico</h3>
-            <p>¿Cuánto de tu cansancio viene del cuerpo, y cuánto de otra cosa?</p></div>
+          <div class="nfm-lad__ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="5.5" r="2.2"/><circle cx="18" cy="5.5" r="2.2"/><circle cx="12" cy="18.5" r="2.2"/><path d="M6 7.7v1.8a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4V7.7M12 13.5v2.8"/></svg></div>
+          <div class="nfm-lad__txt"><h3>Cuidar tu bienestar mental</h3></div>
         </div></div>
       </div>
-      <div class="nfm-lad__pt nfm-lad__pt--a"><span><small>Punto A · hoy</small>Todo pasa por vos</span></div>
     </div>
 
-    <div class="nfm-lad__key nfm-reveal nfm-d2">
-      <span class="nfm-lad__lbl">Lo que une los tres peldaños</span>
-      <p class="nfm-lad__keyt"><span class="nfm-eq__blur" aria-hidden="true">la pieza que casi nadie arma</span></p>
-      <small>Se revela en vivo el <span data-nfm-fecha="corta">16 de noviembre</span></small>
-    </div>
-    <p class="nfm-lad__cap nfm-reveal nfm-d2">Un sistema que funciona <em>a favor de cómo funciona tu cerebro</em>: te lleva a cumplir tus objetivos y a disfrutar lo que construiste.</p>
     <div class="nfm-learn__cta nfm-reveal nfm-d2">
       <button class="nfm-btn" data-abrir-registro>RESERVAR MI LUGAR <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
     </div>

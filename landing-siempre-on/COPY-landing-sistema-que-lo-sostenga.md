@@ -1,6 +1,6 @@
 # Copy · Landing "Un sistema que lo sostenga"
 
-> **Versión final (10/11):** la landing publicada usa la estructura y el azul del 04/11. De este documento quedan el hero (sin subtítulo), el widget de tachados (versión de 5 ítems, ver `clase-sistema/LEEME.md`), la historia de Nico, la escalera "Armá tu sistema de productividad" (3 peldaños, ver `clase-sistema/LEEME.md`), los casos, "Para quién es", el cierre y el quiz con la etapa C al lead magnet. Los bloques 2 ("¿Te reconocés?") y 3 ("Tu cerebro está decidiendo por todo tu equipo") se sacaron por pedido; quedan acá por si se reutilizan.
+> **Versión final (10/11):** la landing publicada usa la estructura y el azul del 04/11. De este documento quedan el hero (sin subtítulo), el widget de tachados (versión de 5 ítems, ver `clase-sistema/LEEME.md`), la historia de Nico, la escalera "Armá tu sistema de productividad" (título + 3 peldaños, ver `clase-sistema/LEEME.md`), los casos, "Para quién es", el cierre y el quiz con la etapa C al lead magnet. Los bloques 2 ("¿Te reconocés?") y 3 ("Tu cerebro está decidiendo por todo tu equipo") se sacaron por pedido; quedan acá por si se reutilizan.
 
 Landing de registro a la clase en vivo, pensada para el perfil Platinum: dueños, socios y profesionales con equipo. Cada bloque usa dolores, deseos y miedos tal como aparecieron en las llamadas de venta (22/09, 04/11 y octubre). Ver `HANDOFF-landing-filtro-platinum.md` para los datos.
 
