@@ -27,9 +27,9 @@ Mismo azul y mismo sistema visual. Orden de las secciones: hero → logos y trá
   - Debajo: "Neurociencia para el Alto Rendimiento Profesional · con Nico Fernández Miranda".
 - **"¿Para quién está diseñada esta clase?"** (segundo bloque, en el lugar del widget de tachados, que se sacó): "Es para vos si…" / "No es para vos si…", sin hablar de plata.
 - **Historia de Nico:** "Conocé su historia" · "Nicolás Fernández Miranda, fundador del Instituto de Productividad". Las cinco escenas en carrusel, igual que en la landing de la Comunidad (masterclass del 27/10): foto y texto corto, se deslizan con el dedo o con las flechas.
-- **"Armá tu sistema de productividad en vivo el 16 de noviembre":** escalera dibujada con tres peldaños, cada uno con un título y cuatro temas técnicos que se ven en la clase, nombrados sin explicar cómo:
+- **"Armá tu sistema de productividad en vivo el 16 de noviembre":** escalera dibujada con tres peldaños, cada uno con un título y tres o cuatro temas técnicos que se ven en la clase, nombrados sin explicar cómo:
   - **Cuidar tu bienestar mental:** funciones ejecutivas, memoria de trabajo y control inhibitorio, el costo del cambio de tarea, descarga mental.
-  - **Cuidar tu bienestar físico:** luz y ritmo circadiano, sueño profundo, recuperación medible, siestas cortas.
+  - **Cuidar tu bienestar físico:** luz y ritmo circadiano, sueño profundo, recuperación medible.
   - **Las habilidades técnicas que te permiten crecer:** hábitos, concentración profunda, delegación, inteligencia artificial.
   - Los temas salen de lo que los compradores contaron que aprendieron en la clase y de los temarios anteriores. **Conviene confirmar con Nico que el 16/11 los toca.**
   - ⚠️ **La escalera es un dibujo hecho acá, no la imagen original de Nico.** Si hay una imagen oficial, se reemplaza el bloque `.nfm-lad`.
