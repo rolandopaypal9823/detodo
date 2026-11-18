@@ -1,51 +1,50 @@
 # Núcleo de comunicación · Clase en vivo de Daniele
 
-**Estado:** propuesta aplicada en la landing y la thank you. Falta el OK de Daniele.
+**Estado:** actualizado el 18/11 con el Avatar 4.0. Ya no se habla de «termostato financiero».
 
 ## Para quién
-Personas que ya ganan entre $3K y $30K al mes (muchos operan trading o construyen algo propio), se exigen e invierten en sí mismas. Ya saben que lo que las frena es interno. Cada vez que pasan su número, algo las devuelve. Lo que compran es cercanía con Daniele, no información.
+Empresarios y profesionales que ya generan entre 20K y 30K dólares al mes, trabajan unas 15 horas por día y llegaron a un techo. Quieren pasar al siguiente cero (100K al mes) ganando más en menos horas. Ya saben que lo que falta es interno: no buscan otra estrategia. Lo que compran es estar en un círculo a su nivel, cerca de Daniele.
 
 ## El núcleo
 | | |
 |---|---|
-| **Título** | Rompe tu techo y multiplica tus resultados reprogramando tu mente |
-| **Subtítulo** | Tu mente está acondicionada para un nivel exacto de dinero. Hasta que no reprogrames tu termostato financiero, tus resultados no van a cambiar. |
-| **One Belief** | No vas a generar más porque cambien tus acciones. Vas a generar más porque cambia tu termostato financiero. |
-| **One Belief corto** | No generas lo que trabajas. Generas lo que tu termostato te permite. |
+| **Título** | Rompe el techo de las 5 cifras y llega a 100K al mes reprogramando tu mente |
+| **Subtítulo** | Generas 20K o 30K al mes, trabajas 15 horas por día y el número no se mueve. No te falta otra estrategia: te falta reprogramar tu mente y un círculo que te empuje al siguiente cero. |
+| **One Belief** | El salto al siguiente cero no depende de otra estrategia ni de más horas, sino de reprogramar tu mente dentro de un círculo que ya vive en ese nivel. |
+| **One Belief corto** | No llegas a 100K haciendo más. Llegas reprogramando tu mente. |
 
-La versión corta se repite en anuncios, grupo de WhatsApp y clase: más de 21 veces, con distintas palabras. En la clase se completa con la parte que lleva a la oferta: ese número no se ve desde adentro, por eso hace falta un mentor.
+La versión corta se repite en el grupo y en la clase, más de 21 veces, con distintas palabras. En los anuncios va sin la cifra: «No llegas al siguiente cero haciendo más».
 
-## El mecanismo: termostato financiero
-- **Qué es:** el número de dinero que tu mente tiene fijado. Si bajas, te empuja a recuperarlo. Si lo pasas, te devuelve.
-- **Prueba (historia de Daniele):** el aire acondicionado de las casas de Atlanta. Está en 70 grados: si entra calor, enfría; si entra frío, calienta. Siempre vuelve a 70.
-- **Por qué hace falta un mentor:** no se ve desde adentro. Es el punto ciego.
+## El mecanismo: reprogramar tu mente
+- **Qué es, con palabras de Daniele:** «La programación inconsciente es la que te genera los resultados. Por más que cambies la técnica y la acción, si no reprogramas las creencias en tu inconsciente, no van a cambiar los resultados».
+- **Por qué hace falta un círculo:** solo no se ve desde adentro, y tu número se parece al de tu entorno. Eso lleva a la oferta (Maestría Élite y Círculo Élite).
 
 ## Las 5 capas (Dan Henry)
-1. **Problema:** cada vez que pasas tu número, algo te devuelve.
-2. **Oportunidad:** multiplicar tus resultados y que el número nuevo se quede, con paz y con familia.
-3. **Mecanismo:** elevar el termostato. No es otra estrategia ni más esfuerzo.
-4. **Beneficio:** casos de alumnos (solo con permiso).
+1. **Problema:** generas 5 cifras, trabajas 15 horas y el número no se mueve.
+2. **Oportunidad:** el siguiente cero, de forma estable y en menos horas.
+3. **Mecanismo:** reprogramar tu mente. No es otra estrategia ni más horas.
+4. **Beneficio:** casos contados en números: facturación y horas, antes y después (solo con permiso).
 5. **Creencia:** el One Belief.
 
 ## Los 3 pilares de la clase (método MAE de Daniele)
-| Pilar | Dolor que toca | Frase espejo |
-|---|---|---|
-| Estándares | Lo que se decía de la plata en casa | Generas más que tu casa entera. Tu cuenta todavía obedece la frase de tu casa. |
-| Medio ambiente | Miedo a perder lo ganado | Sabes generar dinero. Lo que no te permites es quedarte con él. |
-| Asociación | Pares y mentor (lleva a la oferta) | El que cambia su círculo cambia su techo. |
+| Pilar | Dolor que toca |
+|---|---|
+| Estándares | Decide su vida según lo que entró este mes |
+| Medio ambiente | Miedo a perder lo ganado |
+| Asociación | Un entorno que no suma (lleva a la oferta: el círculo) |
 
 ## Ángulos para anuncios
-| # | Gancho | Eje | Qué dispara |
-|---|---|---|---|
-| 1 | No generas lo que trabajas. Generas lo que tu termostato te permite. | error | quiebre de creencia |
-| 2 | Hay algo que controla cuánto dinero generas, y ni siquiera estás consciente. | tipo | curiosidad |
-| 3 | En Atlanta, el aire acondicionado siempre vuelve a 70 grados. Tu cuenta funciona igual. | historia | curiosidad |
-| 4 | Si un mes generas más de lo normal, tu mente busca cómo volver al número de siempre. | error | espejo |
-| 5 | Haciendo lo mismo que ya haces, puedes generar más. Lo que tiene que cambiar es tu termostato. | nivel | deseo |
+| # | Gancho | Eje |
+|---|---|---|
+| 1 | No llegas al siguiente cero haciendo más. Llegas reprogramando tu mente. | error |
+| 2 | Hay algo que controla cuánto dinero generas, y ni siquiera estás consciente. | tipo |
+| 3 | Si ya llegaste a 5 cifras, el siguiente cero no se consigue con más horas. | nivel |
+| 4 | Si un mes generas más de lo normal, tu mente busca cómo volver al número de siempre. | error |
+| 5 | Haciendo lo mismo que ya haces, puedes generar más. Lo que tiene que cambiar es tu mente. | nivel |
 
-Los ganchos 2, 3 y 5 salen casi textuales del video del termostato. En anuncios, no afirmar la situación financiera de quien mira (política de Meta sobre atributos personales).
+En anuncios, nada de cifras de ingresos ni frases que digan cuánto gana quien mira (política de Meta).
 
 ## Palabras
-- **Usar:** generar (Daniele dice «generar», casi nunca «ganar»), multiplicar tus resultados, techo, termostato financiero, riqueza real, reprogramar tu mente, sostener, escalar. Siempre «tú».
-- **Evitar:** siguiente nivel, desbloquear, autosabotaje, «vos», empezar de cero. En anuncios fríos, evitar el vocabulario aprendido («frecuencia», «derecho divino»).
-- **No usar en anuncios:** aprender trading, señales, fondeo, pobreza, «cambia en un segundo», la lotería, cifras de ingresos.
+- **Usar:** generar, el siguiente cero, multiplicar tus resultados, techo, reprogramar tu mente, círculo, más plata en menos horas. Siempre «tú».
+- **Evitar:** termostato financiero, siguiente nivel, desbloquear, autosabotaje, «vos», empezar de cero.
+- **No usar en anuncios:** cifras de ingresos, aprender trading, señales, fondeo, pobreza.
