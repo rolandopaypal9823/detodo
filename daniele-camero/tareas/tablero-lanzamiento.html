@@ -58,6 +58,19 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
 .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--line2);color:var(--muted)}
 .pill.oro{border-color:var(--gold);color:var(--gold);background:var(--gold-soft)}
 .cab-sub{color:var(--muted);max-width:66ch;margin:0}
+.nucleo{margin-top:22px;border:1px solid var(--line2);border-radius:12px;background:var(--panel);padding:16px 20px}
+.nucleo summary{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;cursor:pointer;list-style:none}
+.nucleo summary::-webkit-details-marker{display:none}
+.nucleo summary h2{font-family:var(--f-display);font-weight:600;font-size:23px;margin:0}
+.nucleo summary::after{content:"Ocultar";margin-left:auto;font-size:12.5px;color:var(--faint)}
+.nucleo:not([open]) summary::after{content:"Ver"}
+.nucleo-cuerpo{display:grid;gap:16px;padding-top:14px}
+.nucleo-dl{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px 18px;margin:0}
+.nucleo-dl dt{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);padding-top:4px}
+.nucleo-dl dd{margin:0;font-size:15px;line-height:1.45;max-width:70ch}
+.nucleo-dl .n-tit{font-family:var(--f-display);font-size:21px;font-weight:600;line-height:1.2}
+.nucleo-dl .n-frase{font-family:var(--f-display);font-size:20px;font-weight:600;font-style:italic;color:var(--gold);line-height:1.25}
+.nucleo-ang ol{margin:6px 0 0;padding-left:20px;display:grid;gap:5px;font-size:14.5px;max-width:70ch}
 
 /* Resumen y filtros */
 .resumen{display:grid;gap:16px;padding-block:22px 6px}
@@ -161,6 +174,8 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
 .toast.ver{opacity:1}
 
 @media (max-width:720px){
+  .nucleo-dl{grid-template-columns:minmax(0,1fr);gap:2px}
+  .nucleo-dl dd{margin-bottom:10px}
   .t-main{grid-template-columns:minmax(0,1fr)}
   .t-ctrl{flex-wrap:wrap;padding-left:28px}
   .t-resp,.t-estado,.t-fecha{flex:1 1 120px;width:auto;min-width:0}
@@ -178,6 +193,14 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
     <h1>Lanzamiento de la clase</h1>
     <div class="cab-fecha" id="cab-fecha"><strong>Fecha de la clase a confirmar</strong></div>
   </header>
+
+  <details class="nucleo" id="nucleo" open hidden>
+    <summary><h2>Núcleo de la clase</h2><span class="pill" id="nucleo-estado" hidden></span></summary>
+    <div class="nucleo-cuerpo">
+      <dl class="nucleo-dl" id="nucleo-dl"></dl>
+      <div class="nucleo-ang" id="nucleo-ang-box" hidden><span class="t-lbl">Ángulos para anuncios</span><ol id="nucleo-ang"></ol></div>
+    </div>
+  </details>
 
   <section class="resumen" aria-label="Resumen">
     <div id="aviso" class="aviso" hidden></div>
@@ -251,9 +274,9 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
   function faseIdx(k){ for (var i = 0; i < FASES.length; i++) if (FASES[i].k === k) return i; return 0; }
 
   var toastT = null;
-  function toast(msg){
+  function toast(msg, ms){
     var t = $("#toast"); t.textContent = msg; t.classList.add("ver");
-    clearTimeout(toastT); toastT = setTimeout(function(){ t.classList.remove("ver"); }, 3800);
+    clearTimeout(toastT); toastT = setTimeout(function(){ t.classList.remove("ver"); }, ms || 3800);
   }
   function aviso(msg, tono){
     var a = $("#aviso");
@@ -540,6 +563,20 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
     });
   }
 
+  function nucleo(){
+    var n = config && config.nucleo, sec = $("#nucleo"), dl = $("#nucleo-dl"), ul = $("#nucleo-ang"), est = $("#nucleo-estado");
+    dl.textContent = ""; ul.textContent = "";
+    if (!n || typeof n !== "object"){ sec.hidden = true; return; }
+    [["titulo","Título","n-tit"],["subtitulo","Subtítulo",""],["oneBelief","One Belief",""],["frase","One Belief corto","n-frase"]].forEach(function(k){
+      if (!str(n[k[0]])) return;
+      dl.append(h("dt", {text:k[1]}), h("dd", {cls:k[2], text:str(n[k[0]])}));
+    });
+    arr(n.angulos).forEach(function(a){ if (str(a)) ul.append(h("li", {text:str(a)})); });
+    $("#nucleo-ang-box").hidden = !ul.childNodes.length;
+    est.textContent = str(n.estado); est.hidden = !str(n.estado);
+    sec.hidden = !dl.childNodes.length && !ul.childNodes.length;
+  }
+
   function cabecera(){
     var box = $("#cab-fecha"); box.textContent = "";
     if (!config || !config.clase){ box.append(h("strong", {text:"Fecha de la clase a confirmar"})); return; }
@@ -568,15 +605,20 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
       throw e;
     });
   }
+  function noGuarda(){
+    if (!db){ toast("No se guardó: la página no está conectada. Abrila desde el link de claude.ai con tu cuenta.", 7000); return true; }
+    if (!puede){ toast("No se guardó: tu acceso es de solo lectura.", 7000); return true; }
+    return false;
+  }
   function escribir(id, campos){
-    if (!db || !puede) return Promise.resolve();
+    if (noGuarda()) return Promise.resolve();
     var prev = colas.get(id) || Promise.resolve();
-    var p = prev.then(function(){ return conReintento(function(){ return db.doc("tareas/" + id).update(campos); }); }).catch(errorEscritura);
+    var p = prev.then(function(){ return conReintento(function(){ return db.doc("tareas/" + id).update(campos); }); }).then(function(){ toast("Guardado", 1500); }).catch(errorEscritura);
     colas.set(id, p);
     return p;
   }
   function agregarTarea(fase, titulo){
-    if (!db || !puede) return Promise.resolve();
+    if (noGuarda()) return Promise.resolve();
     var max = 0;
     tareas.forEach(function(t){ if (t.fase === fase) max = Math.max(max, +t.orden || 0); });
     var ref = db.collection("tareas").doc();
@@ -587,12 +629,12 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
     }).then(function(){ toast("Tarea agregada"); }).catch(errorEscritura);
   }
   function borrarTarea(id){
-    if (!db || !puede) return;
+    if (noGuarda()) return;
     conReintento(function(){ return db.doc("tareas/" + id).delete(); }).then(function(){ toast("Tarea eliminada"); }).catch(errorEscritura);
   }
   var colaPersonas = Promise.resolve();
   function agregarPersona(n){
-    if (!db || !puede) return Promise.resolve();
+    if (noGuarda()) return Promise.resolve();
     colaPersonas = colaPersonas.then(function(){
       if (personas.indexOf(n) >= 0) return;
       var lista = personas.concat([n]);
@@ -676,7 +718,7 @@ h1{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,5.2vw,48px)
     db.doc("config/equipo").onSnapshot(function(s){
       config = s.exists ? s.data() : null;
       personas = config && Array.isArray(config.personas) ? config.personas.filter(function(p){ return typeof p === "string" && p; }) : [];
-      cabecera(); render();
+      cabecera(); nucleo(); render();
     }, function(){});
   });
 
