@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Reporte ManyChat de Daniele</title>
+<style>
+/* Layout: una columna de lectura. Arriba los números que importan, después el embudo, la prueba A/B, las fugas, los perfiles y qué hacer. */
+:root{
+  --plane:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --ring:rgba(11,11,11,.10);
+  --s1:#2a78d6; --s2:#eb6834;
+  --a:#1c5cab; --b:#3987e5; --c:#86b6ef; --on-a:#ffffff; --on-b:#ffffff; --on-c:#0b0b0b;
+  --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+  --tip-bg:#0b0b0b; --tip-ink:#f0efec;
+  --f:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --plane:#0d0d0d; --surface:#1a1a19; --ink:#f0efec; --ink-2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+    --s1:#3987e5; --s2:#d95926;
+    --a:#86b6ef; --b:#3987e5; --c:#184f95; --on-a:#0b0b0b; --on-b:#ffffff; --on-c:#ffffff;
+    --tip-bg:#f0efec; --tip-ink:#0b0b0b;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --plane:#0d0d0d; --surface:#1a1a19; --ink:#f0efec; --ink-2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,.10);
+  --s1:#3987e5; --s2:#d95926;
+  --a:#86b6ef; --b:#3987e5; --c:#184f95; --on-a:#0b0b0b; --on-b:#ffffff; --on-c:#ffffff;
+  --tip-bg:#f0efec; --tip-ink:#0b0b0b;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--plane);color:var(--ink);font:400 15px/1.55 var(--f);
+  padding-block:36px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:980px;margin:0 auto;display:grid;gap:40px}
+h1{font-size:clamp(1.7rem,4.5vw,2.4rem);line-height:1.1;margin:0;letter-spacing:-.01em;text-wrap:balance}
+h2{font-size:1.3rem;margin:0;text-wrap:balance}
+p{margin:0}
+.sub{color:var(--ink-2);max-width:70ch}
+.src{color:var(--muted);font-size:.85rem}
+section{display:grid;gap:14px}
+.card{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:18px 20px}
+.note{color:var(--ink-2);font-size:.92rem;max-width:72ch}
+.num{font-variant-numeric:tabular-nums}
+
+/* Tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.tile{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:14px 16px;display:grid;gap:2px}
+.tile small{color:var(--ink-2);font-size:.85rem}
+.tile b{font-size:1.9rem;font-weight:650;line-height:1.1}
+.tile span{color:var(--muted);font-size:.82rem}
+
+/* Embudo */
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:640px;font-size:.92rem}
+th{text-align:left;font-weight:600;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--axis)}
+td{padding:9px 10px;border-bottom:1px solid var(--grid);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+td.step{font-weight:550;white-space:nowrap}
+.cell{display:grid;gap:4px}
+.cell .v{display:flex;gap:6px;align-items:baseline;font-variant-numeric:tabular-nums}
+.cell .v em{font-style:normal;color:var(--ink-2);font-size:.85rem}
+.bar{height:8px;background:var(--grid);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--s1);border-radius:0 4px 4px 0;min-width:2px}
+
+/* A/B */
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.88rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.ab{display:grid;gap:14px}
+.ab-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:6px 14px;align-items:center}
+.ab-row .lab{font-weight:550;font-size:.92rem}
+.ab-bars{display:grid;gap:4px}
+.hb{display:flex;align-items:center;gap:8px;font-size:.85rem;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.hb i{display:block;height:14px;border-radius:0 4px 4px 0}
+
+/* Fugas */
+.fugas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.fuga{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:14px 16px;display:grid;gap:6px;border-top:3px solid var(--st)}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:650;text-transform:uppercase;letter-spacing:.05em;color:var(--ink)}
+.st i{width:10px;height:10px;border-radius:50%;background:var(--st);display:inline-block}
+.fuga b{font-size:1rem}
+.fuga p{color:var(--ink-2);font-size:.9rem}
+
+/* Perfiles */
+.stack-row{display:grid;grid-template-columns:150px minmax(0,1fr) 46px;gap:10px;align-items:center;font-size:.92rem}
+.stack-row .lab{font-weight:550}
+.stack{display:flex;height:26px;border-radius:4px;overflow:hidden;gap:2px;background:var(--surface)}
+.stack i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:.78rem;font-weight:600;min-width:0;overflow:hidden;white-space:nowrap}
+.stack-row .n{color:var(--muted);font-size:.82rem;text-align:right}
+.stacks{display:grid;gap:10px}
+
+/* Ocupación */
+.occ{display:grid;gap:10px}
+.occ-row{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:12px;align-items:center;font-size:.92rem}
+.occ-row .hb i{background:var(--s1)}
+.occ-row.hl .lab{font-weight:650}
+
+/* Dos columnas */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.two h3{margin:0 0 6px;font-size:1rem}
+.two ul,.recs ol,.fix ul{margin:0;padding-left:20px;display:grid;gap:6px;color:var(--ink-2)}
+.two li b,.recs li b{color:var(--ink)}
+.recs ol{gap:12px}
+.quote{border-left:3px solid var(--s1);padding:6px 0 6px 12px;margin-top:6px;color:var(--ink);font-size:.92rem}
+.fix{border-color:var(--critical)}
+.fix h2{font-size:1.05rem;margin-bottom:8px}
+
+.tip{position:fixed;pointer-events:none;background:var(--tip-bg);color:var(--tip-ink);font-size:.82rem;padding:6px 10px;border-radius:6px;max-width:260px;z-index:20;opacity:0;transition:opacity .12s}
+.tip.on{opacity:1}
+@media (max-width:640px){
+  .two,.fugas{grid-template-columns:1fr}
+  .ab-row,.stack-row{grid-template-columns:1fr}
+  .stack-row{grid-template-columns:minmax(0,1fr) 46px}
+  .stack-row .lab{grid-column:1/-1}
+  .occ-row{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header style="display:grid;gap:10px">
+  <h1>Reporte de ManyChat · Daniele</h1>
+  <p class="sub">Tres cuentas de Instagram con la misma automatización: «Welcome – Filtro Leads – Techo financiero (v1)». 128 personas respondieron el quiz hasta «a qué se dedican».</p>
+  <p class="src">Fuente: análisis de Claude in Chrome leyendo los contactos de cada cuenta, noviembre 2026. Los números con «~» son aproximados.</p>
+</header>
+
+<div class="tiles">
+  <div class="tile"><small>Entraron a la automatización</small><b>5.345</b><span>en las 3 cuentas</span></div>
+  <div class="tile"><small>Les llegó la bienvenida</small><b>~2.529</b><span>47 % de los que entraron</span></div>
+  <div class="tile"><small>Terminaron el quiz</small><b>99</b><span>~4 % de los que recibieron la bienvenida</span></div>
+  <div class="tile"><small>Perfil A real (ya facturan)</small><b>~12</b><span>de 128 que dijeron a qué se dedican</span></div>
+</div>
+
+<section>
+  <h2>1 · Avance hasta el final</h2>
+  <p class="note">Los porcentajes se calculan sobre a quienes les llegó la bienvenida. La barra muestra ese porcentaje.</p>
+  <div class="card tbl"><table id="embudo"><thead><tr><th>Paso</th><th>Daniel A Camero</th><th>Daniele S.Elite</th><th>Mentor · Daniele Camero</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section>
+  <h2>2 · Prueba A/B de la bienvenida</h2>
+  <p class="note">Clic sobre mensajes enviados. El regalo gana en las tres cuentas, pero trae sobre todo perfil C.</p>
+  <div class="card ab">
+    <div class="legend"><span><i class="sw" style="background:var(--s1)"></i>Regalo («Entrenamiento gratuito» / «Empieza aquí»)</span><span><i class="sw" style="background:var(--s2)"></i>Techo («Techo invisible» / «Romper mi techo»)</span></div>
+    <div id="ab"></div>
+  </div>
+</section>
+
+<section>
+  <h2>3 · Fugas</h2>
+  <div class="fugas">
+    <div class="fuga" style="--st:var(--critical)"><span class="st"><i></i>Crítico</span><b>El 61 % nunca recibe el mensaje</b><p>En Daniel A Camero. Arriba de la cuenta aparece «problemas con los permisos de la cuenta». Revisarlo primero.</p></div>
+    <div class="fuga" style="--st:var(--serious)"><span class="st"><i></i>Serio</span><b>«¿A qué te dedicas?» pierde ~40 %</b><p>La pregunta abierta es donde más gente abandona el quiz.</p></div>
+    <div class="fuga" style="--st:var(--serious)"><span class="st"><i></i>Serio</span><b>La rama C está sin terminar</b><p>Sigue con textos de relleno («TEXTO_OFERTA_LT», «AUDIO PENDIENTE», «LINK_CLASE_LARGA»). Los C terminan en el mismo mini VSL que los A.</p></div>
+    <div class="fuga" style="--st:var(--warning)"><span class="st"><i></i>Atención</span><b>Masterclass vencida</b><p>En Daniel A Camero todavía se invita a la masterclass del 25 de octubre. Ya les llegó a ~10 personas.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>4 · Perfiles según la primera pregunta</h2>
+  <div class="card stacks">
+    <div class="legend"><span><i class="sw" style="background:var(--a)"></i>A · «Genero bien pero estoy estancado»</span><span><i class="sw" style="background:var(--b)"></i>B · «Sube y baja»</span><span><i class="sw" style="background:var(--c)"></i>C · «Empezando o con deudas»</span></div>
+    <div id="perfiles" class="stacks"></div>
+  </div>
+  <div class="card">
+    <p class="note"><b style="color:var(--ink)">La etiqueta A no es confiable: cada persona se clasifica sola.</b></p>
+    <ul class="note" style="margin:8px 0 0;padding-left:20px;display:grid;gap:4px">
+      <li>Marcados A que no lo son: «trabajo de sueldo mínimo», «vendo cochino», «3».</li>
+      <li>A reales escondidos en B y C: dueña de un centro estético, empresa de remodelaciones, agente de Allstate que quiere sostener 10K al mes, agencia financiera de seguros, agencia de marketing, restaurante con inversiones en bolsa.</li>
+      <li>Dos personas dijeron ser menores de edad: hay que sacarlas del seguimiento de ventas.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>5 · A qué se dedican</h2>
+  <p class="note">Sobre las 128 personas que respondieron. Porcentajes aproximados.</p>
+  <div class="card occ" id="occ"></div>
+</section>
+
+<section>
+  <h2>6 · Dolores y objetivos</h2>
+  <div class="two">
+    <div class="card"><h3>Perfiles B y C</h3><ul>
+      <li><b>Los frena:</b> miedo y emociones al operar, deudas, no saber cómo empezar, falta de constancia, «siento que no lo merezco».</li>
+      <li><b>Quieren a 90 días:</b> salir de deudas, ser rentables en trading, «libertad financiera», tiempo para la familia.</li></ul></div>
+    <div class="card"><h3>Perfiles A reales</h3><ul>
+      <li><b>Los frena:</b> casi nunca hablan de deudas. Dicen «creencias», «mentalidad», «la carrera de la rata» o «no lo sé». Saben que el problema es interno, pero no le ponen nombre.</li>
+      <li><b>Quieren a 90 días:</b> cifras concretas («50K al mes», «100 mil dólares al mes», «500K al mes») y crecer el negocio (más clientes, más equipo).</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <h2>7 · Cómo atraer más perfil A</h2>
+  <div class="card recs"><ol>
+    <li><b>Dejar de regalar «entrenamiento gratis» en la bienvenida.</b> Saca más clics, pero casi todos C. Para el A, un gancho exclusivo que hable de facturación:
+      <p class="quote">«Si tu negocio ya factura bien pero llevas meses en el mismo número, armé un diagnóstico de 2 minutos para encontrar qué te está frenando 👇» → botón «Ya facturo y estoy estancado».</p></li>
+    <li><b>Cifras en la primera pregunta, no sensaciones:</b> «Genero +$5K al mes y no paso de ahí» · «Entre $1K y $5K, pero sube y baja» · «Menos de $1K, o estoy empezando o con deudas».</li>
+    <li><b>«¿A qué te dedicas?» con botones:</b> empresario con equipo, emprendedor o profesional independiente, empleado, trader, network marketing. La pregunta abierta va después, solo para los A.</li>
+    <li><b>Un premio propio para el A:</b> una revisión con el equipo o pasar directo al closer, en vez del mismo mini VSL que el C.</li>
+    <li><b>Anuncios de «sígueme» pensados para el A:</b> facturación, equipo y clientes; casos de empresarios, no de traders; públicos parecidos a los A reales y a los compradores; los públicos de trading, en su propio conjunto.</li>
+    <li><b>Usar la IA que ya está en el flujo:</b> con los campos «ia_ocupacion» e «ia_valido», pasar a A a quien diga «empresa», «agencia», «facturo» o «clientes», aunque haya marcado B o C.</li>
+  </ol></div>
+  <div class="card fix"><h2>Antes de escalar</h2><ul>
+    <li>Resolver el permiso de la cuenta Daniel A Camero, por los mensajes que no salen.</li>
+    <li>Terminar la rama C.</li>
+    <li>Sacar los mensajes de la masterclass del 25 de octubre.</li>
+  </ul></div>
+</section>
+
+</div>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+(function(){
+  var nf=new Intl.NumberFormat("es-AR",{maximumFractionDigits:1});
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+  /* 1 · Embudo: [paso, [valor, %, aprox] por cuenta]; % sobre la bienvenida */
+  var CUENTAS=["Daniel A Camero","Daniele S.Elite","Mentor · Daniele Camero"];
+  var EMB=[
+    ["Entraron a la automatización",[[3750,null,0],[1321,null,0],[274,null,0]]],
+    ["Les llegó la bienvenida",[[1466,100,0],[887,100,1],[176,100,0]],[39,67,64]],
+    ["Clic al botón",[[196,13,0],[84,9.5,1],[17,9.7,0]]],
+    ["Respondieron la P1 (A/B/C)",[[141,9.6,0],[60,6.8,0],[12,6.8,0]]],
+    ["Respondieron a qué se dedican",[[84,5.7,0],[37,4.2,0],[7,4,0]]],
+    ["Terminaron el quiz",[[67,4.6,0],[28,3.2,0],[4,2.3,0]]],
+    ["Clic al mini VSL",[[55,3.8,1],[24,2.7,0],[3,1.7,0]]]
+  ];
+  var tb=document.querySelector("#embudo tbody");
+  tb.innerHTML=EMB.map(function(r){
+    return "<tr><td class='step'>"+esc(r[0])+"</td>"+r[1].map(function(c,j){
+      var v=(c[2]?"~":"")+nf.format(c[0]);
+      var pct=c[1]==null?"":(c[1]===100&&r[2]?r[2][j]+" % de los que entraron":nf.format(c[1])+" %");
+      var w=c[1]==null?null:(c[1]===100?100:c[1]);
+      var tip=CUENTAS[j]+" · "+r[0]+": "+v+(pct?" ("+pct+")":"");
+      return "<td><div class='cell'><span class='v'><b>"+v+"</b><em>"+esc(pct)+"</em></span>"+(w==null?"":"<span class='bar' data-tip='"+esc(tip)+"'><i style='width:"+w+"%'></i></span>")+"</div></td>";
+    }).join("")+"</tr>";
+  }).join("");
+
+  /* 2 · A/B */
+  var AB=[["Daniel A Camero",14.6,12.4],["Daniele S.Elite",11.1,8.1],["Mentor · Daniele Camero",13,5.9]];
+  var max=16;
+  document.getElementById("ab").innerHTML=AB.map(function(r){
+    function bar(v,col,nom){return "<div class='hb' data-tip='"+esc(r[0]+" · "+nom+": "+nf.format(v)+" % de clic")+"'><i style='width:"+(v/max*100)+"%;background:var("+col+")'></i>"+nf.format(v)+" %</div>"}
+    return "<div class='ab-row'><span class='lab'>"+esc(r[0])+"</span><div class='ab-bars'>"+bar(r[1],"--s1","Regalo")+bar(r[2],"--s2","Techo")+"</div></div>";
+  }).join("");
+
+  /* 4 · Perfiles */
+  var PF=[["Daniel A Camero",22,45,74],["Daniele S.Elite",7,18,35],["Mentor · Daniele Camero",2,1,9],["Total",31,64,118]];
+  document.getElementById("perfiles").innerHTML=PF.map(function(r){
+    var t=r[1]+r[2]+r[3];
+    function seg(v,k,nom){var p=v/t*100;return "<i data-tip='"+esc(r[0]+" · "+nom+": "+v+" ("+Math.round(p)+" %)")+"' style='width:"+p+"%;background:var(--"+k+");color:var(--on-"+k+")'>"+(p>=9?Math.round(p)+" %":"")+"</i>"}
+    return "<div class='stack-row'><span class='lab'>"+esc(r[0])+"</span><div class='stack'>"+seg(r[1],"a","A")+seg(r[2],"b","B")+seg(r[3],"c","C")+"</div><span class='n num'>"+t+"</span></div>";
+  }).join("");
+
+  /* 5 · Ocupación (~% de 128) */
+  var OC=[["Trading, forex o inversiones",33,"~1 de cada 3. Casi todos en demo o sin ser rentables."],["Empleados",25,"Guardia, cocinero, conductor, empleados públicos."],["Negocios chicos",15,"Comida, tamales, uñas, belleza, dropshipping."],["Empresarios o profesionales que ya facturan",9,"~12 personas: empresas en España, consultoría financiera, directora de operaciones, marketing digital."],["Network marketing o multinivel",8,""]];
+  document.getElementById("occ").innerHTML=OC.map(function(r,i){
+    return "<div class='occ-row"+(i===3?" hl":"")+"'><div><div class='lab'>"+esc(r[0])+"</div>"+(r[2]?"<div class='note' style='font-size:.82rem'>"+esc(r[2])+"</div>":"")+"</div><div class='hb' data-tip='"+esc(r[0]+": ~"+r[1]+" %")+"'><i style='width:"+(r[1]/40*100)+"%'></i>~"+r[1]+" %</div></div>";
+  }).join("");
+
+  /* Tooltip */
+  var tip=document.getElementById("tip");
+  document.addEventListener("mousemove",function(e){
+    var t=e.target.closest("[data-tip]");
+    if(!t){tip.classList.remove("on");return}
+    tip.textContent=t.getAttribute("data-tip");
+    var x=Math.min(e.clientX+14,innerWidth-tip.offsetWidth-8),y=e.clientY+16;
+    tip.style.left=x+"px";tip.style.top=y+"px";tip.classList.add("on");
+  });
+})();
+</script>
+</body>
+</html>
