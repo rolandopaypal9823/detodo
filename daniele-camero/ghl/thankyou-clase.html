@@ -343,10 +343,11 @@ var COPY = { claseTitulo: CONFIG.CLASE_TITULO };
   document.getElementById('se-paso-video').hidden=false;
 })();
 
-/* ─── Galería de preparación (le pasa el nombre si viene en la URL) ─── */
+/* ─── Galería de preparación (le pasa nombre, email y teléfono si vienen en la URL, para el Sheet) ─── */
 (function(){
   if(!CONFIG.GALERIA_URL) return;
-  var u=CONFIG.GALERIA_URL; if(NOMBRE) u+=(u.indexOf('?')===-1?'?':'&')+'nombre='+encodeURIComponent(NOMBRE);
+  var u=CONFIG.GALERIA_URL, extra={nombre:NOMBRE, email:qs('email')||'', telefono:qs('telefono')||qs('phone')||''};
+  Object.keys(extra).forEach(function(k){ if(extra[k]) u+=(u.indexOf('?')===-1?'?':'&')+k+'='+encodeURIComponent(extra[k]); });
   document.getElementById('se-galeria-btn').href=u;
   document.getElementById('se-paso-galeria').hidden=false;
 })();

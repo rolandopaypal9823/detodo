@@ -377,6 +377,7 @@ const CONFIG = {
   let st = { hecho: [false, false, false, false], quiz: null, ficha: null };
   try { const s = JSON.parse(localStorage.getItem(KEY) || "null"); if (s && Array.isArray(s.hecho)) st = Object.assign(st, s); } catch (e) {}
   const guardar = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+  if (!st.id) { st.id = Date.now().toString(36) + Math.random().toString(36).slice(2, 8); guardar(); }  // una fila por persona en el Sheet
 
   /* ── Fecha, hora y cuenta regresiva ── */
   const ini = new Date(C.CLASE_ISO);
@@ -423,7 +424,11 @@ const CONFIG = {
     if (!C.WEBHOOK) return;
     const p = new URLSearchParams(location.search), utm = {};
     ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(k => { if (p.get(k)) utm[k] = p.get(k); });
-    const cuerpo = { evento, fecha: new Date().toISOString(), quiz: st.quiz, ficha: st.ficha, utm, pagina: location.href.split("#")[0] };
+    const q = st.quiz, f = st.ficha || {};
+    const cuerpo = { evento, id: st.id, fecha: new Date().toISOString(),
+      nombre: f.nombre || p.get("nombre") || p.get("first_name") || "", email: p.get("email") || "", telefono: p.get("telefono") || p.get("phone") || "",
+      pasos: st.hecho.filter(Boolean).length, patron: q && TIPOS[q.tipo] ? TIPOS[q.tipo].nom : "",
+      quiz: q, ficha: st.ficha, utm, pagina: location.href.split("#")[0] };
     try { fetch(C.WEBHOOK, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(cuerpo) }).catch(() => {}); } catch (e) {}
   }
 
@@ -576,7 +581,9 @@ const CONFIG = {
     pintarVisto(i);
     btn.addEventListener("click", () => {
       if (!st.hecho[i] && p.medido && !p.fin && avance(i) < 0.8) { aviso("Te falta el final del video. Ahí está lo más importante."); return; }
+      const nuevo = !st.hecho[i];
       marcarHecho(i); siguiente(i);
+      if (nuevo) enviar("video");
     });
   }
   const avance = i => { const v = C.VIDEOS[i + 1], p = prog[i]; if (!p) return 0; if (p.fin) return 1; return Math.max(0, Math.min(1, (p.max - v.inicio) / (v.fin - v.inicio))); };
@@ -626,8 +633,8 @@ const CONFIG = {
       e.preventDefault();
       if (!listo()) { aviso("Te falta completar algún campo."); return; }
       st.ficha = { nombre: $("#ej-nombre").value.trim(), a: $("#ej-a").value, b: $("#ej-b").value.trim(), d: $("#ej-d").value.trim() };
-      guardar(); ficha(body); enviar("ficha");
-      const primera = !st.hecho[3]; marcarHecho(3);
+      guardar(); ficha(body);
+      const primera = !st.hecho[3]; marcarHecho(3); enviar("ficha");
       if (primera) aviso("Completaste los cuatro pasos. Te espero en la clase.", true);
       setTimeout(() => body.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }), 80);
     });
