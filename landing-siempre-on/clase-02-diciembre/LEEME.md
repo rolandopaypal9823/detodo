@@ -7,7 +7,7 @@ Misma landing que la del 25/11 (`../clase-25-noviembre/`), con la fecha nueva. C
 | `index-popup.html` | Landing con el quiz y el form en popup. `CONFIG.FECHA: '2026-12-02'`, `UTM_CLASE: 'clase-dic02-sistema'`. |
 | `calendario-clase-02-dic.md` / `.ics` | Link de Google Calendar y archivo para iPhone/Outlook. |
 
-**Thank you:** `nfm-clase-paga/thankyou-registro-sin-popup.html`, sin asientos premium, con la clase del miércoles 2 y el grupo https://go.wha.link/b8Kpla. Sale de `nfm-clase-paga/thankyou-oto.html` con `python3 nfm-clase-paga/gen-thankyou-sin-popup.py`.
+**Thank you:** `nfm-clase-paga/thankyou-registro-sin-popup.html`, sin asientos premium, con la clase del miércoles 2 y el grupo https://go.wha.link/clase-02-12-de-neurociencia. Sale de `nfm-clase-paga/thankyou-oto.html` con `python3 nfm-clase-paga/gen-thankyou-sin-popup.py`.
 
 **Pendiente:** la oferta de USD 1 / USD 5 con el ebook de detox digital (en lugar de Hackea tu cerebro). Cuando esté, va en `thankyou-oto.html`.
 
