@@ -242,9 +242,9 @@ footer p { margin: 0; font: 500 .68rem/1.4 var(--titulo); letter-spacing: .24em;
 
 <main>
   <section class="hero">
-    <p class="eyebrow">Antes de la clase en vivo</p>
-    <h1>Hay algo que decide tu número <em>antes que tú</em></h1>
-    <p class="lead">Cuatro pasos cortos para verlo antes de la clase. Cada paso abre el siguiente. Son unos 17 minutos en total.</p>
+    <p class="eyebrow" id="hEyebrow">Antes de la clase en vivo</p>
+    <h1>No llegas a 100K haciendo más. <em>Llegas reprogramando tu mente.</em></h1>
+    <p class="lead">Cuatro pasos cortos para ver qué te tiene en el mismo número y qué tiene que cambiar para llegar al siguiente cero. Cada paso abre el siguiente. Son unos 17 minutos en total.</p>
   </section>
 
   <section class="clase" aria-label="Datos de la clase">
@@ -323,7 +323,7 @@ footer p { margin: 0; font: 500 .68rem/1.4 var(--titulo); letter-spacing: .24em;
   <section class="puente" id="puente" aria-labelledby="t-puente">
     <p class="eyebrow" id="pFecha">Miércoles 25 de noviembre</p>
     <h2 id="t-puente">En la clase lo miramos desde afuera</h2>
-    <p>En los videos te explico qué es y por qué no se ve desde adentro. En la clase en vivo te muestro cómo se ve el tuyo y por dónde se empieza a reprogramar.</p>
+    <p>En los videos te explico qué es y por qué no se ve desde adentro. En la clase en vivo te muestro cómo se ve el tuyo y qué tiene que cambiar en tu mente para llegar al siguiente cero.</p>
     <div class="acciones">
       <a class="btn" id="btnCal" href="#" target="_blank" rel="noopener">Agendar en mi calendario</a>
       <a class="btn btn-linea" id="btnWa" href="#" target="_blank" rel="noopener" hidden>Escribirle a mi equipo</a>
@@ -391,9 +391,12 @@ const CONFIG = {
   let tzLocal = ""; try { tzLocal = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) {}
   const TILDES = { "Bogota": "Bogotá", "Mexico City": "Ciudad de México", "Asuncion": "Asunción", "Panama": "Panamá", "Cancun": "Cancún", "Merida": "Mérida", "Monterrey": "Monterrey" };
   let ciudad = tzLocal ? tzLocal.split("/").pop().replace(/_/g, " ") : ""; ciudad = TILDES[ciudad] || ciudad;
-  $("#cFecha").textContent = fechaBase;
+  const diaLocal = d => { const x = new Date(d); return x.getFullYear() + "-" + x.getMonth() + "-" + x.getDate(); };
+  const esHoy = diaLocal(Date.now()) === diaLocal(ini);
+  if (esHoy) $("#hEyebrow").textContent = "Antes de la clase de hoy";
+  $("#cFecha").textContent = esHoy ? "Hoy, " + fmt(DIA, C.CLASE_ZONA).replace(",", "") : fechaBase;
   $("#cHora").textContent = horaEn(tzLocal || undefined) + (ciudad ? " · " + ciudad : "");
-  $("#pFecha").textContent = fechaBase + " · " + fmt(HORA, C.CLASE_ZONA) + " " + C.CLASE_ZONA_NOMBRE;
+  $("#pFecha").textContent = (esHoy ? "Hoy" : fechaBase) + " · " + fmt(HORA, C.CLASE_ZONA) + " " + C.CLASE_ZONA_NOMBRE;
   $("#zonas").innerHTML = "";
   C.PAISES.forEach(([p, tz]) => { const li = document.createElement("li"); li.innerHTML = "<span></span><b></b>"; li.firstChild.textContent = p; li.lastChild.textContent = horaEn(tz); $("#zonas").appendChild(li); });
   (function cuenta() {
@@ -441,7 +444,7 @@ const CONFIG = {
     0: ["Sin número fijo todavía", "Estás empezando. Es el mejor momento para ver esto, antes de que tu mente fije un número."],
     1: ["Menos de 6 meses", "Todavía es reciente. Si no lo ves ahora, se vuelve costumbre."],
     2: ["De 6 meses a 1 año", "Seis meses ya alcanzan para que sea un patrón."],
-    3: ["De 1 a 3 años", "Ya se volvió tu temperatura normal."],
+    3: ["De 1 a 3 años", "Ya se volvió tu número normal."],
     4: ["Más de 3 años", "Tu mente ya lo defiende como si fuera tu lugar."]
   };
   const PREG = [
@@ -459,7 +462,7 @@ const CONFIG = {
       ["Cambiar de estrategia o de negocio", { s: [0, 1, 1], m: "cambiar de estrategia o de negocio" }],
       ["Nada nuevo todavía. Lo vengo postergando.", { s: [0, 0, 2], m: "esperar el momento correcto" }]] },
     { t: "¿Cuál de estas frases te has dicho más de una vez?", o: [
-      ["«Veo gente con menos talento ganando más que yo.»", { s: [2, 0, 0] }],
+      ["«Veo gente con menos talento generando más que yo.»", { s: [2, 0, 0] }],
       ["«Cada vez que avanzo, algo me devuelve.»", { s: [0, 2, 0] }],
       ["«Sé exactamente lo que tengo que hacer, pero no lo hago.»", { s: [0, 0, 2] }],
       ["«Trabajo más que nunca y el número no se mueve.»", { s: [2, 0, 0] }]] },
@@ -514,7 +517,7 @@ const CONFIG = {
           '<div class="barras">' + [1, 2, 3, 4].map(i => '<i class="' + (i <= r.n ? "on" : "") + '"></i>').join("") + "</div><small></small></div>" +
         '<p class="dato-error"><b>Tu error más probable:</b> <span></span></p>' +
       "</div>" +
-      '<div class="vacio"><span>Lo que todavía no sabes</span><p>Los tres patrones tienen la misma raíz. Hay algo en tu mente que decide cuánto generas antes que cualquier estrategia. Funciona igual que el aire acondicionado de una casa, y te lo explico en el paso II.</p></div>' +
+      '<div class="vacio"><span>Lo que todavía no sabes</span><p>Los tres patrones tienen la misma raíz. Tu mente tiene programado cuánto generas, y eso pesa más que cualquier estrategia. Por eso haciendo más no llegas al siguiente cero. Funciona igual que el aire acondicionado de una casa, y te lo explico en el paso II.</p></div>' +
       '<button class="btn" type="button" data-sig>Abrir el paso II</button>' +
       '<button class="link" type="button" data-rehacer>Hacer el diagnóstico otra vez</button>';
     $(".espejo-nom", body).textContent = t.nom;
@@ -531,7 +534,7 @@ const CONFIG = {
     1: {
       intro: q => (q ? "Tu resultado fue <b>" + esc(TIPOS[q.tipo].nom) + "</b>. " : "") +
         "En este video te explico por qué siempre vuelves al mismo número. Préstale máxima atención a la historia de Atlanta.",
-      claves: ["La historia del aire acondicionado de su casa en Atlanta. Ahí está todo el principio.",
+      claves: ["La historia del aire acondicionado de mi casa en Atlanta. Ahí está todo el principio.",
         "Qué pasa cuando te llega más dinero del que tu mente tiene programado.",
         "Por qué los que pierden una fortuna la recuperan en pocos años."],
       vacio: "Ya sabes que hay un número programado. La pregunta ahora es otra: si está en tu mente, ¿por qué no lo puedes ver tú solo? Eso es el paso III.",
@@ -598,7 +601,7 @@ const CONFIG = {
   });
 
   /* ═════════ Paso IV · Ejercicio (el puente) ═════════ */
-  const RANGOS = ["Menos de 1.000 USD al mes", "Entre 1.000 y 3.000 USD al mes", "Entre 3.000 y 10.000 USD al mes", "Entre 10.000 y 30.000 USD al mes", "Más de 30.000 USD al mes", "Prefiero no decirlo"];
+  const RANGOS = ["Menos de 5.000 USD al mes", "Entre 5.000 y 20.000 USD al mes", "Entre 20.000 y 30.000 USD al mes", "Entre 30.000 y 100.000 USD al mes", "Más de 100.000 USD al mes", "Prefiero no decirlo"];
   function ejercicio(body, editar) {
     if (st.ficha && !editar) return ficha(body);
     const f = st.ficha || {};
@@ -609,7 +612,7 @@ const CONFIG = {
         '<div class="campo"><label for="ej-nombre">¿Cómo te llamas?</label><input id="ej-nombre" autocomplete="given-name" maxlength="40" placeholder="Tu nombre"></div>' +
         '<div class="campo"><label for="ej-a">Tu punto A: ¿cuánto generas hoy?</label><select id="ej-a"><option value="">Elige una opción</option>' +
           RANGOS.map(r => "<option>" + r + "</option>").join("") + "</select></div>" +
-        '<div class="campo"><label for="ej-b">Tu punto B: ¿dónde quieres estar en 90 días?</label><textarea id="ej-b" maxlength="240" placeholder="Ej.: duplicar lo que genero y dejar de vivir con miedo a fin de mes"></textarea></div>' +
+        '<div class="campo"><label for="ej-b">Tu punto B: ¿dónde quieres estar en 90 días?</label><textarea id="ej-b" maxlength="240" placeholder="Ej.: llegar a 100K al mes trabajando menos horas"></textarea></div>' +
         '<div class="campo"><label for="ej-d">¿Qué crees que te ha detenido hasta hoy?</label><textarea id="ej-d" maxlength="240" placeholder="Escríbelo como se lo dirías a un amigo"></textarea></div>' +
         '<button class="btn" type="submit" aria-disabled="true">Crear mi ficha</button>' +
         '<p class="nota">Completa los cuatro campos para crear tu ficha.</p>' +
